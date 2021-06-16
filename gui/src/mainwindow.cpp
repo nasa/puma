@@ -176,6 +176,7 @@ void MainWindow::on_action3D_Raw_triggered()
     view.setTomographySlice(0);
 }
 
+
 /* ////////////////////////////////////////////////////////////////////////////
 Export menu tab. The drop down menu-items include:
 1. 3D Tiff
@@ -653,3 +654,6 @@ void MainWindow::on_actionPuMApy_triggered()
     p.setWorkingDirectory(dir);
     int exitCode = p.execute("/bin/bash", args);
 }
+
+
+

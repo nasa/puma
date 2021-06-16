@@ -57,4 +57,7 @@ void VolumeFraction::on_calculateButton_clicked()
     double vFraction = puma::compute_VolumeFraction(workspace, cutoff, 0);
     QString vfString = QString::number(vFraction); //Store porosity value as a string
     ui->porositResult->setText(vfString);
+
+    repaint();
+
 }
