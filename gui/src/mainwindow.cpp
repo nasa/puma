@@ -647,7 +647,7 @@ void MainWindow::on_actionPuMApy_triggered()
 
     // export vtk file
     QString fileName = dir;
-    fileName.append("tmp_files/temp.vtk");
+    fileName.append("gui-ws.vtk");
     puma::export_vtk(&workspace, fileName.toStdString());
 
     QStringList args = QStringList() << dir + "access_pumapy.sh";

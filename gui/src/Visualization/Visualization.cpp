@@ -61,7 +61,7 @@ void Visualization::launchPython(int visType)
 
     // export vtk file to visualize
     QString fileName = dir;
-    fileName.append("GUIworkspace.vtk");
+    fileName.append("gui-ws.vtk");
     puma::export_vtk(workspace, fileName.toStdString());
 
     QStringList args = QStringList() << dir + "access_pumapy.sh";
