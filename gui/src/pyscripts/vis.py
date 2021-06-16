@@ -5,13 +5,13 @@ temp_filepath = os.environ['PuMA_DIR'] + "/gui/src/pyscripts/GUIworkspace.vtk"
 
 if len(sys.argv) == 1:  # this is to open a pumapy console from the GUI
 	if os.path.exists(temp_filepath):
-		ws = puma.import_vti(os.environ['PuMA_DIR'] + "/gui/src/pyscripts/GUIworkspace.vtk")
+		ws = puma.import_vti(os.environ['PuMA_DIR'] + "/gui/src/pyscripts/temp.vtk")
 	print('Imported workspace from GUI into "ws" variable.')
 	print('import pumapy as puma')
 
 else:
 	if os.path.exists(temp_filepath):
-		ws = puma.import_vti(os.environ['PuMA_DIR'] + "/gui/src/pyscripts/GUIworkspace.vtk")
+		ws = puma.import_vti(os.environ['PuMA_DIR'] + "/gui/src/pyscripts/temp.vtk")
 		cutoff = (int(sys.argv[1]), int(sys.argv[2]))
 
 		if sys.argv[3] == "1":
