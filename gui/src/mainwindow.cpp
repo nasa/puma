@@ -46,6 +46,7 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QInputDialog>
+#include <QString>
 
 
 
@@ -76,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->sliceLabel->setText(QString::number(0));
 
-
+    ui->updateVoxelLength_Button->setText(QString("Voxel\nLength"));
 
     setAcceptDrops(true);
 }

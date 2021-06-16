@@ -58,6 +58,8 @@ void Median3DFilter::on_previewButton_clicked()
 
     view->label->setPixmap(view->pixmap->scaledToHeight(view->label->height()*0.98));
 
+    this->repaint();
+
 
 }
 

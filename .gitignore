@@ -16,7 +16,7 @@ gui/build/*.cpp
 gui/build/Makefile
 gui/build/.qmake.stash
 gui/build/PuMA_V3_Prototype
-gui/src/pyscripts/temp.vtk
+gui/src/pyscripts/gui-ws.vtk
 */logs
 
 # CMakeLists of files

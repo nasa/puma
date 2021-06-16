@@ -164,6 +164,9 @@ void tortuosityContinuum::Calculate() {
     QTableWidgetItem *item_tzz = new QTableWidgetItem();
     item_tzz->setData(Qt::EditRole, Tz.z);
     ui->cond_table->setItem(2, 2, item_tzz);
+
+    this->repaint();
+
 }
 
 //Actions that occur after calculate button is clicked

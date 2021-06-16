@@ -213,7 +213,7 @@ void ElectricalCond::Calculate() {
     item_kzz->setData(Qt::EditRole, kz.z);
     ui->cond_table->setItem(2, 2, item_kzz);
 
-    std::cout << "Label 1.00" << std::endl;
+    this->repaint();
 
 
 

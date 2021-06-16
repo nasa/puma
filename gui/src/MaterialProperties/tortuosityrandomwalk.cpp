@@ -121,6 +121,8 @@ void tortuosityRandomWalk::on_pushButton_clicked()
 
     workspace->newPrinter();
 
+    this->repaint();
+
 
 }
 
@@ -157,4 +159,6 @@ void tortuosityRandomWalk::on_comboBox_2_currentIndexChanged(int index)
 
         ui->Diff_Output_Label->setText("Diffusivity:");
     }
+
+    this->repaint();
 }
