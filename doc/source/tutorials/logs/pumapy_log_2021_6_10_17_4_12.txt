@@ -1,0 +1,26 @@
+
+---------------------------- 
+ Binarize domain
+---------------------------- 
+>90 -> 1; 0 otherwise
+
+---------------------------- 
+ Computing Isosurface
+---------------------------- 
+Domain Size: <bound method Workspace.get_shape of <pumapy.utilities.workspace.Workspace object at 0x7fb5b2a9a750>>
+Cutoff: [1, 1]
+Closed Edges: True
+Gaussian: False
+
+---------------------------- 
+ Finished Isosurface
+---------------------------- 
+Number of Triangles: 221842.33333333334
+
+---------------------------- 
+ Computing Isosurface
+---------------------------- 
+Domain Size: <bound method Workspace.get_shape of <pumapy.utilities.workspace.Workspace object at 0x7fb5b2a9a750>>
+Cutoff: [1, 1]
+Closed Edges: True
+Gaussian: True

@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PuMA_V3 &mdash; PuMA 3.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Help" href="help.html" />
+    <link rel="prev" title="PuMA Version 3.0 Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/puma_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PuMA_V3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system-requirements">System requirements:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-c">Installation (C++):</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation-of-dependencies-puma-c-library-and-executables">Installation of dependencies, PuMA C++ library and executables:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launching-the-puma-gui">Launching the PuMA GUI:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-link-your-project-to-the-puma-c-library-api">How to link your project to the PuMA C++ library API:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-python">Installation (Python):</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recommended-specs">Recommended specs:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reporting-bugs">Reporting bugs:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-errors">Common errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-to-puma">Contributing to PuMA:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authors">Authors:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#legal-license">Legal / License:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="files/modules.html">pumapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_elasticity.html">Tutorial: Elasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_import_export.html">Tutorial: import and export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_multi_phase.html">Tutorial: Multi-phase material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_permeability.html">Tutorial: Permeability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_tortuosity_continuum.html">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PuMA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>PuMA_V3</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="puma-v3">
+<h1>PuMA_V3<a class="headerlink" href="#puma-v3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="system-requirements">
+<h2>System requirements:<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Mac or Linux (Tested on MacOS 10.14.1+, Ubuntu 12.04+, and RHEL)</p></li>
+<li><p>gcc version 4.4.7+</p></li>
+<li><p>Conda installation (either Anaconda or Miniconda)</p></li>
+</ol>
+</div>
+<div class="section" id="installation-c">
+<h2>Installation (C++):<a class="headerlink" href="#installation-c" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installation-of-dependencies-puma-c-library-and-executables">
+<h3>Installation of dependencies, PuMA C++ library and executables:<a class="headerlink" href="#installation-of-dependencies-puma-c-library-and-executables" title="Permalink to this headline">¶</a></h3>
+<p>Download PuMA_V3 and unzip, then open a terminal and navigate into the “PuMA_V3” folder. If on a Mac, execute “bash” to make sure the bash shell is active. Then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">makeAll</span>
+</pre></div>
+</div>
+<p>The PuMA library is now installed in install/lib and the executables in install/bin.</p>
+<p>In order to test the installation and solvers, it is recommended to run the pumaX_testing executable, found in install/bin. This will run the full suite of unit and integration tests using the pumaTest testing framework.</p>
+<p>Note: PuMA relies on conda in order to manage the software dependencies and environment variables. The provided bash scripts for compiling and launching the software take care of activating the conda environment for you. If, however, you wanted to compile or run the software outside of these scripts, you must first execute “conda activate puma” in the terminal. For example, if one wanted to use an IDE to develop and run the software, the puma conda environment should be loaded prior to launching the IDE from a terminal, such that all the environment variables are properly set up.</p>
+</div>
+<div class="section" id="launching-the-puma-gui">
+<h3>Launching the PuMA GUI:<a class="headerlink" href="#launching-the-puma-gui" title="Permalink to this headline">¶</a></h3>
+<p>After running the PuMA installation (./makeAll command), the PuMA GUI can now be launched by opening a terminal, navigating into the PuMA_V3 folder, and running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">launchGUI</span>
+</pre></div>
+</div>
+<p>The first time running this executable, the PuMA GUI will be installed, which may take a couple of minutes. Each subsequent time the command is executed, the GUI should launch without delay.</p>
+<p>If the above instructions do not work, please reach out to either Joseph Ferguson (<a class="reference external" href="mailto:joseph&#46;ferguson&#37;&#52;&#48;stanford&#46;edu">joseph<span>&#46;</span>ferguson<span>&#64;</span>stanford<span>&#46;</span>edu</a>) or Federico Semeraro (<a class="reference external" href="mailto:federico&#46;semeraro&#37;&#52;&#48;nasa&#46;gov">federico<span>&#46;</span>semeraro<span>&#64;</span>nasa<span>&#46;</span>gov</a>) for help with installation. In the email, please send details on the computer system that you are trying to install PuMA on, as well as the output of the terminal during compilation.</p>
+</div>
+<div class="section" id="how-to-link-your-project-to-the-puma-c-library-api">
+<h3>How to link your project to the PuMA C++ library API:<a class="headerlink" href="#how-to-link-your-project-to-the-puma-c-library-api" title="Permalink to this headline">¶</a></h3>
+<p>In the folder <a class="reference external" href="./initproject">initproject</a> there is a simple example project already linked to the PuMA library.
+For beginners, it is recommended to start copying and pasting intothe main.cpp the
+<a class="reference external" href="./examples/examples.cpp">examples</a> and compiling it by running “make”.
+Since the PuMA installation uses conda to manage the dependencies,
+the puma environment needs to be first loaded by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">puma</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="installation-python">
+<h2>Installation (Python):<a class="headerlink" href="#installation-python" title="Permalink to this headline">¶</a></h2>
+<p>PuMApy is a Python distribution of PuMA and it uses a different environment because
+of the extra capabilities it has (TexGen and FEniCS coupling).
+To install PuMApy, discard the above instructions and instead run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">install_pumapy</span>
+</pre></div>
+</div>
+<p>The pumapy conda environment and python package are now installed. PuMApy can be
+loaded in any python session inside the pumapy conda environment (i.e. after running
+“conda activate pumapy”) by importing it as “import pumapy”.</p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation:<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The documentation can be accessed by opening the <a class="reference external" href="./doc/_build/html/index.html">index file</a> in a browser.</p>
+</div>
+<div class="section" id="recommended-specs">
+<h2>Recommended specs:<a class="headerlink" href="#recommended-specs" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>8 GB of ram for small simulations (500<span class="raw-html-m2r"><sup>3</sup></span> or smaller)</p></li>
+<li><p>16-32 GB of ram for medium simulations (800<span class="raw-html-m2r"><sup>3</sup></span> range)</p></li>
+<li><p>32+ GB of ram for large simulations (above 1000<span class="raw-html-m2r"><sup>3</sup></span>)</p></li>
+</ul>
+</div>
+<div class="section" id="reporting-bugs">
+<h2>Reporting bugs:<a class="headerlink" href="#reporting-bugs" title="Permalink to this headline">¶</a></h2>
+<p>If any bugs are found, or if the software crashes for any reason, please contact any of the developers mentioned
+above and send the associated log file, found in the “logs” directory.</p>
+<div class="section" id="common-errors">
+<h3>Common errors<a class="headerlink" href="#common-errors" title="Permalink to this headline">¶</a></h3>
+<p>Here is a list of the common errors encountered during the setup and how to solve them:</p>
+<ul class="simple">
+<li><p>When running PuMApy, if an “MPI_Init_thread” error is displayed when importing pumpapy,
+add “export MPICH_INTERFACE_HOSTNAME=localhost” to ~/.bashrc (Linux) or ~/.bash_profile (Max).</p></li>
+<li><p>If receiving the error message “Permission Denied” for any of the installation files, run “chmod +x file_name”</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="contributing-to-puma">
+<h2>Contributing to PuMA:<a class="headerlink" href="#contributing-to-puma" title="Permalink to this headline">¶</a></h2>
+<p>Since PuMA is a free research code, any user is welcome to contribute or collaborate however they would like. If you are interested in significant development for your research goals, please contact send an email to Joseph Ferguson and Federico Semeraro (emails below)</p>
+</div>
+<div class="section" id="authors">
+<h2>Authors:<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<p>Creator:  Joseph Ferguson
+<a class="reference external" href="mailto:joseph&#46;ferguson&#37;&#52;&#48;stanford&#46;edu">joseph<span>&#46;</span>ferguson<span>&#64;</span>stanford<span>&#46;</span>edu</a></p>
+<p>Maintainer: Federico Semeraro
+<a class="reference external" href="mailto:federico&#46;semeraro&#37;&#52;&#48;nasa&#46;gov">federico<span>&#46;</span>semeraro<span>&#64;</span>nasa<span>&#46;</span>gov</a></p>
+<p>Contributors:
+Francesco Panerai,
+John M. Thornton,
+Arnaud Borner,
+Jeremie B. Meurisse,
+Nagi N. Mansour</p>
+</div>
+<div class="section" id="legal-license">
+<h2>Legal / License:<a class="headerlink" href="#legal-license" title="Permalink to this headline">¶</a></h2>
+<p>Copyright &#64; 2019 United States Government as represented by the Administrator of the National Aeronautics and
+Space Administration.  All Rights Reserved.</p>
+<p>This software may be used, reproduced, and provided to others only as permitted under the terms of the agreement
+under which it was acquired from the U.S. Government.  Neither title to, nor ownership of, the software is hereby
+transferred.  This notice shall remain on all copies of the software.</p>
+<p>—————– Disclaimer: —————–</p>
+<p>THE SOFTWARE AND/OR TECHNICAL DATA ARE PROVIDED “AS IS” WITHOUT ANY WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY THAT THE SOFTWARE AND/OR TECHNICAL DATA WILL CONFORM TO  SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR FREEDOM FROM  INFRINGEMENT, ANY WARRANTY THAT THE SOFTWARE AND/OR TECHNICAL DATA WILL BE ERROR FREE, OR ANY WARRANTY THAT  TECHNICAL DATA, IF PROVIDED, WILL CONFORM TO THE SOFTWARE.  IN NO EVENT SHALL THE UNITED STATES GOVERNMENT, OR ITS  CONTRACTORS OR SUBCONTRACTORS, BE LIABLE FOR ANY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DIRECT, INDIRECT, SPECIAL OR  CONSEQUENTIAL DAMAGES, ARISING OUT OF, RESULTING FROM, OR IN ANY WAY CONNECTED WITH THIS SOFTWARE AND/OR TECHNICAL DATA, WHETHER OR NOT BASED UPON WARRANTY, CONTRACT, TORT, OR OTHERWISE, WHETHER OR NOT INJURY WAS SUSTAINED BY PERSONS OR  PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT OF THE RESULTS OF, OR USE OF, THE SOFTWARE AND/OR TECHNICAL DATA.</p>
+<p>THE UNITED STATES GOVERNMENT DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD PARTY COMPUTER SOFTWARE,  DATA, OR DOCUMENTATION, IF  SAID THIRD PARTY COMPUTER SOFTWARE, DATA, OR DOCUMENTATION IS PRESENT IN THE NASA SOFTWARE  AND/OR TECHNICAL DATA, AND DISTRIBUTES IT “AS IS.”</p>
+<p>RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE UNITED STATES GOVERNMENT AND ITS CONTRACTORS AND  SUBCONTRACTORS, AND SHALL INDEMNIFY AND HOLD HARMLESS THE UNITED STATES GOVERNMENT AND ITS CONTRACTORS AND  SUBCONTRACTORS FOR ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES THAT MAY ARISE FROM RECIPIENT’S USE OF THE SOFTWARE AND/OR TECHNICAL DATA, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, THE USE THEREOF.</p>
+<p>IF RECIPIENT FURTHER RELEASES OR DISTRIBUTES THE NASA SOFTWARE AND/OR TECHNICAL DATA, RECIPIENT AGREES TO OBTAIN THIS IDENTICAL WAIVER OF CLAIMS, INDEMNIFICATION AND HOLD HARMLESS AGREEMENT WITH ANY ENTITIES THAT ARE PROVIDED WITH THE SOFTWARE  AND/OR TECHNICAL DATA.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="help.html" class="btn btn-neutral float-right" title="Help" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="PuMA Version 3.0 Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, PuMA Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

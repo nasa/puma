@@ -1,0 +1,1120 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pumapy.utilities package &mdash; PuMA 3.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pumapy.visualization package" href="pumapy.visualization.html" />
+    <link rel="prev" title="pumapy.segmentation package" href="pumapy.segmentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/puma_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PuMA_V3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pumapy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pumapy.html">pumapy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pumapy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pumapy.filters.html">pumapy.filters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.generation.html">pumapy.generation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.io.html">pumapy.io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.materialproperties.html">pumapy.materialproperties package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.physicsmodels.html">pumapy.physicsmodels package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.segmentation.html">pumapy.segmentation package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pumapy.utilities package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.visualization.html">pumapy.visualization package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pumapy.html#module-pumapy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_elasticity.html">Tutorial: Elasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_import_export.html">Tutorial: import and export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_multi_phase.html">Tutorial: Multi-phase material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_permeability.html">Tutorial: Permeability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_tortuosity_continuum.html">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PuMA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">pumapy</a> &raquo;</li>
+        
+          <li><a href="pumapy.html">pumapy package</a> &raquo;</li>
+        
+      <li>pumapy.utilities package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/files/pumapy.utilities.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="pumapy-utilities-package">
+<h1>pumapy.utilities package<a class="headerlink" href="#pumapy-utilities-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pumapy.utilities.boundary_conditions">
+<span id="pumapy-utilities-boundary-conditions-module"></span><h2>pumapy.utilities.boundary_conditions module<a class="headerlink" href="#module-pumapy.utilities.boundary_conditions" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pumapy.utilities.boundary_conditions.ConductivityBC">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.boundary_conditions.</span></code><code class="sig-name descname"><span class="pre">ConductivityBC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#ConductivityBC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.ConductivityBC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.boundary_conditions.ConductivityBC.from_workspace">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_workspace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workspace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#ConductivityBC.from_workspace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.ConductivityBC.from_workspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate ConductivityBC from a Workspace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>workspace</strong> – (Workspace)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.boundary_conditions.ConductivityBC.get_shape">
+<code class="sig-name descname"><span class="pre">get_shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#ConductivityBC.get_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.ConductivityBC.get_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.boundary_conditions.ConductivityBC.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#ConductivityBC.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.ConductivityBC.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pumapy.utilities.boundary_conditions.ElasticityBC">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.boundary_conditions.</span></code><code class="sig-name descname"><span class="pre">ElasticityBC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#ElasticityBC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.ElasticityBC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.boundary_conditions.ElasticityBC.from_workspace">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_workspace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workspace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#ElasticityBC.from_workspace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.ElasticityBC.from_workspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate ElasticityBC from a Workspace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>workspace</strong> – (Workspace)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.boundary_conditions.ElasticityBC.get_shape">
+<code class="sig-name descname"><span class="pre">get_shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#ElasticityBC.get_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.ElasticityBC.get_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.boundary_conditions.ElasticityBC.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#ElasticityBC.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.ElasticityBC.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pumapy.utilities.boundary_conditions.Isotropic_periodicBC">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.boundary_conditions.</span></code><code class="sig-name descname"><span class="pre">Isotropic_periodicBC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">len_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len_z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#Isotropic_periodicBC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.Isotropic_periodicBC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.boundary_conditions.Isotropic_periodicBC.indexAt_3D">
+<code class="sig-name descname"><span class="pre">indexAt_3D</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#Isotropic_periodicBC.indexAt_3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.Isotropic_periodicBC.indexAt_3D" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pumapy.utilities.boundary_conditions.Isotropic_symmetricBC">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.boundary_conditions.</span></code><code class="sig-name descname"><span class="pre">Isotropic_symmetricBC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">len_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len_z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#Isotropic_symmetricBC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.Isotropic_symmetricBC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.boundary_conditions.Isotropic_symmetricBC.indexAt_3D">
+<code class="sig-name descname"><span class="pre">indexAt_3D</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/boundary_conditions.html#Isotropic_symmetricBC.indexAt_3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.boundary_conditions.Isotropic_symmetricBC.indexAt_3D" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.utilities.generic_checks">
+<span id="pumapy-utilities-generic-checks-module"></span><h2>pumapy.utilities.generic_checks module<a class="headerlink" href="#module-pumapy.utilities.generic_checks" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pumapy.utilities.generic_checks.check_ws_cutoff">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.generic_checks.</span></code><code class="sig-name descname"><span class="pre">check_ws_cutoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workspace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/generic_checks.html#check_ws_cutoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.generic_checks.check_ws_cutoff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.generic_checks.greater_than_exc">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.generic_checks.</span></code><code class="sig-name descname"><span class="pre">greater_than_exc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/generic_checks.html#greater_than_exc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.generic_checks.greater_than_exc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.generic_checks.greater_than_inc">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.generic_checks.</span></code><code class="sig-name descname"><span class="pre">greater_than_inc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/generic_checks.html#greater_than_inc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.generic_checks.greater_than_inc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.generic_checks.less_than_exc">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.generic_checks.</span></code><code class="sig-name descname"><span class="pre">less_than_exc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/generic_checks.html#less_than_exc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.generic_checks.less_than_exc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.generic_checks.less_than_inc">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.generic_checks.</span></code><code class="sig-name descname"><span class="pre">less_than_inc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/generic_checks.html#less_than_inc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.generic_checks.less_than_inc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.generic_checks.range_exc">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.generic_checks.</span></code><code class="sig-name descname"><span class="pre">range_exc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/generic_checks.html#range_exc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.generic_checks.range_exc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.generic_checks.range_inc">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.generic_checks.</span></code><code class="sig-name descname"><span class="pre">range_inc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/generic_checks.html#range_inc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.generic_checks.range_inc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.generic_checks.size_check">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.generic_checks.</span></code><code class="sig-name descname"><span class="pre">size_check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/generic_checks.html#size_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.generic_checks.size_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.utilities.isosurface">
+<span id="pumapy-utilities-isosurface-module"></span><h2>pumapy.utilities.isosurface module<a class="headerlink" href="#module-pumapy.utilities.isosurface" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pumapy.utilities.isosurface.Isosurface">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.isosurface.</span></code><code class="sig-name descname"><span class="pre">Isosurface</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workspace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_closed_edges</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_gaussian</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#Isosurface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.Isosurface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.Isosurface.apply_gaussian">
+<code class="sig-name descname"><span class="pre">apply_gaussian</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#Isosurface.apply_gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.Isosurface.apply_gaussian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.Isosurface.buffer_matrix">
+<code class="sig-name descname"><span class="pre">buffer_matrix</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#Isosurface.buffer_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.Isosurface.buffer_matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.Isosurface.compute">
+<code class="sig-name descname"><span class="pre">compute</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#Isosurface.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.Isosurface.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.Isosurface.error_check">
+<code class="sig-name descname"><span class="pre">error_check</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#Isosurface.error_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.Isosurface.error_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.Isosurface.flip_matrix">
+<code class="sig-name descname"><span class="pre">flip_matrix</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#Isosurface.flip_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.Isosurface.flip_matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.Isosurface.log_input">
+<code class="sig-name descname"><span class="pre">log_input</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#Isosurface.log_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.Isosurface.log_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.Isosurface.log_output">
+<code class="sig-name descname"><span class="pre">log_output</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#Isosurface.log_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.Isosurface.log_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pumapy.utilities.isosurface.TriMesh">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.isosurface.</span></code><code class="sig-name descname"><span class="pre">TriMesh</span></code><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#TriMesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.TriMesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.TriMesh.copy">
+<code class="sig-name descname"><span class="pre">copy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#TriMesh.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.TriMesh.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.isosurface.TriMesh.faces">
+<code class="sig-name descname"><span class="pre">faces</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#pumapy.utilities.isosurface.TriMesh.faces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.isosurface.TriMesh.normals">
+<code class="sig-name descname"><span class="pre">normals</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#pumapy.utilities.isosurface.TriMesh.normals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.TriMesh.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#TriMesh.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.TriMesh.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.isosurface.TriMesh.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#TriMesh.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.TriMesh.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.isosurface.TriMesh.values">
+<code class="sig-name descname"><span class="pre">values</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#pumapy.utilities.isosurface.TriMesh.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.isosurface.TriMesh.verts">
+<code class="sig-name descname"><span class="pre">verts</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#pumapy.utilities.isosurface.TriMesh.verts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.isosurface.generate_isosurface">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.isosurface.</span></code><code class="sig-name descname"><span class="pre">generate_isosurface</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workspace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_closed_edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_gaussian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/isosurface.html#generate_isosurface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.isosurface.generate_isosurface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generation of isosurface based on cutoff provided</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>workspace</strong> – (Workspace) input workspace</p></li>
+<li><p><strong>cutoff</strong> – tuple(int, int) specify cutoff to binarize material</p></li>
+<li><p><strong>flag_closed_edges</strong> – (bool, optional)</p></li>
+<li><p><strong>flag_gaussian</strong> – (bool, optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(TriMesh) triangulated surface</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.utilities.logger">
+<span id="pumapy-utilities-logger-module"></span><h2>pumapy.utilities.logger module<a class="headerlink" href="#module-pumapy.utilities.logger" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pumapy.utilities.logger.Colors">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.logger.</span></code><code class="sig-name descname"><span class="pre">Colors</span></code><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.BOLD">
+<code class="sig-name descname"><span class="pre">BOLD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[1m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.BOLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.ENDC">
+<code class="sig-name descname"><span class="pre">ENDC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.ENDC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.FAIL">
+<code class="sig-name descname"><span class="pre">FAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[91m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.HEADER">
+<code class="sig-name descname"><span class="pre">HEADER</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[95m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.HEADER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.OKBLUE">
+<code class="sig-name descname"><span class="pre">OKBLUE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[94m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.OKBLUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.OKCYAN">
+<code class="sig-name descname"><span class="pre">OKCYAN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[96m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.OKCYAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.OKGREEN">
+<code class="sig-name descname"><span class="pre">OKGREEN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[92m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.OKGREEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.UNDERLINE">
+<code class="sig-name descname"><span class="pre">UNDERLINE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[4m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.UNDERLINE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pumapy.utilities.logger.Colors.WARNING">
+<code class="sig-name descname"><span class="pre">WARNING</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[93m'</span></em><a class="headerlink" href="#pumapy.utilities.logger.Colors.WARNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pumapy.utilities.logger.Logger">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.logger.</span></code><code class="sig-name descname"><span class="pre">Logger</span></code><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.logger.Logger.log_bool">
+<code class="sig-name descname"><span class="pre">log_bool</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger.log_bool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger.log_bool" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.logger.Logger.log_item">
+<code class="sig-name descname"><span class="pre">log_item</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger.log_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger.log_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.logger.Logger.log_line">
+<code class="sig-name descname"><span class="pre">log_line</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger.log_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger.log_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.logger.Logger.log_section">
+<code class="sig-name descname"><span class="pre">log_section</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger.log_section"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger.log_section" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.logger.Logger.log_value">
+<code class="sig-name descname"><span class="pre">log_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger.log_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger.log_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.logger.Logger.new_line">
+<code class="sig-name descname"><span class="pre">new_line</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger.new_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger.new_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.logger.Logger.set_location">
+<code class="sig-name descname"><span class="pre">set_location</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger.set_location"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger.set_location" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.logger.Logger.write_log">
+<code class="sig-name descname"><span class="pre">write_log</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#Logger.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.Logger.write_log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.utilities.logger.print_warning">
+<code class="sig-prename descclassname"><span class="pre">pumapy.utilities.logger.</span></code><code class="sig-name descname"><span class="pre">print_warning</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">warning_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/logger.html#print_warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.logger.print_warning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.utilities.property_maps">
+<span id="pumapy-utilities-property-maps-module"></span><h2>pumapy.utilities.property_maps module<a class="headerlink" href="#module-pumapy.utilities.property_maps" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pumapy.utilities.property_maps.AnisotropicConductivityMap">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.property_maps.</span></code><code class="sig-name descname"><span class="pre">AnisotropicConductivityMap</span></code><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#AnisotropicConductivityMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.AnisotropicConductivityMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pumapy.utilities.property_maps.MaterialPropertyMap" title="pumapy.utilities.property_maps.MaterialPropertyMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">pumapy.utilities.property_maps.MaterialPropertyMap</span></code></a></p>
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.AnisotropicConductivityMap.add_isotropic_material">
+<code class="sig-name descname"><span class="pre">add_isotropic_material</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#AnisotropicConductivityMap.add_isotropic_material"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.AnisotropicConductivityMap.add_isotropic_material" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.AnisotropicConductivityMap.add_material">
+<code class="sig-name descname"><span class="pre">add_material</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kxx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kyy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kzz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kxy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kxz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kyz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#AnisotropicConductivityMap.add_material"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.AnisotropicConductivityMap.add_material" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.AnisotropicConductivityMap.add_material_to_orient">
+<code class="sig-name descname"><span class="pre">add_material_to_orient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_axial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_radial</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#AnisotropicConductivityMap.add_material_to_orient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.AnisotropicConductivityMap.add_material_to_orient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.AnisotropicConductivityMap.add_orthotropic_material">
+<code class="sig-name descname"><span class="pre">add_orthotropic_material</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kxx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kyy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kzz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#AnisotropicConductivityMap.add_orthotropic_material"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.AnisotropicConductivityMap.add_orthotropic_material" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pumapy.utilities.property_maps.ElasticityMap">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.property_maps.</span></code><code class="sig-name descname"><span class="pre">ElasticityMap</span></code><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#ElasticityMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.ElasticityMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pumapy.utilities.property_maps.MaterialPropertyMap" title="pumapy.utilities.property_maps.MaterialPropertyMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">pumapy.utilities.property_maps.MaterialPropertyMap</span></code></a></p>
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.ElasticityMap.add_isotropic_material">
+<code class="sig-name descname"><span class="pre">add_isotropic_material</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_youngmod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu_poissrat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#ElasticityMap.add_isotropic_material"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.ElasticityMap.add_isotropic_material" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.ElasticityMap.add_material">
+<code class="sig-name descname"><span class="pre">add_material</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C22</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C23</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C26</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C33</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C34</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C36</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C44</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C45</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C46</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C55</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C56</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C66</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#ElasticityMap.add_material"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.ElasticityMap.add_material" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.ElasticityMap.add_material_to_orient">
+<code class="sig-name descname"><span class="pre">add_material_to_orient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_axial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_radial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu_poissrat_12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu_poissrat_23</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#ElasticityMap.add_material_to_orient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.ElasticityMap.add_material_to_orient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.ElasticityMap.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#ElasticityMap.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.ElasticityMap.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pumapy.utilities.property_maps.IsotropicConductivityMap">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.property_maps.</span></code><code class="sig-name descname"><span class="pre">IsotropicConductivityMap</span></code><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#IsotropicConductivityMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.IsotropicConductivityMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pumapy.utilities.property_maps.MaterialPropertyMap" title="pumapy.utilities.property_maps.MaterialPropertyMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">pumapy.utilities.property_maps.MaterialPropertyMap</span></code></a></p>
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.IsotropicConductivityMap.add_material">
+<code class="sig-name descname"><span class="pre">add_material</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conductivity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#IsotropicConductivityMap.add_material"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.IsotropicConductivityMap.add_material" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pumapy.utilities.property_maps.MaterialPropertyMap">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.property_maps.</span></code><code class="sig-name descname"><span class="pre">MaterialPropertyMap</span></code><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#MaterialPropertyMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.MaterialPropertyMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.MaterialPropertyMap.error_check">
+<code class="sig-name descname"><span class="pre">error_check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conductivity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#MaterialPropertyMap.error_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.MaterialPropertyMap.error_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.MaterialPropertyMap.get_material">
+<code class="sig-name descname"><span class="pre">get_material</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#MaterialPropertyMap.get_material"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.MaterialPropertyMap.get_material" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.MaterialPropertyMap.get_size">
+<code class="sig-name descname"><span class="pre">get_size</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#MaterialPropertyMap.get_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.MaterialPropertyMap.get_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.property_maps.MaterialPropertyMap.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/property_maps.html#MaterialPropertyMap.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.property_maps.MaterialPropertyMap.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.utilities.raycasting">
+<span id="pumapy-utilities-raycasting-module"></span><h2>pumapy.utilities.raycasting module<a class="headerlink" href="#module-pumapy.utilities.raycasting" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pumapy.utilities.raycasting.RayCasting">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.raycasting.</span></code><code class="sig-name descname"><span class="pre">RayCasting</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workspace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree_accuracy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_locations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_phase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_behavior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exportparticles_filepathname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/raycasting.html#RayCasting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.raycasting.RayCasting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.raycasting.RayCasting.error_check">
+<code class="sig-name descname"><span class="pre">error_check</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/raycasting.html#RayCasting.error_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.raycasting.RayCasting.error_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.raycasting.RayCasting.expand_sources">
+<code class="sig-name descname"><span class="pre">expand_sources</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/raycasting.html#RayCasting.expand_sources"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.raycasting.RayCasting.expand_sources" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.raycasting.RayCasting.generate_spherical_walkers">
+<code class="sig-name descname"><span class="pre">generate_spherical_walkers</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/raycasting.html#RayCasting.generate_spherical_walkers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.raycasting.RayCasting.generate_spherical_walkers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.utilities.timer">
+<span id="pumapy-utilities-timer-module"></span><h2>pumapy.utilities.timer module<a class="headerlink" href="#module-pumapy.utilities.timer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pumapy.utilities.timer.Timer">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.timer.</span></code><code class="sig-name descname"><span class="pre">Timer</span></code><a class="reference internal" href="../_modules/pumapy/utilities/timer.html#Timer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.timer.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="pumapy.utilities.timer.Timer.current">
+<code class="sig-name descname"><span class="pre">current</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#pumapy.utilities.timer.Timer.current" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.timer.Timer.elapsed">
+<code class="sig-name descname"><span class="pre">elapsed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/timer.html#Timer.elapsed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.timer.Timer.elapsed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.timer.Timer.print_elapsed">
+<code class="sig-name descname"><span class="pre">print_elapsed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/timer.html#Timer.print_elapsed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.timer.Timer.print_elapsed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.timer.Timer.reset">
+<code class="sig-name descname"><span class="pre">reset</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/timer.html#Timer.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.timer.Timer.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.timer.Timer.start">
+<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/timer.html#Timer.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.timer.Timer.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.utilities.workspace">
+<span id="pumapy-utilities-workspace-module"></span><h2>pumapy.utilities.workspace module<a class="headerlink" href="#module-pumapy.utilities.workspace" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pumapy.utilities.workspace.Workspace">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pumapy.utilities.workspace.</span></code><code class="sig-name descname"><span class="pre">Workspace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.apply_mask">
+<code class="sig-name descname"><span class="pre">apply_mask</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_to_orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.apply_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.apply_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply mask of same size as the matrix by leaving the mask’s 1s unchanged and setting mask’s 0s to 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> – (ndarray) of type bool with same size as matrix</p></li>
+<li><p><strong>apply_to_orientation</strong> – (bool, optional) specifying whether the mask is to be applied to the orientation (if present)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.average">
+<code class="sig-name descname"><span class="pre">average</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.average"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.average" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.binarize">
+<code class="sig-name descname"><span class="pre">binarize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.binarize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.binarize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binarize the workspace according to threshold, inclusive for higher range set to 1, lower to 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threshold</strong> – (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.binarize_range">
+<code class="sig-name descname"><span class="pre">binarize_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ones_cutoff</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.binarize_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.binarize_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binarize the workspace according to range within cutoff, inclusive for cutoff ints set to 1, rest to 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ones_cutoff</strong> – (tuple(int, int))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.copy">
+<code class="sig-name descname"><span class="pre">copy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.create_orientation">
+<code class="sig-name descname"><span class="pre">create_orientation</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.create_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.create_orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create orientation field of the same size as the matrix</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.from_array">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_array</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nparray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.from_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.from_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate workspace matrix from numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nparray</strong> – (ndarray)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Workspace) domain</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.from_shape">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_shape</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.from_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.from_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate workspace from shape, all matrix value set to zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – tuple(int, int, int)</p></li>
+<li><p><strong>orientation</strong> – (bool, optional) specifying if workspace contains orientation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.from_shape_value">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_shape_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.from_shape_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.from_shape_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate workspace from shape, all matrix value set to the value passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – (tuple(int, int, int))</p></li>
+<li><p><strong>value</strong> – (int)</p></li>
+<li><p><strong>orientation</strong> – (bool, optional) specifying if workspace contains orientation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.from_shape_value_vector">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_shape_value_vector</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.from_shape_value_vector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.from_shape_value_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate workspace from shape, all matrix and orientation set to the values passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – (tuple(int, int, int))</p></li>
+<li><p><strong>value</strong> – (int)</p></li>
+<li><p><strong>vector</strong> – (tuple(float, float, float))</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Workspace) domain</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.from_shape_vector">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_shape_vector</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.from_shape_vector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.from_shape_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate workspace from shape, all matrix value set to the value passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – (tuple(int, int, int))</p></li>
+<li><p><strong>vector</strong> – (tuple(float, float, float))</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Workspace) domain</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.get_shape">
+<code class="sig-name descname"><span class="pre">get_shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.get_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.get_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.get_size">
+<code class="sig-name descname"><span class="pre">get_size</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.get_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.get_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.len_x">
+<code class="sig-name descname"><span class="pre">len_x</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.len_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.len_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.len_y">
+<code class="sig-name descname"><span class="pre">len_y</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.len_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.len_y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.len_z">
+<code class="sig-name descname"><span class="pre">len_z</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.len_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.len_z" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.max">
+<code class="sig-name descname"><span class="pre">max</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.min">
+<code class="sig-name descname"><span class="pre">min</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.ndim">
+<code class="sig-name descname"><span class="pre">ndim</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.ndim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.ndim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.orientation_magnitude">
+<code class="sig-name descname"><span class="pre">orientation_magnitude</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.orientation_magnitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.orientation_magnitude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.plot_slices">
+<code class="sig-name descname"><span class="pre">plot_slices</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slice_direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gray'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.plot_slices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.plot_slices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.render_contour">
+<code class="sig-name descname"><span class="pre">render_contour</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1229,</span> <span class="pre">814)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.1,</span> <span class="pre">0.1,</span> <span class="pre">0.1)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.render_contour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.render_contour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.render_volume">
+<code class="sig-name descname"><span class="pre">render_volume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Surface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1229,</span> <span class="pre">814)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.1,</span> <span class="pre">0.1,</span> <span class="pre">0.1)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.render_volume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.render_volume" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.rescale">
+<code class="sig-name descname"><span class="pre">rescale</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segmented</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_aliasing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.rescale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.rescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rescale both matrix and orientation (if present) by rescaling the content by a specified factor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> – (float) specifying the scaling factor</p></li>
+<li><p><strong>segmented</strong> – (bool) specifying whether the domain is already segmented (True) or grayscales (False)</p></li>
+<li><p><strong>anti_aliasing</strong> – (bool, optional) if aliasing is to be prevented applying a Gaussian filter
+to smooth before scaling. If domain is segmented, automatically set to False in order to preserve domain</p></li>
+<li><p><strong>interpolation_order</strong> – (int, optional) order of the interpolation spline used.
+For segmented, it is enforced to be 0, which is ‘nearest neighbor’ to preserve the segmentation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.resize">
+<code class="sig-name descname"><span class="pre">resize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segmented</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_aliasing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resize both matrix and orientation (if present) by rescaling the content to specified size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – (tuple(int, int, int))</p></li>
+<li><p><strong>segmented</strong> – (bool) specifying whether the domain is already segmented (True) or grayscales (False)</p></li>
+<li><p><strong>anti_aliasing</strong> – (bool, optional) if aliasing is to be prevented applying a Gaussian filter to smooth
+before scaling. If domain is segmented, automatically set to False in order to preserve domain</p></li>
+<li><p><strong>interpolation_order</strong> – (int, optional) order of the interpolation spline used.
+For segmented, it is enforced to be 0,which is ‘nearest neighbor’ to preserve the segmentation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.resize_new_matrix">
+<code class="sig-name descname"><span class="pre">resize_new_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.resize_new_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.resize_new_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resize matrix numpy array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – (tuple(int, int, int))</p></li>
+<li><p><strong>value</strong> – (int, optional)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.resize_new_orientation">
+<code class="sig-name descname"><span class="pre">resize_new_orientation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.resize_new_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.resize_new_orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resize orientation numpy array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – (tuple(int, int, int))</p></li>
+<li><p><strong>orientation_value</strong> – (tuple(float, float, float), optional)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.rotate">
+<code class="sig-name descname"><span class="pre">rotate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">around_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reflect'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_to_orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate domain by specified degrees</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>degrees</strong> – (float) with the angle in degrees to rotate</p></li>
+<li><p><strong>around_axis</strong> – (string) specifying around what axis to perform the rotation. It can be ‘x’, ‘y’ or ‘z’</p></li>
+<li><p><strong>reshape</strong> – (bool, optional) specifying whether to reshape the domain to contain every voxel or keep it as original size</p></li>
+<li><p><strong>boundary_mode</strong> – (string, optional) specifying what to do with the boundaries.
+Options: ‘reflect’, ‘constant’, ‘nearest’, ‘mirror’, ‘wrap’</p></li>
+<li><p><strong>apply_to_orientation</strong> – (bool, optional) specifying whether to apply rotation to the orientation, if present</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.set">
+<code class="sig-name descname"><span class="pre">set</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set all elements in matrix equal to value (and orientation to vectorvalue is passed)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix_value</strong> – (np.uint16, optional)</p></li>
+<li><p><strong>orientation_value</strong> – (tuple(float, float, float), optional)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.set_material_id">
+<code class="sig-name descname"><span class="pre">set_material_id</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.set_material_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.set_material_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Threshold the workspace according to cutoff (i.e. tuple with inclusive range to set)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cutoff</strong> – (tuple(int, int))</p></li>
+<li><p><strong>value</strong> – (int)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.set_matrix">
+<code class="sig-name descname"><span class="pre">set_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nparray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.set_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.set_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set matrix with numpy array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nparray</strong> – (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.set_orientation">
+<code class="sig-name descname"><span class="pre">set_orientation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nparray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.set_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.set_orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set orientation with numpy array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nparray</strong> – (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.set_voxel_length">
+<code class="sig-name descname"><span class="pre">set_voxel_length</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voxel_length</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.set_voxel_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.set_voxel_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set voxel size, which by default is set to 1e-6</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>voxel_length</strong> – (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.show_matrix">
+<code class="sig-name descname"><span class="pre">show_matrix</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.show_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.show_matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.show_orientation">
+<code class="sig-name descname"><span class="pre">show_orientation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.show_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.show_orientation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.unique_values">
+<code class="sig-name descname"><span class="pre">unique_values</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.unique_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.unique_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="pumapy.utilities.workspace.Workspace.unique_values_counts">
+<code class="sig-name descname"><span class="pre">unique_values_counts</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/utilities/workspace.html#Workspace.unique_values_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.utilities.workspace.Workspace.unique_values_counts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.utilities">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pumapy.utilities" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pumapy.visualization.html" class="btn btn-neutral float-right" title="pumapy.visualization package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pumapy.segmentation.html" class="btn btn-neutral float-left" title="pumapy.segmentation package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, PuMA Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PuMA Version 3.0 Documentation &mdash; PuMA 3.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PuMA_V3" href="readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#">
+          
+
+          
+            
+            <img src="_static/puma_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">PuMA_V3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="files/modules.html">pumapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_elasticity.html">Tutorial: Elasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_import_export.html">Tutorial: import and export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_multi_phase.html">Tutorial: Multi-phase material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_permeability.html">Tutorial: Permeability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_tortuosity_continuum.html">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">PuMA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>PuMA Version 3.0 Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="puma-version-3-0-documentation">
+<h1>PuMA Version 3.0 Documentation<a class="headerlink" href="#puma-version-3-0-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">PuMA_V3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#system-requirements">System requirements:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#installation-c">Installation (C++):</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#installation-of-dependencies-puma-c-library-and-executables">Installation of dependencies, PuMA C++ library and executables:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#launching-the-puma-gui">Launching the PuMA GUI:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#how-to-link-your-project-to-the-puma-c-library-api">How to link your project to the PuMA C++ library API:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#installation-python">Installation (Python):</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#documentation">Documentation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#recommended-specs">Recommended specs:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#reporting-bugs">Reporting bugs:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#common-errors">Common errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#contributing-to-puma">Contributing to PuMA:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#authors">Authors:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#legal-license">Legal / License:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="license.html#legal">Legal</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="files/modules.html">pumapy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="files/pumapy.html">pumapy package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="files/pumapy.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="files/pumapy.filters.html">pumapy.filters package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.filters.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.filters.html#module-pumapy.filters.filters">pumapy.filters.filters module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.filters.html#module-pumapy.filters">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="files/pumapy.generation.html">pumapy.generation package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#module-pumapy.generation.generate_2d_square_array">pumapy.generation.generate_2d_square_array module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#module-pumapy.generation.generate_sphere">pumapy.generation.generate_sphere module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#module-pumapy.generation.random_fibers">pumapy.generation.random_fibers module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#module-pumapy.generation.random_spheres">pumapy.generation.random_spheres module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#module-pumapy.generation.sphere">pumapy.generation.sphere module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#module-pumapy.generation.tpms">pumapy.generation.tpms module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#module-pumapy.generation.tpms_utils">pumapy.generation.tpms_utils module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.generation.html#module-pumapy.generation">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="files/pumapy.io.html">pumapy.io package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.io.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.io.html#module-pumapy.io.input">pumapy.io.input module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.io.html#module-pumapy.io.output">pumapy.io.output module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.io.html#module-pumapy.io">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="files/pumapy.materialproperties.html">pumapy.materialproperties package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.conductivity">pumapy.materialproperties.conductivity module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.elasticity">pumapy.materialproperties.elasticity module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.mean_intercept_length">pumapy.materialproperties.mean_intercept_length module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.orientation">pumapy.materialproperties.orientation module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.permeability">pumapy.materialproperties.permeability module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.radiation">pumapy.materialproperties.radiation module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.surfacearea">pumapy.materialproperties.surfacearea module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.tortuosity">pumapy.materialproperties.tortuosity module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties.volumefraction">pumapy.materialproperties.volumefraction module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.materialproperties.html#module-pumapy.materialproperties">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="files/pumapy.physicsmodels.html">pumapy.physicsmodels package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.anisotropic_conductivity_utils">pumapy.physicsmodels.anisotropic_conductivity_utils module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.conductivity_parent">pumapy.physicsmodels.conductivity_parent module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.elasticity_utils">pumapy.physicsmodels.elasticity_utils module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.fenics_stokes">pumapy.physicsmodels.fenics_stokes module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.isotropic_conductivity">pumapy.physicsmodels.isotropic_conductivity module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.isotropic_conductivity_utils">pumapy.physicsmodels.isotropic_conductivity_utils module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.mpfa_conductivity">pumapy.physicsmodels.mpfa_conductivity module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.mpsa_elasticity">pumapy.physicsmodels.mpsa_elasticity module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels.mpxa_matrices">pumapy.physicsmodels.mpxa_matrices module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.physicsmodels.html#module-pumapy.physicsmodels">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="files/pumapy.segmentation.html">pumapy.segmentation package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.segmentation.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.segmentation.html#module-pumapy.segmentation.label_tows">pumapy.segmentation.label_tows module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.segmentation.html#module-pumapy.segmentation.porespace">pumapy.segmentation.porespace module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.segmentation.html#module-pumapy.segmentation">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="files/pumapy.utilities.html">pumapy.utilities package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities.boundary_conditions">pumapy.utilities.boundary_conditions module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities.generic_checks">pumapy.utilities.generic_checks module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities.isosurface">pumapy.utilities.isosurface module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities.logger">pumapy.utilities.logger module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities.property_maps">pumapy.utilities.property_maps module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities.raycasting">pumapy.utilities.raycasting module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities.timer">pumapy.utilities.timer module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities.workspace">pumapy.utilities.workspace module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.utilities.html#module-pumapy.utilities">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="files/pumapy.visualization.html">pumapy.visualization package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.visualization.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.visualization.html#module-pumapy.visualization.render">pumapy.visualization.render module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.visualization.html#module-pumapy.visualization.render_multiphase">pumapy.visualization.render_multiphase module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.visualization.html#module-pumapy.visualization.slicer">pumapy.visualization.slicer module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="files/pumapy.visualization.html#module-pumapy.visualization">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="files/pumapy.html#module-pumapy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_elasticity.html">Tutorial: Elasticity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_elasticity.html#Verification-#1:-harmonic-averaging,-in-series-along-x-periodic-sides">Verification #1: harmonic averaging, in series along x periodic sides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_elasticity.html#Verification-#2:-full-built-in-beam">Verification #2: full built-in beam</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_elasticity.html#Verification-#3:-plate-with-a-hole">Verification #3: plate with a hole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_elasticity.html#Verification-#4:-cracked-plate">Verification #4: cracked plate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_import_export.html">Tutorial: import and export</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_import_export.html#Explanation-of-data-structures">Explanation of data structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_import_export.html#Workspace-import-and-export">Workspace import and export</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_multi_phase.html">Tutorial: Multi-phase material</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_multi_phase.html#Material-Generation">Material Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_multi_phase.html#Material-Visualization">Material Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_multi_phase.html#Volume-Fractions">Volume Fractions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_multi_phase.html#Surface-Area">Surface Area</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_multi_phase.html#Tortuosity-Factors">Tortuosity Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_multi_phase.html#Effective-Thermal-Conductivity">Effective Thermal Conductivity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_permeability.html">Tutorial: Permeability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_permeability.html#Analytical-Solution">Analytical Solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_tortuosity_continuum.html">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="readme.html" class="btn btn-neutral float-right" title="PuMA_V3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, PuMA Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

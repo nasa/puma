@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorial: Multi-phase material &mdash; PuMA 3.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial: Permeability" href="tutorial_permeability.html" />
+    <link rel="prev" title="Tutorial: import and export" href="tutorial_import_export.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/puma_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PuMA_V3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../files/modules.html">pumapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_elasticity.html">Tutorial: Elasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_import_export.html">Tutorial: import and export</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial: Multi-phase material</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Material-Generation">Material Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Material-Visualization">Material Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Volume-Fractions">Volume Fractions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Surface-Area">Surface Area</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Tortuosity-Factors">Tortuosity Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Effective-Thermal-Conductivity">Effective Thermal Conductivity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_permeability.html">Tutorial: Permeability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_tortuosity_continuum.html">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PuMA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Tutorial: Multi-phase material</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/tutorial_multi_phase.nblink.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Tutorial:-Multi-phase-material">
+<h1>Tutorial: Multi-phase material<a class="headerlink" href="#Tutorial:-Multi-phase-material" title="Permalink to this headline">¶</a></h1>
+<p>Although all of the required information for performing simulations on a multi-phase material are already present in the other tutorials, this tutorial is designed to help the user understand how to perform basic visualizations and simulations on a material with more than one solid phase.</p>
+<p>For the example here, we are using an artifically generated material with three phases: Random fibers, a bindnig material between the fibers, and randomly populated spheres</p>
+<p>First, we must import puma:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># Note - &quot;conda activate pumapy&quot; must be run prior to calling pumapy</span>
+<span class="kn">import</span> <span class="nn">pumapy</span> <span class="k">as</span> <span class="nn">puma</span>
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="Material-Generation">
+<h2>Material Generation<a class="headerlink" href="#Material-Generation" title="Permalink to this headline">¶</a></h2>
+<p>First, we will generate a material with 2 different types of fibers, and one type of sphere.</p>
+<p>The two fibers will be stored with material ID 1, and 2, and the sphere will be stored with material ID 3</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>  <span class="c1"># size of the domain, in voxels.</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># radius of the fibers to be generated, in voxels</span>
+<span class="n">nFibers</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Can specify either the number of fibers or the porosity</span>
+<span class="n">porosity</span> <span class="o">=</span> <span class="mf">0.9</span>  <span class="c1"># porosity of the overall structure</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="mi">90</span> <span class="c1"># A value between 0 and 90 that controls the amount that the fibers lie *out of* the XY plane,</span>
+         <span class="c1"># with 0 meaning all fibers lie in the XY plane, and 90 meaning that cylinders are randomly oriented out of the</span>
+         <span class="c1"># plane by as much as +/- 90 degrees.</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="mi">90</span> <span class="c1"># A value between 0 and 90 that controls the amount of rotation *in the* XY plane,</span>
+           <span class="c1"># with 0 meaning all fibers point in the X-direction, and 90 meaning they are randomly rotated about the</span>
+           <span class="c1"># Z axis by as much as +/- 90 degrees.</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">200</span> <span class="c1"># Length of the fibers to be generated</span>
+
+<span class="n">ws_fibers1</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">generate_random_fibers</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="n">radius</span><span class="p">,</span><span class="n">nFibers</span><span class="p">,</span><span class="n">porosity</span><span class="p">,</span><span class="n">phi</span><span class="p">,</span><span class="n">theta</span><span class="p">,</span><span class="n">length</span><span class="p">)</span>
+
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># creating smaller fibers for material #2</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">ws_fibers2</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">generate_random_fibers</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="n">radius</span><span class="p">,</span><span class="n">nFibers</span><span class="p">,</span><span class="n">porosity</span><span class="p">,</span><span class="n">phi</span><span class="p">,</span><span class="n">theta</span><span class="p">,</span><span class="n">length</span><span class="p">)</span>
+<span class="n">ws_fibers2</span><span class="o">.</span><span class="n">set_material_id</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># combining fibers #1 and fibers #2 into a single domain, and setting the overlap to default to fibers #1</span>
+<span class="n">ws_fibers1</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">ws_fibers1</span><span class="o">.</span><span class="n">matrix</span> <span class="o">+</span> <span class="n">ws_fibers2</span><span class="o">.</span><span class="n">matrix</span>
+<span class="n">ws_fibers1</span><span class="o">.</span><span class="n">set_material_id</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># setting the overlap, which would be 3, equal to 1</span>
+
+
+
+<span class="c1"># Generating the spheres</span>
+<span class="n">diameter</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># diameter of the spheres to be generated, in voxels</span>
+<span class="n">porosity</span> <span class="o">=</span> <span class="mf">0.8</span>  <span class="c1"># porosity of the overall structure</span>
+<span class="n">allow_intersections</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># flag on whether to allow intersections between spheres.</span>
+<span class="c1"># Note: If allow_intersections is set to false, it will be significantly slower to generate,</span>
+<span class="c1">#.      and will usually require a fairly high porosity value to be generated</span>
+
+<span class="n">ws_spheres</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">generate_random_spheres</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">diameter</span><span class="p">,</span> <span class="n">porosity</span><span class="p">,</span> <span class="n">allow_intersections</span><span class="p">)</span>
+<span class="n">ws_spheres</span><span class="o">.</span><span class="n">set_material_id</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">127</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ws_spheres</span><span class="o">.</span><span class="n">set_material_id</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># combining all three materials, with overlap defaulting to the sphere material</span>
+<span class="n">ws_fibers1</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">ws_fibers1</span><span class="o">.</span><span class="n">matrix</span> <span class="o">+</span> <span class="n">ws_spheres</span><span class="o">.</span><span class="n">matrix</span>
+<span class="n">ws_fibers1</span><span class="o">.</span><span class="n">set_material_id</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># setting the overlap, which would be either 4 or 5, equal to 3</span>
+
+<span class="n">puma</span><span class="o">.</span><span class="n">export_3Dtiff</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;PuMA_DIR&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/python/tests/testdata/multiphase.tif&quot;</span><span class="p">,</span> <span class="n">ws_fibers1</span><span class="p">)</span>
+
+<span class="n">ws_multiphase</span> <span class="o">=</span> <span class="n">ws_fibers1</span>
+
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Material-Visualization">
+<h2>Material Visualization<a class="headerlink" href="#Material-Visualization" title="Permalink to this headline">¶</a></h2>
+<p>Now we will plot a slice of the material and visualize each of the three phases:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">puma</span><span class="o">.</span><span class="n">plot_slices</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">puma</span><span class="o">.</span><span class="n">render_contour</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">puma</span><span class="o">.</span><span class="n">render_contour</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">puma</span><span class="o">.</span><span class="n">render_contour</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Next we will visualize the material using the puma.render_contour_multiphase function.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># specifying the cutoffs of each of the three phases: should be a np array of size [n,2] where n = number of material phases</span>
+<span class="n">cutoffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">cutoffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># material phase 1</span>
+<span class="n">cutoffs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># material phase 2</span>
+<span class="n">cutoffs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># material phase 3</span>
+
+<span class="n">puma</span><span class="o">.</span><span class="n">render_contour_multiphase</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="n">cutoffs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Volume-Fractions">
+<h2>Volume Fractions<a class="headerlink" href="#Volume-Fractions" title="Permalink to this headline">¶</a></h2>
+<p>To calculate the volume fractions of each material phase, we will use the puma.compute_volume_fraction function and specify the grayscale range of each material:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vf_void</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_volume_fraction</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">vf_phase1</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_volume_fraction</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">vf_phase2</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_volume_fraction</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">vf_phase3</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_volume_fraction</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Volume Fraction of Void (Porosity):&quot;</span><span class="p">,</span> <span class="n">vf_void</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Volume Fraction of Phase 1:&quot;</span><span class="p">,</span> <span class="n">vf_phase1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Volume Fraction of Phase 2:&quot;</span><span class="p">,</span> <span class="n">vf_phase2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Volume Fraction of Phase 3:&quot;</span><span class="p">,</span> <span class="n">vf_phase3</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Surface-Area">
+<h2>Surface Area<a class="headerlink" href="#Surface-Area" title="Permalink to this headline">¶</a></h2>
+<p>To calculate the total surface area of the entire material phase, we can use the puma.compute_surface_area function with the material cutoff of (1,3) which includes all 3 material phases</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">area</span><span class="p">,</span> <span class="n">specific_area</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_surface_area</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Areas:&quot;</span><span class="p">,</span> <span class="n">area</span><span class="p">,</span> <span class="n">specific_area</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Computing the surface area of each individual phase is a little bit more tricky. To demonstrate, refer to the simple 2D schematic below of a 2-phase material.</p>
+<p><img alt="image info" src="tutorials/pictures/multiphase.png" /></p>
+<p>The materials are each labeled, 1, and 2, and the edge lengths are labeled a, b, and c. The total surface area of both materials is defined as Atotal = a + b. Assuming that your materials are stored with grayscale values 1 and 2, this total surface area is calculated as before in the 3-material example: puma.compute_surface_area(ws_multiphase, (1,2))</p>
+<p>However, if you want to know the surface area of an individual phase, there are two options. You can compute the total surface area of the individual phase, including the surface area contact with other material phases, or you can compute only the exposed surface area to the void phase. The latter would be the relevant quantity when computing, for example, the effective reactive surface area for chemical reactions. In the first case, the surface area can be calculated as</p>
+<p>Area = A1 = a + c = puma.compute_surface_area(ws_multiphase, (1,2))</p>
+<p>Area = 0.5 ( A1 + A1-2 - A2 ) = 0.5 * (a + b + a + c - b - c) = a</p>
+<p>which, written in puma commands, becomes –&gt; Area = puma.compute_surface_area(ws_multiphase, (1,1)) + puma.compute_surface_area(ws_multiphase, (1,2)) - puma.compute_surface_area(ws_multiphase, (2,2))</p>
+<p>For our 3-phase material, it is quite similar:</p>
+<p>To compute the surface area of material 1 exposed to the void,</p>
+<p>Area = 0.5 ( A1 + A1-2-3 - A2-3 ) = 0.5 * (a + d + f + a + b + c - d - b - c - f) = a</p>
+<p>Below, we compute the exposed to void surface area of each of the three phases: Note that computing the surface area of the union between 1 and 3 requires extra steps, since using the surface area calculation on the domain with cutoffs (1,3) would include phase 2. Instead we copy the domain, set material 3 to an ID of 1, and then compute the surface area of material 1, which now includes material 3</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Raw and specific surface area calculations</span>
+<span class="n">Area_1</span><span class="p">,</span> <span class="n">SSA_1</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_surface_area</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># a + d + f</span>
+<span class="n">Area_2</span><span class="p">,</span> <span class="n">SSA_2</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_surface_area</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># d + b + e</span>
+<span class="n">Area_3</span><span class="p">,</span> <span class="n">SSA_3</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_surface_area</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># f + e + c</span>
+
+<span class="n">Area_12</span><span class="p">,</span> <span class="n">SSA_12</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_surface_area</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># a + b + e + f</span>
+<span class="n">Area_23</span><span class="p">,</span> <span class="n">SSA_23</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_surface_area</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># d + b + c + f</span>
+<span class="n">Area_123</span><span class="p">,</span> <span class="n">SSA_123</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_surface_area</span><span class="p">(</span><span class="n">ws_multiphase</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span> <span class="c1"># a</span>
+
+<span class="n">ws_copy</span> <span class="o">=</span> <span class="n">ws_multiphase</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">ws_copy</span><span class="o">.</span><span class="n">set_material_id</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># setting all of phase 3 to be equal to ID 1</span>
+<span class="n">Area_13</span><span class="p">,</span> <span class="n">SSA_13</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_surface_area</span><span class="p">(</span><span class="n">ws_copy</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># a + d + e + c</span>
+
+<span class="c1"># Now to compute the exposed surface areas for each phase:</span>
+<span class="n">Exposed_Area_1</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">Area_1</span> <span class="o">+</span> <span class="n">Area_123</span> <span class="o">-</span> <span class="n">Area_23</span><span class="p">)</span>
+<span class="n">Exposed_SSA_1</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">SSA_1</span> <span class="o">+</span> <span class="n">SSA_123</span> <span class="o">-</span> <span class="n">SSA_23</span><span class="p">)</span>
+
+<span class="n">Exposed_Area_2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">Area_2</span> <span class="o">+</span> <span class="n">Area_123</span> <span class="o">-</span> <span class="n">Area_13</span><span class="p">)</span>
+<span class="n">Exposed_SSA_2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">SSA_2</span> <span class="o">+</span> <span class="n">SSA_123</span> <span class="o">-</span> <span class="n">SSA_13</span><span class="p">)</span>
+
+<span class="n">Exposed_Area_3</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">Area_3</span> <span class="o">+</span> <span class="n">Area_123</span> <span class="o">-</span> <span class="n">Area_12</span><span class="p">)</span>
+<span class="n">Exposed_SSA_3</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">SSA_3</span> <span class="o">+</span> <span class="n">SSA_123</span> <span class="o">-</span> <span class="n">SSA_12</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exposed Areas for Phase 1:&quot;</span><span class="p">,</span> <span class="n">Exposed_Area_1</span><span class="p">,</span> <span class="n">Exposed_SSA_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exposed Areas for Phase 2:&quot;</span><span class="p">,</span> <span class="n">Exposed_Area_2</span><span class="p">,</span> <span class="n">Exposed_SSA_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exposed Areas for Phase 3:&quot;</span><span class="p">,</span> <span class="n">Exposed_Area_3</span><span class="p">,</span> <span class="n">Exposed_SSA_3</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p>As a check, we will test to make sure that the total exposed areas of each phase sum up to the total surface area of all of the material phases:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sum of Exposed Phase Area:&quot;</span><span class="p">,</span> <span class="n">Exposed_SSA_1</span> <span class="o">+</span> <span class="n">Exposed_SSA_2</span> <span class="o">+</span> <span class="n">Exposed_SSA_3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Area:&quot;</span><span class="p">,</span> <span class="n">SSA_123</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Percent Error: &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">Exposed_SSA_1</span> <span class="o">+</span> <span class="n">Exposed_SSA_2</span> <span class="o">+</span> <span class="n">Exposed_SSA_3</span> <span class="o">-</span> <span class="n">SSA_123</span><span class="p">))</span> <span class="o">/</span> <span class="n">SSA_123</span> <span class="o">*</span> <span class="mf">100.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We can see that the two values are very close but not exactly the same. This slight difference is simply numerical error from the triangulations and accounts for a 0.28% error in this case, which should not be too significant.</p>
+</div>
+<div class="section" id="Tortuosity-Factors">
+<h2>Tortuosity Factors<a class="headerlink" href="#Tortuosity-Factors" title="Permalink to this headline">¶</a></h2>
+<p>Computing the tortuosity factors for a multi-phase material is no different than for a single phase material, since it is only the void phase that is specified for the calculation.</p>
+<p>To speed up the simulation, we will take a 1003 subsection of the domain in order to perform the tortuosity simulation. Please note that this domain size is almost certainly not a representative volume, and a far larger size should be used when performing production simulations</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># The tortuosity calculation needs to be run for each of the three simulation directions.</span>
+<span class="c1"># For each simulation, a concentration gradient is forced in the simulation direction, and converged to steady state</span>
+
+<span class="c1"># Simulation inputs:</span>
+<span class="c1">#.  1. workspace - the computational domain for the simulation, containing your material microstructure</span>
+<span class="c1">#.  2. cutoff - the grayscale values for the void phase. [0,0] for this sample</span>
+<span class="c1">#.  3. direction - the simulation direction, &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;</span>
+<span class="c1">#.  4. side_bc - boundary condition in the non-simulation direction. Can be &#39;p&#39; - periodic, &#39;s&#39; - symmetric, &#39;d&#39; - dirichlet</span>
+<span class="c1">#.  5. tolerance - accuracy of the numerical solver, defaults to 1e-4.</span>
+<span class="c1">#.  6. maxiter - maximum number of iterations, defaults to 10,000</span>
+<span class="c1">#.  7. solver_type - the iterative solver used. Can be &#39;bicgstab&#39;, &#39;cg&#39;, &#39;gmres&#39;, or &#39;direct&#39;. Defaults to &#39;bicgstab&#39;</span>
+
+<span class="n">ws_cropped</span> <span class="o">=</span> <span class="n">ws_multiphase</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># creating a copy of the workspace to crop</span>
+<span class="n">ws_cropped</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">ws_cropped</span><span class="o">.</span><span class="n">matrix</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span><span class="mi">50</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span><span class="mi">50</span><span class="p">:</span><span class="mi">150</span><span class="p">]</span>  <span class="c1"># cropping the sample to 100^3</span>
+
+<span class="n">n_eff_x</span><span class="p">,</span> <span class="n">Deff_x</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_x</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_cropped</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+<span class="n">n_eff_y</span><span class="p">,</span> <span class="n">Deff_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_y</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_cropped</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+<span class="n">n_eff_z</span><span class="p">,</span> <span class="n">Deff_z</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_z</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_cropped</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Effective tortuosity factors:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_z</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Porosity of the material:&quot;</span><span class="p">,</span> <span class="n">poro</span><span class="p">)</span>
+
+<span class="c1"># Visualizing one slice of the Concentration field:</span>
+<span class="n">puma</span><span class="o">.</span><span class="n">render_volume</span><span class="p">(</span><span class="n">C_x</span><span class="p">[:,:,</span><span class="mi">50</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Effective-Thermal-Conductivity">
+<h2>Effective Thermal Conductivity<a class="headerlink" href="#Effective-Thermal-Conductivity" title="Permalink to this headline">¶</a></h2>
+<p>Computing the effective thermal conductivity is also very similar to in a single-phase case. The only difference is that rather than two materials being specified (void and solid) in the conductivity map, an entry must be made for each material phase, and the corresponding constituent thermal conductivity must be set.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Generating a conductivity map. This stores the conductivity values for each phase of the material</span>
+<span class="n">cond_map</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">IsotropicConductivityMap</span><span class="p">()</span>
+<span class="c1"># First, we set the conductivity of the void phase to be 0.0257 (air at STP)</span>
+<span class="n">cond_map</span><span class="o">.</span><span class="n">add_material</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">0.0257</span><span class="p">)</span>
+<span class="c1"># Next we set the conductivity of each of the three material phases</span>
+<span class="n">cond_map</span><span class="o">.</span><span class="n">add_material</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">cond_map</span><span class="o">.</span><span class="n">add_material</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">cond_map</span><span class="o">.</span><span class="n">add_material</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># The thermal conductivity calculation needs to be run for each of the three simulation directions.</span>
+<span class="c1"># For each simulation, a temperature gradient is forced in the simulation direction, and converged to steady state</span>
+
+<span class="c1"># Simulation inputs:</span>
+<span class="c1">#.  1. workspace - the computational domain for the simulation, containing your material microstructure</span>
+<span class="c1">#.  2. cond_map - the conductivity values for each material phase</span>
+<span class="c1">#.  3. direction - the simulation direction, &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;</span>
+<span class="c1">#.  4. side_bc - boundary condition in the non-simulation direction. Can be &#39;p&#39; - periodic, &#39;s&#39; - symmetric, &#39;d&#39; - dirichlet</span>
+<span class="c1">#.  5. tolerance - accuracy of the numerical solver, defaults to 1e-4.</span>
+<span class="c1">#.  6. maxiter - maximum number of iterations, defaults to 10,000</span>
+<span class="c1">#.  7. solver_type - the iterative solver used. Can be &#39;bicgstab&#39;, &#39;cg&#39;, &#39;gmres&#39;, or &#39;direct&#39;. Defaults to &#39;bicgstab&#39;</span>
+
+<span class="n">k_eff_x</span><span class="p">,</span> <span class="n">T_x</span><span class="p">,</span> <span class="n">q_x</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_thermal_conductivity</span><span class="p">(</span><span class="n">ws_cropped</span><span class="p">,</span><span class="n">cond_map</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;bicgstab&#39;</span><span class="p">)</span>
+<span class="n">k_eff_y</span><span class="p">,</span> <span class="n">T_y</span><span class="p">,</span> <span class="n">q_y</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_thermal_conductivity</span><span class="p">(</span><span class="n">ws_cropped</span><span class="p">,</span><span class="n">cond_map</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;bicgstab&#39;</span><span class="p">)</span>
+<span class="n">k_eff_z</span><span class="p">,</span> <span class="n">T_z</span><span class="p">,</span> <span class="n">q_z</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_thermal_conductivity</span><span class="p">(</span><span class="n">ws_cropped</span><span class="p">,</span><span class="n">cond_map</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;bicgstab&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Effective thermal conductivity tensor:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">k_eff_x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">k_eff_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">k_eff_z</span><span class="p">)</span>
+
+<span class="c1"># Visualizing one slice of the temperature field:</span>
+<span class="n">puma</span><span class="o">.</span><span class="n">render_volume</span><span class="p">(</span><span class="n">T_x</span><span class="p">[:,:,</span><span class="mi">50</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial_permeability.html" class="btn btn-neutral float-right" title="Tutorial: Permeability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial_import_export.html" class="btn btn-neutral float-left" title="Tutorial: import and export" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, PuMA Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

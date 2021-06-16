@@ -1,0 +1,442 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pumapy.filters package &mdash; PuMA 3.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pumapy.generation package" href="pumapy.generation.html" />
+    <link rel="prev" title="pumapy package" href="pumapy.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/puma_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PuMA_V3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pumapy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pumapy.html">pumapy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pumapy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pumapy.filters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.generation.html">pumapy.generation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.io.html">pumapy.io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.materialproperties.html">pumapy.materialproperties package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.physicsmodels.html">pumapy.physicsmodels package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.segmentation.html">pumapy.segmentation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.utilities.html">pumapy.utilities package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.visualization.html">pumapy.visualization package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pumapy.html#module-pumapy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_elasticity.html">Tutorial: Elasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_import_export.html">Tutorial: import and export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_multi_phase.html">Tutorial: Multi-phase material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_permeability.html">Tutorial: Permeability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_tortuosity_continuum.html">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PuMA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">pumapy</a> &raquo;</li>
+        
+          <li><a href="pumapy.html">pumapy package</a> &raquo;</li>
+        
+      <li>pumapy.filters package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/files/pumapy.filters.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="pumapy-filters-package">
+<h1>pumapy.filters package<a class="headerlink" href="#pumapy-filters-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pumapy.filters.filters">
+<span id="pumapy-filters-filters-module"></span><h2>pumapy.filters.filters module<a class="headerlink" href="#module-pumapy.filters.filters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pumapy.filters.filters.filter_closing">
+<code class="sig-prename descclassname"><span class="pre">pumapy.filters.filters.</span></code><code class="sig-name descname"><span class="pre">filter_closing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/filters/filters.html#filter_closing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.filters.filters.filter_closing" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D morphological closing filter (i.e. erosion first and then dilation).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws</strong> (<a class="reference internal" href="pumapy.utilities.html#pumapy.utilities.workspace.Workspace" title="pumapy.utilities.workspace.Workspace"><em>Workspace</em></a>) – input workspace</p></li>
+<li><p><strong>cutoff</strong> (<em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em>) – cutoff to binarize image</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the spherical windows used</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.filters.filters.filter_dilate">
+<code class="sig-prename descclassname"><span class="pre">pumapy.filters.filters.</span></code><code class="sig-name descname"><span class="pre">filter_dilate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/filters/filters.html#filter_dilate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.filters.filters.filter_dilate" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D morphological dilation filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws</strong> (<a class="reference internal" href="pumapy.utilities.html#pumapy.utilities.workspace.Workspace" title="pumapy.utilities.workspace.Workspace"><em>Workspace</em></a>) – input workspace</p></li>
+<li><p><strong>cutoff</strong> (<em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em>) – cutoff to binarize image</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the spherical windows used</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.filters.filters.filter_edt">
+<code class="sig-prename descclassname"><span class="pre">pumapy.filters.filters.</span></code><code class="sig-name descname"><span class="pre">filter_edt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/filters/filters.html#filter_edt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.filters.filters.filter_edt" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D Exact euclidean distance transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws</strong> (<a class="reference internal" href="pumapy.utilities.html#pumapy.utilities.workspace.Workspace" title="pumapy.utilities.workspace.Workspace"><em>Workspace</em></a>) – input workspace</p></li>
+<li><p><strong>cutoff</strong> (<em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em>) – cutoff to binarize image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.filters.filters.filter_erode">
+<code class="sig-prename descclassname"><span class="pre">pumapy.filters.filters.</span></code><code class="sig-name descname"><span class="pre">filter_erode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/filters/filters.html#filter_erode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.filters.filters.filter_erode" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D morphological erosion filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws</strong> (<a class="reference internal" href="pumapy.utilities.html#pumapy.utilities.workspace.Workspace" title="pumapy.utilities.workspace.Workspace"><em>Workspace</em></a>) – input workspace</p></li>
+<li><p><strong>cutoff</strong> (<em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em>) – cutoff to binarize image</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the spherical windows used</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.filters.filters.filter_gaussian">
+<code class="sig-prename descclassname"><span class="pre">pumapy.filters.filters.</span></code><code class="sig-name descname"><span class="pre">filter_gaussian</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_on_orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/filters/filters.html#filter_gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.filters.filters.filter_gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D Gaussian filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws</strong> (<a class="reference internal" href="pumapy.utilities.html#pumapy.utilities.workspace.Workspace" title="pumapy.utilities.workspace.Workspace"><em>Workspace</em></a>) – input workspace</p></li>
+<li><p><strong>sigma</strong> (<em>int</em>) – size of kernel</p></li>
+<li><p><strong>apply_on_orientation</strong> (<em>bool</em><em>, </em><em>optional</em>) – specify whether to apply filter on orientation field</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.filters.filters.filter_mean">
+<code class="sig-prename descclassname"><span class="pre">pumapy.filters.filters.</span></code><code class="sig-name descname"><span class="pre">filter_mean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/filters/filters.html#filter_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.filters.filters.filter_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D Mean filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws</strong> (<a class="reference internal" href="pumapy.utilities.html#pumapy.utilities.workspace.Workspace" title="pumapy.utilities.workspace.Workspace"><em>Workspace</em></a>) – input workspace</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.filters.filters.filter_median">
+<code class="sig-prename descclassname"><span class="pre">pumapy.filters.filters.</span></code><code class="sig-name descname"><span class="pre">filter_median</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/filters/filters.html#filter_median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.filters.filters.filter_median" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D Median filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws</strong> (<a class="reference internal" href="pumapy.utilities.html#pumapy.utilities.workspace.Workspace" title="pumapy.utilities.workspace.Workspace"><em>Workspace</em></a>) – input workspace</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – size of window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.filters.filters.filter_opening">
+<code class="sig-prename descclassname"><span class="pre">pumapy.filters.filters.</span></code><code class="sig-name descname"><span class="pre">filter_opening</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/filters/filters.html#filter_opening"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.filters.filters.filter_opening" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D morphological opening filter (i.e. dilation first and then erosion).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws</strong> (<a class="reference internal" href="pumapy.utilities.html#pumapy.utilities.workspace.Workspace" title="pumapy.utilities.workspace.Workspace"><em>Workspace</em></a>) – input workspace</p></li>
+<li><p><strong>cutoff</strong> (<em>tuple</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em>) – cutoff to binarize image</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the spherical windows used</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.filters">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pumapy.filters" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pumapy.generation.html" class="btn btn-neutral float-right" title="pumapy.generation package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pumapy.html" class="btn btn-neutral float-left" title="pumapy package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, PuMA Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

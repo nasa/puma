@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorial: Continuum Tortuosity &mdash; PuMA 3.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial: 3D Visualization" href="tutorial_visualization.html" />
+    <link rel="prev" title="Tutorial: Thermal Conductivity" href="tutorial_thermalconductivity.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/puma_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PuMA_V3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../files/modules.html">pumapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_elasticity.html">Tutorial: Elasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_import_export.html">Tutorial: import and export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_multi_phase.html">Tutorial: Multi-phase material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_permeability.html">Tutorial: Permeability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PuMA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Tutorial: Continuum Tortuosity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/tutorial_tortuosity_continuum.nblink.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Tutorial:-Continuum-Tortuosity">
+<h1>Tutorial: Continuum Tortuosity<a class="headerlink" href="#Tutorial:-Continuum-Tortuosity" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial we demonstrate how to compute the continuum tortuosity factors of a material based on its microstructure and constituent properties. In this example, we compute the continuum tortuosity of FiberForm, a carbon fiber based material.</p>
+<p>Note: The rarified tortuosity factors are not available in pumapy, but are available in the c++ version of PuMA V3.0</p>
+<p>Note: The sample size used in this example is very small, well below the size neede for a representative volume of the sample.</p>
+<p>First, we must import puma:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># Note - &quot;conda activate pumapy&quot; must be run prior to calling pumapy</span>
+<span class="kn">import</span> <span class="nn">pumapy</span> <span class="k">as</span> <span class="nn">puma</span>
+
+</pre></div>
+</div>
+</div>
+<p>Next we will show a continuum tortuosity simulation based on a non-segmented representation of the material. In the exmaple material used, the void phase is contained in grayscale range [0,89] and the solid phase is contained in the grayscale range of [90,255]. This range varies for each tomography sample.</p>
+<p>The outputs of the continuum tortuosity simulation are the continuum tortuosity factors, the effective diffusivity, the porosity, and the steady state concentration profile</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Import an example tomography file of size 200^3 and voxel length 1.3e-6</span>
+<span class="n">ws_fiberform</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">import_3Dtiff</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;PuMA_DIR&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/python/tests/testdata/200_FiberForm.tif&quot;</span><span class="p">,</span> <span class="mf">1.3e-6</span><span class="p">)</span>
+
+<span class="c1"># The tortuosity calculation needs to be run for each of the three simulation directions.</span>
+<span class="c1"># For each simulation, a concentration gradient is forced in the simulation direction, and converged to steady state</span>
+
+<span class="c1"># Simulation inputs:</span>
+<span class="c1">#.  1. workspace - the computational domain for the simulation, containing your material microstructure</span>
+<span class="c1">#.  2. cutoff - the grayscale values for the void phase. [0,89] for this tomography sample</span>
+<span class="c1">#.  3. direction - the simulation direction, &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;</span>
+<span class="c1">#.  4. side_bc - boundary condition in the non-simulation direction. Can be &#39;p&#39; - periodic, &#39;s&#39; - symmetric, &#39;d&#39; - dirichlet</span>
+<span class="c1">#.  5. tolerance - accuracy of the numerical solver, defaults to 1e-4.</span>
+<span class="c1">#.  6. maxiter - maximum number of iterations, defaults to 10,000</span>
+<span class="c1">#.  7. solver_type - the iterative solver used. Can be &#39;bicgstab&#39;, &#39;cg&#39;, &#39;gmres&#39;, or &#39;direct&#39;. Defaults to &#39;bicgstab&#39;</span>
+
+<span class="n">n_eff_x</span><span class="p">,</span> <span class="n">Deff_x</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_x</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_fiberform</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">89</span><span class="p">),</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+<span class="n">n_eff_y</span><span class="p">,</span> <span class="n">Deff_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_y</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_fiberform</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">89</span><span class="p">),</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+<span class="n">n_eff_z</span><span class="p">,</span> <span class="n">Deff_z</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_z</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_fiberform</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">89</span><span class="p">),</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Effective tortuosity factors:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_z</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Porosity of the material:&quot;</span><span class="p">,</span> <span class="n">poro</span><span class="p">)</span>
+
+<span class="c1"># Visualizing one slice of the Concentration field:</span>
+<span class="n">puma</span><span class="o">.</span><span class="n">render_volume</span><span class="p">(</span><span class="n">C_x</span><span class="p">[:,:,</span><span class="mi">50</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+
+</pre></div>
+</div>
+</div>
+<p>Below is an example of the exact same continuum tortuosity simulation, but now performed on a segmented image. If done correctly, both should produce identical results.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Import an example tomography file of size 200^3 and voxel length 1.3e-6</span>
+<span class="n">ws_fiberform</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">import_3Dtiff</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;PuMA_DIR&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/python/tests/testdata/200_FiberForm.tif&quot;</span><span class="p">,</span> <span class="mf">1.3e-6</span><span class="p">)</span>
+
+<span class="c1"># The tortuosity calculation needs to be run for each of the three simulation directions.</span>
+<span class="c1"># For each simulation, a concentration gradient is forced in the simulation direction, and converged to steady state</span>
+
+<span class="n">ws_fiberform</span><span class="o">.</span><span class="n">binarize</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="c1"># Simulation inputs:</span>
+<span class="c1">#.  1. workspace - the computational domain for the simulation, containing your material microstructure</span>
+<span class="c1">#.  2. cutoff - the grayscale values for the void phase. [0,89] for this tomography sample</span>
+<span class="c1">#.  3. direction - the simulation direction, &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;</span>
+<span class="c1">#.  4. side_bc - boundary condition in the non-simulation direction. Can be &#39;p&#39; - periodic, &#39;s&#39; - symmetric, &#39;d&#39; - dirichlet</span>
+<span class="c1">#.  5. tolerance - accuracy of the numerical solver, defaults to 1e-4.</span>
+<span class="c1">#.  6. maxiter - maximum number of iterations, defaults to 10,000</span>
+<span class="c1">#.  7. solver_type - the iterative solver used. Can be &#39;bicgstab&#39;, &#39;cg&#39;, &#39;gmres&#39;, or &#39;direct&#39;. Defaults to &#39;bicgstab&#39;</span>
+
+<span class="n">n_eff_x</span><span class="p">,</span> <span class="n">Deff_x</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_x</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_fiberform</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+<span class="n">n_eff_y</span><span class="p">,</span> <span class="n">Deff_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_y</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_fiberform</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+<span class="n">n_eff_z</span><span class="p">,</span> <span class="n">Deff_z</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">C_z</span> <span class="o">=</span> <span class="n">puma</span><span class="o">.</span><span class="n">compute_continuum_tortuosity</span><span class="p">(</span><span class="n">ws_fiberform</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="n">side_bc</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;cg&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Effective tortuosity factors:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_eff_z</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Porosity of the material:&quot;</span><span class="p">,</span> <span class="n">poro</span><span class="p">)</span>
+
+<span class="c1"># Visualizing one slice of the Concentration field:</span>
+<span class="n">puma</span><span class="o">.</span><span class="n">render_volume</span><span class="p">(</span><span class="n">C_x</span><span class="p">[:,:,</span><span class="mi">50</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial_visualization.html" class="btn btn-neutral float-right" title="Tutorial: 3D Visualization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial_thermalconductivity.html" class="btn btn-neutral float-left" title="Tutorial: Thermal Conductivity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, PuMA Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pumapy.filters.filters &mdash; PuMA 3.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/puma_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">PuMA_V3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../files/modules.html">pumapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_elasticity.html">Tutorial: Elasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_import_export.html">Tutorial: import and export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_multi_phase.html">Tutorial: Multi-phase material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_permeability.html">Tutorial: Permeability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_tortuosity_continuum.html">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PuMA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pumapy.filters.filters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pumapy.filters.filters</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">skimage.filters</span> <span class="kn">import</span> <span class="n">gaussian</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">distance_transform_edt</span><span class="p">,</span> <span class="n">median_filter</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage.filters</span> <span class="kn">import</span> <span class="n">uniform_filter</span>
+<span class="kn">from</span> <span class="nn">skimage.morphology</span> <span class="kn">import</span> <span class="n">erosion</span><span class="p">,</span> <span class="n">dilation</span><span class="p">,</span> <span class="n">opening</span><span class="p">,</span> <span class="n">closing</span><span class="p">,</span> <span class="n">ball</span>
+<span class="kn">from</span> <span class="nn">pumapy</span> <span class="kn">import</span> <span class="n">Workspace</span>
+<span class="kn">from</span> <span class="nn">pumapy.utilities.logger</span> <span class="kn">import</span> <span class="n">print_warning</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="filter_median"><a class="viewcode-back" href="../../../files/pumapy.filters.html#pumapy.filters.filters.filter_median">[docs]</a><span class="k">def</span> <span class="nf">filter_median</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; 3D Median filter</span>
+
+<span class="sd">    :param ws: input workspace</span>
+<span class="sd">    :type ws: Workspace</span>
+<span class="sd">    :param size: size of window</span>
+<span class="sd">    :type size: int</span>
+<span class="sd">    :return: True if successful, False otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Workspace must be passed.&quot;</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_section</span><span class="p">(</span><span class="s2">&quot;Median Filter:&quot;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_line</span><span class="p">(</span><span class="s2">&quot;Window Size: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">write_log</span><span class="p">()</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">median_filter</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="filter_gaussian"><a class="viewcode-back" href="../../../files/pumapy.filters.html#pumapy.filters.filters.filter_gaussian">[docs]</a><span class="k">def</span> <span class="nf">filter_gaussian</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">apply_on_orientation</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; 3D Gaussian filter</span>
+
+<span class="sd">        :param ws: input workspace</span>
+<span class="sd">        :type ws: Workspace</span>
+<span class="sd">        :param sigma: size of kernel</span>
+<span class="sd">        :type sigma: int</span>
+<span class="sd">        :param apply_on_orientation: specify whether to apply filter on orientation field</span>
+<span class="sd">        :type apply_on_orientation: bool, optional</span>
+<span class="sd">        :return: True if successful, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Workspace must be passed.&quot;</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_section</span><span class="p">(</span><span class="s2">&quot;Gaussian Filter:&quot;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_line</span><span class="p">(</span><span class="s2">&quot;Sigma: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">write_log</span><span class="p">()</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">apply_on_orientation</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ws</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">unprocessed_orientation</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">multichannel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># recreate unit vectors</span>
+            <span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>  <span class="c1"># temporarily ignore divide by 0 warnings</span>
+                <span class="n">ws</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">orientation</span> <span class="o">/</span> <span class="n">magnitude</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">orientation</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">orientation</span><span class="p">)]</span> <span class="o">=</span> <span class="n">unprocessed_orientation</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">orientation</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">print_warning</span><span class="p">(</span><span class="s2">&quot;To apply filter on orientation field, it has to have same shape as ws.matrix.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="filter_edt"><a class="viewcode-back" href="../../../files/pumapy.filters.html#pumapy.filters.filters.filter_edt">[docs]</a><span class="k">def</span> <span class="nf">filter_edt</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; 3D Exact euclidean distance transform.</span>
+
+<span class="sd">    :param ws: input workspace</span>
+<span class="sd">    :type ws: Workspace</span>
+<span class="sd">    :param cutoff: cutoff to binarize image</span>
+<span class="sd">    :type cutoff: tuple(int, int)</span>
+<span class="sd">    :return: True if successful, False otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Workspace must be passed&quot;</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_section</span><span class="p">(</span><span class="s2">&quot;Euclidean Distance Transform Filter&quot;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">write_log</span><span class="p">()</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">distance_transform_edt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">&gt;=</span> <span class="n">cutoff</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">&lt;=</span> <span class="n">cutoff</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="filter_mean"><a class="viewcode-back" href="../../../files/pumapy.filters.html#pumapy.filters.filters.filter_mean">[docs]</a><span class="k">def</span> <span class="nf">filter_mean</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; 3D Mean filter.</span>
+
+<span class="sd">    :param ws: input workspace</span>
+<span class="sd">    :type ws: Workspace</span>
+<span class="sd">    :param size: size of window</span>
+<span class="sd">    :type size: int, optional</span>
+<span class="sd">    :return: True if successful, False otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Workspace must be passed&quot;</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_section</span><span class="p">(</span><span class="s2">&quot;Mean Filter&quot;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_line</span><span class="p">(</span><span class="s2">&quot;Window Size: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">write_log</span><span class="p">()</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">uniform_filter</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="filter_erode"><a class="viewcode-back" href="../../../files/pumapy.filters.html#pumapy.filters.filters.filter_erode">[docs]</a><span class="k">def</span> <span class="nf">filter_erode</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; 3D morphological erosion filter.</span>
+
+<span class="sd">    :param ws: input workspace</span>
+<span class="sd">    :type ws: Workspace</span>
+<span class="sd">    :param cutoff: cutoff to binarize image</span>
+<span class="sd">    :type cutoff: tuple(int, int)</span>
+<span class="sd">    :param size: size of the spherical windows used</span>
+<span class="sd">    :type size: int, optional</span>
+<span class="sd">    :return: True if successful, False otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Workspace must be passed&quot;</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_section</span><span class="p">(</span><span class="s2">&quot;Erode Filter&quot;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_line</span><span class="p">(</span><span class="s2">&quot;Spherical Window Size: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">write_log</span><span class="p">()</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">binarize_range</span><span class="p">(</span><span class="n">cutoff</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">erosion</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">ball</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="filter_dilate"><a class="viewcode-back" href="../../../files/pumapy.filters.html#pumapy.filters.filters.filter_dilate">[docs]</a><span class="k">def</span> <span class="nf">filter_dilate</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; 3D morphological dilation filter.</span>
+
+<span class="sd">    :param ws: input workspace</span>
+<span class="sd">    :type ws: Workspace</span>
+<span class="sd">    :param cutoff: cutoff to binarize image</span>
+<span class="sd">    :type cutoff: tuple(int, int)</span>
+<span class="sd">    :param size: size of the spherical windows used</span>
+<span class="sd">    :type size: int, optional</span>
+<span class="sd">    :return: True if successful, False otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Workspace must be passed&quot;</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_section</span><span class="p">(</span><span class="s2">&quot;Dilation Filter&quot;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_line</span><span class="p">(</span><span class="s2">&quot;Spherical Window Size: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">write_log</span><span class="p">()</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">binarize_range</span><span class="p">(</span><span class="n">cutoff</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">dilation</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">ball</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="filter_opening"><a class="viewcode-back" href="../../../files/pumapy.filters.html#pumapy.filters.filters.filter_opening">[docs]</a><span class="k">def</span> <span class="nf">filter_opening</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; 3D morphological opening filter (i.e. dilation first and then erosion).</span>
+
+<span class="sd">    :param ws: input workspace</span>
+<span class="sd">    :type ws: Workspace</span>
+<span class="sd">    :param cutoff: cutoff to binarize image</span>
+<span class="sd">    :type cutoff: tuple(int, int)</span>
+<span class="sd">    :param size: size of the spherical windows used</span>
+<span class="sd">    :type size: int, optional</span>
+<span class="sd">    :return: True if successful, False otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Workspace must be passed&quot;</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_section</span><span class="p">(</span><span class="s2">&quot;Opening Filter&quot;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_line</span><span class="p">(</span><span class="s2">&quot;Spherical Window Size: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">write_log</span><span class="p">()</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">binarize_range</span><span class="p">(</span><span class="n">cutoff</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">opening</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">ball</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="filter_closing"><a class="viewcode-back" href="../../../files/pumapy.filters.html#pumapy.filters.filters.filter_closing">[docs]</a><span class="k">def</span> <span class="nf">filter_closing</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; 3D morphological closing filter (i.e. erosion first and then dilation).</span>
+
+<span class="sd">    :param ws: input workspace</span>
+<span class="sd">    :type ws: Workspace</span>
+<span class="sd">    :param cutoff: cutoff to binarize image</span>
+<span class="sd">    :type cutoff: tuple(int, int)</span>
+<span class="sd">    :param size: size of the spherical windows used</span>
+<span class="sd">    :type size: int, optional</span>
+<span class="sd">    :return: True if successful, False otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Workspace must be passed&quot;</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_section</span><span class="p">(</span><span class="s2">&quot;Closing Filter&quot;</span><span class="p">)</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log_line</span><span class="p">(</span><span class="s2">&quot;Spherical Window Size: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">write_log</span><span class="p">()</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">binarize_range</span><span class="p">(</span><span class="n">cutoff</span><span class="p">)</span>
+
+    <span class="n">ws</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">closing</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">ball</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, PuMA Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

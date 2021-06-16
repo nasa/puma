@@ -1,0 +1,8 @@
+cd "${0%/*}" || exit 1    # Run from this directory
+set -e  # exit when any command fails
+
+# Build and Run
+mkdir -p build
+cd build
+cmake ..
+make -j

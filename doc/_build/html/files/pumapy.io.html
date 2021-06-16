@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pumapy.io package &mdash; PuMA 3.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pumapy.materialproperties package" href="pumapy.materialproperties.html" />
+    <link rel="prev" title="pumapy.generation package" href="pumapy.generation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/puma_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">C++ library:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PuMA_V3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../help.html">Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Package:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pumapy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pumapy.html">pumapy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pumapy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pumapy.filters.html">pumapy.filters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.generation.html">pumapy.generation package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pumapy.io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.materialproperties.html">pumapy.materialproperties package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.physicsmodels.html">pumapy.physicsmodels package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.segmentation.html">pumapy.segmentation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.utilities.html">pumapy.utilities package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pumapy.visualization.html">pumapy.visualization package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pumapy.html#module-pumapy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_datastructures.html">Tutorial: Data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_elasticity.html">Tutorial: Elasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_random_fibers.html">Tutorial: Generating Random Fiber Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_random_spheres.html">Tutorial: Generating Random Sphere Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_generate_tpms.html">Tutorial: Generating Triply Periodic Minimal Surfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_import_export.html">Tutorial: import and export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_multi_phase.html">Tutorial: Multi-phase material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_permeability.html">Tutorial: Permeability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_STL.html">Tutorial: STL generation and output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_surface_area.html">Tutorial: Calculating Surface Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_thermalconductivity.html">Tutorial: Thermal Conductivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_tortuosity_continuum.html">Tutorial: Continuum Tortuosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_visualization.html">Tutorial: 3D Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorial_weaves.html">Tutorial: Weaves</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PuMA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">pumapy</a> &raquo;</li>
+        
+          <li><a href="pumapy.html">pumapy package</a> &raquo;</li>
+        
+      <li>pumapy.io package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/files/pumapy.io.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="pumapy-io-package">
+<h1>pumapy.io package<a class="headerlink" href="#pumapy-io-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pumapy.io.input">
+<span id="pumapy-io-input-module"></span><h2>pumapy.io.input module<a class="headerlink" href="#module-pumapy.io.input" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pumapy.io.input.import_3Dtiff">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.input.</span></code><code class="sig-name descname"><span class="pre">import_3Dtiff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxel_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">import_ws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/input.html#import_3Dtiff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.input.import_3Dtiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to io 3D tiff</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – (string) filepath and name</p></li>
+<li><p><strong>voxel_length</strong> – (float, optional)</p></li>
+<li><p><strong>import_ws</strong> – (bool, optional) if True returns a puma.Workspace, otherwise a ndarray</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Workspace or ndarray) domain</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.io.input.import_bin">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.input.</span></code><code class="sig-name descname"><span class="pre">import_bin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/input.html#import_bin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.input.import_bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import a puma.Workspace to binary (.pumapy extension)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – (string) filepath and name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(bool) True if successful, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.io.input.import_vti">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.input.</span></code><code class="sig-name descname"><span class="pre">import_vti</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxel_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">import_ws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/input.html#import_vti"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.input.import_vti" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to import either legacy VTK file (.vtk) or vtkImageData (.vti)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – (string) filepath and name</p></li>
+<li><p><strong>voxel_length</strong> – (float, optional) voxel_length. If None, voxel_length from the vtk file is used</p></li>
+<li><p><strong>import_ws</strong> – (bool, optional) True returns a puma.Workspace, otherwise a list of ndarrays</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Workspace or dict(string: ndarray)) If import_ws is True, then it returns a Workspace.
+If import_ws is False, it returns a dictionary of ndarrays as {“name1”: data1, “name2”: data2 …}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.io.input.import_weave_vtu">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.input.</span></code><code class="sig-name descname"><span class="pre">import_weave_vtu</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/input.html#import_weave_vtu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.input.import_weave_vtu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import TexGen vtu weave in a Workspace</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – (string) file path and name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Workspace)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.io.output">
+<span id="pumapy-io-output-module"></span><h2>pumapy.io.output module<a class="headerlink" href="#module-pumapy.io.output" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pumapy.io.output.export_3Dtiff">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.output.</span></code><code class="sig-name descname"><span class="pre">export_3Dtiff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws_or_nparray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to8bit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/output.html#export_3Dtiff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.output.export_3Dtiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export either a puma.Workspace or numpy array to 3Dtiff</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – (string) filepath and name</p></li>
+<li><p><strong>ws_or_nparray</strong> – (Workspace or ndarray) to be exported</p></li>
+<li><p><strong>to8bit</strong> – (bool, optional) if True, it converts the image to 8bit, otherwise 16bit is exported</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(bool) True if successful, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.io.output.export_bin">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.output.</span></code><code class="sig-name descname"><span class="pre">export_bin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/output.html#export_bin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.output.export_bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export a puma.Workspace to binary (.pumapy extension)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – (string) filepath and name</p></li>
+<li><p><strong>ws</strong> – (Workspace) to be exported</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(bool) True if successful, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.io.output.export_sparta_implicit_surfaces">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.output.</span></code><code class="sig-name descname"><span class="pre">export_sparta_implicit_surfaces</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/output.html#export_sparta_implicit_surfaces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.output.export_sparta_implicit_surfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export a puma.Workspace to binary (.pumapy extension)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – (string) filepath and name</p></li>
+<li><p><strong>ws</strong> – (Workspace) to be exported</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(bool) True if successful, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.io.output.export_stl">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.output.</span></code><code class="sig-name descname"><span class="pre">export_stl</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_closed_edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_gaussian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/output.html#export_stl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.output.export_stl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export a puma.Workspace to STL</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – (string) filepath and name</p></li>
+<li><p><strong>ws</strong> – (Workspace) to be exported</p></li>
+<li><p><strong>cutoff</strong> – tuple(int, int) specify cutoff to binarize material</p></li>
+<li><p><strong>flag_closed_edges</strong> – (bool, optional)</p></li>
+<li><p><strong>flag_gaussian</strong> – (bool, optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(bool) True if successful, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.io.output.export_vti">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.output.</span></code><code class="sig-name descname"><span class="pre">export_vti</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxel_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/output.html#export_vti"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.output.export_vti" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export either a puma.Workspace or numpy array to vti</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – (string) filepath and name</p></li>
+<li><p><strong>dict_data</strong> – (dict) setup as {“name1”: data1, “name2”: data2 …} containing either Workspaces or ndarrays</p></li>
+<li><p><strong>voxel_length</strong> – (float, optional) with voxel length to give to Numpy arrays (if any)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(bool) True if successful, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pumapy.io.output.export_weave_vtu">
+<code class="sig-prename descclassname"><span class="pre">pumapy.io.output.</span></code><code class="sig-name descname"><span class="pre">export_weave_vtu</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weave</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dim_nvox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_vox_up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pumapy/io/output.html#export_weave_vtu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pumapy.io.output.export_weave_vtu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exporting weave to vtu, to be read by pumapy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – string</p></li>
+<li><p><strong>weave</strong> – CTextile or child class of CTextile</p></li>
+<li><p><strong>domain</strong> – CDomainPlanes</p></li>
+<li><p><strong>max_dim_nvox</strong> – Number of voxels to add in the largest domain dimension</p></li>
+<li><p><strong>round_vox_up</strong> – bool, for the shorter dimensions, either round voxels up or down (+/-1 vox)</p></li>
+<li><p><strong>export_orientation</strong> – bool, specify whether to export orientation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>string with filename of weave exported (input filename + dimensions)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pumapy.io">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pumapy.io" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pumapy.materialproperties.html" class="btn btn-neutral float-right" title="pumapy.materialproperties package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pumapy.generation.html" class="btn btn-neutral float-left" title="pumapy.generation package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, PuMA Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
