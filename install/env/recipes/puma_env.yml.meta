@@ -1,0 +1,14 @@
+name: puma
+channels:
+- anaconda
+- conda-forge
+- defaults
+dependencies:
+- conda-forge::clangdev==8.0.1 [platform == darwin]
+- openmp==8.0.1
+- fftw==3.3.9
+- eigen==3.3.7
+- cmake==3.14.0
+- libtiff==4.1.0
+- conda-forge::qt==5.12.5
+- mesa-libgl-cos6-x86_64==11.0.7 [platform == linux]

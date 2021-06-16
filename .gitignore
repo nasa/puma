@@ -1,7 +1,6 @@
 ### Files ignored by git ###
 
 # build, install and logs folders
-install
 cmake-build-release/*
 cmake-build-debug/*
 logs
