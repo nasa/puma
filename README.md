@@ -1,6 +1,6 @@
 # Porous Microstructure Analysis (PuMA)
 
-The stable releases of PuMA an be found on the [official NASA Github repository](https://github.com/nasa/puma), 
+The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma), 
 whereas the latest development can be found on the [development Gitlab repository](https://gitlab.com/jcfergus/puma-dev).
 
 ## System requirements:
