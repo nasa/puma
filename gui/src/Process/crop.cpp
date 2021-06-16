@@ -16,37 +16,6 @@ Crop::~Crop()
 void Crop::setViewer(Viewer *view) {
     this->view = view;
 
-
-
-    //    QImage image((*view->workspace).X(),(*view->workspace).Y(), QImage::Format_RGB16);
-
-
-
-
-
-    //    int slice = view->currentSlice;
-
-    //#pragma omp parallel for
-    //    for(int i=0;i<(*view->workspace).X();i++) {
-    //        for(int j=0;j<(*view->workspace).Y();j++) {
-    //            image.setPixel(i,j, qRgb(0,0,0));
-    //        }
-    //    }
-
-
-    //#pragma omp parallel for
-    //    for(int i=100;i<600;i++) {
-    //        for(int j=100;j<600;j++) {
-
-    //            image.setPixel(i,j, qRgb((*view->workspace)(i,j,slice),(*view->workspace)(i,j,slice),(*view->workspace)(i,j,slice)));
-
-    //        }
-    //    }
-
-    //    (*view->pixmap).convertFromImage(image);
-
-    //    view->label->setPixmap((*view->pixmap).scaledToHeight(view->label->height()*0.98));
-
 }
 
 void Crop::on_applyButton_clicked()
@@ -60,16 +29,11 @@ void Crop::on_applyButton_clicked()
     int z2 = ui->z2_Edit->text().toInt();
 
     if( view->workspace->crop(x1,x2,y1,y2,z1,z2) ) {
-
-
-        std::cout << x1 << " " << x2 << " " << y1 << " " << y2 << " " << z1 << " " << z2 << " " << std::endl;
-        std::cout << view->workspace->size() << std::endl;
-        std::cout << view->workspace->X() << " " << view->workspace->Y() << " " << view->workspace->Z() << std::endl;
-
-
         view->setTomographySlice(0);
         view->slider->setValue(0);
     }
+
+    this->repaint();
 
 
 }
@@ -170,6 +134,7 @@ void Crop::updateWindow() {
     view->label->setPixmap(view->pixmap->scaledToHeight(view->label->height()*0.98));
 
 
+    this->repaint();
 
 
 }

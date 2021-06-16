@@ -61,4 +61,6 @@ void Porosity::on_calculateButton_clicked()
     double Porosity = puma::compute_VolumeFraction(workspace, cutoff, numThreads);
     QString Poros = QString::number(Porosity); //Store porosity value as a string
     ui->porositResult->setText(Poros);
+
+    repaint();
 }

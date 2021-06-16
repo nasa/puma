@@ -1,0 +1,58 @@
+### Files ignored by git ###
+
+# build, install and logs folders
+cmake-build-release/*
+cmake-build-debug/*
+logs
+
+# GUI
+gui/tomography/*
+gui/build/*.o
+gui/build/*.app
+gui/build/*.user
+gui/build/*.h
+gui/build/*.cpp
+gui/build/Makefile
+gui/build/.qmake.stash
+gui/build/PuMA_V3_Prototype
+gui/src/pyscripts/gui-ws.vtk
+*/logs
+
+# CMakeLists of files
+CMakeLists.txt
+
+# conda environment
+env/environment.yml
+
+# For PuMA development with different IDEs (CLion, qtcreator)
+.idea
+.vs
+CMakeLists.txt.user
+debug/*
+release/*
+.DS_Store
+*.creator
+*.creator.*
+*.config
+*.files
+*.includes
+._*
+
+# python
+__pycache__
+dist
+build
+pumapy/pumapy.egg-info
+
+# jupyter notebooks
+.ipynb_checkpoints
+
+# python documentation
+python/doc/build
+python/doc/log
+
+# pumapy
+python/texgen/texgen_py3
+python/texgen/weave_3mdcp
+python/tests/_trial_temp*
+python/pumapy/utilities/cpp/temp

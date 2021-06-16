@@ -213,6 +213,7 @@ void ThermalCond::Calculate() {
     item_kzz->setData(Qt::EditRole, kz.z);
     ui->cond_table->setItem(2, 2, item_kzz);
 
+    this->repaint();
 
 }
 

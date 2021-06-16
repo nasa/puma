@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/pumaX_testing.dir/test/mastertest.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testframework/main_testing.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testframework/subtest.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/bilateralfilter_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/ejelectricalconductivity_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/ejthermalconductivity_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/example_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/export3dtiff_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/exportbin_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/exportstl_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/exporttextfile_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/exportvtk_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/fvanisotropicthermalconductivity_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/fvelectricalconductivity_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/fvthermalconductivity_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/generaterandomfibers_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/generaterandomspheres_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/generatetpms_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/import3dtiff_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/importbin_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/isosurface_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/matrix_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/meanfilter3d_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/meaninterceptlength_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/medianfilter3d_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/orientation_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/particlescuberilletortuosity_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/porespace_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/pstring_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/surfacearea_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/triangle_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/vector3d_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/vector4d_test.cpp.o"
+  "CMakeFiles/pumaX_testing.dir/test/testsuites/volumefraction_test.cpp.o"
+  "pumaX_testing"
+  "pumaX_testing.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/pumaX_testing.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

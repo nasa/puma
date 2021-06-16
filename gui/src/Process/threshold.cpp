@@ -79,6 +79,8 @@ void Threshold::histogram(){
     ui->grayPlot->yAxis->setTickLabels(false);
     ui->grayPlot->replot();
 
+    this->repaint();
+
 
 }
 

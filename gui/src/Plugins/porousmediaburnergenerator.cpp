@@ -75,6 +75,8 @@ void PorousMediaBurnerGenerator::on_Generate_clicked() {
 
     }
 
+    this->repaint();
+
 
 }
 
@@ -98,6 +100,7 @@ void PorousMediaBurnerGenerator::editOutputs() {
     ui->zDomainEdit->setText(QString::number(voxelsZ));
     ui->voxelEdit->setText(QString::number(voxelLength));
 
+    this->repaint();
 
 }
 

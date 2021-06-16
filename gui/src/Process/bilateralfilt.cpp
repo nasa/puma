@@ -58,6 +58,8 @@ void BilateralFilt::on_previewButton_clicked()
 
     view->label->setPixmap(view->pixmap->scaledToHeight(view->label->height()*0.98));
 
+    this->repaint();
+
 }
 
 /* /////////////////////////////////////////////////////////////////
@@ -81,4 +83,6 @@ void BilateralFilt::on_applyButton_clicked()
     if( puma::filter_Bilateral(view->workspace,window,spatialParam,rangeParam,0) ) {
         view->setTomographySlice(view->currentSlice);
     }
+
+    this->repaint();
 }

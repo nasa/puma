@@ -46,6 +46,7 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QInputDialog>
+#include <QString>
 
 
 
@@ -76,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->sliceLabel->setText(QString::number(0));
 
-
+    ui->updateVoxelLength_Button->setText(QString("Voxel\nLength"));
 
     setAcceptDrops(true);
 }
@@ -175,6 +176,7 @@ void MainWindow::on_action3D_Raw_triggered()
     puma::import_bin(&workspace,fileName_bin,0);
     view.setTomographySlice(0);
 }
+
 
 /* ////////////////////////////////////////////////////////////////////////////
 Export menu tab. The drop down menu-items include:
@@ -645,7 +647,7 @@ void MainWindow::on_actionPuMApy_triggered()
 
     // export vtk file
     QString fileName = dir;
-    fileName.append("tmp_files/temp.vtk");
+    fileName.append("gui-ws.vtk");
     puma::export_vtk(&workspace, fileName.toStdString());
 
     QStringList args = QStringList() << dir + "access_pumapy.sh";
@@ -653,3 +655,6 @@ void MainWindow::on_actionPuMApy_triggered()
     p.setWorkingDirectory(dir);
     int exitCode = p.execute("/bin/bash", args);
 }
+
+
+
