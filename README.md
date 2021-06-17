@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="https://gitlab.com/jcfergus/puma-dev/-/blob/main/docs/source/puma_logo.png" width="10%"></img>
-</p>
+![alt text](https://gitlab.com/jcfergus/puma-dev/blob/main/docs/source/puma_logo.png?raw=true)
 
 -----
 
