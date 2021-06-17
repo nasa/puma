@@ -1,7 +1,7 @@
 version: 2
 
 conda:
-    environment: docs/sphinx_env.yml
+    environment: sphinx_env.yml
 
 build:
    image: latest

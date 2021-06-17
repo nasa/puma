@@ -1,7 +1,7 @@
 # Porous Microstructure Analysis (PuMA)
 
 The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma), 
-whereas the latest development can be found on the [development Gitlab repository](https://gitlab.com/jcfergus/puma-dev).
+whereas the latest development can be found on the [development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). Access the [PuMA documentation](https://puma-dev.readthedocs.io) for detailed use of each function or to get started with the tutorials. 
 
 ## System requirements:
 UNIX (Tested on MacOS 10.14.1+, Ubuntu 12.04+, and RHEL)
@@ -39,8 +39,20 @@ Here is a list of the common errors encountered during the setup and how to solv
 
 If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
 
-## Documentation:
-The documentation can be accessed by opening the [index file](docs/_build/html/index.html) in a browser.
+## Citing PuMA
+If you use PuMA in your research, please use the following BibTeX entry:
+
+```BibTeX
+@article{ferguson2018puma,
+  title={PuMA: The porous microstructure analysis software},
+  author={Ferguson, Joseph C and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
+  journal={SoftwareX},
+  volume={7},
+  pages={81--87},
+  year={2018},
+  publisher={Elsevier}
+}
+```
 
 ## Contributing to PuMA:
 Since PuMA is a free open-source code, any user is welcome to contribute or collaborate however they would like. If you are interested in significant development for your research goals, please contact either of the authors mentioned below.
