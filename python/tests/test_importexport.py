@@ -61,7 +61,7 @@ class TestImportExportVTKI(unittest.TestCase):
         np.testing.assert_equal(ws.matrix, ws2.matrix)
 
     def test_io_vtk_ws(self):
-        # Created from PuMA_V3 as:
+        # Created as:
         # puma::MatVec3<double> dirs(10, 11, 7, puma::Vec3<double>(1, 0, 0));
         # dirs.at(1, 2, 3) = puma::Vec3<double>(1, 2, 3);
         # dirs.at(7, 6, 5) = puma::Vec3<double>(7, 6, 5);

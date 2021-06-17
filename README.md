@@ -13,7 +13,7 @@ Recommended specs:
 
 ## Installation:
   
-Download PuMA_V3 and unzip, then open a terminal and navigate into PuMA_V3 folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
+Download the project and unzip it; then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
 
       ./installer.sh
 
@@ -40,7 +40,7 @@ Here is a list of the common errors encountered during the setup and how to solv
 If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
 
 ## Documentation:
-The documentation can be accessed by opening the [index file](./doc/_build/html/index.html) in a browser.
+The documentation can be accessed by opening the [index file](docs/_build/html/index.html) in a browser.
 
 ## Contributing to PuMA:
 Since PuMA is a free open-source code, any user is welcome to contribute or collaborate however they would like. If you are interested in significant development for your research goals, please contact either of the authors mentioned below.

@@ -1,3 +1,0 @@
-{
-    "path": "../../../python/tutorials/tutorial_generate_random_fibers.ipynb"
-}

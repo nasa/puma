@@ -5,18 +5,19 @@ from pumapy.utilities.timer import Timer
 from pumapy.utilities.generic_checks import check_ws_cutoff
 from pumapy.utilities.logger import print_warning
 
-flags = ["-O3", "-ffast-math", "-march=native"]
-# df.parameters["form_compiler"]["quadrature_degree"] = 4
-df.parameters["form_compiler"]["representation"] = "uflacs"
-df.parameters["form_compiler"]["cpp_optimize"] = True
-df.parameters["form_compiler"]["cpp_optimize_flags"] = " ".join(flags)
-df.parameters["form_compiler"]["precision"] = 8
-
 
 class Permeability:
 
     def __init__(self, workspace, direction, cutoff, side_bc, first_order, inf_sup, pressure_driven,
                  relative_tolerance, absolute_tolerance, maxiter, solver_type, prec_type, display_iter, export_path):
+
+        flags = ["-O3", "-ffast-math", "-march=native"]
+        # df.parameters["form_compiler"]["quadrature_degree"] = 4
+        df.parameters["form_compiler"]["representation"] = "uflacs"
+        df.parameters["form_compiler"]["cpp_optimize"] = True
+        df.parameters["form_compiler"]["cpp_optimize_flags"] = " ".join(flags)
+        df.parameters["form_compiler"]["precision"] = 8
+
         self.ws = workspace.copy()
         self.direction = direction
         self.cutoff = cutoff
