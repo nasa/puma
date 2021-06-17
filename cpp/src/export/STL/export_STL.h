@@ -26,7 +26,7 @@ bool export_STL(std::vector< puma::Triangle<float> > *triangles, bool Ascii, std
 /** @brief Applies Marching Cubes to a puma::Workspace and exports the traingles to an STL file.
  *
  *  @param work Pointer to the workspace to be exported.
- *  @param lowValue Low Grayscale cutoff for material phase. For example FiberForm in PuMA_V3/test/tiff/grayWS/200_FiberForm.tif is 87.
+ *  @param lowValue Low Grayscale cutoff for material phase. For example FiberForm in test/tiff/grayWS/200_FiberForm.tif is 87.
  *  @param lowValue High Grayscale cutoff for material phase. Often 255.
  *  @param Ascii False if exporting as binary STL, true if exporting at ASCII stl. Typically false.
  *  @param fileName std::string containing the location and filename for export, Ex: /home/jsmith/Desktop/myTriangles.stl.

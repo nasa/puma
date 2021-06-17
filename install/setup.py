@@ -60,9 +60,9 @@ setup(
     description="A package to compute material properties from micro-CT data.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/jcfergus/PuMA_V3",
+    url="https://gitlab.com/jcfergus/puma-dev",
     project_urls={
-        "Bug Tracker": "https://gitlab.com/jcfergus/PuMA_V3/issues",
+        "Bug Tracker": "https://gitlab.com/jcfergus/puma-dev/issues",
     },
     platforms=["Linux", "Mac"],
     packages=find_packages(puma_dir+"/python"),

@@ -51,5 +51,5 @@ from pumapy.visualization.slicer import plot_slices, compare_slices
 from pumapy.segmentation.label_tows import label_tows_fm
 from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
 
-# add wrapped C++ PuMA_V3 functions
+# add wrapped puma cpp functions
 import pumapy.utilities.libPuMA as cpp

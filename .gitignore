@@ -19,19 +19,21 @@ CMakeLists.txt
 
 # conda environment
 *.yml
+!.readthedocs.yml
+!docs/sphinx_env.yml
 
 # For PuMA development with different IDEs (CLion, qtcreator)
-*.idea
-*.vs
-*CMakeLists.txt.user
-*debug/*
-*release/*
-*.DS_Store
-*.creator
-*.creator.*
-*.config
-*.files
-*.includes
+.idea
+.vs
+CMakeLists.txt.user
+debug/*
+release/*
+.DS_Store
+.creator
+.creator.*
+.config
+.files
+.includes
 ._*
 
 # python and cython
@@ -50,3 +52,6 @@ main.py
 install/TexGen
 python/pumapy/generation/weave_3mdcp
 _trial_temp*
+
+# docs
+docs/_build
