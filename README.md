@@ -1,6 +1,4 @@
-![alt text](https://gitlab.com/jcfergus/puma-dev/blob/main/docs/source/puma_logo.png?raw=true)
-
------
+![PuMA](docs/source/puma_logo.png)
 
 [![Documentation Status](https://readthedocs.org/projects/puma-dev/badge/?version=latest)](https://puma-dev.readthedocs.io/en/latest/?badge=latest)
 
