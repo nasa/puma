@@ -19,6 +19,8 @@ CMakeLists.txt
 
 # conda environment
 *.yml
+!.readthedocs.yml
+!docs/sphinx_env.yml
 
 # For PuMA development with different IDEs (CLion, qtcreator)
 .idea
