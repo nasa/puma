@@ -1,6 +1,6 @@
 ![PuMA](docs/source/puma_logo.png)
 
-[![Documentation Status](https://readthedocs.org/projects/puma-dev/badge/?version=latest)](https://puma-dev.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/puma-nasa/badge/?version=latest)](https://puma-nasa.readthedocs.io/en/latest/?badge=latest)
 
 -----
 
