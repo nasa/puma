@@ -1,3 +1,13 @@
+<p align="center">
+  <img src="https://gitlab.com/jcfergus/puma-dev/-/blob/main/docs/source/puma_logo.png" width="10%"></img>
+</p>
+
+-----
+
+[![Documentation Status](https://readthedocs.org/projects/puma-dev/badge/?version=latest)](https://puma-dev.readthedocs.io/en/latest/?badge=latest)
+
+-----
+
 # Porous Microstructure Analysis (PuMA)
 
 The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma), 
