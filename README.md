@@ -27,7 +27,11 @@ The PuMA C++ library, PuMApy python package and GUI are now installed. The latte
 
       conda activate puma; pumaGUI
 
-PuMA and PuMApy rely on two different conda environments in order to manage their software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, in order to import PuMApy into a python session, run "conda activate pumapy" before calling python. The [jupyter notebooks](./python/tutorials) show the typical function use for the pumapy python package.
+PuMA and PuMApy rely on two different conda environments in order to manage their software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, in order to import PuMApy into a python session, before calling python run:
+
+      conda activate pumapy
+
+The [jupyter notebooks](./python/tutorials) show the typical function use for the pumapy python package.
 
 ### How to link your C++ project to the PuMA library:
 In the folder [initproject](./cpp/initproject) there is a simple example project already linked to the PuMA library. 
