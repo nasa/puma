@@ -8,6 +8,7 @@ install/bin/*
 !install/bin/pumaGUI
 install/include
 install/lib
+install/.condarc
 
 # CMakeLists of files
 CMakeLists.txt

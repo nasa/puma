@@ -9,14 +9,14 @@ if ! [ -x "$(command -v conda)" ]; then
         chmod +x ./install/miniconda.sh
         ./install/miniconda.sh
         source ~/.bash_profile
-        sed -n '/# <<< conda initialize <<</,/# <<< conda initialize <<</p' ~/.bash_profile >> ./install/.condarc
+        sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</p' ~/.bash_profile >> ./install/.condarc
         source ./install/.condarc
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ./install/miniconda.sh
         chmod +x ./install/miniconda.sh
         ./install/miniconda.sh
         source ~/.bashrc
-        sed -n '/# <<< conda initialize <<</,/# <<< conda initialize <<</p' ~/.bashrc >> ./install/.condarc
+        sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</p' ~/.bashrc >> ./install/.condarc
         source ./install/.condarc
     else
         echo "Unrecongnized Operating System, PuMA cannot be installed."
