@@ -9,10 +9,6 @@ install/bin/*
 install/include
 install/lib
 
-# GUI
-.qmake.stash
-gui/src/pyscripts/GUIworkspace.vtk
-
 # CMakeLists of files
 CMakeLists.txt
 !cpp/CMakeLists.txt
@@ -52,6 +48,13 @@ main.py
 install/TexGen
 python/pumapy/generation/weave_3mdcp
 _trial_temp*
+
+# GUI
+.qmake.stash
+gui/src/pyscripts/GUIworkspace.vtk
+!gui/build
+gui/build/*
+!gui/build/PuMA_V3_GUI.pro
 
 # docs
 docs/_build
