@@ -37,5 +37,5 @@ chmod +x ./pumapy_installer
 ./pumapy_installer
 
 ###### PUMA GUI INSTALLATION ######
-chmod +x ./bin/pumagui_installer
+chmod +x ./pumagui_installer
 ./pumagui_installer
