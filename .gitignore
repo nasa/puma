@@ -51,7 +51,7 @@ _trial_temp*
 
 # GUI
 .qmake.stash
-gui/src/pyscripts/gui-w.vtk
+gui/src/pyscripts/gui-ws.vtk
 !gui/build
 gui/build/*
 !gui/build/PuMA_V3_GUI.pro
