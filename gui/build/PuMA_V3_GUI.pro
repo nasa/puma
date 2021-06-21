@@ -6,54 +6,53 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = PuMA_V3_GUI
 TEMPLATE = app
 
-INCLUDEPATH += ${CONDA_PREFIX}/include
-INCLUDEPATH += ${CONDA_PREFIX}/include/eigen3/Eigen 
-INCLUDEPATH += ${PuMA_DIR}/install/include
-LIBS += -L${CONDA_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3 -lomp
-LIBS += -L${PuMA_DIR}/install/lib -lPuMA
+INCLUDEPATH += \"${CONDA_PREFIX}/include\"
+INCLUDEPATH += \"${CONDA_PREFIX}/include/eigen3/Eigen\"
+INCLUDEPATH += \"${PuMA_DIR}/install/include\"
 
-# QMAKE_LFLAGS += "-Wl,-rpath,\'\${PuMA_DIR}/install/lib\'"
+LIBS += -L\"${CONDA_PREFIX}/lib\" -ltiff -lfftw3_threads -lfftw3 -lomp
+LIBS += -L\"${PuMA_DIR}/install/lib\" -lPuMA
 
 QMAKE_CXXFLAGS += --std=c++0x
 
 SOURCES += \
-        $$(PuMA_DIR)/gui/src/*.cpp \
-        $$(PuMA_DIR)/gui/src/Export/*.cpp \
-        $$(PuMA_DIR)/gui/src/Generate/*.cpp \
-        $$(PuMA_DIR)/gui/src/Import/*.cpp \
-        $$(PuMA_DIR)/gui/src/Log/*.cpp \
-        $$(PuMA_DIR)/gui/src/MaterialProperties/*.cpp \
-        $$(PuMA_DIR)/gui/src/Process/*.cpp \
-        $$(PuMA_DIR)/gui/src/Utilities/*.cpp \
-        $$(PuMA_DIR)/gui/src/Utilities/qcustomplot/*.cpp \
-        $$(PuMA_DIR)/gui/src/Plugins/*.cpp \
-        $$(PuMA_DIR)/gui/src/Visualization/*.cpp \
+        ../src/*.cpp \
+        ../src/Export/*.cpp \
+        ../src/Generate/*.cpp \
+        ../src/Import/*.cpp \
+        ../src/Log/*.cpp \
+        ../src/MaterialProperties/*.cpp \
+        ../src/Process/*.cpp \
+        ../src/Utilities/*.cpp \
+        ../src/Utilities/qcustomplot/*.cpp \
+        ../src/Plugins/*.cpp \
+        ../src/Visualization/*.cpp \
 
 
 HEADERS += \
-        $$(PuMA_DIR)/gui/src/*.h  \
-        $$(PuMA_DIR)/gui/src/Export/*.h \
-        $$(PuMA_DIR)/gui/src/Generate/*.h \
-        $$(PuMA_DIR)/gui/src/Import/*.h \
-        $$(PuMA_DIR)/gui/src/Log/*.h \
-        $$(PuMA_DIR)/gui/src/MaterialProperties/*.h \
-        $$(PuMA_DIR)/gui/src/Process/*.h \
-        $$(PuMA_DIR)/gui/src/Utilities/*.h \
-        $$(PuMA_DIR)/gui/src/Utilities/qcustomplot/*.h \
-        $$(PuMA_DIR)/gui/src/Plugins/*.h \
-        $$(PuMA_DIR)/gui/src/Visualization/*.h \
+        ../src/*.h  \
+        ../src/Export/*.h \
+        ../src/Generate/*.h \
+        ../src/Import/*.h \
+        ../src/Log/*.h \
+        ../src/MaterialProperties/*.h \
+        ../src/Process/*.h \
+        ../src/Utilities/*.h \
+        ../src/Utilities/qcustomplot/*.h \
+        ../src/Plugins/*.h \
+        ../src/Visualization/*.h \
 
 
 FORMS += \
-        $$(PuMA_DIR)/gui/src/*.ui \
-        $$(PuMA_DIR)/gui/src/Export/*.ui \
-        $$(PuMA_DIR)/gui/src/Generate/*.ui \
-        $$(PuMA_DIR)/gui/src/Import/*.ui \
-        $$(PuMA_DIR)/gui/src/Log/*.ui \
-        $$(PuMA_DIR)/gui/src/MaterialProperties/*.ui \
-        $$(PuMA_DIR)/gui/src/Process/*.ui \
-        $$(PuMA_DIR)/gui/src/Plugins/*.ui \
-        $$(PuMA_DIR)/gui/src/Visualization/*.ui \
+        ../src/*.ui \
+        ../src/Export/*.ui \
+        ../src/Generate/*.ui \
+        ../src/Import/*.ui \
+        ../src/Log/*.ui \
+        ../src/MaterialProperties/*.ui \
+        ../src/Process/*.ui \
+        ../src/Plugins/*.ui \
+        ../src/Visualization/*.ui \
 
 RESOURCES += \
-    $$(PuMA_DIR)/gui/extras/resource.qrc
+        ../extras/resource.qrc
