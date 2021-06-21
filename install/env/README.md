@@ -2,7 +2,7 @@
 
 To update the conda environment with new python packages, you need to edit the .yml.meta files inside the [recipes](./recipes) folder and then run:
 	
-	./update_env ENV
+	./update_env.sh ENV
 
 Replace ENV with either puma or pumapy depending on the environment that needs to be updated. 
 Make sure to test the new environment generated. 

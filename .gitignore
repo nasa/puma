@@ -11,8 +11,9 @@ install/lib
 install/.condarc
 
 # CMakeLists of files
-CMakeLists.txt
-!cpp/CMakeLists.txt
+cpp/test/CMakeLists.txt
+cpp/src/CMakeLists.txt
+CMakeLists.txt.user
 
 # conda environment
 *.yml
@@ -22,7 +23,6 @@ CMakeLists.txt
 # For PuMA development with different IDEs (CLion, qtcreator)
 .idea
 .vs
-CMakeLists.txt.user
 debug/*
 release/*
 .DS_Store

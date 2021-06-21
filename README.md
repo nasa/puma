@@ -35,7 +35,7 @@ The [jupyter notebooks](./python/tutorials) show the typical function use for th
 
 ### How to link your C++ project to the PuMA library:
 In the folder [initproject](./cpp/initproject) there is a simple example project already linked to the PuMA library. 
-For beginners, it is recommended to start copying and pasting into the main.cpp the [C++ examples](./cpp/examples/examples.cpp) and compiling it by running "make".
+For beginners, it is recommended to start copying and pasting into the main.cpp the [C++ examples](./cpp/examples/examples.cpp) and compiling it by running "./makeAll.sh".
 Since the PuMA installation uses conda to manage the dependencies, the puma environment needs to be first loaded by running:
 
       conda activate puma

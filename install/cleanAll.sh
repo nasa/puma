@@ -10,7 +10,10 @@ rm -rf TexGen
 rm -rf miniconda
 find ../ -name '*~' -ls -delete
 python setup.py clean
-cd ../gui/build
+cd ..
+rm -rf cpp/initproject/build
+rm -rf 
+cd gui/build
 rm -f *.o
 rm -f PuMA_V3_GUI
 rm -f Makefile
