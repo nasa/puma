@@ -5,7 +5,6 @@ eval "$(conda shell.bash hook)"
 
 conda activate puma
 
-cd $PuMA_DIR/gui/build
+cd "$PuMA_DIR"/gui/build
 qmake
-make
-
+make -j

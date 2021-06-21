@@ -1,8 +1,8 @@
 #!/bin/bash
 ## Change src/CMakeList.txt with the new header and source files.
-## Usage: ./createCMakeLists_src
+## Usage: ./createCMakeLists_src.sh
 
-cd ${0%/*} || exit 1    # Run from this directory
+cd "${0%/*}" || exit 1    # Run from this directory
 current_dir=$PWD
 cd ..
 

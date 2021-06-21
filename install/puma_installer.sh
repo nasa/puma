@@ -18,7 +18,8 @@ if ! conda info --envs | grep -w puma; then
     fi
 
     conda activate puma
-    ./env/env_variables
+    chmod +x ./env/env_variables.sh
+    ./env/env_variables.sh
 fi;
 
 # this env activation only lasts inside bash script
@@ -26,18 +27,19 @@ conda activate puma
 
 # check if environment variables have been created already
 if [ -z ${PuMA_DIR+x} ]; then
-    ./env/env_variables
+    chmod +x ./env/env_variables.sh
+    ./env/env_variables.sh
     conda activate puma  # load env variables
 fi
 
 # making sure that all the files are included
-$PuMA_DIR/cpp/src/createCMakeLists_src
-$PuMA_DIR/cpp/test/createCMakeLists_test
+"$PuMA_DIR"/cpp/src/createCMakeLists_src.sh
+"$PuMA_DIR"/cpp/test/createCMakeLists_test.sh
 
 # build and install PuMA
 mkdir -p cmake-build-release
 cd cmake-build-release
-cmake $PuMA_DIR/cpp
+cmake "$PuMA_DIR"/cpp
 make -j
 make install
-cd $PuMA_DIR/install
+cd "$PuMA_DIR"/install

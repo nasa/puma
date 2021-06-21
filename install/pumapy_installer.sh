@@ -18,7 +18,8 @@ if ! conda info --envs | grep -w pumapy; then
     fi
 
     conda activate pumapy
-    ./env/env_variables
+    chmod +x ./env/env_variables.sh
+    ./env/env_variables.sh
 fi;
 
 # this env activation only lasts inside bash script
@@ -26,13 +27,14 @@ conda activate pumapy
 
 # check if environment variables have been created already
 if [ -z ${PuMA_DIR+x} ]; then
-    ./env/env_variables
+    chmod +x ./env/env_variables.sh
+    ./env/env_variables.sh
     conda activate pumapy  # load env variables
 fi
 
 # install texgen
-chmod +x texgen_installer
-./texgen_installer
+chmod +x texgen_installer.sh
+./texgen_installer.sh
 
 # install pumapy
 python setup.py install

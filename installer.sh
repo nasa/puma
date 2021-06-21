@@ -29,13 +29,19 @@ eval "$(conda shell.bash hook)"
 cd install
 
 ####### PUMA INSTALLATION ######
-chmod +x ./puma_installer
-./puma_installer
+echo -e "\nStarting PuMA installation.\n"
+chmod +x ./puma_installer.sh
+./puma_installer.sh
 
 ###### PUMAPY INSTALLATION ######
-chmod +x ./pumapy_installer
-./pumapy_installer
+echo -e "\nStarting pumapy installation.\n"
+chmod +x ./pumapy_installer.sh
+./pumapy_installer.sh
 
 ###### PUMA GUI INSTALLATION ######
-chmod +x ./pumagui_installer
-./pumagui_installer
+echo -e "\nStarting GUI installation.\n"
+chmod +x ./gui_installer.sh
+./gui_installer.sh
+
+echo -e "\nPuMA C++ library, pumapy python package and GUI successfully installed."
+echo -e "\nRun 'conda activate puma; pumaGUI.sh' to open the GUI.\n"

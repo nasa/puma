@@ -12,8 +12,7 @@ INCLUDEPATH += ${PuMA_DIR}/install/include
 LIBS += -L${CONDA_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3 -lomp
 LIBS += -L${PuMA_DIR}/install/lib -lPuMA
 
-QMAKE_LFLAGS += "-Wl,-rpath,\'\${PuMA_DIR}/install/lib\'"
-
+# QMAKE_LFLAGS += "-Wl,-rpath,\'\${PuMA_DIR}/install/lib\'"
 
 QMAKE_CXXFLAGS += --std=c++0x
 

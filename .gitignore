@@ -5,7 +5,7 @@ cmake-build-release
 cmake-build-debug
 logs
 install/bin/*
-!install/bin/pumaGUI
+!install/bin/pumaGUI.sh
 install/include
 install/lib
 install/.condarc

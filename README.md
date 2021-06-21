@@ -25,7 +25,7 @@ Download the project and unzip it; then open a terminal and navigate into the pr
 
 The PuMA C++ library, PuMApy python package and GUI are now installed. The latter can be launched by running:
 
-      conda activate puma; pumaGUI
+      conda activate puma; pumaGUI.sh
 
 PuMA and PuMApy rely on two different conda environments in order to manage their software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, in order to import PuMApy into a python session, before calling python run:
 
@@ -44,7 +44,6 @@ Since the PuMA installation uses conda to manage the dependencies, the puma envi
 Here is a list of the common errors encountered during the setup and how to solve them:
 
 - If receiving the error message "Permission Denied" when attempting to run ./installer.sh, run "chmod +x installer.sh" and try again
-- When importing PuMApy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost" to ~/.bashrc (Linux) or ~/.bash_profile (Mac).
 - If an error "xcrun: error: invalid active developer path" is displayed on a Mac, the Xcode CommandLineTools need to be installed
 
 If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
