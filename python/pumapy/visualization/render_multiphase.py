@@ -19,6 +19,12 @@ def render_contour_multiphase(workspace, cutoffs, background = (1.,1.,1.)):
     origin = (0, 0, 0)
     window_size = (1229, 814)
 
+    # Subracting 0.5 from bottom cutoff and adding 0.5 to top cutoff
+    # This is done so that the phases appear to be in contact
+    cutoffs[:,0] -= 0.5
+    cutoffs[:,1] += 0.5
+
+
     for index in range(cutoffs.shape[0]):
         matrix = np.copy(workspace.matrix).astype(np.float32)
         average = (cutoffs[index,0] + cutoffs[index,1]) / 2.0
