@@ -15,10 +15,26 @@ pumapy.physicsmodels.anisotropic\_conductivity\_utils
    :undoc-members:
    :show-inheritance:
 
+pumapy.physicsmodels.anisotropic\_conductivity\_utils
+-----------------------------------------------------
+
+.. automodule:: pumapy.physicsmodels.anisotropic_conductivity_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pumapy.physicsmodels.conductivity\_parent
 -----------------------------------------
 
 .. automodule:: pumapy.physicsmodels.conductivity_parent
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pumapy.physicsmodels.elasticity\_utils
+--------------------------------------
+
+.. automodule:: pumapy.physicsmodels.elasticity_utils
    :members:
    :undoc-members:
    :show-inheritance:
@@ -43,6 +59,14 @@ pumapy.physicsmodels.isotropic\_conductivity
 --------------------------------------------
 
 .. automodule:: pumapy.physicsmodels.isotropic_conductivity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pumapy.physicsmodels.isotropic\_conductivity\_utils
+---------------------------------------------------
+
+.. automodule:: pumapy.physicsmodels.isotropic_conductivity_utils
    :members:
    :undoc-members:
    :show-inheritance:

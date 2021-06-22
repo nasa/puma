@@ -62,3 +62,11 @@ pumapy.generation.tpms\_utils
    :members:
    :undoc-members:
    :show-inheritance:
+
+pumapy.generation.tpms\_utils
+-----------------------------
+
+.. automodule:: pumapy.generation.tpms_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

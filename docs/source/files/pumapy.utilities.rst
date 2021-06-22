@@ -31,6 +31,14 @@ pumapy.utilities.isosurface
    :undoc-members:
    :show-inheritance:
 
+pumapy.utilities.libPuMA
+------------------------
+
+.. automodule:: pumapy.utilities.libPuMA
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pumapy.utilities.logger
 -----------------------
 
