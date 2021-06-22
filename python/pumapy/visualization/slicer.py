@@ -152,9 +152,10 @@ class IndexTracker:
             img2 = PlotSlicer._ws_check(img2)
             if img2 is None:
                 return None, None
-            if ((slice_direction == 'x' and img.shape[0] != img2.shape[0]) or
-                    (slice_direction == 'y' and img.shape[1] != img2.shape[1]) or
-                    (slice_direction == 'z' and img.shape[2] != img2.shape[2])):
+            # if ((slice_direction == 'x' and img.shape[0] != img2.shape[0]) or
+            #         (slice_direction == 'y' and img.shape[1] != img2.shape[1]) or
+            #         (slice_direction == 'z' and img.shape[2] != img2.shape[2])):
+            if slice_direction == 'x' or slice_direction == 'y' or slice_direction == 'z':
                 raise Exception("Slice direction can only be along 'x', 'y' or 'z'")
         return img, img2
 
