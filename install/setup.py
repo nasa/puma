@@ -65,8 +65,8 @@ setup(
         "Bug Tracker": "https://gitlab.com/jcfergus/puma-dev/issues",
     },
     platforms=["Linux", "Mac"],
-    packages=find_packages("../python"),
-    package_dir={"": "../python"},
+    packages=find_packages(puma_dir+"/python"),
+    package_dir={"": puma_dir+"/python"},
     ext_modules=cythonize(extensions),
     include_dirs=[np.get_include()],
     cmdclass={
