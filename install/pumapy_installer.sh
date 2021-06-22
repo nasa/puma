@@ -37,5 +37,6 @@ chmod +x texgen_installer.sh
 ./texgen_installer.sh
 
 # install pumapy
-python setup.py install
+cd ..
+python install/setup.py install
 python -c "import pumapy"  # this line is to fully install pumapy (cython)
