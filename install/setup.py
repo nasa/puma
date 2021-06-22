@@ -14,7 +14,7 @@ class CleanCommand(Command):
     def finalize_options(self):
         pass
     def run(self):
-        os.system('rm -vrf ./build ./dist *.pyc *.tgz ../python/*.egg-info')
+        os.system('rm -vrf ../build ../dist *.pyc *.tgz ../python/*.egg-info')
 
 
 puma_dir = os.environ['PuMA_DIR']
