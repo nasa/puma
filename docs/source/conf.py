@@ -14,6 +14,25 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../python'))
+sys.path.insert(0, os.path.abspath('../../cpp'))
+
+
+# create tutorials nblinks
+path = "../../python/tutorials"
+files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+if not os.path.exists('tutorials'):
+    os.mkdir("tutorials")
+for file in files:
+    if file[-5:] == "ipynb":
+        f = open("tutorials/" + file[:-5] + "nblink", "a")
+        f.write("{\n    \"path\": \"../../../python/tutorials/"+file+"\"\n}")
+        f.close()
+print("Updated list of tutorials.")
+
+# run api-doc in terminal
+if not os.path.exists('tutorials'):
+    os.mkdir("tutorials")
+os.system("sphinx-apidoc -fMT ../../python/pumapy -o files --templatedir=template")
 
 # -- Project information -----------------------------------------------------
 
@@ -38,6 +57,8 @@ extensions = [
               'nbsphinx',
               'nbsphinx_link',
               'recommonmark',
+              'breathe',
+              'exhale',
               ]
 
 # to be able to add the README.md
@@ -98,3 +119,32 @@ MOCK_MODULES = [
 
 for module_name in MOCK_MODULES:
     sys.modules[module_name] = mock.Mock()
+
+
+# -- Breathe - Exhale configuration -------------------------------------------------
+
+breathe_projects = {
+    "My Project": "./doxyoutput/xml"
+}
+breathe_default_project = "My Project"
+
+# Setup the exhale extension
+exhale_args = {
+    # These arguments are required
+    "containmentFolder":     "./cpp_api",
+    "rootFileName":          "cpp_library_root.rst",
+    "rootFileTitle":         "Documentation tree",
+    "doxygenStripFromPath":  "..",
+    # Suggested optional arguments
+    "createTreeView":        True,
+    # TIP: if using the sphinx-bootstrap-theme, you need
+    # "treeViewIsBootstrap": True,
+    "exhaleExecutesDoxygen": True,
+    "exhaleDoxygenStdin":    "INPUT = ../../cpp"
+}
+
+# Tell sphinx what the primary language being documented is.
+primary_domain = 'cpp'
+
+# Tell sphinx what the pygments highlight language should be.
+highlight_language = 'cpp'

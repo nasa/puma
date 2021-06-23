@@ -9,7 +9,7 @@
 The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma), 
 whereas the latest development can be found on the [development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). Access the [PuMA documentation](https://puma-dev.readthedocs.io) for detailed use of each function or to get started with the tutorials. 
 
-## System requirements:
+## System requirements
 UNIX (Tested on MacOS 10.14.1+, Ubuntu 12.04+, and RHEL)
 
 Recommended specs:
@@ -17,7 +17,7 @@ Recommended specs:
 - 16-32 GB of ram for medium simulations (800<sup>3</sup> range)
 - 32+ GB of ram for large simulations (above 1000<sup>3</sup>)
 
-## Installation:
+## Installation
   
 Download the project and unzip it; then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
 
@@ -33,14 +33,14 @@ PuMA and PuMApy rely on two different conda environments in order to manage thei
 
 The [jupyter notebooks](./python/tutorials) show the typical function use for the pumapy python package.
 
-### How to link your C++ project to the PuMA library:
+### How to link your C++ project to the PuMA library
 In the folder [initproject](./cpp/initproject) there is a simple example project already linked to the PuMA library. 
 For beginners, it is recommended to start copying and pasting into the main.cpp the [C++ examples](./cpp/examples/examples.cpp) and compiling it by running "./makeAll.sh".
 Since the PuMA installation uses conda to manage the dependencies, the puma environment needs to be first loaded by running:
 
       conda activate puma
 
-## Common errors and bug reporting:
+## Common errors and bug reporting
 Here is a list of the common errors encountered during the setup and how to solve them:
 
 - If receiving the error message "Permission Denied" when attempting to run ./installer.sh, run "chmod +x installer.sh" and try again
@@ -63,10 +63,10 @@ If you use PuMA in your research, please use the following BibTeX entry:
 }
 ```
 
-## Contributing to PuMA:
+## Contributing to PuMA
 Since PuMA is a free open-source code, any user is welcome to contribute or collaborate however they would like. If you are interested in significant development for your research goals, please contact either of the authors mentioned below.
 
-## Authors:
+## Authors
 Creator:  Joseph Ferguson
 [joseph.ferguson@stanford.edu](mailto:joseph.ferguson@stanford.edu)
 
@@ -80,7 +80,7 @@ Arnaud Borner,
 Jeremie B. Meurisse,
 Nagi N. Mansour
 
-## Legal / License:
+## Legal / License
 Copyright @ 2017, 2020, 2021 United States Government as represented by the Administrator of the National Aeronautics and Space Administration. All Rights Reserved.
 This software may be used, reproduced, and provided to others only as permitted under the terms of the agreement under which it was acquired from the U.S. Government. Neither title to, nor ownership of, the software is hereby transferred. This notice shall remain on all copies of the software.
 This file is available under the terms of the NASA Open Source Agreement (NOSA), and further subject to the additional disclaimer below:

@@ -58,4 +58,7 @@ gui/build/*
 !gui/build/PuMA_V3_GUI.pro
 
 # docs
-docs/_build
+docs/source/cpp_api/
+docs/source/doxyoutput/
+docs/source/files/
+docs/source/tutorials/

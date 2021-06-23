@@ -3,16 +3,21 @@ PuMA Documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: C++ library:
+   :caption: Quick start:
    
    readme
-   help
-   license
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+   :caption: C++ Library API:
+
+   cpp_api/cpp_library_root
 
 .. toctree::
    :maxdepth: 1
    :glob:
-   :caption: Python Package:
+   :caption: Python Package API:
 
    files/*
 
