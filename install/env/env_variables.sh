@@ -14,6 +14,9 @@ if [ "$(uname)" == "Darwin" ]; then
     # only adding TexGen to pumapy env
     if [ $CONDA_DEFAULT_ENV == "pumapy" ]; then
         echo "export DYLD_LIBRARY_PATH='$PuMA_DIR/install/TexGen/install/lib':\$DYLD_LIBRARY_PATH" >> "$CONDA_PREFIX"/etc/conda/activate.d/env_vars.sh
+
+        # this is to fix a bug with OpenGL on MacOS Big Sur
+        sed -i '' 's/util.find_library( name )/"\/System\/Library\/Frameworks\/{}.framework\/{}".format(name,name)/g' "$CONDA_PREFIX"/lib/python3.7/site-packages/OpenGL/platform/ctypesloader.py
     fi
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
