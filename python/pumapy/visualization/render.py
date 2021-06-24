@@ -195,8 +195,28 @@ class Renderer:
             self.vtkimage.SetDimensions(self.shape)
 
         elif self.render_type == "contour":
-            matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2], -1e6)
-            matrix_buf[1:-1, 1:-1, 1:-1] = self.matrix[:, :, :]
+
+            if self.matrix.shape[0] == 1:
+                matrix_buf = np.full([self.matrix.shape[0] + 3, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2],
+                                     -1e6)
+                shape = (self.matrix.shape[1], self.matrix.shape[2])
+                matrix_buf[1, 1:-1, 1:-1] = self.matrix[:, :, :].reshape(shape)
+                matrix_buf[2, 1:-1, 1:-1] = self.matrix[:, :, :].reshape(shape)
+            elif self.matrix.shape[1] == 1:
+                matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 3, self.matrix.shape[2] + 2],
+                                     -1e6)
+                shape = (self.matrix.shape[0], self.matrix.shape[2])
+                matrix_buf[1:-1, 1, 1:-1] = self.matrix[:, :, :].reshape(shape)
+                matrix_buf[1:-1, 2, 1:-1] = self.matrix[:, :, :].reshape(shape)
+            elif self.matrix.shape[2] == 1:
+                matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 3],
+                                     -1e6)
+                shape = (self.matrix.shape[0], self.matrix.shape[1])
+                matrix_buf[1:-1, 1:-1, 1] = self.matrix[:, :, :].reshape(shape)
+                matrix_buf[1:-1, 1:-1, 2] = self.matrix[:, :, :].reshape(shape)
+            else:
+                matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2], -1e6)
+                matrix_buf[1:-1, 1:-1, 1:-1] = self.matrix[:, :, :]
             vtktmp = numpy_support.numpy_to_vtk(matrix_buf.ravel(order='F'))
             self.vtkimage.GetCellData().SetScalars(vtktmp)
             self.vtkimage.SetDimensions((matrix_buf.shape[0]+1, matrix_buf.shape[1]+1, matrix_buf.shape[2]+1))
