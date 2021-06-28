@@ -40,6 +40,17 @@ Since the PuMA installation uses conda to manage the dependencies, the puma envi
 
       conda activate puma
 
+### How to setup PuMA on the NAS cluster:
+In order to install PuMA on NAS, some modules need to be loaded and environment variables need to be set. This can be
+achieved by adding the following commands to the ~/.bashrc file before running the installer: 
+
+    module load miniconda3/v4
+    module load /nasa/modulefiles/pkgsrc/sles12/gcc/6.2
+    export CONDA_PKGS_DIRS=/nobackup/$USER/.conda/pkgs
+    export CONDA_ENVS_PATH=/nobackup/$USER/.conda/envs
+    conda config --append envs_dirs /nobackup/$USER/.conda/envs
+    source activate
+
 ## Common errors and bug reporting
 Here is a list of the common errors encountered during the setup and how to solve them:
 
