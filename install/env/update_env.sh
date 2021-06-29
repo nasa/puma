@@ -4,7 +4,7 @@ set -e  # exit when any command fails
 eval "$(conda shell.bash hook)"
 
 echo "Installing conda-lock"
-conda install -c conda-forge conda-lock  # install conda-lock in base
+echo -ne '\n' | conda install -c conda-forge conda-lock  # install conda-lock in base
 
 cd recipes
 env=$1  # input conda env to update
