@@ -44,6 +44,7 @@ Since the PuMA installation uses conda to manage the dependencies, the puma envi
 In order to install PuMA on NAS, some modules need to be loaded and environment variables need to be set. This can be
 achieved by adding the following commands to the ~/.bashrc file before running the installer: 
 
+    module use -a /swbuild/analytix/tools/modulefiles
     module load miniconda3/v4
     module load /nasa/modulefiles/pkgsrc/sles12/gcc/6.2
     export CONDA_PKGS_DIRS=/nobackup/$USER/.conda/pkgs
