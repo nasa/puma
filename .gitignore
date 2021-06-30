@@ -9,6 +9,7 @@ install/bin/*
 install/include
 install/lib
 install/.condarc
+install/miniconda
 
 # CMakeLists of files
 cpp/test/CMakeLists.txt
@@ -32,6 +33,7 @@ release/*
 .files
 .includes
 ._*
+*.swp
 
 # python and cython
 __pycache__

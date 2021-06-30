@@ -4,8 +4,7 @@ set -e  # exit when any command fails
 eval "$(conda shell.bash hook)"
 
 # creating puma conda env if it doesn't exist
-if ! conda info --envs | grep -w puma; then
-
+if [ ! -d "$(conda info --base)/envs/puma" ]; then
     echo "Creating puma conda environment."
 
     if [ "$(uname)" == "Darwin" ]; then

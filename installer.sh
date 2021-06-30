@@ -6,22 +6,16 @@ set -e  # exit when any command fails
 if ! [ -x "$(command -v conda)" ]; then
     if [ "$(uname)" == "Darwin" ]; then
         curl -k https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o ./install/miniconda.sh
-        chmod +x ./install/miniconda.sh
-        ./install/miniconda.sh
-        source ~/.bash_profile
-        sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</p' ~/.bash_profile >> ./install/.condarc
-        source ./install/.condarc
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ./install/miniconda.sh
-        chmod +x ./install/miniconda.sh
-        ./install/miniconda.sh
-        source ~/.bashrc
-        sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</p' ~/.bashrc >> ./install/.condarc
-        source ./install/.condarc
     else
         echo "Unrecongnized Operating System, PuMA cannot be installed."
         exit 1
     fi
+    chmod +x ./install/miniconda.sh
+    ./install/miniconda.sh -b -p ./install/miniconda
+    eval "$(./install/miniconda/bin/conda shell.bash hook)"
+    conda init
     rm ./install/miniconda.sh
 fi
 
@@ -45,3 +39,5 @@ chmod +x ./gui_installer.sh
 
 echo -e "\nPuMA C++ library, pumapy python package and GUI successfully installed."
 echo -e "Run 'conda activate puma; pumaGUI.sh' to open the GUI.\n"
+echo -e "Run 'conda activate pumapy' to use the pumapy python package.\n"
+
