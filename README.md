@@ -42,7 +42,7 @@ Since the PuMA installation uses conda to manage the dependencies, the puma envi
 
 ### How to setup PuMA on the NAS cluster:
 In order to install PuMA on NAS, some modules need to be loaded and environment variables need to be set. This can be
-achieved by adding the following commands to the ~/.bashrc file before running the installer: 
+achieved by adding the following commands to the ~/.profile file before running the installer: 
 
     module use -a /swbuild/analytix/tools/modulefiles
     module load miniconda3/v4
