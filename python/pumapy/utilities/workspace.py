@@ -1,6 +1,4 @@
 from pumapy.utilities.logger import Logger, print_warning
-import pumapy.visualization.render as render
-import pumapy.visualization.slicer as slicer
 import skimage.transform as trans
 import numpy as np
 from copy import deepcopy
@@ -461,17 +459,6 @@ class Workspace:
 
             self.orientation = rotate(self.orientation, angle=degrees, axes=axes, mode=boundary_mode,
                                       reshape=reshape, order=0)
-
-    def render_volume(self, cutoff=None, color=True, representation='Surface', origin=(0, 0, 0),
-                      window_size=(1229, 814), background=(0.1, 0.1, 0.1)):
-        return render.render_volume(self, cutoff, color, representation, origin, window_size, background)
-
-    def render_contour(self, threshold=None, color=True, origin=(0, 0, 0),
-                       window_size=(1229, 814), background=(0.1, 0.1, 0.1)):
-        return render.render_contour(self, threshold, color, origin, window_size, background)
-
-    def plot_slices(self, slice_direction='z', color_range=None, color_map='gray'):
-        slicer.plot_slices(self, slice_direction, color_range, color_map)
 
     def show_matrix(self):
         if isinstance(self, Workspace):

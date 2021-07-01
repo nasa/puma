@@ -10,6 +10,7 @@ install/include
 install/lib
 install/.condarc
 install/miniconda
+install/miniconda.sh
 
 # CMakeLists of files
 cpp/test/CMakeLists.txt

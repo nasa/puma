@@ -10,16 +10,16 @@ rm -rf lib
 rm -rf include
 rm -rf TexGen
 rm -rf miniconda
+cd ..
 
 # clean pumapy
 conda activate pumapy
-python setup.py clean
+python install/setup.py clean
 
 # clean root
 find ../ -name '*~' -ls -delete
 
 # clean initproject
-cd ..
 rm -rf cpp/initproject/build
 
 # clean GUI

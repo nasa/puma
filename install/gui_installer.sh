@@ -8,3 +8,5 @@ conda activate puma
 cd "$PuMA_DIR"/gui/build
 qmake
 make -j
+
+chmod +x "$PuMA_DIR"/install/bin/pumaGUI.sh

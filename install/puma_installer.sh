@@ -32,7 +32,9 @@ if [ -z ${PuMA_DIR+x} ]; then
 fi
 
 # making sure that all the files are included
+chmod +x "$PuMA_DIR"/cpp/src/createCMakeLists_src.sh
 "$PuMA_DIR"/cpp/src/createCMakeLists_src.sh
+chmod +x "$PuMA_DIR"/cpp/test/createCMakeLists_test.sh
 "$PuMA_DIR"/cpp/test/createCMakeLists_test.sh
 
 # build and install PuMA

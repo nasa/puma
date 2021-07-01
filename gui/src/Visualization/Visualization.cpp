@@ -67,7 +67,7 @@ void Visualization::launchPython(int visType)
     QStringList args = QStringList() << dir + "access_pumapy.sh";
 
     // change it to the arguments to be run after "python"
-   args << "vis.py" << QString::number(lowVoid) << QString::number(highVoid) << QString::number(visType) ;
+   args << dir + "vis.py" << QString::number(lowVoid) << QString::number(highVoid) << QString::number(visType) ;
 
     QProcess p;
     p.setWorkingDirectory(dir);

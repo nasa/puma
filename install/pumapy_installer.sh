@@ -31,6 +31,11 @@ if [ -z ${PuMA_DIR+x} ]; then
     conda activate pumapy  # load env variables
 fi
 
+# this is to fix a bug with OpenGL on MacOS Big Sur
+if [ "$(uname)" == "Darwin" ]; then
+    sed -i '' 's/util.find_library( name )/"\/System\/Library\/Frameworks\/{}.framework\/{}".format(name,name)/g' "$CONDA_PREFIX"/lib/python3.7/site-packages/OpenGL/platform/ctypesloader.py
+fi
+
 # install texgen
 chmod +x texgen_installer.sh
 ./texgen_installer.sh
