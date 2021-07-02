@@ -5,24 +5,23 @@ cmake_minimum_required(VERSION 3.0)
 project(PuMA VERSION 3.0.0)
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set(CMAKE_MACOSX_RPATH TRUE)
 
 # importing environment variables
-SET(PuMA_OS "$ENV{PuMA_OS}" CACHE BOOL
-        "Detects OS." FORCE)
-SET(CONDA_PREFIX "$ENV{CONDA_PREFIX}" CACHE BOOL
+SET(CONDA_PREFIX "${CONDA_PREFIX}" CACHE BOOL
         "Get CONDA_PREFIX." FORCE)
 
 # set cxx flags
-if ("${PuMA_OS}" STREQUAL "Mac")
+if(APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xpreprocessor -fopenmp --std=c++0x -Wno-format -Wno-literal-conversion -Wno-deprecated-register -Wno-return-type")
     add_definitions(-DMAC) # preprocessor directive
-elseif ("${PuMA_OS}" STREQUAL "Linux")
+elseif(UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp --std=c++0x")
     add_definitions(-DLINUX) # preprocessor directive
 endif()
 
 # set install prefix where PuMA will be installed
-SET(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/../install" CACHE STRING
+SET(CMAKE_INSTALL_PREFIX "${PREFIX}" CACHE STRING
         "Install path prefix, prepended onto install directories." FORCE)
 
 # advanced
@@ -57,7 +56,7 @@ set_target_properties(PuMA PROPERTIES PUBLIC_HEADER "${PUB_HEADERS}")
 
 # Dependencies
 SET(DEP_LIBS "-ldl -L${CONDA_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3")
-if ("${PuMA_OS}" STREQUAL "Mac")
+if(APPLE)
     SET(DEP_LIBS "${DEP_LIBS} -lomp")
 endif()
 
