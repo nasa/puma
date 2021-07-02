@@ -62,12 +62,17 @@ void Visualization::launchPython(int visType)
     // export vtk file to visualize
     QString fileName = dir;
     fileName.append("gui-ws.vtk");
-    puma::export_vtk(workspace, fileName.toStdString());
+    bool check = puma::export_vtk(workspace, fileName.toStdString());
+
+    if (!check){
+        std::cout << "Workspace is empty, need to create it first." << std::endl;
+        return;
+    }
 
     QStringList args = QStringList() << dir + "access_pumapy.sh";
 
     // change it to the arguments to be run after "python"
-   args << dir + "vis.py" << QString::number(lowVoid) << QString::number(highVoid) << QString::number(visType) ;
+    args << dir + "vis.py" << QString::number(lowVoid) << QString::number(highVoid) << QString::number(visType) ;
 
     QProcess p;
     p.setWorkingDirectory(dir);

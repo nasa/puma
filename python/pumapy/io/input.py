@@ -1,4 +1,3 @@
-import vtk
 from skimage.io import imread
 import numpy as np
 import pickle
@@ -61,6 +60,7 @@ def import_bin(filename):
 
 
 try:
+    import vtk
     from paraview import numpy_support
 
     def import_vti(filename, voxel_length=None, import_ws=True):

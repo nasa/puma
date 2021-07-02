@@ -391,7 +391,11 @@ class Elasticity:
         info = 0
         if self.solver_type == 'direct':
             print("Direct solver", end='')
-            x = spsolve(self.Amat, self.bvec, use_umfpack=True)
+            try:
+                import scikits.umfpack
+                x = spsolve(self.Amat, self.bvec, use_umfpack=True)
+            except ImportError:
+                x = spsolve(self.Amat, self.bvec)
 
         else:  # iterative solvers
             u_initial_guess = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)

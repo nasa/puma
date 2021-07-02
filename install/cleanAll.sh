@@ -14,7 +14,7 @@ cd ..
 
 # clean pumapy
 conda activate pumapy
-python install/setup.py clean
+python setup.py clean
 
 # clean root
 find ../ -name '*~' -ls -delete

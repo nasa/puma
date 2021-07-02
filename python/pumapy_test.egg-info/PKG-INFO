@@ -1,3 +1,19 @@
+Metadata-Version: 2.1
+Name: pumapy-test
+Version: 3.0
+Summary: A package to compute material properties from micro-CT data.
+Home-page: https://gitlab.com/jcfergus/puma-dev
+Author: PuMA team
+Maintainer-email: federico.semeraro@nasa.gov, joseph.ferguson@stanford.edu
+License: UNKNOWN
+Project-URL: Bug Tracker, https://gitlab.com/jcfergus/puma-dev/issues
+Platform: Linux
+Platform: Mac
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: all
+License-File: LICENSE_2021.pdf
+
 <p align="center">
   <img src="https://github.com/nasa/puma/raw/main/docs/source/puma_logo.png" width="35%"></img>
 </p>
@@ -21,26 +37,19 @@ Recommended specs:
 
 ## Installation
   
-Download the project and unzip it (or alternatively "git clone" it); then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
+Download the project and unzip it; then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
 
       ./installer.sh
 
-The PuMA C++ library, pumapy python package and GUI are now installed. The latter can be launched by running:
+The PuMA C++ library, PuMApy python package and GUI are now installed. The latter can be launched by running:
 
       conda activate puma; pumaGUI.sh
 
-PuMA relies on a conda environment in order to manage its software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the pumapy python package.
+PuMA and PuMApy rely on two different conda environments in order to manage their software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, in order to import PuMApy into a python session, before calling python run:
 
-Alternatively, the pumapy python package alone can be installed by running:
+      conda activate pumapy
 
-      pip install pumapy
-or
-
-      conda install -c conda-forge pumapy
-
-However, it is still recommended to install the puma conda environment first, in order to have access to all pumapy's functionalities (including TexGen, FEniCS, Paraview and Detectron2).
-
-The [jupyter notebooks](./python/tutorials) show the typical function use for pumapy.
+The [jupyter notebooks](./python/tutorials) show the typical function use for the pumapy python package.
 
 ### How to link your C++ project to the PuMA library
 In the folder [initproject](./cpp/initproject) there is a simple example project already linked to the PuMA library. 
@@ -111,3 +120,5 @@ THE SOFTWARE AND/OR TECHNICAL DATA ARE PROVIDED "AS IS" WITHOUT ANY WARRANTY OF 
 THE UNITED STATES GOVERNMENT DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD PARTY COMPUTER SOFTWARE, DATA, OR DOCUMENTATION, IF SAID THIRD PARTY COMPUTER SOFTWARE, DATA, OR DOCUMENTATION IS PRESENT IN THE NASA SOFTWARE AND/OR TECHNICAL DATA, AND DISTRIBUTES IT "AS IS."
 RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE UNITED STATES GOVERNMENT AND ITS CONTRACTORS AND SUBCONTRACTORS, AND SHALL INDEMNIFY AND HOLD HARMLESS THE UNITED STATES GOVERNMENT AND ITS CONTRACTORS AND SUBCONTRACTORS FOR ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES THAT MAY ARISE FROM RECIPIENT'S USE OF THE SOFTWARE AND/OR TECHNICAL DATA, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, THE USE THEREOF.
 IF RECIPIENT FURTHER RELEASES OR DISTRIBUTES THE NASA SOFTWARE AND/OR TECHNICAL DATA, RECIPIENT AGREES TO OBTAIN THIS IDENTICAL WAIVER OF CLAIMS, INDEMNIFICATION AND HOLD HARMLESS, AGREEMENT WITH ANY ENTITIES THAT ARE PROVIDED WITH THE SOFTWARE AND/OR TECHNICAL DATA.
+
+

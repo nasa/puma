@@ -13,11 +13,12 @@ IF RECIPIENT FURTHER RELEASES OR DISTRIBUTES THE NASA SOFTWARE AND/OR TECHNICAL 
 Root directory for the pumapy package.
 """
 
-# primitives
+# utilities
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import Logger, print_warning
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.isosurface import generate_isosurface
+from pumapy.utilities.detect_env import detect_env
 from pumapy.utilities.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
 from pumapy.utilities.boundary_conditions import ConductivityBC, ElasticityBC
 
@@ -27,7 +28,7 @@ from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_spart
 try:
     from pumapy.io.output import export_weave_vtu
 except ImportError:
-    print("TexGen not found, cannot use pumapy.export_weave_vtu.")
+    pass
 
 # material properties
 from pumapy.materialproperties.surfacearea import compute_surface_area
@@ -41,7 +42,7 @@ from pumapy.materialproperties.radiation import compute_radiation, compute_extin
 try:
     from pumapy.materialproperties.permeability import compute_permeability
 except ImportError:
-    print("FEniCS/dolfin not found, cannot use pumapy.compute_permeability.")
+    pass
 
 # filtering
 from pumapy.filters.filters import (filter_median, filter_gaussian, filter_edt, filter_mean,
@@ -65,7 +66,7 @@ try:
     from pumapy.visualization.render_multiphase import render_contour_multiphase
     from pumapy.io.input import import_vti
 except ImportError:
-    print("Paraview not found, cannot use pumapy.render and import_vti functions.")
+    pass
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation

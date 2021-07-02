@@ -1,0 +1,12 @@
+numpy>=1.20.0
+scipy>=1.6.2
+scikit-image
+matplotlib
+ipympl
+pyevtk
+visvis
+
+[all]
+paraview
+dolfin
+TexGen

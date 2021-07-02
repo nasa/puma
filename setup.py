@@ -14,7 +14,7 @@ class CleanCommand(Command):
     def finalize_options(self):
         pass
     def run(self):
-        os.system('rm -vrf build ../build dist ../dist *.pyc *.tgz python/*.egg-info ../python/*.egg-info')
+        os.system('rm -vrf build dist *.pyc *.tgz python/*.egg-info')
 
 
 # add cython code to the pumapy extensions
@@ -53,7 +53,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 # pumapy package setup
 setup(
     name="pumapy",
-    version="1.0",
+    version="3.0",
     author="PuMA team",
     maintainer_email="federico.semeraro@nasa.gov, joseph.ferguson@stanford.edu",
     description="A package to compute material properties from micro-CT data.",
@@ -64,11 +64,34 @@ setup(
         "Bug Tracker": "https://gitlab.com/jcfergus/puma-dev/issues",
     },
     platforms=["Linux", "Mac"],
-    packages=find_packages("python"),
     package_dir={"": "python"},
+    packages=find_packages(where="python"),
     ext_modules=cythonize(extensions),
     include_dirs=[np.get_include()],
     cmdclass={
         'clean': CleanCommand,
+    },
+    python_requires=">=3.7",
+    setup_requires=[
+                    "setuptools>=42",
+                    "wheel",
+                    "cython", 
+                    "numpy",
+    ],
+    install_requires=[
+        "numpy>=1.20.0",
+        "scipy>=1.6.2",
+        "scikit-image",
+        "matplotlib",
+        "ipympl",
+        "pyevtk",
+        "visvis",
+    ],
+    extras_require={
+        "all": [
+            "paraview",
+            "dolfin",
+            "TexGen",
+        ]
     }
 )
