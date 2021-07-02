@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.0)
 # project name
 project(PuMA VERSION 3.0.0)
 
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 # importing environment variables
 SET(PuMA_OS "$ENV{PuMA_OS}" CACHE BOOL
         "Detects OS." FORCE)
