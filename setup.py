@@ -71,16 +71,15 @@ setup(
     cmdclass={
         'clean': CleanCommand,
     },
-    python_requires=">=3.7",
     setup_requires=[
-                    "setuptools>=42",
+                    "setuptools",
                     "wheel",
                     "cython", 
                     "numpy",
     ],
     install_requires=[
-        "numpy>=1.20.0",
-        "scipy>=1.6.2",
+        "numpy",
+        "scipy",
         "scikit-image",
         "matplotlib",
         "ipympl",
