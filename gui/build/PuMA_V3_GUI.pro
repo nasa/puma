@@ -3,16 +3,19 @@ CONFIG -= app_bundle
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = PuMA_V3_GUI
+TARGET = pumaGUI
 TEMPLATE = app
+target.path = $$(PREFIX)/bin
+INSTALLS = target
 
-INCLUDEPATH += \"${CONDA_PREFIX}/include\"
-INCLUDEPATH += \"${CONDA_PREFIX}/include/eigen3/Eigen\"
-INCLUDEPATH += \"${PuMA_DIR}/install/include\"
+INCLUDEPATH += \"$$(BUILD_PREFIX)/include\"
+INCLUDEPATH += \"$$(BUILD_PREFIX)/include/eigen3/Eigen\"
+INCLUDEPATH += \"$$(PREFIX)/include\"
 
-LIBS += -L\"${CONDA_PREFIX}/lib\" -ltiff -lfftw3_threads -lfftw3 -lomp
-LIBS += -L\"${PuMA_DIR}/install/lib\" -lPuMA
+LIBS += -L\"$$(BUILD_PREFIX)/lib\" -ltiff -lfftw3_threads -lfftw3 -lomp 
+LIBS += -L\"$$(PREFIX)/lib\" -lPuMA
 
+QMAKE_RPATHDIR += $$(PREFIX)/lib
 QMAKE_CXXFLAGS += --std=c++0x
 
 SOURCES += \

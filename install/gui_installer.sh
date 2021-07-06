@@ -6,7 +6,7 @@ eval "$(conda shell.bash hook)"
 conda activate puma
 
 cd "$PuMA_DIR"/gui/build
-qmake
+qmake "BUILD_PREFIX=$CONDA_PREFIX" "BUILD_PREFIX=$CONDA_PREFIX" "PREFIX=$PuMA_DIR/install"
 make -j
 
 chmod +x "$PuMA_DIR"/install/bin/pumaGUI.sh
