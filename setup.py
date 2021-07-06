@@ -1,5 +1,4 @@
 from setuptools import setup, Command, find_packages
-from Cython.Build import cythonize
 from distutils.extension import Extension
 import numpy as np
 import os
@@ -18,16 +17,31 @@ class CleanCommand(Command):
 
 
 # add cython code to the pumapy extensions
-extensions = [
-    Extension("pumapy.generation.tpms_utils",
-              ["python/pumapy/generation/tpms_utils.pyx"]),
-    Extension("pumapy.physicsmodels.isotropic_conductivity_utils",
-              ["python/pumapy/physicsmodels/isotropic_conductivity_utils.pyx"]),
-    Extension("pumapy.physicsmodels.anisotropic_conductivity_utils",
-              ["python/pumapy/physicsmodels/anisotropic_conductivity_utils.pyx"]),
-    Extension("pumapy.physicsmodels.elasticity_utils",
-              ["python/pumapy/physicsmodels/elasticity_utils.pyx"]),
-]
+
+
+try:
+    from Cython.Build import cythonize
+    extensions = cythonize([
+                            Extension("pumapy.generation.tpms_utils",
+                                      ["python/pumapy/generation/tpms_utils.pyx"]),
+                            Extension("pumapy.physicsmodels.isotropic_conductivity_utils",
+                                      ["python/pumapy/physicsmodels/isotropic_conductivity_utils.pyx"]),
+                            Extension("pumapy.physicsmodels.anisotropic_conductivity_utils",
+                                      ["python/pumapy/physicsmodels/anisotropic_conductivity_utils.pyx"]),
+                            Extension("pumapy.physicsmodels.elasticity_utils",
+                                      ["python/pumapy/physicsmodels/elasticity_utils.pyx"]),
+                            ])
+except ImportError:
+    extensions = [
+                  Extension("pumapy.generation.tpms_utils",
+                            ["python/pumapy/generation/tpms_utils.c"]),
+                  Extension("pumapy.physicsmodels.isotropic_conductivity_utils",
+                            ["python/pumapy/physicsmodels/isotropic_conductivity_utils.c"]),
+                  Extension("pumapy.physicsmodels.anisotropic_conductivity_utils",
+                            ["python/pumapy/physicsmodels/anisotropic_conductivity_utils.c"]),
+                  Extension("pumapy.physicsmodels.elasticity_utils",
+                            ["python/pumapy/physicsmodels/elasticity_utils.c"]),
+                 ]
 
 # add PuMA C++ library to the extensions
 # env_dir = os.environ['CONDA_PREFIX']
@@ -66,7 +80,7 @@ setup(
     platforms=["Linux", "Mac"],
     package_dir={"": "python"},
     packages=find_packages(where="python"),
-    ext_modules=cythonize(extensions),
+    ext_modules=extensions,
     include_dirs=[np.get_include()],
     cmdclass={
         'clean': CleanCommand,

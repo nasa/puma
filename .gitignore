@@ -40,7 +40,6 @@ release/*
 __pycache__
 dist
 build
-*.c
 *.so
 pumapy.egg-info
 main.py
