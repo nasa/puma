@@ -4,12 +4,9 @@ cmake_minimum_required(VERSION 3.0)
 # project name
 project(PuMA VERSION 3.0.0)
 
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 set(CMAKE_MACOSX_RPATH TRUE)
-
-# importing environment variables
-SET(CONDA_PREFIX "${CONDA_PREFIX}" CACHE BOOL
-        "Get CONDA_PREFIX." FORCE)
 
 # set cxx flags
 if(APPLE)
@@ -19,13 +16,6 @@ elseif(UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp --std=c++0x")
     add_definitions(-DLINUX) # preprocessor directive
 endif()
-
-# set install prefix where PuMA will be installed
-SET(CMAKE_INSTALL_PREFIX "${PREFIX}" CACHE STRING
-        "Install path prefix, prepended onto install directories." FORCE)
-
-# advanced
-MARK_AS_ADVANCED(CMAKE_INSTALL_PREFIX)
 
 # src/CMakeLists.txt: add source and header files
 add_subdirectory(src)
@@ -43,8 +33,8 @@ MACRO(HEADER_DIRECTORIES return_list)
 ENDMACRO()
 HEADER_DIRECTORIES(HEADERS_DIRS)
 include_directories(${HEADERS_DIRS})
-include_directories(${CONDA_PREFIX}/include)
-include_directories(${CONDA_PREFIX}/include/eigen3/Eigen)
+include_directories(${BUILD_PREFIX}/include)
+include_directories(${BUILD_PREFIX}/include/eigen3/Eigen)
 
 #########################
 # Creating PuMA library #
@@ -55,7 +45,7 @@ add_library(PuMA SHARED ${SOURCES})
 set_target_properties(PuMA PROPERTIES PUBLIC_HEADER "${PUB_HEADERS}")
 
 # Dependencies
-SET(DEP_LIBS "-ldl -L${CONDA_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3")
+SET(DEP_LIBS "-ldl -L${BUILD_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3")
 if(APPLE)
     SET(DEP_LIBS "${DEP_LIBS} -lomp")
 endif()

@@ -15,21 +15,10 @@ if [ ! -d "$(conda info --base)/envs/puma" ]; then
         echo "Unrecongnized Operating System, PuMA cannot be installed."
         exit 1
     fi
-
-    conda activate puma
-    chmod +x ./env/env_variables.sh
-    ./env/env_variables.sh
 fi;
 
 # this env activation only lasts inside bash script
 conda activate puma
-
-# check if environment variables have been created already
-if [ -z ${PuMA_DIR+x} ]; then
-    chmod +x ./env/env_variables.sh
-    ./env/env_variables.sh
-    conda activate puma  # load env variables
-fi
 
 # this is to fix a bug with OpenGL on MacOS Big Sur
 if [ "$(uname)" == "Darwin" ]; then

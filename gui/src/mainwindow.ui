@@ -408,7 +408,6 @@
    <addaction name="actionVisualization"/>
    <addaction name="actionOpen_Log"/>
    <addaction name="separator"/>
-   <addaction name="actionPuMApy"/>
   </widget>
   <widget class="QToolBar" name="toolBar_9">
    <property name="font">
@@ -817,18 +816,6 @@
    </property>
    <property name="toolTip">
     <string>Visualization</string>
-   </property>
-  </action>
-  <action name="actionPuMApy">
-   <property name="icon">
-    <iconset resource="../extras/resource.qrc">
-     <normaloff>:/QToolBar/ToolBarIcons/console.png</normaloff>:/QToolBar/ToolBarIcons/console.png</iconset>
-   </property>
-   <property name="text">
-    <string>PuMApy</string>
-   </property>
-   <property name="toolTip">
-    <string>PuMApy</string>
    </property>
   </action>
  </widget>

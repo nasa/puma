@@ -2144,7 +2144,7 @@ public:
         TestResult result(suiteName, testName, 57, testDescription);
 
         puma::Workspace ws(1e-6, false);
-        puma::import_3DTiff(&ws,puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif");
+        puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
 
         // Computing orientations using Structure Tensor (ST) method
         puma::MatVec3< double> tangents;

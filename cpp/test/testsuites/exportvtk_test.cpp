@@ -29,15 +29,15 @@ public:
 
         puma::Matrix<double> test(10,5,3,0);
         test.at(9,4,0) = 1;
-        puma::export_vtk(&test, SubTest::puma_dir+"/cpp/test/out/vtk/test_xycorner");
+        puma::export_vtk(&test, "cpp/test/out/vtk/test_xycorner");
 
         test.set(0);
         test.at(9,0,2) = 1;
-        puma::export_vtk(&test, SubTest::puma_dir+"/cpp/test/out/vtk/test_xzcorner");
+        puma::export_vtk(&test, "cpp/test/out/vtk/test_xzcorner");
 
         test.set(0);
         test.at(0,4,2) = 1;
-        puma::export_vtk(&test, SubTest::puma_dir+"/cpp/test/out/vtk/test_yzcorner");
+        puma::export_vtk(&test, "cpp/test/out/vtk/test_yzcorner");
 
         return result;
     }
@@ -51,7 +51,7 @@ public:
 
         puma::Matrix<double> test(10,10,10, 1);
         test.set(0,4,0,4,0,4,2);
-        puma::export_vtk(&test, SubTest::puma_dir+"/cpp/test/out/vtk/test_ws");
+        puma::export_vtk(&test, "cpp/test/out/vtk/test_ws");
 
         return result;
     }
@@ -65,11 +65,11 @@ public:
 
         puma::Matrix<double> test(10,10,10, 0);
         test.set(4,4,4,4,0,9,1);
-        puma::export_vtk(&test, SubTest::puma_dir+"/cpp/test/out/vtk/test_ws2");
+        puma::export_vtk(&test, "cpp/test/out/vtk/test_ws2");
 
         puma::MatVec3<double> test2(10,10,10);
         test2.set(4,4,4,4,0,9,puma::Vec3<double>(0.,0.,1.));
-        puma::export_vtk(&test2, SubTest::puma_dir+"/cpp/test/out/vtk/test_MatVec3");
+        puma::export_vtk(&test2, "cpp/test/out/vtk/test_MatVec3");
 
         return result;
     }
@@ -82,8 +82,8 @@ public:
         TestResult result(suiteName, testName, 4, testDescription);
 
         puma::Matrix<double> test(1,1,1);
-        puma::export_vtk(&test, SubTest::puma_dir+"/cpp/test/out/vtk/test");
-        puma::export_vtk(&test, SubTest::puma_dir+"/cpp/test/out/vtk/test.vtk");
+        puma::export_vtk(&test, "cpp/test/out/vtk/test");
+        puma::export_vtk(&test, "cpp/test/out/vtk/test.vtk");
 
         return result;
     }
@@ -97,7 +97,7 @@ public:
 
         puma::Matrix<double> testMat(20,20,20, 5);
         testMat.set(0, testMat.X()/2, 0, -1, 0, -1, 10);
-        puma::export_vtk(&testMat, SubTest::puma_dir+"/cpp/test/out/vtk/testMatASCII", 'a');
+        puma::export_vtk(&testMat, "cpp/test/out/vtk/testMatASCII", 'a');
 
         return result;
     }
@@ -111,7 +111,7 @@ public:
 
         puma::Workspace testWS(20,20,20, 5);
         testWS.matrix.set(0, testWS.X()/2, 0, -1, 0, -1, 10);
-        puma::export_vtk(&testWS, SubTest::puma_dir+"/cpp/test/out/vtk/testWSASCII", 'a');
+        puma::export_vtk(&testWS, "cpp/test/out/vtk/testWSASCII", 'a');
 
         return result;
     }
@@ -125,7 +125,7 @@ public:
 
         puma::MatVec3<double> testVec(20,20,20, puma::Vec3<double>(1.,0.,0.));
         testVec.set(0, testVec.X()/2, 0, -1, 0, -1, puma::Vec3<double>(0.,1.,0.));
-        puma::export_vtk(&testVec, SubTest::puma_dir+"/cpp/test/out/vtk/testVecASCII", 'a');
+        puma::export_vtk(&testVec, "cpp/test/out/vtk/testVecASCII", 'a');
 
         return result;
     }
@@ -139,7 +139,7 @@ public:
 
         puma::Matrix<double> testMat(20,20,20, 5);
         testMat.set(0, testMat.X()/2, 0, -1, 0, -1, 10);
-        puma::export_vtk(&testMat, SubTest::puma_dir+"/cpp/test/out/vtk/testMatunstructured", 'b', true);
+        puma::export_vtk(&testMat, "cpp/test/out/vtk/testMatunstructured", 'b', true);
 
         return result;
     }
@@ -153,7 +153,7 @@ public:
 
         puma::Workspace testWS(20,20,20, 5);
         testWS.matrix.set(0, testWS.X()/2, 0, -1, 0, -1, 10);
-        puma::export_vtk(&testWS, SubTest::puma_dir+"/cpp/test/out/vtk/testWSunstructured", 'b', true);
+        puma::export_vtk(&testWS, "cpp/test/out/vtk/testWSunstructured", 'b', true);
 
         return result;
     }
@@ -167,7 +167,7 @@ public:
 
         puma::MatVec3<double> testVec(20,20,20, puma::Vec3<double>(1.,0.,0.));
         testVec.set(0, testVec.X()/2, 0, -1, 0, -1, puma::Vec3<double>(0.,1.,0.));
-        puma::export_vtk(&testVec, SubTest::puma_dir+"/cpp/test/out/vtk/testVecunstructured", 'b', true);
+        puma::export_vtk(&testVec, "cpp/test/out/vtk/testVecunstructured", 'b', true);
 
         return result;
     }

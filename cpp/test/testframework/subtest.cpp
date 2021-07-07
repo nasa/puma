@@ -7,8 +7,6 @@ SubTest::SubTest() {
     testSuiteName = "";
 }
 
-std::string SubTest::puma_dir = std::getenv("PuMA_DIR");
-
 int SubTest::numTests() {
     return tests.size();
 }

@@ -5,15 +5,15 @@ eval "$(conda shell.bash hook)"
 # clean inside install folder
 rm -rf cmake-build-release
 rm -rf cmake-build-debug
-rm -rf bin/pumaX*
-rm -rf lib
-rm -rf include
+rm $CONDA_PREFIX/bin/puma*
+rm $CONDA_PREFIX/lib/libPuMA*
+rm $CONDA_PREFIX/lib/libTexGen*
 rm -rf TexGen
 rm -rf miniconda
 cd ..
 
 # clean pumapy
-conda activate pumapy
+conda activate puma
 python setup.py clean
 
 # clean root
@@ -25,5 +25,5 @@ rm -rf cpp/initproject/build
 # clean GUI
 cd gui/build
 rm -f *.o
-rm -f PuMA_V3_GUI
+rm -f pumaGUI
 rm -f Makefile

@@ -10,15 +10,6 @@ using namespace std;
 int main (int argc, char **argv)
 //-----------------------------------------------------------------------------
 {
-    // Get puma path from environment
-    char* pPath = getenv("PuMA_DIR");
-    string puma_dir;
-    if (pPath!=nullptr) {
-        puma_dir = string(pPath);
-    } else {
-        cout << "PuMA_DIR path not found in environment. Did you source pumarc?" << endl;
-        return 1;
-    }
 
     // To run input 1 as command line argument
     if(argc > 1){

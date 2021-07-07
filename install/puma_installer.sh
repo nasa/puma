@@ -15,32 +15,22 @@ if [ ! -d "$(conda info --base)/envs/puma" ]; then
         echo "Unrecongnized Operating System, PuMA cannot be installed."
         exit 1
     fi
-
-    conda activate puma
-    chmod +x ./env/env_variables.sh
-    ./env/env_variables.sh
 fi;
 
 # this env activation only lasts inside bash script
 conda activate puma
 
-# check if environment variables have been created already
-if [ -z ${PuMA_DIR+x} ]; then
-    chmod +x ./env/env_variables.sh
-    ./env/env_variables.sh
-    conda activate puma  # load env variables
-fi
-
 # making sure that all the files are included
-chmod +x "$PuMA_DIR"/cpp/src/createCMakeLists_src.sh
-"$PuMA_DIR"/cpp/src/createCMakeLists_src.sh
-chmod +x "$PuMA_DIR"/cpp/test/createCMakeLists_test.sh
-"$PuMA_DIR"/cpp/test/createCMakeLists_test.sh
+chmod +x ../cpp/src/createCMakeLists_src.sh
+../cpp/src/createCMakeLists_src.sh
+chmod +x ../cpp/test/createCMakeLists_test.sh
+../cpp/test/createCMakeLists_test.sh
 
 # build and install PuMA
 mkdir -p cmake-build-release
 cd cmake-build-release
-cmake "$PuMA_DIR"/cpp
+cmake -D BUILD_PREFIX=$CONDA_PREFIX \
+      -D CMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+      ../../cpp
 make -j
 make install
-cd "$PuMA_DIR"/install

@@ -4,8 +4,7 @@
 cmake-build-release
 cmake-build-debug
 logs
-install/bin/*
-!install/bin/pumaGUI.sh
+install/bin
 install/include
 install/lib
 install/.condarc
@@ -54,10 +53,9 @@ _trial_temp*
 
 # GUI
 .qmake.stash
-gui/src/pyscripts/gui-ws.vtk
-!gui/build
+tmp-gui-ws.vtk
 gui/build/*
-!gui/build/PuMA_V3_GUI.pro
+!gui/build/pumaGUI.pro
 
 # docs
 docs/source/cpp_api/

@@ -34,7 +34,7 @@ public:
         TestResult result(suiteName, testName, 1, testDescription);
 
         puma::Workspace workspace;
-        bool success = puma::export_bin(&workspace,SubTest::puma_dir+"/cpp/test/out/bin/test1.puma");
+        bool success = puma::export_bin(&workspace,"cpp/test/out/bin/test1.puma");
 
         if(!assertEquals((bool)false,success, &result)) {
             return result;
@@ -51,7 +51,7 @@ public:
         TestResult result(suiteName, testName, 2, testDescription);
 
         puma::Matrix<double> matrix;
-        bool success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test2.puma");
+        bool success = puma::export_bin(&matrix,"cpp/test/out/bin/test2.puma");
 
         if(!assertEquals((bool)false,success, &result)) {
             return result;
@@ -68,7 +68,7 @@ public:
         TestResult result(suiteName, testName, 3, testDescription);
 
         puma::Matrix<float> matrix;
-        bool success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test3.puma");
+        bool success = puma::export_bin(&matrix,"cpp/test/out/bin/test3.puma");
 
         if(!assertEquals((bool)false,success, &result)) {
             return result;
@@ -85,7 +85,7 @@ public:
         TestResult result(suiteName, testName, 4, testDescription);
 
         puma::Matrix<short> matrix;
-        bool success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test4.puma");
+        bool success = puma::export_bin(&matrix,"cpp/test/out/bin/test4.puma");
 
         if(!assertEquals((bool)false,success, &result)) {
             return result;
@@ -102,7 +102,7 @@ public:
         TestResult result(suiteName, testName, 5, testDescription);
 
         puma::Matrix<int> matrix;
-        bool success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test5.puma");
+        bool success = puma::export_bin(&matrix,"cpp/test/out/bin/test5.puma");
 
         if(!assertEquals((bool)false,success, &result)) {
             return result;
@@ -120,7 +120,7 @@ public:
 
 
         puma::MatVec3<double> matrix;
-        bool success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test6.puma");
+        bool success = puma::export_bin(&matrix,"cpp/test/out/bin/test6.puma");
 
         if(!assertEquals((bool)false,success, &result)) {
             return result;
@@ -143,12 +143,12 @@ public:
             return result;
         }
 
-        success = puma::export_bin(&workspace,SubTest::puma_dir+"/cpp/test/out/bin/test.puma");
+        success = puma::export_bin(&workspace,"cpp/test/out/bin/test.puma");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
-        success = puma::export_bin(&workspace,SubTest::puma_dir+"/cpp/test/out/bin/test");
+        success = puma::export_bin(&workspace,"cpp/test/out/bin/test");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
@@ -170,12 +170,12 @@ public:
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test.puma");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test.puma");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
@@ -197,12 +197,12 @@ public:
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test.puma");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test.puma");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
@@ -224,12 +224,12 @@ public:
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test.puma");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test.puma");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
@@ -251,12 +251,12 @@ public:
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test.puma");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test.puma");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
@@ -279,12 +279,12 @@ public:
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test.puma");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test.puma");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
-        success = puma::export_bin(&matrix,SubTest::puma_dir+"/cpp/test/out/bin/test");
+        success = puma::export_bin(&matrix,"cpp/test/out/bin/test");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }

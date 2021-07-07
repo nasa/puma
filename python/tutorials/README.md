@@ -3,9 +3,9 @@
 This folder contains tutorials that show the basic workings of PuMApy. 
 
 # How to use
-To follow the tutorials, you can run:
+To follow the tutorials, from the puma root folder run:
 
-    conda activate pumapy
+    conda activate puma
     jupyter notebook
 
 from this folder and then open the tutorial that you want to follow.

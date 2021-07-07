@@ -179,7 +179,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
 
         puma::Matrix<float> newMatrix;
 
@@ -218,7 +218,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
         grayWS.crop(0,98,0,97,1,96);
 
         puma::Matrix<float> newMatrix;
@@ -338,7 +338,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
         puma::Matrix<float> newMatrix;
 
         bool success = IsoSurfaceHelper::DownScale(&grayWS.matrix,&newMatrix, 4,8);
@@ -576,7 +576,7 @@ public:
         TestResult result(suiteName, testName, 17, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(128,255),true,1,false,0);
@@ -603,7 +603,7 @@ public:
         TestResult result(suiteName, testName, 18, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         grayWS.crop(0,99,0,98,1,97);
@@ -632,7 +632,7 @@ public:
         TestResult result(suiteName, testName, 19, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(128,255),true,1,false,0);
@@ -659,7 +659,7 @@ public:
         TestResult result(suiteName, testName, 20, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(128,255),false,1,false,0);
@@ -686,7 +686,7 @@ public:
         TestResult result(suiteName, testName, 21, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(0,127),true,1,false,0);
@@ -713,7 +713,7 @@ public:
         TestResult result(suiteName, testName, 22, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(0,127),false,1,false,0);
@@ -740,7 +740,7 @@ public:
         TestResult result(suiteName, testName, 23, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(0,127),true,1,true,0);
@@ -767,7 +767,7 @@ public:
         TestResult result(suiteName, testName, 24, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),false,1,false,0);
@@ -796,7 +796,7 @@ public:
         TestResult result(suiteName, testName, 25, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),true,1,false,0);
@@ -823,7 +823,7 @@ public:
         TestResult result(suiteName, testName, 26, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),false,1,true,0);
@@ -850,7 +850,7 @@ public:
         TestResult result(suiteName, testName, 27, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),true,1,true,0);
@@ -877,7 +877,7 @@ public:
         TestResult result(suiteName, testName, 28, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),false,2,true,0);
@@ -904,7 +904,7 @@ public:
         TestResult result(suiteName, testName, 29, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),true,2,true,0);
@@ -931,7 +931,7 @@ public:
         TestResult result(suiteName, testName, 30, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),false,2,false,0);
@@ -959,7 +959,7 @@ public:
         TestResult result(suiteName, testName, 31, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),true,2,false,0);
@@ -1151,7 +1151,7 @@ public:
         TestResult result(suiteName, testName, 38, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
 
 
         puma::Workspace segWS(grayWS.shape(), false);
@@ -1184,7 +1184,7 @@ public:
         TestResult result(suiteName, testName, 39, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1217,7 +1217,7 @@ public:
         TestResult result(suiteName, testName, 40, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1248,7 +1248,7 @@ public:
         TestResult result(suiteName, testName,41, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1279,7 +1279,7 @@ public:
         TestResult result(suiteName, testName, 42, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1310,7 +1310,7 @@ public:
         TestResult result(suiteName, testName, 43, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1341,7 +1341,7 @@ public:
         TestResult result(suiteName, testName, 44, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1372,7 +1372,7 @@ public:
         TestResult result(suiteName, testName, 45, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1405,7 +1405,7 @@ public:
         TestResult result(suiteName, testName, 46, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1436,7 +1436,7 @@ public:
         TestResult result(suiteName, testName, 47, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1467,7 +1467,7 @@ public:
         TestResult result(suiteName, testName, 48, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1498,7 +1498,7 @@ public:
         TestResult result(suiteName, testName, 49, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1529,7 +1529,7 @@ public:
         TestResult result(suiteName, testName, 50, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1560,7 +1560,7 @@ public:
         TestResult result(suiteName, testName, 51, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1591,7 +1591,7 @@ public:
         TestResult result(suiteName, testName, 52, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1912,7 +1912,7 @@ public:
         TestResult result(suiteName, testName, 61, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,puma_dir + "/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif");
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif");
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(0,127),0);
@@ -1924,10 +1924,10 @@ public:
         puma::isosurface_MarchingCubes(&gray_solid_closed,&grayWS,puma::Cutoff(128,255),true,1,false,0);
         puma::isosurface_MarchingCubes(&gray_void_open,&grayWS,puma::Cutoff(0,127),false,1,false,0);
         puma::isosurface_MarchingCubes(&gray_void_closed,&grayWS,puma::Cutoff(0,127),true,1,false,0);
-        //puma::export_STL(&gray_solid_open, false, puma_dir + "/cpp/test/out/stl/stltest/gray_solid_open.stl");
-        //puma::export_STL(&gray_solid_closed, false, puma_dir + "/cpp/test/out/stl/stltest/gray_solid_closed.stl");
-        //puma::export_STL(&gray_void_open, false, puma_dir + "/cpp/test/out/stl/stltest/gray_void_open.stl");
-        //puma::export_STL(&gray_void_closed, false, puma_dir + "/cpp/test/out/stl/stltest/gray_void_closed.stl");
+        //puma::export_STL(&gray_solid_open, false, "cpp/test/out/stl/stltest/gray_solid_open.stl");
+        //puma::export_STL(&gray_solid_closed, false, "cpp/test/out/stl/stltest/gray_solid_closed.stl");
+        //puma::export_STL(&gray_void_open, false, "cpp/test/out/stl/stltest/gray_void_open.stl");
+        //puma::export_STL(&gray_void_closed, false, "cpp/test/out/stl/stltest/gray_void_closed.stl");
 
         if(!assertEquals(63360,gray_solid_open.size(), &result)) {
             return result;
@@ -1949,10 +1949,10 @@ public:
         puma::isosurface_MarchingCubes(&seg_solid_closed,&segWS,puma::Cutoff(1,1),true,1,false,0);
         puma::isosurface_MarchingCubes(&seg_void_open,&segWS,puma::Cutoff(0,0),false,1,false,0);
         puma::isosurface_MarchingCubes(&seg_void_closed,&segWS,puma::Cutoff(0,0),true,1,false,0);
-        //puma::export_STL(&seg_solid_open, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_open.stl");
-        //puma::export_STL(&seg_solid_closed, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_closed.stl");
-        //puma::export_STL(&seg_void_open, false, puma_dir + "/cpp/test/out/stl/stltest/seg_void_open.stl");
-        //puma::export_STL(&seg_void_closed, false, puma_dir + "/cpp/test/out/stl/stltest/seg_void_closed.stl");
+        //puma::export_STL(&seg_solid_open, false, "cpp/test/out/stl/stltest/seg_solid_open.stl");
+        //puma::export_STL(&seg_solid_closed, false, "cpp/test/out/stl/stltest/seg_solid_closed.stl");
+        //puma::export_STL(&seg_void_open, false, "cpp/test/out/stl/stltest/seg_void_open.stl");
+        //puma::export_STL(&seg_void_closed, false, "cpp/test/out/stl/stltest/seg_void_closed.stl");
 
         if(!assertEquals(63360,seg_solid_open.size(), &result)) {
             return result;
@@ -1974,10 +1974,10 @@ public:
         puma::isosurface_LewinerMarchingCubes(&gray_solid_closed_lew,&grayWS,puma::Cutoff(128,255),true,1,false,0);
         puma::isosurface_LewinerMarchingCubes(&gray_void_open_lew,&grayWS,puma::Cutoff(0,127),false,1,false,0);
         puma::isosurface_LewinerMarchingCubes(&gray_void_closed_lew,&grayWS,puma::Cutoff(0,127),true,1,false,0);
-        //puma::export_STL(&gray_solid_open_lew, false, puma_dir + "/cpp/test/out/stl/stltest/gray_solid_open_lew.stl");
-        //puma::export_STL(&gray_solid_closed_lew, false, puma_dir + "/cpp/test/out/stl/stltest/gray_solid_closed_lew.stl");
-        //puma::export_STL(&gray_void_open_lew, false, puma_dir + "/cpp/test/out/stl/stltest/gray_void_open_lew.stl");
-        //puma::export_STL(&gray_void_closed_lew, false, puma_dir + "/cpp/test/out/stl/stltest/gray_void_closed_lew.stl");
+        //puma::export_STL(&gray_solid_open_lew, false, "cpp/test/out/stl/stltest/gray_solid_open_lew.stl");
+        //puma::export_STL(&gray_solid_closed_lew, false, "cpp/test/out/stl/stltest/gray_solid_closed_lew.stl");
+        //puma::export_STL(&gray_void_open_lew, false, "cpp/test/out/stl/stltest/gray_void_open_lew.stl");
+        //puma::export_STL(&gray_void_closed_lew, false, "cpp/test/out/stl/stltest/gray_void_closed_lew.stl");
 
         if(!assertEquals(63360,gray_solid_open_lew.size(), &result)) {
             return result;
@@ -1999,10 +1999,10 @@ public:
         puma::isosurface_LewinerMarchingCubes(&seg_solid_closed_lew,&segWS,puma::Cutoff(1,1),true,1,false,0);
         puma::isosurface_LewinerMarchingCubes(&seg_void_open_lew,&segWS,puma::Cutoff(0,0),false,1,false,0);
         puma::isosurface_LewinerMarchingCubes(&seg_void_closed_lew,&segWS,puma::Cutoff(0,0),true,1,false,0);
-        //puma::export_STL(&seg_solid_open_lew, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_open_lew.stl");
-        //puma::export_STL(&seg_solid_closed_lew, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_closed_lew.stl");
-        //puma::export_STL(&seg_void_open_lew, false, puma_dir + "/cpp/test/out/stl/stltest/seg_void_open_lew.stl");
-        //puma::export_STL(&seg_void_closed_lew, false, puma_dir + "/cpp/test/out/stl/stltest/seg_void_closed_lew.stl");
+        //puma::export_STL(&seg_solid_open_lew, false, "cpp/test/out/stl/stltest/seg_solid_open_lew.stl");
+        //puma::export_STL(&seg_solid_closed_lew, false, "cpp/test/out/stl/stltest/seg_solid_closed_lew.stl");
+        //puma::export_STL(&seg_void_open_lew, false, "cpp/test/out/stl/stltest/seg_void_open_lew.stl");
+        //puma::export_STL(&seg_void_closed_lew, false, "cpp/test/out/stl/stltest/seg_void_closed_lew.stl");
 
         if(!assertEquals(63360,seg_solid_open_lew.size(), &result)) {
             return result;
@@ -2024,10 +2024,10 @@ public:
         puma::isosurface_MarchingCubes(&gray_solid_closed_interp,&grayWS,puma::Cutoff(128,255),true,1,true,0);
         puma::isosurface_MarchingCubes(&gray_void_open_interp,&grayWS,puma::Cutoff(0,127),false,1,true,0);
         puma::isosurface_MarchingCubes(&gray_void_closed_interp,&grayWS,puma::Cutoff(0,127),true,1,true,0);
-        //puma::export_STL(&gray_solid_open_interp, false, puma_dir + "/cpp/test/out/stl/stltest/gray_solid_open_interp.stl");
-        //puma::export_STL(&gray_solid_closed_interp, false, puma_dir + "/cpp/test/out/stl/stltest/gray_solid_closed_interp.stl");
-        //puma::export_STL(&gray_void_open_interp, false, puma_dir + "/cpp/test/out/stl/stltest/gray_void_open_interp.stl");
-        //puma::export_STL(&gray_void_closed_interp, false, puma_dir + "/cpp/test/out/stl/stltest/gray_void_closed_interp.stl");
+        //puma::export_STL(&gray_solid_open_interp, false, "cpp/test/out/stl/stltest/gray_solid_open_interp.stl");
+        //puma::export_STL(&gray_solid_closed_interp, false, "cpp/test/out/stl/stltest/gray_solid_closed_interp.stl");
+        //puma::export_STL(&gray_void_open_interp, false, "cpp/test/out/stl/stltest/gray_void_open_interp.stl");
+        //puma::export_STL(&gray_void_closed_interp, false, "cpp/test/out/stl/stltest/gray_void_closed_interp.stl");
 
         if(!assertEquals(63200,gray_solid_open_interp.size(), &result)) {
             return result;
@@ -2049,10 +2049,10 @@ public:
         puma::isosurface_MarchingCubes(&seg_solid_closed_interp,&segWS,puma::Cutoff(1,1),true,1,true,0);
         puma::isosurface_MarchingCubes(&seg_void_open_interp,&segWS,puma::Cutoff(0,0),false,1,true,0);
         puma::isosurface_MarchingCubes(&seg_void_closed_interp,&segWS,puma::Cutoff(0,0),true,1,true,0);
-        //puma::export_STL(&seg_solid_open_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_open_interp.stl");
-        //puma::export_STL(&seg_solid_closed_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_closed_interp.stl");
-        //puma::export_STL(&seg_solid_closed_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_closed_interp.stl");
-        //puma::export_STL(&seg_void_open_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_void_open_interp.stl");
+        //puma::export_STL(&seg_solid_open_interp, false, "cpp/test/out/stl/stltest/seg_solid_open_interp.stl");
+        //puma::export_STL(&seg_solid_closed_interp, false, "cpp/test/out/stl/stltest/seg_solid_closed_interp.stl");
+        //puma::export_STL(&seg_solid_closed_interp, false, "cpp/test/out/stl/stltest/seg_solid_closed_interp.stl");
+        //puma::export_STL(&seg_void_open_interp, false, "cpp/test/out/stl/stltest/seg_void_open_interp.stl");
 
         if(!assertEquals(64800,seg_solid_open_interp.size(), &result)) {
             return result;
@@ -2074,10 +2074,10 @@ public:
         puma::isosurface_LewinerMarchingCubes(&gray_solid_closed_lew_interp,&grayWS,puma::Cutoff(128,255),true,1,true,0);
         puma::isosurface_LewinerMarchingCubes(&gray_void_open_lew_interp,&grayWS,puma::Cutoff(0,127),false,1,true,0);
         puma::isosurface_LewinerMarchingCubes(&gray_void_closed_lew_interp,&grayWS,puma::Cutoff(0,127),true,1,true,0);
-        //puma::export_STL(&gray_solid_open_lew_interp, false, puma_dir + "/cpp/test/out/stl/stltest/gray_solid_open_lew_interp.stl");
-        //puma::export_STL(&gray_solid_closed_lew_interp, false, puma_dir + "/cpp/test/out/stl/stltest/gray_solid_closed_lew_interp.stl");
-        //puma::export_STL(&gray_void_open_lew_interp, false, puma_dir + "/cpp/test/out/stl/stltest/gray_void_open_lew_interp.stl");
-        //puma::export_STL(&gray_void_closed_lew_interp, false, puma_dir + "/cpp/test/out/stl/stltest/gray_void_closed_lew_interp.stl");
+        //puma::export_STL(&gray_solid_open_lew_interp, false, "cpp/test/out/stl/stltest/gray_solid_open_lew_interp.stl");
+        //puma::export_STL(&gray_solid_closed_lew_interp, false, "cpp/test/out/stl/stltest/gray_solid_closed_lew_interp.stl");
+        //puma::export_STL(&gray_void_open_lew_interp, false, "cpp/test/out/stl/stltest/gray_void_open_lew_interp.stl");
+        //puma::export_STL(&gray_void_closed_lew_interp, false, "cpp/test/out/stl/stltest/gray_void_closed_lew_interp.stl");
 
         if(!assertEquals(63200,gray_solid_open_lew_interp.size(), &result)) {
             return result;
@@ -2099,10 +2099,10 @@ public:
         puma::isosurface_LewinerMarchingCubes(&seg_solid_closed_lew_interp,&segWS,puma::Cutoff(1,1),true,1,true,0);
         puma::isosurface_LewinerMarchingCubes(&seg_void_open_lew_interp,&segWS,puma::Cutoff(0,0),false,1,true,0);
         puma::isosurface_LewinerMarchingCubes(&seg_void_closed_lew_interp,&segWS,puma::Cutoff(0,0),true,1,true,0);
-        //puma::export_STL(&seg_solid_open_lew_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_open_lew_interp.stl");
-        //puma::export_STL(&seg_solid_closed_lew_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_solid_closed_lew_interp.stl");
-        //puma::export_STL(&seg_void_open_lew_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_void_open_lew_interp.stl");
-        //puma::export_STL(&seg_void_closed_lew_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_void_closed_lew_interp.stl");
+        //puma::export_STL(&seg_solid_open_lew_interp, false, "cpp/test/out/stl/stltest/seg_solid_open_lew_interp.stl");
+        //puma::export_STL(&seg_solid_closed_lew_interp, false, "cpp/test/out/stl/stltest/seg_solid_closed_lew_interp.stl");
+        //puma::export_STL(&seg_void_open_lew_interp, false, "cpp/test/out/stl/stltest/seg_void_open_lew_interp.stl");
+        //puma::export_STL(&seg_void_closed_lew_interp, false, "cpp/test/out/stl/stltest/seg_void_closed_lew_interp.stl");
 
         if(!assertEquals(64800,seg_solid_open_lew_interp.size(), &result)) {
             return result;
@@ -2119,7 +2119,7 @@ public:
 
 
 
-        puma::import_3DTiff(&grayWS,puma_dir + "/cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif");
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif");
 
         grayWS.setMaterialID(puma::Cutoff(0,67),0);
         grayWS.setMaterialID(puma::Cutoff(68,127),1);
@@ -2135,10 +2135,10 @@ public:
         puma::isosurface_MarchingCubes(&seg_phase1_closed_interp,&grayWS,puma::Cutoff(1,1),true,1,true,0);
         puma::isosurface_MarchingCubes(&seg_phase2_closed_interp,&grayWS,puma::Cutoff(2,2),true,1,true,0);
         puma::isosurface_MarchingCubes(&seg_phase3_closed_interp,&grayWS,puma::Cutoff(3,3),true,1,true,0);
-        //puma::export_STL(&seg_phase0_closed_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_phase0_closed_interp.stl");
-        //puma::export_STL(&seg_phase1_closed_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_phase1_closed_interp.stl");
-        //puma::export_STL(&seg_phase2_closed_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_phase2_closed_interp.stl");
-        //puma::export_STL(&seg_phase3_closed_interp, false, puma_dir + "/cpp/test/out/stl/stltest/seg_phase3_closed_interp.stl");
+        //puma::export_STL(&seg_phase0_closed_interp, false, "cpp/test/out/stl/stltest/seg_phase0_closed_interp.stl");
+        //puma::export_STL(&seg_phase1_closed_interp, false, "cpp/test/out/stl/stltest/seg_phase1_closed_interp.stl");
+        //puma::export_STL(&seg_phase2_closed_interp, false, "cpp/test/out/stl/stltest/seg_phase2_closed_interp.stl");
+        //puma::export_STL(&seg_phase3_closed_interp, false, "cpp/test/out/stl/stltest/seg_phase3_closed_interp.stl");
 
         if(!assertEquals(65952,seg_phase0_closed_interp.size(), &result)) {
             return result;

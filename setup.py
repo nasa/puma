@@ -45,8 +45,7 @@ except ImportError:
 
 # add PuMA C++ library to the extensions
 # env_dir = os.environ['CONDA_PREFIX']
-# puma_dir = os.environ['PuMA_DIR']
-# src_path = puma_dir + "/cpp/src"
+# src_path = "./cpp/src"
 # include_dirs = [x[0] for x in os.walk(os.path.abspath(src_path))]
 # include_dirs.append(np.get_include())
 # include_dirs.append(env_dir + "/include")
@@ -57,7 +56,7 @@ except ImportError:
 #                           "-Wno-deprecated-register", "-Wno-return-type"]
 # else:  # linux
 #     extra_compile_args = ["-fopenmp", "--std=c++0x"]
-# extensions.append(Extension('pumapy.utilities.libPuMA', sources=[puma_dir+'/python/pumapy/utilities/puma_v3_wrapper.cpp'],
+# extensions.append(Extension('pumapy.utilities.libPuMA', sources=['/python/pumapy/utilities/puma_v3_wrapper.cpp'],
 #                             libraries=["omp", "fftw3", "fftw3_threads"], include_dirs=include_dirs,
 #                             extra_compile_args=extra_compile_args))
 

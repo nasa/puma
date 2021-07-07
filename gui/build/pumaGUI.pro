@@ -5,17 +5,17 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = pumaGUI
 TEMPLATE = app
-target.path = $$(PREFIX)/bin
+target.path = $${INSTALL_PREFIX}/bin
 INSTALLS = target
 
-INCLUDEPATH += \"$$(BUILD_PREFIX)/include\"
-INCLUDEPATH += \"$$(BUILD_PREFIX)/include/eigen3/Eigen\"
-INCLUDEPATH += \"$$(PREFIX)/include\"
+INCLUDEPATH += $${BUILD_PREFIX}/include
+INCLUDEPATH += $${BUILD_PREFIX}/include/eigen3/Eigen
+INCLUDEPATH += $${INSTALL_PREFIX}/include
 
-LIBS += -L\"$$(BUILD_PREFIX)/lib\" -ltiff -lfftw3_threads -lfftw3 -lomp 
-LIBS += -L\"$$(PREFIX)/lib\" -lPuMA
+LIBS += -L$${BUILD_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3 -lomp 
+LIBS += -L$${INSTALL_PREFIX}/lib -lPuMA
 
-QMAKE_RPATHDIR += $$(PREFIX)/lib
+QMAKE_RPATHDIR += $${INSTALL_PREFIX}/lib
 QMAKE_CXXFLAGS += --std=c++0x
 
 SOURCES += \

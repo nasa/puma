@@ -1879,7 +1879,7 @@ public:
         TestResult result(suiteName, testName, 61, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif");
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif");
 
         grayWS.setMaterialID(&grayWS,puma::Cutoff(0,89),0);
         grayWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1919,7 +1919,7 @@ public:
         TestResult result(suiteName, testName, 62, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif");
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif");
 
         puma::Matrix<double> T;
         std::map<int, double> matCond;
