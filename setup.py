@@ -88,7 +88,6 @@ setup(
     setup_requires=[
                     "setuptools",
                     "wheel",
-                    "cython", 
                     "numpy",
     ],
     install_requires=[
