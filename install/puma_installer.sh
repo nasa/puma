@@ -29,7 +29,7 @@ chmod +x ../cpp/test/createCMakeLists_test.sh
 # build and install PuMA
 mkdir -p cmake-build-release
 cd cmake-build-release
-cmake -D BUILD_PREFIX=$CONDA_PREFIX \
+cmake -D CONDA_PREFIX=$CONDA_PREFIX \
       -D CMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
       ../../cpp
 make -j

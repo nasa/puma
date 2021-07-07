@@ -3,10 +3,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 project(initproject) # Name of the project
 
-# importing environment variables
-SET(CONDA_PREFIX "$ENV{CONDA_PREFIX}" CACHE BOOL
-        "Get CONDA_PREFIX." FORCE)
-
 # set cxx flags
 if(APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xpreprocessor -fopenmp --std=c++0x -Wno-format -Wno-literal-conversion -Wno-deprecated-register -Wno-return-type")

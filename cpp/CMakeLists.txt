@@ -33,8 +33,8 @@ MACRO(HEADER_DIRECTORIES return_list)
 ENDMACRO()
 HEADER_DIRECTORIES(HEADERS_DIRS)
 include_directories(${HEADERS_DIRS})
-include_directories(${BUILD_PREFIX}/include)
-include_directories(${BUILD_PREFIX}/include/eigen3/Eigen)
+include_directories(${CONDA_PREFIX}/include)
+include_directories(${CONDA_PREFIX}/include/eigen3/Eigen)
 
 #########################
 # Creating PuMA library #
@@ -45,7 +45,7 @@ add_library(PuMA SHARED ${SOURCES})
 set_target_properties(PuMA PROPERTIES PUBLIC_HEADER "${PUB_HEADERS}")
 
 # Dependencies
-SET(DEP_LIBS "-ldl -L${BUILD_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3")
+SET(DEP_LIBS "-ldl -L${CONDA_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3")
 if(APPLE)
     SET(DEP_LIBS "${DEP_LIBS} -lomp")
 endif()

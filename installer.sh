@@ -37,7 +37,5 @@ echo -e "\nStarting GUI installation.\n"
 chmod +x ./gui_installer.sh
 ./gui_installer.sh
 
-echo -e "\nThe PuMA C++ library, pumapy python package and GUI successfully installed."
-echo -e "To run PuMA's main.cpp, run 'conda activate puma; pumaX_main'."
-echo -e "To open the GUI, run 'conda activate puma; pumaGUI.sh'."
-echo -e "To use pumapy, run 'conda activate puma; python' and then 'import pumapy'.\n"
+echo -e "\nThe PuMA C++ library, pumapy package and pumaGUI successfully installed."
+echo -e "To use any of them, remember to first run 'conda activate puma'"

@@ -7,4 +7,3 @@ eval "$(conda shell.bash hook)"
 
 conda deactivate
 echo -ne '\n' | conda remove --name puma --all
-echo -ne '\n' | conda remove --name pumapy --all

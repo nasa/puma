@@ -56,20 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    QString startPage = QString::fromStdString(".");
-    // startPage.append("/gui/extras/images/StartPage_InvertedBlurred.png");
-
-    pixmap.load(startPage);
-    ui->mainLabel->setPixmap(pixmap.scaledToHeight(600));
-
     ui->menuBar->setNativeMenuBar(false);
-
-    if(pixmap.isNull())
-        std::cout << "Null Pixmap" << std::endl;
-
-    //added so that the startup image loads properly
-    ui->mainLabel->resize(800,600);
-    ui->mainLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
     createActions();
 
