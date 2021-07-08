@@ -1,0 +1,46 @@
+Information on building the windows installer.
+Mostly collated from email correspondence with Martin.
+Jon, May 2009
+
+You need to download & install the Nullsoft scriptable install system (http://nsis.sourceforge.net/Main_Page).  It is necessary to install the 'modern user interface' plugin (check box when installing).
+
+Then you can open TexGen\Installer\texgen.nsi or texgen-bundle.nsi with it (right-click->compile NSIS script).
+The bundle version contains a version of python so that the user doesn't need to install it themselves.
+
+The two .nsi files are text files which basically say which files to package up into the installer and where to extract them to. Normally when I make a new release to put up on sourceforge I'll increment the version number each time, but if you are just wanting to send it off to one person then it's probably not worth it.
+
+Note that if you do change the version number there are a few places you need to change it (also in the source code). I actually wrote a little python script to change the version number in all the right places, it's called SetVersion.py in the root TexGen folder.
+
+There are a load of files which need to be in TexGen\Installer which are not stored with the SVN tree.  These include:
+A copy of the contents of the Program Files\OpenCASCADE6.2.0\ros\win32\bin directory
+Python25.dll (or Python24.dll if compiling against this version for compatibility with Abaqus)
+A copy of the contents of the Python 'lib' directory tree (Program Files\Python25\Lib, no need to include the .pyc files)
+msvcp71.dll & msvcr71.dll - both copied from within the Visual Studio tree
+There are also files copied here when building the 'INSTALL' project in TexGen.sln (TexGenCore.dll, _Renderer.pyd, _Export.pyd, _Core.pyd).
+
+------------------------------------
+About releasing a new version, Martin says:
+
+To release a new version there are quite a few things that need doing:
+- Changing the version number in the installer and source code (using SetVersion.py script I mentioned)
+- Create an SVN branch (There is a branch for each version released, http://texgen.svn.sourceforge.net/viewvc/texgen/TexGen/tags/).
+- Update the change log (http://texgen.svn.sourceforge.net/viewvc/texgen/TexGen/trunk/changelog.txt?view=markup)
+- Create the two installer setup files (texgen and texgen-bundle)
+- Zip all the source code into a tarball
+- Upload the installer + tarball to sourceforge, filling in the changes (same as the changelog.txt)
+
+It usually took me a good few hours to make sure I did everything in the right order (e.g. If you forget to change the version number or discover a bug at the last minute, you've got to start from square one). If you want to do it, I'll probably need to give one of you guys permission to release things on sourceforge and explain in more detail the things that need to be done.
+
+-------------------------------------
+For VS2008 version:
+- Make sure GUI/CMakeLists.txt has manifest files set to Release
+Copy mscvp90.dll and mscvr90.dll to installation directory
+
+-------------------------------------
+For 32/64 bit versions
+Contents of OpenCASCADE6.5.2\ros\win32\vc8\bin directory should be copied into a TexGen\Installer\OpenCascade32bit folder.
+For 64-bit OpenCASCADE needs building.  The VS solution is in OpenCASCADE\ros\adm\win64\vc9.  The dll's will be in OpenCASCADE\ros\win64\vc9\bin.
+These should be copied into a TexGen\Installer\OpenCascade64bit folder. (Some of the projects in the OpenCASCADE build will fail but this doesn't matter - all of the required projects build).
+
+A 64-bit build of Python should be done and the python25.lib and python25.dll copied into TexGen\Installer\Python64bit folder. 
+The contents of the 64 bit Python 'lib' directory tree should be copied into TexGen\Installer\Python64bit\Lib

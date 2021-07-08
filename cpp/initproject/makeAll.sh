@@ -8,5 +8,5 @@ conda activate puma
 # Build and Run
 mkdir -p build
 cd build
-cmake ..
+cmake -D CONDA_PREFIX=$CONDA_PREFIX ..
 make -j

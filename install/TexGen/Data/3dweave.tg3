@@ -1,0 +1,297 @@
+<?xml version="1.0" ?>
+<TexGenModel version="3.0.3">
+    <Textile name="3DWeave(W:8,H:4)" type="CTextileWeave3D" NeedsBuilding="1" NumXYarns="4" NumYYarns="8" GapSize="0" FabricThickness="7" Resolution="20">
+        <Domain type="CDomainPlanes">
+            <Plane Normal="1, 0, 0" d="-2.5" />
+            <Plane Normal="-1, 0, 0" d="-37.5" />
+            <Plane Normal="0, 1, 0" d="-2.5" />
+            <Plane Normal="0, -1, 0" d="-17.5" />
+            <Plane Normal="0, 0, 1" d="-0.35" />
+            <Plane Normal="0, 0, -1" d="-7.35" />
+        </Domain>
+        <PatternCell x="0" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="1" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="2" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="3" y="0">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="4" y="0">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="5" y="0">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="6" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="7" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="0" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="1" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="2" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="3" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="4" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="5" y="1">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="6" y="1">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="7" y="1">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="0" y="2">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="1" y="2">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="2" y="2">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="3" y="2">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="4" y="2">
+            <PatternElement value="0" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="5" y="2">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="6" y="2">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="7" y="2">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="0" y="3">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="1" y="3">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="2" y="3">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="3" y="3">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="4" y="3">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="5" y="3">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="6" y="3">
+            <PatternElement value="0" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="7" y="3">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <XYarnData index="0" Width="4" Height="1" Spacing="5" />
+        <XYarnData index="1" Width="4" Height="1" Spacing="5" />
+        <XYarnData index="2" Width="4" Height="1" Spacing="5" />
+        <XYarnData index="3" Width="4" Height="1" Spacing="5" />
+        <YYarnData index="0" Width="4" Height="1" Spacing="5" />
+        <YYarnData index="1" Width="4" Height="1" Spacing="5" />
+        <YYarnData index="2" Width="4" Height="1" Spacing="5" />
+        <YYarnData index="3" Width="4" Height="1" Spacing="5" />
+        <YYarnData index="4" Width="4" Height="1" Spacing="5" />
+        <YYarnData index="5" Width="4" Height="1" Spacing="5" />
+        <YYarnData index="6" Width="4" Height="1" Spacing="5" />
+        <YYarnData index="7" Width="4" Height="1" Spacing="5" />
+    </Textile>
+</TexGenModel>

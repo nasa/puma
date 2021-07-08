@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<TexGenModel version="3.2.1">
+    <Textile name="2DWeave(W:2,H:2)" GeometryScale="mm" type="CTextileWeave2D" NeedsBuilding="0" NumXYarns="2" NumYYarns="2" GapSize="0" FabricThickness="0.2" Resolution="20" Refine="0">
+        <Domain type="CDomainPlanes">
+            <Plane Normal="1, 0, 0" d="-0.5" />
+            <Plane Normal="-1, 0, 0" d="-1.5" />
+            <Plane Normal="0, 1, 0" d="-0.5" />
+            <Plane Normal="0, -1, 0" d="-1.5" />
+            <Plane Normal="0, 0, 1" d="-0.01" />
+            <Plane Normal="0, 0, -1" d="-0.21" />
+        </Domain>
+        <Yarn index="0" NumSlaveNodes="26" NumSectionPoints="20" NeedsBuilding="7">
+            <Interpolation Periodic="1" ForceInPlaneTangent="0" type="CInterpolationBezier" />
+            <YarnSection type="CYarnSectionConstant">
+                <Section type="CSectionEllipse" NeedsMeshing="1" Width="0.8" Height="0.1" />
+            </YarnSection>
+            <FibreDistribution type="CFibreDistributionConst" />
+            <Repeat value="2, 0, 0" />
+            <Repeat value="0, 2, 0" />
+            <MasterNode index="0" Position="0, 0, 0.05" Tangent="1, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="1" Position="1, 0, 0.15" Tangent="1, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="2" Position="2, 0, 0.05" Tangent="1, 0, 0" Up="0, 0, 1" />
+        </Yarn>
+        <Yarn index="1" NumSlaveNodes="26" NumSectionPoints="20" NeedsBuilding="7">
+            <Interpolation Periodic="1" ForceInPlaneTangent="0" type="CInterpolationBezier" />
+            <YarnSection type="CYarnSectionConstant">
+                <Section type="CSectionEllipse" NeedsMeshing="1" Width="0.8" Height="0.1" />
+            </YarnSection>
+            <FibreDistribution type="CFibreDistributionConst" />
+            <Repeat value="2, 0, 0" />
+            <Repeat value="0, 2, 0" />
+            <MasterNode index="0" Position="0, 1, 0.15" Tangent="1, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="1" Position="1, 1, 0.05" Tangent="1, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="2" Position="2, 1, 0.15" Tangent="1, 0, 0" Up="0, 0, 1" />
+        </Yarn>
+        <Yarn index="2" NumSlaveNodes="26" NumSectionPoints="20" NeedsBuilding="7">
+            <Interpolation Periodic="1" ForceInPlaneTangent="0" type="CInterpolationBezier" />
+            <YarnSection type="CYarnSectionConstant">
+                <Section type="CSectionEllipse" NeedsMeshing="1" Width="0.8" Height="0.1" />
+            </YarnSection>
+            <FibreDistribution type="CFibreDistributionConst" />
+            <Repeat value="2, 0, 0" />
+            <Repeat value="0, 2, 0" />
+            <MasterNode index="0" Position="0, 0, 0.15" Tangent="0, 1, 0" Up="0, 0, 1" />
+            <MasterNode index="1" Position="0, 1, 0.05" Tangent="0, 1, 0" Up="0, 0, 1" />
+            <MasterNode index="2" Position="0, 2, 0.15" Tangent="0, 1, 0" Up="0, 0, 1" />
+        </Yarn>
+        <Yarn index="3" NumSlaveNodes="26" NumSectionPoints="20" NeedsBuilding="7">
+            <Interpolation Periodic="1" ForceInPlaneTangent="0" type="CInterpolationBezier" />
+            <YarnSection type="CYarnSectionConstant">
+                <Section type="CSectionEllipse" NeedsMeshing="1" Width="0.8" Height="0.1" />
+            </YarnSection>
+            <FibreDistribution type="CFibreDistributionConst" />
+            <Repeat value="2, 0, 0" />
+            <Repeat value="0, 2, 0" />
+            <MasterNode index="0" Position="1, 0, 0.05" Tangent="0, 1, 0" Up="0, 0, 1" />
+            <MasterNode index="1" Position="1, 1, 0.15" Tangent="0, 1, 0" Up="0, 0, 1" />
+            <MasterNode index="2" Position="1, 2, 0.05" Tangent="0, 1, 0" Up="0, 0, 1" />
+        </Yarn>
+        <PatternCell x="0" y="0">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="1" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="0" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="1" y="1">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <XYarnData index="0" Width="0.8" Height="0.1" Spacing="1" />
+        <XYarnData index="1" Width="0.8" Height="0.1" Spacing="1" />
+        <YYarnData index="0" Width="0.8" Height="0.1" Spacing="1" />
+        <YYarnData index="1" Width="0.8" Height="0.1" Spacing="1" />
+        <XYarns index="0">
+            <XYarn yarnindex="0" />
+        </XYarns>
+        <XYarns index="1">
+            <XYarn yarnindex="1" />
+        </XYarns>
+        <YYarns index="0">
+            <YYarn yarnindex="2" />
+        </YYarns>
+        <YYarns index="1">
+            <YYarn yarnindex="3" />
+        </YYarns>
+    </Textile>
+</TexGenModel>

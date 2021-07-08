@@ -47,7 +47,8 @@ main.py
 .ipynb_checkpoints
 
 # pumapy
-install/TexGen
+install/TexGen/bin
+install/TexGen/install
 python/pumapy/generation/weave_3mdcp
 _trial_temp*
 

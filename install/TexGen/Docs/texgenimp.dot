@@ -1,0 +1,116 @@
+digraph G
+{
+	size = "7.5, 10"
+	ratio = "compress"
+	ranksep = "0.4";
+	graph [ dpi = 300 ];
+	
+	// Inherited
+	edge [arrowtail=empty, arrowhead=none, fontsize="16"];
+	node [shape="box", fontsize="16"]
+
+	CDomain->CDomainPlanes;
+
+	CTextile->CTextileWeave;
+	CTextile->CTextile3DWeave;
+	CTextile->CTextileLayered;
+	CTextileWeave->CTextileWeave2D;
+	CTextileWeave->CTextileWeave3D;
+	CTextileWeave2D->CShearedTextileWeave2D;
+	CTextile3DWeave->CTextileOrthogonal;
+	CTextile3DWeave->CTextileAngleInterlock;
+	CTextile3DWeave->CTextileOffsetAngleInterlock;
+	CTextile3DWeave->CTextileLayerToLayer;
+
+	CYarnSection->CYarnSectionConstant;
+	CYarnSection->CYarnSectionInterp;
+	CYarnSectionInterp->CYarnSectionInterpNode;
+	CYarnSectionInterp->CYarnSectionInterpPosition;
+
+	CInterpolation->CInterpolationBezier;
+	CInterpolation->CInterpolationCubic;
+
+	CLogger->CLoggerScreen;
+	CLogger->CLoggerGUI;
+
+	CSection->CSectionBezier;
+	CSection->CSectionEllipse;
+	CSection->CSectionHybrid;
+	CSection->CSectionLenticular;
+	CSection->CSectionPolygon;
+	CSection->CSectionPowerEllipse;
+
+	CNode->CSlaveNode;
+
+	// Contained
+	edge [arrowtail=diamond, arrowhead=open];
+
+	CDomainPlanes->PLANE  [headlabel="    *"];
+	
+	CTexGen -> CLogger;
+	CTexGen -> CTextile [headlabel="    *"];
+	CTexGen -> CDomain [headlabel="    *"];
+	CTextile -> CYarn [headlabel="    *"];
+	CYarn -> CYarnSection;
+	CYarn -> CNode [headlabel="    *", label="MasterNodes"];
+	CYarn -> CSlaveNode [headlabel="    *", label="SlaveNodes"];
+	CYarn -> CInterpolation;
+	CYarnSectionInterp -> CSection [headlabel="    *"];
+	CYarnSectionConstant -> CSection;
+//	CYarnSection -> CSection [headlabel="    *"];
+	
+	// Dependency
+	edge [arrowtail=open, arrowhead=none, style="dashed", constraint=true];
+	CNode->CInterpolation;
+	CInterpolation->CSlaveNode;
+	CYarnSection->CSlaveNode;
+	
+	// Structs
+	PLANE [style=dashed]
+
+
+	// Class colors
+	CTexGen [style=filled, fillcolor="palegreen"]
+
+	CTextile [style=filled, fillcolor="peachpuff"]
+	CTextileWeave [style=filled, fillcolor="peachpuff"]
+	CTextileWeave2D [style=filled, fillcolor="peachpuff"]
+	CTextileWeave3D [style=filled, fillcolor="peachpuff"]
+	CShearedTextileWeave2D [style=filled, fillcolor="peachpuff"]
+	CTextile3DWeave [style=filled, fillcolor="peachpuff"]
+	CTextileOrthogonal [style=filled, fillcolor="peachpuff"]
+	CTextileAngleInterlock [style=filled, fillcolor="peachpuff"]
+	CTextileOffsetAngleInterlock [style=filled, fillcolor="peachpuff"]
+	CTextileLayerToLayer [style=filled, fillcolor="peachpuff"]
+	CTextileLayered [style=filled, fillcolor="peachpuff"]
+	
+	CYarnSection [style=filled, fillcolor="lightblue"]
+	CYarnSectionConstant [style=filled, fillcolor="lightblue"]
+	CYarnSectionInterp [style=filled, fillcolor="lightblue"]
+	CYarnSectionInterpNode [style=filled, fillcolor="lightblue"]
+	CYarnSectionInterpPosition [style=filled, fillcolor="lightblue"]
+
+	CInterpolation [style=filled, fillcolor="plum"]
+	CInterpolationBezier [style=filled, fillcolor="plum"]
+	CInterpolationCubic [style=filled, fillcolor="plum"]
+
+	CSection [style=filled, fillcolor="khaki"]
+	CSectionBezier [style=filled, fillcolor="khaki"]
+	CSectionEllipse [style=filled, fillcolor="khaki"]
+	CSectionHybrid [style=filled, fillcolor="khaki"]
+	CSectionLenticular [style=filled, fillcolor="khaki"]
+	CSectionPolygon [style=filled, fillcolor="khaki"]
+	CSectionPowerEllipse [style=filled, fillcolor="khaki"]
+
+	CYarn [style=filled, fillcolor="mediumpurple1"]
+
+	CNode [style=filled, fillcolor="mediumaquamarine"]
+	CSlaveNode [style=filled, fillcolor="mediumaquamarine"]
+
+	CDomain [style=filled, fillcolor="indianred1"]
+	CDomainPlanes [style=filled, fillcolor="indianred1"]
+
+	CLogger [style=filled, fillcolor="ivory"]
+	CLoggerScreen [style=filled, fillcolor="ivory"]
+	CLoggerGUI [style=filled, fillcolor="ivory"]
+}

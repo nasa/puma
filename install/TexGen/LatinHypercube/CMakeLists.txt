@@ -1,0 +1,1 @@
+ADD_LIBRARY(LatinHypercube STATIC latin_random.cpp latin_random.hpp)

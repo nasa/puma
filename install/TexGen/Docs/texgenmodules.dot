@@ -1,0 +1,47 @@
+digraph G
+{
+	compound=true
+	node [shape="box"]
+	subgraph cluster0
+	{
+		style = "filled"
+		fillcolor = "palegreen"
+		label = "TexGen"
+		Renderer -> Core [constraint=false]
+		Export -> Core [constraint=false]
+		GUI -> Core
+		GUI -> Renderer
+		GUI -> Interface:f0
+		Interface:f1 -> Core
+		Interface:f2 -> Export
+        Interface:f3 -> Renderer
+		Interface [shape=record, label="{<f0>Python Interface|{<f1>Core|<f2>Export|<f3>Renderer}}"]
+
+		Core [style=filled, fillcolor="peachpuff"]
+		GUI [style=filled, fillcolor="lightblue"]
+		Renderer [style=filled, fillcolor="khaki"]
+		Interface [style=filled, fillcolor="ivory"]
+		Export [style=filled, fillcolor="azure2"]
+	}
+	Export -> OpenCASCADE
+	Core -> Octree
+	Core -> Triangle
+	Core -> TinyXML
+	Core -> Tetgen
+	Core -> p4est
+	Renderer -> VTK
+	Interface:f0 -> Python [constraint=false]
+	GUI -> wxWidgets [constraint=false]
+	GUI -> Python
+	Octree [label="HXA7241 Octree"]
+
+	Octree [style=filled, fillcolor="peachpuff"]
+	Triangle [style=filled, fillcolor="peachpuff"]
+	TinyXML [style=filled, fillcolor="peachpuff"]
+	Tetgen [style=filled, fillcolor="peachpuff"]
+	p4est [style=filled, fillcolor="peachpuff"]
+	VTK [style=filled, fillcolor="khaki"]
+	Python [style=filled, fillcolor="ivory"]
+	wxWidgets [style=filled, fillcolor="lightblue"]
+	OpenCASCADE [style=filled, fillcolor="azure2"]
+}
