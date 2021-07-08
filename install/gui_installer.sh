@@ -9,6 +9,7 @@ conda activate puma
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	VAR=$(conda list mesa-libgl-cos6-x86_64)
 	if [[ $VAR != *"mesa-libgl-cos6-x86_64"* ]]; then
+		conda config --add channels conda-forge
 	    conda install -y mesa-libgl-cos6-x86_64==11.0.7
 	fi
 	FILE="$CONDA_PREFIX"/x86_64-conda-linux-gnu/sysroot/usr/lib64/libGL.so.1

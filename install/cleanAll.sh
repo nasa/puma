@@ -10,7 +10,7 @@ rm -rf cmake-build-debug
 rm $CONDA_PREFIX/bin/puma*
 rm $CONDA_PREFIX/lib/libPuMA*
 rm $CONDA_PREFIX/lib/libTexGenCore*
-rm -rf TexGen
+rm -rf TexGen/bin
 rm -rf miniconda
 cd ..
 
