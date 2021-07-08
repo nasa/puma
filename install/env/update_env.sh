@@ -7,7 +7,6 @@ echo "Installing conda-lock"
 echo -ne '\n' | conda install -c conda-forge conda-lock  # install conda-lock in base
 
 cd recipes
-env=$1  # input conda env to update
 python update_env.py -i puma_env.yml.meta -q -p  # this only creates .yml
 
 cd ..
