@@ -1,0 +1,90 @@
+{% set name = "puma" %}
+{% set version = "3.0.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://gitlab.com/fsemerar/puma-dev/-/archive/main/puma-dev-main.tar.gz
+  sha256: b3973a7b0173219b3afb3c070bcdb39b3dcf7e25e50414ecc78feea5142bf8b7
+
+build:
+  skip: True  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - python
+    - setuptools
+    - cython
+    - numpy
+    - cmake
+    - make
+    - eigen
+    - fftw
+    - openmp
+    - libtiff==4.1.0
+    - swig
+    - pyqt
+    - mesa-libgl-cos6-x86_64  # [linux]
+  host:
+    - python
+    - numpy
+    - scipy
+    - scikit-image
+    - scikit-umfpack
+    - matplotlib
+    - ipympl
+    - pyevtk
+    - visvis
+    - eigen
+    - fftw
+    - openmp
+    - libtiff
+    - pyqt
+    - paraview==5.7.0  # [osx]
+    - paraview==5.8.1  # [linux]
+    - fenics-dolfin
+  run:
+    - python
+    - numpy
+    - scipy
+    - scikit-image
+    - scikit-umfpack
+    - matplotlib
+    - ipympl
+    - pyevtk
+    - visvis
+    - eigen
+    - fftw
+    - openmp
+    - libtiff
+    - pyqt
+    - paraview==5.7.0  # [osx]
+    - paraview==5.8.1  # [linux]
+    - fenics-dolfin
+
+test:
+  imports:
+    - TexGen.Core
+    - dolfin
+    - paraview.simple
+    - pumapy
+  source_files:
+    - python/tests/*.py
+
+about:
+  home: https://github.com/nasa/puma
+  license: NASA Open Source
+  license_file: LICENSE_2021.pdf
+  summary: 'A package to compute material properties from micro-CT data.'
+  description: |
+    puma description.
+  doc_url: https://puma-nasa.readthedocs.io/
+  dev_url: https://github.com/nasa/puma
+
+extra:
+  recipe-maintainers:
+    - fsemerar
