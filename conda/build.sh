@@ -19,9 +19,6 @@ rm ${PREFIX}/bin/pumaX_main
 
 
 # TexGen
-if [ ! -d "./TexGen" ]; then
-    git clone --single-branch --branch py3 https://github.com/fsemerar/TexGen.git
-fi
 cd TexGen
 mkdir -p bin
 cd bin

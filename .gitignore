@@ -48,7 +48,6 @@ main.py
 
 # pumapy
 install/TexGen/bin
-install/TexGen/install
 python/pumapy/generation/weave_3mdcp
 _trial_temp*
 

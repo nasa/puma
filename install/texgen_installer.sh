@@ -6,10 +6,6 @@ eval "$(conda shell.bash hook)"
 # this env activation only lasts inside bash script
 conda activate puma
 
-if [ ! -d "./TexGen" ]; then
-    git clone --single-branch --branch py3 https://github.com/fsemerar/TexGen.git
-fi
-
 cd TexGen
 mkdir -p bin
 cd bin
@@ -28,14 +24,14 @@ fi
 
 # compilation options
 cmake -D BUILD_PYTHON_INTERFACE=ON \
-      -D CMAKE_INSTALL_PREFIX=../install \
+      -D CMAKE_INSTALL_PREFIX="$CONDA_PREFIX" \
       -D PYTHON_INCLUDE_DIR="$CONDA_PREFIX"/include/python3.$PY_VERSION_M \
       -D PYTHON_LIBRARY="$CONDA_PREFIX"/lib/libpython3.$PY_VERSION_M.$EXT \
       -D PYTHON_SITEPACKAGES_DIR="$CONDA_PREFIX"/lib/python3.$PY_VERSION/site-packages \
       -D BUILD_GUI=OFF \
       -D BUILD_RENDERER=OFF \
       -D CMAKE_MACOSX_RPATH=ON \
-      -D CMAKE_INSTALL_RPATH="TexGen/install/lib" \
+      -D CMAKE_INSTALL_RPATH="$CONDA_PREFIX"/lib \
       -D BUILD_SHARED_LIBS=OFF \
       ..
 
