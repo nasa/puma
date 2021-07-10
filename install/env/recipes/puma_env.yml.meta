@@ -4,11 +4,25 @@ channels:
 - conda-forge
 - defaults
 dependencies:
-- conda-forge::clangdev==8.0.1 [platform == darwin]
+- python==3.7.4
+- pip==21.0.1
+- numpy>=1.20.0
+- scipy==1.6.2
+- cython==0.29.22
+- scikit-image==0.17.2
+- scikit-umfpack==0.3.2
+- matplotlib==3.3.4
+- ipympl==0.7.0
+- pyevtk==1.2.0
+- paraview==5.7.0 [platform == darwin]
+- paraview==5.8.1 [platform == linux]
+- jupyterlab==2.1.0
+- visvis==1.13.0
 - openmp==8.0.1
 - fftw==3.3.9
 - eigen==3.3.7
+- swig==4.0.2
 - cmake==3.14.0
-- libtiff==4.1.0
-- conda-forge::qt==5.12.5
+- pyqt==5.9.2 [platform == darwin]
+- fenics-dolfin==2019.1.0
 - mesa-libgl-cos6-x86_64==11.0.7 [platform == linux]

@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<TexGenModel version="3.0.3">
+    <Textile name="cotton" type="CTextile" NeedsBuilding="0">
+        <Domain type="CDomainPlanes">
+            <Plane Normal="1, 0, 0" d="0" />
+            <Plane Normal="-1, 0, 0" d="-0.7" />
+            <Plane Normal="0, 1, 0" d="0" />
+            <Plane Normal="0, -1, 0" d="-0.7" />
+            <Plane Normal="0, 0, 1" d="-0.1" />
+            <Plane Normal="0, 0, -1" d="-0.25" />
+        </Domain>
+        <Yarn index="0" NumSlaveNodes="10" NumSectionPoints="8" NeedsBuilding="7">
+            <Interpolation Periodic="1" type="CInterpolationCubic" />
+            <YarnSection type="CYarnSectionConstant">
+                <Section type="CSectionLenticular" NeedsMeshing="1" Width="0.3" Height="0.14" Distortion="0" />
+            </YarnSection>
+            <Repeat value="0.7, 0, 0" />
+            <Repeat value="0, 0.7, 0" />
+            <MasterNode index="0" Position="0, 0, 0" Tangent="0, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="1" Position="0.35, 0, 0.15" Tangent="0, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="2" Position="0.7, 0, 0" Tangent="0, 0, 0" Up="0, 0, 1" />
+        </Yarn>
+        <Yarn index="1" NumSlaveNodes="10" NumSectionPoints="8" NeedsBuilding="7">
+            <Interpolation Periodic="1" type="CInterpolationCubic" />
+            <YarnSection type="CYarnSectionConstant">
+                <Section type="CSectionLenticular" NeedsMeshing="1" Width="0.3" Height="0.14" Distortion="0" />
+            </YarnSection>
+            <Repeat value="0.7, 0, 0" />
+            <Repeat value="0, 0.7, 0" />
+            <MasterNode index="0" Position="0, 0.35, 0.15" Tangent="0, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="1" Position="0.35, 0.35, 0" Tangent="0, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="2" Position="0.7, 0.35, 0.15" Tangent="0, 0, 0" Up="0, 0, 1" />
+        </Yarn>
+        <Yarn index="2" NumSlaveNodes="10" NumSectionPoints="8" NeedsBuilding="7">
+            <Interpolation Periodic="1" type="CInterpolationCubic" />
+            <YarnSection type="CYarnSectionConstant">
+                <Section type="CSectionLenticular" NeedsMeshing="1" Width="0.3" Height="0.14" Distortion="0" />
+            </YarnSection>
+            <Repeat value="0.7, 0, 0" />
+            <Repeat value="0, 0.7, 0" />
+            <MasterNode index="0" Position="0, 0, 0.15" Tangent="0, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="1" Position="0, 0.35, 0" Tangent="0, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="2" Position="0, 0.7, 0.15" Tangent="0, 0, 0" Up="0, 0, 1" />
+        </Yarn>
+        <Yarn index="3" NumSlaveNodes="10" NumSectionPoints="8" NeedsBuilding="7">
+            <Interpolation Periodic="1" type="CInterpolationCubic" />
+            <YarnSection type="CYarnSectionConstant">
+                <Section type="CSectionLenticular" NeedsMeshing="1" Width="0.3" Height="0.14" Distortion="0" />
+            </YarnSection>
+            <Repeat value="0.7, 0, 0" />
+            <Repeat value="0, 0.7, 0" />
+            <MasterNode index="0" Position="0.35, 0, 0" Tangent="0, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="1" Position="0.35, 0.35, 0.15" Tangent="0, 0, 0" Up="0, 0, 1" />
+            <MasterNode index="2" Position="0.35, 0.7, 0" Tangent="0, 0, 0" Up="0, 0, 1" />
+        </Yarn>
+    </Textile>
+</TexGenModel>

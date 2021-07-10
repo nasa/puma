@@ -56,22 +56,28 @@ void Visualization::launchPython(int visType)
         lowVoid = bound;
     }
 
-    QString dir = QString::fromStdString(std::getenv("PuMA_DIR"));
-    dir.append("/gui/src/pyscripts/");
-
     // export vtk file to visualize
-    QString fileName = dir;
-    fileName.append("gui-ws.vtk");
-    puma::export_vtk(workspace, fileName.toStdString());
+    bool check = puma::export_vtk(workspace, "tmp-gui-ws.vtk");
 
-    QStringList args = QStringList() << dir + "access_pumapy.sh";
+    if (!check){
+        std::cout << "Workspace is empty, need to create it first." << std::endl;
+        return;
+    }
 
-    // change it to the arguments to be run after "python"
-   args << dir + "vis.py" << QString::number(lowVoid) << QString::number(highVoid) << QString::number(visType) ;
+    // Python script
+    std::string python_commands;
+    python_commands += "import pumapy as puma;";
+    python_commands += "ws = puma.import_vti('tmp-gui-ws.vtk');";
+    python_commands += "cutoff = (" + std::to_string(lowVoid) + ", " + std::to_string(highVoid) + ");";
+    if (visType == 1){
+        python_commands += "puma.render_contour(ws, cutoff, color=False, background=(1, 1, 1));";
+    } else{
+        python_commands += "puma.render_volume(ws, cutoff, color=False, background=(1, 1, 1));";
+    }    
 
     QProcess p;
-    p.setWorkingDirectory(dir);
-    int exitCode = p.execute("/bin/bash", args);
+    QStringList arguments = QStringList() << "-c" << QString::fromStdString(python_commands);
+    int exitCode = p.execute("python", arguments);
 }
 
 void Visualization::on_visContourButton_clicked()

@@ -20,7 +20,6 @@ public:
     int numTests();
     void addTest(test t);
     std::string testSuiteName;
-    static std::string puma_dir;
 
 protected:
 

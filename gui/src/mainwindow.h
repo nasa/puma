@@ -80,7 +80,6 @@ private slots:
     void on_updateVoxelLength_Button_clicked();
     void on_actionVisualization_triggered();
 
-    void on_actionPuMApy_triggered();
 
 private:
     Ui::MainWindow *ui;

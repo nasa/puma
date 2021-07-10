@@ -286,12 +286,12 @@ public:
 
         std::cout << "Time: " << t.elapsed() << std::endl;
 
-        puma::export_3DTiff(&sphereWS,SubTest::puma_dir+"/cpp/test/out/tiff/Generate_RandomSpheres_Test11.tif",false);
+        puma::export_3DTiff(&sphereWS,"cpp/test/out/tiff/Generate_RandomSpheres_Test11.tif",false);
 
         std::vector<puma::Triangle<float> > Triangles;
         puma::isosurface_MarchingCubes(&Triangles,&sphereWS,puma::Cutoff(128,255),true,1,false,40);
 
-        Export_STL test(&Triangles,false,SubTest::puma_dir+"/cpp/test/out/stl/Generate_RandomSpheres_Test11.stl");
+        Export_STL test(&Triangles,false,"cpp/test/out/stl/Generate_RandomSpheres_Test11.stl");
 
         //making sure that the value in "success" is false.
         //in assert equals, first value is expected, second value is actual, and third is the testResult
@@ -322,12 +322,12 @@ public:
 
         std::cout << "Time: " << t.elapsed() << std::endl;
 
-        puma::export_3DTiff(&sphereWS,SubTest::puma_dir+"/cpp/test/out/tiff/Generate_RandomSpheres_Test12.tif",false);
+        puma::export_3DTiff(&sphereWS,"cpp/test/out/tiff/Generate_RandomSpheres_Test12.tif",false);
 
         std::vector<puma::Triangle<float> > Triangles;
         puma::isosurface_MarchingCubes(&Triangles,&sphereWS,puma::Cutoff(128,255),true,1,false);
 
-        Export_STL test(&Triangles,false,SubTest::puma_dir+"/cpp/test/out/stl/Generate_RandomSpheres_Test12.stl");
+        Export_STL test(&Triangles,false,"cpp/test/out/stl/Generate_RandomSpheres_Test12.stl");
 
         //making sure that the value in "success" is false.
         //in assert equals, first value is expected, second value is actual, and third is the testResult
@@ -358,12 +358,12 @@ public:
 
         std::cout << "Time: " << t.elapsed() << std::endl;
 
-        puma::export_3DTiff(&sphereWS,SubTest::puma_dir+"/cpp/test/out/tiff/Generate_RandomSpheres_Test13.tif",false);
+        puma::export_3DTiff(&sphereWS,"cpp/test/out/tiff/Generate_RandomSpheres_Test13.tif",false);
 
         std::vector<puma::Triangle<float> > Triangles;
         puma::isosurface_MarchingCubes(&Triangles,&sphereWS,puma::Cutoff(128,255),true,1,false);
 
-        Export_STL test(&Triangles,false,SubTest::puma_dir+"/cpp/test/out/stl/Generate_RandomSpheres_Test13.stl");
+        Export_STL test(&Triangles,false,"cpp/test/out/stl/Generate_RandomSpheres_Test13.stl");
 
         //making sure that the value in "success" is false.
         //in assert equals, first value is expected, second value is actual, and third is the testResult

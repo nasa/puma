@@ -305,7 +305,7 @@ public:
         TestResult result(suiteName, testName, 12, testDescription);
 
         puma::Workspace segWS(1300,1300,1300,0,1e-6,false);
-        puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/tiff/segWS/1300_Spheres.tif");
+        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/1300_Spheres.tif");
 
         puma::Vec3<double> mil = puma::compute_MeanInterceptLength(&segWS,puma::Cutoff(0,0));
 
@@ -329,7 +329,7 @@ public:
         TestResult result(suiteName, testName, 13, testDescription);
 
         puma::Workspace segWS(130,130,130,0,1e-6,false);
-        puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/tiff/segWS/1300_Spheres.tif",0,130,0,130,0,130);
+        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/1300_Spheres.tif",0,130,0,130,0,130);
 
         puma::Vec3<double> mil = puma::compute_MeanInterceptLength(&segWS,puma::Cutoff(0,0));
 
@@ -353,7 +353,7 @@ public:
         TestResult result(suiteName, testName, 14, testDescription);
 
         puma::Workspace segWS(200,200,200,0,1e-6,false);
-        puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/tiff/segWS/200_FiberForm.tif");
+        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif");
 
         puma::Vec3<double> mil = puma::compute_MeanInterceptLength(&segWS,puma::Cutoff(0,0));
 
@@ -377,7 +377,7 @@ public:
         TestResult result(suiteName, testName, 15, testDescription);
 
         puma::Workspace grayWS(200,200,200,0,1e-6,false);
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif");
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif");
 
         puma::Vec3<double> mil = puma::compute_MeanInterceptLength(&grayWS,puma::Cutoff(0,89));
 

@@ -56,20 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    QString startPage = QString::fromStdString(std::getenv("PuMA_DIR"));
-    startPage.append("/gui/extras/images/StartPage_InvertedBlurred.png");
-
-    pixmap.load(startPage);
-    ui->mainLabel->setPixmap(pixmap.scaledToHeight(600));
-
     ui->menuBar->setNativeMenuBar(false);
-
-    if(pixmap.isNull())
-        std::cout << "Null Pixmap" << std::endl;
-
-    //added so that the startup image loads properly
-    ui->mainLabel->resize(800,600);
-    ui->mainLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
     createActions();
 
@@ -154,7 +141,7 @@ Import menu tab. The drop down menu-items include:
 Import -> 3D Tiff
  ////////////////////////////////////////////////////////////////*/
 void MainWindow::action_EntireImage_Triggered() {
-    std::string fileName_Tiff = QFileDialog::getOpenFileName(this,"Location of 3D Tiff File", std::getenv("PuMA_DIR")).toStdString();
+    std::string fileName_Tiff = QFileDialog::getOpenFileName(this,"Location of 3D Tiff File", ".").toStdString();
 
     if(puma::import_3DTiff(&workspace,fileName_Tiff,0)){
         view.setTomographySlice(0);
@@ -172,7 +159,7 @@ Import -> 3D Raw (binary)
 ////////////////////////////////////////////////////////////////*/
 void MainWindow::on_action3D_Raw_triggered()
 {
-    std::string fileName_bin= QFileDialog::getOpenFileName(this,"Location of PuMA File", std::getenv("PuMA_DIR")).toStdString();
+    std::string fileName_bin= QFileDialog::getOpenFileName(this,"Location of PuMA File", ".").toStdString();
     puma::import_bin(&workspace,fileName_bin,0);
     view.setTomographySlice(0);
 }
@@ -198,7 +185,7 @@ void MainWindow::action_Export3DTiff_Triggered() {
     }
     std::cout << "Label 1.01" << std::endl;
 
-    std::string fileName_Tiff = QFileDialog::getSaveFileName(this,"Export File Name", std::getenv("PuMA_DIR")).toStdString();
+    std::string fileName_Tiff = QFileDialog::getSaveFileName(this,"Export File Name", ".").toStdString();
 
     puma::export_3DTiff(&workspace,fileName_Tiff, false);
 }
@@ -211,7 +198,7 @@ void MainWindow::on_action3D_Raw_Export_triggered()
     if(workspace.size() == 0 ) {
         return;
     }
-    std::string fileName_Binary = QFileDialog::getSaveFileName(this,"Export File Name", std::getenv("PuMA_DIR")).toStdString();
+    std::string fileName_Binary = QFileDialog::getSaveFileName(this,"Export File Name", ".").toStdString();
     if(fileName_Binary != "") {
         puma::export_bin(&workspace,fileName_Binary);
     }
@@ -241,7 +228,7 @@ void MainWindow::on_actionVTK_Export_triggered()
     if(workspace.size() == 0 ) {
         return;
     }
-    std::string fileName_VTK = QFileDialog::getSaveFileName(this,"Export File Name", std::getenv("PuMA_DIR")).toStdString();
+    std::string fileName_VTK = QFileDialog::getSaveFileName(this,"Export File Name", ".").toStdString();
 
     if(fileName_VTK != "") {
         puma::export_vtk(&workspace,fileName_VTK);
@@ -638,23 +625,3 @@ void MainWindow::on_actionVisualization_triggered()
     visWindow->setWorkspace(&workspace);
     visWindow->show();
 }
-
-
-void MainWindow::on_actionPuMApy_triggered()
-{
-    QString dir = QString::fromStdString(std::getenv("PuMA_DIR"));
-    dir.append("/gui/src/pyscripts/");
-
-    // export vtk file
-    QString fileName = dir;
-    fileName.append("gui-ws.vtk");
-    puma::export_vtk(&workspace, fileName.toStdString());
-
-    QStringList args = QStringList() << dir + "access_pumapy.sh";
-    QProcess p;
-    p.setWorkingDirectory(dir);
-    int exitCode = p.execute("/bin/bash", args);
-}
-
-
-

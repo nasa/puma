@@ -51,7 +51,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        bool success = puma::export_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test1",false);
+        bool success = puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/export_3DTiff_Test1",false);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -68,19 +68,19 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double vF_1 = puma::compute_VolumeFraction(&grayWS,puma::Cutoff(128,255));
 
-        success = puma::export_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test2.tif",false);
+        success = puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/export_3DTiff_Test2.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test2.tif",0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/out/tiff/export_3DTiff_Test2.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -102,7 +102,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -123,19 +123,19 @@ public:
         TestResult result(suiteName, testName, 4, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double vF_1 = puma::compute_VolumeFraction(&grayWS,puma::Cutoff(90,255));
 
-        success = puma::export_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test4.tif",false);
+        success = puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/export_3DTiff_Test4.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test4.tif",0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/out/tiff/export_3DTiff_Test4.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -156,18 +156,18 @@ public:
         TestResult result(suiteName, testName, 5, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
         grayWS.matrix.normalize(0,128);
 
-        success = puma::export_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test5.tif",true);
+        success = puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/export_3DTiff_Test5.tif",true);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test5.tif",0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/out/tiff/export_3DTiff_Test5.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -190,7 +190,7 @@ public:
 
         puma::Workspace segWS(1e-6,false);
 
-        bool success = puma::export_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test6",false);
+        bool success = puma::export_3DTiff(&segWS,"cpp/test/out/tiff/export_3DTiff_Test6",false);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -207,19 +207,19 @@ public:
 
         puma::Workspace segWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/tiff/segWS/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/1300_Spheres.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double vF_1 = puma::compute_VolumeFraction(&segWS,1,8);
 
-        success = puma::export_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test7.tif",false);
+        success = puma::export_3DTiff(&segWS,"cpp/test/out/tiff/export_3DTiff_Test7.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test7.tif",0);
+        success = puma::import_3DTiff(&segWS,"cpp/test/out/tiff/export_3DTiff_Test7.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -243,7 +243,7 @@ public:
 
         puma::Workspace segWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/tiff/segWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -264,19 +264,19 @@ public:
         TestResult result(suiteName, testName, 9, testDescription);
 
         puma::Workspace segWS(1e-6,false);
-        bool success = puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/tiff/segWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double vF_1 = puma::compute_VolumeFraction(&segWS,1,8);
 
-        success = puma::export_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test9.tif",false);
+        success = puma::export_3DTiff(&segWS,"cpp/test/out/tiff/export_3DTiff_Test9.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test9.tif",0);
+        success = puma::import_3DTiff(&segWS,"cpp/test/out/tiff/export_3DTiff_Test9.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -299,12 +299,12 @@ public:
         TestResult result(suiteName, testName, 10, testDescription);
 
         puma::Workspace segWS(1e-6,false);
-        bool success = puma::import_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/tiff/segWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::export_3DTiff(&segWS,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test10.tif",true);
+        success = puma::export_3DTiff(&segWS,"cpp/test/out/tiff/export_3DTiff_Test10.tif",true);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -321,7 +321,7 @@ public:
 
         puma::Matrix<short> sMatrix;
 
-        bool success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test11",false);
+        bool success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test11",false);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -338,19 +338,19 @@ public:
 
         puma::Matrix<short> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double avg_1 = sMatrix.average();
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test12.tif",false);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test12.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test12.tif",0);
+        success = puma::import_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test12.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -374,7 +374,7 @@ public:
 
         puma::Matrix<short> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -396,19 +396,19 @@ public:
 
         puma::Matrix<short> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double avg_1 = sMatrix.average();
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test14.tif",false);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test14.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test14.tif",0);
+        success = puma::import_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test14.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -431,12 +431,12 @@ public:
         TestResult result(suiteName, testName, 15, testDescription);
 
         puma::Matrix<short> sMatrix;
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test15.tif",true);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test15.tif",true);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -454,7 +454,7 @@ public:
 
         puma::Matrix<int> sMatrix;
 
-        bool success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test6",false);
+        bool success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test6",false);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -471,19 +471,19 @@ public:
 
         puma::Matrix<int> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double avg_1 = sMatrix.average();
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test17.tif",false);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test17.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test17.tif",0);
+        success = puma::import_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test17.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -507,7 +507,7 @@ public:
 
         puma::Matrix<int> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -529,19 +529,19 @@ public:
 
         puma::Matrix<int> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double avg_1 = sMatrix.average();
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test18.tif",false);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test18.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test18.tif",0);
+        success = puma::import_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test18.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -564,12 +564,12 @@ public:
         TestResult result(suiteName, testName, 20, testDescription);
 
         puma::Matrix<int> sMatrix;
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test19.tif",true);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test19.tif",true);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -587,7 +587,7 @@ public:
 
         puma::Matrix<float> sMatrix;
 
-        bool success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test21",false);
+        bool success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test21",false);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -604,19 +604,19 @@ public:
 
         puma::Matrix<float> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double avg_1 = sMatrix.average();
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test22.tif",false);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test22.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test22.tif",0);
+        success = puma::import_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test22.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -640,7 +640,7 @@ public:
 
         puma::Matrix<float> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -662,19 +662,19 @@ public:
 
         puma::Matrix<float> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double avg_1 = sMatrix.average();
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test24.tif",false);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test24.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test24.tif",0);
+        success = puma::import_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test24.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -697,12 +697,12 @@ public:
         TestResult result(suiteName, testName, 25, testDescription);
 
         puma::Matrix<float> sMatrix;
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test25.tif",true);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test25.tif",true);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -720,7 +720,7 @@ public:
 
         puma::Matrix<double> sMatrix;
 
-        bool success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test26",false);
+        bool success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test26",false);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -737,19 +737,19 @@ public:
 
         puma::Matrix<double> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double avg_1 = sMatrix.average();
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test27.tif",false);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test27.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test27.tif",0);
+        success = puma::import_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test27.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -773,7 +773,7 @@ public:
 
         puma::Matrix<double> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -795,19 +795,19 @@ public:
 
         puma::Matrix<double> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
         double avg_1 = sMatrix.average();
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test29.tif",false);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test29.tif",false);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test29.tif",0);
+        success = puma::import_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test29.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -830,12 +830,12 @@ public:
         TestResult result(suiteName, testName, 30, testDescription);
 
         puma::Matrix<double> sMatrix;
-        bool success = puma::import_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::export_3DTiff(&sMatrix,SubTest::puma_dir+"/cpp/test/out/tiff/export_3DTiff_Test30.tif",true);
+        success = puma::export_3DTiff(&sMatrix,"cpp/test/out/tiff/export_3DTiff_Test30.tif",true);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }

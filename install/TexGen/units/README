@@ -1,0 +1,121 @@
+------------------------------------------------------------------------
+               units conversions
+------------------------------------------------------------------------
+
+This library provides a conversion facility from a variety of
+scientific and engineering shorthand notations into floating point
+numbers. This allows application developers to easily convert values
+with different units (e.g., "2.2 mm") into uniformly scaled floating
+point numbers (e.g., 2.2e-3).
+
+The library can be used as a C library, a pure Tcl extension, a
+compiled Tcl extension, or in a SWIG (http://www.swig.org/) interface,
+providing automatic units conversion between the script level and
+C/C++ code.  The first implementation, written in pure Tcl, was used
+to develop the algorithm and test cases.  The C coded version (which
+was much harder to write) was needed to integrate into the SWIG
+typemap mechanism.
+
+  Copyright (c) Mayo Foundation
+
+This is a freely available open source package, distributed under the
+same license as Tcl and Tk.  You can do virtually anything you like
+with it, such as modifying it, redistributing it, and selling it
+either in whole or in part.  See the file "license.terms" for complete
+information.
+
+
+1.  Introduction
+----------------
+
+This package was developed to support our research group's efforts to
+create electromagnetic (EM) modeling tools for very high clock rate (10+
+GHz) electronics system design.  You can read more about our research
+at http://www.mayo.edu/sppdg/.
+
+Our EM simulation code is written in C++ for efficient computation.
+The C++ objects are exposed to the Tcl interpreter with the assistance
+of SWIG (http://www.swig.org/).  Simulation models are interpreted by
+Tcl, eliminating the need to create data file parsers, and providing a
+powerful scriptable interface to the design engineer.
+
+While the internal computations are usually based around SI units
+(meters, seconds, etc.), it is very desirable to provide the design
+engineer with the ability to specify quantities as numbers with units
+(e.g., "2.2 picoseconds" instead of 2.2e-12).  This package allows the
+software developer to implement these kinds of conversions.  
+
+This package replaces an earlier (unreleased) SWIG module which
+performed the same conversions.  SWIG's typemap mechanism is exploited
+to automatically convert Tcl quantity strings into appropriate
+floating point numbers.  C and C++ functions are written in terms of
+typedef'd quantities like Length and Time, and typemaps will
+automatically convert strings like "3 inches" or "100ms" into
+appropriately scaled floating point numbers.
+
+
+2.  Documentation
+-----------------
+
+Documentation for the units package was written in TMML, an XML markup
+language designed specifically for Tcl and its extensions.  TMML can
+be found at http://tmml.sourceforge.net/.  The XML source is
+provided, as is the man page (.n) and HTML translations.
+
+
+3.  Installation
+----------------
+
+The units package is (hopefully) a TEA compliant Tcl extension.  You
+can read about TEA and other Tcl issues at http://tcl.tk/
+
+
+The units package has two implementations.  The Tcl implementation, in
+units.tcl, is the reference implementation.  It was written first to
+verify the use cases described in the Rational Rose model units.mdl
+and develop the test cases in units.test.  You can install the Tcl
+implementation by copying the entire package directory to a library
+directory accessible from Tcl's auto_path.  On UNIX systems, it might
+go into /usr/local/lib/tcl8.3.2/, and on Windows systems it might go
+into "C:\Program Files\Tcl\Lib\Tcl8.3" The package index file
+(pkgIndex.tcl) will source the Tcl implementation if a binary shared
+library is not available.
+
+The C implementation of the units package, in units.h and units.c,
+should be callable from any C program.  SWIG wrappers and the
+configure/make process will produce a shared library which can be
+loaded into a Tcl interpreter.  Applications programmers could also
+include units.i with their SWIG'd applications to produce an extended
+Tcl shell application that includes units translations.  True SWIG
+aficionados might be inclined to extend the SWIG interface to
+accommodate additional scripting languages.
+
+To build the C implementation of the units package, follow the standard
+procedure for configure and make, something like:
+
+  ./configure
+  make
+  make install
+
+Both the Tcl and C implementations of the units package should pass
+all the tests in units.test.  To exercise the test suite:
+
+  make test
+
+
+4.  Feedback
+------------
+
+The units package is released as open source software in the hopes
+that it will be useful to, and perhaps enhanced by, the open source
+community.  It is released under the same license terms as Tcl and Tk.
+
+Send comments, suggestions, and bug reports through the mechanisms
+at http://sourceforge.net/projects/units/
+
+Thanks,
+Bob
+
+
+
+

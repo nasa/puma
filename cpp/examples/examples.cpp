@@ -9,16 +9,6 @@ using namespace std;
 int main (int argc, char **argv)
 //-----------------------------------------------------------------------------
 {
-    // Get puma path from environment and attach example data folder path
-    char* pPath = getenv("PuMA_DIR");
-    string puma_dir, example_docs;
-    if (pPath!=nullptr) {
-        puma_dir = string(pPath);
-        example_docs = puma_dir + "/cpp/examples/exampledata/";
-    } else {
-        cout << "PuMA_DIR path not found in environment. Did you source pumarc?" << endl;
-        return 1;
-    }
 
     // To run input one command line argument from the list of codes below
     // e.g. you can enter individual examples by entering "prim1" or the whole category as "prim"
@@ -131,8 +121,8 @@ int main (int argc, char **argv)
             puma::Matrix<int> mat(10,10,10, 0);
             mat.set(0,-1, 4,4, 4,4, 150); // -1 specifies until the end of domain
 
-            puma::export_3DTiff(&mat, example_docs+"matrix_example_notnorm", false); // not normalized
-            puma::export_3DTiff(&mat, example_docs+"matrix_example_norm", true); // normalized --> 150 becomes 255 since highest value
+            puma::export_3DTiff(&mat, "cpp/examples/exampledata/matrix_example_notnorm", false); // not normalized
+            puma::export_3DTiff(&mat, "cpp/examples/exampledata/matrix_example_norm", true); // normalized --> 150 becomes 255 since highest value
 
 
             cout<< endl << "Exporting a workspace to a tiff file:"<< endl;
@@ -140,7 +130,7 @@ int main (int argc, char **argv)
             puma::Workspace grayWS(10,10,10,1e-6, false);
             grayWS.matrix.set(0,-1, 4,4, 4,4, 255);
 
-            puma::export_3DTiff(&grayWS, example_docs+"workspace_example_notnorm", false);
+            puma::export_3DTiff(&grayWS, "cpp/examples/exampledata/workspace_example_notnorm", false);
         }
 
 
@@ -153,7 +143,7 @@ int main (int argc, char **argv)
             puma::Matrix<int> mat(10,10,10, 0);
             mat.set(0,-1, 4,4, 4,4, 150); // -1 specifies until the end of domain
 
-            puma::export_bin(&mat, example_docs+"mat_example"); // to specify numThreads, add one more int to the inputs at the end
+            puma::export_bin(&mat, "cpp/examples/exampledata/mat_example"); // to specify numThreads, add one more int to the inputs at the end
 
 
             cout<< endl << "Exporting a workspace to a binary file:"<< endl;
@@ -161,7 +151,7 @@ int main (int argc, char **argv)
             puma::Workspace grayWS(10,10,10,1e-6, false);
             grayWS.matrix.set(0,-1, 4,4, 4,4, 255);
 
-            puma::export_bin(&grayWS, example_docs+"workspace_example");
+            puma::export_bin(&grayWS, "cpp/examples/exampledata/workspace_example");
         }
 
 
@@ -174,9 +164,9 @@ int main (int argc, char **argv)
             puma::Matrix<int> mat(10,10,10, 0);
             mat.set(0,-1, 4,4, 4,4, 150); // -1 specifies until the end of domain
 
-            puma::export_vtk(&mat, example_docs+"mat_example"); // to specify numThreads, add one more int to the inputs at the end
-            puma::export_vtk(&mat, example_docs+"mat_example_ASCII", 'a'); // export vtk it in ASCII instead of BINARY
-            puma::export_vtk(&mat, example_docs+"mat_example_ASCII_unstructured", 'a', true); // export vtk to an unstructured grid (for import in code Aster)
+            puma::export_vtk(&mat, "cpp/examples/exampledata/mat_example"); // to specify numThreads, add one more int to the inputs at the end
+            puma::export_vtk(&mat, "cpp/examples/exampledata/mat_example_ASCII", 'a'); // export vtk it in ASCII instead of BINARY
+            puma::export_vtk(&mat, "cpp/examples/exampledata/mat_example_ASCII_unstructured", 'a', true); // export vtk to an unstructured grid (for import in code Aster)
 
 
             cout<< endl << "Exporting a workspace to a vtk file:"<< endl;
@@ -184,7 +174,7 @@ int main (int argc, char **argv)
             puma::Workspace grayWS(10,10,10,1e-6, false);
             grayWS.matrix.set(0,-1, 4,4, 4,4, 255);
 
-            puma::export_vtk(&grayWS, example_docs+"workspace_example");
+            puma::export_vtk(&grayWS, "cpp/examples/exampledata/workspace_example");
         }
 
 
@@ -195,23 +185,23 @@ int main (int argc, char **argv)
             cout << endl << "Running the Marching Cubes as the previous example and exporting the triangles created to an stl file:"<< endl;
 
             puma::Workspace grayWS(1e-6, false);
-            puma::import_3DTiff(&grayWS,puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
             // 1. Exporting the STL Directly
-            puma::export_STL(&grayWS, puma::Cutoff(90,255), false,example_docs+"triangles1");
+            puma::export_STL(&grayWS, puma::Cutoff(90,255), false,"cpp/examples/exampledata/triangles1");
 
             // 2. Computing the Triangles separately via the marching cubes algorithm, then exporting the STL
             vector< puma::Triangle<float> > tris;
             puma::isosurface_MarchingCubes(&tris, &grayWS, puma::Cutoff(90,255), true,1,false,0);
             cout << endl << "Number of triangles generated: " << tris.size()<< endl;
-            puma::export_STL(&tris,false,example_docs+"triangles2");
+            puma::export_STL(&tris,false,"cpp/examples/exampledata/triangles2");
 
             // 3. Segmenting the Workspace, then computing the Triangles separately via the marching cubes algorithm, then exporting the STL
             grayWS.setMaterialID(puma::Cutoff(0,89),0);
             grayWS.setMaterialID(puma::Cutoff(90,255),1);
             puma::isosurface_MarchingCubes(&tris, &grayWS, puma::Cutoff(1,1), true,1,false,0);
             cout << endl << "Number of triangles generated: " << tris.size()<< endl;
-            puma::export_STL(&tris,false,example_docs+"triangles3");
+            puma::export_STL(&tris,false,"cpp/examples/exampledata/triangles3");
         }
 
 
@@ -224,7 +214,7 @@ int main (int argc, char **argv)
             puma::Matrix<int> mat(10,10,10, 0);
             mat.set(0,-1, 4,4, 4,4, 150); // -1 specifies until the end of domain
 
-            puma::export_Textfile(&mat, example_docs+"mat_example"); // to specify numThreads, add one more int to the inputs at the end
+            puma::export_Textfile(&mat, "cpp/examples/exampledata/mat_example"); // to specify numThreads, add one more int to the inputs at the end
 
 
             cout<< endl << "Exporting a workspace to a text file:"<< endl;
@@ -232,7 +222,7 @@ int main (int argc, char **argv)
             puma::Workspace grayWS(10,10,10,1e-6, false);
             grayWS.matrix.set(0,-1, 4,4, 4,4, 255);
 
-            puma::export_Textfile(&grayWS, example_docs+"workspace_example");
+            puma::export_Textfile(&grayWS, "cpp/examples/exampledata/workspace_example");
         }
 
 
@@ -243,7 +233,7 @@ int main (int argc, char **argv)
             cout << endl << "Importing a grayscale workspace of FiberForm and printing a subset of it:" << endl;
 
             puma::Workspace grayWS(1e-6, false); // no need to specify the size since the import function takes care of it
-            puma::import_3DTiff(&grayWS, puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0); // note that .tif is required
+            puma::import_3DTiff(&grayWS, "cpp/test/tiff/grayWS/200_FiberForm.tif",0); // note that .tif is required
 
             grayWS.matrix.printRange(150,(int)grayWS.X()-1, 150, (int)grayWS.Y()-1, 100,101);
 
@@ -251,7 +241,7 @@ int main (int argc, char **argv)
             cout << "Importing the same segmented workspace and printing the same subset of it:" << endl;
 
             puma::Workspace segWS(1e-6, false); // no need to specify the size since the import function takes care of it
-            puma::import_3DTiff(&segWS, puma_dir+"/cpp/test/tiff/segWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&segWS, "cpp/test/tiff/segWS/200_FiberForm.tif",0);
 
             segWS.matrix.printRange(150,(int)segWS.X()-1, 150, (int)segWS.Y()-1, 100,101);
         }
@@ -268,7 +258,7 @@ int main (int argc, char **argv)
             puma::Matrix<int> mat(10,10,10, 0);
             mat.set(0,-1, 4,4, 4,4, 150); // -1 specifies until the end of domain
 
-            puma::import_bin(&mat, example_docs+"mat_example.puma"); // note that .puma is required
+            puma::import_bin(&mat, "cpp/examples/exampledata/mat_example.puma"); // note that .puma is required
             // to specify the number of processors used to read file (i.e. numThreads), add one more int to the inputs at the end
 
             mat.printRange(0,-1, 0,-1, 4,5);
@@ -279,7 +269,7 @@ int main (int argc, char **argv)
             puma::Workspace grayWS(10,10,10,1e-6, false);
             grayWS.matrix.set(0,-1, 4,4, 4,4, 255);
 
-            puma::import_bin(&grayWS, example_docs+"workspace_example.puma");
+            puma::import_bin(&grayWS, "cpp/examples/exampledata/workspace_example.puma");
 
             grayWS.matrix.printRange(0,-1, 0,-1, 4,5);
         }
@@ -292,7 +282,7 @@ int main (int argc, char **argv)
             cout << endl << "Computing Porosity and Volume Fraction of a segmented Fiberform sample:"<< endl;
 
             puma::Workspace workspace(1.3, false);
-            puma::import_3DTiff(&workspace, puma_dir+"/cpp/test/tiff/segWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&workspace, "cpp/test/tiff/segWS/200_FiberForm.tif",0);
 
             cout << endl << "Porosity: " << puma::compute_VolumeFraction(&workspace,0,0) << endl;
             cout << "Fiber Volume Fraction: " << puma::compute_VolumeFraction(&workspace,1,0) << endl;
@@ -307,7 +297,7 @@ int main (int argc, char **argv)
             cout << endl << "Running the Marching Cubes on a grayscale FiberForm sample, with closed edges and factor of 2:"<< endl;
 
             puma::Workspace grayWS(1e-6, false);
-            puma::import_3DTiff(&grayWS,puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
             // 1. Computing the Triangles via the Marching Cubes Algorithm. Faster, but there can be small holes in the mesh. Good for visualizations, bad for simulations
             vector< puma::Triangle<float> > tris;
@@ -335,7 +325,7 @@ int main (int argc, char **argv)
             cout << endl << "Computing the surface area of a sample of FiberForm:"<< endl;
 
             puma::Workspace grayWS(1e-6, false);
-            puma::import_3DTiff(&grayWS,puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
             pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&grayWS, puma::Cutoff(128, 255), true, 0);
 
@@ -352,7 +342,7 @@ int main (int argc, char **argv)
 
             puma::Workspace grayWS(1e-6, false);
 
-            puma::import_3DTiff(&grayWS, puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS, "cpp/test/tiff/grayWS/100_FiberForm.tif",0);
 
             cout << "Before Median filter:"<< endl;
             grayWS.matrix.printRange(50,-1, 50, -1, 50,51);
@@ -373,7 +363,7 @@ int main (int argc, char **argv)
 
             puma::Workspace grayWS(1e-6, false);
 
-            puma::import_3DTiff(&grayWS, puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS, "cpp/test/tiff/grayWS/100_FiberForm.tif",0);
 
             cout << "Before Mean filter:"<< endl;
             grayWS.matrix.printRange(50,-1, 50, -1, 50,51);
@@ -394,7 +384,7 @@ int main (int argc, char **argv)
 
             puma::Workspace grayWS(1e-6, false);
 
-            puma::import_3DTiff(&grayWS, puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS, "cpp/test/tiff/grayWS/100_FiberForm.tif",0);
 
             cout << "Before Bilateral filter:"<< endl;
             grayWS.matrix.printRange(50,-1, 50, -1, 50,51);
@@ -426,7 +416,7 @@ int main (int argc, char **argv)
             puma::generateRandomFibers(&grayWS, input);
 
             // Export to 3D tiff
-            puma::export_3DTiff(&grayWS,example_docs+"RandomFibers_straightCircle_example.tiff",false);
+            puma::export_3DTiff(&grayWS,"cpp/examples/exampledata/RandomFibers_straightCircle_example.tiff",false);
         }
 
         // generaterandomfibers: curvedCircle
@@ -547,14 +537,14 @@ int main (int argc, char **argv)
             cout << "Time: " << t.elapsed() << endl;
 
             // Export to 3D tiff
-            puma::export_3DTiff(&sphereWS,example_docs+"Generate_RandomSpheres_nonintersecting",false);
+            puma::export_3DTiff(&sphereWS,"cpp/examples/exampledata/Generate_RandomSpheres_nonintersecting",false);
 
             // Creating triangulated isosurface
             vector<puma::Triangle<float> > Triangles;
             puma::isosurface_MarchingCubes(&Triangles,&sphereWS,puma::Cutoff(128,255),true,1,false,40);
 
             // Exporting to stl file
-            Export_STL test(&Triangles,false,example_docs+"Generate_RandomSpheres_nonintersecting");
+            Export_STL test(&Triangles,false,"cpp/examples/exampledata/Generate_RandomSpheres_nonintersecting");
         }
 
         // generaterandomspheres: intersecting large spheres
@@ -567,12 +557,12 @@ int main (int argc, char **argv)
             RandomSpheresInput input(200,200,200,10.0,3.0,true,0.99,100);
             puma::generateRandomSpheres(&sphereWS, input);
 
-            puma::export_3DTiff(&sphereWS,example_docs+"Generate_RandomSpheres_intersecting.tif",false);
+            puma::export_3DTiff(&sphereWS,"cpp/examples/exampledata/Generate_RandomSpheres_intersecting.tif",false);
 
             vector<puma::Triangle<float> > Triangles;
             puma::isosurface_MarchingCubes(&Triangles,&sphereWS,puma::Cutoff(128,255),true,1,false);
 
-            Export_STL test(&Triangles,false,example_docs+"Generate_RandomSpheres_intersecting.stl");
+            Export_STL test(&Triangles,false,"cpp/examples/exampledata/Generate_RandomSpheres_intersecting.stl");
         }
 
         //// generatetpms ////
@@ -590,7 +580,7 @@ int main (int argc, char **argv)
             bool continuousTiff = true;
             int equationNumber = 0; // equation 0, 1 or 2
             
-           std::string outputFolder = example_docs;
+           std::string outputFolder = "cpp/test/out/stl/";
             std::string outputLabel = "equation1";
             
             
@@ -689,7 +679,7 @@ int main (int argc, char **argv)
             puma::Workspace segWS(1e-6, false);
 
             // Importing FiberForm 200^3 tiff, selecting only subsection of it
-            puma::import_3DTiff(&segWS,puma_dir+"/cpp/test/tiff/segWS/200_FiberForm.tif");
+            puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif");
 
             // Computing the Mean Intercept Length
             puma::Vec3<double> mil = puma::compute_MeanInterceptLength(&segWS,puma::Cutoff(0,0));
@@ -845,7 +835,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
 
             // Segmenting workspace by thresholding
             ws.setMaterialID(&ws,puma::Cutoff(0,89),0);
@@ -920,7 +910,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
 
             // Segmenting workspace by thresholding
             ws.setMaterialID(&ws,puma::Cutoff(0,89),0);
@@ -996,7 +986,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
 
             // Computing orientations using Structure Tensor (ST) method
             puma::MatVec3< double> tangents;
@@ -1102,7 +1092,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
 
             // Segmenting workspace by thresholding
             ws.setMaterialID(&ws,puma::Cutoff(0,89),0);
@@ -1177,7 +1167,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
 
             // Segmenting workspace by thresholding
             ws.setMaterialID(&ws,puma::Cutoff(0,89),0);

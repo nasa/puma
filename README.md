@@ -1,4 +1,6 @@
-![PuMA](docs/source/puma_logo.png)
+<p align="center">
+  <img src="https://github.com/nasa/puma/raw/main/docs/source/puma_logo.png" width="35%"></img>
+</p>
 
 [![Documentation Status](https://readthedocs.org/projects/puma-nasa/badge/?version=latest)](https://puma-nasa.readthedocs.io/en/latest/?badge=latest)
 
@@ -19,19 +21,23 @@ Recommended specs:
 
 ## Installation
   
-Download the project and unzip it; then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
+Download the project and unzip it (or alternatively "git clone" it); then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
 
       ./installer.sh
 
-The PuMA C++ library, PuMApy python package and GUI are now installed. The latter can be launched by running:
+The PuMA C++ library, pumapy python package and GUI are now installed. The latter can be launched by running:
 
       conda activate puma; pumaGUI.sh
 
-PuMA and PuMApy rely on two different conda environments in order to manage their software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, in order to import PuMApy into a python session, before calling python run:
+PuMA relies on a conda environment in order to manage its software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the pumapy python package.
 
-      conda activate pumapy
+Alternatively, puma can be installed by running:
 
-The [jupyter notebooks](./python/tutorials) show the typical function use for the pumapy python package.
+      conda install -c conda-forge puma
+
+However, it is still recommended to install the puma conda environment first, in order to have access to all pumapy's functionalities (including TexGen, FEniCS, Paraview and Detectron2).
+
+The [jupyter notebooks](./python/tutorials) show the typical function use for pumapy.
 
 ### How to link your C++ project to the PuMA library
 In the folder [initproject](./cpp/initproject) there is a simple example project already linked to the PuMA library. 

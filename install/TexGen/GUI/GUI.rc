@@ -1,0 +1,44 @@
+/*=============================================================================
+TexGen: Geometric textile modeller.
+Copyright (C) 2006 Martin Sherburn
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+=============================================================================*/
+
+// note that the icon used by the Explorer (i.e. the programs icon) is the
+// first icon in the executable and the icons are sorted both by their order
+// (Win9x) and by alphabetically (!) (NT), so put this icon first and give it
+// a name starting with "a"
+aaaaaaaa ICON "TexGen.ico"
+
+// this icon is used with wxFrame::SetIcon()
+TexGen ICON "TexGen.ico"
+
+// this is not always needed but doesn't hurt (except making the executable
+// very slightly larger): this file contains the standard icons, cursors, ...
+#define wxUSE_NO_MANIFEST 1		// prevent CVT1100: duplicate resource.  type:MANIFEST, name:1, language:0x0409 in MSVC80
+#include "wx/msw/wx.rc"
+
+#if !defined(WX_MSC_FULL_VER) || WX_MSC_FULL_VER < 140040130
+
+#if defined(WX_CPU_AMD64)
+2 24 "wx/msw/amd64.manifest"
+#elif defined(WX_CPU_IA64)
+2 24 "wx/msw/ia64.manifest"
+#elif defined(WX_CPU_X86)
+2 24 "wx/msw/wx.manifest"
+#endif
+
+#endif // !defined(WX_MSC_FULL_VER) || WX_MSC_FULL_VER < 140040130

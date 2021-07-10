@@ -1,0 +1,655 @@
+TexGen: Geometric textile modeller
+
+Please leave a message on the TexGen forum ( http://texgen.sourceforge.net/phpBB3/index.php ) if you find TexGen to be a useful tool. We are very interested to hear about research conducted with TexGen. 
+
+If you make use of TexGen in your work and publications please could you make it known on the forum. This will both help other users and publicise your work. We would also be grateful if you could acknowledge use of TexGen where appropriate. 
+
+If you find bugs/issues with TexGen please post an issue at https://github.com/louisepb/TexGen/issues We can only fix problems if users tell us about them!
+
+Version History
+---------------
+v3.11.0
+=======
+General
+=======
+** Upgraded to VTK 6.3.0
+** Changed CMakelists files for VS2017
+** Created installer for VS2017 build
+** Upgraded to wxWidgets3.0.4
+** Added installer file for VS2017 build
+** Added CFXImportVTK.exe and chamis_model_final.for to Utilities folder in installation
+
+Core
+====
+** Added functions to create voxel mesh and periodic boundary conditions for rotated domains
+** Made ShapeBinderYarns function public
+** Bugfix to correct 4 quarter hybrid section constructor
+** Added functions to access inherited class pointers in CYarnSection
+** Added yarn number to volume fraction error messages
+** Added write orientation and elements header functions to misc.cpp
+** Included headers in all Abaqus .eld and .ori files
+** Changed triangle library to https://github.com/wo80/Triangle to address memory issues in Win10 build
+** Added whole surface output to dry fibre export with compression plates
+
+GUI
+===
+** Added rotated boundary conditions option to Voxel Mesh Export
+** Various bugfixes for wxWidgets3 compatability
+** Bugfix in print pattern draft so doesn't exit program if cancel 
+** Added ROTATED_BC to VolumeMesh export dialog
+** Corrected size of rendered domain for textiles with very small dimensions
+
+UnitTests
+=========
+** Added rotated voxel mesh export test
+** Added files for mesher tests
+** Added hybrid section tests
+** Added GetXYarnIndex test to Textile3DTests
+** Added rotated voxel test
+
+v3.10.0
+======
+General
+=======
+** Increased resolution in Core module structure graph for documentation
+** Added profile tests
+
+Core
+====
+** Added OutputOrientationsAndElementSets an AddElementInfo functions to CVoxelMesh so that can call from Python script
+** Moved WriteValues function to Misc.h
+** Created CMaterial and CTextile Material classes in Materials files to remove duplication in CSimulationAbaqus and CPeriodicBoundaries
+** Added OutputDummyNodeSets, CreateMaterials and OutputStep functions to CPeriodicBoundaries so that can call from Python script
+** Bugfix to enable rotated sections with hybrid sections
+** Changed TextileWeave2D.SetInPlaneTangents to set to true or false
+** Added functionality to CSimulationAbaqus to export either whole yarn surfaces or upper and lower surfaces
+** Bugfix to avoid crash if empty node set sent to CMesher SaveNodeSets
+** Moved ConvertToInterpNodes into CTextile and also created CYarn function
+** Changed SlaveNode section meshes to pointers
+** Added weft stack ordering to ConvertToPatternDraft in orthogonal and layer to layer weaves
+
+GUI
+===
+** Changed SaveToAbaqus to use CSimulationAbaqus so don't need to load Abaqus.py
+** Bugfix in WeaveWizard3D to update number of binder layers in pattern dialog correctly
+** Added Rotate Textile function
+** Added Upper and Lower or Whole Surface options to dry fibre export
+** Enabled Create Pattern Draft option
+** Added dialog for weft stack ordering for pattern drafts
+
+UnitTests
+=========
+** Added TestRotateYarns in GeometricTests
+** Added DryFibreExport tests
+** Added orthogonal weave to textile factory
+** Added layer to layer weave to textile factory
+** Added pattern draft tests
+
+v3.9.0
+======
+General
+=======
+** Created ProfileTests folder for programs to profile
+** Added DataHandlingInPlane script for handling of single layer voxel mesh export
+** Added dataHandlingInPlane to Installation files
+** Added VoxelExportTests & VoxelContinuumTest.inp test file
+** Moved CompareFiles function out of XMLTests into TestUtilities
+** Initialise binder pattern in 3D textiles after loading from file
+** Added CompareFiles function int TestUtilities files to UnitTests
+
+Core
+====
+** Added call to BuildTextileIfNeeded to DomainVolumeFraction calculations in CTextile
+** Changed voxel Abaqus export so that creates transverse periodic boundary conditions for sheared as well as continuum
+** Added functions to mymath.h to find closest of vector of XY points to a given point
+** Added functions to mymath.h to find index of point in a vector of points which is within a given tolerence of a specified point. 
+** Added functions to mymath.h to find the closest point on the lines joining a vector of points to a specified point
+** Added function to find the point the point on a yarn surface which is closest to a specified point
+** Bugfix in CMesh::MeshConvexHull function
+** Added functions to create a quad element mesh of the plane through the centre of the yarns
+** Added functions to get the number of layers in the section meshes
+** Changed CYarnSectionMeshInterpNode to use the number of layers in the section mesh if already set
+** Added CheckCells function to CTextile3DWeave. 
+
+GUI
+===
+** Changed CMakeLists to work with VS2012
+** Change to 3DWizard binder controls page so displays correct data when using edit
+** Added dialog to trigger user survey on exit (after initial use and then after predefined number of uses)
+
+v3.8.2
+======
+General
+=======
+Versions built with Python27 have been included to provide compatibility if calling TexGen scripts from within Abaqus 6.14.  There seem to be some  issues on some machines with the Python27 bundled versions.
+If Python27 is required install Python from here https://www.python.org/downloads/ and then use any of the Python27 files
+** Added missing files to uninstaller
+** Made separate Python26 and Python27 builds for bundled version. Seems to be an issue with Python27 version not always loading
+** Changed non-bundled installer so that always copies Pythonx.dll into the TexGen folder (addresses problem if Python sub=version TexGen is compiled with is different to the installed Python version)
+v3.8.1
+======
+Core
+====
+** Correction to volume mesh node sets to remove duplicate nodes when using quadratic elements
+** Bugfix to prevent yarn AssignSection reassigning to itself
+** Bugfix to ensure binder ratio is greater than 0 in CTextile3DWeave
+** Added functions to find next and previous y cell index in CTextile3DWeave
+** Changed CreatePeriodicBoundaries in CSimulationAbaqus to use the domain size rather than the repeat to find node pairs
+** Changed power ellipse description in CSectionPowerEllipse.h to update documentation
+** Changes to CheckUpVectors in CTextile3DWeave to check if textile has been built and to check for valid indices
+** Bugfix to check for errors in intersection of yarns with domain for tetgen export. Exits if error in surface mesh
+** Added check in CYarn.ReplaceNode for duplicate nodes
+** Added GetSectionConstant function to YarnSection so that returns correct type of pointer for use in Python scripts
+** Added angle to node so that cross-section can be angled relative to yarn tangent
+** Changed CTextileWeave, CTextile3DWeave and CShearedTextileWeave2D to create default domain at textile height or + 10% as selected
+** Added documentation comments to VoxelMesh.h
+** Changes to creation of model from weave pattern for orthogonal weaves to take into account non-standard weaves
+** Bug fixes in BuildTextile for 3D weaves
+** Creation of pattern draft for LayerToLayer textiles
+** Added functions to calculate volume fraction for domain
+** Change to AddTextile to re-render if textile has been overwritten
+
+Exporter
+========
+** Change to CExporter::ConvertSection to specify tangents at start and end of continuous sections, giving C1 continuity at the join
+GUI
+===
+** Bugfix to Export Volume Mesh so that doesn't crash if not selected periodic boundaries
+** Added checkbox to 2D & 3D weave wizards to choose whether or not to add 10% to height of default domain
+** Added functions to calculate volume fraction for domain and for selected yarns
+** Change to CTexGenMainFrame::TextileCallback to re-render if textile has been overwritten
+** Change to message in domain volume fraction dialog to work in Linux
+
+General
+=======
+** Added tow width and height to WeavePattern script
+** Changed installation scripts to use Python27
+
+v3.8.0
+======
+Core
+====
+** Added bCorrectWidths parameter to RefineTextile in TextileWeave and TextileWeave2D. Enables refine to be called without doing width correction
+** Added Get3DWeave function to CTextile for calling 3D weave functions from Python scripts
+** Added CalculateReedDesign function to CTextile3DWeave
+** Added ShapeWeftYarns function to CTextile3DWeave to add extra nodes to weft yarns to minimise interference
+** Added GetTangent function to CSectionPowerEllipse
+** Improved test for whether binder node is added at 0 and 90 degrees (ie at ends) of adjacent weft yarns in LayerToLayer textiles based on angle between weft yarns
+** Added function to TextileOrthogonal to create pattern draft from textile
+** Changed tetgen mesh export to allow non-periodic meshing. In this case the domain surfaces are not triangulated prior to tetrahedralization by tetgen
+** Added SetWidth function to CSectionEllipse
+** Added check in DomainPlanes GetRepeatLimits to check for all repeats being set to zero
+** Added CorrectEdgeInterference function to CTextileWeave
+** Changes to TextileWeave2D::AdjustSectionsForRotation to allow for textile being non-periodic
+** Added parameters to weave Refine() call to specify whether CorrectWidths and CorrectInterference functions are to be selected and whether the textile is periodic
+** Changed CAdjustMeshInterference class so that can be called via Python interface. Also moved functions from CSimulationAbaqus into CAdjustMeshInterference to facilitate this
+** Added Up vector to POINT_INFO. Use to create second perpendicular vector when outputting orientations.
+** Bugfix to Volume Mesh export so doesn't crash if non-periodic mesh
+** Changes to weave pattern import for orthogonal weaves (not included in release builds for 3.8.0)
+** Changes to COrthogonalTextile and CTextile3DWeave to enable import of orthogonal weave pattern.
+
+
+GUI
+===
+** Bug fix in CPatternDraftDialog to display correctly on dialog box
+** Added check for textile existing before create pattern draft
+** Added Save button to PatternDraftDialog
+** Import WiseTex Python package on startup
+** Add Max Nest Layers option
+** Import FlowTex Python package on startup
+** Added Periodic option to Tetgen Mesh export
+** Correction for Python string in Tetgen export
+
+General
+=======
+** Added WeavePattern script for inputting weave pattern text file and creating 3D model (not included in release builds for 3.8.0)
+** Upgraded to OpenCASCADE 3.7.1
+** Added LayeredTextile2.py to scripts which uses the CLayeredTextile class to create a layered textile
+** Upgraded to tetgen version 1.5
+
+v3.7.0
+======
+Core
+====
+** Added CTextileLayered class
+** Added Get and SetPlane functions to CDomainPlanes class
+** Added function to TexGen.cpp to return list of textiles loaded
+** Added function to CTextile to get layered textile
+** Bug fix to Check in Yarn AddNode for duplicate nodes
+** Added functions to CTextile: SetAllYarnsYoungsModulusX etc to set properties for all yarns in the textile to the same value
+** Bug fix to stop TexGen crashing when invalid distances are entered for domain planes
+** Bug fix for if GetNode is called without interpolation being initialised
+** Added default values for string in constructor of voxel mesh classes
+** Changed CProperties to store value of FibreArea to avoid repeated recalculation
+** Bug fix to GetBoxLimits in CDomainPlanes so that it returns correct value
+** Included <iterator> in GeometrySolver for compatibility with VS2010
+** Change to Mesh.cpp to speed up RemoveOpposingTriangles
+** Added functions to nest layers, either maintaining offsets or finding maximum nesting
+** Added CPatternDraft class
+** Changes to Textile3DWeave and TextileWeave2D to create textiles from weave pattern input
+** Creation of pattern draft from textile
+
+GUI
+===
+** Check in Domain Create Box for min/max being correctly specified
+** Added Layers option to 2D Weave Wizard. Allows specification of number of layers to be generated
+** Added Create Layered to Textiles menus
+** Added dialog to select textiles to be layered
+** Added dialog to change offsets of layers in layered textiles
+** Added Set Layer Offsets option to Textiles menu
+** Added Nest Layers option
+** Change to SectionSelect to pop event handler when destroy class
+** Added PatternDraftDialog (Not included in release builds for v3.7.0)
+
+General
+=======
+** Added latin_random files: uses latin hypercube method for assigning random offsets to layers
+** Bug fix to dataHandling.py to correct indices for shear_yz and shear_zx
+
+v3.6.1
+======
+Core
+====
+** Added default MaxVolumeFraction to CTextile3DWeave class
+** Changed number of binder nodes added in layer to layer and angle interlock 3D textiles where binder is travelling diagonally through layers
+** Changed 3D weave classes to allow all of warp direction yarns to be binders
+** Changed CMesher class (used in Volume Mesh export) to give matching nodes on opposite faces when Periodic option is selected
+** Added periodic boundary conditions to CMesher class
+** Bug fixes in CShearedTextileWeave2D so that runs if no domain specified and if numbers of warp and weft yarns are different
+** Change to CInterpolation::CreateEquiSpacedSlaveNodes to improve spacing when yarn has high curvature
+
+GUI
+===
+** Added dialog to Save Screen Shot so that the image resolution can be increased
+** Added Join Yarns option to Export dialog
+** Changed 3D weave wizard front page to show images and description of different weave types
+** Changed 3D weave wizard warp page to show binder/warp ratio and allow warp ratio of 0 (ie all binder yarns)
+** Changed Export Volume Mesh options to include boundary condition selection when Periodic option is selected
+
+Exporter
+========
+** Changed ConvertYarns function so can join yarn sections into continuous yarn
+
+Renderer
+========
+** Changed SaveScreenshot so axes are disabled if  magnifying image (otherwise they are tiled across image)
+
+General
+======
+** Addition of FloatVector to Core.i
+** Added Python STL templates to front page of documentation
+** Changed installation scripts to use Python26
+
+v3.6.0
+======
+Core
+====
+** Put TextileWeave2D refine function calls into RefineTextile function. Refine can be called via TextileWeave class subsequent to weave creation
+** Changes to correct volume mesh of rotated rectangular sections
+** Correction to single layer RVE boundary conditions for Abaqus voxel mesh export
+** Extended voxel mesh to domains sheared in the x and y directions, giving voxels with a parallelepiped shape
+** Bug fix in PeriodicBoundaries.cpp to correct error in thermo-mechanical step
+** Added maximum volume fraction variable to Orthogonal refine 
+** Added ShearedPeriodicBoundary class so that periodic boundary condition equations are output for the sheared domain voxel mesh
+** Added StaggeredPeriodicBoundary and StaggeredVoxelMesh classes. Creates periodic boundary condition equations given an x offset to give a reduced unit cell 
+** Added ShearedTextileWeave2D class. Creates sheared 2D textile with either rectangular or sheared domain
+** Bugfix to YarnSectionInterpNode so that creates consistent section meshes when there are MidNodeSections
+** Changed default number of section points to 40 for 2D wizard and individual yarn creation
+** Added functions to YarnSectionInterpNode to process mid node sections
+** Added refine functions to ShearedTextileWeave2D. Functions to calculate yarn rotations required, correct interference and adjust sections to restore correct yarn area
+
+GUI
+===
+** Changes to correctly generate rotated rectangular sections
+** Added Sheared option to Abaqus voxel mesh export
+** Added maximum yarn volume fraction input to 3D wizard
+** Added RangeValidator class to confine text control to given bounds
+** Changed entry in Properties dialog to Total Yarn Area for clarity
+** Changed AbaqusVoxelInput dialog to include sheard and staggered periodic boundary conditions
+** Added options to WeaveWizard for creating sheared textiles
+** Changes to enable editing of sheared textiles
+** Changed default for IGES and STEP export to Faceted (OpenCascade seems to be more robust in this mode)
+
+Renderer
+--------
+** Updated to VTK 5.10.1
+
+v3.5.3
+======
+Core
+----
+** Various small changes to remove compilation warnings
+** Bug fix to orientation calculation in PointInsideYarn
+** Bug fix to CSection::CreateEquiSpacedSection
+** Point inside yarn checks for constant cross-section before calculating orientation
+** Output of voxel and surface meshes in SCIRun compatible format
+** Modification to CalculateNumberOfLayers functions to give correct number of layers with rotated and polygon sections
+** Changes to CTextileOrthogonal::AdjustBinderYarnSection correction of initial calculation of 
+   binder target height to give correct final textile height
+** Change to CTextileOrthogonal::AdjustOuterWeftYarns to ensure outer weftyarns have same volume fraction as original shape if possible
+** Change to CTextileOrthogonal to offset yarn below crimped outer weft yarns (if space available)
+** Changed CYarn::PointInsideYarn function to give correct solution for both convex and concave sections
+** Changes to CMesh::GetNodePairs to optimise
+** Changes to SimulationAbaqus::GetYarnSurfaces and GetPeriodicBoundaries to optimise
+
+Renderer
+--------
+** Changed render orientation so that renders when no domain specified
+
+GUI
+---
+** Added SCIRun .pts format to options in SaveSurfaceMesh
+** Changed domain tooltip in wizards to indicated z direction is fabric thickness + 10%
+
+Exporter
+--------
+** Exception handling for OpenCASCADE exception when exporting to STEP and IGES
+
+General
+-------
+** Added scripts for extraction of material properties from Abaqus .odb file produced by running .inp file generated for voxel export
+
+v3.5.2
+======
+
+Core
+----
+** Added functions to Textile3DWeave and TextileOffsetAngleInterlock for implementation of 3DWizard edit
+** Added CSectionRectangle and CSectionMeshRectangleSection classes
+** Added refine option to CTextileOrthogonal
+** Added Orientations to POINT_INFO structure
+** Added calculation of orientations from section meshes so that gives changes to orientations where cross-section changes
+** Bugfix to save number of binder layers in 3D layer-to-layer weave
+
+GUI
+---
+** Implemented Edit function for textiles created with 3D weave wizard
+** Added Rectangle section to Select Section dialog
+** Change to YarnSectionSelect to turn off triangluar corners in section meshes when rectangular section in yarn
+** Added refine option to Orthogonal weaves in 3D wizard. Adjusts weave to specified thickness.
+** Added dialog with link to User Guide
+** Added Render Orientations option to Renderer
+** Added yes/no dialog to check before delete textile
+
+General
+-------
+Added 64-bit installer and modified 32-bit ones so that can have both builds side by side.
+
+v3.5.1
+======
+
+Core
+----
+** Added ReplaceFilenameSpaces function to replace spaces with underscores for ABAQUS export compatibility
+** Added x offset parameter to power ellipse section. Input distance from centre for position of maximum height
+** Correction of ConstraintsDriver naming in Load Cases for voxel export (PeriodicBoundaries.cpp)
+** Bug fixes in PeriodicBoundaries and VoxelMesh - don't create materials for yarns if matrix only, output element set for matrix when matrix only
+** Added OutputMatrixElementSet and OutputAllNodesSet functions to VoxelMesh
+** Added CTextileOffsetAngleInterlock class
+** Added CreateContacts for new CTextile3DWeave based classes to CSimulationAbaqus (to create contacts for dry textile Abaqus export)
+** Changed 3D textile classes to store a power for the power ellipse sections and create them accordingly
+** Added nodes containing domain AABB to Abaqus dry fibre export
+** Added refine option to CTextileOrthogonal. NB Still in development. Code in repository but option not included in this release
+** Removed thermomechanical step from voxel mesh output. Causes error trying to access non-existent Node 0. Will replace when find cause
+
+GUI
+---
+** Added OnWarpYarnChanged function to WeaveWizard3D to prevent selection of warp yarn ratio greater than number of warp yarns
+** Added x offset parameter to power ellipse section. Input distance from centre for position of maximum height
+** Changed 3D wizard to give Offset option for angle interlock weaves
+** Added option to 3D wizard to specify power of power ellipse section for warp, weft and binder yarns
+** Added refine option to Orthogonal weaves in 3D wizard.  Adjusts weave to specified thickness. NB Still in development. Code in repository but option not included in this release
+** Added properties pages to 3D wizard: used to keep yarns within realistic fibre volume fractions when refining
+** Added dialog to select filename for Tetgen mesh export
+
+General
+-------
+** Created LayeredTextile.py script for combination of one textile from two CTextileWeave2D textiles
+** Upgraded to OpenCASCADE6.5.2
+
+v3.5.0
+======
+Core
+----
+** Added CTextile3DWeave and CTextileOrthogonal classes for automatic creation of 3D woven textiles
+** Added CTextileAngleInterlock class
+** Bug fix for insertion and deletion of nodes when using interpolation between nodes
+** Added CTextileLayerToLayerclass
+** Convert surface mesh to triangles before save as Tetgen mesh
+
+GUI
+---
+** Added new 3D Weave Wizard.
+** Added Tetgen Option dialog
+** Rebuilt TexGen.xrc using wxFormBuilder
+
+v3.4.1
+======
+Core
+----
+** Reinstated calculation of SurfaceDefinitions in Abaqus dry fibre export
+** Added recalculation of SurfaceDefinitions after mesh regeneration in Abaqus dry fibre export
+** Bug fix in output of voxel mesh boundary conditions
+
+GUI
+---
+** Added option to choose between C3D8 and C3D8R elements in ABAQUS dry fibre and voxel exports
+** Added option to not output boundary conditions to ABAQUS voxel export
+
+
+v3.4.0
+======
+Core
+----
+** Added equations & load cases for z-axis untied periodic boundary conditions
+** Added periodic boundary conditions to Abaqus voxel mesh output
+** Corrected node order in elements of voxel mesh
+** Bug fix in CTimer
+** Added matrix properties to textile
+** Added x,y,z Young's modulus and Poisson's ratio and xy,xz and yz shear modulus to yarn properties
+** Added coeffiecients of thermal expansion to yarn and matrix properties
+** Bug fix in CYarSectionInterpPosition
+** Changes to CSectionPolygon to calculate correct t values around circumference
+** Improvements to mesh interference correction in Abaqus export
+** Added AdjustSectionMeshes to Abaqus export - regenerates textile based on interference adjustment to give more even volume mesh
+** Added set of default material properties
+
+GUI
+---
+** Addition of tied/z-untied option to voxel mesh dialog
+** Improvement to filename input for Abaqus dry mesh and voxel options
+** Added matrix property input
+** Added x,y,z Young's modulus and Poisson's ratio and xy,xz and yz shear modulus yarn property inputs
+** Added coefficient of thermal explansion property input for yarn and matrix
+** Added option to regenerate mesh after interference correction in Abaqus export
+
+v3.3.3
+======
+GUI
+---
+** Bugfix to send correct textile to SaveToAbaqus
+** Addition of option to correct interference on SaveToAbaqus dialog
+** Fixed bug in DomainPlanes dialog for Linux version
+** Error message if try to use modeller options before create textile
+** Error message if no filename when save to Abaqus
+** Added check for interference needing updating when select TrimToDomain
+** Checkbox added to AbaqusOptions to set include compression plates
+** Added option to save voxels to Abaqus file ( yarn, matrix or both)
+** Removed Young's modulus & Poisson's ratio from SaveToAbaqus dialog as now obtained from yarn properties
+
+Core
+----
+** Added AdjustMeshInterference: Adjusts for small intersections in volume mesh by moving points on meshes
+   until within a given tolerance
+** Change to MeshClosedLoop so that returns without meshing if can't fit triangles rather than keeling over with assertion
+** Changed DetectInterference so that yarn index of yarn which the point is inside is returned
+** Changed DetectInterference to check whether point inside domain
+** Added POLYGON element type to mesh.  Used to save cross-sections when adjusting volume mesh
+** Added Max( XYZ &Vector) to mymath - returns maximum of X,Y,Z values in vector
+** Code to calculate section volume fractions of adjusted volume mesh
+** Added Young's Modulus and Poisson's Ratio to yarn properties
+** Added SetupMaterials to save to abaqus so that saves material for yarns from yarn properties
+** Code to save voxels to Abaqus file
+** Added SetSubMatrix function to CMatrix
+** Added RemoveElementType function to CMesh
+** Added overloaded GetPointInformation function which forces search within specified yarn only
+** Change to SimulationAbaqus to call GetPointInformation for specific yarns before single mesh is assembled
+
+Renderer
+--------
+** Changed call to DetectInterference so that returns yarn index of yarn the point is inside
+** Changes to give correct rendering of interference when change domain
+** Code to ensure that new POLYGON mesh type isn't rendered
+
+v3.3.2
+======
+Core
+----
+** Modifications to functions for Abaqus output
+** Added SetInPlaneTangents function to 2DTextile class to force in-plane tangents at master nodes
+** Fixed bug in SetProperties
+** Changes to finish off hybrid section implementation
+** Bug fix in Abaqus export
+** Changes to correct incompatible vector iterator errors
+** Added function to force number of layers in sections to be same along length of yarn so compatible when building volume mesh
+
+GUI
+---
+** Added option to Weave Wizard to force in-plane tangents at nodes for 2D weaves
+** Added Render Intersection Depth to Renderer menu
+** Changed add empty textile so that added via Python command - otherwise missed when record script
+** Added Abaqus File option to Files->Export
+** Changes to finish off hybrid section implementation
+** Bug fix in WeaveWizard to get Linux version working
+
+Renderer
+--------
+** Changed RenderIntersections so takes bool bDepth in which case intersection points are scaled to depth of intersection from surface
+** Implemented render volume mesh
+** Fixed bugs in CircleRange & WeavePatternCtrl which caused Linux build to crash
+** Added Option in Section dialog to keep sections compatible along length of yarn
+
+
+v3.3.1
+====
+Core
+----
+** Fixed bug where PointInsideYarn function didn't converge
+** Added functions to allow messages to be turned on/off
+
+GUI
+---
+** Added menu option to turn messages on/off
+
+Renderer
+--------
+** Changed deprecated function calls to current ones
+
+v3.3.0
+======
+Core
+----
+** Added GeometrySolver class which can be used to predict textile geometry
+** Added SimulationAbaqus class which can be used to automate the process of running ABAQUS simulations
+** Added TextileDeformerAbaqus which uses ABAQUS to calculate deformed textile geometry under given boundary conditions
+** Added Rotate and Translate functions to CDomain class
+** Added option to prevent projecting mid-side nodes to the yarn-matrix boundary when meshing
+** Increased precision of floating point numbers stored in .tg3 files
+** Fixed bug where fibre area wasn't calculated correctly from number of fibres & fibre diameter
+** Fixed various bugs in the volume meshing algorithm
+** Fixed wedge element ordering inconsistencies
+
+Renderer
+--------
+** Added ability to render images as quads in 3D space in the render window
+** Axes notations now switch between black and white depending on background color
+
+GUI
+---
+** Added various options to the export mesh dialog with some tool tips
+** Fixed display bug for weave wizard. When number of weft yarns was equal to 1 the yarn was not straight.
+** Added parallel projection option to menu
+
+v3.2.1
+======
+Core
+----
+** Fixed a problem where the faces on Tetrahedral volume meshes created from TexGen didn't always match
+** Removed support for Hybrid meshes, meshing was exhibiting the same face mismatching issues however this is more difficult to solve
+** Updated GridFile.py and WiseTex.py to work with API changes of TexGen
+** Added code to export mesh to ABAQUS file format
+** Internal changes to the mesh class which resolves some issues with using it with the Python interface
+** Added function in CTexGenRenderer to render yarns with a given color
+** Fixed bug where mesher was ignoring seed if it was too low due to a problem with passing parameters to triangle
+** Added quadratic element support for volume meshing
+
+
+v3.2.0
+======
+Core
+----
+** Added ability to create volume meshes of yarns and domain directly within texgen
+** Added functions to export to VTK file format for external viewing
+** Added functions to export surface mesh to STL file format
+** Added new classes to store properties of Textiles and Yarns along with their units
+** Optimised code that calculates repeat vectors necessary to fit yarns within the domain
+
+GUI
+---
+** The 2D weave wizard now also handles 3D weaves
+** Weave wizard allows setting width, height and spacing of yarns independantly
+** Added menus for taking screenshots and exporting surface/volume meshes
+** Added dialog for setting material properties
+** Added support for hybrid and power ellipse sections
+
+
+General
+-------
+** Created new bundle installer that comes packaged with Python
+
+v3.1.0
+======
+Core
+----
+** Introduced new 'ObjectContainer' class to ease memory handling
+** Fixed a bug with saving to XML file
+** Improved SectionMeshRectangular to deal with circular-like cross sections
+** Changed AssignDomain to take a const reference.
+** Added SetThickness function to CTextileWeave
+** If yarn interpolation function, resolution, section and section mesh are not defined defaults are used now instead of giving error messages
+
+Renderer
+--------
+** Extended CRenderer::Start method to include the ability to render window size
+** Added function to take screenshot
+
+GUI
+---
+** Updated to be compatible with wxWidgets 2.8
+** Updated GUI to work with wxWidgets unicode build
+** Introduced new modeller page
+
+General
+-------
+** Added twill weave example script
+** Created unit tests for GridFile.py, FlowTex.py, WiseTex.py and TexGenv2.py
+** Updated TexGenv2.py to read Up vectors. However there is still no support for varying cross section definition.
+** Added tolerance to find PointInsideYarn
+** Updated lenticular cross section to allow a distortion lenticular cross section
+** Changed the behaviour of FlowTex.py in response to request from Bart
+** Fixed problem with calling CTexGenRenderer::ResetCamera(XYZ) from python.
+** Cleaned up C++ example programs
+** Changed doxyfile to generate windows .chm help file and included in the installer
+** Added option to create static builds
+
+v3.0.3
+======
+** Fixed bug with windows installer, python dll should be copied correctly now
+** Added option to switch domain axes on and off independently from the domain itself
+** Fixed a bug related to loading YarnSectionInterpNode instances from XML
+** Updated the CTextileWeave class to create more realistic models
+** Updated GetPointInformation in CTextile with a tolerance
+
+v3.0.2
+======
+** Initial SourceForge release, started keeping record of changes

@@ -1,0 +1,21 @@
+/* This file is automatically created by the build system.
+ * Please make changes only in its source file triangle_version.h.in.
+ */
+
+#ifndef TRIANGLE_VERSION_H
+#define TRIANGLE_VERSION_H
+
+#cmakedefine TRIANGLE_ENABLE_ACUTE
+
+#ifdef TRIANGLE_ENABLE_ACUTE
+#define TRIANGLE_VERSION "@Triangle_VERSION@_acute"
+#else
+#define TRIANGLE_VERSION "@Triangle_VERSION@"
+#endif
+#define TRIANGLE_VERSION_MAJOR @Triangle_VERSION_MAJOR@
+#define TRIANGLE_VERSION_MINOR @Triangle_VERSION_MINOR@
+#define TRIANGLE_VERSION_PATCH @Triangle_VERSION_PATCH@
+
+#define TRIANGLE_VERSION_INT ( ( TRIANGLE_VERSION_MAJOR * 100 + TRIANGLE_VERSION_MINOR ) * 100 + TRIANGLE_VERSION_PATCH )
+
+#endif

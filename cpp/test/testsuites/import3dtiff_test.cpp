@@ -48,7 +48,7 @@ public:
         }
 
 	
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
 
         if(!assertEquals((long)200*200*200,(long)grayWS.size(), &result)) {
             return result;
@@ -103,7 +103,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
 
         if(!assertEquals((long)1300*1300*1300,(long)grayWS.size(), &result)) {
             return result;
@@ -131,7 +131,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",2147483647);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",2147483647);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -145,7 +145,7 @@ public:
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",1000);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",1000);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -171,7 +171,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",-10);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",-10);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -197,7 +197,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -223,7 +223,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -249,7 +249,7 @@ public:
         puma::Workspace grayWS(100,100,100,0, 1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/NoFile.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/NoFile.tif",0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -281,7 +281,7 @@ public:
         }
 
 	
-        puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/200_FiberForm.tif",0,199,0,199,0,199,0);
+        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0,199,0,199,0,199,0);
 
         if(!assertEquals((long)200*200*200,(long)grayWS.size(), &result)) {
             return result;
@@ -336,7 +336,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/1300_Spheres.tif",0,1299,0,1299,0,1299,0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/1300_Spheres.tif",0,1299,0,1299,0,1299,0);
 
         if(!assertEquals((long)1300*1300*1300,(long)grayWS.size(), &result)) {
             return result;
@@ -365,7 +365,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,2147483647);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,2147483647);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -379,7 +379,7 @@ public:
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,1000);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,1000);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -405,7 +405,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,-10);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,-10);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -431,7 +431,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -457,7 +457,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,10);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0,99,0,99,0,99,10);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -483,7 +483,7 @@ public:
         puma::Workspace grayWS(100,100,100,0, 1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/NoFile.tif",0,99,0,99,0,99,0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/NoFile.tif",0,99,0,99,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -506,7 +506,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",50,99,0,99,0,99,0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",50,99,0,99,0,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -520,37 +520,37 @@ public:
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",-2147483647,99,0,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",-2147483647,99,0,99,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",-1,99,0,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",-1,99,0,99,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",20,100,0,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",20,100,0,99,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",20,19,0,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",20,19,0,99,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",20,2147483647,0,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",20,2147483647,0,99,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",99,99,0,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",99,99,0,99,0,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -564,7 +564,7 @@ public:
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,0,0,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,0,0,99,0,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -590,7 +590,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
 	
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,50,99,0,99,0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,50,99,0,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -604,37 +604,37 @@ public:
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,-2147483647,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,-2147483647,99,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,-1,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,-1,99,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,20,100,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,20,100,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,20,19,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,20,19,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,20,2147483647,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,20,2147483647,0,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,99,99,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,99,99,0,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -648,7 +648,7 @@ public:
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,0,0,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,0,0,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -673,7 +673,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,50,99,0);
+        bool success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,50,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -687,37 +687,37 @@ public:
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,-2147483647,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,-2147483647,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,-1,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,-1,99,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,20,100,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,20,100,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,20,19,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,20,19,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,20,2147483647,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,20,2147483647,0);
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,99,99,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,99,99,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -731,7 +731,7 @@ public:
             return result;
         }
 
-        success = puma::import_3DTiff(&grayWS,SubTest::puma_dir+"/cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,0,0,0);
+        success = puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_FiberForm.tif",0,99,0,99,0,0,0);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;

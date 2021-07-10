@@ -237,7 +237,7 @@ void ElectricalCond::on_vtkButton_clicked()
         return;
     }
 
-    QString baseName = QFileDialog::getSaveFileName(this,"Export File Name", std::getenv("PuMA_DIR"));
+    QString baseName = QFileDialog::getSaveFileName(this,"Export File Name", ".");
 
     if(baseName == "") {
         return;
@@ -268,7 +268,7 @@ void ElectricalCond::on_binaryButton_clicked()
         return;
     }
 
-    QString baseName = QFileDialog::getSaveFileName(this,"Export File Name", std::getenv("PuMA_DIR"));
+    QString baseName = QFileDialog::getSaveFileName(this,"Export File Name", ".");
 
     if(baseName == "") {
         return;

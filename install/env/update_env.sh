@@ -7,14 +7,13 @@ echo "Installing conda-lock"
 echo -ne '\n' | conda install -c conda-forge conda-lock  # install conda-lock in base
 
 cd recipes
-env=$1  # input conda env to update
-python update_env.py -i ${env}_env.yml.meta -q -p  # this only creates .yml
+python update_env.py -i puma_env.yml.meta -q -p  # this only creates .yml
 
 cd ..
 if [ "$(uname)" == "Darwin" ]; then
-    conda-lock -f ./recipes/${env}_env.yml -p osx-64 --filename-template "${env}-env-mac.lock"
+    conda-lock -f ./recipes/puma_env.yml -p osx-64 --filename-template "puma-env-mac.lock"
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    conda-lock -f ./recipes/${env}_env.yml -p linux-64 --filename-template "${env}-env-linux.lock"
+    conda-lock -f ./recipes/puma_env.yml -p linux-64 --filename-template "puma-env-linux.lock"
 else
     echo "Unrecongnized Operating System, PuMA cannot be installed."
     exit 1

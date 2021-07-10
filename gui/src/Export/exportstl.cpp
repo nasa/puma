@@ -58,7 +58,7 @@ void ExportSTL::on_pushButton_clicked()
 
     puma::Cutoff cutoff = puma::Cutoff(lowVal,highVal);
 
-    std::string fileName = QFileDialog::getSaveFileName(this,"Export File Name", std::getenv("PuMA_DIR")).toStdString();
+    std::string fileName = QFileDialog::getSaveFileName(this,"Export File Name", ".").toStdString();
 
     if(fileName == "") {
         return;

@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<TexGenModel version="3.0.3">
+    <Textile name="2DWeave(W:4,H:4)" type="CTextileWeave2D" NeedsBuilding="1" NumXYarns="4" NumYYarns="4" GapSize="0" FabricThickness="2" Resolution="20" Refine="1">
+        <PatternCell x="0" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="1" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="2" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="3" y="0">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="0" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="1" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="2" y="1">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="3" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="0" y="2">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="1" y="2">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="2" y="2">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="3" y="2">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="0" y="3">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="1" y="3">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="2" y="3">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="3" y="3">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <XYarnData index="0" Width="4" Height="0.8" Spacing="5" />
+        <XYarnData index="1" Width="4" Height="0.8" Spacing="5" />
+        <XYarnData index="2" Width="4" Height="0.8" Spacing="5" />
+        <XYarnData index="3" Width="4" Height="0.8" Spacing="5" />
+        <YYarnData index="0" Width="4" Height="0.8" Spacing="5" />
+        <YYarnData index="1" Width="4" Height="0.8" Spacing="5" />
+        <YYarnData index="2" Width="4" Height="0.8" Spacing="5" />
+        <YYarnData index="3" Width="4" Height="0.8" Spacing="5" />
+    </Textile>
+</TexGenModel>
