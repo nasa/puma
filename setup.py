@@ -98,11 +98,4 @@ setup(
         "pyevtk",
         "visvis",
     ],
-    extras_require={
-        "all": [
-            "paraview",
-            "dolfin",
-            "TexGen",
-        ]
-    }
 )

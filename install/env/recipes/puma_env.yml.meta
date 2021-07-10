@@ -25,4 +25,3 @@ dependencies:
 - cmake==3.14.0
 - pyqt==5.9.2 [platform == darwin]
 - fenics-dolfin==2019.1.0
-- mesa-libgl-cos6-x86_64==11.0.7 [platform == linux]
