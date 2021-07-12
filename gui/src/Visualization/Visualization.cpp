@@ -73,7 +73,8 @@ void Visualization::launchPython(int visType)
         python_commands += "puma.render_contour(ws, cutoff, color=False, background=(1, 1, 1));";
     } else{
         python_commands += "puma.render_volume(ws, cutoff, color=False, background=(1, 1, 1));";
-    }    
+    }
+    python_commands += "import os; os.remove('tmp-gui-ws.vtk')";
 
     QProcess p;
     QStringList arguments = QStringList() << "-c" << QString::fromStdString(python_commands);

@@ -1,7 +1,7 @@
 import numpy as np
-import visvis as vv
 from skimage import measure
 import scipy.ndimage as ndimage
+import stl
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.generic_checks import check_ws_cutoff
 
@@ -43,22 +43,28 @@ class TriMesh:
         self.normals = np.copy(other.normals)
         self.values = np.copy(other.values)
 
-    def show(self):
-        vv.mesh(self.verts, self.faces, self.normals, self.values)
-        vv.use().Run()
-
     def save(self, filename, binary=True):
-        if filename.lower().endswith('.stl'):
-            import visvis.vvio
-            write = vv.vvio.stl.StlWriter.write
-        elif filename.lower().endswith('.obj'):
-            import visvis.vvio
-            write = vv.vvio.wavefront.WavefrontWriter.write
-        else:
-            raise Exception("Filename has to contain .stl or .obj formats.")
+        if not filename.lower().endswith('.stl'):
+            filename += ".stl"
 
-        mesh = vv.mesh(self.verts, self.faces, self.normals, self.values)
-        return write(filename, mesh, '', binary)
+        m = stl.mesh.Mesh(np.zeros(self.faces.shape[0], dtype=stl.mesh.Mesh.dtype))
+        for i, f in enumerate(self.faces):
+            m.vectors[i] = self.verts[f]
+        if binary:
+            return m.save(filename)
+        else:
+            return m.save(filename, mode=stl.Mode.ASCII)
+
+    def get_properties(self):
+        m = stl.mesh.Mesh(np.zeros(self.faces.shape[0], dtype=stl.mesh.Mesh.dtype))
+        for i, f in enumerate(self.faces):
+            m.vectors[i] = self.verts[f]
+        volume, cog, inertia = m.get_mass_properties()
+        print("Volume                                  = {0}".format(abs(volume)))
+        print("Position of the center of gravity (COG) = {0}".format(cog))
+        print("Inertia matrix                          = {0}".format(inertia[0, :]))
+        print("                                          {0}".format(inertia[1, :]))
+        print("                                          {0}".format(inertia[2, :]))
 
 
 class Isosurface:

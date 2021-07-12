@@ -188,7 +188,7 @@ def export_sparta_implicit_surfaces(filename, ws):
     return True
 
 
-def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False):
+def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False, binary=True):
     """ Export a puma.Workspace to STL
 
     :param filename: filepath and name
@@ -219,7 +219,7 @@ def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False
 
     print("Exporting " + filename + " ... ", end='')
     mesh = generate_isosurface(ws, cutoff, flag_closed_edges, flag_gaussian)
-    mesh.save(filename)
+    mesh.save(filename, binary)
     print("Done")
     return True
 

@@ -94,8 +94,6 @@ setup(
         "scipy",
         "scikit-image",
         "matplotlib",
-        "ipympl",
         "pyevtk",
-        "visvis",
     ],
 )

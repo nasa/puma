@@ -20,12 +20,6 @@ fi;
 # this env activation only lasts inside bash script
 conda activate puma
 
-# making sure that all the files are included
-chmod +x ../cpp/src/createCMakeLists_src.sh
-../cpp/src/createCMakeLists_src.sh
-chmod +x ../cpp/test/createCMakeLists_test.sh
-../cpp/test/createCMakeLists_test.sh
-
 # build and install PuMA
 mkdir -p cmake-build-release
 cd cmake-build-release

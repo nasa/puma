@@ -1,6 +1,6 @@
 # How to update the PuMA or PuMApy environment
 
-To update the conda environment with new python packages, you need to edit the .yml.meta files inside the [recipes](./recipes) folder and then run:
+To update the conda environment with new python packages, you need to edit the .yml.meta file and then run:
 	
 	./update_env.sh
 

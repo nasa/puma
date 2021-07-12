@@ -3,10 +3,15 @@
 This folder contains tutorials that show the basic workings of PuMApy. 
 
 # How to use
-To follow the tutorials, from the puma root folder run:
+Depending on how you installed PuMA, you might have to install the following dependencies into the
+conda environment: 
 
     conda activate puma
-    jupyter notebook
+    conda install -c conda-forge ipympl jupyterlab
+
+To follow the tutorials, from the puma root folder run:
+
+    jupyter lab
 
 from this folder and then open the tutorial that you want to follow.
 
