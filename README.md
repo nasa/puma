@@ -58,8 +58,6 @@ Here is a list of the common errors encountered during the setup and how to solv
 - If receiving the error message "Permission Denied" when attempting to run ./installer.sh, run "chmod +x installer.sh" and try again
 - If an error "xcrun: error: invalid active developer path" is displayed on a Mac, the Xcode CommandLineTools need to be installed
 - When importing pumapy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost" to ~/.bashrc (Linux) or ~/.bash_profile (Mac) 
-- If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install ntp"
-- If an error "fatal error: GL/gl.h: No such file or directory" is displayed, then run "sudo apt-get install mesa-common-dev"
 
 If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
 

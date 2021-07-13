@@ -17,5 +17,5 @@ fi
 
 # install pumapy
 cd ..
-python setup.py install
+python -m pip install .
 python -c "import pumapy"  # this line is to fully install pumapy (cython)
