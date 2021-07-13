@@ -1,6 +1,6 @@
 name: puma
 channels:
-- anaconda
+- anaconda [platform == darwin]
 - conda-forge
 - defaults
 dependencies:
