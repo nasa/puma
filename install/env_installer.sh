@@ -5,7 +5,7 @@ eval "$(conda shell.bash hook)"
 
 
 # checking if conda installed
-if [ -z ${CONDA_PREFIX+x} ]; then
+if [ "$(command -v conda)" != "conda" ]; then
     echo "conda not installed. Install it by running 'chmod +x ./install/conda_installer.sh && ./install/conda_installer.sh'"
     exit 1
 fi
