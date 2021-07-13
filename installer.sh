@@ -22,15 +22,20 @@ fi
 eval "$(conda shell.bash hook)"
 cd install
 
-####### PUMA INSTALLATION ######
-echo -e "\nStarting PuMA installation.\n"
-chmod +x ./puma_installer.sh
-./puma_installer.sh
-
 ###### PUMAPY INSTALLATION ######
 echo -e "\nStarting pumapy installation.\n"
 chmod +x ./pumapy_installer.sh
 ./pumapy_installer.sh
+
+####### PUMA C++ INSTALLATION ######
+echo -e "\nStarting PuMA installation.\n"
+chmod +x ./puma_installer.sh
+./puma_installer.sh
+
+###### TEXGEN INSTALLATION ######
+echo -e "\nStarting texgen installation.\n"
+chmod +x ./texgen_installer.sh
+./texgen_installer.sh
 
 ###### PUMA GUI INSTALLATION ######
 echo -e "\nStarting GUI installation.\n"

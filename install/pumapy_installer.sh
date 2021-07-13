@@ -21,15 +21,13 @@ fi;
 conda activate puma
 
 # this is to fix a bug with OpenGL on MacOS Big Sur
+PY_VERSION="$(python -c 'import sys; print(sys.version_info[1])')"
 if [ "$(uname)" == "Darwin" ]; then
-    if [ -f "$CONDA_PREFIX"/lib/python3.7/site-packages/OpenGL/platform/ctypesloader.py ]; then
-        sed -i '' 's/util.find_library( name )/"\/System\/Library\/Frameworks\/{}.framework\/{}".format(name,name)/g' "$CONDA_PREFIX"/lib/python3.7/site-packages/OpenGL/platform/ctypesloader.py
+    if [ -f "$CONDA_PREFIX"/lib/python3.$PY_VERSION/site-packages/OpenGL/platform/ctypesloader.py ]; then
+        sed -i '' 's/util.find_library( name )/"\/System\/Library\/Frameworks\/{}.framework\/{}".format(name,name)/g' "$CONDA_PREFIX"/lib/python3.$PY_VERSION/site-packages/OpenGL/platform/ctypesloader.py
     fi
 fi
 
-# install texgen
-chmod +x texgen_installer.sh
-./texgen_installer.sh
 
 # install pumapy
 cd ..

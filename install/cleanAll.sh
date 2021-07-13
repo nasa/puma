@@ -11,11 +11,12 @@ rm $CONDA_PREFIX/bin/puma*
 rm $CONDA_PREFIX/lib/libPuMA*
 rm $CONDA_PREFIX/lib/libTexGenCore*
 rm -rf TexGen/bin
-rm -rf miniconda
+rm miniconda.sh
 cd ..
 
 # clean pumapy
 python setup.py clean
+python -m pip uninstall -y pumapy
 
 # clean root
 find ../ -name '*~' -ls -delete

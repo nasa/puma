@@ -25,17 +25,11 @@ Download the project and unzip it (or alternatively "git clone" it); then open a
 
       ./installer.sh
 
-The PuMA C++ library, pumapy python package and GUI are now installed. The latter can be launched by running:
+Follow the instructions that might be printed. One the PuMA C++ library, pumapy python package and GUI are installed, the latter can be launched by running:
 
       conda activate puma; pumaGUI.sh
 
 PuMA relies on a conda environment in order to manage its software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the pumapy python package.
-
-Alternatively, puma can be installed by running:
-
-      conda install -c conda-forge puma
-
-However, it is still recommended to install the puma conda environment first, in order to have access to all pumapy's functionalities (including TexGen, FEniCS, Paraview and Detectron2).
 
 The [jupyter notebooks](./python/tutorials) show the typical function use for pumapy.
 
@@ -64,6 +58,8 @@ Here is a list of the common errors encountered during the setup and how to solv
 - If receiving the error message "Permission Denied" when attempting to run ./installer.sh, run "chmod +x installer.sh" and try again
 - If an error "xcrun: error: invalid active developer path" is displayed on a Mac, the Xcode CommandLineTools need to be installed
 - When importing pumapy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost" to ~/.bashrc (Linux) or ~/.bash_profile (Mac) 
+- If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install ntp"
+- If an error "fatal error: GL/gl.h: No such file or directory" is displayed, then run "sudo apt-get install mesa-common-dev"
 
 If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
 
