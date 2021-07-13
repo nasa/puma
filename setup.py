@@ -95,5 +95,6 @@ setup(
         "scikit-image",
         "matplotlib",
         "pyevtk",
+        "numpy-stl",
     ],
 )
