@@ -25,17 +25,11 @@ Download the project and unzip it (or alternatively "git clone" it); then open a
 
       ./installer.sh
 
-The PuMA C++ library, pumapy python package and GUI are now installed. The latter can be launched by running:
+Follow the instructions that might be printed. One the PuMA C++ library, pumapy python package and GUI are installed, the latter can be launched by running:
 
       conda activate puma; pumaGUI.sh
 
 PuMA relies on a conda environment in order to manage its software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the pumapy python package.
-
-Alternatively, puma can be installed by running:
-
-      conda install -c conda-forge puma
-
-However, it is still recommended to install the puma conda environment first, in order to have access to all pumapy's functionalities (including TexGen, FEniCS, Paraview and Detectron2).
 
 The [jupyter notebooks](./python/tutorials) show the typical function use for pumapy.
 
