@@ -18,9 +18,6 @@ cd ..
 python setup.py clean
 python -m pip uninstall -y pumapy
 
-# clean root
-find ../ -name '*~' -ls -delete
-
 # clean initproject
 rm -rf cpp/initproject/build
 
