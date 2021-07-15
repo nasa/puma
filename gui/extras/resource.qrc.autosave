@@ -14,6 +14,7 @@
         <file>ToolBarIcons/OpenLog.png</file>
         <file>ToolBarIcons/filter.png</file>
         <file>ToolBarIcons/console.png</file>
+        <file>images/StartPage_InvertedBlurred.png</file>
     </qresource>
     <qresource prefix="/">
         <file>ToolBarIcons/spheres.png</file>

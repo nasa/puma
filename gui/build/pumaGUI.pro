@@ -18,6 +18,7 @@ LIBS += -L$${INSTALL_PREFIX}/lib -lPuMA
 QMAKE_RPATHDIR += $${INSTALL_PREFIX}/lib
 QMAKE_CXXFLAGS += --std=c++0x
 
+
 SOURCES += \
         ../src/*.cpp \
         ../src/Export/*.cpp \

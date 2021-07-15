@@ -54,9 +54,22 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
 
+
     ui->setupUi(this);
 
+    QString startPage = QString::fromStdString(":/images/StartPage_InvertedBlurred.png");
+
+    pixmap.load(startPage);
+    ui->mainLabel->setPixmap(pixmap.scaledToHeight(600));
+
     ui->menuBar->setNativeMenuBar(false);
+
+    if(pixmap.isNull())
+        std::cout << "Null Pixmap" << std::endl;
+
+    //added so that the startup image loads properly
+    ui->mainLabel->resize(800,600);
+    ui->mainLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
     createActions();
 
@@ -64,9 +77,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->sliceLabel->setText(QString::number(0));
 
-    ui->updateVoxelLength_Button->setText(QString("Voxel\nLength"));
+
 
     setAcceptDrops(true);
+
 }
 
 MainWindow::~MainWindow() {
