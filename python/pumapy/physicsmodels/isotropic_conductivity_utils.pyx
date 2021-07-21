@@ -1,6 +1,5 @@
 import numpy as np
 import sys
-from cython.parallel import prange
 
 DTYPE = np.float
 
@@ -29,16 +28,20 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
     cdef int l_xyz = l_xy * l_z
 
     # number of Array entries = (lengthX-2)*lengthY*lengthZ * 7 + 2*lengthY*lengthZ
-    cdef int nEntries = (l_x - 2) * l_y * l_z * 7 + 2 * l_y * l_z
+    # have to split computation for large domains
+    cdef unsigned long long nEntries = (l_x - 2)  # = (l_x - 2) * l_y * l_z * 7 + 2 * l_y * l_z
+    nEntries *= l_y
+    nEntries *= l_z
+    nEntries *= 7
+    nEntries += 2 * l_y * l_z
     _row = np.zeros(nEntries)
     _col = np.zeros(nEntries)
     _data = np.zeros(nEntries)
-
     cdef double[:] row = _row
     cdef double[:] col = _col
     cdef double[:] data = _data
 
-    cdef int count = 0
+    cdef unsigned long long count = 0
     for i in [0, l_x - 1]:
         for j in range(l_y):
             for k in range(l_z):
@@ -144,11 +147,11 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
 
                     count += 7
 
-    cdef int startCount = count
+    cdef unsigned long long startCount = count
     cdef int nX = l_x - 2
     cdef int nY = l_y - 2
     cdef int nZ = l_z - 2
-    cdef int myCount
+    cdef unsigned long long myCount
 
 # to maybe be parallelized in the future
     for i in range(1, l_x - 1):
@@ -156,7 +159,12 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
         for j in range(1, l_y - 1):
             for k in range(1, l_z - 1):
 
-                myCount = startCount + ((nZ * nY) * (i-1) + nZ * (j-1) + (k-1)) * 7
+                myCount = (nZ * nY) * (i-1) # startCount + ((nZ * nY) * (i-1) + nZ * (j-1) + (k-1)) * 7
+                myCount += nZ * (j-1)
+                myCount += k-1
+                myCount *= 7
+                myCount += startCount
+
                 index = l_xy * k + l_x * j + i
                 row[myCount] = index
                 col[myCount] = index

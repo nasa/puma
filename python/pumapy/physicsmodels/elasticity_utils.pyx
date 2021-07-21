@@ -104,7 +104,7 @@ def find_unstable_vox(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_
 def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):
     
     cdef int j, k
-    cdef long counter_j, counter_v, len_xyz
+    cdef unsigned long long counter_j, counter_v, len_xyz
     cdef double [:,:] E_sw, E_se, E_nw, E_ne, E_tsw, E_tse, E_tnw, E_tne
     counter_j = 0
     counter_v = 0
