@@ -27,7 +27,7 @@ Download the project and unzip it (or alternatively "git clone" it); then open a
 
 Follow the instructions that might be printed. One the PuMA C++ library, pumapy python package and GUI are installed, the latter can be launched by running:
 
-      conda activate puma; pumaGUI.sh
+      conda activate puma; pumaGUI
 
 PuMA relies on a conda environment in order to manage its software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the pumapy python package.
 
