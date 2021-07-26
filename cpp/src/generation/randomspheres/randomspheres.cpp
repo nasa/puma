@@ -97,6 +97,7 @@ bool Generate_RandomSpheres::fibersGenerationHelper() {
     int iteration=0;//total iterations
 
     int numSpheresGenerated=0; // number of fibers that have been generated
+    int localSpheresGenerated=0;
 
     sphere = new Sphere();
 
@@ -123,6 +124,7 @@ bool Generate_RandomSpheres::fibersGenerationHelper() {
                 sphere->addSphereToDomain(sphereWS); //add the test fiber to the domain
                 iteration++;
                 numSpheresGenerated++;
+                localSpheresGenerated++;
                 countSinceSphere=0; //reset the failed counter
                 if(input.print) {
                     if(numSpheresGenerated == 1){
@@ -140,6 +142,7 @@ bool Generate_RandomSpheres::fibersGenerationHelper() {
             sphere->addSphereToDomain(sphereWS);
             iteration++;
             numSpheresGenerated++;
+            localSpheresGenerated++;
             if(input.print) {
                 if(numSpheresGenerated == 1){
                     std::cout << '\r' << numSpheresGenerated << " Sphere generated" << std::flush;
@@ -149,9 +152,12 @@ bool Generate_RandomSpheres::fibersGenerationHelper() {
             }
         }
 
-        if(numSpheresGenerated > numSpheresLeft/divisionParameter){
+        if(localSpheresGenerated > numSpheresLeft/divisionParameter){
             porosity = puma::compute_VolumeFraction(sphereWS,puma::Cutoff(0,127));
             numSpheresLeft=approximateNumSpheres(porosity);
+            localSpheresGenerated = 0;
+            std::cout << "spheres left: " << numSpheresLeft << std::endl;
+            std::cout << "Porosity: " << porosity << std::endl;
         }
     }
     if(input.print) { std::cout << "  ---  Porosity: " << porosity << std::endl; }
