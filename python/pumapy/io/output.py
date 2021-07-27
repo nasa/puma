@@ -115,7 +115,10 @@ def export_3Dtiff(filename, ws_or_nparray, to8bit=False):
         data = data.astype(np.uint16)
 
     print("Exporting " + filename + " ... ", end='')
-    imsave(filename, data.transpose((2, 1, 0)))
+    if data.ndim == 2:
+        imsave(filename, data.transpose((1, 0)), check_contrast=False)
+    else:
+        imsave(filename, data.transpose((2, 1, 0)), check_contrast=False)
     print("Done")
     return True
 

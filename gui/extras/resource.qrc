@@ -3,17 +3,14 @@
         <file>ToolBarIcons/Import.png</file>
         <file>ToolBarIcons/Generate.png</file>
         <file>ToolBarIcons/Export.png</file>
-        <file>ToolBarIcons/CopyFile.png</file>
         <file>ToolBarIcons/Cube.png</file>
         <file>ToolBarIcons/Sphere.png</file>
         <file>ToolBarIcons/Threshold.png</file>
         <file>ToolBarIcons/Cylinder.png</file>
-        <file>ToolBarIcons/RandomFibers.svg</file>
         <file>ToolBarIcons/Coating.png</file>
         <file>ToolBarIcons/CroppedTiff.png</file>
         <file>ToolBarIcons/OpenLog.png</file>
         <file>ToolBarIcons/filter.png</file>
-        <file>ToolBarIcons/console.png</file>
     </qresource>
     <qresource prefix="/">
         <file>ToolBarIcons/spheres.png</file>

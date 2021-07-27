@@ -11,6 +11,23 @@
 The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma), 
 whereas the latest development can be found on the [development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). Access the [PuMA documentation](https://puma-nasa.readthedocs.io) for detailed use of each function or to get started with the tutorials. 
 
+The Porous Microstructure Analysis (PuMA) software has been developed to 
+compute effective material properties and perform material response simulations on 
+digitized microstructures of porous media. PuMA is able to import digital three-dimensional 
+images obtained from X-ray microtomography or to generate artificial microstructures 
+that mimic real materials. PuMA also provides a module for interactive 3D visualizations. 
+Version 3 includes modules to compute simple morphological properties such as porosity, 
+volume fractions, pore diameter, and specific surface area. Additional capabilities include 
+the determination of effective thermal and electrical conductivity (including the ability 
+to simulate local anisotropy), effective diffusivity and tortuosity from the continuum to 
+the rarefied regime, and techniques to determine local material orientation.
+
+Some examples of microstructures that have been run in the past are shown in the pictures below. 
+
+<p align="center">
+  <img src="https://github.com/nasa/puma/raw/main/docs/source/puma_description.png" width="85%"></img>
+</p>
+
 ## System requirements
 UNIX (Tested on MacOS 10.14.1+, Ubuntu 12.04+, and RHEL)
 
@@ -64,10 +81,18 @@ Here is a list of the common errors encountered during the setup and how to solv
 If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
 
 ## Citing PuMA
-If you use PuMA in your research, please use the following BibTeX entry:
+If you use PuMA in your research, please use the following BibTeX entries to cite it:
 
 ```BibTeX
-@article{ferguson2018puma,
+@article{puma2021,
+  title={Update 3.0 to "PuMA: the Porous Microstructure Analysis software"},
+  author={Ferguson, Joseph C and Semeraro, Federico and Thornton, John M and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
+  journal={SoftwareX},
+  year={2021},
+  publisher={Elsevier}
+}
+
+@article{puma2018,
   title={PuMA: The porous microstructure analysis software},
   author={Ferguson, Joseph C and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
   journal={SoftwareX},
@@ -77,6 +102,8 @@ If you use PuMA in your research, please use the following BibTeX entry:
   publisher={Elsevier}
 }
 ```
+
+See the [publications](./publications.md) file for a full list of papers on PuMA and its numerical methods.  
 
 ## Contributing to PuMA
 Since PuMA is a free open-source code, any user is welcome to contribute or collaborate however they would like. If you are interested in significant development for your research goals, please contact either of the authors mentioned below.

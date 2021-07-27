@@ -97,7 +97,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Button</string>
+         <string>Voxel</string>
         </property>
        </widget>
       </item>
