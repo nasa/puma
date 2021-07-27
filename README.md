@@ -22,10 +22,10 @@ the determination of effective thermal and electrical conductivity (including th
 to simulate local anisotropy), effective diffusivity and tortuosity from the continuum to 
 the rarefied regime, and techniques to determine local material orientation.
 
-Some examples of microstructures that have been run in the past are shown in the pictures below. 
+Some examples of microstructures that have been run in the past are shown in the pictures below, together with PuMA's software architecture schematic.
 
 <p align="center">
-  <img src="https://github.com/nasa/puma/raw/main/docs/source/puma_description.png" width="85%"></img>
+  <img src="https://github.com/nasa/puma/raw/main/docs/source/puma_description.png" width="100%"></img>
 </p>
 
 ## System requirements
@@ -91,7 +91,6 @@ If you use PuMA in your research, please use the following BibTeX entries to cit
   year={2021},
   publisher={Elsevier}
 }
-
 @article{puma2018,
   title={PuMA: The porous microstructure analysis software},
   author={Ferguson, Joseph C and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},

@@ -29,7 +29,7 @@ The following is a chronological list of publications and presentations about th
 - Thornton, John M., Semeraro, F., Visser, S.J., Borner, A., Ferguson, J.C., Panerai, F., Mansour, N.N.
   Microscale Analysis of Spacecraft Heat Shields
   Super Computing Conference (SC19)
-  [link to poster](https://ntrs.nasa.gov/citations/20200000628)
+  [link to poster](https://ntrs.nasa.gov/api/citations/20200000628/downloads/20200000628.pdf)
 
 
 - Ferguson, J.C., Panerai, F., Borner, A. and Mansour, N.N., 2018. 
