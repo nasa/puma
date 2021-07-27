@@ -38,7 +38,8 @@ chmod +x ./texgen_installer.sh
 ./texgen_installer.sh
 
 ###### PUMA GUI INSTALLATION ######
-echo -e "\nStarting GUI installation.\n"
+echo -e "\nStarting GUI installation."
+echo -e "\n*** If a message 'The environment is inconsistent' is shown, let the conda solver resolve it ***\n"
 chmod +x ./gui_installer.sh
 ./gui_installer.sh
 
