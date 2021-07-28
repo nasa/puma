@@ -1,6 +1,8 @@
 # pumapy Tutorials
+This folder contains tutorials that show the basic workings of pumapy. 
 
-This folder contains tutorials that show the basic workings of pumapy. You can click on the following links to run them directly on Google Colab:
+## Run online in Colab
+You can click on the following links to run them directly on Google Colab:
 
 - [Workspace manipulation](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_workspace_manipulation.ipynb)
 - [Import/Export data](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_import_export.ipynb)
@@ -17,7 +19,7 @@ This folder contains tutorials that show the basic workings of pumapy. You can c
 - [Compute permeability](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_permeability.ipynb)
 - [Compute elasticity](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_elasticity.ipynb)
 
-# How to run them locally
+## Run locally
 Depending on how you installed PuMA, you might have to install the following dependencies into the
 conda environment: 
 
