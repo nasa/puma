@@ -26,6 +26,7 @@ PuMA Documentation
    :glob:
    :caption: Tutorials:
 
+   readme_tutorials
    tutorials/*
 
 
