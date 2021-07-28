@@ -86,20 +86,3 @@ setup(
         "numpy-stl",
     ],
 )
-  cmdclass={
-        'clean': CleanCommand,
-    },
-    setup_requires=[
-                    "setuptools",
-                    "wheel",
-                    "numpy",
-    ],
-    install_requires=[
-        "numpy",
-        "scipy",
-        "scikit-image",
-        "matplotlib",
-        "pyevtk",
-        "numpy-stl",
-    ],
-)
