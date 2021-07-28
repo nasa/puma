@@ -41,6 +41,7 @@ dist
 build
 *.so
 pumapy.egg-info
+.eggs
 main.py
 
 # jupyter notebooks
