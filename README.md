@@ -36,6 +36,26 @@ Recommended specs:
 - 16-32 GB of ram for medium simulations (800<sup>3</sup> range)
 - 32+ GB of ram for large simulations (above 1000<sup>3</sup>)
 
+### Linux Specific Requirements
+Many linux distributions come with built in development tools, and others to do. Before beginning the installation, make sure that the following are installed: 
+- gcc
+- g++
+- make
+- git
+
+To see if they are installed, run each in a terminal window. If they are not installed, a message will appear saying "Command 'INPUT' not found". In Ubuntu, each of these can be isntalled by the following commands: 
+- sudo apt-get install git
+- sudo apt-get install build-essential
+
+The build-essential installation will isntall gcc, g++, and make. On Fedora based distributions, they can be installed using yum:
+- sudo yum group install git
+- sudo yum group install "Development Tools"
+
+It is also recommended that the following be run, in case your system does not have the necessary GL libraries: 
+- sudo apt-get install mesa-common-dev (for Ubuntu)
+- sudo yum install mesa-libGL-devel (For Fedora/CentOS)
+
+
 ## Installation
   
 Download the project and unzip it (or alternatively "git clone" it); then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
@@ -77,8 +97,6 @@ Here is a list of the common errors encountered during the setup and how to solv
 - When importing pumapy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost" to ~/.bashrc (Linux) or ~/.bash_profile (Mac) 
 - If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install ntp" (or equivalent for your distribution)
 - If an error "fatal error: GL/gl.h: No such file or directory" is displayed, then run "sudo apt-get install mesa-common-dev" (or equivalent for your distribution)
-- If an error "CMake Error: Cmake was unable to find a build program corresponding to 'Unix Makefiles'" is displayed, then run "sudo apt-get install make" (or equivalent for your distribution)
-- If git is not installed, run "sudo apt-get install git" (or equivalent for your distribution)
 
 If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
 
