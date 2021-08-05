@@ -1,24 +1,6 @@
 # pumapy Tutorials
 This folder contains tutorials that show the basic workings of pumapy. 
 
-## Run online in Colab
-You can click on the following links to run them directly on Google Colab:
-
-- [Workspace manipulation](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_workspace_manipulation.ipynb)
-- [Import/Export data](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_import_export.ipynb)
-- [Visualization](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_visualization.ipynb)
-- [Multi-phase material](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_multi_phase.ipynb)
-- [Generate random fibers](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_generate_random_fibers.ipynb)
-- [Generate random spheres](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_generate_random_spheres.ipynb)
-- [Generate TPMS](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_generate_tpms.ipynb)
-- [Generate weaves](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_weaves.ipynb)
-- [Generate STL](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_STL.ipynb)
-- [Compute surface area](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_surface_area.ipynb)
-- [Compute thermal conductivity](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_thermalconductivity.ipynb)
-- [Compute tortuosity](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_tortuosity_continuum.ipynb)
-- [Compute permeability](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_permeability.ipynb)
-- [Compute elasticity](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_elasticity.ipynb)
-
 ## Run locally
 Depending on how you installed PuMA, you might have to install the following dependencies into the
 conda environment: 
