@@ -1,7 +1,6 @@
 from setuptools import setup, Command, find_packages
 from distutils.extension import Extension
 import os
-from sys import platform
 
 
 class CleanCommand(Command):

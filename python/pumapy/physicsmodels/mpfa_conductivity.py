@@ -1,5 +1,5 @@
-from pumapy.physicsmodels.anisotropic_conductivity_utils import (pad_domain, add_nondiag, divP, find_unstable_vox,
-                                                                 fill_flux_matrices, flatten_Kmat)
+from pumapy.physicsmodels.anisotropic_conductivity_utils import (pad_domain, add_nondiag, divP,
+                                                                 fill_flux, flatten_Kmat_find_unstable_iv)
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_mpfa_indices
 from pumapy.physicsmodels.conductivity_parent import Conductivity, SolverDisplay
 from pumapy.utilities.logger import print_warning
@@ -64,13 +64,13 @@ class AnisotropicConductivity(Conductivity):
         # Segmenting padded domain
         for i in range(self.cond_map.get_size()):
             low, high, _ = self.cond_map.get_material(i)
-            self.ws_pad[np.logical_and(self.ws_pad >= low, self.ws_pad <= high)] = i
+            self.ws_pad[(self.ws_pad >= low) & (self.ws_pad <= high)] = i
 
         # Placing True on dirichlet boundaries to skip them
-        self.dir_vox = np.zeros(shape, dtype=bool)
-        self.dir_vox[[1, -2], 1:-1, 1:-1] = True
+        self.dir_vox = np.zeros(shape, dtype=np.uint8)
+        self.dir_vox[[1, -2], 1:-1, 1:-1] = 1
         if self.prescribed_bc is not None:
-            self.dir_vox[1:-1, 1:-1, 1:-1][self.prescribed_bc.dirichlet != np.Inf] = True
+            self.dir_vox[1:-1, 1:-1, 1:-1][self.prescribed_bc.dirichlet != np.Inf] = 1
         print("Done")
 
     def __assemble_bvector(self):
@@ -114,14 +114,14 @@ class AnisotropicConductivity(Conductivity):
         print("Done")
 
     def __compute_Kmat(self, i, i_cv):
-        # Reset layer of Cmat
+        # reset layer of Cmat
         self.Kmat[i].fill(0)
 
         for key, value in self.mat_cond.items():
             mask = self.ws_pad[i_cv] == key
-            if len(value) == 6:
+            if len(value) == 6:  # passing input conductivity
                 self.Kmat[i, mask] = value
-            else:
+            else:  # tensor rotation of input conductivity with orientation
                 phi = np.arctan2(self.orient_pad[i_cv, mask, 1], self.orient_pad[i_cv, mask, 0])
                 theta = np.arcsin(self.orient_pad[i_cv, mask, 2])
 
@@ -149,42 +149,47 @@ class AnisotropicConductivity(Conductivity):
                 self.Kmat[i, mask] = Ry_krot[:, [0, 1, 2, 0, 0, 1], [0, 1, 2, 1, 2, 2]]
 
     def __compute_transmissibility(self, i, i_cv):
-        # Reset layers
+        # reset layers
         self.Emat[i].fill(0)
-        self.unstable[i].fill(0)
+        self.unstable[i].fill(False)
         self.kf.fill(0)
-        flatten_Kmat(i, self.len_y, self.len_z, self.Kmat[i:i + 2], self.kf)
 
-        # C becomes singular sometimes when there are air voxels
+        # if any of the surrounding CV have a zero diagonal cond, then set IV as unstable to skip computation
+        flatten_Kmat_find_unstable_iv(self.len_y, self.len_z, self.Kmat[i:i + 2], self.kf, self.unstable[i])
+
+        # creating C
         self.mpfa12x12.fill(0)
         self.mpfa12x12[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpfa(self.kf)
-        det = np.linalg.det(self.mpfa12x12)
-        if np.min(det) == 0:
-            self.unstable[i, det == 0] = True
 
         # Computing transmissibility matrix as: A @ (Cinv @ D) + B
         if not np.all(self.unstable[i]):
+
+            # creating D
             self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpfa(self.kf)
             self.Emat[i, self.unstable[i]] = 0
 
-            self.mpfa12x12[~self.unstable[i]] = np.linalg.inv(self.mpfa12x12[~self.unstable[i]])  # Cinv
+            # computing:  Cinv
+            self.mpfa12x12[~self.unstable[i]] = np.linalg.inv(self.mpfa12x12[~self.unstable[i]])
 
-            self.Emat[i, ~self.unstable[i]] = (self.mpfa12x12[~self.unstable[i]] @
-                                               self.Emat[i, ~self.unstable[i]])  # (Cinv @ D)
+            # computing:  Cinv @ D
+            self.Emat[i, ~self.unstable[i]] = self.mpfa12x12[~self.unstable[i]] @ self.Emat[i, ~self.unstable[i]]
 
+            # creating A
             self.mpfa12x12.fill(0)
             self.mpfa12x12[:, :, self.Aind[0], self.Aind[1]] = fill_Ampfa(self.kf)
-            self.Emat[i, ~self.unstable[i]] = (self.mpfa12x12[~self.unstable[i]] @
-                                               self.Emat[i, ~self.unstable[i]])  # A @ (Cinv @ D)
 
-            self.Emat[i, ~self.unstable[i]] += fill_Bmpfa(self.kf, self.zeros)[~self.unstable[i]]  # + B
+            # computing:  A @ (Cinv @ D)
+            self.Emat[i, ~self.unstable[i]] = self.mpfa12x12[~self.unstable[i]] @ self.Emat[i, ~self.unstable[i]]
+
+            # creating and adding B:  A @ (Cinv @ D) + B
+            self.Emat[i, ~self.unstable[i]] += fill_Bmpfa(self.kf, self.zeros)[~self.unstable[i]]
 
         if self.print_matrices[1]:
             self._print_E(i, i_cv, self.print_matrices[1])
 
     def __initialize_MPFA(self):
         # Initialize matrix slice of conductivities
-        self.Kmat = np.zeros((3, self.len_y, self.len_z, 6), dtype=float)  # per CV
+        self.Kmat = np.zeros((3, self.len_y, self.len_z, 6), dtype=float)  # per CV: kxx, kyy, kzz, kxy, kxz, kyz
         self.__compute_Kmat(0, 0)  # Computing first layer of Kmat
         self.__compute_Kmat(1, 1)  # Computing second layer of Kmat
 
@@ -223,7 +228,6 @@ class AnisotropicConductivity(Conductivity):
         self.__initialize_MPFA()
         j_indices = np.zeros((27 * (self.len_y - 2) * (self.len_z - 2)), dtype=np.uint32)
         values = np.zeros((27 * (self.len_y - 2) * (self.len_z - 2)), dtype=float)
-        self.dir_vox = self.dir_vox.astype(np.uint8)
         print("Done")
 
         # Iterating through interior
@@ -231,12 +235,11 @@ class AnisotropicConductivity(Conductivity):
             self.__compute_Kmat(2, i + 1)  # Computing third layer of Kmat
             self.__compute_transmissibility(1, i)  # Computing second layer of E
 
-            # If all surrounding IV are unstable (i.e. partly or all gaseous), then put middle CV as Dirichlet
-            find_unstable_vox(i, self.len_y, self.len_z, self.dir_vox, self.unstable)
-
             # Creating j indices and divergence values for slice
             j_indices.fill(0)
             values.fill(np.NaN)
+
+            # compute flux divergence: if a row of A is detected to be all zeros, then the voxel is flagged as dirichlet
             divP(i, self.len_x, self.len_y, self.len_z, self.dir_vox, j_indices, values, self.Emat)
 
             # Creating i indices for slice
@@ -396,7 +399,7 @@ class AnisotropicConductivity(Conductivity):
             self.__compute_transmissibility(1, i)  # Computing second layer of E
 
             # filling eight IVs
-            fill_flux_matrices(i, self.len_x, self.len_y, self.len_z, self.T[i - 1:i + 2], self.Emat,
+            fill_flux(i, self.len_x, self.len_y, self.len_z, self.T[i - 1:i + 2], self.Emat,
                                E_sw, E_se, E_nw, E_ne, E_tsw, E_tse, E_tnw, E_tne,
                                T_sw, T_se, T_nw, T_ne, T_tsw, T_tse, T_tnw, T_tne)
 
@@ -447,13 +450,12 @@ class AnisotropicConductivity(Conductivity):
             if len(k) == 2:
                 self.need_to_orient = True
                 if self.ws.orientation.shape[:3] != self.ws.matrix.shape or \
-                        not 0.9 < np.min(np.linalg.norm(self.ws.orientation[np.logical_and(self.ws.matrix >= low,
-                                                                                           self.ws.matrix <= high)],
-                                                        axis=1)) < 1.1:
+                        not 0.9 < np.min(np.linalg.norm(self.ws.orientation[(self.ws.matrix >= low) &
+                                                                            (self.ws.matrix <= high)], axis=1)) < 1.1:
                     raise Exception("The Workspace needs an orientation in order to align the conductivities.")
 
             # segmenting tmp domain to check if all values covered by mat_cond
-            ws_tmp_tocheck[np.logical_and(self.ws.matrix >= low, self.ws.matrix <= high)] = i
+            ws_tmp_tocheck[(self.ws.matrix >= low) & (self.ws.matrix <= high)] = i
 
         unique_matrixvalues = np.unique(ws_tmp_tocheck)
         if (unique_matrixvalues.size != self.cond_map.get_size() or

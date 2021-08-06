@@ -1,8 +1,8 @@
 import numpy as np
-
 DTYPE = np.float
 
-def flatten_Kmat(int i, int len_y, int len_z, double [:,:,:,:] Kmat, double [:,:,:] Kmat_flat):
+
+def flatten_Kmat_find_unstable_iv(int len_y, int len_z, double [:,:,:,:] Kmat, double [:,:,:] Kmat_flat, unsigned char [:,:] unstable):
 
     cdef int j, k, i2, j2, k2, counter
 
@@ -15,6 +15,16 @@ def flatten_Kmat(int i, int len_y, int len_z, double [:,:,:,:] Kmat, double [:,:
                         Kmat_flat[counter:counter + 6, j, k] = Kmat[i2, j + j2, k + k2]
                         counter += 6
 
+            if (Kmat[0, j, k, 0] == 0. or Kmat[0, j, k, 1] == 0. or Kmat[0, j, k, 2] == 0. or
+                    Kmat[1, j, k, 0] == 0. or Kmat[0 + 1, j, k, 1] == 0. or Kmat[0 + 1, j, k, 2] == 0. or
+                    Kmat[0, j + 1, k, 0] == 0. or Kmat[0, j + 1, k, 1] == 0. or Kmat[0, j + 1, k, 2] == 0. or
+                    Kmat[1, j + 1, k, 0] == 0. or Kmat[0 + 1, j + 1, k, 1] == 0. or Kmat[0 + 1, j + 1, k, 2] == 0. or
+                    Kmat[0, j, k + 1, 0] == 0. or Kmat[0, j, k + 1, 1] == 0. or Kmat[0, j, k + 1, 2] == 0. or
+                    Kmat[1, j, k + 1, 0] == 0. or Kmat[0 + 1, j, k + 1, 1] == 0. or Kmat[0 + 1, j, k + 1, 2] == 0. or
+                    Kmat[0, j + 1, k + 1, 0] == 0. or Kmat[0, j + 1, k + 1, 1] == 0. or Kmat[0, j + 1, k + 1, 2] == 0. or
+                    Kmat[1, j + 1, k + 1, 0] == 0. or Kmat[0 + 1, j + 1, k + 1, 1] == 0. or Kmat[0 + 1, j + 1, k + 1, 2] == 0.):
+                unstable[j, k] = True
+
 
 def index_at_p(index, size):
     if index == 0:
@@ -23,12 +33,14 @@ def index_at_p(index, size):
         return 1
     return index
 
+
 def index_at_s(index, size):
     if index == 0:
         return 1
     elif index == size:
         return size - 1
     return index
+
 
 def pad_domain(unsigned short [:,:,:] ws_pad, double [:,:,:,:] orient_pad, unsigned short need_to_orient, int len_x, int len_y, int len_z, str side_bc):
 
@@ -49,7 +61,6 @@ def pad_domain(unsigned short [:,:,:] ws_pad, double [:,:,:,:] orient_pad, unsig
                         orient_pad[i, j, k] = orient_pad[index_at_p(i, len_x - 1),
                                               index_at_p(j, len_y - 1),
                                               index_at_p(k, len_z - 1)]
-
     else:
         for i in range(len_x):
             for j in range(len_y):
@@ -78,7 +89,6 @@ def add_nondiag(unsigned int [:] nondiag, int len_x, int len_y, int len_z, side_
                     if i == 0 or i == len_x-1 or j == 0 or j == len_y-1 or k == 0 or k == len_z-1:
                         nondiag[counter] = len_x * (len_y * index_at_p(k, len_z - 1) + index_at_p(j, len_y - 1)) + index_at_p(i, len_x - 1)
                         counter += 1
-
     else:
         for i in range(len_x):
             for j in range(len_y):
@@ -86,18 +96,6 @@ def add_nondiag(unsigned int [:] nondiag, int len_x, int len_y, int len_z, side_
                     if i == 0 or i == len_x-1 or j == 0 or j == len_y-1 or k == 0 or k == len_z-1:
                         nondiag[counter] = len_x * (len_y * index_at_s(k, len_z - 1) + index_at_s(j, len_y - 1)) + index_at_s(i, len_x - 1)
                         counter += 1
-
-
-def find_unstable_vox(int i, int len_y, int len_z, unsigned char [:,:,:] dir_vox, unsigned char [:,:,:] unstable):
-
-    cdef int j, k
-
-    # Marking unstable voxels (i.e. voxels with all surrounding IV with det(Cmpfa)==0) as Dirichlet to skip them
-    for j in range(1, len_y - 1):
-        for k in range(1, len_z - 1):
-            if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and
-                unstable[0, j - 1, k] and unstable[1, j - 1, k] and unstable[0, j, k] and unstable[1, j, k]):
-                dir_vox[i, j, k] = True
 
 
 def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:] dir_vox, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):
@@ -166,11 +164,11 @@ def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:] dir_vox, 
                     counter_v += 27
 
 
-def fill_flux_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:] T, double [:,:,:,:,:] Emat,
-                        double [:,:,:,:] E_sw, double [:,:,:,:] E_se, double [:,:,:,:] E_nw, double [:,:,:,:] E_ne,
-                        double [:,:,:,:] E_tsw, double [:,:,:,:] E_tse, double [:,:,:,:] E_tnw, double [:,:,:,:] E_tne,
-                        double [:,:,:] T_sw, double [:,:,:] T_se, double [:,:,:] T_nw, double [:,:,:] T_ne,
-                        double [:,:,:] T_tsw, double [:,:,:] T_tse, double [:,:,:] T_tnw, double [:,:,:] T_tne):
+def fill_flux(int i, int len_x, int len_y, int len_z, double [:,:,:] T, double [:,:,:,:,:] Emat,
+              double [:,:,:,:] E_sw, double [:,:,:,:] E_se, double [:,:,:,:] E_nw, double [:,:,:,:] E_ne,
+              double [:,:,:,:] E_tsw, double [:,:,:,:] E_tse, double [:,:,:,:] E_tnw, double [:,:,:,:] E_tne,
+              double [:,:,:] T_sw, double [:,:,:] T_se, double [:,:,:] T_nw, double [:,:,:] T_ne,
+              double [:,:,:] T_tsw, double [:,:,:] T_tse, double [:,:,:] T_tnw, double [:,:,:] T_tne):
     cdef int j, k
 
     for j in range(1, len_y - 1):

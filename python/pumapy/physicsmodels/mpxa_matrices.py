@@ -1,3 +1,6 @@
+"""
+matrices used in MPFA and MPSA functions
+"""
 import numpy as np
 
 
