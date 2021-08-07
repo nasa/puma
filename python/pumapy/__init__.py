@@ -23,12 +23,8 @@ from pumapy.utilities.property_maps import IsotropicConductivityMap, Anisotropic
 from pumapy.utilities.boundary_conditions import ConductivityBC, ElasticityBC
 
 # input/output
-from pumapy.io.input import import_3Dtiff, import_bin
-from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_sparta_implicit_surfaces, export_stl
-try:
-    from pumapy.io.output import export_weave_vtu
-except ImportError:
-    pass
+from pumapy.io.input import import_3Dtiff, import_bin, import_weave_vtu, import_vti
+from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_sparta_implicit_surfaces, export_stl, export_weave_vtu
 
 # material properties
 from pumapy.materialproperties.surfacearea import compute_surface_area
@@ -39,10 +35,7 @@ from pumapy.materialproperties.conductivity import compute_thermal_conductivity,
 from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
 from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis
 from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
-try:
-    from pumapy.materialproperties.permeability import compute_permeability
-except ImportError:
-    pass
+from pumapy.materialproperties.permeability import compute_permeability
 
 # filtering
 from pumapy.filters.filters import (filter_median, filter_gaussian, filter_edt, filter_mean,
@@ -61,12 +54,8 @@ except ImportError:  # import it only if installed
     pass
 
 # visualization
-try:
-    from pumapy.visualization.render import render_volume, render_contour, render_orientation, render_warp
-    from pumapy.visualization.render_multiphase import render_contour_multiphase
-    from pumapy.io.input import import_vti, import_weave_vtu
-except ImportError:
-    pass
+from pumapy.visualization.render import render_volume, render_contour, render_orientation, render_warp
+from pumapy.visualization.render_multiphase import render_contour_multiphase
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation

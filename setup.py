@@ -83,5 +83,7 @@ setup(
         "matplotlib",
         "pyevtk",
         "numpy-stl",
+        "pyvista",
+        "vtk",
     ],
 )

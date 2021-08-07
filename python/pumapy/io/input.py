@@ -61,7 +61,7 @@ def import_bin(filename):
 
 try:
     import vtk
-    from paraview import numpy_support
+    from vtk.util import numpy_support
 
     def import_vti(filename, voxel_length=None, import_ws=True):
         """ Function to import either legacy VTK file (.vtk) or vtkImageData (.vti)
