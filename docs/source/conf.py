@@ -87,7 +87,8 @@ templates_path = ['_templates']
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'files/pumapy.rst', 
-                    'tutorials/update_tutorials_list.py', '**.ipynb_checkpoints']
+                    'tutorials/update_tutorials_list.py', '**.ipynb_checkpoints', 
+                    ]
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -112,9 +113,7 @@ from unittest import mock
 MOCK_MODULES = [
                 'TexGen.Core', 'paraview', 'paraview.simple', 'vtk', 'numpy', 'matplotlib', 'mpl_toolkits', 'mpl_toolkits.axes_grid1', 
                 'skimage', 'skimage.transform', 'skimage.io', 'skimage.filters', 'skimage.morphology', 'visvis', 'pyevtk', 'pyevtk.hl', 
-                'scipy', 'scipy.optimize', 'scipy.sparse', 'scipy.sparse.linalg', 'scipy.ndimage', 'scipy.ndimage.filters', 'dolfin',
-                'pumapy.physicsmodels.isotropic_conductivity_utils', 'pumapy.physicsmodels.anisotropic_conductivity_utils', 
-                'pumapy.physicsmodels.elasticity_utils', 'pumapy.generation.tpms_utils', 'pumapy.utilities.libPuMA'
+                'scipy', 'scipy.optimize', 'scipy.sparse', 'scipy.sparse.linalg', 'scipy.ndimage', 'scipy.ndimage.filters', 'dolfin', 'stl',
                 ]
 
 for module_name in MOCK_MODULES:

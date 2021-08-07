@@ -70,7 +70,6 @@ except ImportError:
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation
-from pumapy.segmentation.label_tows import label_tows_fm
 from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
 
 # add wrapped puma cpp functions

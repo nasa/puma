@@ -29,51 +29,50 @@ Some examples of microstructures that have been run in the past are shown in the
 </p>
 
 ## System requirements
-UNIX (Tested on MacOS 10.14.1+, Ubuntu 12.04+, and RHEL)
+UNIX (Tested on MacOS 10.14.1+, Ubuntu 12.04+, and RHEL) and Anaconda installation
 
 Recommended specs:
 - 8 GB of ram for small simulations (500<sup>3</sup> or smaller)
 - 16-32 GB of ram for medium simulations (800<sup>3</sup> range)
 - 32+ GB of ram for large simulations (above 1000<sup>3</sup>)
 
-### Linux Specific Requirements
-Many linux distributions come with built in development tools, and others to do. Before beginning the installation, make sure that the following are installed: 
-- gcc
-- g++
-- make
-- git
-
-To see if they are installed, run each in a terminal window. If they are not installed, a message will appear saying "Command 'INPUT' not found". In Ubuntu, each of these can be isntalled by the following commands: 
-- sudo apt-get install git
-- sudo apt-get install build-essential
-
-The build-essential installation will isntall gcc, g++, and make. On Fedora based distributions, they can be installed using yum:
-- sudo yum group install git
-- sudo yum group install "Development Tools"
-
-It is also recommended that the following be run, in case your system does not have the necessary GL libraries: 
-- sudo apt-get install mesa-common-dev (for Ubuntu)
-- sudo yum install mesa-libGL-devel (For Fedora/CentOS)
-
-
 ## Installation
+
+The standard installation of PuMA is performed using conda as:
+
+    conda create -n puma fsemerar::puma
+
+This installs the PuMA C++ library, pumapy python package and GUI in a conda environment called "puma".
+
+In addition, some of pumapy's capabilities depend on the installation of two extra dependencies, namely Paraview for 
+3D rendering microstructures and FEniCS to compute some material properties (permeability and elasticity). If needed, 
+these can be installed as:
+
+    conda activate puma
+    conda install conda-forge::fenics-dolfin conda-forge::paraview==5.7.0  # run this for MacOS
+    conda install conda-forge::fenics-dolfin conda-forge::paraview==5.8.1  # run this for Linux
+
+PuMA relies on a conda environment in order to manage its software dependencies and environment variables. 
+In order to link a C++ project to the PuMA library, refer to [this subsection](#how-to-link-your-c++-project-to-the-puma-library). 
+On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the 
+pumapy python package. The [jupyter notebooks](./python/tutorials) show the typical function use for pumapy.
+Finally, the PuMA GUI can be launched by running:
+
+    conda activate puma; pumaGUI
+
+### Building from source
   
-Download the project and unzip it (or alternatively "git clone" it); then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
+This is the recommended installation for developers that need to make modifications to PuMA. 
+Run the following commands to clone the project and install it (on a Mac, execute "bash" to make sure the bash shell is active):
 
-      ./installer.sh
-
-Follow the instructions that might be printed. One the PuMA C++ library, pumapy python package and GUI are installed, the latter can be launched by running:
-
-      conda activate puma; pumaGUI
-
-PuMA relies on a conda environment in order to manage its software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the pumapy python package.
-
-The [jupyter notebooks](./python/tutorials) show the typical function use for pumapy. These can be run directly in Google Colaboratory, as explained in the [tutorial's README](./python/tutorials/README.md).
+    git clone https://gitlab.com/jcfergus/puma-dev.git
+    cd puma-dev; chmod +x installer.sh; ./installer.sh
 
 ### How to link your C++ project to the PuMA library
 In the folder [initproject](./cpp/initproject) there is a simple example project already linked to the PuMA library. 
-For beginners, it is recommended to start copying and pasting into the main.cpp the [C++ examples](./cpp/examples/examples.cpp) and compiling it by running "./makeAll.sh".
-Since the PuMA installation uses conda to manage the dependencies, the puma environment needs to be first loaded by running:
+For beginners, it is recommended to start copying and pasting into the main.cpp the [C++ examples](./cpp/examples/examples.cpp) 
+and compiling it by running "./makeAll.sh". Since the PuMA installation uses conda to manage the dependencies, 
+the puma environment needs to be first loaded by running:
 
       conda activate puma
 
@@ -89,25 +88,16 @@ achieved by adding the following commands to the ~/.profile file before running 
     conda config --append envs_dirs /nobackup/$USER/.conda/envs
     source activate
 
-## Common errors and bug reporting
-Here is a list of the common errors encountered during the setup and how to solve them:
-
-- If receiving the error message "Permission Denied" when attempting to run ./installer.sh, run "chmod +x installer.sh" and try again
-- If an error "xcrun: error: invalid active developer path" is displayed on a Mac, the Xcode CommandLineTools need to be installed
-- When importing pumapy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost" to ~/.bashrc (Linux) or ~/.bash_profile (Mac) 
-- If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install ntp" (or equivalent for your distribution)
-- If an error "fatal error: GL/gl.h: No such file or directory" is displayed, then run "sudo apt-get install mesa-common-dev" (or equivalent for your distribution)
-
-If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
-
 ## Citing PuMA
 If you use PuMA in your research, please use the following BibTeX entries to cite it:
 
 ```BibTeX
 @article{puma2021,
-  title={Update 3.0 to "PuMA: the Porous Microstructure Analysis software"},
-  author={Ferguson, Joseph C and Semeraro, Federico and Thornton, John M and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
+  title = {Update 3.0 to “PuMA: The Porous Microstructure Analysis software”, (PII:S2352711018300281)},
+  author={Joseph C. Ferguson and Federico Semeraro and John M. Thornton and Francesco Panerai and Arnaud Borner and Nagi N. Mansour},
   journal={SoftwareX},
+  volume={15},
+  pages={100775},
   year={2021},
   publisher={Elsevier}
 }
@@ -124,8 +114,40 @@ If you use PuMA in your research, please use the following BibTeX entries to cit
 
 See the [publications](./publications.md) file for a full list of papers on PuMA and its numerical methods.  
 
+## Common errors and bug reporting
+This is a list of the common errors encountered during the setup and how to solve them:
+
+- If receiving the error message "Permission Denied" when attempting to run ./installer.sh, run "chmod +x installer.sh" and try again
+- If an error "xcrun: error: invalid active developer path" is displayed on a Mac, the Xcode CommandLineTools need to be installed
+- When importing pumapy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost" to ~/.bashrc (Linux) or ~/.bash_profile (Mac) 
+- If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install ntp" (or equivalent for your distribution)
+- If an error "fatal error: GL/gl.h: No such file or directory" is displayed, then run "sudo apt-get install mesa-common-dev" (or equivalent for your distribution)
+
+### Linux-specific requirements
+Many linux distributions come with built-in development tools, but others to do. Before beginning the installation, make sure that the following are installed: 
+- gcc
+- g++
+- make
+- git
+
+To see if they are installed, run each in a terminal window. If they are not installed, a message will appear saying 
+"Command 'INPUT' not found". In Ubuntu, each of these can be installed by the following commands: 
+- sudo apt-get install git
+- sudo apt-get install build-essential
+
+The build-essential installation will isntall gcc, g++, and make. On Fedora based distributions, they can be installed using yum:
+- sudo yum group install git
+- sudo yum group install "Development Tools"
+
+It is also recommended that the following be run, in case your system does not have the necessary GL libraries: 
+- sudo apt-get install mesa-common-dev (for Ubuntu)
+- sudo yum install mesa-libGL-devel (For Fedora/CentOS)
+
+If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
+
 ## Contributing to PuMA
-Since PuMA is a free open-source code, any user is welcome to contribute or collaborate however they would like. If you are interested in significant development for your research goals, please contact either of the authors mentioned below.
+Since PuMA is a free open-source code, any user is welcome to contribute or collaborate however they would like. 
+If you are interested in significant development for your research goals, please contact either of the authors mentioned below.
 
 ## Authors
 Creator:  Joseph Ferguson

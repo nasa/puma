@@ -4,8 +4,9 @@ The following is a chronological list of publications and presentations about th
 
 
 - Ferguson, J.C., Semeraro, F., Thornton, J.M., Panerai, F., Borner, A. and Mansour, N.N., 2021. 
-  Update 3.0 to "PuMA: the Porous Microstructure Analysis software". 
-  SoftwareX (accepted)
+  Update 3.0 to “PuMA: The Porous Microstructure Analysis software”, (PII:S2352711018300281). 
+  SoftwareX, 15, p.100775.
+  [link to paper](https://www.sciencedirect.com/science/article/abs/pii/S092702562030447X)
   
 
 - Semeraro, F., Ferguson, J.C., Acin, M., Panerai, F. and Mansour, N.N., 2021. 
