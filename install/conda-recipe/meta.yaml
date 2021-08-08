@@ -42,6 +42,8 @@ requirements:
     - matplotlib
     - pyevtk
     - numpy-stl
+    - pyvista
+    - fenics-dolfin
 
 test:
   imports:
