@@ -17,7 +17,6 @@ cpp/src/CMakeLists.txt
 CMakeLists.txt.user
 
 # conda environment
-*.yml
 !.readthedocs.yml
 !docs/sphinx_env.yml
 
