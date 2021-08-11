@@ -57,18 +57,19 @@ def compare_slices(ws_nparray1, ws_nparray2, slice_direction='z', crange1=None, 
     if img1 is None:
         return
 
-    img1, axis_labels, slices, rows1, cols1 = CompareSlicer.rotate_domain_mpl(img1, slice_direction)
-    img2, _, _, rows2, cols2 = CompareSlicer.rotate_domain_mpl(img2, slice_direction)
+    img1, axis_labels, slices1, rows1, cols1 = CompareSlicer.rotate_domain_mpl(img1, slice_direction)
+    img2, _, slices2, rows2, cols2 = CompareSlicer.rotate_domain_mpl(img2, slice_direction)
     return CompareSlicer(img1, img2, slice_direction, crange1, cmap1, crange2, cmap2, index,
-                         axis_labels, slices, rows1, cols1, rows2, cols2)
+                         axis_labels, slices1, slices2, rows1, cols1, rows2, cols2)
 
 
 class IndexTracker:
-    def __init__(self, img, img2, slice_direction, index, axis_labels, slices):
+    def __init__(self, img, img2, slice_direction, index, axis_labels, slices, slices_titles):
         self.slice_direction = slice_direction
         self.ind = index - 1
         self.axis_labels = axis_labels
         self.slices = slices
+        self.slices_titles = slices_titles
         self.axis_labels = axis_labels
         self.img = img
         self.img2 = img2
@@ -159,7 +160,7 @@ class IndexTracker:
 
 class PlotSlicer(IndexTracker):
     def __init__(self, img, slice_direction, color_range, color_map, index, axis_labels, slices, rows, cols):
-        super().__init__(img, None, slice_direction, index, axis_labels, slices)
+        super().__init__(img, None, slice_direction, index, axis_labels, slices, None)
         self.color_range = color_range
         self.color_map = color_map
         self.rows = rows
@@ -192,8 +193,8 @@ class PlotSlicer(IndexTracker):
 
 class CompareSlicer(IndexTracker):
     def __init__(self, img1, img2, slice_direction, color_range1, color_map1, color_range2, color_map2, index,
-                 axis_labels, slices, rows1, cols1, rows2, cols2):
-        super().__init__(img1, img2, slice_direction, index, axis_labels, slices)
+                 axis_labels, slices1, slices2, rows1, cols1, rows2, cols2):
+        super().__init__(img1, img2, slice_direction, index, axis_labels, max(slices1, slices2), [slices1, slices2])
         self.imgs = img1, img2
         self.color_ranges = [color_range1, color_range2]
         self.color_maps = color_map1, color_map2
@@ -225,6 +226,6 @@ class CompareSlicer(IndexTracker):
     def update(self):
         for i in range(2):
             self.ims[i].set_data(self.imgs[i][:, :, self.ind])
-            self.ax[i].set_title('Slice: {}/{} along {}'.format(self.ind + 1, self.slices, self.slice_direction))
+            self.ax[i].set_title('Slice: {}/{} along {}'.format(self.ind + 1, self.slices_titles[i], self.slice_direction))
             self.ax[i].format_coord = CompareSlicer.format_coord
         self.fig.canvas.draw()

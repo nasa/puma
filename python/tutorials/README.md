@@ -1,18 +1,34 @@
 # pumapy Tutorials
 This folder contains tutorials that show the basic workings of pumapy. 
 
+## Run online in Colab
+You can click on the following links to run them directly on Google Colab:
+
+- [Workspace manipulation](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_workspace_manipulation.ipynb)
+- [Import/Export data](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_import_export.ipynb)
+- [Visualization](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_visualization.ipynb)
+- [Multi-phase material](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_multi_phase.ipynb)
+- [Generate random fibers](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_generate_random_fibers.ipynb)
+- [Generate random spheres](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_generate_random_spheres.ipynb)
+- [Generate TPMS](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_generate_tpms.ipynb)
+- [Generate weaves](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_generate_weaves.ipynb)
+- [Generate STL](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_generate_STL.ipynb)
+- [Compute surface area](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_surface_area.ipynb)
+- [Compute thermal conductivity](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_thermalconductivity.ipynb)
+- [Compute tortuosity](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_tortuosity_continuum.ipynb)
+- [Compute elasticity](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/tutorial_elasticity.ipynb)
+
 ## Run locally
-Depending on how you installed PuMA, you might have to install the following dependencies into the
-conda environment: 
+In order to run the notebooks locally, you must have downloaded the PuMA repository to your computer. If you installed puma by running "conda create -n puma fsemerar::puma", you will have to install the following extra dependencies into the conda environment as: 
 
     conda activate puma
-    conda install -c conda-forge ipympl jupyterlab
+    conda install conda-forge::ipympl anaconda::jupyter
 
-To follow the tutorials, from the puma root folder run:
+On the other hand, if you installed puma by running "./installer.sh", then these dependencies are already part of the puma environment. 
 
-    jupyter lab
+To follow the tutorials, from the tutorials folder run:
 
-from this folder and then open the tutorial that you want to follow.
+    jupyter notebook
 
 
 ----------------- Disclaimer: -----------------

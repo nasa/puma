@@ -22,11 +22,6 @@ fi
 eval "$(conda shell.bash hook)"
 cd install
 
-###### PUMAPY INSTALLATION ######
-echo -e "\nStarting pumapy installation.\n"
-chmod +x ./pumapy_installer.sh
-./pumapy_installer.sh
-
 ####### PUMA C++ INSTALLATION ######
 echo -e "\nStarting PuMA installation.\n"
 chmod +x ./puma_installer.sh
@@ -37,9 +32,13 @@ echo -e "\nStarting texgen installation.\n"
 chmod +x ./texgen_installer.sh
 ./texgen_installer.sh
 
+###### PUMAPY INSTALLATION ######
+echo -e "\nStarting pumapy installation.\n"
+chmod +x ./pumapy_installer.sh
+./pumapy_installer.sh
+
 ###### PUMA GUI INSTALLATION ######
 echo -e "\nStarting GUI installation."
-echo -e "\n*** If a message 'The environment is inconsistent' is shown, let the conda solver resolve it ***\n"
 chmod +x ./gui_installer.sh
 ./gui_installer.sh
 

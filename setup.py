@@ -83,4 +83,5 @@ setup(
         "pyevtk",
         "pyvista",
     ],
+    package_data={'': ['data/*']},  # copy over all the example data
 )

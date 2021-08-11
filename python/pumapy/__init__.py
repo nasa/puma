@@ -59,6 +59,9 @@ from pumapy.visualization.slicer import plot_slices, compare_slices
 # segmentation
 from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
 
+# example data
+from pumapy.data.path_to_example_file import path_to_example_file
+
 # add wrapped puma cpp functions
 # try:
 #     import pumapy.utilities.libPuMA as cpp
