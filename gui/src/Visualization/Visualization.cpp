@@ -70,9 +70,9 @@ void Visualization::launchPython(int visType)
     python_commands += "ws = puma.import_vti('tmp-gui-ws.vtk');";
     python_commands += "cutoff = (" + std::to_string(lowVoid) + ", " + std::to_string(highVoid) + ");";
     if (visType == 1){
-        python_commands += "puma.render_contour(ws, cutoff, color=False, background=(1, 1, 1));";
+        python_commands += "puma.render_contour(ws, cutoff, solid_color=(1,1,1));";
     } else{
-        python_commands += "puma.render_volume(ws, cutoff, color=False, background=(1, 1, 1));";
+        python_commands += "puma.render_volume(ws, cutoff, solid_color=(1,1,1));";
     }
     python_commands += "import os; os.remove('tmp-gui-ws.vtk')";
 
