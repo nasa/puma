@@ -591,11 +591,6 @@ void MainWindow::on_actionPaper_2_triggered() {
     QDesktopServices::openUrl(QUrl(link));
 }
 
-void MainWindow::on_actionPuMA_Overview_triggered() {
-    QString link = "https://www.sciencedirect.com/science/article/pii/S2352711018300281";
-    QDesktopServices::openUrl(QUrl(link));
-}
-
 void MainWindow::on_actionApplication_triggered() {
     QString link = "https://www.sciencedirect.com/science/article/pii/S0017931016327235";
     QDesktopServices::openUrl(QUrl(link));
@@ -611,6 +606,23 @@ void MainWindow::on_actionOrientation_Estimation_triggered() {
     QDesktopServices::openUrl(QUrl(link));
 }
 
+void MainWindow::on_actionPaper_3_triggered()
+{
+    QString link = "https://www.sciencedirect.com/science/article/pii/S2352711018300281";
+    QDesktopServices::openUrl(QUrl(link));
+}
+
+void MainWindow::on_actionPaper_4_triggered()
+{
+    QString link = "https://www.sciencedirect.com/science/article/pii/S235271102100090X";
+    QDesktopServices::openUrl(QUrl(link));
+}
+
+void MainWindow::on_actionOverview_Talk_triggered()
+{
+    QString link = "https://www.nas.nasa.gov/pubs/ams/2020/09-29-20.html";
+    QDesktopServices::openUrl(QUrl(link));
+}
 
 
 

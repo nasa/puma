@@ -276,11 +276,22 @@
       <addaction name="actionPaper_1"/>
       <addaction name="actionPaper_2"/>
      </widget>
-     <addaction name="actionPuMA_Overview"/>
+     <widget class="QMenu" name="menuPuMA_Overview">
+      <property name="title">
+       <string>PuMA Overview</string>
+      </property>
+      <addaction name="separator"/>
+      <addaction name="separator"/>
+      <addaction name="actionPaper_3"/>
+      <addaction name="actionPaper_4"/>
+     </widget>
+     <addaction name="menuPuMA_Overview"/>
      <addaction name="menuOxidation"/>
      <addaction name="actionApplication"/>
      <addaction name="actionAnisotropic_Conductivity_Paper"/>
      <addaction name="actionOrientation_Estimation"/>
+     <addaction name="separator"/>
+     <addaction name="actionOverview_Talk"/>
     </widget>
     <addaction name="menuPublications"/>
    </widget>
@@ -776,11 +787,6 @@
     <string>Z Direction</string>
    </property>
   </action>
-  <action name="actionPuMA_Overview">
-   <property name="text">
-    <string>PuMA Overview</string>
-   </property>
-  </action>
   <action name="actionApplication">
    <property name="text">
     <string>Application</string>
@@ -816,6 +822,21 @@
    </property>
    <property name="toolTip">
     <string>Visualization</string>
+   </property>
+  </action>
+  <action name="actionPaper_3">
+   <property name="text">
+    <string>Paper 1</string>
+   </property>
+  </action>
+  <action name="actionPaper_4">
+   <property name="text">
+    <string>Paper 2</string>
+   </property>
+  </action>
+  <action name="actionOverview_Talk">
+   <property name="text">
+    <string>Overview Talk</string>
    </property>
   </action>
  </widget>

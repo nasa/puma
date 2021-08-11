@@ -86,8 +86,8 @@ If you use PuMA in your research, please use the following BibTeX entries to cit
 
 ```BibTeX
 @article{puma2021,
-  title = {Update 3.0 to “PuMA: The Porous Microstructure Analysis software”, (PII:S2352711018300281)},
-  author={Joseph C. Ferguson and Federico Semeraro and John M. Thornton and Francesco Panerai and Arnaud Borner and Nagi N. Mansour},
+  title={Update 3.0 to “PuMA: The Porous Microstructure Analysis software”,(PII: S2352711018300281)},
+  author={Ferguson, Joseph C and Semeraro, Federico and Thornton, John M and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
   journal={SoftwareX},
   volume={15},
   pages={100775},

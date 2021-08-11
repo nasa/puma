@@ -1,11 +1,11 @@
-## Perform weave segmentation with PuMA's Detectow extension
+## Weave segmentation with Detectow
 
-As part of the PuMA effort, a machine learning module called Detectow was implemented to enable the segmentation of woven fibrous microstructures.
+As part of the PuMA effort, a machine learning module called Detectow was implemented to enable the panoptic segmentation of woven fibrous microstructures.
 This is often a critical preprocessing step, necessary for computing some material properties, especially when anisotropic. 
 
 This extension package can be installed by following the instructions on the [Detectow's repository](https://github.com/fsemerar/detectow).
 
-## Legal / License
+----------------- Disclaimer: -----------------
 Copyright @ 2017, 2020, 2021 United States Government as represented by the Administrator of the National Aeronautics and Space Administration. All Rights Reserved.
 This software may be used, reproduced, and provided to others only as permitted under the terms of the agreement under which it was acquired from the U.S. Government. Neither title to, nor ownership of, the software is hereby transferred. This notice shall remain on all copies of the software.
 This file is available under the terms of the NASA Open Source Agreement (NOSA), and further subject to the additional disclaimer below:

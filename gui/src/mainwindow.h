@@ -72,7 +72,8 @@ private slots:
 
     void on_actionPaper_1_triggered();
     void on_actionPaper_2_triggered();
-    void on_actionPuMA_Overview_triggered();
+    void on_actionPaper_3_triggered();
+    void on_actionPaper_4_triggered();
     void on_actionApplication_triggered();
     void on_actionAnisotropic_Conductivity_Paper_triggered();
     void on_actionOrientation_Estimation_triggered();
@@ -80,6 +81,8 @@ private slots:
     void on_updateVoxelLength_Button_clicked();
     void on_actionVisualization_triggered();
 
+
+    void on_actionOverview_Talk_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -16,6 +16,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../python'))
 sys.path.insert(0, os.path.abspath('../../cpp'))
 
+# compile .so for cython files
+os.system("cd ../.. && python setup.py build_ext --inplace")
 
 # create tutorials nblinks
 path = "../../python/tutorials"
@@ -111,9 +113,9 @@ html_theme_options = {
 
 from unittest import mock
 MOCK_MODULES = [
-                'TexGen.Core', 'paraview', 'paraview.simple', 'vtk', 'numpy', 'matplotlib', 'mpl_toolkits', 'mpl_toolkits.axes_grid1', 
+                'TexGen.Core', 'pyvista', 'vtk', 'numpy', 'matplotlib',
                 'skimage', 'skimage.transform', 'skimage.io', 'skimage.filters', 'skimage.morphology', 'visvis', 'pyevtk', 'pyevtk.hl', 
-                'scipy', 'scipy.optimize', 'scipy.sparse', 'scipy.sparse.linalg', 'scipy.ndimage', 'scipy.ndimage.filters', 'dolfin', 'stl',
+                'scipy', 'scipy.optimize', 'scipy.sparse', 'scipy.sparse.linalg', 'scipy.ndimage', 'scipy.ndimage.filters', 'dolfin',
                 ]
 
 for module_name in MOCK_MODULES:
