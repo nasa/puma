@@ -51,10 +51,9 @@ except ImportError:
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-# pumapy package setup
 setup(
     name="pumapy",
-    version="3.0",
+    version="3.0.0",
     author="PuMA team",
     maintainer_email="federico.semeraro@nasa.gov, joseph.ferguson@stanford.edu",
     description="A package to compute material properties from micro-CT data.",
@@ -76,14 +75,12 @@ setup(
                     "wheel",
                     "numpy",
     ],
-    install_requires=[
+    install_requires=[  # TexGen and fenics-dolfin also required but not listed here because not installable with pip
         "numpy",
         "scikit-image",
         "scipy",
         "matplotlib",
         "pyevtk",
-        "numpy-stl",
         "pyvista",
-        "vtk",
     ],
 )

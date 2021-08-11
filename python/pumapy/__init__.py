@@ -18,7 +18,6 @@ from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import Logger, print_warning
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.isosurface import generate_isosurface
-from pumapy.utilities.detect_env import detect_env
 from pumapy.utilities.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
 from pumapy.utilities.boundary_conditions import ConductivityBC, ElasticityBC
 
@@ -54,8 +53,7 @@ except ImportError:  # import it only if installed
     pass
 
 # visualization
-from pumapy.visualization.render import render_volume, render_contour, render_orientation, render_warp
-from pumapy.visualization.render_multiphase import render_contour_multiphase
+from pumapy.visualization.render import render_volume, render_contour, render_orientation, render_contour_multiphase
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation

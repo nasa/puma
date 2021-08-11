@@ -15,7 +15,6 @@ dependencies:
   - pyevtk
   - pyvista
   - jupyterlab
-  - numpy-stl
   - openmp
   - fftw
   - eigen
