@@ -50,6 +50,7 @@ main.py
 install/TexGen/bin
 python/pumapy/generation/weave_3mdcp
 _trial_temp*
+python/tutorials/out
 
 # GUI
 .qmake.stash

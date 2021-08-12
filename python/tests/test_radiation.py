@@ -20,7 +20,7 @@ class TestRadiation(unittest.TestCase):
         self.assertTrue(puma.compute_radiation(ws, (1, 1), 1, 45) is not False)
 
     def test_artfib(self):
-        ws = puma.import_vti(puma.path_to_example_file("artifib.vtk"))
+        ws = puma.import_vti("testdata/artifib.vtk")
         ws.set_material_id((0, 128), 0)
         ws.set_material_id((129, 255), 1)
 

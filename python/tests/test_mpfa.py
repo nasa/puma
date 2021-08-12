@@ -178,7 +178,7 @@ class TestAnisotropicTC(unittest.TestCase):
         np.testing.assert_array_almost_equal(keff, [0, 0, 10], decimal=6)
 
     def test_artfib50(self):
-        ws = puma.import_vti(puma.path_to_example_file("artifib.vtk"))
+        ws = puma.import_vti("testdata/artifib.vtk")
         cond_map = puma.AnisotropicConductivityMap()
         cond_map.add_isotropic_material((0, 128), 0.0257)
         cond_map.add_isotropic_material((129, 255), 10)
