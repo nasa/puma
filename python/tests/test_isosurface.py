@@ -7,7 +7,7 @@ from skimage import io
 class TestIsosurface(unittest.TestCase):
 
     def test_fiberform(self):
-        ws = puma.Workspace.from_array(io.imread("testdata/200_FiberForm.tif"))
+        ws = puma.Workspace.from_array(io.imread(puma.path_to_example_file("200_fiberform.tif")))
         mesh = puma.generate_isosurface(ws, (90, 255), True, False)
 
         np.testing.assert_equal(len(mesh.values), 665453)

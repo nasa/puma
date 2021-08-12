@@ -11,9 +11,10 @@ dependencies:
   - scikit-image
   - scikit-umfpack
   - matplotlib
-  - ipympl
   - pyevtk
   - pyvista
+  - fenics-dolfin >=2019.1.0
+  - ipympl
   - jupyterlab
   - openmp
   - fftw
@@ -21,4 +22,3 @@ dependencies:
   - swig
   - cmake >=3.11.0
   - qt >=5.9.0
-  - fenics-dolfin >=2019.1.0

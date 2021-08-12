@@ -22,7 +22,7 @@ You can click on the following links to run them directly on Google Colab:
 In order to run the notebooks locally, you must have downloaded the PuMA repository to your computer. If you installed puma by running "conda create -n puma fsemerar::puma", you will have to install the following extra dependencies into the conda environment as: 
 
     conda activate puma
-    conda install conda-forge::ipympl anaconda::jupyter
+    conda install anaconda::jupyter conda-forge::ipympl conda-forge::ipyvtklink
 
 On the other hand, if you installed puma by running "./installer.sh", then these dependencies are already part of the puma environment. 
 

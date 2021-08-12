@@ -217,7 +217,7 @@ public:
         TestResult result(suiteName, testName, 9, testDescription);
 
         puma::Workspace segWS(1300,1300,1300,0,1e-6,false);
-        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/1300_Spheres.tif",0);
+        puma::import_3DTiff(&segWS,"python/pumapy/data/1300_Spheres.tif",0);
 
         std::pair<double, double> sa = compute_SurfaceAreaVoxels(&segWS, puma::Cutoff(1, 1), 0);
 
@@ -238,7 +238,7 @@ public:
         TestResult result(suiteName, testName, 10, testDescription);
 
         puma::Workspace grayWS(1300,1300,1300,0,1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/1300_Spheres.tif",0);
 
         std::pair<double, double> sa = compute_SurfaceAreaVoxels(&grayWS, puma::Cutoff(128, 255), 0);
 
@@ -259,7 +259,7 @@ public:
         TestResult result(suiteName, testName, 11, testDescription);
 
         puma::Workspace segWS(200,200,200,0,1e-6,false);
-        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&segWS,"python/pumapy/data/200_fiberform_segmented.tif",0);
 
         std::pair<double, double> sa = compute_SurfaceAreaVoxels(&segWS, puma::Cutoff(1, 1), 0);
 
@@ -280,7 +280,7 @@ public:
         TestResult result(suiteName, testName, 12, testDescription);
 
         puma::Workspace grayWS(200,200,200,0,1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         std::pair<double, double> sa = compute_SurfaceAreaVoxels(&grayWS, puma::Cutoff(90, 255), 0);
 
@@ -426,7 +426,7 @@ public:
         TestResult result(suiteName, testName, 19, testDescription);
 
         puma::Workspace grayWS(1300,1300,1300,0,1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/1300_Spheres.tif",0);
 
         std::pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&grayWS, puma::Cutoff(128, 255), 0, 0);
 
@@ -448,7 +448,7 @@ public:
         TestResult result(suiteName, testName, 20, testDescription);
 
         puma::Workspace segWS(1300,1300,1300,0,1e-6,false);
-        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/1300_Spheres.tif",0);
+        puma::import_3DTiff(&segWS,"python/pumapy/data/1300_Spheres.tif",0);
         std::pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&segWS, puma::Cutoff(1, 1), 0, 0);
 
         if(!assertEquals(3.350938727e-5,sa.first, &result)) {
@@ -469,7 +469,7 @@ public:
         TestResult result(suiteName, testName, 21, testDescription);
 
         puma::Workspace grayWS(200,200,200,0,1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         std::pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&grayWS, puma::Cutoff(90, 255), 0, 0);
 
@@ -491,7 +491,7 @@ public:
         TestResult result(suiteName, testName, 22, testDescription);
 
         puma::Workspace segWS(200,200,200,0,1e-6,false);
-        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&segWS,"python/pumapy/data/200_fiberform_segmented.tif",0);
         std::pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&segWS, puma::Cutoff(1, 1), 0, 0);
 
         if(!assertEquals(4.479217316e-7,sa.first, &result)) {
@@ -556,7 +556,7 @@ public:
         TestResult result(suiteName, testName, 25, testDescription);
 
         puma::Workspace grayWS(1300,1300,1300,0,1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/1300_Spheres.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/1300_Spheres.tif",0);
 
         std::pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&grayWS, puma::Cutoff(128, 255), 1, 0);
 
@@ -578,7 +578,7 @@ public:
         TestResult result(suiteName, testName, 26, testDescription);
 
         puma::Workspace segWS(1300,1300,1300,0,1e-6,false);
-        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/1300_Spheres.tif",0);
+        puma::import_3DTiff(&segWS,"python/pumapy/data/1300_Spheres.tif",0);
         std::pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&segWS, puma::Cutoff(1, 1), 1, 0);
 
         if(!assertEquals(3.130272474e-05,sa.first, &result)) {
@@ -599,7 +599,7 @@ public:
         TestResult result(suiteName, testName, 27, testDescription);
 
         puma::Workspace grayWS(200,200,200,0,1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         std::pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&grayWS, puma::Cutoff(90, 255), 1, 0);
 
@@ -621,7 +621,7 @@ public:
         TestResult result(suiteName, testName, 28, testDescription);
 
         puma::Workspace segWS(200,200,200,0,1e-6,false);
-        puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&segWS,"python/pumapy/data/200_fiberform_segmented.tif",0);
         std::pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&segWS, puma::Cutoff(1, 1), 1, 0);
 
         if(!assertEquals(4.122054032e-7,sa.first, &result)) {

@@ -185,7 +185,7 @@ int main (int argc, char **argv)
             cout << endl << "Running the Marching Cubes as the previous example and exporting the triangles created to an stl file:"<< endl;
 
             puma::Workspace grayWS(1e-6, false);
-            puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
             // 1. Exporting the STL Directly
             puma::export_STL(&grayWS, puma::Cutoff(90,255), false,"cpp/examples/exampledata/triangles1");
@@ -233,7 +233,7 @@ int main (int argc, char **argv)
             cout << endl << "Importing a grayscale workspace of FiberForm and printing a subset of it:" << endl;
 
             puma::Workspace grayWS(1e-6, false); // no need to specify the size since the import function takes care of it
-            puma::import_3DTiff(&grayWS, "cpp/test/tiff/grayWS/200_FiberForm.tif",0); // note that .tif is required
+            puma::import_3DTiff(&grayWS, "python/pumapy/data/200_fiberform.tif",0); // note that .tif is required
 
             grayWS.matrix.printRange(150,(int)grayWS.X()-1, 150, (int)grayWS.Y()-1, 100,101);
 
@@ -241,7 +241,7 @@ int main (int argc, char **argv)
             cout << "Importing the same segmented workspace and printing the same subset of it:" << endl;
 
             puma::Workspace segWS(1e-6, false); // no need to specify the size since the import function takes care of it
-            puma::import_3DTiff(&segWS, "cpp/test/tiff/segWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&segWS, "python/pumapy/data/200_fiberform_segmented.tif",0);
 
             segWS.matrix.printRange(150,(int)segWS.X()-1, 150, (int)segWS.Y()-1, 100,101);
         }
@@ -282,7 +282,7 @@ int main (int argc, char **argv)
             cout << endl << "Computing Porosity and Volume Fraction of a segmented Fiberform sample:"<< endl;
 
             puma::Workspace workspace(1.3, false);
-            puma::import_3DTiff(&workspace, "cpp/test/tiff/segWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&workspace, "python/pumapy/data/200_fiberform_segmented.tif",0);
 
             cout << endl << "Porosity: " << puma::compute_VolumeFraction(&workspace,0,0) << endl;
             cout << "Fiber Volume Fraction: " << puma::compute_VolumeFraction(&workspace,1,0) << endl;
@@ -297,7 +297,7 @@ int main (int argc, char **argv)
             cout << endl << "Running the Marching Cubes on a grayscale FiberForm sample, with closed edges and factor of 2:"<< endl;
 
             puma::Workspace grayWS(1e-6, false);
-            puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
             // 1. Computing the Triangles via the Marching Cubes Algorithm. Faster, but there can be small holes in the mesh. Good for visualizations, bad for simulations
             vector< puma::Triangle<float> > tris;
@@ -325,7 +325,7 @@ int main (int argc, char **argv)
             cout << endl << "Computing the surface area of a sample of FiberForm:"<< endl;
 
             puma::Workspace grayWS(1e-6, false);
-            puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
             pair<double, double> sa = compute_SurfaceAreaMarchingCubes(&grayWS, puma::Cutoff(128, 255), true, 0);
 
@@ -342,7 +342,7 @@ int main (int argc, char **argv)
 
             puma::Workspace grayWS(1e-6, false);
 
-            puma::import_3DTiff(&grayWS, "cpp/test/tiff/grayWS/100_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS, "python/pumapy/data/100_fiberform.tif",0);
 
             cout << "Before Median filter:"<< endl;
             grayWS.matrix.printRange(50,-1, 50, -1, 50,51);
@@ -363,7 +363,7 @@ int main (int argc, char **argv)
 
             puma::Workspace grayWS(1e-6, false);
 
-            puma::import_3DTiff(&grayWS, "cpp/test/tiff/grayWS/100_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS, "python/pumapy/data/100_fiberform.tif",0);
 
             cout << "Before Mean filter:"<< endl;
             grayWS.matrix.printRange(50,-1, 50, -1, 50,51);
@@ -384,7 +384,7 @@ int main (int argc, char **argv)
 
             puma::Workspace grayWS(1e-6, false);
 
-            puma::import_3DTiff(&grayWS, "cpp/test/tiff/grayWS/100_FiberForm.tif",0);
+            puma::import_3DTiff(&grayWS, "python/pumapy/data/100_fiberform.tif",0);
 
             cout << "Before Bilateral filter:"<< endl;
             grayWS.matrix.printRange(50,-1, 50, -1, 50,51);
@@ -580,7 +580,7 @@ int main (int argc, char **argv)
             bool continuousTiff = true;
             int equationNumber = 0; // equation 0, 1 or 2
             
-           std::string outputFolder = "cpp/test/out/stl/";
+            std::string outputFolder = "cpp/test/out/stl/";
             std::string outputLabel = "equation1";
             
             
@@ -679,7 +679,7 @@ int main (int argc, char **argv)
             puma::Workspace segWS(1e-6, false);
 
             // Importing FiberForm 200^3 tiff, selecting only subsection of it
-            puma::import_3DTiff(&segWS,"cpp/test/tiff/segWS/200_FiberForm.tif");
+            puma::import_3DTiff(&segWS,"python/pumapy/data/200_fiberform_segmented.tif");
 
             // Computing the Mean Intercept Length
             puma::Vec3<double> mil = puma::compute_MeanInterceptLength(&segWS,puma::Cutoff(0,0));
@@ -835,7 +835,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"python/pumapy/data/100_fiberform.tif");
 
             // Segmenting workspace by thresholding
             ws.setMaterialID(&ws,puma::Cutoff(0,89),0);
@@ -910,7 +910,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"python/pumapy/data/100_fiberform.tif");
 
             // Segmenting workspace by thresholding
             ws.setMaterialID(&ws,puma::Cutoff(0,89),0);
@@ -986,7 +986,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"python/pumapy/data/100_fiberform.tif");
 
             // Computing orientations using Structure Tensor (ST) method
             puma::MatVec3< double> tangents;
@@ -1092,7 +1092,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"python/pumapy/data/100_fiberform.tif");
 
             // Segmenting workspace by thresholding
             ws.setMaterialID(&ws,puma::Cutoff(0,89),0);
@@ -1167,7 +1167,7 @@ int main (int argc, char **argv)
             puma::Workspace ws(1e-6, false);
 
             // Importing 3D tiff
-            puma::import_3DTiff(&ws,"cpp/test/tiff/grayWS/100_FiberForm.tif");
+            puma::import_3DTiff(&ws,"python/pumapy/data/100_fiberform.tif");
 
             // Segmenting workspace by thresholding
             ws.setMaterialID(&ws,puma::Cutoff(0,89),0);

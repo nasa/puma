@@ -54,7 +54,7 @@ def compute_orientation_st(ws, sigma, rho, cutoff, edt=False):
     :type sigma: float
     :param rho: with kernel size parameter for Gaussian filter (should be bigger than sigma)
     :type rho: float
-    :param cutoff: with grayscales to consider
+    :param cutoff: which grayscales to consider
     :type cutoff: tuple(int, int)
     :param edt: indicating if we need to apply Euclidean Distance Transform before computing ST
     :type edt: bool

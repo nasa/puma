@@ -179,7 +179,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_sphere_r40.tif",10);
 
         puma::Matrix<float> newMatrix;
 
@@ -218,7 +218,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_sphere_r40.tif",10);
         grayWS.crop(0,98,0,97,1,96);
 
         puma::Matrix<float> newMatrix;
@@ -338,7 +338,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",10);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_sphere_r40.tif",10);
         puma::Matrix<float> newMatrix;
 
         bool success = IsoSurfaceHelper::DownScale(&grayWS.matrix,&newMatrix, 4,8);
@@ -576,7 +576,7 @@ public:
         TestResult result(suiteName, testName, 17, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_sphere_r40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(128,255),true,1,false,0);
@@ -603,7 +603,7 @@ public:
         TestResult result(suiteName, testName, 18, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_sphere_r40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         grayWS.crop(0,99,0,98,1,97);
@@ -632,7 +632,7 @@ public:
         TestResult result(suiteName, testName, 19, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(128,255),true,1,false,0);
@@ -659,7 +659,7 @@ public:
         TestResult result(suiteName, testName, 20, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(128,255),false,1,false,0);
@@ -686,7 +686,7 @@ public:
         TestResult result(suiteName, testName, 21, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(0,127),true,1,false,0);
@@ -713,7 +713,7 @@ public:
         TestResult result(suiteName, testName, 22, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(0,127),false,1,false,0);
@@ -740,7 +740,7 @@ public:
         TestResult result(suiteName, testName, 23, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(0,127),true,1,true,0);
@@ -767,7 +767,7 @@ public:
         TestResult result(suiteName, testName, 24, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),false,1,false,0);
@@ -796,7 +796,7 @@ public:
         TestResult result(suiteName, testName, 25, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),true,1,false,0);
@@ -823,7 +823,7 @@ public:
         TestResult result(suiteName, testName, 26, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),false,1,true,0);
@@ -850,7 +850,7 @@ public:
         TestResult result(suiteName, testName, 27, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),true,1,true,0);
@@ -877,7 +877,7 @@ public:
         TestResult result(suiteName, testName, 28, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),false,2,true,0);
@@ -904,7 +904,7 @@ public:
         TestResult result(suiteName, testName, 29, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),true,2,true,0);
@@ -931,7 +931,7 @@ public:
         TestResult result(suiteName, testName, 30, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),false,2,false,0);
@@ -959,7 +959,7 @@ public:
         TestResult result(suiteName, testName, 31, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
         std::vector< puma::Triangle<float> > tris(100);
 
         bool success = puma::isosurface_MarchingCubes(&tris,&grayWS,puma::Cutoff(90,255),true,2,false,0);
@@ -1151,7 +1151,7 @@ public:
         TestResult result(suiteName, testName, 38, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_sphere_r40.tif",0);
 
 
         puma::Workspace segWS(grayWS.shape(), false);
@@ -1184,7 +1184,7 @@ public:
         TestResult result(suiteName, testName, 39, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Sphere_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_sphere_r40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1217,7 +1217,7 @@ public:
         TestResult result(suiteName, testName, 40, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1248,7 +1248,7 @@ public:
         TestResult result(suiteName, testName,41, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1279,7 +1279,7 @@ public:
         TestResult result(suiteName, testName, 42, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1310,7 +1310,7 @@ public:
         TestResult result(suiteName, testName, 43, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1341,7 +1341,7 @@ public:
         TestResult result(suiteName, testName, 44, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(128,255),1);
@@ -1372,7 +1372,7 @@ public:
         TestResult result(suiteName, testName, 45, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1405,7 +1405,7 @@ public:
         TestResult result(suiteName, testName, 46, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1436,7 +1436,7 @@ public:
         TestResult result(suiteName, testName, 47, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1467,7 +1467,7 @@ public:
         TestResult result(suiteName, testName, 48, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1498,7 +1498,7 @@ public:
         TestResult result(suiteName, testName, 49, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1529,7 +1529,7 @@ public:
         TestResult result(suiteName, testName, 50, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1560,7 +1560,7 @@ public:
         TestResult result(suiteName, testName, 51, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1591,7 +1591,7 @@ public:
         TestResult result(suiteName, testName, 52, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -1912,7 +1912,7 @@ public:
         TestResult result(suiteName, testName, 61, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif");
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif");
 
         puma::Workspace segWS(grayWS.shape(), false);
         segWS.setMaterialID(&grayWS,puma::Cutoff(0,127),0);
@@ -2119,7 +2119,7 @@ public:
 
 
 
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/100_Cylinder_Radius40.tif");
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/100_cylinder_r40.tif");
 
         grayWS.setMaterialID(puma::Cutoff(0,67),0);
         grayWS.setMaterialID(puma::Cutoff(68,127),1);

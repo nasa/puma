@@ -1,7 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
 import pumapy.utilities.workspace as ws
-# from mpl_toolkits.axes_grid1 import make_axes_locatable  # not working on Colab
 
 
 def plot_slices(ws_nparray, slice_direction='z', crange=None, cmap='gray', index=1):
@@ -178,8 +177,8 @@ class PlotSlicer(IndexTracker):
 
         self.ax.set_xlabel(self.axis_labels[0])
         self.ax.set_ylabel(self.axis_labels[1])
-        # plt.colorbar(self.im, cax=make_axes_locatable(self.ax).append_axes("right", size="5%", pad=0.05), ax=self.ax,
-        #              ticks=np.linspace(self.color_range[0], self.color_range[1], 15, endpoint=True).astype(int))
+        plt.colorbar(mappable=self.im, ax=self.ax, fraction=0.046, pad=0.04,
+                     ticks=np.linspace(self.color_range[0], self.color_range[1], 15).astype(int))
         self.ax.grid(linestyle=':')
         self.update()
         plt.show(block=True)
@@ -216,9 +215,8 @@ class CompareSlicer(IndexTracker):
                                             vmin=self.color_ranges[i][0], vmax=self.color_ranges[i][1])
             self.ax[i].set_xlabel(self.axis_labels[0])
             self.ax[i].set_ylabel(self.axis_labels[1])
-            # plt.colorbar(self.ims[i], cax=make_axes_locatable(self.ax[i]).append_axes("right", size="5%", pad=0.05),
-            #              ax=self.ax[i], ticks=np.linspace(self.color_ranges[i][0],
-            #                                               self.color_ranges[i][1], 15, endpoint=True).astype(int))
+            plt.colorbar(self.ims[i], ax=self.ax[i], fraction=0.046, pad=0.04,
+                         ticks=np.linspace(self.color_ranges[i][0], self.color_ranges[i][1], 15).astype(int))
             self.ax[i].grid(linestyle=':')
         self.update()
         plt.show(block=True)

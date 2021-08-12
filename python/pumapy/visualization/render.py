@@ -4,16 +4,16 @@ import pyvista as pv
 import numpy as np
 
 
-def render_volume(workspace, cutoff=None, solid_color=None, style='surface', origin=(0., 0., 0.),
+def render_volume(workspace, cutoff=None, solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
                   window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, plot_directly=True,
-                  show_axes=True, show_outline=True, cmap='gray', add_to_plot=None):
+                  show_axes=True, show_outline=True, cmap='gray', add_to_plot=None, notebook=False):
     """ Volume render using Pyvista Threshold filter
 
     :param workspace: domain
     :type workspace: Workspace or ndarray
     :param cutoff: specifying the values to render
     :type cutoff: tuple(int, int), optional
-    :param solid_color: if None, the material is colored automatically, otherwise a solid color can be specified (e.g. for white (1., 1., 1.))
+    :param solid_color: if set to None, the material is colored by the matrix's values. Otherwise, a solid color can be specified (e.g. for white (1., 1., 1.))
     :type solid_color: tuple(float, float, float), optional
     :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
     :type style: string, optional
@@ -35,17 +35,23 @@ def render_volume(workspace, cutoff=None, solid_color=None, style='surface', ori
     :type show_outline: bool, optional
     :param cmap: matplotlib colormap to use (overwritten by solid_color if specified)
     :type cmap: str, optional
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter, optional
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool, optional
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter object or None
     """
+    if cutoff is None:
+        solid_color = None
     r = Renderer(add_to_plot, "threshold", workspace, cutoff, solid_color, style, origin, window_size, opacity,
-                 background, show_grid, plot_directly, show_axes, show_outline, cmap, None)
+                 background, show_grid, plot_directly, show_axes, show_outline, cmap, None, notebook)
     return r.render()
 
 
 def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
                    window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, plot_directly=True,
-                   show_axes=True, show_outline=True, add_to_plot=None):
+                   show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
     """ Contour render using Pyvista Contour filter
 
     :param workspace: domain
@@ -72,17 +78,21 @@ def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface',
     :type show_axes: bool, optional
     :param show_outline: show the bounding box outline of the domain
     :type show_outline: bool, optional
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter, optional
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool, optional
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter object or None
     """
     r = Renderer(add_to_plot, "contour", workspace, cutoff, solid_color, style, origin, window_size, opacity,
-                 background, show_grid, plot_directly, show_axes, show_outline, None, None)
+                 background, show_grid, plot_directly, show_axes, show_outline, None, None, notebook)
     return r.render()
 
 
 def render_orientation(workspace, scale_factor=1., solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
                        window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True,
-                       plot_directly=True, show_axes=True, show_outline=True, add_to_plot=None):
+                       plot_directly=True, show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
     """ Orientation render using Pyvista Glyph filter
 
     :param workspace: domain
@@ -109,23 +119,28 @@ def render_orientation(workspace, scale_factor=1., solid_color=(1., 1., 1.), sty
     :type show_axes: bool, optional
     :param show_outline: show the bounding box outline of the domain
     :type show_outline: bool, optional
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter, optional
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool, optional
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter object or None
     """
     r = Renderer(add_to_plot, "glyph", workspace, None, solid_color, style, origin, window_size, opacity,
-                 background, show_grid, plot_directly, show_axes, show_outline, None, scale_factor)
+                 background, show_grid, plot_directly, show_axes, show_outline, None, scale_factor, notebook)
     return r.render()
 
 
-def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surface', origin=(0., 0., 0.), window_size=(1920, 1200),
-                              opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, plot_directly=True, show_axes=True, show_outline=True):
+def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surface', origin=(0., 0., 0.),
+                              window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True,
+                              plot_directly=True, show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
     """ Contour render for multi-phase materials using Pyvista
 
     :param workspace: domain
     :type workspace: Workspace or ndarray
     :param cutoffs: n cutoffs is the number of materials. specifies the low and high cutoff ranges
     :type cutoffs: tuple(tuple(int, int), tuple(int, int) ...)
-    :param solid_colors: solid colors to color the different phases' surface (e.g. for white (1., 1., 1.))
+    :param solid_colors: solid colors to color the different phases' surface e.g. for white ((1., 1., 1.), (0., 0., 0.), ...)
     :type solid_colors: tuple(tuple(float, float, float), tuple(float, float, float) ...), optional
     :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
     :type style: string, optional
@@ -145,18 +160,27 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
     :type show_axes: bool, optional
     :param show_outline: show the bounding box outline of the domain
     :type show_outline: bool, optional
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter, optional
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool, optional
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter object or None
     """
 
-    p = pv.Plotter()
+    if add_to_plot is None:
+        p = pv.Plotter(notebook=notebook)
+    else:
+        p = add_to_plot
+    if notebook:  # observed problems in rendering with grid in jupyter
+        show_grid = False
     for i, cutoff in enumerate(cutoffs):
         if solid_colors is None or len(solid_colors) != len(cutoffs):
             solid_color = tuple(np.random.rand(3))
         else:
             solid_color = solid_colors[i]
         r = Renderer(p, "contour", workspace, cutoff, solid_color, style, origin, window_size, opacity,
-                     background, show_grid, False, show_axes, show_outline, None, None)
+                     background, show_grid, False, show_axes, show_outline, None, None, None)
         p = r.render()
     if plot_directly:
         p.show()
@@ -166,7 +190,7 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
 
 class Renderer:
     def __init__(self, existing_plot, filter_type, workspace, cutoff, solid_color, style, origin, window_size, opacity,
-                 background, show_grid, plot_directly, show_axes, show_outline, cmap, scale_factor):
+                 background, show_grid, plot_directly, show_axes, show_outline, cmap, scale_factor, notebook):
         self.filter_type = filter_type
         self.cutoff = cutoff
         self.solid_color = solid_color
@@ -201,9 +225,12 @@ class Renderer:
 
         self.filter = None
         if existing_plot is None:
-            self.p = pv.Plotter()
+            self.p = pv.Plotter(notebook=notebook)
         else:
             self.p = existing_plot
+
+        if notebook:  # observed problems in rendering with grid in jupyter
+            self.show_grid = False
 
     def render(self):
         self.build_plotter()
