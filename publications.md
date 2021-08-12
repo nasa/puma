@@ -4,7 +4,7 @@ The following is a chronological list of publications and presentations about th
 
 
 - Ferguson, J.C., Semeraro, F., Thornton, J.M., Panerai, F., Borner, A. and Mansour, N.N., 2021. 
-  Update 3.0 to “PuMA: The Porous Microstructure Analysis software”, (PII:S2352711018300281). 
+  Update 3.0 to “PuMA: The Porous Microstructure Analysis software”,(PII: S2352711018300281).  
   SoftwareX, 15, p.100775.
   [link to paper](https://www.sciencedirect.com/science/article/abs/pii/S092702562030447X)
   
@@ -24,7 +24,7 @@ The following is a chronological list of publications and presentations about th
 - Semeraro, F. & Gopalan, K.S. 2020.
   PuMA and Multiscale Modeling.
   Advanced Modeling and Simulation (AMS) Seminar
-  [link to presentation](https://www.nas.nasa.gov/pubs/ams/2020/09-29-20.html)
+  [link to video](https://www.nas.nasa.gov/pubs/ams/2020/09-29-20.html)
 
 
 - Thornton, John M., Semeraro, F., Visser, S.J., Borner, A., Ferguson, J.C., Panerai, F., Mansour, N.N.
@@ -34,7 +34,7 @@ The following is a chronological list of publications and presentations about th
 
 
 - Ferguson, J.C., Panerai, F., Borner, A. and Mansour, N.N., 2018. 
-  PuMA: The porous microstructure analysis software. 
+  PuMA: the Porous Microstructure Analysis software. 
   SoftwareX, 7, pp.81-87.
   [link to paper](https://www.sciencedirect.com/science/article/pii/S2352711018300281)
 

@@ -40,11 +40,20 @@ Recommended specs:
   
 Download the project and unzip it (or alternatively "git clone" it); then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
 
-      ./installer.sh
+The standard installation of PuMA is performed using conda as:
 
-Follow the instructions that might be printed. One the PuMA C++ library, pumapy python package and GUI are installed, the latter can be launched by running:
+    conda create -n puma fsemerar::puma
 
-      conda activate puma; pumaGUI
+This installs the PuMA C++ library, pumapy python package and GUI in a conda environment called "puma".  
+The PuMA GUI can be launched by running:
+
+    conda activate puma; pumaGUI
+
+PuMA relies on a conda environment in order to manage its software dependencies and environment variables. 
+In order to link a C++ project to the PuMA library, refer to the specific following subsection. 
+On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the 
+pumapy python package. The [jupyter notebooks](./python/tutorials) show the typical function use for pumapy.
+These can be run directly in Google Colaboratory, as explained in the [tutorial's README](./python/tutorials/README.md).
 
 PuMA relies on a conda environment in order to manage its software dependencies and environment variables. In order to link a C++ project to the PuMA library, refer to the next subsection. On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the pumapy python package.
 
@@ -75,8 +84,8 @@ If you use PuMA in your research, please use the following BibTeX entries to cit
 
 ```BibTeX
 @article{puma2021,
-  title = {Update 3.0 to “PuMA: The Porous Microstructure Analysis software”, (PII:S2352711018300281)},
-  author={Joseph C. Ferguson and Federico Semeraro and John M. Thornton and Francesco Panerai and Arnaud Borner and Nagi N. Mansour},
+  title={Update 3.0 to “PuMA: The Porous Microstructure Analysis software”,(PII: S2352711018300281)},
+  author={Ferguson, Joseph C and Semeraro, Federico and Thornton, John M and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
   journal={SoftwareX},
   volume={15},
   pages={100775},

@@ -7,7 +7,7 @@ from skimage import io
 class TestSurfacearea(unittest.TestCase):
 
     def test_fiberform(self):
-        ws = puma.Workspace.from_array(io.imread("testdata/200_FiberForm.tif"))
+        ws = puma.Workspace.from_array(io.imread(puma.path_to_example_file("200_fiberform.tif")))
         area, specific_area = puma.compute_surface_area(ws, (90, 255), False)
 
         np.testing.assert_almost_equal(area, 4.12090e-7, decimal=5)

@@ -20,6 +20,7 @@ PuMA Documentation
    :caption: Python Package API:
 
    files/*
+   readme_segmentation
 
 .. toctree::
    :maxdepth: 1

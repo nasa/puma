@@ -9,7 +9,7 @@ RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE UNITED STATES GOVERNMEN
 IF RECIPIENT FURTHER RELEASES OR DISTRIBUTES THE NASA SOFTWARE AND/OR TECHNICAL DATA, RECIPIENT AGREES TO OBTAIN THIS IDENTICAL WAIVER OF CLAIMS, INDEMNIFICATION AND HOLD HARMLESS, AGREEMENT WITH ANY ENTITIES THAT ARE PROVIDED WITH THE SOFTWARE AND/OR TECHNICAL DATA.
 """
 
-""" PuMApy
+""" pumapy
 Root directory for the pumapy package.
 """
 
@@ -18,17 +18,12 @@ from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import Logger, print_warning
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.isosurface import generate_isosurface
-from pumapy.utilities.detect_env import detect_env
 from pumapy.utilities.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
 from pumapy.utilities.boundary_conditions import ConductivityBC, ElasticityBC
 
 # input/output
-from pumapy.io.input import import_3Dtiff, import_bin
-from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_sparta_implicit_surfaces, export_stl
-try:
-    from pumapy.io.output import export_weave_vtu
-except ImportError:
-    pass
+from pumapy.io.input import import_3Dtiff, import_bin, import_weave_vtu, import_vti
+from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_sparta_implicit_surfaces, export_stl, export_weave_vtu
 
 # material properties
 from pumapy.materialproperties.surfacearea import compute_surface_area
@@ -40,9 +35,9 @@ from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
 from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis
 from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
 try:
-    from pumapy.materialproperties.permeability import compute_permeability
-except ImportError:
-    pass
+  from pumapy.materialproperties.permeability import compute_permeability
+except:
+    print("WARNING: 'import dolfin' failed: cannot use compute_permeability.")
 
 # filtering
 from pumapy.filters.filters import (filter_median, filter_gaussian, filter_edt, filter_mean,
@@ -61,16 +56,14 @@ except ImportError:  # import it only if installed
     pass
 
 # visualization
-try:
-    from pumapy.visualization.render import render_volume, render_contour, render_orientation, render_warp
-    from pumapy.visualization.render_multiphase import render_contour_multiphase
-    from pumapy.io.input import import_vti, import_weave_vtu
-except ImportError:
-    pass
+from pumapy.visualization.render import render_volume, render_contour, render_orientation, render_contour_multiphase
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation
 from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
+
+# example data
+from pumapy.data.path_to_example_file import path_to_example_file
 
 # add wrapped puma cpp functions
 # try:

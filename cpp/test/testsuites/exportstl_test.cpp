@@ -42,7 +42,7 @@ public:
         TestResult result(suiteName, testName, 2, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0,50,0,50,0,50,0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0,50,0,50,0,50,0);
 
         std::vector< puma::Triangle <float> > Triangles;
         puma::isosurface_MarchingCubes(&Triangles,&grayWS,puma::Cutoff(90,255),true,1,false,0);
@@ -67,7 +67,7 @@ public:
         TestResult result(suiteName, testName, 3, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         std::vector< puma::Triangle <float> > Triangles;
         puma::isosurface_MarchingCubes(&Triangles,&grayWS,puma::Cutoff(90,255),true,1,false,0);
@@ -92,7 +92,7 @@ public:
         TestResult result(suiteName, testName, 4, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         grayWS.crop(0,49,0,49,0,49);
 
@@ -137,7 +137,7 @@ public:
         TestResult result(suiteName, testName, 5, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"cpp/test/tiff/grayWS/200_FiberForm.tif",0);
+        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
 
         std::vector< puma::Triangle <float> > Triangles;
         puma::isosurface_MarchingCubes(&Triangles,&grayWS,puma::Cutoff(0,89),true,1,false,0);

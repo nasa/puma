@@ -1,10 +1,12 @@
 #!/bin/bash
 cd "${0%/*}" || exit 1    # run from this directory
 
-# install the following packages before running this script:
+# make sure to run the following commands before running script:
+# conda deactivate
 # conda install conda-build anaconda-client
+# anaconda login
+
 conda build purge-all
-anaconda login
 
 array=( 3.6 3.7 3.8 )
 

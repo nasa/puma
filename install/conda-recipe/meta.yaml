@@ -41,7 +41,8 @@ requirements:
     - scikit-image
     - matplotlib
     - pyevtk
-    - numpy-stl
+    - fenics-dolfin
+    - pyvista
 
 test:
   imports:

@@ -1,345 +1,283 @@
-import paraview.simple as pv
-from paraview import numpy_support
-import vtk
+from pumapy.utilities.workspace import Workspace
+from pumapy.utilities.isosurface import generate_isosurface
+import pyvista as pv
 import numpy as np
-import pumapy.utilities.workspace as ws
 
 
-def render_volume(workspace, cutoff=None, color=False, representation='surface', origin=(0, 0, 0),
-                  window_size=(1229, 814), background=(0.1, 0.1, 0.1)):
-    """ Volume render using Paraview Threshold filter
+def render_volume(workspace, cutoff=None, solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
+                  window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, plot_directly=True,
+                  show_axes=True, show_outline=True, cmap='gray', add_to_plot=None, notebook=False):
+    """ Volume render using Pyvista Threshold filter
 
     :param workspace: domain
     :type workspace: Workspace or ndarray
     :param cutoff: specifying the values to render
     :type cutoff: tuple(int, int), optional
-    :param color: specifying whether to color it
-    :type color: bool, optional
-    :param representation: specifying the representation ('surface', 'edges', 'wireframe', 'points')
-    :type representation: string, optional
+    :param solid_color: if set to None, the material is colored by the matrix's values. Otherwise, a solid color can be specified (e.g. for white (1., 1., 1.))
+    :type solid_color: tuple(float, float, float), optional
+    :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
+    :type style: string, optional
     :param origin: origin of the data as
-    :type origin: tuple(int, int, int), optional
+    :type origin: tuple(float, float, float), optional
     :param window_size: with the popup window size
     :type window_size: tuple(int, int), optional
-    :param background: color of the background from [0., 0., 0.] (black) to [1., 1., 1.] (white)
+    :param opacity: opacity of volume
+    :type opacity: float, optional
+    :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
     :type: background: tuple(float, float, float)
-    :return: None
+    :param show_grid: show the grid with the size of the sides
+    :type show_grid: bool, optional
+    :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
+    :type plot_directly: bool, optional
+    :param show_axes: show orientation axis in the bottom left corner
+    :type show_axes: bool, optional
+    :param show_outline: show the bounding box outline of the domain
+    :type show_outline: bool, optional
+    :param cmap: matplotlib colormap to use (overwritten by solid_color if specified)
+    :type cmap: str, optional
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter, optional
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool, optional
+    :return: None is plot_directly is True, otherwise a plotter object
+    :rtype: pyvista.Plotter object or None
     """
-    renderer = Renderer(workspace, "threshold", None, cutoff, color, representation, origin, window_size,
-                        background, None, None, None, None)
-    renderer.error_check()
-    renderer.render()
-    del renderer
+    if cutoff is None:
+        solid_color = None
+    r = Renderer(add_to_plot, "threshold", workspace, cutoff, solid_color, style, origin, window_size, opacity,
+                 background, show_grid, plot_directly, show_axes, show_outline, cmap, None, notebook)
+    return r.render()
 
 
-def render_contour(workspace, threshold, color=False, origin=(0, 0, 0), window_size=(1229, 814),
-                   background=(0.1, 0.1, 0.1)):
-    """ Contour render using Paraview Contour filter
+def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
+                   window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, plot_directly=True,
+                   show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
+    """ Contour render using Pyvista Contour filter
 
     :param workspace: domain
     :type workspace: Workspace or ndarray
-    :param threshold: specifying the value(s) to contour
-    :type threshold: int or tuple(int,int)
-    :param color: specifying whether to color it
-    :type color: bool, optional
-    :param origin: origin of the data
-    :type origin: tuple(int, int, int), optional
+    :param cutoff: specifying the values at which the isosurface is created
+    :type cutoff: tuple(int, int)
+    :param solid_color: a solid color to color the surface (e.g. for white (1., 1., 1.))
+    :type solid_color: tuple(float, float, float), optional
+    :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
+    :type style: string, optional
+    :param origin: origin of the data as
+    :type origin: tuple(float, float, float), optional
     :param window_size: with the popup window size
     :type window_size: tuple(int, int), optional
-    :param background: color of the background from [0., 0., 0.] (black) to [1., 1., 1.] (white)
-    :type background: tuple(float, float, float), optional
-    :return: None
+    :param opacity: opacity of contour
+    :type opacity: float, optional
+    :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
+    :type: background: tuple(float, float, float)
+    :param show_grid: show the grid with the size of the sides
+    :type show_grid: bool, optional
+    :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
+    :type plot_directly: bool, optional
+    :param show_axes: show orientation axis in the bottom left corner
+    :type show_axes: bool, optional
+    :param show_outline: show the bounding box outline of the domain
+    :type show_outline: bool, optional
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter, optional
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool, optional
+    :return: None is plot_directly is True, otherwise a plotter object
+    :rtype: pyvista.Plotter object or None
     """
-    if isinstance(threshold,tuple):
-        ws = workspace.copy()
-        ws.matrix = np.copy(workspace.matrix).astype(np.float32)
-        average = (threshold[0] + threshold[1]) / 2.0
-        mask = ws.matrix > average
-        ws.matrix[mask] = 2 * average - ws.matrix[mask]
-        cutoff = (threshold[0], None)
-        renderer = Renderer(ws, "contour", None, cutoff, color, 'surface', origin, window_size, background,
-                            None, None, None, None)
+    r = Renderer(add_to_plot, "contour", workspace, cutoff, solid_color, style, origin, window_size, opacity,
+                 background, show_grid, plot_directly, show_axes, show_outline, None, None, notebook)
+    return r.render()
 
+
+def render_orientation(workspace, scale_factor=1., solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
+                       window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True,
+                       plot_directly=True, show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
+    """ Orientation render using Pyvista Glyph filter
+
+    :param workspace: domain
+    :type workspace: Workspace or ndarray
+    :param scale_factor: scale the arrows by a factor
+    :type scale_factor: float
+    :param solid_color: a solid color to color the surface (e.g. for white (1., 1., 1.))
+    :type solid_color: tuple(float, float, float), optional
+    :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
+    :type style: string, optional
+    :param origin: origin of the data as
+    :type origin: tuple(float, float, float), optional
+    :param window_size: with the popup window size
+    :type window_size: tuple(int, int), optional
+    :param opacity: opacity of arrows
+    :type opacity: float, optional
+    :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
+    :type: background: tuple(float, float, float)
+    :param show_grid: show the grid with the size of the sides
+    :type show_grid: bool, optional
+    :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
+    :type plot_directly: bool, optional
+    :param show_axes: show orientation axis in the bottom left corner
+    :type show_axes: bool, optional
+    :param show_outline: show the bounding box outline of the domain
+    :type show_outline: bool, optional
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter, optional
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool, optional
+    :return: None is plot_directly is True, otherwise a plotter object
+    :rtype: pyvista.Plotter object or None
+    """
+    r = Renderer(add_to_plot, "glyph", workspace, None, solid_color, style, origin, window_size, opacity,
+                 background, show_grid, plot_directly, show_axes, show_outline, None, scale_factor, notebook)
+    return r.render()
+
+
+def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surface', origin=(0., 0., 0.),
+                              window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True,
+                              plot_directly=True, show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
+    """ Contour render for multi-phase materials using Pyvista
+
+    :param workspace: domain
+    :type workspace: Workspace or ndarray
+    :param cutoffs: n cutoffs is the number of materials. specifies the low and high cutoff ranges
+    :type cutoffs: tuple(tuple(int, int), tuple(int, int) ...)
+    :param solid_colors: solid colors to color the different phases' surface e.g. for white ((1., 1., 1.), (0., 0., 0.), ...)
+    :type solid_colors: tuple(tuple(float, float, float), tuple(float, float, float) ...), optional
+    :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
+    :type style: string, optional
+    :param origin: origin of the data as
+    :type origin: tuple(float, float, float), optional
+    :param window_size: with the popup window size
+    :type window_size: tuple(int, int), optional
+    :param opacity: opacity of contour
+    :type opacity: float, optional
+    :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
+    :type: background: tuple(float, float, float)
+    :param show_grid: show the grid with the size of the sides
+    :type show_grid: bool, optional
+    :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
+    :type plot_directly: bool, optional
+    :param show_axes: show orientation axis in the bottom left corner
+    :type show_axes: bool, optional
+    :param show_outline: show the bounding box outline of the domain
+    :type show_outline: bool, optional
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter, optional
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool, optional
+    :return: None is plot_directly is True, otherwise a plotter object
+    :rtype: pyvista.Plotter object or None
+    """
+
+    if add_to_plot is None:
+        p = pv.Plotter(notebook=notebook)
     else:
-        cutoff = (threshold, None)
-        renderer = Renderer(workspace, "contour", None, cutoff, color, 'surface', origin, window_size, background,
-                            None, None, None, None)
-
-
-    renderer.error_check()
-    renderer.render()
-    del renderer
-
-
-
-def render_orientation(workspace, arrowscale=None, samples=5000, origin=(0, 0, 0), window_size=(1229, 814),
-                       background=(0.1, 0.1, 0.1)):
-    """ Orientation render using Paraview Glyph filter
-
-    :param workspace: domain
-    :type workspace: Workspace or ndarray
-    :param arrowscale: specifying the scale of the arrows
-    :type arrowscale: int, optional
-    :param samples: specifying the number of sampled points to plot arrows
-    :type samples: int, optional
-    :param origin: origin of the data
-    :type origin: tuple(int, int, int), optional
-    :param window_size: with the popup window size:
-    :type window_size: tuple(int, int), optional
-    :param background: color of the background from [0., 0., 0.] (black) to [1., 1., 1.] (white)
-    :type background: tuple(float, float, float), optional
-    :return: None
-    """
-    renderer = Renderer(workspace, "glyph", arrowscale, None, False, 'surface', origin, window_size,
-                        background, samples, None, None, None)
-    renderer.error_check()
-    renderer.render()
-
-
-def render_warp(workspace, displacement, cutoff, scale=None, stresses=None, color_by="magnitude",
-                representation='surface', origin=(0, 0, 0), window_size=(1229, 814), background=(0.1, 0.1, 0.1)):
-    """ Warping render using Paraview Warp filter
-
-    :param workspace: domain
-    :type workspace: Workspace or ndarray
-    :param displacement: with the displacement field with dims (x, y, z, 3) (output of compute_elasticity)
-    :type displacement: ndarray
-    :param cutoff: specifying the values to render
-    :type cutoff: tuple(int, int), optional
-    :param scale: specifying the scale factor for warping
-    :type scale: float, optional
-    :param stresses: with the displacement field with dims (x, y, z, 3) (output of compute_elasticity)
-        used to color the domain
-    :type stresses: ndarray, optional
-    :param color_by: specifying how to color it ('magnitude', 'x', 'y', 'z')
-    :type color_by: string, optional
-    :param representation: specifying the representation ('surface', 'edges', 'wireframe', 'points')
-    :type representation: string, optional
-    :param origin: origin of the data
-    :type origin: tuple(int, int, int), optional
-    :param window_size: with the popup window size
-    :type window_size: tuple(int, int), optional
-    :param background: color of the background from [0., 0., 0.] (black) to [1., 1., 1.] (white)
-    :type background: tuple(float, float, float)
-    :return: None
-    """
-    renderer = Renderer(workspace, "warp", scale, cutoff, True, representation, origin, window_size, background, None,
-                        displacement, stresses, color_by)
-    renderer.error_check()
-    renderer.render()
-
+        p = add_to_plot
+    if notebook:  # observed problems in rendering with grid in jupyter
+        show_grid = False
+    for i, cutoff in enumerate(cutoffs):
+        if solid_colors is None or len(solid_colors) != len(cutoffs):
+            solid_color = tuple(np.random.rand(3))
+        else:
+            solid_color = solid_colors[i]
+        r = Renderer(p, "contour", workspace, cutoff, solid_color, style, origin, window_size, opacity,
+                     background, show_grid, False, show_axes, show_outline, None, None, None)
+        p = r.render()
+    if plot_directly:
+        p.show()
+    else:
+        return p
 
 
 class Renderer:
-
-    def __init__(self, workspace, render_type, scale, cutoff, color, representation, origin, window_size, background,
-                 sampled_points, displacement, stresses, color_by):
-        if isinstance(workspace, ws.Workspace):
-            self.matrix = workspace.matrix
-            self.orientation = workspace.orientation
-            self.voxel_length = workspace.voxel_length
-        else:
-            if render_type == "glyph":
-                self.orientation = workspace
-                self.matrix = None
-            else:
-                self.matrix = workspace
-            self.voxel_length = 1
-        self.shape = None
-        self.render_type = render_type
+    def __init__(self, existing_plot, filter_type, workspace, cutoff, solid_color, style, origin, window_size, opacity,
+                 background, show_grid, plot_directly, show_axes, show_outline, cmap, scale_factor, notebook):
+        self.filter_type = filter_type
         self.cutoff = cutoff
+        self.solid_color = solid_color
+        self.style = style
         self.origin = origin
-        self.color = color
-        self.representation = representation
         self.window_size = window_size
+        self.opacity = opacity
         self.background = background
-        self.sampled_points = sampled_points
-        self.disp = displacement
-        if scale is None:
-            if render_type == "glyph":
-                self.scale = 1./(self.orientation.max()/4.)
-            else:
-                self.scale = 10
-        else:
-            self.scale = scale
-        if self.render_type == "warp":
-            self.scale *= self.voxel_length
-        self.stresses = stresses
-        self.color_by = color_by
+        self.show_grid = show_grid
+        self.plot_directly = plot_directly
+        self.show_axes = show_axes
+        self.show_outline = show_outline
+        self.cmap = cmap
+        self.scale_factor = scale_factor
 
-        self.vtkimage = vtk.vtkImageData()
-        self.producer = pv.TrivialProducer()
-        self.view = pv.GetActiveViewOrCreate('RenderView')
+        if isinstance(workspace, Workspace):
+            if self.filter_type == "glyph":
+                self.array = workspace.orientation
+            else:
+                self.array = workspace.matrix
+        elif isinstance(workspace, np.ndarray):
+            if self.filter_type == "glyph":
+                if not (workspace.ndim(4) and workspace.shape[3] == 3):
+                    raise Exception("For rendering orientation, need a numpy.ndarray of shape (X, Y, Z, 3)")
+            self.array = workspace
+        else:
+            raise Exception("Need to input either pumapy.Workspace or a numpy.ndarray")
+
+        if self.filter_type != "contour":
+            self.grid = pv.UniformGrid()
+            self.grid.origin = self.origin
+
         self.filter = None
-        self.display = None
+        if existing_plot is None:
+            self.p = pv.Plotter(notebook=notebook)
+        else:
+            self.p = existing_plot
+
+        if notebook:  # observed problems in rendering with grid in jupyter
+            self.show_grid = False
 
     def render(self):
-        self.convert_numpy_to_vtk()
-        self.setup_paraview()
-        pv.Interact()
-        pv.Hide(self.producer, self.view)
-        pv.Hide(self.filter, self.view)
+        self.build_plotter()
 
-        pv.RemoveViewsAndLayouts()
-
-
-    def convert_numpy_to_vtk(self):
-
-        if self.render_type == "glyph":
-            tmpdata = np.zeros((self.orientation[:, :, :, 0].size, 3), dtype=float)
-            for i in range(3):
-                tmpdata[:, i] = self.orientation[:, :, :, i].ravel(order='F')
-            vtktmp = numpy_support.numpy_to_vtk(np.ascontiguousarray(tmpdata), array_type=vtk.VTK_FLOAT)
-            vtktmp.SetNumberOfComponents(3)
-            self.vtkimage.GetCellData().SetVectors(vtktmp)
-            self.vtkimage.SetDimensions(self.shape)
-
-        elif self.render_type == "contour":
-
-            if self.matrix.shape[0] == 1:
-                matrix_buf = np.full([self.matrix.shape[0] + 3, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2],
-                                     -1e6)
-                shape = (self.matrix.shape[1], self.matrix.shape[2])
-                matrix_buf[1, 1:-1, 1:-1] = self.matrix[:, :, :].reshape(shape)
-                matrix_buf[2, 1:-1, 1:-1] = self.matrix[:, :, :].reshape(shape)
-            elif self.matrix.shape[1] == 1:
-                matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 3, self.matrix.shape[2] + 2],
-                                     -1e6)
-                shape = (self.matrix.shape[0], self.matrix.shape[2])
-                matrix_buf[1:-1, 1, 1:-1] = self.matrix[:, :, :].reshape(shape)
-                matrix_buf[1:-1, 2, 1:-1] = self.matrix[:, :, :].reshape(shape)
-            elif self.matrix.shape[2] == 1:
-                matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 3],
-                                     -1e6)
-                shape = (self.matrix.shape[0], self.matrix.shape[1])
-                matrix_buf[1:-1, 1:-1, 1] = self.matrix[:, :, :].reshape(shape)
-                matrix_buf[1:-1, 1:-1, 2] = self.matrix[:, :, :].reshape(shape)
-            else:
-                matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2], -1e6)
-                matrix_buf[1:-1, 1:-1, 1:-1] = self.matrix[:, :, :]
-            vtktmp = numpy_support.numpy_to_vtk(matrix_buf.ravel(order='F'))
-            self.vtkimage.GetCellData().SetScalars(vtktmp)
-            self.vtkimage.SetDimensions((matrix_buf.shape[0]+1, matrix_buf.shape[1]+1, matrix_buf.shape[2]+1))
-
-        else:  # threshold or warp
-            vtktmp = numpy_support.numpy_to_vtk(self.matrix.ravel(order='F'))
-            self.vtkimage.GetCellData().SetScalars(vtktmp)
-            self.vtkimage.SetDimensions(self.shape)
-
-        if self.render_type == "warp":
-            tmpdata = np.zeros((self.disp[:, :, :, 0].size, 3), dtype=float)
-            for i in range(3):
-                tmpdata[:, i] = self.disp[:, :, :, i].ravel(order='F')
-            vtktmp_disp = numpy_support.numpy_to_vtk(np.ascontiguousarray(tmpdata), array_type=vtk.VTK_FLOAT)
-            vtktmp_disp.SetNumberOfComponents(3)
-            vtktmp_disp.SetName('disp')
-            self.vtkimage.GetCellData().SetVectors(vtktmp_disp)
-
-            if self.stresses is not None:
-                for i in range(3):
-                    tmpdata[:, i] = self.stresses[:, :, :, i].ravel(order='F')
-                vtktmp_sigma = numpy_support.numpy_to_vtk(np.ascontiguousarray(tmpdata), array_type=vtk.VTK_FLOAT)
-                vtktmp_sigma.SetNumberOfComponents(3)
-                vtktmp_sigma.SetName('stress')
-                self.vtkimage.GetCellData().AddArray(vtktmp_sigma)
-
-        vtktmp.SetName('pumapy_data')
-        self.vtkimage.SetSpacing([self.voxel_length] * 3)
-        self.vtkimage.SetOrigin(self.origin)
-
-    def setup_paraview(self):
-
-        self.producer.GetClientSideObject().SetOutput(self.vtkimage)
-
-        outline = pv.Show(self.producer, self.view)
-        outline.Representation = 'Outline'
-        outline.AmbientColor = [1. - self.background[0], 1. - self.background[0], 1. - self.background[0]]
-
-        if self.render_type == "contour":
-            self.filter = pv.Contour(Input=self.producer)
-            self.filter.ContourBy = 'pumapy_data'
-            self.filter.Isosurfaces = self.cutoff[0]
-
-        elif self.render_type == "threshold":
-            self.filter = pv.Threshold(Input=self.producer)
-            if self.cutoff is not None:
-                self.filter.ThresholdRange = self.cutoff
-            else:
-                self.filter.ThresholdRange = (self.matrix.min(), self.matrix.max())
-
-        elif self.render_type == "glyph":
-            self.filter = pv.Glyph(Input=self.producer, GlyphType='Arrow')
-            self.filter.OrientationArray = ['CELLS', 'pumapy_data']
-            self.filter.ScaleArray = ['CELLS', 'pumapy_data']
-            self.filter.ScaleFactor = self.scale * self.voxel_length
-            self.filter.VectorScaleMode = 'Scale by Magnitude'
-            self.filter.MaximumNumberOfSamplePoints = self.sampled_points
-
-        elif self.render_type == "warp":
-            threshold = pv.Threshold(Input=self.producer)
-            threshold.ThresholdRange = self.cutoff
-            resample = pv.ResampleWithDataset(registrationName='ResampleWithDataset', SourceDataArrays=self.producer,
-                                              DestinationMesh=threshold)
-            self.filter = pv.WarpByVector(registrationName='WarpByVector1', Input=resample)
-            self.filter.Vectors = ['POINTS', 'disp']
-            self.filter.ScaleFactor = self.scale
-
-        self.display = pv.Show(self.filter, self.view)
-        self.display.Representation = self.representation
-
-        if self.color:
-            if self.render_type == "warp":
-                if self.stresses is None:
-                    pv.ColorBy(self.display, ('POINTS', 'disp', self.color_by))
-                else:
-                    pv.ColorBy(self.display, ('POINTS', 'stress', self.color_by))
-            else:
-                self.display.LookupTable = pv.MakeBlueToRedLT(self.matrix.min(), self.matrix.max())
-                self.display.ColorArrayName = ("CELL_DATA", "pumapy_data")
-            self.display.SetScalarBarVisibility(self.view, True)
+        if self.plot_directly:
+            self.p.show()
         else:
-            if self.render_type == "glyph":
-                pass
-            else:
-                pv.ColorBy(self.display, None)
+            return self.p
 
-        # Window settings
-        self.view.ViewSize = self.window_size
-        pv.ResetCamera()
-        self.view.CenterOfRotation = pv.GetActiveCamera().GetFocalPoint()
-        self.view.Background = self.background
-
-    def error_check(self):
-        if self.matrix is not None:
-            if self.matrix.ndim == 2:
-                self.matrix = self.matrix[..., np.newaxis]
-            if self.matrix.ndim == 3:
-                self.shape = self.matrix.shape[0] + 1, self.matrix.shape[1] + 1, self.matrix.shape[2] + 1
-            else:
-                raise Exception("Input array has to be a Workspace or 3D Numpy array.")
+    def build_plotter(self):
+        if self.style == 'edges':
+            show_edges = True
+            self.style = 'surface'
         else:
-            self.shape = self.orientation.shape[0] + 1, self.orientation.shape[1] + 1, self.orientation.shape[2] + 1
+            show_edges = False
 
-        if self.representation is not None:
-            if self.representation == "surface":
-                self.representation = 'Surface'
-            elif self.representation == "edges":
-                self.representation = 'Surface With Edges'
-            elif self.representation == "wireframe":
-                self.representation = 'Wireframe'
-            elif self.representation == "points":
-                self.representation = 'Points'
-            else:
-                raise Exception("Unrecognized representation, it can only be 'surface', 'edges', 'wireframe', 'points'")
+        if self.filter_type == "threshold":
+            self.grid.dimensions = np.array(self.array.shape) + 1
+            self.grid.cell_arrays["values"] = self.array.flatten(order="F")
+            self.filter = self.grid.threshold(self.cutoff)
 
-        if self.color_by is not None:
-            if self.color_by == "magnitude":
-                self.color_by = 'Magnitude'
-            elif self.color_by == "x":
-                self.color_by = 'X'
-            elif self.color_by == "y":
-                self.color_by = 'Y'
-            elif self.color_by == "z":
-                self.color_by = 'Z'
-            else:
-                raise Exception("Unrecognized color_by, it can only be 'magnitude', 'x', 'y', 'z'")
+        elif self.filter_type == "contour":
+            tri_mesh = generate_isosurface(self.array, self.cutoff)
+            tri_mesh.verts += self.origin
+            tri_mesh.create_mesh()
+            self.filter = tri_mesh.mesh
+
+        elif self.filter_type == "glyph":
+            self.grid.dimensions = np.array(self.array.shape[:3]) + 1
+            tmp = np.zeros((self.array[:, :, :, 0].size, 3), dtype=float)
+            for i in range(3):
+                tmp[:, i] = self.array[:, :, :, i].ravel(order='F')
+            self.grid.cell_arrays["scalars"] = np.linalg.norm(self.array, axis=3).ravel(order='F')
+            self.grid.cell_arrays["vectors"] = tmp
+            self.filter = self.grid.glyph(orient="vectors", scale="scalars", factor=self.scale_factor, geom=pv.Arrow())
+
+        self.p.add_mesh(self.filter, color=self.solid_color, show_edges=show_edges, style=self.style,
+                        cmap=self.cmap, show_scalar_bar=False, opacity=self.opacity)
+
+        if self.cmap is not None and self.solid_color is None:
+            self.p.add_scalar_bar(title='', height=0.5, vertical=True, position_x=0.05, position_y=0.3)
+
+        self.p.background_color = self.background
+        self.p.window_size = self.window_size
+        if self.show_outline:
+            self.p.add_bounding_box(color="k")
+        if self.show_axes:
+            self.p.show_axes()
+        if self.show_grid:
+            self.p.show_grid()
