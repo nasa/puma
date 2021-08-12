@@ -9,7 +9,7 @@ RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE UNITED STATES GOVERNMEN
 IF RECIPIENT FURTHER RELEASES OR DISTRIBUTES THE NASA SOFTWARE AND/OR TECHNICAL DATA, RECIPIENT AGREES TO OBTAIN THIS IDENTICAL WAIVER OF CLAIMS, INDEMNIFICATION AND HOLD HARMLESS, AGREEMENT WITH ANY ENTITIES THAT ARE PROVIDED WITH THE SOFTWARE AND/OR TECHNICAL DATA.
 """
 
-""" PuMApy
+""" pumapy
 Root directory for the pumapy package.
 """
 
@@ -34,7 +34,10 @@ from pumapy.materialproperties.conductivity import compute_thermal_conductivity,
 from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
 from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis
 from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
-from pumapy.materialproperties.permeability import compute_permeability
+try:
+  from pumapy.materialproperties.permeability import compute_permeability
+except:
+    print("WARNING: 'import dolfin' failed: cannot use compute_permeability.")
 
 # filtering
 from pumapy.filters.filters import (filter_median, filter_gaussian, filter_edt, filter_mean,
