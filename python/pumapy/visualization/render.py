@@ -213,7 +213,7 @@ class Renderer:
                 self.array = workspace.matrix
         elif isinstance(workspace, np.ndarray):
             if self.filter_type == "glyph":
-                if not (workspace.ndim(4) and workspace.shape[3] == 3):
+                if not (workspace.ndim == 4 and workspace.shape[3] == 3):
                     raise Exception("For rendering orientation, need a numpy.ndarray of shape (X, Y, Z, 3)")
             self.array = workspace
         else:
