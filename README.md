@@ -53,7 +53,7 @@ PuMA relies on a conda environment in order to manage its software dependencies 
 In order to link a C++ project to the PuMA library, refer to the specific following subsection. 
 On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the 
 pumapy python package. The [jupyter notebook](./python/tutorials) shows the typical function use for pumapy.
-This can be run directly in Google Colaboratory, as explained in the [tutorial's README](./python/tutorials/README.md).
+This can be run directly in Google Colaboratory by following [this link](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/pumapy_tutorials.ipynb).
 
 ### How to link your C++ project to the PuMA library
 In the folder [initproject](./cpp/initproject) there is a simple example project already linked to the PuMA library. 
