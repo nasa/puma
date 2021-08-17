@@ -39,11 +39,11 @@ def fill_closed_pores(workspace, solid_cutoff, fill_value, return_pores=False):
         :type workspace: Workspace
         :param solid_cutoff: specify the solid range to discard from pores identification
         :type solid_cutoff: tuple(int, int)
-        :param fill_value: value to fill open porosity with
+        :param fill_value: value to fill closed porosity with
         :type fill_value: int
         :param return_pores: specifies whether to return identified pores
         :type return_pores: bool, optional
-        :return: new workspace with filled open porosity
+        :return: new workspace with filled closed porosity
             (if return_pores==True, then it also returns the porespace marked as:
             0 solid, 1 largest pore (likely open porosity), > 1 other pores)
         :rtype: Workspace
