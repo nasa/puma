@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/nasa/puma/raw/main/docs/source/puma_logo.png" width="35%"></img>
+  <img src="https://github.com/nasa/puma/raw/main/doc/source/puma_logo.png" width="35%"></img>
 </p>
 
 [![Documentation Status](https://readthedocs.org/projects/puma-nasa/badge/?version=latest)](https://puma-nasa.readthedocs.io/en/latest/?badge=latest)
@@ -9,7 +9,9 @@
 # Porous Microstructure Analysis (PuMA)
 
 The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma), 
-whereas the latest development can be found on the [development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). Access the [PuMA documentation](https://puma-nasa.readthedocs.io) for detailed use of each function or to get started with the tutorials. 
+whereas the latest development can be found on the 
+[development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). Access the 
+[PuMA documentation](https://puma-nasa.readthedocs.io) for detailed use of each function or to get started with the tutorial. 
 
 The Porous Microstructure Analysis (PuMA) software has been developed to 
 compute effective material properties and perform material response simulations on 
@@ -22,10 +24,11 @@ the determination of effective thermal and electrical conductivity (including th
 to simulate local anisotropy), effective diffusivity and tortuosity from the continuum to 
 the rarefied regime, and techniques to determine local material orientation.
 
-Some examples of microstructures that have been run in the past are shown in the pictures below, together with PuMA's software architecture schematic.
+Some examples of microstructures that have been run in the past are shown in the pictures below, 
+together with PuMA's software architecture schematic.
 
 <p align="center">
-  <img src="https://github.com/nasa/puma/raw/main/docs/source/puma_description.png" width="100%"></img>
+  <img src="https://github.com/nasa/puma/raw/main/doc/source/puma_description.png" width="100%"></img>
 </p>
 
 ## System requirements
@@ -37,35 +40,33 @@ Recommended specs:
 - 32+ GB of ram for large simulations (above 1000<sup>3</sup>)
 
 ## Installation
-  
-Download the project and unzip it (or alternatively "git clone" it); then open a terminal and navigate into the project root folder. If on a Mac, execute "bash" to make sure the bash shell is active. Then run:
 
 The standard installation of PuMA is performed using conda as:
 
     conda create -n puma fsemerar::puma
 
-This installs the PuMA C++ library, pumapy python package and GUI in a conda environment called "puma".  
-The PuMA GUI can be launched by running:
+This installs the PuMA C++ library, pumapy python package and GUI in a conda environment called "puma". 
+PuMA relies on a conda environment in order to manage its software dependencies and environment variables.
+It is therefore important to always activate the environment before using any of PuMA's functionalities. For examples, 
+the PuMA GUI can be launched by running:
 
     conda activate puma; pumaGUI
 
-PuMA relies on a conda environment in order to manage its software dependencies and environment variables. 
-In order to link a C++ project to the PuMA library, refer to the specific following subsection. 
-On the other hand, after activating the puma environment, open a python session and run "import pumapy" in order to import the 
-pumapy python package. The [jupyter notebook](./python/tutorials) shows the typical function use for pumapy.
-This can be run directly in Google Colaboratory by following [this link](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/pumapy_tutorials.ipynb).
+The [jupyter notebook](tutorial) shows the typical function usage for both PuMA C++ and pumapy.
+This can be run directly in Google Colaboratory by following 
+[this link](https://colab.research.google.com/github/nasa/puma/blob/main/tutorial/puma_tutorial.ipynb).
 
-### How to link your C++ project to the PuMA library
-In the folder [initproject](./cpp/initproject) there is a simple example project already linked to the PuMA library. 
-For beginners, it is recommended to start copying and pasting into the main.cpp the [C++ examples](./cpp/examples/examples.cpp) 
-and compiling it by running "./makeAll.sh". Since the PuMA installation uses conda to manage the dependencies, 
-the puma environment needs to be first loaded by running:
+### Building from source
 
-      conda activate puma
+This is the recommended installation for developers that need to make modifications to PuMA. 
+Run the following commands to clone the project and install it (on a Mac, execute "bash" to make sure the bash shell is active):
+
+    git clone https://gitlab.com/jcfergus/puma-dev.git
+    cd puma-dev; chmod +x installer.sh; ./installer.sh
 
 ### How to setup PuMA on the NAS cluster:
-In order to install PuMA on NAS, some modules need to be loaded and environment variables need to be set. This can be
-achieved by adding the following commands to the ~/.profile file before running the installer: 
+In order to install PuMA on the NASA supercomputing cluster, some modules need to be loaded and environment 
+variables need to be set. This can be achieved by adding the following commands to the ~/.profile file before the installation: 
 
     module use -a /swbuild/analytix/tools/modulefiles
     module load miniconda3/v4
@@ -106,30 +107,13 @@ This is a list of the common errors encountered during the setup and how to solv
 
 - If receiving the error message "Permission Denied" when attempting to run ./installer.sh, run "chmod +x installer.sh" and try again
 - If an error "xcrun: error: invalid active developer path" is displayed on a Mac, the Xcode CommandLineTools need to be installed
-- When importing pumapy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost" to ~/.bashrc (Linux) or ~/.bash_profile (Mac) 
-- If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install ntp" (or equivalent for your distribution)
-- If an error "fatal error: GL/gl.h: No such file or directory" is displayed, then run "sudo apt-get install mesa-common-dev" (or equivalent for your distribution)
-
-### Linux-specific requirements
-Many linux distributions come with built-in development tools, but others to do. Before beginning the installation, make sure that the following are installed: 
-- gcc
-- g++
-- make
-- git
-
-To see if they are installed, run each in a terminal window. If they are not installed, a message will appear saying 
-"Command 'INPUT' not found". In Ubuntu, each of these can be installed by the following commands: 
-- sudo apt-get install git
-- sudo apt-get install build-essential
-
-The build-essential installation will isntall gcc, g++, and make. On Fedora based distributions, they can be installed using yum:
-- sudo yum group install git
-- sudo yum group install "Development Tools"
-
-It is also recommended that the following be run, in case your system does not have the necessary GL libraries: 
-- sudo apt-get install mesa-common-dev (for Ubuntu)
-- sudo yum install mesa-libGL-devel (For Fedora/CentOS)
-
+- When importing pumapy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost" 
+  to ~/.bashrc (Linux) or ~/.bash_profile (Mac) 
+- If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install 
+  ntp" (or equivalent for your distribution)
+- If an error "fatal error: GL/gl.h: No such file or directory" is displayed, then run "sudo apt-get install mesa-common-dev" 
+  (or equivalent for your distribution)
+  
 If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
 
 ## Contributing to PuMA

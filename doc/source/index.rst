@@ -20,15 +20,14 @@ PuMA Documentation
    :caption: Python Package API:
 
    files/*
-   readme_segmentation
 
 .. toctree::
    :maxdepth: 1
    :glob:
    :caption: Tutorials:
 
-   readme_tutorials
-   tutorials/*
+   readme_tutorial
+   puma_tutorial
 
 
 Indices and tables

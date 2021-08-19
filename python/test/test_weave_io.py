@@ -50,11 +50,11 @@ if os.path.exists(pumadir + "/python/TexGen/install/lib"):
                 # Add the yarn to our textile
                 Textile.AddYarn(Yarn)
 
-            self.assertEqual(puma.export_weave_vtu(os.path.join(pumadir, "tests", "out", "weavetest"), Textile,
+            self.assertEqual(puma.export_weave_vtu(os.path.join(pumadir, "test", "out", "weavetest"), Textile,
                                                    CDomainPlanes(XYZ(0, 0, -0.02), XYZ(0.44, 0.44, 0.07)), 100),
-                             os.path.join(pumadir, "tests", "out", "weavetest_100_100_21"))
+                             os.path.join(pumadir, "test", "out", "weavetest_100_100_21"))
 
-            ws = puma.import_weave_vtu(os.path.join(pumadir, "tests", "out", "weavetest_100_100_21.vtu"))
+            ws = puma.import_weave_vtu(os.path.join(pumadir, "test", "out", "weavetest_100_100_21.vtu"))
             self.assertEqual(max(ws.matrix.shape), 100)
 
 

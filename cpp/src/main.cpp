@@ -17,9 +17,18 @@ int main (int argc, char **argv)
         // Example case
         if(!strcmp(argv[1],"1")){
 
-            puma::Workspace grayWS(1e-6, false);
-            puma::import_3DTiff(&grayWS,"/Users/fsemerar/Documents/PuMA_playground/PuMA_data/part2_mpfa/validation/ff/ff800.tif",0);
-            puma::export_STL(&grayWS, puma::Cutoff(90,255), false,"/Users/fsemerar/Downloads/ff800.stl");
+            puma::Workspace grayWS(100,100,100,1e-6);
+
+            RandomFibersInput input;
+            input.straightCircle(200,200,200,5,0,200,0,90,90,90,true,0.6,1);
+
+            generateRandomFibers(&grayWS,input);
+
+            puma::TortuosityReturn tortReturn = compute_particle_isosurface_Tortuosity(&grayWS,puma::Cutoff(0,127),20000,20000,500,1,10000,0);
+            cout << "Tortuosity: " << tortReturn.tortuosity.toString() << endl;
+            cout << "Mean Intercept Length: " << tortReturn.meanInterceptLength << endl;
+            cout << "Diffusion Coefficient: " << tortReturn.diffusionCoefficient.toString() << endl;
+
         }
 
     }

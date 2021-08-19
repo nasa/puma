@@ -18,7 +18,7 @@ CMakeLists.txt.user
 
 # conda environment
 !.readthedocs.yml
-!docs/sphinx_env.yml
+!doc/sphinx_env.yml
 
 # For PuMA development with different IDEs (CLion, qtcreator)
 .idea
@@ -50,7 +50,7 @@ main.py
 install/TexGen/bin
 python/pumapy/generation/weave_3mdcp
 _trial_temp*
-python/tutorials/out
+tutorial/out
 
 # GUI
 .qmake.stash
@@ -58,8 +58,8 @@ tmp-gui-ws.vtk
 gui/build/*
 !gui/build/pumaGUI.pro
 
-# docs
-docs/source/cpp_api/
-docs/source/doxyoutput/
-docs/source/files/
-docs/source/tutorials/
+# doc
+doc/source/cpp_api/
+doc/source/doxyoutput/
+doc/source/files/
+doc/source/tutorial/

@@ -70,21 +70,6 @@ target_link_libraries(pumaX_main ${DEP_LIBS})
 install(TARGETS pumaX_main
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
-###################
-# Examples option #
-###################
-# create examples executable
-add_executable(pumaX_examples examples/examples.cpp)
-
-# link PuMA and dependency libraries to pumaX_examples executable
-target_link_libraries(pumaX_examples PuMA)
-target_link_libraries(pumaX_examples ${DEP_LIBS})
-
-# Install pumaX_examples
-install(TARGETS pumaX_examples
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
-
 ##########################
 # Unit-testing framework #
 ##########################

@@ -1,8 +1,8 @@
-# pumapy Tutorial
-This folder contains notebook tutorials that show the basic workings of pumapy. 
+# PuMA Tutorials
+This folder contains notebook tutorial that show the basic workings of PuMA and pumapy. 
 
 ## Run online in Colab
-You can click on the following [this link](https://colab.research.google.com/github/nasa/puma/blob/main/python/tutorials/pumapy_tutorials.ipynb) to run the tutorials directly on Google Colab.
+You can click on the following [this link](https://colab.research.google.com/github/nasa/puma/blob/main/tutorial/puma_tutorial.ipynb) to run the tutorial directly on Google Colab.
 
 ## Run locally
 In order to run the notebooks locally, you must have downloaded the PuMA repository to your computer. If you installed puma by running "conda create -n puma fsemerar::puma", you will have to install the following extra dependencies into the conda environment as: 
@@ -12,7 +12,7 @@ In order to run the notebooks locally, you must have downloaded the PuMA reposit
 
 On the other hand, if you installed puma by running "./installer.sh", then these dependencies are already part of the puma environment. 
 
-To follow the tutorials, from the tutorials folder run:
+To follow the tutorial, open a terminal and run:
 
     jupyter notebook
 

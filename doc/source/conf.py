@@ -19,21 +19,7 @@ sys.path.insert(0, os.path.abspath('../../cpp'))
 # compile .so for cython files
 os.system("cd ../.. && python setup.py build_ext --inplace")
 
-# create tutorials nblinks
-path = "../../python/tutorials"
-files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
-if not os.path.exists('tutorials'):
-    os.mkdir("tutorials")
-for file in files:
-    if file[-5:] == "ipynb":
-        f = open("tutorials/" + file[:-5] + "nblink", "a")
-        f.write("{\n    \"path\": \"../../../python/tutorials/"+file+"\"\n}")
-        f.close()
-print("Updated list of tutorials.")
-
 # run api-doc in terminal
-if not os.path.exists('tutorials'):
-    os.mkdir("tutorials")
 os.system("sphinx-apidoc -fMT ../../python/pumapy -o files --templatedir=template")
 
 # -- Project information -----------------------------------------------------
@@ -88,9 +74,7 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'files/pumapy.rst', 
-                    'tutorials/update_tutorials_list.py', '**.ipynb_checkpoints', 
-                    ]
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'files/pumapy.rst', '**.ipynb_checkpoints']
 
 
 # -- Options for HTML output -------------------------------------------------
