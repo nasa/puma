@@ -13,6 +13,9 @@ dependencies:
   - recommonmark ==0.6.0
   - ipython ==7.24.1
   - breathe ==4.30.0
-  - vtk ==8.2.0
+  - vtk
+  - scipy
+  - scikit-image
+  - numpy
   - pip:
     - exhale ==0.2.3
