@@ -204,7 +204,7 @@ void Threshold::updateTiff() {
 
     (*view->pixmap).convertFromImage(image);
 
-    view->label->setPixmap((*view->pixmap).scaledToHeight(view->label->height()*0.98));
+    view->updatePixmap();
 }
 
 void Threshold::on_valueEdit_textChanged(const QString &arg1)

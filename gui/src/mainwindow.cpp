@@ -94,7 +94,7 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 }
 
 void MainWindow::resizeLabelContents() {
-    ui->mainLabel->setPixmap(pixmap.scaledToHeight(ui->mainLabel->height()*0.98));
+    view.updatePixmap();
 }
 
 void MainWindow::on_verticalSlider_valueChanged(int value)

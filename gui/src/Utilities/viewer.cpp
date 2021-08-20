@@ -43,6 +43,14 @@ void Viewer::setParameters(puma::Workspace *workspace,QLabel *label, QLabel *sli
     this->currentSlice = 0;
 }
 
+void Viewer::updatePixmap() {
+    QPixmap scaled_pixmap = pixmap->scaledToHeight(label->height()*0.98);
+    if(scaled_pixmap.width() > std::max((int)(label->width() * 0.9), 1920)) {
+        scaled_pixmap = pixmap->scaledToWidth(std::max((int)(label->width() * 0.9), 1920));
+    }
+    label->setPixmap(scaled_pixmap);
+}
+
 void Viewer::setTomographySlice(int slice) {
 
     currentSlice = slice;
@@ -57,7 +65,7 @@ void Viewer::setTomographySlice(int slice) {
 
     pixmap->convertFromImage(image);
 
-    label->setPixmap(pixmap->scaledToHeight(label->height()*0.98));
+    updatePixmap();
 
     updateSize();
 

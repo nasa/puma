@@ -10,6 +10,12 @@
     <height>665</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>3840</width>
+    <height>2160</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Porous Microstructure Analysis (PuMA) V3.0</string>
   </property>

@@ -36,6 +36,7 @@ public:
     void error(std::string m);
     void warning(std::string m);
     void wait(std::string m);
+    void updatePixmap();
 
 };
 
