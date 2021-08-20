@@ -15,18 +15,22 @@ public:
     Viewer();
     ~Viewer();
 
-    void setParameters(puma::Workspace *workspace,QLabel *label, QLabel *sliceLabel, QSlider *slider,QPixmap *pixmap);
+    void setParameters(puma::Workspace *workspace,QLabel *label, QLabel *sliceLabel, QSlider *slider,QPixmap *pixmap, QLabel *x_label, QLabel *y_label, QLabel *z_label);
 
     puma::Workspace *workspace;
     QLabel *label;
     QSlider *slider;
     QPixmap *pixmap;
     QLabel *sliceLabel;
+    QLabel *x_label;
+    QLabel *y_label;
+    QLabel *z_label;
 
     QMessageBox *msgBox; //msg
 
     int currentSlice;
 
+    void updateSize();
     void setTomographySlice(int slice);
     void refresh();
     void error(std::string m);

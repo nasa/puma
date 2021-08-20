@@ -73,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     createActions();
 
-    view.setParameters(&workspace,ui->mainLabel, ui->sliceLabel,ui->verticalSlider,&pixmap);
+    view.setParameters(&workspace,ui->mainLabel, ui->sliceLabel,ui->verticalSlider,&pixmap,ui->x_size, ui->y_size, ui->z_size);
 
     ui->sliceLabel->setText(QString::number(0));
 
