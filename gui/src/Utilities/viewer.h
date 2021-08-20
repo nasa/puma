@@ -15,7 +15,7 @@ public:
     Viewer();
     ~Viewer();
 
-    void setParameters(puma::Workspace *workspace,QLabel *label, QLabel *sliceLabel, QSlider *slider,QPixmap *pixmap, QLabel *x_label, QLabel *y_label, QLabel *z_label);
+    void setParameters(puma::Workspace *workspace,QLabel *label, QLabel *sliceLabel, QSlider *slider,QPixmap *pixmap, QLabel *x_label, QLabel *y_label, QLabel *z_label, QLabel *gray_min, QLabel *gray_max);
 
     puma::Workspace *workspace;
     QLabel *label;
@@ -25,6 +25,9 @@ public:
     QLabel *x_label;
     QLabel *y_label;
     QLabel *z_label;
+    QLabel *gray_min;
+    QLabel *gray_max;
+    double min, max;
 
     QMessageBox *msgBox; //msg
 

@@ -84,6 +84,9 @@ private slots:
 
     void on_actionOverview_Talk_triggered();
 
+
+    void on_rescale_vis_button_clicked();
+
 private:
     Ui::MainWindow *ui;
 
