@@ -5,7 +5,8 @@ This folder contains notebook tutorial that show the basic workings of PuMA and 
 You can click on the following [this link](https://colab.research.google.com/github/nasa/puma/blob/main/tutorial/puma_tutorial.ipynb) to run the tutorial directly on Google Colab.
 
 ## Run locally
-In order to run the notebooks locally, you must have downloaded the PuMA repository to your computer. If you installed puma by running "conda create -n puma fsemerar::puma", you will have to install the following extra dependencies into the conda environment as: 
+In order to run the notebooks locally, you must have downloaded the PuMA repository to your computer. 
+If you did not install from source, you will have to install the following extra dependencies into the conda environment as: 
 
     conda activate puma
     conda install anaconda::jupyter conda-forge::ipympl conda-forge::ipyvtklink
