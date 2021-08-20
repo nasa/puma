@@ -13,8 +13,8 @@ if ! [ -x "$(command -v conda)" ]; then
         exit 1
     fi
     chmod +x ./install/miniconda.sh
-    ./install/miniconda.sh -b -p ./install/miniconda
-    eval "$(./install/miniconda/bin/conda shell.bash hook)"
+    ./install/miniconda.sh -b -p $HOME/miniconda
+    eval "$($HOME/miniconda/bin/conda shell.bash hook)"
     conda init
     rm ./install/miniconda.sh
 fi
