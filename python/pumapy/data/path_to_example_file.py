@@ -2,7 +2,7 @@ import os.path
 
 
 def path_to_example_file(example_filename):
-	""" Path to example data that is installed with pumapy (used for testing and tutorial)
+    """ Path to example data that is installed with pumapy (used for testing and tutorial)
 
     :param example_filename: name of the example file (check python/pumapy/data for a list of example files)
     :type example_filename: str

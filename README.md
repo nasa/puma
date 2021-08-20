@@ -8,7 +8,6 @@
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/platforms.svg)](https://anaconda.org/conda-forge/puma)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/license.svg)](https://anaconda.org/conda-forge/puma)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/downloads.svg)](https://anaconda.org/conda-forge/puma)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/installer/conda.svg)](https://conda.anaconda.org/conda-forge)
 
 -----
 
