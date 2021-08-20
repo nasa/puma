@@ -97,7 +97,7 @@ html_theme_options = {
 
 from unittest import mock
 MOCK_MODULES = [
-                'TexGen.Core', 'dolfin', 'numpy', 'matplotlib', 'pyvista', 'vtk', 'pyevtk', 'pyevtk.hl', 
+                'TexGen.Core', 'dolfin', 'numpy', 'matplotlib', 'pyvista', 'vtk', 'vtkmodules', 'pyevtk', 'pyevtk.hl', 
                 'skimage', 'skimage.transform', 'skimage.io', 'skimage.filters', 'skimage.morphology', 
                 'scipy', 'scipy.optimize', 'scipy.sparse', 'scipy.sparse.linalg', 'scipy.ndimage', 'scipy.ndimage.filters', 
                 ]
