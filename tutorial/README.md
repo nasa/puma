@@ -9,7 +9,7 @@ In order to run the notebooks locally, you must have downloaded the PuMA reposit
 If you did not install from source, you will have to install the following extra dependencies into the conda environment as: 
 
     conda activate puma
-    conda install jupyterlab ipympl ipyvtklink
+    conda install -c conda-forge jupyterlab ipympl ipyvtklink
 
 On the other hand, if you installed puma by running "./installer.sh", then these dependencies are already part of the puma environment. 
 
