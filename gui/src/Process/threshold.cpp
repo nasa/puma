@@ -101,7 +101,6 @@ void Threshold::on_Boundary1_Slider_valueChanged(int slider1){
 
     int bound1 = (slider1/99.0)*255.0;
 
-   std::cout << bound1 << std::endl;
     QString strVal = QString::number(bound1);
     ui->Boundary1_Edit->setText(strVal);
 
@@ -115,7 +114,6 @@ void Threshold::on_Boundary2_Slider_valueChanged(int slider2){
 
     int bound2 = (slider2/99.0)*255.0;
 
-    std::cout << bound2 << std::endl;
     QString strVal = QString::number(bound2);
     ui->Boundary2_Edit->setText(strVal);
 
@@ -204,7 +202,7 @@ void Threshold::updateTiff() {
 
     (*view->pixmap).convertFromImage(image);
 
-    view->label->setPixmap((*view->pixmap).scaledToHeight(view->label->height()*0.98));
+    view->updatePixmap();
 }
 
 void Threshold::on_valueEdit_textChanged(const QString &arg1)

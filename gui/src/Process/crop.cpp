@@ -131,7 +131,7 @@ void Crop::updateWindow() {
 
     view->pixmap->convertFromImage(image);
 
-    view->label->setPixmap(view->pixmap->scaledToHeight(view->label->height()*0.98));
+    view->updatePixmap();
 
 
     this->repaint();

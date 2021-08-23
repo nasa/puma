@@ -9,13 +9,15 @@ In order to run the notebooks locally, you must have downloaded the PuMA reposit
 If you did not install from source, you will have to install the following extra dependencies into the conda environment as: 
 
     conda activate puma
-    conda install anaconda::jupyter conda-forge::ipympl conda-forge::ipyvtklink
+    conda install -c conda-forge jupyterlab ipympl ipyvtklink
 
 On the other hand, if you installed puma by running "./installer.sh", then these dependencies are already part of the puma environment. 
 
 To follow the tutorial, open a terminal and run:
 
-    jupyter notebook
+    jupyter lab
+    
+If you installed the software using conda, then you will have to download the jupyter notebook file (puma_tutorials.ipynb) from the puma gitlab or puma github. 
 
 
 ----------------- Disclaimer: -----------------

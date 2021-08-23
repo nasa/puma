@@ -73,11 +73,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     createActions();
 
-    view.setParameters(&workspace,ui->mainLabel, ui->sliceLabel,ui->verticalSlider,&pixmap);
-
+    view.setParameters(&workspace,ui->mainLabel, ui->sliceLabel,ui->verticalSlider,&pixmap,ui->x_size, ui->y_size, ui->z_size, ui->gray_min, ui->gray_max);
     ui->sliceLabel->setText(QString::number(0));
-
-
 
     setAcceptDrops(true);
 
@@ -94,7 +91,7 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 }
 
 void MainWindow::resizeLabelContents() {
-    ui->mainLabel->setPixmap(pixmap.scaledToHeight(ui->mainLabel->height()*0.98));
+    view.updatePixmap();
 }
 
 void MainWindow::on_verticalSlider_valueChanged(int value)
@@ -651,3 +648,20 @@ void MainWindow::on_actionVisualization_triggered()
     visWindow->setWorkspace(&workspace);
     visWindow->show();
 }
+
+
+
+
+void MainWindow::on_rescale_vis_button_clicked()
+{
+    if(view.workspace->size()!=0) {
+        view.min = view.workspace->matrix.min();
+        view.max = view.workspace->matrix.max();
+        ui->gray_min->setText(QString::number(view.min));
+        ui->gray_max->setText(QString::number(view.max));
+        view.refresh();
+        this->repaint();
+    }
+
+}
+
