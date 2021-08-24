@@ -48,7 +48,7 @@ Recommended specs:
 
 The standard installation of PuMA is performed using conda as:
 
-    conda create -n puma conda-forge::puma
+    conda create -yn puma conda-forge::puma
 
 This installs the PuMA C++ library, pumapy python package and GUI in a conda environment called "puma". 
 PuMA relies on a conda environment in order to manage its software dependencies and environment variables.
