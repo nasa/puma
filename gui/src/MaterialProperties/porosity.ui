@@ -183,25 +183,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="porositResult">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);
-font: 11pt &quot;Serif&quot;;</string>
-         </property>
-         <property name="text">
-          <string/>
+        <widget class="QLineEdit" name="porositResult">
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
