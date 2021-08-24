@@ -194,6 +194,8 @@ bool EJ_AMatrix::free() {
 
     fftw_destroy_plan(pf);
     fftw_destroy_plan(pb);
+
+    return true;
 }
 
 long EJ_AMatrix::getNumInterfaces()
