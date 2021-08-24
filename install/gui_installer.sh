@@ -36,5 +36,5 @@ fi
 
 cd ../gui/build
 qmake "BUILD_PREFIX=$CONDA_PREFIX" "INSTALL_PREFIX=$CONDA_PREFIX"
-make -j
+make -j2
 make install
