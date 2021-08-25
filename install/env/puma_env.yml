@@ -12,8 +12,9 @@ dependencies:
   - scikit-umfpack
   - matplotlib
   - pyevtk
-  - pyvista
   - fenics-dolfin >=2019.1.0
+  - pyvista
+  - ipyvtklink
   - ipympl
   - jupyterlab
   - openmp

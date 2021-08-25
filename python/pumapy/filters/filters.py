@@ -115,6 +115,14 @@ def filter_erode(ws, cutoff, size=5):
     :type size: int, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+    >>> ws.binarize_range((128, 255))  # binarize it so that it is only 1s and 0s
+    >>> ws_erode = ws.copy()
+    >>> puma.filter_erode(ws_erode, (1, 1))  # eroding the copy
+    >>> puma.compare_slices(ws, ws_erode)  # compare it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")

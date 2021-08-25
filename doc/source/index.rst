@@ -30,9 +30,7 @@ PuMA Documentation
    puma_tutorial
 
 
-Indices and tables
+Index
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
