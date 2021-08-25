@@ -11,6 +11,16 @@
 
 namespace puma {
 
+/*! Function to compute the orientation using the Structure Tensor (i.e. find the direction of least gradient change)
+\param grayWS the input workspace to serve as a mask according to the cutoff (Note: the ST filter is applied on the whole image, the cutoffs are only applied when computing the Eigenvectors to put in the direction MatVec3)
+\param dogsigmaArr kernel size parameter for Gaussian derivatives (should be smaller than rho)
+\param gausigmaArr kernel size parameter for Gaussian filter (should be bigger than sigma)
+\param cutoff the grayscale range to consider, according to the input ws
+\param direction the output orientation field
+\param print whether to print progress, optional
+\param numThreads number of threads to use, optional
+\return true if successful, false if it failing
+*/
 bool compute_orientationST(Workspace *grayWS, double dogsigmaArr, double gausigmaArr, puma::Cutoff cutoff, puma::MatVec3<double> *direction, bool print = true, int numThreads = 0);
 
 }

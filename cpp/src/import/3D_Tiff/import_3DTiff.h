@@ -11,31 +11,30 @@
 // Declare Global Import 3D Tiff Functions
 namespace puma {
 
-/* Imports a 3D Tiff into the passed workspace.
- * work is a pointer to a workspace
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myTiff.tif"
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
- */
+/*! Imports a 3D Tiff into the passed workspace.
+\param work is a pointer to a workspace
+\param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myTiff.tif"
+\param numThreads: the number of threads used in the operation. 0 for maximum number of threads
+*/
     bool import_3DTiff(Workspace *work, std::string fileName, int numThreads = 0);
 
-
-/* Imports a subsection 3D Tiff into the passed workspace.
- * work is a pointer to a workspace
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myTiff.tif"
- * xMin is the startIndex in the x direction. uses c++ convention is min value is 0 and max value is size-1
- * xMax is the EndIndex in the x direction. uses c++ convention is min value is 0 and max value is size-1
- * yMin is the startIndex in the y direction. uses c++ convention is min value is 0 and max value is size-1
- * yMax is the EndIndex in the y direction. uses c++ convention is min value is 0 and max value is size-1
- * zMin is the startIndex in the z direction. uses c++ convention is min value is 0 and max value is size-1
- * zMax is the EndIndex in the z direction. uses c++ convention is min value is 0 and max value is size-1
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
- */
+/*! Imports a subsection 3D Tiff into the passed workspace.
+\param work is a pointer to a workspace
+\param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myTiff.tif"
+\param xMin is the startIndex in the x direction. uses c++ convention is min value is 0 and max value is size-1
+\param xMax is the EndIndex in the x direction. uses c++ convention is min value is 0 and max value is size-1
+\param yMin is the startIndex in the y direction. uses c++ convention is min value is 0 and max value is size-1
+\param yMax is the EndIndex in the y direction. uses c++ convention is min value is 0 and max value is size-1
+\param zMin is the startIndex in the z direction. uses c++ convention is min value is 0 and max value is size-1
+\param zMax is the EndIndex in the z direction. uses c++ convention is min value is 0 and max value is size-1
+\param numThreads: the number of threads used in the operation. 0 for maximum number of threads
+*/
     bool import_3DTiff(Workspace *work, std::string fileName, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax, int numThreads = 0);
 
-/* Imports a 3D Tiff into the passed matrix.
- * matrix is a pointer to a matrix
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myTiff.tif"
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
+/*! Imports a 3D Tiff into the passed matrix.
+ * \param matrix is a pointer to a matrix
+ * \param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myTiff.tif"
+ * \param numThreads is the number of threads used in the input. 0 defaults to max number of threads
  */
     template <class T>
     bool import_3DTiff(puma::Matrix<T> *matrix, std::string fileName, int numThreads = 0);

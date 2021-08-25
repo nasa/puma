@@ -104,9 +104,9 @@ html_theme_options = {
 # -- Breathe - Exhale configuration -------------------------------------------------
 
 breathe_projects = {
-    "My Project": "./doxyoutput/xml"
+    "PuMA": "./doxyoutput/xml"
 }
-breathe_default_project = "My Project"
+breathe_default_project = "PuMA"
 
 # Setup the exhale extension
 exhale_args = {
@@ -118,7 +118,7 @@ exhale_args = {
     # Suggested optional arguments
     "createTreeView":        True,
     "exhaleExecutesDoxygen": True,
-    "exhaleDoxygenStdin":    "INPUT = ../../cpp"
+    "exhaleDoxygenStdin":    "INPUT = ../../cpp/src",
 }
 
 # Tell sphinx what the primary language being documented is.

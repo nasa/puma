@@ -12,6 +12,16 @@
 
 namespace puma {
 
+/*! Function to compute the orientation using the Artificial Flux method (i.e. find the direction of strongest flux using isotropic solver)
+\param grayWS the input workspace to serve as a mask according to the cutoff
+\param q output flux computed
+\param cutoff the grayscale range to consider, according to the input ws
+\param solverTol solver (cg) tolerance
+\param solverMaxIt solver (cg) maximum iteration
+\param print whether to print progress, optional
+\param numThreads number of threads to use, optional
+\return true if successful, false if it failing
+*/
 bool compute_orientationAF(puma::Workspace *grayWS, puma::MatVec3<double> *q, puma::Cutoff cutoff, double solverTol, int solverMaxIt, bool print = true, int numThreads = 0);
 
 }

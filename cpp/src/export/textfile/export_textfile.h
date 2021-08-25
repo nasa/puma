@@ -11,11 +11,30 @@
 
 namespace puma {
 
+/*! Exporting a workspace to a txt file
+\param work: the workspace to export
+\param fileName: the name of the file
+\param header: add title header on first line
+\param scientific: scientific notation
+\param showpositive: show positive sign
+\param precision: decimal place for rounding precision
+\param width: text width
+\return true for success or false for fail
+*/
     bool export_Textfile(Workspace *work, std::string fileName, bool header=false, bool scientific=true, bool showpositive=false, short precision=6, short width=15);
 
+/*! Exporting a matrix to a txt file
+\param matrix: the matrix to export
+\param fileName: the name of the file
+\param header: add title header on first line
+\param scientific: scientific notation
+\param showpositive: show positive sign
+\param precision: decimal place for rounding precision
+\param width: text width
+\return true for success or false for fail
+*/
     template<class T>
     bool export_Textfile(Matrix<T> *matrix, std::string fileName, bool header=false, bool scientific=true, bool showpositive=false, short precision=6, short width=15);
-
 }
 
 template<class T>

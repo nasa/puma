@@ -10,7 +10,24 @@
 
 namespace puma {
 
+    /*! Identify the porespace
+    \param ws the input workspace
+    \param poreMatrix the output matrix with identified pores: porespace marked as: 0 solid, 1 largest pore (likely open porosity), >1 other pores
+    \param voidRange the grayscale range to consider
+    \param print whether to print progress, optional
+    \param numThreads number of threads to use, optional
+    \return true if successful, false if it failing
+    */
     bool identifyPoreSpace(Workspace *ws, puma::Matrix<long> *poreMatrix, puma::Cutoff voidRange, bool print = true, int numThreads = 0);
+
+    /*! Identify the porespace and fill closed porosity
+    \param ws the output filled workspace with IDs set as: 0 for void, 1 for solid, filledValue for added filler material
+    \param voidRange the grayscale range to consider
+    \param filledValue value to fill closed porosity with
+    \param print whether to print progress, optional
+    \param numThreads number of threads to use, optional
+    \return true if successful, false if it failing
+    */
     bool fillClosedPores(Workspace *ws, puma::Cutoff voidRange, short filledValue, bool print = true, int numThreads = 0);
 
 }

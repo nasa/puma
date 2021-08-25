@@ -14,13 +14,20 @@
 
 
 namespace puma {
-/* Generates random spheres based upon the given input and stores into the grayscale workspace. After generation, void is contained in
+/*! Generates random spheres based upon the given input and stores into the grayscale workspace. After generation, void is contained in
  *      grayscale values 0-127 and material is contained in grayscale values 128-255
+ \param sphereWS the output workspace
+ \param input the RandomSpheresInput details for the generation
+ \return true if successful, false if it failing
  */
 bool generateRandomSpheres(puma::Workspace *sphereWS, RandomSpheresInput input);
 
-/* Generates random fibers based upon the given input and stores into the segmented workspace. After generation, void is contained in
+/*! Generates random fibers based upon the given input and stores into the segmented workspace. After generation, void is contained in
  *      segmented value 0 and material is contained in segmented value 1
+ \param sphereWS the output workspace
+ \param input the RandomSpheresInput details for the generation
+ \param val the value to assign to the fibers
+ \return true if successful, false if it failing
  */
 bool generateRandomSpheres(puma::Workspace *mat, RandomSpheresInput input, short val);
 }

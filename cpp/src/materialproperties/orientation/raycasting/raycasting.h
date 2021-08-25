@@ -11,7 +11,27 @@
 
 namespace puma {
 
+/*! Function to compute the orientation using Ray Casting (i.e. find longest direction for EVERY solid voxel) - with refinement
+\param grayWS the input workspace to serve as a mask according to the cutoff
+\param voidRange the grayscale range to consider, according to the input ws
+\param initAccuracy initial angular accuracy at which to shoot rays in every direction
+\param degreeAccuracy refined angular accuracy at which to shoot rays in every direction
+\param direction the output orientation field
+\param print whether to print progress, optional
+\param numThreads number of threads to use, optional
+\return true if successful, false if it failing
+*/
 bool compute_orientationRC(puma::Workspace *grayWS, puma::Cutoff voidRange, int initAccuracy, int degreeAccuracy, puma::MatVec3<double> *direction, bool print = true, int numThreads = 0);
+
+/*! Function to compute the orientation using Ray Casting (i.e. find longest direction for EVERY solid voxel) - without refinement
+\param grayWS the input workspace to serve as a mask according to the cutoff
+\param voidRange the grayscale range to discard, according to the input ws
+\param degreeAccuracy angular accuracy at which to shoot rays in every direction
+\param direction the output orientation field
+\param print whether to print progress, optional
+\param numThreads number of threads to use, optional
+\return true if successful, false if failing
+*/
 bool compute_orientationRC(puma::Workspace *grayWS, puma::Cutoff voidRange, int degreeAccuracy, puma::MatVec3<double> *direction, bool print = true, int numThreads = 0);
 
 }

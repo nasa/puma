@@ -6,7 +6,6 @@ PuMA Documentation
    :caption: Quick start:
    
    readme
-   * :ref:`genindex`
 
 .. toctree::
    :maxdepth: 1
@@ -28,4 +27,5 @@ PuMA Documentation
    :glob:
    :caption: C++ API:
 
-   cpp_api/cpp_library_root
+   cpp_api/namespace_puma.rst
+   cpp_api/namespace_IterativeSolver.rst

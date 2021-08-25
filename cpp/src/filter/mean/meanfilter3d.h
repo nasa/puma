@@ -6,10 +6,13 @@
 
 
 namespace puma {
-/* Executes a mean filter on a workspace
- * window_radius is the voxel radius in 3d space. typically 1-5
- * numThreads is the number of threads used in the operation. 0 for maximum number of threads
- */
+
+/*! Executes a mean filter on a workspace
+\param work: the workspace to filter
+\param window_radius: the voxel radius in 3d space. typically 1-5
+\param numThreads: the number of threads used in the operation. 0 for maximum number of threads
+\return true for success or false for fail 
+*/
 bool filter_Mean3D(Workspace *work, int window_radius, int numThreads = 0);
 }
 

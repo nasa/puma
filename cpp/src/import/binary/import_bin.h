@@ -16,45 +16,45 @@
 
 namespace puma {
 
-/* Imports a binary file (.puma) into the passed Workspace.
- * work is a pointer to a Workspace
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myWorkspace.puma"
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
+/*! Imports a binary file (.puma) into the passed Workspace.
+ * \param work is a pointer to a Workspace
+ * \param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myWorkspace.puma"
+ * \param numThreads is the number of threads used in the input. 0 defaults to max number of threads
  */
 bool import_bin(Workspace *work, const std::string& fileName, int numThreads = 0);
 
-/* Imports a binary file (.puma) into the passed matrix.
- * matrix is a pointer to a matrix
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
+/*! Imports a binary file (.puma) into the passed matrix.
+ * \param matrix is a pointer to a matrix
+ * \param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
+ * \param numThreads is the number of threads used in the input. 0 defaults to max number of threads
  */
 bool import_bin(Matrix<double> *matrix, const std::string& fileName, int numThreads = 0);
 
-/* Imports a binary file (.puma) into the passed matrix.
- * matrix is a pointer to a matrix
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
+/*! Imports a binary file (.puma) into the passed matrix.
+ * \param matrix is a pointer to a matrix
+ * \param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
+ * \param numThreads is the number of threads used in the input. 0 defaults to max number of threads
  */
 bool import_bin(Matrix<float> *matrix, const std::string& fileName, int numThreads = 0);
 
-/* Imports a binary file (.puma) into the passed matrix.
- * matrix is a pointer to a matrix
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
+/*! Imports a binary file (.puma) into the passed matrix.
+ * \param matrix is a pointer to a matrix
+ * \param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
+ * \param numThreads is the number of threads used in the input. 0 defaults to max number of threads
  */
 bool import_bin(Matrix<short> *matrix, const std::string& fileName, int numThreads = 0);
 
-/* Imports a binary file (.puma) into the passed matrix.
- * matrix is a pointer to a matrix
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
+/*! Imports a binary file (.puma) into the passed matrix.
+ * \param matrix is a pointer to a matrix
+ * \param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
+ * \param numThreads is the number of threads used in the input. 0 defaults to max number of threads
  */
 bool import_bin(Matrix<int> *matrix, const std::string& fileName, int numThreads = 0);
 
-/* Imports a binary file (.puma) into the passed matrix.
- * matrix is a pointer to a matrix
- * fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
- * numThreads is the number of threads used in the input. 0 defaults to max number of threads
+/*! Imports a binary file (.puma) into the passed matrix.
+ * \param matrix is a pointer to a matrix
+ * \param fileName is a string that has the path to the tiff: ex: "/home/jsmith/Desktop/myMatrix.puma"
+ * \param numThreads is the number of threads used in the input. 0 defaults to max number of threads
  */
 bool import_bin(puma::MatVec3<double> *matrix, std::string fileName, int numThreads = 0);
 
