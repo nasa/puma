@@ -1,4 +1,4 @@
-# PuMA Tutorials
+# How to run the PuMA tutorial
 This folder contains notebook tutorial that show the basic workings of PuMA and pumapy. 
 
 ## Run online in Colab

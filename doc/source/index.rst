@@ -6,31 +6,26 @@ PuMA Documentation
    :caption: Quick start:
    
    readme
-
-.. toctree::
-   :maxdepth: 2
-   :glob:
-   :caption: C++ Library API:
-
-   cpp_api/cpp_library_root
+   * :ref:`genindex`
 
 .. toctree::
    :maxdepth: 1
    :glob:
-   :caption: Python Package API:
-
-   files/*
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-   :caption: Tutorials:
+   :caption: Tutorial:
 
    readme_tutorial
    puma_tutorial
 
+.. toctree::
+   :maxdepth: 1
+   :glob:
+   :caption: Python API:
 
-Index
-==================
+   files/*
 
-* :ref:`genindex`
+.. toctree::
+   :maxdepth: 2
+   :glob:
+   :caption: C++ API:
+
+   cpp_api/cpp_library_root
