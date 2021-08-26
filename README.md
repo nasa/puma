@@ -57,7 +57,7 @@ the PuMA GUI can be launched by running:
 
     conda activate puma; pumaGUI
 
-The [jupyter notebook](tutorial) shows the typical function usage for both PuMA C++ and pumapy.
+The [jupyter notebook](https://github.com/nasa/puma/tree/main/tutorial) shows the typical function usage for both PuMA C++ and pumapy.
 This can be run directly in Google Colaboratory by following 
 [this link](https://colab.research.google.com/github/nasa/puma/blob/main/tutorial/puma_tutorial.ipynb).
 
@@ -66,7 +66,7 @@ This can be run directly in Google Colaboratory by following
 This is the recommended installation for developers that need to make modifications to PuMA. 
 Run the following commands to clone the project and install it (on a Mac, execute "bash" to make sure the bash shell is active):
 
-    git clone https://gitlab.com/jcfergus/puma-dev.git
+    git clone https://github.com/nasa/puma.git
     cd puma-dev; chmod +x installer.sh; ./installer.sh
 
 ### How to setup PuMA on the NAS cluster:
@@ -105,7 +105,7 @@ If you use PuMA in your research, please use the following BibTeX entries to cit
 }
 ```
 
-See the [publications](./publications.md) file for a full list of papers on PuMA and its numerical methods.  
+See the [publications](https://github.com/nasa/puma/blob/main/publications.md) file for a full list of papers on PuMA and its numerical methods.  
 
 ## Common errors and bug reporting
 This is a list of the common errors encountered during the setup and how to solve them:
@@ -119,7 +119,8 @@ This is a list of the common errors encountered during the setup and how to solv
 - If an error "fatal error: GL/gl.h: No such file or directory" is displayed, then run "sudo apt-get install mesa-common-dev" 
   (or equivalent for your distribution)
   
-If any bugs are found, or if the software crashes for any reason, please contact either of the authors mentioned below.
+If any bugs are found, or if the software crashes for any reason, please open an issue at [this link](https://github.com/nasa/puma/issues)
+and/or contact either of the authors mentioned below.
 
 ## Contributing to PuMA
 Since PuMA is a free open-source code, any user is welcome to contribute or collaborate however they would like. 
