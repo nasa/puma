@@ -72,8 +72,6 @@ class Isosurface:
         self.matrix = np.empty(self.workspace.matrix.shape)
 
     def compute(self):
-        if self.cutoff[0] == 0:
-            self.cutoff[0] += 0.5
         if float(self.cutoff[0]).is_integer():
             self.cutoff[0] -= 0.5
         if float(self.cutoff[1]).is_integer():
@@ -96,7 +94,7 @@ class Isosurface:
 
     def buffer_matrix(self):
         if self.flag_closed_edges:
-            matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2], 1e-3)
+            matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2], -1e3)
             matrix_buf[1:-1, 1:-1, 1:-1] = self.matrix[:, :, :]
             self.matrix = np.copy(matrix_buf)
 
