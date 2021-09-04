@@ -78,7 +78,8 @@ Open a terminal, navigate the the directory you would like PuMA installed, and e
 
 Open a terminal, navigate the the directory you would like PuMA installed, and execute the following:
 
-    sudo yum group install git "Development Tools" mesa-libGL-devel
+    sudo yum group install "Development Tools" 
+    sudo yum install git mesa-libGL-devel
     git clone https://github.com/nasa/puma.git
     cd puma-dev; chmod +x installer.sh; ./installer.sh
 
