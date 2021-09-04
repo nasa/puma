@@ -62,7 +62,6 @@ Step 1 of the installation varies slightly based on the system, so we have split
 Open a terminal, navigate the the directory you would like PuMA installed, and execute the following:
 
     xcode-select --install
-    bash
     git clone https://github.com/nasa/puma.git
     cd puma-dev; chmod +x installer.sh; ./installer.sh
 
