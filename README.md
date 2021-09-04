@@ -65,6 +65,7 @@ Open a terminal, navigate the the directory you would like PuMA installed, and e
     git clone https://github.com/nasa/puma.git
     cd puma; chmod +x installer.sh; ./installer.sh
 
+Note: If XCode command line tools are already installed, the first line will result in an error. This error is not a problem, so simply move on to the second line. 
 
 #### Debian (Ubuntu) Installation
 
