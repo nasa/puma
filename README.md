@@ -63,7 +63,7 @@ Open a terminal, navigate the the directory you would like PuMA installed, and e
 
     xcode-select --install
     git clone https://github.com/nasa/puma.git
-    cd puma-dev; chmod +x installer.sh; ./installer.sh
+    cd puma; chmod +x installer.sh; ./installer.sh
 
 
 #### Debian (Ubuntu) Installation
@@ -72,7 +72,7 @@ Open a terminal, navigate the the directory you would like PuMA installed, and e
 
     sudo apt-get install git build-essential mesa-common-dev
     git clone https://github.com/nasa/puma.git
-    cd puma-dev; chmod +x installer.sh; ./installer.sh
+    cd puma; chmod +x installer.sh; ./installer.sh
 
 #### Fedora (CentOS, RHEL) Installation
 
@@ -81,7 +81,7 @@ Open a terminal, navigate the the directory you would like PuMA installed, and e
     sudo yum group install "Development Tools" 
     sudo yum install git mesa-libGL-devel
     git clone https://github.com/nasa/puma.git
-    cd puma-dev; chmod +x installer.sh; ./installer.sh
+    cd puma; chmod +x installer.sh; ./installer.sh
 
 
 #### Running PuMA
