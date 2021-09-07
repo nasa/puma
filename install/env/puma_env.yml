@@ -3,23 +3,31 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python
-  - pip
-  - numpy
-  - scipy
-  - cython
+  - python ==3.7.4
+
+  # pumapy
+  - numpy 
   - scikit-image
-  - scikit-umfpack
+  - scipy
   - matplotlib
   - pyevtk
-  - fenics-dolfin >=2019.1.0
   - pyvista
-  - ipyvtklink
-  - ipympl
-  - jupyterlab
-  - openmp
+
+  # puma cpp
   - fftw
   - eigen
-  - swig
+  - openmp
   - cmake >=3.11.0
+
+  # puma gui
   - qt >=5.9.0
+
+  # texgen
+  - swig
+
+  # nice to have
+  - pip
+  - cython
+  - jupyterlab
+  - ipyvtklink
+  - ipympl
