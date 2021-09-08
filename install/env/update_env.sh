@@ -3,14 +3,13 @@ cd "${0%/*}" || exit 1    # run from this directory
 set -e  # exit when any command fails
 eval "$(conda shell.bash hook)"
 
-echo "Installing conda-lock"
-echo -ne '\n' | conda install -c conda-forge conda-lock  # install conda-lock in base
+# assumes you have installed the udpated env with: conda env create -f puma_env.yml
+conda activate puma  
 
 if [ "$(uname)" == "Darwin" ]; then
-    conda-lock -f puma_env.yml -p osx-64 --filename-template "puma-env-mac.lock"
+    conda list --explicit > "puma-env-mac.lock"
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    conda-lock -f puma_env.yml -p linux-64 --filename-template "puma-env-linux.lock"
+    conda list --explicit > "puma-env-linux.lock"
 else
-    echo "Unrecongnized Operating System, PuMA cannot be installed."
-    exit 1
+    conda list --explicit > "puma-env-win.lock"
 fi

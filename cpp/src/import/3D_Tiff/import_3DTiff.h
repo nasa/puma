@@ -5,6 +5,7 @@
 #include "import_3DTiff_Workspace.h"
 #include "workspace.h"
 #include "tiffio.h"
+#include <string>
 #include <utility>
 
 
@@ -38,6 +39,8 @@ namespace puma {
  */
     template <class T>
     bool import_3DTiff(puma::Matrix<T> *matrix, std::string fileName, int numThreads = 0);
+
+    std::string path_to_example_file(std::string example_filename);
 }
 
 // Import 3D Tiff Matrix Class

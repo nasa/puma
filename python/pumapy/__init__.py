@@ -20,6 +20,8 @@ from pumapy.utilities.timer import Timer
 from pumapy.utilities.isosurface import generate_isosurface
 from pumapy.utilities.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
 from pumapy.utilities.boundary_conditions import ConductivityBC, ElasticityBC
+from pumapy.utilities.example_files import path_to_example_file
+from pumapy.utilities.example_files import list_example_files
 
 # input/output
 from pumapy.io.input import import_3Dtiff, import_bin, import_weave_vtu, import_vti
@@ -58,6 +60,3 @@ from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation
 from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
-
-# example data
-from pumapy.data.path_to_example_file import path_to_example_file
