@@ -37,7 +37,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pumapy",
-    version="3.0.2",
+    version="3.1.0",
     author="PuMA team",
     maintainer_email="federico.semeraro@nasa.gov, joseph.ferguson@stanford.edu",
     description="A package to compute material properties from micro-CT data.",
@@ -59,9 +59,10 @@ setup(
                     "wheel",
                     "numpy",
     ],
-    install_requires=[  # TexGen also required but not listed here because not installable with pip
+    install_requires=[  # TexGen also required, but it can be installed as add-on
         "numpy",
         "scikit-image",
+        "scikit-umfpack",
         "scipy",
         "matplotlib",
         "pyevtk",

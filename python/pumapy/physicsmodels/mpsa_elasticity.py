@@ -4,25 +4,24 @@ from pumapy.physicsmodels.elasticity_utils import (fill_stress_matrices, flatten
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_mpsa_indices
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.boundary_conditions import ElasticityBC
-from pumapy.physicsmodels.isotropic_conductivity import SolverDisplay
+from pumapy.utilities.linear_solvers import PropertySolver
 from pumapy.utilities.logger import print_warning
-import numpy as np
+from pumapy.utilities.timer import Timer
 from scipy.sparse import csr_matrix, diags
-from scipy.sparse.linalg import bicgstab, spsolve, cg, gmres
+import numpy as np
 import sys
 
 
-class Elasticity:
+class Elasticity(PropertySolver):
+
     def __init__(self, workspace, elast_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
                  display_iter, print_matrices):
-        self.ws = workspace
+        allowed_solvers = ['direct', 'gmres', 'cg', 'bicgstab']
+        super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
+
         self.elast_map = elast_map
         self.direction = direction
         self.side_bc = side_bc
-        self.tolerance = tolerance
-        self.maxiter = maxiter
-        self.solver_type = solver_type
-        self.display_iter = display_iter
         self.prescribed_bc = prescribed_bc
         self.print_matrices = print_matrices
         self.mat_elast = dict()
@@ -34,18 +33,15 @@ class Elasticity:
         self.u = np.zeros([1, 1, 1])
         self.s = np.zeros([1, 1, 1, 3])
         self.t = np.zeros([1, 1, 1, 3])
-        self.len_x = self.ws.matrix.shape[0]
-        self.len_y = self.ws.matrix.shape[1]
-        self.len_z = self.ws.matrix.shape[2]
-        self.len_xy = self.len_x * self.len_y
-        self.len_xyz = self.len_xy * self.len_z
 
     def compute(self):
+        t = Timer()
         self.initialize()
         self.assemble_bvector()
         self.assemble_Amatrix()
-        if not self.solve():
-            return None
+        print("Time to assemble matrices: ", t.elapsed()); t.reset()
+        super().solve()
+        print("Time to solve: ", t.elapsed())
         self.compute_effective_coefficient()
 
     def initialize(self):
@@ -108,31 +104,34 @@ class Elasticity:
             self.dir_vox[1:-1, 1:-1, 1:-1][self.prescribed_bc.dirichlet != np.Inf] = True
         print("Done")
 
+        # Initialize initial guess for iterative solver
+        if self.solver_type != 'direct' and self.solver_type != 'spsolve':
+            self.initial_guess = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
+            for i in range(self.len_x - 1):
+                self.initial_guess[i, :, :, 0] = i / (self.len_x - 2.)
+            self.initial_guess = self.initial_guess.flatten('F')
+
     def assemble_bvector(self):
         print("Assembling b vector ... ", flush=True, end='')
 
-        I, V = ([] for _ in range(2))
+        self.bvec = np.zeros(3 * self.len_xyz, dtype=float)
 
         if self.prescribed_bc is not None:
             for i in range(1, self.len_x - 1):
                 for j in range(1, self.len_y - 1):
                     for k in range(1, self.len_z - 1):
                         if self.prescribed_bc[i - 1, j - 1, k - 1, 0] != np.Inf:
-                            I.append(self.len_x * (self.len_y * k + j) + i)
-                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 0])  # ux
+                            self.bvec[self.len_x * (self.len_y * k + j) + i] = self.prescribed_bc[i - 1, j - 1, k - 1, 0]  # ux
                         if self.prescribed_bc[i - 1, j - 1, k - 1, 1] != np.Inf:
-                            I.append(self.len_xyz + self.len_x * (self.len_y * k + j) + i)
-                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 1])  # uy
+                            self.bvec[self.len_xyz + self.len_x * (self.len_y * k + j) + i] = self.prescribed_bc[i - 1, j - 1, k - 1, 1]  # uy
                         if self.prescribed_bc[i - 1, j - 1, k - 1, 2] != np.Inf:
-                            I.append(2 * self.len_xyz + self.len_x * (self.len_y * k + j) + i)
-                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 2])  # uz
+                            self.bvec[2 * self.len_xyz + self.len_x * (self.len_y * k + j) + i] = self.prescribed_bc[i - 1, j - 1, k - 1, 2]  # uz
         else:
             # Setting unit displacement
             i = self.len_x - 2
             for j in range(1, self.len_y - 1):
                 for k in range(1, self.len_z - 1):
-                    I.append(self.len_x * (self.len_y * k + j) + i)
-                    V.append(1.)
+                    self.bvec[self.len_x * (self.len_y * k + j) + i] = 1.
 
         # Setting linear displacement on the boundaries if Dirichlet
         if self.side_bc == 'd' and self.direction is not None:
@@ -140,19 +139,148 @@ class Elasticity:
             for j in [1, self.len_y - 2]:
                 for i in range(1, self.len_x - 1):
                     for k in range(1, self.len_z - 1):
-                        I.append(self.len_x * (self.len_y * k + j) + i)
-                        V.append(x[i - 1])
+                        self.bvec[self.len_x * (self.len_y * k + j) + i] = x[i - 1]
             for k in [1, self.len_z - 2]:
                 for i in range(2, self.len_x - 2):
                     for j in range(2, self.len_y - 2):
-                        I.append(self.len_x * (self.len_y * k + j) + i)
-                        V.append(x[i - 1])
-
-        self.bvec = csr_matrix((V, (I, np.zeros(len(I)))), shape=(3 * self.len_xyz, 1))
+                        self.bvec[self.len_x * (self.len_y * k + j) + i] = x[i - 1]
 
         if self.print_matrices[0]:
             self._print_b(self.print_matrices[0])
         print("Done")
+
+    def assemble_Amatrix(self):
+        print("Initializing large data structures ... ", flush=True, end='')
+        I, J = np.zeros((2, 81 * 3 * self.len_xyz), dtype=np.uint32)
+        V = np.zeros(81 * 3 * self.len_xyz, dtype=float)
+        counter = 0  # counter to keep record of the index in Amat
+        I_dirvox = []
+        self.__initialize_MPSA()
+        j_indices = np.zeros((81 * 3 * (self.len_y - 2) * (self.len_z - 2)), dtype=np.uint32)
+        values = np.zeros((81 * 3 * (self.len_y - 2) * (self.len_z - 2)), dtype=float)
+        self.dir_vox = self.dir_vox.astype(np.uint8)
+        print("Done")
+
+        # Iterating through interior
+        for i in range(1, self.len_x - 1):
+            self.__compute_Cmat(2, i + 1)  # Computing third layer of Cmat
+            self.__compute_transmissibility(1, i)  # Computing second layer of E
+
+            # If all surrounding IV are unstable (i.e. partly or all gaseous), then put middle CV as Dirichlet
+            find_unstable_vox(i, self.len_y, self.len_z, self.dir_vox, self.unstable)
+
+            # Creating j indices and divergence values for slice
+            j_indices.fill(-1)
+            values.fill(np.NaN)
+            divP(i, self.len_x, self.len_y, self.len_z, self.dir_vox, j_indices, values, self.Emat)
+
+            # Creating i indices for slice
+            i_indices, i_dirvox = self.__creating_indices(i)
+            if i_indices.size > 0:
+                I[counter:counter + i_indices.size] = i_indices
+            I_dirvox.extend(i_dirvox)
+
+            if j_indices[j_indices != -1].size > 0:
+                J[counter:counter + i_indices.size] = j_indices[~np.isnan(values)]
+                V[counter:counter + i_indices.size] = values[~np.isnan(values)]
+                counter += i_indices.size
+
+            # Passing second layer to first
+            self.Emat[0] = self.Emat[1]
+            self.unstable[0] = self.unstable[1]
+            self.Cmat[:2] = self.Cmat[1:]
+            sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
+
+        # Clear unnecessary variables before creating A
+        del self.Emat, self.Cf, self.Cmat, self.mpsa36x36, self.unstable
+        del self.dir_vox, i_indices, i_dirvox, i, j_indices, values
+
+        # Adding all dirichlet voxels
+        I[counter:counter + len(I_dirvox)] = I_dirvox
+        J[counter:counter + len(I_dirvox)] = I_dirvox
+        V[counter:counter + len(I_dirvox)] = 1
+        counter += len(I_dirvox)
+        del I_dirvox
+
+        # Add diagonal 1s for exterior voxels
+        diag_1s = np.ones_like(self.ws_pad, dtype=int)
+        diag_1s[1:-1, 1:-1, 1:-1] = 0  # interior to 0
+        ind = np.array(np.where(diag_1s > 0))  # indices of contour
+        diag_1s = self.len_x * (self.len_y * ind[2] + ind[1]) + ind[0]
+        diag_1s = np.hstack((diag_1s, self.len_xyz + diag_1s, 2 * self.len_xyz + diag_1s))
+        diag_1s = diag_1s.astype(np.uint32)
+        del ind
+        I[counter:counter + diag_1s.size] = diag_1s
+        J[counter:counter + diag_1s.size] = diag_1s
+        V[counter:counter + diag_1s.size] = 1
+        counter += diag_1s.size
+
+        # Add non-diagonal 1s for exterior voxels
+        if self.side_bc is not "d" and self.side_bc is not "f":
+            I[counter:counter + diag_1s.size] = diag_1s
+            nondiag1s = np.ones_like(diag_1s, dtype=np.int8)
+            add_nondiag(diag_1s, nondiag1s, self.len_x, self.len_y, self.len_z, self.side_bc)
+            J[counter:counter + diag_1s.size] = diag_1s  # CAREFUL: diag_1s reused for nondiag to optimize memory
+            if self.side_bc == "s":
+                V[counter:counter + diag_1s.size] = nondiag1s
+            else:
+                V[counter:counter + diag_1s.size] = -1
+            del nondiag1s
+        del diag_1s, counter
+
+        # Assemble sparse A matrix
+        self.Amat = csr_matrix((V, (I, J)), shape=(3 * self.len_xyz, 3 * self.len_xyz))
+
+        # Simple preconditioner
+        diag = self.Amat.diagonal()
+        if np.any(diag == 0):
+            self.M = None  # identity matrix if singularity has happened in MPSA
+        else:
+            self.M = diags(1. / self.Amat.diagonal(), 0).tocsr()
+
+        if self.print_matrices[2]:
+            self._print_A(self.print_matrices[2])
+        print("Done")
+
+    def compute_effective_coefficient(self):
+        # reshaping solution
+        self.u = self.x.reshape([self.len_x, self.len_y, self.len_z, 3], order='F')
+        del self.x
+
+        # Mirroring boundaries for flux computation
+        if self.direction is not None:
+            self.u[0] = self.u[1]
+            self.u[-1] = self.u[-2]
+            if self.side_bc == "d" or self.side_bc == "f":
+                self.u[:, 0] = self.u[:, 1]
+                self.u[:, -1] = self.u[:, -2]
+                self.u[:, :, 0] = self.u[:, :, 1]
+                self.u[:, :, -1] = self.u[:, :, -2]
+        if self.print_matrices[3]:
+            show_u(self.u, self.print_matrices[3])
+        print(" ... Done")
+
+        self.__compute_stresses()
+
+        if self.direction is not None:
+            # Accumulating and volume averaging stresses
+            stresses = [np.sum(self.s[:, :, :, i]) / ((self.len_x - 2) * (self.len_y - 2) * (self.len_z - 2)) for i in
+                        range(3)]
+            stresses += [np.sum(self.t[:, :, :, i]) / ((self.len_x - 2) * (self.len_y - 2) * (self.len_z - 2)) for i in
+                         range(3)]
+            self.Ceff = [stresses[i] * (self.len_x - 2) * self.ws.voxel_length for i in range(6)]
+
+            # Rotating output back
+            if self.direction == 'y':
+                self.u = self.u.transpose(2, 0, 1, 3)[:, :, :, [2, 0, 1]]
+                self.s = self.s.transpose(2, 0, 1, 3)[:, :, :, [2, 0, 1]]
+                self.t = self.t.transpose(2, 0, 1, 3)[:, :, :, [2, 0, 1]]
+                self.Ceff = [self.Ceff[2], self.Ceff[0], self.Ceff[1], self.Ceff[5], self.Ceff[3], self.Ceff[4]]
+            elif self.direction == 'z':
+                self.u = self.u.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
+                self.s = self.s.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
+                self.t = self.t.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
+                self.Ceff = [self.Ceff[1], self.Ceff[2], self.Ceff[0], self.Ceff[4], self.Ceff[5], self.Ceff[3]]
 
     def index_at(self, index, size):
         if self.side_bc == "p":
@@ -291,185 +419,6 @@ class Elasticity:
         # Duplicating the voxel indices where divergence happens
         i_indices = np.repeat(i_indices, 81)
         return i_indices, i_dirvox  # returning dirichlet voxel indices
-
-    def assemble_Amatrix(self):
-        print("Initializing large data structures ... ", flush=True, end='')
-        I, J = np.zeros((2, 81 * 3 * self.len_xyz), dtype=np.uint32)
-        V = np.zeros(81 * 3 * self.len_xyz, dtype=float)
-        counter = 0  # counter to keep record of the index in Amat
-        I_dirvox = []
-        self.__initialize_MPSA()
-        j_indices = np.zeros((81 * 3 * (self.len_y - 2) * (self.len_z - 2)), dtype=np.uint32)
-        values = np.zeros((81 * 3 * (self.len_y - 2) * (self.len_z - 2)), dtype=float)
-        self.dir_vox = self.dir_vox.astype(np.uint8)
-        print("Done")
-
-        # Iterating through interior
-        for i in range(1, self.len_x - 1):
-            self.__compute_Cmat(2, i + 1)  # Computing third layer of Cmat
-            self.__compute_transmissibility(1, i)  # Computing second layer of E
-
-            # If all surrounding IV are unstable (i.e. partly or all gaseous), then put middle CV as Dirichlet
-            find_unstable_vox(i, self.len_y, self.len_z, self.dir_vox, self.unstable)
-
-            # Creating j indices and divergence values for slice
-            j_indices.fill(-1)
-            values.fill(np.NaN)
-            divP(i, self.len_x, self.len_y, self.len_z, self.dir_vox, j_indices, values, self.Emat)
-
-            # Creating i indices for slice
-            i_indices, i_dirvox = self.__creating_indices(i)
-            if i_indices.size > 0:
-                I[counter:counter + i_indices.size] = i_indices
-            I_dirvox.extend(i_dirvox)
-
-            if j_indices[j_indices != -1].size > 0:
-                J[counter:counter + i_indices.size] = j_indices[~np.isnan(values)]
-                V[counter:counter + i_indices.size] = values[~np.isnan(values)]
-                counter += i_indices.size
-
-            # Passing second layer to first
-            self.Emat[0] = self.Emat[1]
-            self.unstable[0] = self.unstable[1]
-            self.Cmat[:2] = self.Cmat[1:]
-            sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
-
-        # Clear unnecessary variables before creating A
-        del self.Emat, self.Cf, self.Cmat, self.mpsa36x36, self.unstable
-        del self.dir_vox, i_indices, i_dirvox, i, j_indices, values
-
-        # Adding all dirichlet voxels
-        I[counter:counter + len(I_dirvox)] = I_dirvox
-        J[counter:counter + len(I_dirvox)] = I_dirvox
-        V[counter:counter + len(I_dirvox)] = 1
-        counter += len(I_dirvox)
-        del I_dirvox
-
-        # Add diagonal 1s for exterior voxels
-        diag_1s = np.ones_like(self.ws_pad, dtype=int)
-        diag_1s[1:-1, 1:-1, 1:-1] = 0  # interior to 0
-        ind = np.array(np.where(diag_1s > 0))  # indices of contour
-        diag_1s = self.len_x * (self.len_y * ind[2] + ind[1]) + ind[0]
-        diag_1s = np.hstack((diag_1s, self.len_xyz + diag_1s, 2 * self.len_xyz + diag_1s))
-        diag_1s = diag_1s.astype(np.uint32)
-        del ind
-        I[counter:counter + diag_1s.size] = diag_1s
-        J[counter:counter + diag_1s.size] = diag_1s
-        V[counter:counter + diag_1s.size] = 1
-        counter += diag_1s.size
-
-        # Add non-diagonal 1s for exterior voxels
-        if self.side_bc is not "d" and self.side_bc is not "f":
-            I[counter:counter + diag_1s.size] = diag_1s
-            nondiag1s = np.ones_like(diag_1s, dtype=np.int8)
-            add_nondiag(diag_1s, nondiag1s, self.len_x, self.len_y, self.len_z, self.side_bc)
-            J[counter:counter + diag_1s.size] = diag_1s  # CAREFUL: diag_1s reused for nondiag to optimize memory
-            if self.side_bc == "s":
-                V[counter:counter + diag_1s.size] = nondiag1s
-            else:
-                V[counter:counter + diag_1s.size] = -1
-            del nondiag1s
-        del diag_1s, counter
-
-        # Assemble sparse A matrix
-        self.Amat = csr_matrix((V, (I, J)), shape=(3 * self.len_xyz, 3 * self.len_xyz))
-
-        # Simple preconditioner
-        diag = self.Amat.diagonal()
-        if np.any(diag == 0):
-            self.M = None  # identity matrix if singularity has happened in MPSA
-        else:
-            self.M = diags(1. / self.Amat.diagonal(), 0).tocsr()
-
-        if self.print_matrices[2]:
-            self._print_A(self.print_matrices[2])
-        print("Done")
-
-    def solve(self):
-        print("Solving Ax=b system ... ", end='')
-
-        info = 0
-        if self.solver_type == 'direct':
-            print("Direct solver", end='')
-            x = spsolve(self.Amat, self.bvec)
-
-        else:  # iterative solvers
-            u_initial_guess = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
-            for i in range(self.len_x - 1):
-                u_initial_guess[i, :, :, 0] = i / (self.len_x - 2.)
-            u_initial_guess = u_initial_guess.flatten('F')
-
-            if self.solver_type == 'gmres':
-                print("gmres:")
-                if self.display_iter:
-                    x, info = gmres(self.Amat, self.bvec.todense(), x0=u_initial_guess, atol=self.tolerance,
-                                    maxiter=self.maxiter, callback=SolverDisplay(), M=self.M)
-                else:
-                    x, info = gmres(self.Amat, self.bvec.todense(), x0=u_initial_guess, atol=self.tolerance,
-                                    maxiter=self.maxiter, M=self.M)
-
-            elif self.solver_type == 'cg':
-                print("Conjugate Gradient:")
-                if self.display_iter:
-                    x, info = cg(self.Amat, self.bvec.todense(), x0=u_initial_guess, atol=self.tolerance,
-                                 maxiter=self.maxiter, callback=SolverDisplay(), M=self.M)
-                else:
-                    x, info = cg(self.Amat, self.bvec.todense(), x0=u_initial_guess, atol=self.tolerance,
-                                 maxiter=self.maxiter, M=self.M)
-
-            else:
-                if self.solver_type != 'bicgstab':
-                    print_warning("Unrecognized solver, defaulting to bicgstab.")
-                print("Bicgstab:")
-                if self.display_iter:
-                    x, info = bicgstab(self.Amat, self.bvec.todense(), x0=u_initial_guess, atol=self.tolerance,
-                                       maxiter=self.maxiter, M=self.M, callback=SolverDisplay())
-                else:
-                    x, info = bicgstab(self.Amat, self.bvec.todense(), x0=u_initial_guess, atol=self.tolerance,
-                                       maxiter=self.maxiter, M=self.M)
-
-        if info != 0:
-            raise Exception("Solver error: " + str(info))
-
-        del self.Amat, self.bvec
-        self.u = x.reshape([self.len_x, self.len_y, self.len_z, 3], order='F')
-
-        # Mirroring boundaries for flux computation
-        if self.direction is not None:
-            self.u[0] = self.u[1]
-            self.u[-1] = self.u[-2]
-            if self.side_bc == "d" or self.side_bc == "f":
-                self.u[:, 0] = self.u[:, 1]
-                self.u[:, -1] = self.u[:, -2]
-                self.u[:, :, 0] = self.u[:, :, 1]
-                self.u[:, :, -1] = self.u[:, :, -2]
-        if self.print_matrices[3]:
-            show_u(self.u, self.print_matrices[3])
-        print(" ... Done")
-        return True
-
-    def compute_effective_coefficient(self):
-        self.__compute_stresses()
-
-        if self.direction is not None:
-            # Accumulating and volume averaging stresses
-            stresses = [np.sum(self.s[:, :, :, i]) / ((self.len_x - 2) * (self.len_y - 2) * (self.len_z - 2)) for i in
-                        range(3)]
-            stresses += [np.sum(self.t[:, :, :, i]) / ((self.len_x - 2) * (self.len_y - 2) * (self.len_z - 2)) for i in
-                         range(3)]
-            self.Ceff = [stresses[i] * (self.len_x - 2) * self.ws.voxel_length for i in range(6)]
-
-            # Rotating output back
-            if self.direction == 'y':
-                self.u = self.u.transpose(2, 0, 1, 3)[:, :, :, [2, 0, 1]]
-                self.s = self.s.transpose(2, 0, 1, 3)[:, :, :, [2, 0, 1]]
-                self.t = self.t.transpose(2, 0, 1, 3)[:, :, :, [2, 0, 1]]
-                self.Ceff = [self.Ceff[2], self.Ceff[0], self.Ceff[1], self.Ceff[5], self.Ceff[3], self.Ceff[4]]
-            elif self.direction == 'z':
-                self.u = self.u.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
-                self.s = self.s.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
-                self.t = self.t.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
-                self.Ceff = [self.Ceff[1], self.Ceff[2], self.Ceff[0], self.Ceff[4], self.Ceff[5], self.Ceff[3]]
 
     def __compute_stresses(self):
         # Initialize required data structures

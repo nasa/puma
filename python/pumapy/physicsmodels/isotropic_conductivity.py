@@ -1,20 +1,23 @@
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
-from pumapy.physicsmodels.conductivity_parent import Conductivity, SolverDisplay
+from pumapy.physicsmodels.conductivity_parent import Conductivity
 from pumapy.physicsmodels.isotropic_conductivity_utils import setup_matrices_cy, compute_flux
-import numpy as np
 from scipy.sparse import csr_matrix, diags
-from scipy.sparse.linalg import bicgstab, spsolve, cg, gmres  # LinearOperator, spilu
-import math
+import numpy as np
 
 
 class IsotropicConductivity(Conductivity):
 
-    def __init__(self, workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type, display_iter):
-        super().__init__(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type, display_iter)
+    def __init__(self, workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
+                 display_iter):
+        super().__init__(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
+                         display_iter)
         self._bc_func = None
         self.cond = np.zeros([1, 1, 1])
+
+        self.display_iter = display_iter
+        self.bc_check = 0
 
         if self.direction == 'x':
             self._matrix = workspace.matrix
@@ -23,9 +26,7 @@ class IsotropicConductivity(Conductivity):
         elif self.direction == 'z':
             self._matrix = workspace.matrix.transpose(2, 1, 0)
 
-        self.len_x = self._matrix.shape[0]
-        self.len_y = self._matrix.shape[1]
-        self.len_z = self._matrix.shape[2]
+        self.len_x, self.len_y, self.len_z = self._matrix.shape
         self.len_xy = self.len_x * self.len_y
         self.len_xyz = self.len_xy * self.len_z
 
@@ -38,26 +39,23 @@ class IsotropicConductivity(Conductivity):
             self._bc_func = Isotropic_symmetricBC(self.len_x, self.len_y, self.len_z)
 
         self.n_iter = 0
-        self._A = None
-        self._M = None
-        self._bf = np.zeros(1)
-        self._Tf = np.zeros(1)
+        self.Amat = None
+        self.M = None
+        self.bvec = np.zeros(1)
+        self.initial_guess = np.zeros(1)
         self._kf = np.zeros(1)
 
     def compute(self):
-        self.__create_cond_matrix()
-        self.__init_temperature()
         t = Timer()
-        self.__setup_matrices_cy()
-        print("Time to sep up A matrix: " , t.elapsed())
-        t.reset()
-        self.__solve()
+        self.initialize()
+        self.assemble_bvector()
+        self.assemble_Amatrix()
+        print("Time to assemble matrices: ", t.elapsed()); t.reset()
+        super().solve()
         print("Time to solve: ", t.elapsed())
-        t.reset()
-        self.__compute_conductivity()
-        print("Time to compute fluxes: ", t.elapsed())
+        self.compute_effective_coefficient()
 
-    def __create_cond_matrix(self):
+    def initialize(self):
         print("Creating conductivity matrix ... ", end='')
         self.cond = np.zeros(self._matrix.shape, dtype=float)
         for i in range(self.cond_map.get_size()):
@@ -66,18 +64,16 @@ class IsotropicConductivity(Conductivity):
             mask_high = self._matrix <= high
             mask_low = mask_low * mask_high
             self.cond[mask_low] = k
-
         print("Done")
 
-    def __init_temperature(self):
         print("Initializing temperature field ... ", end='')
         self.T = np.zeros([self.len_x, self.len_y, self.len_z])
         for i in range(self.len_x):
             self.T[i, :, :] = i / (self.len_x - 1.)
-        self._Tf = self.T.flatten('F')
+        self.initial_guess = self.T.flatten('F')
         print("Done")
 
-    def __setup_matrices_cy(self):
+    def assemble_bvector(self):
 
         print("Setting up b matrix ... ", end='')
         bsq = np.zeros([self.len_x, self.len_y, self.len_z])
@@ -89,9 +85,9 @@ class IsotropicConductivity(Conductivity):
                             bsq[i, j, k] = self.prescribed_bc[i, j, k]
 
             self.prescribed_bc = self.prescribed_bc.dirichlet  # because of cython, cannot pass object
-            bc_check = 1
+            self.bc_check = 1
         else:
-            bc_check = 0
+            self.bc_check = 0
             self.prescribed_bc = np.full(self._matrix.shape, np.Inf, dtype=float)
             bsq[-1, :, :] = 1
 
@@ -99,72 +95,31 @@ class IsotropicConductivity(Conductivity):
         for i in range(self.cond_map.get_size()):
             low, high, k = self.cond_map.get_material(i)
             if k == 0:
-                bc_check = 1
+                self.bc_check = 1
                 self.prescribed_bc[(self._matrix >= low) * (self._matrix <= high)] = 0
 
-        self._bf = bsq.flatten('F')
+        self.bvec = bsq.flatten('F')
         print("Done")
 
+    def assemble_Amatrix(self):
         self._kf = self.cond.flatten('F')
         self._row, self._col, self._data = setup_matrices_cy(self._kf, self.len_x, self.len_y, self.len_z,
-                                                             bc_check, self.prescribed_bc)
+                                                             self.bc_check, self.prescribed_bc)
         n_elem = self.len_xyz
-        self._A = csr_matrix((self._data, (self._row, self._col)), shape=(n_elem, n_elem))
+        self.Amat = csr_matrix((self._data, (self._row, self._col)), shape=(n_elem, n_elem))
         print("Done")
 
         print("Setting up preconditioner ...", end ='')
-        # ilu = spilu(self._A.tocsc(), drop_tol=1e-5)
-        # Mx = lambda x: ilu.solve(x)
-        # self._M = LinearOperator((n_elem, n_elem), Mx)
-        diag = self._A.diagonal()
+        diag = self.Amat.diagonal()
         diag[diag==0] = 1
         diag[:] = 1./diag[:]
-        self._M = diags(diag,0).tocsr()
+        self.M = diags(diag, 0).tocsr()
         print("Done")
 
-
-
-    def __solve(self):
-        print("Solving Ax=b system ... ", end='')
-
-        info = 0
-
-        if self.solver_type == 'direct':
-            print("Direct solver", end='')
-            self._Tf = spsolve(self._A, self._bf)
-        elif self.solver_type == 'cg':
-            print("Conjugate Gradient:")
-            if self.display_iter:
-                self._Tf, info = cg(self._A, self._bf, x0=self._Tf, atol=self.tolerance, maxiter=self.maxiter,
-                                    callback=SolverDisplay(), M=self._M)
-            else:
-                self._Tf, info = cg(self._A, self._bf, x0=self._Tf, atol=self.tolerance, maxiter=self.maxiter, M=self._M)
-
-        elif self.solver_type == 'gmres':
-            print("gmres:")
-            if self.display_iter:
-                self._Tf, info = gmres(self._A, self._bf, x0=self._Tf, atol=self.tolerance,
-                                       maxiter=self.maxiter, callback=SolverDisplay(), M=self._M)
-            else:
-                self._Tf, info = gmres(self._A, self._bf, x0=self._Tf, atol=self.tolerance,
-                                       maxiter=self.maxiter, M=self._M)
-        else:
-            if self.solver_type != 'bicgstab':
-                print_warning("Unrecognized solver, defaulting to bicgstab.")
-            print("Bicgstab:")
-            if self.display_iter:
-                self._Tf, info = bicgstab(self._A, self._bf, x0=self._Tf, atol=self.tolerance,
-                                          maxiter=self.maxiter, callback=SolverDisplay(), M=self._M)
-            else:
-                self._Tf, info = bicgstab(self._A, self._bf, x0=self._Tf, atol=self.tolerance,
-                                          maxiter=self.maxiter, M=self._M)
-
-        if info != 0:
-            raise Exception("Solver error: " + str(info))
-        self.T = self._Tf.reshape([self.len_x, self.len_y, self.len_z], order='F')
-        print(" ... Done")
-
-    def __compute_conductivity(self):
+    def compute_effective_coefficient(self):
+        # reshaping solution
+        self.T = self.x.reshape([self.len_x, self.len_y, self.len_z], order='F')
+        del self.x
 
         if self.direction == 'y':
             self.T = self.T.transpose(1, 0, 2)
@@ -189,5 +144,3 @@ class IsotropicConductivity(Conductivity):
 
         # making the flux have the correct spacial units
         self.q /= self.ws.voxel_length
-
-        print("Computing effective conductivity... ", end='')

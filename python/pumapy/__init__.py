@@ -25,7 +25,11 @@ from pumapy.utilities.example_files import list_example_files
 
 # input/output
 from pumapy.io.input import import_3Dtiff, import_bin, import_weave_vtu, import_vti
-from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_sparta_implicit_surfaces, export_stl, export_weave_vtu
+from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_sparta_implicit_surfaces, export_stl
+try:
+    from pumapy.io.export_texgen_weave import export_weave_vtu
+except:
+    print_warning("WARNING: 'import TexGen.Core' failed: cannot use TexGen functions and pumapy.export_weave_vtu.")
 
 # material properties
 from pumapy.materialproperties.surfacearea import compute_surface_area
@@ -36,7 +40,7 @@ from pumapy.materialproperties.conductivity import compute_thermal_conductivity,
 from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
 from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis
 from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
-# from pumapy.materialproperties.permeability import compute_permeability
+from pumapy.materialproperties.permeability import compute_permeability
 
 # filtering
 from pumapy.filters.filters import (filter_median, filter_gaussian, filter_edt, filter_mean,

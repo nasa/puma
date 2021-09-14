@@ -1,32 +1,24 @@
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.boundary_conditions import ConductivityBC
-import sys
-import inspect
+from pumapy.utilities.linear_solvers import PropertySolver
 import numpy as np
 
 
-class Conductivity:
-    def __init__(self, workspace, cond_map, direction, side_bc, prescribed_bc,
-                 tolerance, maxiter, solver_type, display_iter):
-        self.ws = workspace
+class Conductivity(PropertySolver):
+
+    def __init__(self, workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type, display_iter):
+        allowed_solvers = ['direct', 'gmres', 'cg', 'bicgstab']
+        super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
+
         self.cond_map = cond_map
         self.direction = direction
         self.side_bc = side_bc
         self.prescribed_bc = prescribed_bc
-        self.tolerance = tolerance
-        self.maxiter = maxiter
-        self.solver_type = solver_type
-        self.display_iter = display_iter
 
         self.keff = [-1., -1., -1.]
         self.solve_time = -1
         self.T = np.zeros([1, 1, 1])
         self.q = np.zeros([1, 1, 1, 3])
-        self.len_x = self.ws.matrix.shape[0]
-        self.len_y = self.ws.matrix.shape[1]
-        self.len_z = self.ws.matrix.shape[2]
-        self.len_xy = self.len_x * self.len_y
-        self.len_xyz = self.len_xy * self.len_z
 
     def log_input(self):
         self.ws.log.log_section("Computing Conductivity")
@@ -87,13 +79,3 @@ class Conductivity:
                 self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet.transpose((2, 1, 0))
             if np.any((self.prescribed_bc[[0, -1]] == np.Inf)):
                 raise Exception("prescribed_bc must be defined on the direction sides")
-
-
-class SolverDisplay(object):
-    def __init__(self):
-        self.niter = 0
-
-    def __call__(self, rk=None):
-        self.niter += 1
-        frame = inspect.currentframe().f_back
-        sys.stdout.write("\rIteration {}  Residual = {} ".format(self.niter, frame.f_locals['resid']))
