@@ -1,6 +1,5 @@
 from pumapy.physicsmodels.mpsa_elasticity import Elasticity
 from pumapy.utilities.property_maps import ElasticityMap
-import numpy as np
 
 
 def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_bc=None, tolerance=1e-4,

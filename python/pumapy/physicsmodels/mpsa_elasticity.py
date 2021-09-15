@@ -5,7 +5,6 @@ from pumapy.physicsmodels.mpxa_matrices import fill_Ampsa, fill_Bmpsa, fill_Cmps
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.boundary_conditions import ElasticityBC
 from pumapy.utilities.linear_solvers import PropertySolver
-from pumapy.utilities.logger import print_warning
 from pumapy.utilities.timer import Timer
 from scipy.sparse import csr_matrix, diags
 import numpy as np
@@ -114,24 +113,28 @@ class Elasticity(PropertySolver):
     def assemble_bvector(self):
         print("Assembling b vector ... ", flush=True, end='')
 
-        self.bvec = np.zeros(3 * self.len_xyz, dtype=float)
+        I, V = ([] for _ in range(2))
 
         if self.prescribed_bc is not None:
             for i in range(1, self.len_x - 1):
                 for j in range(1, self.len_y - 1):
                     for k in range(1, self.len_z - 1):
                         if self.prescribed_bc[i - 1, j - 1, k - 1, 0] != np.Inf:
-                            self.bvec[self.len_x * (self.len_y * k + j) + i] = self.prescribed_bc[i - 1, j - 1, k - 1, 0]  # ux
+                            I.append(self.len_x * (self.len_y * k + j) + i)
+                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 0])  # ux
                         if self.prescribed_bc[i - 1, j - 1, k - 1, 1] != np.Inf:
-                            self.bvec[self.len_xyz + self.len_x * (self.len_y * k + j) + i] = self.prescribed_bc[i - 1, j - 1, k - 1, 1]  # uy
+                            I.append(self.len_xyz + self.len_x * (self.len_y * k + j) + i)
+                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 1])  # uy
                         if self.prescribed_bc[i - 1, j - 1, k - 1, 2] != np.Inf:
-                            self.bvec[2 * self.len_xyz + self.len_x * (self.len_y * k + j) + i] = self.prescribed_bc[i - 1, j - 1, k - 1, 2]  # uz
+                            I.append(2 * self.len_xyz + self.len_x * (self.len_y * k + j) + i)
+                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 2])  # uz
         else:
             # Setting unit displacement
             i = self.len_x - 2
             for j in range(1, self.len_y - 1):
                 for k in range(1, self.len_z - 1):
-                    self.bvec[self.len_x * (self.len_y * k + j) + i] = 1.
+                    I.append(self.len_x * (self.len_y * k + j) + i)
+                    V.append(1.)
 
         # Setting linear displacement on the boundaries if Dirichlet
         if self.side_bc == 'd' and self.direction is not None:
@@ -139,11 +142,15 @@ class Elasticity(PropertySolver):
             for j in [1, self.len_y - 2]:
                 for i in range(1, self.len_x - 1):
                     for k in range(1, self.len_z - 1):
-                        self.bvec[self.len_x * (self.len_y * k + j) + i] = x[i - 1]
+                        I.append(self.len_x * (self.len_y * k + j) + i)
+                        V.append(x[i - 1])
             for k in [1, self.len_z - 2]:
                 for i in range(2, self.len_x - 2):
                     for j in range(2, self.len_y - 2):
-                        self.bvec[self.len_x * (self.len_y * k + j) + i] = x[i - 1]
+                        I.append(self.len_x * (self.len_y * k + j) + i)
+                        V.append(x[i - 1])
+
+        self.bvec = csr_matrix((V, (I, np.zeros(len(I)))), shape=(3 * self.len_xyz, 1))
 
         if self.print_matrices[0]:
             self._print_b(self.print_matrices[0])
@@ -281,6 +288,9 @@ class Elasticity(PropertySolver):
                 self.s = self.s.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
                 self.t = self.t.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
                 self.Ceff = [self.Ceff[1], self.Ceff[2], self.Ceff[0], self.Ceff[4], self.Ceff[5], self.Ceff[3]]
+
+            d = {'x': 'first', 'y': 'second', 'z': 'third'}
+            print(f'\nEffective elasticity tensor ({d[self.direction]} row): \n{self.Ceff}')
 
     def index_at(self, index, size):
         if self.side_bc == "p":
@@ -602,7 +612,6 @@ class Elasticity(PropertySolver):
         print(self.Amat.toarray())
 
     def _print_b(self, dec=1):
-        vector = self.bvec.toarray()
         print()
         print("b vector:")
         print("  o---> y")
@@ -611,10 +620,10 @@ class Elasticity(PropertySolver):
         for k in range(self.len_z):
             for i in range(self.len_x):
                 for j in range(self.len_y):
-                    print('({:.{}f}, {:.{}f}, {:.{}f})'.format(vector[self.len_x * (self.len_y * k + j) + i, 0], dec,
-                                                               vector[self.len_xyz + self.len_x * (
+                    print('({:.{}f}, {:.{}f}, {:.{}f})'.format(self.bvec[self.len_x * (self.len_y * k + j) + i, 0], dec,
+                                                               self.bvec[self.len_xyz + self.len_x * (
                                                                        self.len_y * k + j) + i, 0], dec,
-                                                               vector[2 * self.len_xyz + self.len_x * (
+                                                               self.bvec[2 * self.len_xyz + self.len_x * (
                                                                        self.len_y * k + j) + i, 0], dec), end=' ')
                 print()
             print()

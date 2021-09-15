@@ -62,7 +62,6 @@ setup(
     install_requires=[  # TexGen also required, but it can be installed as add-on
         "numpy",
         "scikit-image",
-        "scikit-umfpack",
         "scipy",
         "matplotlib",
         "pyevtk",

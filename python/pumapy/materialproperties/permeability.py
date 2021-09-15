@@ -26,4 +26,4 @@ def compute_permeability(workspace, solid_cutoff, tol=1e-7, maxiter=10000, solve
     solver.log_input()
     solver.compute()
     solver.log_output()
-    return solver.keff, solver.pressure, solver.velocity
+    return solver.keff, solver.u_x, solver.u_y, solver.u_z

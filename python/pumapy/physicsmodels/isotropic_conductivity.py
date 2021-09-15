@@ -16,9 +16,6 @@ class IsotropicConductivity(Conductivity):
         self._bc_func = None
         self.cond = np.zeros([1, 1, 1])
 
-        self.display_iter = display_iter
-        self.bc_check = 0
-
         if self.direction == 'x':
             self._matrix = workspace.matrix
         elif self.direction == 'y':
@@ -30,6 +27,7 @@ class IsotropicConductivity(Conductivity):
         self.len_xy = self.len_x * self.len_y
         self.len_xyz = self.len_xy * self.len_z
 
+        self.bc_check = 0
         if self.side_bc == "p" or self.side_bc == "periodic":
             self._bc_func = Isotropic_periodicBC(self.len_x, self.len_y, self.len_z)
         elif self.side_bc == "s" or self.side_bc == "symmetric":
@@ -141,6 +139,9 @@ class IsotropicConductivity(Conductivity):
         self.keff[0] = flux_x * (self.len_x - 1)
         self.keff[1] = flux_y * (self.len_y - 1)
         self.keff[2] = flux_z * (self.len_z - 1)
+
+        d = {'x': 'first', 'y': 'second', 'z': 'third'}
+        print(f'\nEffective conductivity tensor ({d[self.direction]} row): \n{self.keff}')
 
         # making the flux have the correct spacial units
         self.q /= self.ws.voxel_length

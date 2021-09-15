@@ -3,7 +3,6 @@ from pumapy.physicsmodels.anisotropic_conductivity_utils import (pad_domain, add
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_mpfa_indices
 from pumapy.physicsmodels.conductivity_parent import Conductivity
 from pumapy.utilities.timer import Timer
-from pumapy.utilities.logger import print_warning
 from scipy.sparse import csr_matrix, diags
 import numpy as np
 import sys
@@ -86,20 +85,22 @@ class AnisotropicConductivity(Conductivity):
     def assemble_bvector(self):
         print("Assembling b vector ... ", flush=True, end='')
 
-        self.bvec = np.zeros(self.len_xyz, dtype=float)
+        I, V = ([] for _ in range(2))
 
         if self.prescribed_bc is not None:
             for i in range(1, self.len_x - 1):
                 for j in range(1, self.len_y - 1):
                     for k in range(1, self.len_z - 1):
                         if self.prescribed_bc[i - 1, j - 1, k - 1] != np.Inf:
-                            self.bvec[self.len_x * (self.len_y * k + j) + i] = self.prescribed_bc[i - 1, j - 1, k - 1]
+                            I.append(self.len_x * (self.len_y * k + j) + i)
+                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1])
         else:
             # Setting unit temperature
             i = self.len_x - 2
             for j in range(1, self.len_y - 1):
                 for k in range(1, self.len_z - 1):
-                    self.bvec[self.len_x * (self.len_y * k + j) + i] = 1.
+                    I.append(self.len_x * (self.len_y * k + j) + i)
+                    V.append(1.)
 
         # Setting linear temperature on the boundaries if Dirichlet
         if self.side_bc == 'd':
@@ -107,11 +108,15 @@ class AnisotropicConductivity(Conductivity):
             for j in [1, self.len_y - 2]:
                 for i in range(1, self.len_x - 1):
                     for k in range(1, self.len_z - 1):
-                        self.bvec[self.len_x * (self.len_y * k + j) + i] = x[i - 1]
+                        I.append(self.len_x * (self.len_y * k + j) + i)
+                        V.append(x[i - 1])
             for k in [1, self.len_z - 2]:
                 for i in range(2, self.len_x - 2):
                     for j in range(2, self.len_y - 2):
-                        self.bvec[self.len_x * (self.len_y * k + j) + i] = x[i - 1]
+                        I.append(self.len_x * (self.len_y * k + j) + i)
+                        V.append(x[i - 1])
+
+        self.bvec = csr_matrix((V, (I, np.zeros(len(I)))), shape=(self.len_xyz, 1))
 
         if self.print_matrices[0]:
             self._print_b(self.print_matrices[0])
@@ -233,6 +238,9 @@ class AnisotropicConductivity(Conductivity):
             self.T = self.T.transpose(2, 1, 0)
             self.q = self.q.transpose(2, 1, 0, 3)[:, :, :, [2, 1, 0]]
             self.keff = [self.keff[2], self.keff[1], self.keff[0]]
+
+        d = {'x': 'first', 'y': 'second', 'z': 'third'}
+        print(f'\nEffective conductivity tensor ({d[self.direction]} row): \n{self.keff}')
 
     def __compute_Kmat(self, i, i_cv):
         # reset layer of Cmat
@@ -439,13 +447,12 @@ class AnisotropicConductivity(Conductivity):
         print(self.Amat.toarray())
 
     def _print_b(self, dec=1):
-        vector = self.bvec.toarray()
         print()
         print("b vector:")
         for k in range(self.len_z):
             for i in range(self.len_x):
                 for j in range(self.len_y):
-                    print('{:.{}f}'.format(vector[self.len_x * (self.len_y * k + j) + i, 0], dec), end=' ')
+                    print('{:.{}f}'.format(self.bvec[self.len_x * (self.len_y * k + j) + i, 0], dec), end=' ')
                 print()
             print()
 
