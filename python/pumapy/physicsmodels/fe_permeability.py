@@ -109,7 +109,9 @@ class Permeability(PropertySolver):
         iF = np.hstack((np.reshape(self.mgdlF[:24:3],  self.nelF * 8, order='F'),
                         np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F'),
                         np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F'))) - 1
-        jF = np.hstack((np.ones(self.nelF * 8), np.full(self.nelF * 8, 2), np.full(self.nelF * 8, 3))) - 1
+        jF = np.hstack((np.zeros(self.nelF * 8, dtype=np.uint8),
+                        np.ones(self.nelF * 8, dtype=np.uint8),
+                        np.full(self.nelF * 8, 2, dtype=np.uint8)))
         sF = np.squeeze(np.tile(self.fe, (self.nelF * 3, 1)))
         self.bvec_full = csc_matrix((sF, (iF, jF)), shape=(4 * self.nels, 3))
         print("Done")
@@ -172,27 +174,27 @@ class Permeability(PropertySolver):
         vIdNosP = np.append(vIdNosP, (vIdNosP[:self.nnP2]))
         vIdNosP = np.unique(vIdNosP)
 
-        self.keff[0, 0] =   np.sum(self.x_full[vIdNosP * 3 - 3, 0])
-        self.keff[0, 1] = - np.sum(self.x_full[vIdNosP * 3 - 2, 0])
-        self.keff[0, 2] = - np.sum(self.x_full[vIdNosP * 3 - 1, 0])
-        self.keff[1, 0] = - np.sum(self.x_full[vIdNosP * 3 - 3, 1])
-        self.keff[1, 1] =   np.sum(self.x_full[vIdNosP * 3 - 2, 1])
-        self.keff[1, 2] =   np.sum(self.x_full[vIdNosP * 3 - 1, 1])
-        self.keff[2, 0] =   np.sum(self.x_full[vIdNosP * 3 - 3, 2])
-        self.keff[2, 1] = - np.sum(self.x_full[vIdNosP * 3 - 2, 2])
+        self.keff[0, 0] =   np.sum(self.x_full[vIdNosP * 3 - 2, 1])
+        self.keff[0, 1] = - np.sum(self.x_full[vIdNosP * 3 - 3, 1])
+        self.keff[0, 2] = - np.sum(self.x_full[vIdNosP * 3 - 1, 1])
+        self.keff[1, 0] = - np.sum(self.x_full[vIdNosP * 3 - 2, 0])
+        self.keff[1, 1] =   np.sum(self.x_full[vIdNosP * 3 - 3, 0])
+        self.keff[1, 2] =   np.sum(self.x_full[vIdNosP * 3 - 1, 0])
+        self.keff[2, 0] = - np.sum(self.x_full[vIdNosP * 3 - 2, 2])
+        self.keff[2, 1] =   np.sum(self.x_full[vIdNosP * 3 - 3, 2])
         self.keff[2, 2] =   np.sum(self.x_full[vIdNosP * 3 - 1, 2])
         self.keff = self.keff / self.nels
         print(f'\nEffective permeability tensor: \n{self.keff}')
 
         # Extracting velocity fields
-        self.u_x[:, :, :, 0] =   np.reshape(self.x_full[vIdNosP * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_x[:, :, :, 1] = - np.reshape(self.x_full[vIdNosP * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_x[:, :, :, 2] = - np.reshape(self.x_full[vIdNosP * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_y[:, :, :, 0] = - np.reshape(self.x_full[vIdNosP * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_y[:, :, :, 1] =   np.reshape(self.x_full[vIdNosP * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_y[:, :, :, 2] =   np.reshape(self.x_full[vIdNosP * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_z[:, :, :, 0] =   np.reshape(self.x_full[vIdNosP * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_z[:, :, :, 1] = - np.reshape(self.x_full[vIdNosP * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u_x[:, :, :, 0] =   np.reshape(self.x_full[vIdNosP * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u_x[:, :, :, 1] = - np.reshape(self.x_full[vIdNosP * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u_x[:, :, :, 2] = - np.reshape(self.x_full[vIdNosP * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u_y[:, :, :, 0] = - np.reshape(self.x_full[vIdNosP * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u_y[:, :, :, 1] =   np.reshape(self.x_full[vIdNosP * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u_y[:, :, :, 2] =   np.reshape(self.x_full[vIdNosP * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u_z[:, :, :, 0] = - np.reshape(self.x_full[vIdNosP * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u_z[:, :, :, 1] =   np.reshape(self.x_full[vIdNosP * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
         self.u_z[:, :, :, 2] =   np.reshape(self.x_full[vIdNosP * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
 
         # Extracting pressure fields
@@ -216,8 +218,8 @@ class Permeability(PropertySolver):
             r = rr[i]
             for j in range(2):
                 s = ss[j]
-                for ks in range(2):
-                    t = tt[ks]
+                for k in range(2):
+                    t = tt[k]
 
                     N1 = (1 - r) * (1 - s) * (1 - t)
                     N2 = (1 + r) * (1 - s) * (1 - t)
@@ -261,7 +263,7 @@ class Permeability(PropertySolver):
 
                     J = DN @ coordsElem
                     detJ = np.linalg.det(J)
-                    weight = detJ * ww[i] * ww[j] * ww[ks]
+                    weight = detJ * ww[i] * ww[j] * ww[k]
                     invJ = np.linalg.inv(J)
                     DNxy = invJ @ DN
                     B = np.array([[DNxy[0, 0], 0, 0, DNxy[0, 1], 0, 0, DNxy[0, 2], 0, 0, DNxy[0, 3], 0, 0, DNxy[0, 4], 0, 0, DNxy[0, 5], 0, 0, DNxy[0, 6], 0, 0, DNxy[0, 7], 0, 0],

@@ -41,7 +41,7 @@ class PropertySolver:
             print_warning(f"Unrecognized solver, defaulting to {self.allowed_solvers[0]}.")
             self.solver_type = self.allowed_solvers[0]
 
-        print(f"Solving Ax=b system using {self.solver_type} solver ... ", end='')
+        print(f"Solving Ax=b using {self.solver_type} solver ... ", end='')
 
         info = 0
         if (self.solver_type == 'direct' or self.solver_type == 'spsolve') and self.solver_type in self.allowed_solvers:
