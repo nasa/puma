@@ -28,6 +28,7 @@ dependencies:
   # nice to have
   - pip
   - cython
+  - scikit-umfpack
   - jupyterlab
   - ipyvtklink
   - ipympl
