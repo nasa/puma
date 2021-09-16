@@ -309,6 +309,17 @@ class Workspace:
         :type interpolation_order: int, optional
         :return: None
         """
+
+        unit_dim_check = None
+        if min(self.get_shape()) == 1:
+            if self.len_x() == 1:
+                unit_dim_check = 0
+            elif self.len_y() == 1:
+                unit_dim_check = 1
+            elif self.len_z() == 1:
+                unit_dim_check = 2
+            self.matrix = np.squeeze(self.matrix)
+
         if self.orientation.shape[:3] == self.matrix.shape:
             self.orientation = trans.rescale(self.orientation, scale, order=0, multichannel=True,
                                              preserve_range=True, anti_aliasing=False)
@@ -317,6 +328,10 @@ class Workspace:
         else:
             self.matrix = trans.rescale(self.matrix, scale, order=interpolation_order,
                                         anti_aliasing=anti_aliasing, preserve_range=True)
+
+        if unit_dim_check is not None:
+            self.matrix = np.expand_dims(self.matrix, axis=unit_dim_check)
+
         self.matrix = self.matrix.astype('uint16')
         print("Rescaled workspace size: {}".format(self.get_shape()))
 
