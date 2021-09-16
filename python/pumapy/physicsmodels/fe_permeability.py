@@ -1,4 +1,5 @@
 from pumapy.utilities.timer import Timer
+from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.linear_solvers import PropertySolver
 from scipy.sparse import csc_matrix
 import numpy as np
@@ -6,12 +7,14 @@ import numpy as np
 
 class Permeability(PropertySolver):
 
-    def __init__(self, workspace, cutoff, tolerance, maxiter, solver_type, display_iter):
-        allowed_solvers = ['minres', 'direct', 'gmres', 'cg', 'bicgstab']
+    def __init__(self, workspace, solid_cutoff, tolerance, maxiter, solver_type, display_iter):
+        allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
         self.ws = workspace.copy()
-        self.cutoff = cutoff
+        self.solid_cutoff = solid_cutoff
+        self.ws.binarize_range(self.solid_cutoff)
+
         self.solver_type = solver_type
         self.len_x, self.len_y, self.len_z = self.ws.matrix.shape
         self.voxlength = self.ws.voxel_length
@@ -32,6 +35,7 @@ class Permeability(PropertySolver):
         self.resolveF = None
 
         self.keff = np.zeros((3, 3))
+        self.solve_time = -1
         self.u_x = np.zeros((self.len_x, self.len_y, self.len_z, 3))
         self.u_y = np.zeros((self.len_x, self.len_y, self.len_z, 3))
         self.u_z = np.zeros((self.len_x, self.len_y, self.len_z, 3))
@@ -45,6 +49,7 @@ class Permeability(PropertySolver):
         self.solve()
         print("Time to solve: ", t.elapsed())
         self.compute_effective_coefficient()
+        self.solve_time = t.elapsed()
 
     def initialize(self):
         print("Initializing indexing matrices ... ", flush=True, end='')
@@ -117,6 +122,7 @@ class Permeability(PropertySolver):
         print("Done")
 
     def assemble_Amatrix(self):
+        print("Initializing large data structures ... ", flush=True, end='')
         iK = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)
         jK = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')
         iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
@@ -129,11 +135,11 @@ class Permeability(PropertySolver):
         coeff = np.hstack((np.tile(self.ke, self.nelF), np.tile(self.ge, self.nelF),
                            np.tile(self.ge, self.nelF), -np.tile(self.pe, self.nelF)))
 
-        print("Assembling A matrix ... ", flush=True, end='')
+        print("Done\nAssembling A matrix ... ", flush=True, end='')
         self.Amat = csc_matrix((coeff, (iA, jA)))
         print("Done")
 
-        # Reducing system of equations
+        print("Reducing system of equations ... ", flush=True, end='')
         resolveF_u = np.arange(1, self.nels * 3 + 1, dtype=np.uint64)
         nosnulos = np.unique(self.mConectP[np.where(self.ws.matrix.ravel(order='F') > 0)[0], :8])
         gdlnulos = np.hstack((nosnulos * 3 - 2, nosnulos * 3 - 1, nosnulos * 3))
@@ -144,6 +150,7 @@ class Permeability(PropertySolver):
 
         self.Amat = self.Amat[self.resolveF][:, self.resolveF]
         self.bvec_full = self.bvec_full[self.resolveF]
+        print("Done")
 
     def solve(self):
         # solves the system in the 3 directions directly
@@ -196,11 +203,6 @@ class Permeability(PropertySolver):
         self.u_z[:, :, :, 0] = - np.reshape(self.x_full[vIdNosP * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
         self.u_z[:, :, :, 1] =   np.reshape(self.x_full[vIdNosP * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
         self.u_z[:, :, :, 2] =   np.reshape(self.x_full[vIdNosP * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
-
-        # Extracting pressure fields
-        # p_x = np.reshape(self.x[np.max(vIdNosP) + vIdNosP * 3:, 0], (self.len_x, self.len_y, self.len_z), order='F')
-        # p_y = np.reshape(self.x[np.max(vIdNosP) + vIdNosP * 3:, 1], (self.len_x, self.len_y, self.len_z), order='F')
-        # p_z = np.reshape(self.x[np.max(vIdNosP) + vIdNosP * 3:, 2], (self.len_x, self.len_y, self.len_z), order='F')
 
     def calculate_element_matrices(self):
         coordsElem = np.array([[0, 0, 0], [self.voxlength, 0, 0], [self.voxlength, self.voxlength, 0],
@@ -286,10 +288,19 @@ class Permeability(PropertySolver):
         self.pe = self.pe.ravel()
 
     def log_input(self):
-        pass
+        self.ws.log.log_section("Computing Permeability")
+        self.ws.log.log_line("Domain Size: " + str(self.ws.get_shape()))
+        self.ws.log.log_line("Solver Type: " + str(self.solver_type))
+        self.ws.log.log_line("Solver Tolerance: " + str(self.tolerance))
+        self.ws.log.log_line("Max Iterations: " + str(self.maxiter))
+        self.ws.log.write_log()
 
     def log_output(self):
-        pass
+        self.ws.log.log_section("Finished Permeability Calculation")
+        self.ws.log.log_line("Permeability: " + str(self.keff))
+        self.ws.log.log_line("Solver Time: " + str(self.solve_time))
+        self.ws.log.write_log()
 
     def error_check(self):
-        pass
+        if not isinstance(self.ws, Workspace):
+            raise Exception("Workspace must be a puma.Workspace.")

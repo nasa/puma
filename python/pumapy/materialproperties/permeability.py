@@ -1,9 +1,8 @@
 from pumapy.physicsmodels.fe_permeability import Permeability
 
 
-def compute_permeability(workspace, solid_cutoff, tol=1e-7, maxiter=10000, solver_type='minres',
-                         display_iter=True):
-    """ Compute the permeability
+def compute_permeability(workspace, solid_cutoff, tol=1e-8, maxiter=10000, solver_type='minres', display_iter=True):
+    """ Compute the permeability using first order Q1-Q1 Finite Element solver and periodic BC on the sides
 
     :param workspace: domain
     :type workspace: Workspace
@@ -13,11 +12,11 @@ def compute_permeability(workspace, solid_cutoff, tol=1e-7, maxiter=10000, solve
     :type tol: float, optional
     :param maxiter: maximum Iterations for solver
     :type maxiter: int, optional
-    :param solver_type: solver type, options: 'bicgstab', 'minres', 'gmres', 'direct'
+    :param solver_type: solver type, options: 'minres' (default), 'direct', 'cg', 'bicgstab'
     :type solver_type: string, optional
     :type display_iter: bool, optional
-    :return: permeability, pressure field, velocity field
-    :rtype: tuple(ndarray, ndarray, ndarray)
+    :return: permeability, velocity field
+    :rtype: tuple(ndarray, ndarray)
     """
     solver = Permeability(workspace, solid_cutoff, tol, maxiter, solver_type, display_iter)
 

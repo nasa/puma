@@ -42,6 +42,7 @@ class Elasticity(PropertySolver):
         super().solve()
         print("Time to solve: ", t.elapsed())
         self.compute_effective_coefficient()
+        self.solve_time = t.elapsed()
 
     def initialize(self):
         print("Initializing and padding domains ... ", flush=True, end='')
@@ -505,6 +506,7 @@ class Elasticity(PropertySolver):
         for i in range(self.elast_map.get_size()):
             low, high, cond = self.elast_map.get_material(i)
             self.ws.log.log_line("  - Material " + str(i) + "[" + str(low) + "," + str(high) + "," + str(cond) + "]")
+        self.ws.log.log_line("Solver Type: " + str(self.solver_type))
         self.ws.log.log_line("Solver Tolerance: " + str(self.tolerance))
         self.ws.log.log_line("Max Iterations: " + str(self.maxiter))
         self.ws.log.write_log()

@@ -52,6 +52,7 @@ class IsotropicConductivity(Conductivity):
         super().solve()
         print("Time to solve: ", t.elapsed())
         self.compute_effective_coefficient()
+        self.solve_time = t.elapsed()
 
     def initialize(self):
         print("Creating conductivity matrix ... ", end='')

@@ -28,6 +28,7 @@ class Conductivity(PropertySolver):
             low, high, cond = self.cond_map.get_material(i)
             self.ws.log.log_line(
                 "  - Material " + str(i) + "[" + str(low) + "," + str(high) + "," + str(cond) + "]")
+            self.ws.log.log_line("Solver Type: " + str(self.solver_type))
         self.ws.log.log_line("Solver Tolerance: " + str(self.tolerance))
         self.ws.log.log_line("Max Iterations: " + str(self.maxiter))
         self.ws.log.write_log()
