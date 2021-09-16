@@ -190,7 +190,7 @@ class Permeability(PropertySolver):
         self.keff[2, 0] = - np.sum(self.x_full[vIdNosP * 3 - 2, 2])
         self.keff[2, 1] =   np.sum(self.x_full[vIdNosP * 3 - 3, 2])
         self.keff[2, 2] =   np.sum(self.x_full[vIdNosP * 3 - 1, 2])
-        self.keff = self.keff / self.nels
+        self.keff /= self.nels
         print(f'\nEffective permeability tensor: \n{self.keff}')
 
         # Extracting velocity fields
