@@ -1,34 +1,33 @@
 name: puma
 channels:
   - conda-forge
-  - defaults
 dependencies:
-  - python
+  - python =3.7.4
 
   # pumapy
-  - numpy 
-  - scikit-image
-  - scipy
-  - matplotlib
-  - pyevtk
-  - pyvista
+  - numpy =1.21.2 
+  - scikit-image =0.18.3
+  - scipy =1.7.1
+  - matplotlib =3.4.3
+  - pyevtk =1.4.1
+  - pyvista =0.31.3
 
   # puma cpp
-  - fftw
-  - eigen
-  - openmp
-  - cmake >=3.11.0
+  - fftw =3.3.9
+  - eigen =3.3.9
+  - openmp =8.0.1
+  - cmake =3.19.6 # needed >=3.11.0
 
   # puma gui
-  - qt >=5.9.0
+  - qt =5.12.5 # needed >=5.9.0
 
   # texgen
-  - swig
+  - swig =4.0.2
 
   # nice to have
-  - pip
-  - cython
-  - scikit-umfpack
-  - jupyterlab
-  - ipyvtklink
-  - ipympl
+  - pip =21.2.4
+  - cython =0.29.24
+  - scikit-umfpack =0.3.2
+  - jupyterlab =3.1.8
+  - ipyvtklink =0.2.1
+  - ipympl =0.7.0
