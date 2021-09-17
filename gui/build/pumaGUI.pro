@@ -14,6 +14,7 @@ INCLUDEPATH += $${INSTALL_PREFIX}/include
 
 LIBS += -L$${BUILD_PREFIX}/lib -ltiff -lfftw3_threads -lfftw3
 mac{LIBS += -lomp}
+unix:!macx {LIBS += -lgomp}
 LIBS += -L$${INSTALL_PREFIX}/lib -lPuMA
 
 QMAKE_RPATHDIR += $${INSTALL_PREFIX}/lib

@@ -2,19 +2,6 @@
 
 
 /// Grayscale GLOBALLY Anisotropic Materials (no direction matrix)
-/// \param grayWS
-/// \param T
-/// \param q
-/// \param matCond
-/// \param method
-/// \param sideBC
-/// \param solverType
-/// \param dir
-/// \param solverTol
-/// \param solverMaxIt
-/// \param print
-/// \param numThreads
-/// \return
 puma::Vec3<double> puma::compute_FVanisotropicThermalConductivity(Workspace *grayWS, puma::Matrix<double> *T, puma::MatVec3<double> *q, const puma::MatCond& matCond,
                                                                   std::string method, std::string sideBC, std::string solverType, char dir, double solverTol,
                                                                   int solverMaxIt, bool print, int numThreads) {
@@ -57,21 +44,7 @@ puma::Vec3<double> puma::compute_FVanisotropicThermalConductivity(Workspace *gra
 }
 
 
-/// Grayscale GLOBALLY Anisotropic Materials (no direction matrix) with prescribedBC
-/// \param grayWS
-/// \param T
-/// \param q
-/// \param matCond
-/// \param method
-/// \param sideBC
-/// \param prescribedBC
-/// \param solverType
-/// \param dir
-/// \param solverTol
-/// \param solverMaxIt
-/// \param print
-/// \param numThreads
-/// \return
+/// Grayscale GLOBALLY Anisotropic Materials (no direction matrix, with prescribedBC)
 puma::Vec3<double> puma::compute_FVanisotropicThermalConductivity(Workspace *grayWS, puma::Matrix<double> *T, puma::MatVec3<double> *q, const puma::MatCond& matCond,
                                                                   std::string method, std::string sideBC, puma::Matrix<double> *prescribedBC, std::string solverType, char dir, double solverTol,
                                                                   int solverMaxIt, bool print, int numThreads) {
@@ -113,21 +86,7 @@ puma::Vec3<double> puma::compute_FVanisotropicThermalConductivity(Workspace *gra
 }
 
 
-/// Grayscale LOCALLY Anisotropic Materials (with direction matrix)
-/// \param grayWS
-/// \param T
-/// \param q
-/// \param matCond
-/// \param direction
-/// \param method
-/// \param sideBC
-/// \param solverType
-/// \param dir
-/// \param solverTol
-/// \param solverMaxIt
-/// \param print
-/// \param numThreads
-/// \return
+/// LOCALLY Anisotropic Materials (with direction matrix)
 puma::Vec3<double> puma::compute_FVanisotropicThermalConductivity(Workspace *grayWS, puma::Matrix<double> *T, puma::MatVec3<double> *q, const std::map<int, std::vector<double>>& matCond,
                                                                   puma::MatVec3<double> *direction, std::string method, std::string sideBC, std::string solverType, char dir, double solverTol,
                                                                   int solverMaxIt, bool print, int numThreads) {
@@ -180,22 +139,7 @@ puma::Vec3<double> puma::compute_FVanisotropicThermalConductivity(Workspace *gra
 }
 
 
-/// Grayscale LOCALLY Anisotropic Materials (with direction matrix) and prescribedBC
-/// \param grayWS
-/// \param T
-/// \param q
-/// \param matCond
-/// \param direction
-/// \param method
-/// \param sideBC
-/// \param prescribedBC
-/// \param solverType
-/// \param dir
-/// \param solverTol
-/// \param solverMaxIt
-/// \param print
-/// \param numThreads
-/// \return
+/// Grayscale LOCALLY Anisotropic Materials (with direction matrix, with prescribedBC)
 puma::Vec3<double> puma::compute_FVanisotropicThermalConductivity(Workspace *grayWS, puma::Matrix<double> *T, puma::MatVec3<double> *q, const std::map<int, std::vector<double>>& matCond,
                                                                   puma::MatVec3<double> *direction, std::string method, std::string sideBC, puma::Matrix<double> *prescribedBC,
                                                                   std::string solverType, char dir, double solverTol, int solverMaxIt, bool print, int numThreads) {

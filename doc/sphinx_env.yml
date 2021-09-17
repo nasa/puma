@@ -13,6 +13,7 @@ dependencies:
   - recommonmark ==0.6.0
   - ipython ==7.24.1
   - breathe ==4.30.0
+  - doxygen
   - vtk
   - scipy
   - scikit-image

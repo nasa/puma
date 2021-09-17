@@ -22,6 +22,7 @@ os.system("cd ../.. && python setup.py build_ext --inplace")
 # run api-doc in terminal
 os.system("sphinx-apidoc -fMT ../../python/pumapy -o files --templatedir=template")
 
+
 # -- Project information -----------------------------------------------------
 
 project = 'PuMA'
@@ -76,12 +77,17 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'files/pumapy.rst', '**.ipynb_checkpoints']
 
+from unittest import mock
+MOCK_MODULES = ['TexGen.Core', 'dolfin', 'matplotlib', 'pyvista', 'pyevtk', 'pyevtk.hl']
+
+for module_name in MOCK_MODULES:
+    sys.modules[module_name] = mock.Mock()
+
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
 html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -95,21 +101,12 @@ html_theme_options = {
 }
 
 
-from unittest import mock
-MOCK_MODULES = [
-                'TexGen.Core', 'dolfin', 'matplotlib', 'pyvista', 'pyevtk', 'pyevtk.hl'
-                ]
-
-for module_name in MOCK_MODULES:
-    sys.modules[module_name] = mock.Mock()
-
-
 # -- Breathe - Exhale configuration -------------------------------------------------
 
 breathe_projects = {
-    "My Project": "./doxyoutput/xml"
+    "PuMA": "./doxyoutput/xml"
 }
-breathe_default_project = "My Project"
+breathe_default_project = "PuMA"
 
 # Setup the exhale extension
 exhale_args = {
@@ -120,10 +117,8 @@ exhale_args = {
     "doxygenStripFromPath":  "..",
     # Suggested optional arguments
     "createTreeView":        True,
-    # TIP: if using the sphinx-bootstrap-theme, you need
-    # "treeViewIsBootstrap": True,
     "exhaleExecutesDoxygen": True,
-    "exhaleDoxygenStdin":    "INPUT = ../../cpp"
+    "exhaleDoxygenStdin":    "INPUT = ../../cpp/src",
 }
 
 # Tell sphinx what the primary language being documented is.

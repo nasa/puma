@@ -50,9 +50,9 @@ def compute_orientation_st(ws, sigma, rho, cutoff, edt=False):
 
     :param ws: domain
     :type ws: Workspace
-    :param sigma: with kernel size parameter for Gaussian derivatives (should be smaller than rho)
+    :param sigma: kernel size parameter for Gaussian derivatives (should be smaller than rho)
     :type sigma: float
-    :param rho: with kernel size parameter for Gaussian filter (should be bigger than sigma)
+    :param rho: kernel size parameter for Gaussian filter (should be bigger than sigma)
     :type rho: float
     :param cutoff: which grayscales to consider
     :type cutoff: tuple(int, int)

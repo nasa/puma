@@ -20,6 +20,11 @@ def import_3Dtiff(filename, voxel_length=1e-6, import_ws=True):
     :type import_ws: bool, optional
     :return: domain
     :rtype: Workspace or ndarray
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_tiff = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"), 1.3e-6, import_ws=True)
+    >>> ws_tiff.get_shape()
     """
     print("Importing " + filename + " ... ", end='')
 
@@ -48,6 +53,10 @@ def import_bin(filename):
     :type filename: string
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_binary = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
     """
     print("Importing " + filename + " ... ", end='')
 
@@ -73,6 +82,10 @@ def import_vti(filename, voxel_length=None, import_ws=True):
     :return: if import_ws is True, then it returns a Workspace.
         if import_ws is False, it returns a dictionary of ndarrays as {"name1": data1, "name2": data2 ...}
     :rtype: Workspace or dict(string: ndarray)
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_vtk = puma.import_vti(puma.path_to_example_file("fibers_with_orientation.vti"))
     """
     print("Importing " + filename + " ... ", end='')
 

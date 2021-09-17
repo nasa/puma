@@ -68,7 +68,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&grayWS,"python/pumapy/data/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,puma::path_to_example_file("1300_Spheres.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -102,7 +102,7 @@ public:
 
         puma::Workspace grayWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -123,7 +123,7 @@ public:
         TestResult result(suiteName, testName, 4, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        bool success = puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -156,7 +156,7 @@ public:
         TestResult result(suiteName, testName, 5, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        bool success = puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&grayWS,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -207,7 +207,7 @@ public:
 
         puma::Workspace segWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&segWS,"python/pumapy/data/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&segWS,puma::path_to_example_file("1300_Spheres.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -243,7 +243,7 @@ public:
 
         puma::Workspace segWS(1e-6,false);
 
-        bool success = puma::import_3DTiff(&segWS,"python/pumapy/data/200_fiberform_segmented.tif",0);
+        bool success = puma::import_3DTiff(&segWS,puma::path_to_example_file("200_fiberform_segmented.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -264,7 +264,7 @@ public:
         TestResult result(suiteName, testName, 9, testDescription);
 
         puma::Workspace segWS(1e-6,false);
-        bool success = puma::import_3DTiff(&segWS,"python/pumapy/data/200_fiberform_segmented.tif",0);
+        bool success = puma::import_3DTiff(&segWS,puma::path_to_example_file("200_fiberform_segmented.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -299,7 +299,7 @@ public:
         TestResult result(suiteName, testName, 10, testDescription);
 
         puma::Workspace segWS(1e-6,false);
-        bool success = puma::import_3DTiff(&segWS,"python/pumapy/data/200_fiberform_segmented.tif",0);
+        bool success = puma::import_3DTiff(&segWS,puma::path_to_example_file("200_fiberform_segmented.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -338,7 +338,7 @@ public:
 
         puma::Matrix<short> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("1300_Spheres.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -374,7 +374,7 @@ public:
 
         puma::Matrix<short> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -396,7 +396,7 @@ public:
 
         puma::Matrix<short> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -431,7 +431,7 @@ public:
         TestResult result(suiteName, testName, 15, testDescription);
 
         puma::Matrix<short> sMatrix;
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -471,7 +471,7 @@ public:
 
         puma::Matrix<int> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("1300_Spheres.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -507,7 +507,7 @@ public:
 
         puma::Matrix<int> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -529,7 +529,7 @@ public:
 
         puma::Matrix<int> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -564,7 +564,7 @@ public:
         TestResult result(suiteName, testName, 20, testDescription);
 
         puma::Matrix<int> sMatrix;
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -604,7 +604,7 @@ public:
 
         puma::Matrix<float> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("1300_Spheres.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -640,7 +640,7 @@ public:
 
         puma::Matrix<float> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -662,7 +662,7 @@ public:
 
         puma::Matrix<float> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -697,7 +697,7 @@ public:
         TestResult result(suiteName, testName, 25, testDescription);
 
         puma::Matrix<float> sMatrix;
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -737,7 +737,7 @@ public:
 
         puma::Matrix<double> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/1300_Spheres.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("1300_Spheres.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -773,7 +773,7 @@ public:
 
         puma::Matrix<double> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -795,7 +795,7 @@ public:
 
         puma::Matrix<double> sMatrix;
 
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }
@@ -830,7 +830,7 @@ public:
         TestResult result(suiteName, testName, 30, testDescription);
 
         puma::Matrix<double> sMatrix;
-        bool success = puma::import_3DTiff(&sMatrix,"python/pumapy/data/200_fiberform.tif",0);
+        bool success = puma::import_3DTiff(&sMatrix,puma::path_to_example_file("200_fiberform.tif"),0);
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
         }

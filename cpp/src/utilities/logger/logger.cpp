@@ -30,7 +30,7 @@ bool puma::Logger::generateRunFolder() {
 
         generateFolderName();
 
-        std::cout << "Run folder generated at: " << folderName << std::endl;
+        std::cout << "Logs folder generated at: " << folderName << std::endl;
         return generateDirectory(folderName);
 }
 
@@ -44,41 +44,50 @@ bool puma::Logger::generateRunFolder(std::string folderLabel) {
 }
 
 void puma::Logger::generateFolderName() {
-    time_t now = time(0);
-    char* dt = ctime(&now);
-    std::string s = dt;
-    s = replaceAll(s," ", "_");
-    s = replaceAll(s,"\n","");
-    s = replaceAll(s,"Mon_", "");
-    s = replaceAll(s,"Tue_", "");
-    s = replaceAll(s,"Wed_", "");
-    s = replaceAll(s,"Thu_", "");
-    s = replaceAll(s,"Fri_", "");
-    s = replaceAll(s,"Sat_", "");
-    s = replaceAll(s,"Sun_", "");
-    s = replaceAll(s,"Jan", "01");
-    s = replaceAll(s,"Feb", "02");
-    s = replaceAll(s,"Mar", "03");
-    s = replaceAll(s,"Apr", "04");
-    s = replaceAll(s,"May", "05");
-    s = replaceAll(s,"Jun", "06");
-    s = replaceAll(s,"Jul", "07");
-    s = replaceAll(s,"Aug", "08");
-    s = replaceAll(s,"Sep", "09");
-    s = replaceAll(s,"Oct", "10");
-    s = replaceAll(s,"Nov", "11");
-    s = replaceAll(s,"Dec", "12");
-
+    
     char buff[FILENAME_MAX]; //create string buffer to hold path
     GetCurrentDir( buff, FILENAME_MAX );
     std::string current_working_dir(buff);
 
     folderName = current_working_dir;
-    folderName.append("/logs/PuMA_Run_");
-    folderName.append(s);
+    folderName.append("/logs");
 
     logLocation = folderName;
-    logLocation.append("/log.txt");
+    logLocation.append("/puma_log_");
+
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+
+    std::string s;
+    s.append(std::to_string(1900 + ltm->tm_year));
+    if (std::to_string(1+ltm->tm_mon).length() == 1){
+        s.append("0" + std::to_string(1+ltm->tm_mon));
+    } else {
+        s.append(std::to_string(1+ltm->tm_mon));
+    }
+    if (std::to_string(ltm->tm_mday).length() == 1){
+        s.append("0" + std::to_string(ltm->tm_mday));
+    } else {
+        s.append(std::to_string(ltm->tm_mday));
+    }
+    s.append("_");
+    if (std::to_string(ltm->tm_hour).length() == 1){
+        s.append("0" + std::to_string(ltm->tm_hour));
+    } else {
+        s.append(std::to_string(ltm->tm_hour));
+    }
+    if (std::to_string(ltm->tm_min).length() == 1){
+        s.append("0" + std::to_string(ltm->tm_min));
+    } else {
+        s.append(std::to_string(ltm->tm_min));
+    }
+    if (std::to_string(ltm->tm_sec).length() == 1){
+        s.append("0" + std::to_string(ltm->tm_sec));
+    } else {
+        s.append(std::to_string(ltm->tm_sec));
+    }
+    logLocation.append(s);
+    logLocation.append(".txt");   
 }
 
 bool puma::Logger::generateDirectory(std::string directoryPath) {

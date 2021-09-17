@@ -8,31 +8,24 @@ PuMA Documentation
    readme
 
 .. toctree::
-   :maxdepth: 2
-   :glob:
-   :caption: C++ Library API:
-
-   cpp_api/cpp_library_root
-
-.. toctree::
    :maxdepth: 1
    :glob:
-   :caption: Python Package API:
-
-   files/*
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-   :caption: Tutorials:
+   :caption: Tutorial:
 
    readme_tutorial
    puma_tutorial
 
+.. toctree::
+   :maxdepth: 1
+   :glob:
+   :caption: Python API:
 
-Indices and tables
-==================
+   files/*
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. toctree::
+   :maxdepth: 2
+   :glob:
+   :caption: C++ API:
+
+   cpp_api/namespace_puma.rst
+   cpp_api/namespace_IterativeSolver.rst

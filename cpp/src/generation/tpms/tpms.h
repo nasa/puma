@@ -13,6 +13,12 @@
 
 
 namespace puma {
+
+/*! Generate TPMS geometry
+\param grayWS the output workspace
+\param input the TPMSInput details for the generation
+\return true if successful, false if it failing
+*/
 bool generateTPMS(Workspace *grayWS, TPMSInput input);
 }
 

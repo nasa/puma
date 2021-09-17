@@ -16,6 +16,15 @@ def filter_median(ws, size):
     :type size: int
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+    >>> ws.binarize_range((128, 255))  # binarize it so that it is only 1s and 0s
+    >>> ws_median = ws.copy()
+    >>> puma.filter_median(ws_median, size = 10)
+    >>> puma.compare_slices(ws, ws_median) # compare it
+
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed.")
@@ -39,6 +48,14 @@ def filter_gaussian(ws, sigma=1, apply_on_orientation=False):
         :type apply_on_orientation: bool, optional
         :return: True if successful, False otherwise.
         :rtype: bool
+
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0) #  generate tpms material
+        >>> ws.binarize_range((128, 255)) # binarize it so that it is only 1s and 0s
+        >>> ws_gaussian = ws.copy()
+        >>> puma.filter_gaussian(ws_gaussian, sigma=2, apply_on_orientation=False)
+        >>> puma.compare_slices(ws, ws_gaussian) # compare it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed.")
@@ -72,6 +89,14 @@ def filter_edt(ws, cutoff):
     :type cutoff: tuple(int, int)
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+    >>> ws.binarize_range((128, 255))  # binarize it so that it is only 1s and 0s
+    >>> ws_edt = ws.copy()
+    >>> puma.filter_edt(ws_edt, cutoff=(1,1))
+    >>> puma.compare_slices(ws, ws_edt) #compare it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -92,6 +117,15 @@ def filter_mean(ws, size=5):
     :type size: int, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+    >>> ws.binarize_range((128, 255))  # binarize it so that it is only 1s and 0s
+    >>> ws_mean = ws.copy()
+    >>> puma.filter_mean(ws_mean, size=10)
+    >>> puma.compare_slices(ws, ws_mean) #compare it
+
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -115,6 +149,14 @@ def filter_erode(ws, cutoff, size=5):
     :type size: int, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+    >>> ws.binarize_range((128, 255))  # binarize it so that it is only 1s and 0s
+    >>> ws_erode = ws.copy()
+    >>> puma.filter_erode(ws_erode, (1, 1))  # eroding the copy
+    >>> puma.compare_slices(ws, ws_erode)  # compare it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -140,6 +182,14 @@ def filter_dilate(ws, cutoff, size=5):
     :type size: int, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+    >>> ws.binarize_range((128, 255))  # binarize it so that it is only 1s and 0s
+    >>> ws_dilate = ws.copy()
+    >>> puma.filter_dilate(ws_dilate, cutoff=(1, 1), size=5)  # dilating the copy
+    >>> puma.compare_slices(ws, ws_dilate)  # compare it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -165,6 +215,15 @@ def filter_opening(ws, cutoff, size=5):
     :type size: int, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+    >>> ws_opening = ws.copy()
+    >>> puma.filter_opening(ws_opening, cutoff=(128,255), size=3)
+    >>> ws_binary = ws.copy()
+    >>> ws_binary.binarize_range((128, 255))
+    >>> puma.compare_slices(ws_binary, ws_opening) # compare it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -190,6 +249,15 @@ def filter_closing(ws, cutoff, size=5):
     :type size: int, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+    >>> ws_closing = ws.copy()
+    >>> puma.filter_closing(ws.closing, cutoff=(128, 255), size=3)
+    >>> ws_binary = ws.copy()
+    >>> ws_binary.binarize_range((128, 255))
+    >>> puma.compare_slices(ws_binary, ws_closing) # compare it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")

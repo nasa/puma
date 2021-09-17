@@ -29,6 +29,17 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
     :type print_matrices: tuple(5 bools), optional
     :return: thermal conductivity, temperature field, flux
     :rtype: tuple(tuple(float, float, float), ndarray, ndarray)
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+    >>> ws_fiberform.matrix = ws_fiberform.matrix[50:150, 50:150, 50:150]
+    >>> cond_map = puma.IsotropicConductivityMap()
+    >>> cond_map.add_material((0, 89), 0.0257)
+    >>> cond_map.add_material((90, 255), 12)
+    >>> k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 's', tolerance=1e-2, solver_type='cg')
+    >>> print("Effective thermal conductivity tensor:")
+    >>> print(k_eff_x)
     """
     if isinstance(cond_map, IsotropicConductivityMap):
         solver = IsotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
@@ -73,6 +84,17 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
     :type print_matrices: tuple(5 bools), optional
     :return: electrical conductivity, potential field, flux
     :rtype: tuple(tuple(float, float, float), ndarray, ndarray)
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+    >>> ws_fiberform.matrix = ws_fiberform.matrix[50:150, 50:150, 50:150]
+    >>> cond_map = puma.IsotropicConductivityMap()
+    >>> cond_map.add_material((0, 89), 0.0257)
+    >>> cond_map.add_material((90, 255), 12)
+    >>> k_eff_x, P_x, q_x = puma.compute_electrical_conductivity(ws_fiberform, cond_map, 'x', 's', tolerance=1e-2, solver_type='cg')
+    >>> print("Effective electrical conductivity tensor:")
+    >>> print(k_eff_x)
     """
     return compute_thermal_conductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
                                         solver_type, display_iter, print_matrices)

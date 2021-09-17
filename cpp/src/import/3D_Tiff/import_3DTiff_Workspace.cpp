@@ -59,7 +59,8 @@ bool Import_3DTiff_Workspace::import() {
 }
 
 bool Import_3DTiff_Workspace::sizeOfDomain() {
-    int bitsPerSample=-1;
+    uint32 bitsPerSample = 0;
+    uint16 rgb_check;
 
     TIFF* input_Image;
     TIFFSetWarningHandler(nullptr);
@@ -68,10 +69,18 @@ bool Import_3DTiff_Workspace::sizeOfDomain() {
         return false;
     }
 
+
     if(input_Image) {
         TIFFGetField(input_Image, TIFFTAG_IMAGEWIDTH, &X);
         TIFFGetField(input_Image, TIFFTAG_IMAGELENGTH, &Y);
         TIFFGetField(input_Image, TIFFTAG_BITSPERSAMPLE, &bitsPerSample);
+        TIFFGetField(input_Image, TIFFTAG_SAMPLESPERPIXEL, &rgb_check);
+    }
+
+    if(rgb_check == 3){
+        std::cout << "Image must be grayscale, input is RGB." << std::endl;
+        X=-1;
+        return false;
     }
 
     if(bitsPerSample!=8){
@@ -81,7 +90,7 @@ bool Import_3DTiff_Workspace::sizeOfDomain() {
             return false;
         }
         else {
-            bitsPerSample = 8; //seems to be a bug that happens occasionally where bitsPerSample isn't read correctly.
+            bitsPerSample = 8;
         }
     }
 

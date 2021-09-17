@@ -1131,22 +1131,9 @@ border: 2px solid black;
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="CTort_PoroResult">
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>21</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 11pt &quot;Serif&quot;;
-background-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string/>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

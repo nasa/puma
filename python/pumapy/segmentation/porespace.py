@@ -10,8 +10,15 @@ def identify_porespace(workspace, solid_cutoff):
         :type workspace: Workspace
         :param solid_cutoff: specify the solid range to discard from pores identification
         :type solid_cutoff: tuple(int, int)
-        :return: porespace marked as: 0 solid, 1 largest pore (likely open porosity), > 1 other pores
+        :return: porespace marked as: 0 solid, 1 largest pore (likely open porosity), >1 other pores
         :rtype: ndarray
+
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.generate_random_spheres((200, 200, 200), diameter=20, porosity=0.8, allow_intersect=True)
+        >>> ws.binarize_range((0, 128))  # invert material, i.e. consider spheres as pores
+        >>> pores = puma.identify_porespace(ws, (1, 1))
+        >>> puma.render_volume(pores, (1, pores.max()), solid_color=None, cmap='jet')
     """
 
     # error check
@@ -43,10 +50,18 @@ def fill_closed_pores(workspace, solid_cutoff, fill_value, return_pores=False):
         :type fill_value: int
         :param return_pores: specifies whether to return identified pores
         :type return_pores: bool, optional
-        :return: new workspace with filled closed porosity
-            (if return_pores==True, then it also returns the porespace marked as:
-            0 solid, 1 largest pore (likely open porosity), > 1 other pores)
+        :return: filled workspace with IDs set as: 0 for void, 1 for solid, fill_value for 
+            added filler material. In addition, if return_pores==True, then it also returns 
+            the porespace marked as: 0 solid, 1 largest pore (likely open porosity), >1 other pores
         :rtype: Workspace
+
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.generate_random_spheres((200, 200, 200), diameter=20, porosity=0.8, allow_intersect=True)
+        >>> ws.binarize_range((0, 128))  # invert material, i.e. consider spheres as pores
+        >>> filled_ws, pores = puma.fill_closed_pores(ws, solid_cutoff=(1, 1), fill_value=2, return_pores=True)
+        >>> puma.render_volume(pores, (1, pores.max()), solid_color=None, cmap='jet')
+        >>> puma.render_volume(filled_ws)
     """
 
     pores = identify_porespace(workspace, solid_cutoff)

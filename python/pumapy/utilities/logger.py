@@ -29,8 +29,12 @@ class Logger:
             os.mkdir('logs')
 
         now = datetime.datetime.now()
-        self.location = "logs/pumapy_log_" + str(now.year) + "_" + str(now.month) + "_" + str(now.day) + "_" + \
-            str(now.hour) + "_" + str(now.minute) + "_" + str(now.second) + ".txt"
+        month = str(now.month) if len(str(now.month)) == 2 else "0" + str(now.month)
+        day = str(now.day) if len(str(now.day)) == 2 else "0" + str(now.day)
+        hour = str(now.hour) if len(str(now.hour)) == 2 else "0" + str(now.hour)
+        minute = str(now.minute) if len(str(now.minute)) == 2 else "0" + str(now.minute)
+        second = str(now.second) if len(str(now.second)) == 2 else "0" + str(now.second)
+        self.location = "logs/pumapy_log_" + str(now.year) + month + day + "_" + hour + minute + second + ".txt"
 
     def set_location(self, location):
         self.location = location

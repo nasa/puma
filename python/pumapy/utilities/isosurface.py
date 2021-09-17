@@ -19,6 +19,13 @@ def generate_isosurface(workspace, cutoff, flag_closed_edges=True, flag_gaussian
     :type flag_gaussian: bool, optional
     :return: triangulated surface
     :rtype: TriMesh
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_isosurface = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"))
+    >>> ws_copy = ws_isosurface.copy()
+    >>> puma.utilities.isosurface.generate_isosurface(ws_copy, (128, 255))
+    >>> puma.compare_slices(ws_copy, ws_isosurface)
     """
     iso = Isosurface(workspace, cutoff, flag_closed_edges, flag_gaussian)
 
@@ -72,8 +79,6 @@ class Isosurface:
         self.matrix = np.empty(self.workspace.matrix.shape)
 
     def compute(self):
-        if self.cutoff[0] == 0:
-            self.cutoff[0] += 0.5
         if float(self.cutoff[0]).is_integer():
             self.cutoff[0] -= 0.5
         if float(self.cutoff[1]).is_integer():
@@ -96,7 +101,7 @@ class Isosurface:
 
     def buffer_matrix(self):
         if self.flag_closed_edges:
-            matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2], 1e-3)
+            matrix_buf = np.full([self.matrix.shape[0] + 2, self.matrix.shape[1] + 2, self.matrix.shape[2] + 2], -1e3)
             matrix_buf[1:-1, 1:-1, 1:-1] = self.matrix[:, :, :]
             self.matrix = np.copy(matrix_buf)
 

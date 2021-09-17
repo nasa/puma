@@ -17,6 +17,18 @@ def generate_tpms(size, w, q, equation=0):
     :type equation: int
     :return: TPMS domain
     :rtype: Workspace
+
+    :Example:
+    >>> import pumapy as puma
+    >>> size = (200, 200, 200)  # size of the domain, in voxels.
+    >>> w = 0.08  # value of w in the equations above
+    >>> q = 0.2  # value of q in the equations above
+    >>> ws_eq0 = puma.generate_tpms(size, w, q, equation=0)
+    >>> ws_eq1 = puma.generate_tpms(size, w, q, equation=1)
+    >>> ws_eq2 = puma.generate_tpms(size, w, q, equation=2)
+    >>> puma.render_contour(ws_eq0, cutoff=(128, 255)) #visualize the workspace
+    >>> puma.render_contour(ws_eq1, cutoff=(128, 255))
+    >>> puma.render_contour(ws_eq2, cutoff=(128, 255))
     """
 
     if isinstance(w, tuple):
