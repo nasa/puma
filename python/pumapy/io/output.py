@@ -19,6 +19,11 @@ def export_vti(filename, dict_data, voxel_length=None):
     :type voxel_length: float, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_vtk = puma.import_vti(puma.path_to_example_file("fibers_with_orientation.vti"))
+    >>> puma.export_vti("fibers_with_orientation.vti", ws_vtk)
     """
 
     # error path checks
@@ -88,6 +93,11 @@ def export_3Dtiff(filename, ws_or_nparray, to8bit=False):
     :type to8bit: bool, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_tiff = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"), 1.3e-6, import_ws=True)
+    >>> puma.export_3Dtiff("50_artfibers.tif", ws_tiff)
     """
 
     # error checks
@@ -132,6 +142,11 @@ def export_bin(filename, ws):
     :type: Workspace
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_binary = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
+    >>> puma.export_bin("fibers_with_orientation.vti", ws_binary)
     """
 
     # error checks
@@ -206,6 +221,11 @@ def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False
     :type flag_gaussian: bool, optional
     :return: True if successful, False otherwise.
     :rtype: bool
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_imported = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+    >>> puma.export_stl('200_fiberform', ws_imported, cutoff=(100, 255), flag_closed_edges=True)
     """
 
     # error checks

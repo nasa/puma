@@ -41,6 +41,11 @@ def render_volume(workspace, cutoff=None, solid_color=(1., 1., 1.), style='surfa
     :type notebook: bool, optional
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter object or None
+
+    :Example
+    >>> import pumapy as puma
+    >>> ws_volume = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+    >>> puma.render_volume(ws_volume)
     """
     if cutoff is None:
         solid_color = None
@@ -84,6 +89,11 @@ def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface',
     :type notebook: bool, optional
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter object or None
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_contour = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"))
+    >>> puma.render_contour(ws_contour, (128,255))
     """
     r = Renderer(add_to_plot, "contour", workspace, cutoff, solid_color, style, origin, window_size, opacity,
                  background, show_grid, plot_directly, show_axes, show_outline, None, None, notebook)
@@ -125,6 +135,12 @@ def render_orientation(workspace, scale_factor=1., solid_color=(1., 1., 1.), sty
     :type notebook: bool, optional
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter object or None
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_orientation = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+    >>> puma.compute_orientation_st(ws_orientation, 0.7, 1.4, (90, 255))
+    >>> puma.render_orientation(ws_orientation)
     """
     r = Renderer(add_to_plot, "glyph", workspace, None, solid_color, style, origin, window_size, opacity,
                  background, show_grid, plot_directly, show_axes, show_outline, None, scale_factor, notebook)
@@ -166,6 +182,10 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
     :type notebook: bool, optional
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter object or None
+
+    >>> import pumapy as puma
+    >>> ws_multiphase = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+    >>> puma.render_contour_multiphase(ws_multiphase, ((100, 150), (150, 255)))
     """
 
     if add_to_plot is None:

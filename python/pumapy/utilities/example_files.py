@@ -9,6 +9,11 @@ def path_to_example_file(example_filename):
     :type example_filename: str
     :return: path to the example file, which can be used to import it
     :rtype: str
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_example = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif")) # import example file
+    >>> puma.plot_slices(ws_example) # visualize example file
     """
 
     path = ntpath.split(os.path.dirname(os.path.realpath(__file__)))[0]

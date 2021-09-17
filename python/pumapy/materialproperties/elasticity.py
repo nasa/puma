@@ -28,6 +28,20 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_
     :type print_matrices: tuple(5 ints), optional
     :return: elasticity, displacement field, direct stresses, shear stresses
     :rtype: tuple(tuple(6 floats), ndarray, ndarray, ndarray)
+
+    :Example:
+    >>> import pumapy as puma
+    >>> export_name = 'halfmat'
+    >>> X = 20
+    >>> Y = 20
+    >>> Z = 20
+    >>> ws = puma.Workspace.from_shape_value((X, Y, Z), 1)
+    >>> ws[int(X / 2):] = 2
+    >>> elast_map = puma.ElasticityMap()
+    >>> elast_map.add_isotropic_material((1, 1), 200, 0.3)
+    >>> elast_map.add_isotropic_material((2, 2), 400, 0.1)
+    >>> C, u, s, t = puma.compute_elasticity(ws, elast_map, direction='x', side_bc='f', solver_type="direct")
+    >>> print(C)
     """
     if isinstance(elast_map, ElasticityMap):
         solver = Elasticity(workspace, elast_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
