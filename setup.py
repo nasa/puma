@@ -70,7 +70,6 @@ setup(
     package_data={'': [os.path.join('data', '*')]},  # copy over all the example data
     classifiers=[
         'Development Status :: 5 - Production/Stable',
-        'License :: NASA OPEN SOURCE AGREEMENT VERSION 1.3',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
         'Topic :: Scientific/Engineering',

@@ -4,9 +4,7 @@
 
 [![Documentation Status](https://readthedocs.org/projects/puma-nasa/badge/?version=latest)](https://puma-nasa.readthedocs.io/en/latest/?badge=latest)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/version.svg)](https://anaconda.org/conda-forge/puma)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/platforms.svg)](https://anaconda.org/conda-forge/puma)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/license.svg)](https://anaconda.org/conda-forge/puma)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/downloads.svg)](https://anaconda.org/conda-forge/puma)
+[![PyPI version](https://badge.fury.io/py/pumapy.svg)](https://badge.fury.io/py/pumapy)
 
 -----
 
