@@ -952,7 +952,7 @@ public:
         TestResult result(suiteName, testName, 31, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif");
+        puma::import_3DTiff(&grayWS,puma::path_to_example_file("200_fiberform.tif"));
 
         grayWS.setMaterialID(&grayWS,puma::Cutoff(0,89),0);
         grayWS.setMaterialID(&grayWS,puma::Cutoff(90,255),1);
@@ -991,7 +991,7 @@ public:
         TestResult result(suiteName, testName, 32, testDescription);
 
         puma::Workspace grayWS(1e-6,false);
-        puma::import_3DTiff(&grayWS,"python/pumapy/data/200_fiberform.tif");
+        puma::import_3DTiff(&grayWS,puma::path_to_example_file("200_fiberform.tif"));
 
         puma::Matrix<double> T;
         std::map<int, double> matCond;

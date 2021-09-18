@@ -18,6 +18,11 @@ def generate_random_spheres(size, diameter, porosity, allow_intersect=True):
     :type allow_intersect: bool
     :return: domain with random spheres with input diameter
     :rtype: Workspace
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_generated = puma.generate_random_spheres(size=(200,200,200), diameter=20, porosity=0.7) # Generating a workspace of randomly placed, intersecting spheres
+    >>> puma.render_contour(ws_generated, cutoff=(128, 255))
     """
 
     generator = GeneratorSpheres(size, diameter, porosity, allow_intersect)

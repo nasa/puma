@@ -1,15 +1,15 @@
 from pumapy.physicsmodels.anisotropic_conductivity_utils import (pad_domain, add_nondiag, divP,
                                                                  fill_flux, flatten_Kmat_find_unstable_iv)
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_mpfa_indices
-from pumapy.physicsmodels.conductivity_parent import Conductivity, SolverDisplay
-from pumapy.utilities.logger import print_warning
-import numpy as np
+from pumapy.physicsmodels.conductivity_parent import Conductivity
+from pumapy.utilities.timer import Timer
 from scipy.sparse import csr_matrix, diags
-from scipy.sparse.linalg import bicgstab, spsolve, cg, gmres
+import numpy as np
 import sys
 
 
 class AnisotropicConductivity(Conductivity):
+
     def __init__(self, workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
                  display_iter, print_matrices):
         super().__init__(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type, display_iter)
@@ -19,14 +19,17 @@ class AnisotropicConductivity(Conductivity):
         self.orient_pad = None
 
     def compute(self):
-        self.__initialize()
-        self.__assemble_bvector()
-        self.__assemble_Amatrix()
-        if not self.__solve():
-            return
-        self.__compute_effective_coefficient()
+        t = Timer()
+        self.initialize()
+        self.assemble_bvector()
+        self.assemble_Amatrix()
+        print("Time to assemble matrices: ", t.elapsed()); t.reset()
+        super().solve()
+        print("Time to solve: ", t.elapsed())
+        self.compute_effective_coefficient()
+        self.solve_time = t.elapsed()
 
-    def __initialize(self):
+    def initialize(self):
         print("Initializing and padding domains ... ", flush=True, end='')
 
         # Rotating domain to avoid cases and padding
@@ -73,7 +76,14 @@ class AnisotropicConductivity(Conductivity):
             self.dir_vox[1:-1, 1:-1, 1:-1][self.prescribed_bc.dirichlet != np.Inf] = 1
         print("Done")
 
-    def __assemble_bvector(self):
+        # Initialize initial guess for iterative solver
+        if self.solver_type != 'direct' and self.solver_type != 'spsolve':
+            self.initial_guess = np.zeros((self.len_x, self.len_y, self.len_z), dtype=float)
+            for i in range(self.len_x - 1):
+                self.initial_guess[i] = i / (self.len_x - 2.)
+            self.initial_guess = self.initial_guess.flatten('F')
+
+    def assemble_bvector(self):
         print("Assembling b vector ... ", flush=True, end='')
 
         I, V = ([] for _ in range(2))
@@ -112,6 +122,126 @@ class AnisotropicConductivity(Conductivity):
         if self.print_matrices[0]:
             self._print_b(self.print_matrices[0])
         print("Done")
+
+
+    def assemble_Amatrix(self):
+        print("Initializing large data structures ... ", flush=True, end='')
+        I, J = np.zeros((2, 27 * self.len_xyz), dtype=np.uint32)
+        V = np.zeros(27 * self.len_xyz, dtype=float)
+        counter = 0
+        I_dirvox = []
+        self.__initialize_MPFA()
+        j_indices = np.zeros((27 * (self.len_y - 2) * (self.len_z - 2)), dtype=np.uint32)
+        values = np.zeros((27 * (self.len_y - 2) * (self.len_z - 2)), dtype=float)
+        print("Done")
+
+        # Iterating through interior
+        for i in range(1, self.len_x - 1):
+            self.__compute_Kmat(2, i + 1)  # Computing third layer of Kmat
+            self.__compute_transmissibility(1, i)  # Computing second layer of E
+
+            # Creating j indices and divergence values for slice
+            j_indices.fill(0)
+            values.fill(np.NaN)
+
+            # compute flux divergence: if a row of A is detected to be all zeros, then the voxel is flagged as dirichlet
+            divP(i, self.len_x, self.len_y, self.len_z, self.dir_vox, j_indices, values, self.Emat)
+
+            # Creating i indices for slice
+            i_indices, i_dirvox = self.__creating_indices(i)
+            if i_indices.size > 0:
+                I[counter:counter + i_indices.size] = i_indices
+            I_dirvox.extend(i_dirvox)
+
+            if j_indices[j_indices != 0].size > 0:
+                J[counter:counter + i_indices.size] = j_indices[~np.isnan(values)]
+                V[counter:counter + i_indices.size] = values[~np.isnan(values)]
+                counter += i_indices.size
+
+            # Passing second layer to first
+            self.Emat[0] = self.Emat[1]
+            self.Kmat[:2] = self.Kmat[1:]
+            sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
+
+        # Clear unnecessary variables before creating A
+        del self.Emat, self.kf, self.Kmat, self.unstable
+        del self.dir_vox, i_indices, j_indices, values, i_dirvox, i
+
+        # Adding all dirichlet voxels
+        I[counter:counter + len(I_dirvox)] = I_dirvox
+        J[counter:counter + len(I_dirvox)] = I_dirvox
+        V[counter:counter + len(I_dirvox)] = 1
+        counter += len(I_dirvox)
+        del I_dirvox
+
+        # Add diagonal 1s for exterior voxels
+        diag_1s = np.ones_like(self.ws_pad, dtype=int)
+        diag_1s[1:-1, 1:-1, 1:-1] = 0
+        ind = np.array(np.where(diag_1s > 0))
+        diag_1s = self.len_x * (self.len_y * ind[2] + ind[1]) + ind[0]
+        diag_1s = diag_1s.astype(np.uint32)
+        del ind
+        I[counter:counter + diag_1s.size] = diag_1s
+        J[counter:counter + diag_1s.size] = diag_1s
+        V[counter:counter + diag_1s.size] = 1
+        counter += diag_1s.size
+
+        # Add non-diagonal 1s for exterior voxels
+        if self.side_bc is not "d":
+            I[counter:counter + diag_1s.size] = diag_1s
+            add_nondiag(diag_1s, self.len_x, self.len_y, self.len_z, self.side_bc)
+            J[counter:counter + diag_1s.size] = diag_1s
+            V[counter:counter + diag_1s.size] = -1
+            counter += diag_1s.size
+        del diag_1s, counter
+
+        # Assemble sparse A matrix
+        self.Amat = csr_matrix((V, (I, J)), shape=(self.len_xyz, self.len_xyz))
+
+        # Simple preconditioner
+        diag = self.Amat.diagonal()
+        if np.any(diag == 0):
+            self.M = None  # identity matrix if singularity has happened in MPFA
+        else:
+            self.M = diags(1. / self.Amat.diagonal(), 0).tocsr()
+
+        if self.print_matrices[2]:
+            self._print_A(self.print_matrices[2])
+        print("Done")
+
+    def compute_effective_coefficient(self):
+        # reshaping solution
+        self.T = self.x.reshape([self.len_x, self.len_y, self.len_z], order='F')
+        del self.x
+
+        # Mirroring boundaries for flux computation
+        self.T[0] = self.T[1]
+        self.T[-1] = self.T[-2]
+        if self.side_bc == "d":
+            self.T[:, 0] = self.T[:, 1]
+            self.T[:, -1] = self.T[:, -2]
+            self.T[:, :, 0] = self.T[:, :, 1]
+            self.T[:, :, -1] = self.T[:, :, -2]
+
+        self.__compute_fluxes()
+
+        # Accumulating and volume averaging stresses
+        fluxes = [np.sum(self.q[:, :, :, i]) / ((self.len_x - 2) * (self.len_y - 2) * (self.len_z - 2))
+                  for i in range(3)]
+        self.keff = [-fluxes[i] * (self.len_x - 2) * self.ws.voxel_length for i in range(3)]
+
+        # Rotating output back
+        if self.direction == 'y':
+            self.T = self.T.transpose(1, 0, 2)
+            self.q = self.q.transpose(1, 0, 2, 3)[:, :, :, [1, 0, 2]]
+            self.keff = [self.keff[1], self.keff[0], self.keff[2]]
+        elif self.direction == 'z':
+            self.T = self.T.transpose(2, 1, 0)
+            self.q = self.q.transpose(2, 1, 0, 3)[:, :, :, [2, 1, 0]]
+            self.keff = [self.keff[2], self.keff[1], self.keff[0]]
+
+        d = {'x': 'first', 'y': 'second', 'z': 'third'}
+        print(f'\nEffective conductivity tensor ({d[self.direction]} row): \n{self.keff}')
 
     def __compute_Kmat(self, i, i_cv):
         # reset layer of Cmat
@@ -219,168 +349,6 @@ class AnisotropicConductivity(Conductivity):
         i_indices = np.repeat(i_indices, 27)
         return i_indices, i_dirvox  # returning dirichlet voxel indices
 
-    def __assemble_Amatrix(self):
-        print("Initializing large data structures ... ", flush=True, end='')
-        I, J = np.zeros((2, 27 * self.len_xyz), dtype=np.uint32)
-        V = np.zeros(27 * self.len_xyz, dtype=float)
-        counter = 0
-        I_dirvox = []
-        self.__initialize_MPFA()
-        j_indices = np.zeros((27 * (self.len_y - 2) * (self.len_z - 2)), dtype=np.uint32)
-        values = np.zeros((27 * (self.len_y - 2) * (self.len_z - 2)), dtype=float)
-        print("Done")
-
-        # Iterating through interior
-        for i in range(1, self.len_x - 1):
-            self.__compute_Kmat(2, i + 1)  # Computing third layer of Kmat
-            self.__compute_transmissibility(1, i)  # Computing second layer of E
-
-            # Creating j indices and divergence values for slice
-            j_indices.fill(0)
-            values.fill(np.NaN)
-
-            # compute flux divergence: if a row of A is detected to be all zeros, then the voxel is flagged as dirichlet
-            divP(i, self.len_x, self.len_y, self.len_z, self.dir_vox, j_indices, values, self.Emat)
-
-            # Creating i indices for slice
-            i_indices, i_dirvox = self.__creating_indices(i)
-            if i_indices.size > 0:
-                I[counter:counter + i_indices.size] = i_indices
-            I_dirvox.extend(i_dirvox)
-
-            if j_indices[j_indices != 0].size > 0:
-                J[counter:counter + i_indices.size] = j_indices[~np.isnan(values)]
-                V[counter:counter + i_indices.size] = values[~np.isnan(values)]
-                counter += i_indices.size
-
-            # Passing second layer to first
-            self.Emat[0] = self.Emat[1]
-            self.Kmat[:2] = self.Kmat[1:]
-            sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
-
-        # Clear unnecessary variables before creating A
-        del self.Emat, self.kf, self.Kmat, self.unstable
-        del self.dir_vox, i_indices, j_indices, values, i_dirvox, i
-
-        # Adding all dirichlet voxels
-        I[counter:counter + len(I_dirvox)] = I_dirvox
-        J[counter:counter + len(I_dirvox)] = I_dirvox
-        V[counter:counter + len(I_dirvox)] = 1
-        counter += len(I_dirvox)
-        del I_dirvox
-
-        # Add diagonal 1s for exterior voxels
-        diag_1s = np.ones_like(self.ws_pad, dtype=int)
-        diag_1s[1:-1, 1:-1, 1:-1] = 0
-        ind = np.array(np.where(diag_1s > 0))
-        diag_1s = self.len_x * (self.len_y * ind[2] + ind[1]) + ind[0]
-        diag_1s = diag_1s.astype(np.uint32)
-        del ind
-        I[counter:counter + diag_1s.size] = diag_1s
-        J[counter:counter + diag_1s.size] = diag_1s
-        V[counter:counter + diag_1s.size] = 1
-        counter += diag_1s.size
-
-        # Add non-diagonal 1s for exterior voxels
-        if self.side_bc is not "d":
-            I[counter:counter + diag_1s.size] = diag_1s
-            add_nondiag(diag_1s, self.len_x, self.len_y, self.len_z, self.side_bc)
-            J[counter:counter + diag_1s.size] = diag_1s
-            V[counter:counter + diag_1s.size] = -1
-            counter += diag_1s.size
-        del diag_1s, counter
-
-        # Assemble sparse A matrix
-        self.Amat = csr_matrix((V, (I, J)), shape=(self.len_xyz, self.len_xyz))
-
-        # Simple preconditioner
-        diag = self.Amat.diagonal()
-        if np.any(diag == 0):
-            self.M = None  # identity matrix if singularity has happened in MPFA
-        else:
-            self.M = diags(1. / self.Amat.diagonal(), 0).tocsr()
-
-        if self.print_matrices[2]:
-            self._print_A(self.print_matrices[2])
-        print("Done")
-
-    def __solve(self):
-        print("Solving Ax=b system ... ", end='')
-
-        info = 0
-        if self.solver_type == 'direct':
-            print("Direct solver", end='')
-            x = spsolve(self.Amat, self.bvec)
-
-        else:  # iterative solvers
-            Tinitial_guess = np.zeros((self.len_x, self.len_y, self.len_z), dtype=float)
-            for i in range(self.len_x - 1):
-                Tinitial_guess[i] = i / (self.len_x - 2.)
-            Tinitial_guess = Tinitial_guess.flatten('F')
-
-            if self.solver_type == 'gmres':
-                print("gmres:")
-                if self.display_iter:
-                    x, info = gmres(self.Amat, self.bvec.todense(), x0=Tinitial_guess, atol=self.tolerance,
-                                    maxiter=self.maxiter, callback=SolverDisplay(), M=self.M)
-                else:
-                    x, info = gmres(self.Amat, self.bvec.todense(), x0=Tinitial_guess, atol=self.tolerance,
-                                    maxiter=self.maxiter, M=self.M)
-
-            elif self.solver_type == 'cg':
-                print("Conjugate Gradient:")
-                if self.display_iter:
-                    x, info = cg(self.Amat, self.bvec.todense(), x0=Tinitial_guess, atol=self.tolerance,
-                                 maxiter=self.maxiter, callback=SolverDisplay(), M=self.M)
-                else:
-                    x, info = cg(self.Amat, self.bvec.todense(), x0=Tinitial_guess, atol=self.tolerance,
-                                 maxiter=self.maxiter, M=self.M)
-
-            else:
-                if self.solver_type != 'bicgstab':
-                    print_warning("Unrecognized solver, defaulting to bicgstab.")
-                print("Bicgstab:")
-                if self.display_iter:
-                    x, info = bicgstab(self.Amat, self.bvec.todense(), x0=Tinitial_guess, atol=self.tolerance,
-                                       maxiter=self.maxiter, M=self.M, callback=SolverDisplay())
-                else:
-                    x, info = bicgstab(self.Amat, self.bvec.todense(), x0=Tinitial_guess, atol=self.tolerance,
-                                       maxiter=self.maxiter, M=self.M)
-
-        if info != 0:
-            raise Exception("Solver error: " + str(info))
-
-        del self.Amat, self.bvec
-        self.T = x.reshape([self.len_x, self.len_y, self.len_z], order='F')
-
-        # Mirroring boundaries for flux computation
-        self.T[0] = self.T[1]
-        self.T[-1] = self.T[-2]
-        if self.side_bc == "d":
-            self.T[:, 0] = self.T[:, 1]
-            self.T[:, -1] = self.T[:, -2]
-            self.T[:, :, 0] = self.T[:, :, 1]
-            self.T[:, :, -1] = self.T[:, :, -2]
-        return True, print(" ... Done")
-
-    def __compute_effective_coefficient(self):
-        self.__compute_fluxes()
-
-        # Accumulating and volume averaging stresses
-        fluxes = [np.sum(self.q[:, :, :, i]) / ((self.len_x - 2) * (self.len_y - 2) * (self.len_z - 2))
-                  for i in range(3)]
-        self.keff = [-fluxes[i] * (self.len_x - 2) * self.ws.voxel_length for i in range(3)]
-
-        # Rotating output back
-        if self.direction == 'y':
-            self.T = self.T.transpose(1, 0, 2)
-            self.q = self.q.transpose(1, 0, 2, 3)[:, :, :, [1, 0, 2]]
-            self.keff = [self.keff[1], self.keff[0], self.keff[2]]
-        elif self.direction == 'z':
-            self.T = self.T.transpose(2, 1, 0)
-            self.q = self.q.transpose(2, 1, 0, 3)[:, :, :, [2, 1, 0]]
-            self.keff = [self.keff[2], self.keff[1], self.keff[0]]
-
     def __compute_fluxes(self):
         # Initialize required data structures
         self.q = np.zeros((self.len_x - 2, self.len_y - 2, self.len_z - 2, 3), dtype=float)
@@ -480,13 +448,12 @@ class AnisotropicConductivity(Conductivity):
         print(self.Amat.toarray())
 
     def _print_b(self, dec=1):
-        vector = self.bvec.toarray()
         print()
         print("b vector:")
         for k in range(self.len_z):
             for i in range(self.len_x):
                 for j in range(self.len_y):
-                    print('{:.{}f}'.format(vector[self.len_x * (self.len_y * k + j) + i, 0], dec), end=' ')
+                    print('{:.{}f}'.format(self.bvec[self.len_x * (self.len_y * k + j) + i, 0], dec), end=' ')
                 print()
             print()
 

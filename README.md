@@ -4,10 +4,7 @@
 
 [![Documentation Status](https://readthedocs.org/projects/puma-nasa/badge/?version=latest)](https://puma-nasa.readthedocs.io/en/latest/?badge=latest)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/version.svg)](https://anaconda.org/conda-forge/puma)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/latest_release_date.svg)](https://anaconda.org/conda-forge/puma)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/platforms.svg)](https://anaconda.org/conda-forge/puma)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/license.svg)](https://anaconda.org/conda-forge/puma)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/downloads.svg)](https://anaconda.org/conda-forge/puma)
+[![PyPI version](https://badge.fury.io/py/pumapy.svg)](https://badge.fury.io/py/pumapy)
 
 -----
 
@@ -25,9 +22,9 @@ images obtained from X-ray microtomography or to generate artificial microstruct
 that mimic real materials. PuMA also provides a module for interactive 3D visualizations.
 Version 3 includes modules to compute simple morphological properties such as porosity,
 volume fractions, pore diameter, and specific surface area. Additional capabilities include
-the determination of effective thermal and electrical conductivity (including the ability
-to simulate local anisotropy), effective diffusivity and tortuosity from the continuum to
-the rarefied regime, and techniques to determine local material orientation.
+the determination of effective thermal and electrical conductivity (both radiative and solid conduction - 
+including the ability to simulate local anisotropy for the latter); effective diffusivity and 
+tortuosity from the continuum to the rarefied regime; techniques to determine the local material orientation, as well as the mechanical properties (elasticity coefficient), and the permeability of a material.
 
 Some examples of microstructures that have been run in the past are shown in the pictures below,
 together with PuMA's software architecture schematic.
@@ -37,91 +34,79 @@ together with PuMA's software architecture schematic.
 </p>
 
 ## System requirements
-UNIX (Tested on MacOS 10.14.1+, Ubuntu 12.04+, RHEL, and CentOS)
+UNIX (tested on MacOS 10.14.1+, Ubuntu 12.04+, RHEL, and CentOS). 
+On Windows, only the python distribution (pumapy) is available.
 
-Recommended specs:
+Indicative recommended specs (varies depending on the material property):
 - 8 GB of ram for small simulations (500<sup>3</sup> or smaller)
 - 16-32 GB of ram for medium simulations (800<sup>3</sup> range)
 - 32+ GB of ram for large simulations (above 1000<sup>3</sup>)
 
 ## Installation
 
-### Installation from source
+To install PuMA, a conda distribution must be installed on your machine. 
+To test whether conda is installed, run "conda" from a terminal to see if the command is recognized. 
+If not, conda can be installed by following the instructions 
+[here](https://docs.anaconda.com/anaconda/install/index.html).
 
-Installing PuMA from source is currently the most stable installation method. It has been tested successfully on MacOS systems, and a variety of Linux distributions. In the future, this installation method will be replaced by the conda-forge installation, detailed in the next section.
+### Binaries (UNIX and Windows)
 
-The installation is roughly equivalent for MacOS and Linux systems and is broken into three sections:
+Once the conda command is working, all the PuMA components can be installed by executing 
+the following command in a terminal:
+
+    conda create -y --name puma conda-forge::puma
+
+If only the pumapy python package is needed, it can be installed directly using:
+
+    pip install pumapy
+
+On UNIX (i.e. Mac or Linux), the conda command installs the PuMA C++ library, pumapy python package and GUI.
+
+On Windows, only the pumapy python package is available, so both commands are equivalent.
+
+### Build from source (UNIX-only)
+
+This is the recommended installation for developers that need to make modifications to PuMA.
+The installation is broken into two sections:
+
 1. Installation of basic dependencies that may be missing from your system
-1. Downloading the repository from Github
-1. Installing the software via. Conda
+2. Download the repository, build the source code and install the binaries
 
-Step 1 of the installation varies slightly based on the system, so we have split the installation into three separate sections based on the system on which you are installing PuMA.
+Step 1 of the installation varies slightly based on the system. 
+Open a terminal, navigate to the directory you would like PuMA installed, and execute one of the following lines:
 
-#### MacOS Installation
+    xcode-select --install                                                             # run this on MacOS
+    sudo apt-get install git build-essential mesa-common-dev                           # Debian (Ubuntu)
+    sudo yum group install "Development Tools"; sudo yum install git mesa-libGL-devel  # Fedora (CentOS, RHEL)
 
-Open a terminal, navigate the the directory you would like PuMA installed, and execute the following:
+Note: If XCode command line tools are already installed, the command will result in an error, which is not a problem. 
 
-    xcode-select --install
+Now that the necessary dependencies have been installed, you can go ahead with Step 2 of the installation:
+
     git clone https://github.com/nasa/puma.git
     cd puma; chmod +x installer.sh; ./installer.sh
 
-Note: If XCode command line tools are already installed, the first line will result in an error. This error is not a problem, so simply move on to the second line. 
-
-#### Debian (Ubuntu) Installation
-
-Open a terminal, navigate the the directory you would like PuMA installed, and execute the following:
-
-    sudo apt-get install git build-essential mesa-common-dev
-    git clone https://github.com/nasa/puma.git
-    cd puma; chmod +x installer.sh; ./installer.sh
-
-#### Fedora (CentOS, RHEL) Installation
-
-Open a terminal, navigate the the directory you would like PuMA installed, and execute the following:
-
-    sudo yum group install "Development Tools" 
-    sudo yum install git mesa-libGL-devel
-    git clone https://github.com/nasa/puma.git
-    cd puma; chmod +x installer.sh; ./installer.sh
-
-
-#### Running PuMA
-
-After installation, close the terminal and open a new terminal. The PuMA GUI can then be launched by running:
-
-    conda activate puma; pumaGUI
-
-The [jupyter notebook](https://github.com/nasa/puma/tree/main/tutorial) shows the typical function usage for both PuMA C++ and pumapy.
-This can be run directly in Google Colaboratory by following [this link](https://colab.research.google.com/github/nasa/puma/blob/main/tutorial/puma_tutorial.ipynb).
-
-
-### Installation from conda-forge
-
-PuMA can also be directly installed from conda-forge, without the need to clone the repository from gitlab or github. The conda-forge installation currently works on MacOS systems and some linux distributions, but is less tested than the source installation.
-
-In order to install PuMA from conda-forge, a conda distribution must be installed on your machine. To test whether conda is installed, run "conda" from a terminal to see if the command is recognized. Conda can be installed by following the instructions here: https://docs.anaconda.com/anaconda/install/index.html.
-
-Once conda is installed, PuMA can be installed by executing the following command in a terminal:
-
-    conda create -yn puma conda-forge::puma
-
-This installs the PuMA C++ library, pumapy python package and GUI in a conda environment called "puma".
-PuMA relies on a conda environment in order to manage its software dependencies and environment variables.
-It is therefore important to always activate the environment before using any of PuMA's functionalities.
-
-After installation, the PuMA GUI can be launched by running:
-
-    conda activate puma; pumaGUI
-
-If the conda-forge installation does not work, try again with the source installation. If issues persist, reference the "common errors" section, then reach out to the authors listed at the bottom of the README.
+After installation, close the terminal and open a new one.
 
 ### Uninstalling PuMA
 
-To uninstall PuMA and all the installed dependencies, execute the following
+To uninstall PuMA and all the installed dependencies, execute the following:
 
-    conda remove --name puma --all
+    conda remove -y --name puma --all
 
+## Running PuMA
 
+PuMA relies on a conda environment in order to manage its software dependencies and environment variables.
+It is therefore important to always activate the environment before using any of PuMA's functionalities. 
+Once the installation is complete, the PuMA GUI can be launched by running:
+
+    conda activate puma
+    pumaGUI
+
+You can follow the [jupyter notebook tutorial](https://github.com/nasa/puma/tree/main/tutorial), 
+which shows the typical function usage for both PuMA C++ and pumapy. 
+This can also be run directly in Google Colaboratory by following 
+[this link](https://colab.research.google.com/github/nasa/puma/blob/main/tutorial/puma_tutorial.ipynb).
 
 ### How to setup PuMA on the NAS cluster:
 In order to install PuMA on the NASA supercomputing cluster, some modules need to be loaded and environment
@@ -159,16 +144,14 @@ If you use PuMA in your research, please use the following BibTeX entries to cit
 }
 ```
 
-See the [publications](https://github.com/nasa/puma/blob/main/publications.md) file for a full list of papers on PuMA and its numerical methods.  
+See the [publications](https://github.com/nasa/puma/blob/main/publications.md) file for a full list of papers on PuMA 
+and its numerical methods.  
 
 ## Common errors and bug reporting
 This is a list of the common errors encountered during the setup and how to solve them:
 
 - If PuMA was partially installed but was interrupted, this can cause errors when trying to install the software. To fix this, first follow the instructions to uninstall puma, and then repeat the installation procedure
-- When importing pumapy, if an "MPI_Init_thread" error is displayed, add "export MPICH_INTERFACE_HOSTNAME=localhost"
-  to ~/.bashrc (Linux) or ~/.bash_profile (Mac)
 - If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install ntp" (or equivalent for your distribution)
-
 
 If any bugs are found, or if the software crashes for any reason, please open an issue at [this link](https://github.com/nasa/puma/issues)
 and/or contact either of the authors mentioned below.

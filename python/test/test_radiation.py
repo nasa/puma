@@ -27,7 +27,7 @@ class TestRadiation(unittest.TestCase):
         np.random.seed(0)
         beta, beta_std, _ = puma.compute_radiation(ws, (1, 1), 100, 15, boundary_behavior=0)
         print(beta)
-        np.testing.assert_almost_equal(beta, [0.18048920415267472, 0.17922697533941973, 0.1241739185326434])
+        np.testing.assert_almost_equal(beta, [0.18048920415267472, 0.17922697533941973, 0.1241739185326434], decimal=4)
 
 
 if __name__ == '__main__':
