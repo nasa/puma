@@ -1,3 +1,14 @@
+"""
+The following FE numerical method and implementation are based on the following research paper:
+
+Vianna, R.S., Cunha, A.M., Azeredo, R.B., Leiderman, R. and Pereira, A., 2020.
+Computing Effective Permeability of Porous Media with FEM and Micro-CT: An Educational Approach.
+Fluids, 5(1), p.16.
+
+See https://www.mdpi.com/2311-5521/5/1/16 for the publication.
+See https://zenodo.org/record/3612168#.YUYlSWZKhTZ for 2D MATLAB implementation.
+"""
+
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.linear_solvers import PropertySolver

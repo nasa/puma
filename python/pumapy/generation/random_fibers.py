@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
-# Distributed under the MIT License.
-# Copied and modified from the porespy project.
-# See https://github.com/PMEAL/porespy/blob/dev/porespy/generators/_imgen.py for more information.
-# See https://github.com/PMEAL/porespy/blob/dev/LICENSE for the license.
+"""
+The following function was copied and modified from the porespy project (distributed under the MIT License).
+See https://github.com/PMEAL/porespy/blob/dev/porespy/generators/_imgen.py for more information.
+See https://github.com/PMEAL/porespy/blob/dev/LICENSE for the license.
+"""
 
 from scipy.ndimage import distance_transform_edt as edt
 import numpy as np
