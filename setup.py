@@ -51,14 +51,7 @@ setup(
     package_dir={"": "python"},
     packages=find_packages(where="python"),
     ext_modules=extensions,
-    cmdclass={
-        'clean': CleanCommand,
-    },
-    setup_requires=[
-                    "setuptools",
-                    "wheel",
-                    "numpy",
-    ],
+    cmdclass={'clean': CleanCommand},
     install_requires=[  # TexGen also required, but it can be installed as add-on
         "numpy",
         "scikit-image",
@@ -66,6 +59,7 @@ setup(
         "matplotlib",
         "pyevtk",
         "pyvista",
+        "vtk",  # already in pyvista, but required in input.py
     ],
     package_data={'': [os.path.join('data', '*')]},  # copy over all the example data
     classifiers=[

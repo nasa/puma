@@ -64,6 +64,9 @@ On UNIX (i.e. Mac or Linux), the conda command installs the PuMA C++ library, pu
 
 On Windows, only the pumapy python package is available, so both commands are equivalent.
 
+Note: TexGen (C++ library to create artificial weaves) is only installed when using conda on UNIX, because it needs more 
+advanced compilation. A friendly warning will appear when TexGen is not installed and pumapy is imported. 
+
 ### Build from source (UNIX-only)
 
 This is the recommended installation for developers that need to make modifications to PuMA.
