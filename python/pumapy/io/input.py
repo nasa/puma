@@ -209,12 +209,12 @@ def import_weave_vtu(filename):
 
     # ORIGINAL TEXGEN
     # Number Of Arrays: 6
-    # Array 0 name = YarnIndex  <-- transfering to ws
+    # Array 0 name = YarnIndex  <-- transferring to ws
     # Array 1 name = YarnTangent
     # Array 2 name = Location
     # Array 3 name = VolumeFraction
     # Array 4 name = SurfaceDistance
-    # Array 5 name = Orientation  <-- transfering to ws
+    # Array 5 name = Orientation  <-- transferring to ws
     # yarn_index = vtk_to_numpy(vtkobject.GetCellData().GetArray(0)) + 1
     # orientation = vtk_to_numpy(vtkobject.GetCellData().GetArray(5))
     # yarn_index = yarn_index.reshape(int(dims[0]), int(dims[1]), int(dims[2]), order="F")
@@ -222,7 +222,7 @@ def import_weave_vtu(filename):
 
     # MODIFIED TEXGEN
     # Number Of Arrays: 6
-    # Array 0 name = YarnIndex  <-- transfering to ws
+    # Array 0 name = YarnIndex  <-- transferring to ws
     # Array 1 name = Orientation  <-- depends on has_orientation
     yarn_index = vtk_to_numpy(vtkobject.GetCellData().GetArray(0)) + 1
     yarn_index = yarn_index.reshape(int(dims[0]), int(dims[1]), int(dims[2]), order="F")

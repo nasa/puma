@@ -1,4 +1,6 @@
 from TexGen.Core import *
+import numpy as np
+from os import path
 
 
 def export_weave_vtu(filename, weave, domain, max_dim_nvox, round_vox_up=True, export_orientation=True):
