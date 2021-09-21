@@ -78,9 +78,9 @@ The installation is broken into two sections:
 Step 1 of the installation varies slightly based on the system. 
 Open a terminal, navigate to the directory you would like PuMA installed, and execute one of the following lines:
 
-    xcode-select --install                                                             # run this on MacOS
-    sudo apt-get install git build-essential mesa-common-dev                           # Debian (Ubuntu)
-    sudo yum group install "Development Tools"; sudo yum install git mesa-libGL-devel  # Fedora (CentOS, RHEL)
+    xcode-select --install                                                                 # run this on MacOS
+    sudo apt-get install git build-essential mesa-common-dev                               # Debian (Ubuntu)
+    sudo yum group install "Development Tools"; sudo yum install git g++ mesa-libGL-devel  # Fedora (CentOS, RHEL)
 
 Note: If XCode command line tools are already installed, the command will result in an error, which is not a problem. 
 
