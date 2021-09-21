@@ -187,7 +187,7 @@ class AnisotropicConductivity(Conductivity):
         counter += diag_1s.size
 
         # Add non-diagonal 1s for exterior voxels
-        if self.side_bc is not "d":
+        if self.side_bc != "d":
             I[counter:counter + diag_1s.size] = diag_1s
             add_nondiag(diag_1s, self.len_x, self.len_y, self.len_z, self.side_bc)
             J[counter:counter + diag_1s.size] = diag_1s

@@ -86,7 +86,7 @@ class Elasticity(PropertySolver):
         self.len_xy = self.len_x * self.len_y
         self.len_xyz = self.len_x * self.len_y * self.len_z
 
-        if self.side_bc is not "f":
+        if self.side_bc != "f":
             # Padding domain, imposing symmetric or periodic BC on faces
             pad_domain(self.ws_pad, self.orient_pad, self.need_to_orient, self.len_x, self.len_y, self.len_z,
                        self.side_bc)
@@ -224,7 +224,7 @@ class Elasticity(PropertySolver):
         counter += diag_1s.size
 
         # Add non-diagonal 1s for exterior voxels
-        if self.side_bc is not "d" and self.side_bc is not "f":
+        if self.side_bc != "d" and self.side_bc != "f":
             I[counter:counter + diag_1s.size] = diag_1s
             nondiag1s = np.ones_like(diag_1s, dtype=np.int8)
             add_nondiag(diag_1s, nondiag1s, self.len_x, self.len_y, self.len_z, self.side_bc)

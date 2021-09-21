@@ -124,7 +124,7 @@ class RayCasting:
             # valid particles: not collided i.e. 10=0 and travelled distance (11) less than 2x diagonal
             valid_mask = (self.spherical_walkers[:, 10] == 0) & (self.spherical_walkers[:, 11] < max_distance_void)
 
-            if self.exportparticles_filepathname is not '':
+            if self.exportparticles_filepathname != '':
                 mask_wallcollisions = self.spherical_walkers[:, 10] != 2
                 if self.spherical_walkers[mask_wallcollisions].shape[0] != 0:
                     pointsToVTK(self.exportparticles_filepathname + "" + str(source_number) + "" + str(next(self.counter)),
@@ -189,7 +189,7 @@ class RayCasting:
             raise Exception("Source locations has to be a Numpy array of shape (NumberOfSource, 3).")
         self.rays_distances = np.zeros((self.source_locations.shape[0] * self.particles_number, 3))
 
-        if self.exportparticles_filepathname is not '':
+        if self.exportparticles_filepathname != '':
             if not os.path.exists(os.path.split(self.exportparticles_filepathname)[0]):
                 raise Exception("Directory " + os.path.split(self.exportparticles_filepathname)[0] + " not found.")
 
