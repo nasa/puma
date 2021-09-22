@@ -3,7 +3,7 @@ import numpy as np
 import pumapy as puma
 
 
-class TestAnisotropicTC(unittest.TestCase):
+class TestPermeability(unittest.TestCase):
 
     def test_analytical_direct(self):
         ws = puma.generate_2d_square_array(100, 1. - 2. * np.pi * (0.1 ** 2.))
