@@ -37,7 +37,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pumapy",
-    version="3.1.0",
+    version="3.1.3",
     author="PuMA team",
     maintainer_email="federico.semeraro@nasa.gov, joseph.ferguson@stanford.edu",
     description="A package to compute material properties from micro-CT data.",
