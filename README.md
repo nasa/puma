@@ -5,6 +5,7 @@
 [![Documentation Status](https://readthedocs.org/projects/puma-nasa/badge/?version=latest)](https://puma-nasa.readthedocs.io/en/latest/?badge=latest)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/version.svg)](https://anaconda.org/conda-forge/puma)
 [![PyPI version](https://badge.fury.io/py/pumapy.svg)](https://badge.fury.io/py/pumapy)
+![pumapy Tests](https://github.com/nasa/puma/actions/workflows/test-pumapy.yml/badge.svg)
 
 -----
 
@@ -54,7 +55,7 @@ If not, conda can be installed by following the instructions
 Once the conda command is working, all the PuMA components can be installed by executing 
 the following command in a terminal: (Note: The "solving environment" step can take a while on some systems so please be patient)
 
-    conda create -y --name puma conda-forge::puma==3.1.0
+    conda create -y --name puma conda-forge::puma>=3.1.0
 
 If only the pumapy python package is needed, it can be installed directly using:
 
