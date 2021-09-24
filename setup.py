@@ -37,15 +37,16 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 # automatically update version according to tag
-pumapy_version = (
-    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE)
-    .stdout.decode("utf-8")
-    .strip()
-)
+# pumapy_version = (
+#     subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE)
+#     .stdout.decode("utf-8")
+#     .strip()
+# )
 
 setup(
     name="pumapy",
-    version=pumapy_version,
+    # version=pumapy_version,
+    version=3.1.3,
     author="PuMA team",
     maintainer_email="federico.semeraro@nasa.gov, joseph.ferguson@stanford.edu",
     description="A package to compute material properties from micro-CT data.",
