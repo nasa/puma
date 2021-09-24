@@ -13,6 +13,12 @@ IF RECIPIENT FURTHER RELEASES OR DISTRIBUTES THE NASA SOFTWARE AND/OR TECHNICAL 
 Root directory for the pumapy package.
 """
 
+
+# Note: only this version has to be bumped for the whole puma project
+# create tag using: git tag -a v$(python setup.py --version) -m 'DESCRIBE VERSION'
+__version__ = "3.1.3"  
+
+
 # utilities
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import Logger, print_warning

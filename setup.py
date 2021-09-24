@@ -1,7 +1,8 @@
 from setuptools import setup, Command, find_packages
 from distutils.extension import Extension
-import subprocess
 import os
+import re
+import ast
 
 
 class CleanCommand(Command):
@@ -36,17 +37,15 @@ except ImportError:  # if cython not found, use existing C code
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-# automatically update version according to tag
-# pumapy_version = (
-#     subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE)
-#     .stdout.decode("utf-8")
-#     .strip()
-# )
+# automatically update version according to __init__.py
+_version_re = re.compile(r'__version__\s+=\s+(.*)')
+with open('python/pumapy/__init__.py', 'rb') as f:
+    version = str(ast.literal_eval(_version_re.search(
+        f.read().decode('utf-8')).group(1)))
 
 setup(
     name="pumapy",
-    # version=pumapy_version,
-    version="3.1.3",
+    version=version,
     author="PuMA team",
     maintainer_email="federico.semeraro@nasa.gov, joseph.ferguson@stanford.edu",
     description="A package to compute material properties from micro-CT data.",
