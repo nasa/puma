@@ -42,7 +42,7 @@ def render_volume(workspace, cutoff=None, solid_color=(1., 1., 1.), style='surfa
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter or None
 
-    :Example
+    :Example:
     >>> import pumapy as puma
     >>> ws_volume = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
     >>> puma.render_volume(ws_volume)
@@ -100,7 +100,7 @@ def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface',
     return r.render()
 
 
-def render_orientation(workspace, scale_factor=1., solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
+def render_orientation(workspace, scale_factor=1., solid_color=None, style='surface', origin=(0., 0., 0.),
                        window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True,
                        plot_directly=True, show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
     """ Orientation render using Pyvista Glyph filter
@@ -109,8 +109,9 @@ def render_orientation(workspace, scale_factor=1., solid_color=(1., 1., 1.), sty
     :type workspace: Workspace or np.ndarray
     :param scale_factor: scale the arrows by a factor
     :type scale_factor: float
-    :param solid_color: a solid color to color the surface (e.g. for white (1., 1., 1.))
-    :type solid_color: (float, float, float)
+    :param solid_color: a solid color for the arrows. Deafult is None, which colors the vectors by their magnitude.
+                        To color white, input set solid_color=(1., 1., 1.)
+    :type solid_color: None or (float, float, float)
     :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
     :type style: string
     :param origin: origin of the data as
@@ -183,6 +184,7 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
     :return: None is plot_directly is True, otherwise a plotter object
     :rtype: pyvista.Plotter or None
 
+    :Example:
     >>> import pumapy as puma
     >>> ws_multiphase = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
     >>> puma.render_contour_multiphase(ws_multiphase, ((100, 150), (150, 255)))
@@ -224,13 +226,16 @@ class Renderer:
         self.show_axes = show_axes
         self.show_outline = show_outline
         self.cmap = cmap
-        self.scale_factor = scale_factor
+        self.voxel_length = 1
 
         if isinstance(workspace, Workspace):
+            self.voxel_length = workspace.voxel_length
             if self.filter_type == "glyph":
                 self.array = workspace.orientation
+                self.scale_factor = scale_factor * self.voxel_length
             else:
                 self.array = workspace.matrix
+
         elif isinstance(workspace, np.ndarray):
             if self.filter_type == "glyph":
                 if not (workspace.ndim == 4 and workspace.shape[3] == 3):
@@ -269,6 +274,7 @@ class Renderer:
 
         if self.filter_type == "threshold":
             self.grid.dimensions = np.array(self.array.shape) + 1
+            self.grid.spacing = (self.voxel_length, self.voxel_length, self.voxel_length)
             self.grid.cell_data["values"] = self.array.flatten(order="F")
             self.filter = self.grid.threshold(self.cutoff)
 
@@ -280,6 +286,7 @@ class Renderer:
 
         elif self.filter_type == "glyph":
             self.grid.dimensions = np.array(self.array.shape[:3]) + 1
+            self.grid.spacing = (self.voxel_length, self.voxel_length, self.voxel_length)
             tmp = np.zeros((self.array[:, :, :, 0].size, 3), dtype=float)
             for i in range(3):
                 tmp[:, i] = self.array[:, :, :, i].ravel(order='F')

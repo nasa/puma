@@ -123,9 +123,6 @@ class TestWorkspace(unittest.TestCase):
     def test_len_y(self):
         np.testing.assert_equal(self.ws.len_y(), self.ws.matrix.shape[1])
 
-    def test_ndim(self):
-        np.testing.assert_equal(self.ws.ndim(), self.ws.matrix.ndim)
-
     def test_len_z(self):
         np.testing.assert_equal(self.ws.len_z(), self.ws.matrix.shape[2])
 

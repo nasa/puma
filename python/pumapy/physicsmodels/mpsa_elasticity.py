@@ -266,7 +266,6 @@ class Elasticity(PropertySolver):
                 self.u[:, :, -1] = self.u[:, :, -2]
         if self.print_matrices[3]:
             show_u(self.u, self.print_matrices[3])
-        print(" ... Done")
 
         self.__compute_stresses()
 

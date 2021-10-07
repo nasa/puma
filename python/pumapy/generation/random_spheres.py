@@ -6,7 +6,7 @@ import sys
 
 
 def generate_random_spheres(size, diameter, porosity, allow_intersect=True):
-    """ Generation of triply periodic minimal surface material
+    """ Generation of random spheres domains
 
     :param size: size of 3D domain (x,y,z)
     :type size: (int, int, int)

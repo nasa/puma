@@ -31,6 +31,11 @@ def compute_radiation(workspace, solid_cutoff, sources_number, degree_accuracy, 
     :type export_pathname: str
     :return: extinction coefficient (beta), its standard deviation and of ray distances
     :rtype: (float, float, np.ndarray)
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+    >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (104, 255), 100, 15)
     """
     solver = Radiation(workspace, solid_cutoff, sources_number, degree_accuracy, void_phase, boundary_behavior, bin_density,
                        exportparticles_filepathname, export_pathname)
@@ -187,4 +192,9 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, degree_a
                      .format(sources_number, degree_accuracy))
         fig.savefig(export_pathname)
     print("Done")
+
+    print("Extinction coefficient beta:")
+    print("x: " + str(round(beta_out[0], 1)) + ' +/- ' + str(round(beta_std_out[0], 1)))
+    print("y: " + str(round(beta_out[1], 1)) + ' +/- ' + str(round(beta_std_out[1], 1)))
+    print("z: " + str(round(beta_out[2], 1)) + ' +/- ' + str(round(beta_std_out[2], 1)))
     return beta_out, beta_std_out
