@@ -33,23 +33,21 @@ class Permeability(PropertySolver):
         self.nel = self.len_x * self.len_y
         self.nels = self.len_x * self.len_y * self.len_z
         self.nnP2 = (self.len_x + 1) * (self.len_y + 1)
-        self.velF = np.where(self.ws.matrix.ravel(order='F') == 0)[0]  # only fluid elements
+        self.velF = np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32)  # only fluid elements
         self.nelF = self.velF.shape[0]
 
         self.ke = np.zeros((24, 24), dtype=float)
         self.ge = np.zeros((24, 8), dtype=float)
         self.pe = np.zeros((8, 8), dtype=float)
         self.fe = np.zeros((8, 1), dtype=float)
-        self.x_full = np.zeros((4 * self.nels, 3), dtype=float)
-        self.mConectP = np.zeros((self.nels, 8), dtype=np.uint64)
-        self.mgdlF = np.zeros((32, self.nelF), dtype=np.uint64)
+        self.mgdlF = np.zeros((32, self.nelF), dtype=np.uint32)
         self.resolveF = None
+        self.x_full = None
+        self.bvec_full = None
 
         self.keff = np.zeros((3, 3))
         self.solve_time = -1
-        self.u_x = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        self.u_y = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        self.u_z = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+        self.u_x, self.u_y, self.u_z = None, None, None
 
     def compute(self):
         t = Timer()
@@ -66,10 +64,10 @@ class Permeability(PropertySolver):
         print("Initializing indexing matrices ... ", flush=True, end='')
 
         # Matrix with element connectivity with Periodic boundary conditions (PBC)
-        mConectP1 = np.zeros((self.nel, 4, self.len_z + 1), dtype=np.uint64)
+        mConectP1 = np.zeros((self.nel, 4, self.len_z + 1), dtype=np.uint32)
         aux = 1
         for slice in range(self.len_z):
-            mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint64), (self.len_x, self.len_y), order='F')
+            mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_x, self.len_y), order='F')
             mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
             mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
             mConectP1[:, 0, slice] = np.ravel(mIdNosP[1:, :-1], order='F')
@@ -79,45 +77,55 @@ class Permeability(PropertySolver):
             aux += self.nel
         mConectP1[:, :, -1] = mConectP1[:, :, 0]
 
+        mConectP = np.zeros((self.nels, 8), dtype=np.uint32)
         for slice in range(self.len_z):
-            self.mConectP[self.nel * slice:self.nel * (slice + 1), :4] = mConectP1[:, :, slice]
-            self.mConectP[self.nel * slice:self.nel * (slice + 1), 4:] = mConectP1[:, :, slice + 1]
+            mConectP[self.nel * slice:self.nel * (slice + 1), :4] = mConectP1[:, :, slice]
+            mConectP[self.nel * slice:self.nel * (slice + 1), 4:] = mConectP1[:, :, slice + 1]
+        del mConectP1
 
-        self.calculate_element_matrices()
+        # matrix to reduce the system
+        resolveF_u = np.arange(1, self.nels * 3 + 1, dtype=np.uint32)
+        nosnulos = np.unique(mConectP[np.where(self.ws.matrix.ravel(order='F') > 0)[0], :8])
+        gdlnulos = np.hstack((nosnulos * 3 - 2, nosnulos * 3 - 1, nosnulos * 3))
+        resolveF_u = np.delete(resolveF_u, gdlnulos - 1)
+        resolveF_p = self.nels * 3 + np.unique(mConectP[np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32), :8])
+        del nosnulos, gdlnulos
+        self.resolveF = np.hstack((resolveF_u, resolveF_p)) - 1
+        del resolveF_u, resolveF_p
 
         # degrees of freedom matrix
-        self.mgdlF[0] =  self.mConectP[self.velF, 0] * 3 - 2
-        self.mgdlF[1] =  self.mConectP[self.velF, 0] * 3 - 1
-        self.mgdlF[2] =  self.mConectP[self.velF, 0] * 3
-        self.mgdlF[3] =  self.mConectP[self.velF, 1] * 3 - 2
-        self.mgdlF[4] =  self.mConectP[self.velF, 1] * 3 - 1
-        self.mgdlF[5] =  self.mConectP[self.velF, 1] * 3
-        self.mgdlF[6] =  self.mConectP[self.velF, 2] * 3 - 2
-        self.mgdlF[7] =  self.mConectP[self.velF, 2] * 3 - 1
-        self.mgdlF[8] =  self.mConectP[self.velF, 2] * 3
-        self.mgdlF[9] =  self.mConectP[self.velF, 3] * 3 - 2
-        self.mgdlF[10] = self.mConectP[self.velF, 3] * 3 - 1
-        self.mgdlF[11] = self.mConectP[self.velF, 3] * 3
-        self.mgdlF[12] = self.mConectP[self.velF, 4] * 3 - 2
-        self.mgdlF[13] = self.mConectP[self.velF, 4] * 3 - 1
-        self.mgdlF[14] = self.mConectP[self.velF, 4] * 3
-        self.mgdlF[15] = self.mConectP[self.velF, 5] * 3 - 2
-        self.mgdlF[16] = self.mConectP[self.velF, 5] * 3 - 1
-        self.mgdlF[17] = self.mConectP[self.velF, 5] * 3
-        self.mgdlF[18] = self.mConectP[self.velF, 6] * 3 - 2
-        self.mgdlF[19] = self.mConectP[self.velF, 6] * 3 - 1
-        self.mgdlF[20] = self.mConectP[self.velF, 6] * 3
-        self.mgdlF[21] = self.mConectP[self.velF, 7] * 3 - 2
-        self.mgdlF[22] = self.mConectP[self.velF, 7] * 3 - 1
-        self.mgdlF[23] = self.mConectP[self.velF, 7] * 3
-        self.mgdlF[24] = 3 * self.nels + self.mConectP[self.velF, 0]
-        self.mgdlF[25] = 3 * self.nels + self.mConectP[self.velF, 1]
-        self.mgdlF[26] = 3 * self.nels + self.mConectP[self.velF, 2]
-        self.mgdlF[27] = 3 * self.nels + self.mConectP[self.velF, 3]
-        self.mgdlF[28] = 3 * self.nels + self.mConectP[self.velF, 4]
-        self.mgdlF[29] = 3 * self.nels + self.mConectP[self.velF, 5]
-        self.mgdlF[30] = 3 * self.nels + self.mConectP[self.velF, 6]
-        self.mgdlF[31] = 3 * self.nels + self.mConectP[self.velF, 7]
+        self.mgdlF[0] =  mConectP[self.velF, 0] * 3 - 2
+        self.mgdlF[1] =  mConectP[self.velF, 0] * 3 - 1
+        self.mgdlF[2] =  mConectP[self.velF, 0] * 3
+        self.mgdlF[3] =  mConectP[self.velF, 1] * 3 - 2
+        self.mgdlF[4] =  mConectP[self.velF, 1] * 3 - 1
+        self.mgdlF[5] =  mConectP[self.velF, 1] * 3
+        self.mgdlF[6] =  mConectP[self.velF, 2] * 3 - 2
+        self.mgdlF[7] =  mConectP[self.velF, 2] * 3 - 1
+        self.mgdlF[8] =  mConectP[self.velF, 2] * 3
+        self.mgdlF[9] =  mConectP[self.velF, 3] * 3 - 2
+        self.mgdlF[10] = mConectP[self.velF, 3] * 3 - 1
+        self.mgdlF[11] = mConectP[self.velF, 3] * 3
+        self.mgdlF[12] = mConectP[self.velF, 4] * 3 - 2
+        self.mgdlF[13] = mConectP[self.velF, 4] * 3 - 1
+        self.mgdlF[14] = mConectP[self.velF, 4] * 3
+        self.mgdlF[15] = mConectP[self.velF, 5] * 3 - 2
+        self.mgdlF[16] = mConectP[self.velF, 5] * 3 - 1
+        self.mgdlF[17] = mConectP[self.velF, 5] * 3
+        self.mgdlF[18] = mConectP[self.velF, 6] * 3 - 2
+        self.mgdlF[19] = mConectP[self.velF, 6] * 3 - 1
+        self.mgdlF[20] = mConectP[self.velF, 6] * 3
+        self.mgdlF[21] = mConectP[self.velF, 7] * 3 - 2
+        self.mgdlF[22] = mConectP[self.velF, 7] * 3 - 1
+        self.mgdlF[23] = mConectP[self.velF, 7] * 3
+        self.mgdlF[24] = 3 * self.nels + mConectP[self.velF, 0]
+        self.mgdlF[25] = 3 * self.nels + mConectP[self.velF, 1]
+        self.mgdlF[26] = 3 * self.nels + mConectP[self.velF, 2]
+        self.mgdlF[27] = 3 * self.nels + mConectP[self.velF, 3]
+        self.mgdlF[28] = 3 * self.nels + mConectP[self.velF, 4]
+        self.mgdlF[29] = 3 * self.nels + mConectP[self.velF, 5]
+        self.mgdlF[30] = 3 * self.nels + mConectP[self.velF, 6]
+        self.mgdlF[31] = 3 * self.nels + mConectP[self.velF, 7]
         print("Done")
 
     def assemble_bvector(self):
@@ -128,6 +136,8 @@ class Permeability(PropertySolver):
         jF = np.hstack((np.zeros(self.nelF * 8, dtype=np.uint8),
                         np.ones(self.nelF * 8, dtype=np.uint8),
                         np.full(self.nelF * 8, 2, dtype=np.uint8)))
+
+        self.calculate_element_matrices()
         sF = np.squeeze(np.tile(self.fe, (self.nelF * 3, 1)))
         self.bvec_full = csc_matrix((sF, (iF, jF)), shape=(4 * self.nels, 3))
         print("Done")
@@ -143,27 +153,23 @@ class Permeability(PropertySolver):
         del self.mgdlF
         iA = np.hstack((iK, iG, jG, iP)) - 1
         jA = np.hstack((jK, jG, iG, jP)) - 1
+        del iK, jK, iG, jG, iP, jP
         coeff = np.hstack((np.tile(self.ke, self.nelF), np.tile(self.ge, self.nelF),
                            np.tile(self.ge, self.nelF), -np.tile(self.pe, self.nelF)))
+        del self.fe, self.ke, self.ge, self.pe
 
         print("Done\nAssembling A matrix ... ", flush=True, end='')
         self.Amat = csc_matrix((coeff, (iA, jA)))
+        del coeff, iA, jA
         print("Done")
 
         print("Reducing system of equations ... ", flush=True, end='')
-        resolveF_u = np.arange(1, self.nels * 3 + 1, dtype=np.uint64)
-        nosnulos = np.unique(self.mConectP[np.where(self.ws.matrix.ravel(order='F') > 0)[0], :8])
-        gdlnulos = np.hstack((nosnulos * 3 - 2, nosnulos * 3 - 1, nosnulos * 3))
-        resolveF_u = np.delete(resolveF_u, gdlnulos - 1)
-        resolveF_p = self.nels * 3 + np.unique(self.mConectP[np.where(self.ws.matrix.ravel(order='F') == 0)[0], :8])
-        self.resolveF = np.hstack((resolveF_u, resolveF_p)) - 1
-        del self.mConectP
-
         self.Amat = self.Amat[self.resolveF][:, self.resolveF]
         self.bvec_full = self.bvec_full[self.resolveF]
         print("Done")
 
     def solve(self):
+        self.x_full = np.zeros((4 * self.nels, 3), dtype=float)
         # solves the system in the 3 directions directly
         if self.solver_type == 'direct':
             self.bvec = self.bvec_full
@@ -176,12 +182,13 @@ class Permeability(PropertySolver):
                 super().solve()
                 self.x_full[self.resolveF, i] = self.x
             del self.Amat, self.bvec, self.initial_guess
+        del self.bvec_full
 
     def compute_effective_coefficient(self):
         aux = 1
-        vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint64)
+        vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint32)
         for slice in range(self.len_z):
-            mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint64), (self.len_x, self.len_y), order='F')
+            mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_x, self.len_y), order='F')
             mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
             mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
 
@@ -205,6 +212,9 @@ class Permeability(PropertySolver):
         print(f'\nEffective permeability tensor: \n{self.keff}')
 
         # Extracting velocity fields
+        self.u_x = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+        self.u_y = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+        self.u_z = np.zeros((self.len_x, self.len_y, self.len_z, 3))
         self.u_x[:, :, :, 0] =   np.reshape(self.x_full[vIdNosP * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
         self.u_x[:, :, :, 1] = - np.reshape(self.x_full[vIdNosP * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
         self.u_x[:, :, :, 2] = - np.reshape(self.x_full[vIdNosP * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
@@ -214,6 +224,11 @@ class Permeability(PropertySolver):
         self.u_z[:, :, :, 0] = - np.reshape(self.x_full[vIdNosP * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
         self.u_z[:, :, :, 1] =   np.reshape(self.x_full[vIdNosP * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
         self.u_z[:, :, :, 2] =   np.reshape(self.x_full[vIdNosP * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
+
+        # Extracting pressure fields
+        self.p_x = np.reshape(self.x_full[vIdNosP + self.nels * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
+        self.p_y = np.reshape(self.x_full[vIdNosP + self.nels * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
+        self.p_z = np.reshape(self.x_full[vIdNosP + self.nels * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
 
     def calculate_element_matrices(self):
         coordsElem = np.array([[0, 0, 0], [self.voxlength, 0, 0], [self.voxlength, self.voxlength, 0],
