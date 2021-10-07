@@ -6,11 +6,17 @@ def compute_volume_fraction(workspace, cutoff):
     """ Compute the volume fraction
 
     :param workspace: domain
-    :type workspace: Workspace
+    :type workspace: pumapy.Workspace
     :param cutoff: to binarize domain
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :return: volume fraction
     :rtype: float
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)) # import example file
+    >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255)) # compute volume fraction
+    >>> print ("Volume Fraction of workspace:", vf)
     """
     volume_fraction = VolumeFraction(workspace, cutoff)
 

@@ -8,15 +8,15 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
     """ Compute the tortuosity modelling the local conductivity as isotropic
 
     :param workspace: domain
-    :type workspace: Workspace
+    :type workspace: pumapy.Workspace
     :param cutoff: to binarize domain
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :param direction: direction for solve ('x','y', or 'z')
     :type direction: string
     :param side_bc: side boundary conditions (string) can be symmetric ('s'), periodic ('p') or dirichlet ('d')
     :type side_bc: string
     :param prescribed_bc: 3D array holding dirichlet BC
-    :type prescribed_bc: ConductivityBC
+    :type prescribed_bc: pumapy.ConductivityBC
     :param tolerance: tolerance for iterative solver
     :type tolerance: float
     :param maxiter: maximum Iterations for solver
@@ -26,7 +26,13 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
     :param display_iter: display iterations and residual
     :type display_iter: bool
     :return: tortuosity, diffusivity, porosity, concentration field
-    :rtype: tuple(tuple(float, float, float), float, float, ndarrya)
+    :rtype: ((float, float, float), float, float, numpy.ndarray)
+    :Example:
+    >>> import pumapy as puma
+    >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6) # import image
+    >>> n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0,89), 'x', side_bc='s', tolerance=1e-2, solver_type='cg')
+    >>> print('Effective tortuosity factors:', n_eff_x)
+    >>> print("Porosity of the material:", poro)
     """
 
     cond_map = IsotropicConductivityMap()

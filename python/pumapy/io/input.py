@@ -15,11 +15,11 @@ def import_3Dtiff(filename, voxel_length=1e-6, import_ws=True):
     :param filename: filepath and name
     :type filename: string
     :param voxel_length: size of a voxel side
-    :type voxel_length: float, optional
+    :type voxel_length: float
     :param import_ws: if True returns a puma.Workspace, otherwise a ndarray
-    :type import_ws: bool, optional
+    :type import_ws: bool
     :return: domain
-    :rtype: Workspace or ndarray
+    :rtype: pumapy.Workspace or np.ndarray
 
     :Example:
     >>> import pumapy as puma
@@ -47,7 +47,7 @@ def import_3Dtiff(filename, voxel_length=1e-6, import_ws=True):
 
 
 def import_bin(filename):
-    """ Import a puma.Workspace to binary (.pumapy extension)
+    """ Import a pumapy.Workspace to binary (.pumapy extension)
 
     :param filename: filepath and name
     :type filename: string
@@ -76,12 +76,12 @@ def import_vti(filename, voxel_length=None, import_ws=True):
     :param filename: filepath and name
     :type filename: string
     :param voxel_length: voxel_length. If None, voxel_length from the vtk file is used
-    :type voxel_length: float, optional
+    :type voxel_length: float
     :param import_ws: True returns a puma.Workspace, otherwise a list of ndarrays
-    :type import_ws: bool, optional
+    :type import_ws: bool
     :return: if import_ws is True, then it returns a Workspace.
         if import_ws is False, it returns a dictionary of ndarrays as {"name1": data1, "name2": data2 ...}
-    :rtype: Workspace or dict(string: ndarray)
+    :rtype: pumapy.Workspace or {str: np.ndarray}
 
     :Example:
     >>> import pumapy as puma
@@ -189,7 +189,7 @@ def import_weave_vtu(filename):
     :param filename: file path and name
     :type filename: string
     :return: voxelized weave from TexGen
-    :rtype: Workspace
+    :rtype: pumapy.Workspace
     """
 
     if not path.exists(filename):

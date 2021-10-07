@@ -10,13 +10,13 @@ def generate_isosurface(workspace, cutoff, flag_closed_edges=True, flag_gaussian
     """ Generation of isosurface based on cutoff provided
 
     :param workspace: domain
-    :type workspace: Workspace or numpy.ndarray
+    :type workspace: pumapy.Workspace or numpy.ndarray
     :param cutoff: specify cutoff to binarize material
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :param flag_closed_edges: close edges of surfaces on the boundaries
-    :type flag_closed_edges: bool, optional
+    :type flag_closed_edges: bool
     :param flag_gaussian: apply Gaussian filter before generating surface
-    :type flag_gaussian: bool, optional
+    :type flag_gaussian: bool
     :return: triangulated surface
     :rtype: TriMesh
 

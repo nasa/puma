@@ -45,7 +45,7 @@ def filter_gaussian(ws, sigma=1, apply_on_orientation=False):
         :param sigma: size of kernel
         :type sigma: int
         :param apply_on_orientation: specify whether to apply filter on orientation field
-        :type apply_on_orientation: bool, optional
+        :type apply_on_orientation: bool
         :return: True if successful, False otherwise.
         :rtype: bool
 
@@ -86,7 +86,7 @@ def filter_edt(ws, cutoff):
     :param ws: input workspace
     :type ws: Workspace
     :param cutoff: cutoff to binarize image
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :return: True if successful, False otherwise.
     :rtype: bool
 
@@ -114,7 +114,7 @@ def filter_mean(ws, size=5):
     :param ws: input workspace
     :type ws: Workspace
     :param size: size of window
-    :type size: int, optional
+    :type size: int
     :return: True if successful, False otherwise.
     :rtype: bool
 
@@ -144,9 +144,9 @@ def filter_erode(ws, cutoff, size=5):
     :param ws: input workspace
     :type ws: Workspace
     :param cutoff: cutoff to binarize image
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :param size: size of the spherical windows used
-    :type size: int, optional
+    :type size: int
     :return: True if successful, False otherwise.
     :rtype: bool
 
@@ -177,9 +177,9 @@ def filter_dilate(ws, cutoff, size=5):
     :param ws: input workspace
     :type ws: Workspace
     :param cutoff: cutoff to binarize image
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :param size: size of the spherical windows used
-    :type size: int, optional
+    :type size: int
     :return: True if successful, False otherwise.
     :rtype: bool
 
@@ -210,9 +210,9 @@ def filter_opening(ws, cutoff, size=5):
     :param ws: input workspace
     :type ws: Workspace
     :param cutoff: cutoff to binarize image
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :param size: size of the spherical windows used
-    :type size: int, optional
+    :type size: int
     :return: True if successful, False otherwise.
     :rtype: bool
 
@@ -244,9 +244,9 @@ def filter_closing(ws, cutoff, size=5):
     :param ws: input workspace
     :type ws: Workspace
     :param cutoff: cutoff to binarize image
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :param size: size of the spherical windows used
-    :type size: int, optional
+    :type size: int
     :return: True if successful, False otherwise.
     :rtype: bool
 

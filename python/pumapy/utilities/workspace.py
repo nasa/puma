@@ -70,11 +70,11 @@ class Workspace:
         """ Generate workspace from shape, all matrix value set to zero.
 
         :param shape: shape of workspace to be created
-        :type shape: tuple(int, int, int)
+        :type shape: (int, int, int)
         :param orientation: specify if workspace contains orientation
-        :type orientation: bool, optional
+        :type orientation: bool
         :return: new workspace
-        :rtype: Workspace
+        :rtype: pumapy.Workspace
         """
         return cls(shape=shape, vectors=orientation)
 
@@ -83,13 +83,13 @@ class Workspace:
         """ Generate workspace from shape, all matrix values set to the value passed.
 
         :param shape: shape of workspace to be created
-        :type shape: tuple(int, int, int)
+        :type shape: (int, int, int)
         :param value: value to be assigned to the matrix variable
         :type value: int
         :param orientation: specify if workspace contains orientation
-        :type orientation: bool, optional
+        :type orientation: bool
         :return: new workspace
-        :rtype: Workspace
+        :rtype: pumapy.Workspace
         """
         return cls(shape=shape, value=value, vectors=orientation)
 
@@ -98,11 +98,11 @@ class Workspace:
         """ Generate workspace from shape, all orientation vectors set to the vector passed.
 
         :param shape: shape of workspace to be created
-        :type shape: tuple(int, int, int)
+        :type shape: (int, int, int)
         :param vector: vector to be assigned to the orientation variable
-        :type vector: tuple(float, float, float)
+        :type vector: (float, float, float)
         :return: new workspace with orientation
-        :rtype: Workspace
+        :rtype: pumapy.Workspace
         """
         return cls(shape=shape, vectorvalue=vector, vectors=True)
 
@@ -111,13 +111,13 @@ class Workspace:
         """ Generate workspace from shape, all matrix and orientation set to the values passed.
 
         :param shape: shape of workspace to be created
-        :type shape: tuple(int, int, int)
+        :type shape: (int, int, int)
         :param value: value to be assigned to the matrix variable
         :type value: int
         :param vector: vector to be assigned to the orientation variable
-        :type vector: tuple(float, float, float)
+        :type vector: (float, float, float)
         :return: new workspace with orientation
-        :rtype: Workspace
+        :rtype: pumapy.Workspace
         """
         return cls(shape=shape, value=value, vectorvalue=vector, vectors=True)
 
@@ -128,7 +128,7 @@ class Workspace:
         :param nparray: array of shape (X,Y,Z) to be assigned to the matrix variable
         :type nparray: ndarray
         :return: new workspace
-        :rtype: Workspace
+        :rtype: pumapy.Workspace
         """
         return cls(nparray=nparray, vectors=False)
 
@@ -178,7 +178,7 @@ class Workspace:
         """ Create a copy of the workspace
 
         :return: copy of workspace
-        :rtype: Workspace
+        :rtype: pumapy.Workspace
         """
         return deepcopy(self)
 
@@ -228,9 +228,9 @@ class Workspace:
         """ Resize matrix numpy array
 
         :param shape: shape of workspace to be resized
-        :type shape: tuple(int, int, int)
+        :type shape: (int, int, int)
         :param value: value to be assigned to the new resized matrix variable
-        :type value: int, optional
+        :type value: int
         """
         if isinstance(shape, tuple) and len(shape) == 3:
             if value is None:
@@ -244,9 +244,9 @@ class Workspace:
         """ Resize orientation numpy array
 
         :param shape: shape of workspace to be resized
-        :type shape: tuple(int, int, int)
+        :type shape: (int, int, int)
         :param orientation_value: vector to be assigned to the new resized orientation variable
-        :type orientation_value: tuple(float, float, float), optional
+        :type orientation_value: (float, float, float)
         """
         if isinstance(shape, tuple) and len(shape) == 3:
             if orientation_value is None:
@@ -255,7 +255,7 @@ class Workspace:
                 if isinstance(orientation_value, tuple) and len(orientation_value) == 3:
                     self.orientation = np.tile(orientation_value, list(shape) + [1]).astype(float)
                 else:
-                    raise Exception("vectorvalue has to be tuple(float, float, float).")
+                    raise Exception("vectorvalue has to be (float, float, float).")
         else:
             raise Exception("Wrong shape, tuple with 3 dimensions required.")
 
@@ -270,15 +270,15 @@ class Workspace:
         """ Resize both matrix and orientation (if present) by rescaling the content to specified size
 
         :param shape: shape of workspace to be resized
-        :type shape: tuple(int, int, int)
+        :type shape: (int, int, int)
         :param segmented: specifying whether the domain is already segmented (True) or grayscales (False)
         :type segmented: bool
         :param anti_aliasing: if aliasing is to be prevented applying a Gaussian filter to smooth
             before scaling. If domain is segmented, automatically set to False in order to preserve domain
-        :type anti_aliasing: bool, optional
+        :type anti_aliasing: bool
         :param interpolation_order: order of the interpolation spline used.
             For segmented, it is enforced to be 0,which is 'nearest neighbor' to preserve the segmentation
-        :type interpolation_order: int, optional
+        :type interpolation_order: int
         :return: None
         """
         if isinstance(shape, tuple) and len(shape) == 3:
@@ -303,10 +303,10 @@ class Workspace:
         :type segmented: bool
         :param anti_aliasing: if aliasing is to be prevented applying a Gaussian filter
             to smooth before scaling. If domain is segmented, automatically set to False in order to preserve domain
-        :type anti_aliasing: bool, optional
+        :type anti_aliasing: bool
         :param interpolation_order: order of the interpolation spline used.
             For segmented, it is enforced to be 0, which is 'nearest neighbor' to preserve the segmentation
-        :type interpolation_order: int, optional
+        :type interpolation_order: int
         :return: None
         """
 
@@ -339,9 +339,9 @@ class Workspace:
         """ Set all elements in matrix equal to value (and orientation to vectorvalue is passed)
 
         :param matrix_value: value to fill to the matrix variable
-        :type matrix_value: np.uint16, optional
+        :type matrix_value: np.uint16
         :param orientation_value: vector to fill to the orientation variable
-        :type orientation_value: (tuple(float, float, float), optional)
+        :type orientation_value: ((float, float, float))
         :return: None
         """
         check = True
@@ -359,7 +359,7 @@ class Workspace:
                     self.orientation[:] = orientation_value
                 check = False
             else:
-                raise Exception("orientation_value has to be tuple(float, float, float).")
+                raise Exception("orientation_value has to be (float, float, float).")
         if check:
             print_warning("No changes have been made to the Workspace.")
 
@@ -369,7 +369,7 @@ class Workspace:
         :param mask: array of type bool with same size as matrix
         :type mask: ndarray
         :param apply_to_orientation: specifying whether the mask is to be applied to the orientation (if present)
-        :type apply_to_orientation: bool, optional
+        :type apply_to_orientation: bool
         :return: None
         """
         if isinstance(mask, np.ndarray) and mask.dtype == 'bool':
@@ -386,7 +386,7 @@ class Workspace:
         """ Threshold the workspace according to cutoff (i.e. tuple with inclusive range to set)
 
         :param cutoff: convert a range of grayscale values specified by the cutoff into an single ID number
-        :type cutoff: tuple(int, int)
+        :type cutoff: (int, int)
         :param value: ID number to assign to range
         :type value: int
         :return: None
@@ -419,7 +419,7 @@ class Workspace:
         """ Binarize the workspace according to range within cutoff, inclusive for cutoff ints set to 1, rest to 0
 
         :param ones_cutoff: convert a range of grayscale values specified by the cutoff into 1s, rest into 0s
-        :type ones_cutoff: tuple(int, int)
+        :type ones_cutoff: (int, int)
         :return: None
         """
         self.matrix = np.where(np.logical_and(self.matrix >= ones_cutoff[0], self.matrix <= ones_cutoff[1]), np.uint16(1), np.uint16(0))
@@ -436,12 +436,12 @@ class Workspace:
         :param around_axis: specify around what axis to perform the rotation. It can be 'x', 'y' or 'z'
         :type around_axis: string
         :param reshape: specify whether to reshape the domain to contain every voxel or keep it as original size
-        :type reshape: bool, optional
+        :type reshape: bool
         :param boundary_mode: specifying what to do with the boundaries.
             Options: ‘reflect’, ‘constant’, ‘nearest’, ‘mirror’, ‘wrap’
-        :type boundary_mode: string, optional
+        :type boundary_mode: string
         :param apply_to_orientation: specify whether to apply rotation to the orientation, if present
-        :type apply_to_orientation: bool, optional
+        :type apply_to_orientation: bool
         :return: None
         """
         if around_axis == 'x':

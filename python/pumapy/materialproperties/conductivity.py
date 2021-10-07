@@ -8,27 +8,27 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
     """ Compute the thermal conductivity
 
     :param workspace: domain
-    :type workspace: Workspace
+    :type workspace: pumapy.Workspace
     :param cond_map: local constituents themal conductivities
     :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
     :param direction: direction for solve ('x','y', or 'z')
     :type direction: string
     :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p') or dirichlet ('d')
-    :type side_bc: string, optional
+    :type side_bc: string
     :param prescribed_bc: 3D array holding dirichlet BC.
-    :type prescribed_bc: ConductivityBC, optional
+    :type prescribed_bc: pumapy.ConductivityBC
     :param tolerance: tolerance for iterative solver
-    :type tolerance: float, optional
+    :type tolerance: float
     :param maxiter: maximum Iterations for solver
-    :type maxiter: int, optional
+    :type maxiter: int
     :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres', 'direct'
-    :type solver_type: string, optional
+    :type solver_type: string
     :param display_iter: display iterations and residual
-    :type display_iter: bool, optional
+    :type display_iter: bool
     :param print_matrices: corresponding to b, E, A, T, q decimal places. If 0, they are not printed
-    :type print_matrices: tuple(5 bools), optional
+    :type print_matrices: (bool, bool, bool, bool, bool)
     :return: thermal conductivity, temperature field, flux
-    :rtype: tuple(tuple(float, float, float), ndarray, ndarray)
+    :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
 
     :Example:
     >>> import pumapy as puma
@@ -63,27 +63,27 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
     """ Compute the electrical conductivity
 
     :param workspace: domain
-    :type workspace: Workspace
+    :type workspace: pumapy.Workspace
     :param cond_map: local constituents electrical conductivities
     :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
     :param direction: direction for solve ('x','y', or 'z')
     :type direction: string
     :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p') or dirichlet ('d')
-    :type side_bc: string, optional
+    :type side_bc: string
     :param prescribed_bc: 3D array holding dirichlet BC
-    :type prescribed_bc: ConductivityBC, optional
+    :type prescribed_bc: pumapy.ConductivityBC
     :param tolerance: tolerance for iterative solver
-    :type tolerance: float, optional
+    :type tolerance: float
     :param maxiter: maximum Iterations for solver
-    :type maxiter: int, optional
+    :type maxiter: int
     :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres', 'direct'
-    :type solver_type: string, optional
+    :type solver_type: string
     :param display_iter: display iterations and residual
-    :type display_iter: bool, optional
+    :type display_iter: bool
     :param print_matrices: corresponding to E, A, b, T, q decimal places. If 0, they are not printed
-    :type print_matrices: tuple(5 bools), optional
+    :type print_matrices: (bool, bool, bool, bool, bool)
     :return: electrical conductivity, potential field, flux
-    :rtype: tuple(tuple(float, float, float), ndarray, ndarray)
+    :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
 
     :Example:
     >>> import pumapy as puma

@@ -9,7 +9,7 @@ def generate_random_spheres(size, diameter, porosity, allow_intersect=True):
     """ Generation of triply periodic minimal surface material
 
     :param size: size of 3D domain (x,y,z)
-    :type size: tuple(int, int, int)
+    :type size: (int, int, int)
     :param diameter: diameter of the random spheres in voxels
     :type diameter: float
     :param porosity: target porosity of the generated structure

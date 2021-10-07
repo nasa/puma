@@ -7,11 +7,11 @@ def identify_porespace(workspace, solid_cutoff):
     """ Identify the porespace
 
         :param workspace: domain
-        :type workspace: Workspace
+        :type workspace: pumapy.Workspace
         :param solid_cutoff: specify the solid range to discard from pores identification
-        :type solid_cutoff: tuple(int, int)
+        :type solid_cutoff: (int, int)
         :return: porespace marked as: 0 solid, 1 largest pore (likely open porosity), >1 other pores
-        :rtype: ndarray
+        :rtype: np.ndarray
 
         :Example:
         >>> import pumapy as puma
@@ -43,17 +43,17 @@ def fill_closed_pores(workspace, solid_cutoff, fill_value, return_pores=False):
     """ Identify the porespace and fill closed porosity
 
         :param workspace: domain
-        :type workspace: Workspace
+        :type workspace: pumapy.Workspace
         :param solid_cutoff: specify the solid range to discard from pores identification
-        :type solid_cutoff: tuple(int, int)
+        :type solid_cutoff: (int, int)
         :param fill_value: value to fill closed porosity with
         :type fill_value: int
         :param return_pores: specifies whether to return identified pores
-        :type return_pores: bool, optional
+        :type return_pores: bool
         :return: filled workspace with IDs set as: 0 for void, 1 for solid, fill_value for 
             added filler material. In addition, if return_pores==True, then it also returns 
             the porespace marked as: 0 solid, 1 largest pore (likely open porosity), >1 other pores
-        :rtype: Workspace
+        :rtype: pumapy.Workspace
 
         :Example:
         >>> import pumapy as puma

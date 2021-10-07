@@ -8,11 +8,11 @@ def generate_tpms(size, w, q, equation=0):
     """ Generation of triply periodic minimal surface material
 
     :param size: size of 3D domain (x,y,z)
-    :type size: tuple(int, int, int)
+    :type size: (int, int, int)
     :param w: w parameter for tpms
-    :type w: float or tuple(float, float)
+    :type w: float or (float, float)
     :param q: q parameter for tpms (float or tuple)
-    :type q: float or tuple(float, float)
+    :type q: float or (float, float)
     :param equation: equation 0, 1, or 2 for tpms
     :type equation: int
     :return: TPMS domain

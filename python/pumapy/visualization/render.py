@@ -10,37 +10,37 @@ def render_volume(workspace, cutoff=None, solid_color=(1., 1., 1.), style='surfa
     """ Volume render using Pyvista Threshold filter
 
     :param workspace: domain
-    :type workspace: Workspace or ndarray
+    :type workspace: Workspace or np.ndarray
     :param cutoff: specifying the values to render
-    :type cutoff: tuple(int, int), optional
+    :type cutoff: (int, int)
     :param solid_color: if set to None, the material is colored by the matrix's values. Otherwise, a solid color can be specified (e.g. for white (1., 1., 1.))
-    :type solid_color: tuple(float, float, float), optional
+    :type solid_color: (float, float, float)
     :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
-    :type style: string, optional
+    :type style: string
     :param origin: origin of the data as
-    :type origin: tuple(float, float, float), optional
+    :type origin: (float, float, float)
     :param window_size: with the popup window size
-    :type window_size: tuple(int, int), optional
+    :type window_size: (int, int)
     :param opacity: opacity of volume
-    :type opacity: float, optional
+    :type opacity: float
     :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
-    :type: background: tuple(float, float, float)
+    :type: background: (float, float, float)
     :param show_grid: show the grid with the size of the sides
-    :type show_grid: bool, optional
+    :type show_grid: bool
     :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
-    :type plot_directly: bool, optional
+    :type plot_directly: bool
     :param show_axes: show orientation axis in the bottom left corner
-    :type show_axes: bool, optional
+    :type show_axes: bool
     :param show_outline: show the bounding box outline of the domain
-    :type show_outline: bool, optional
+    :type show_outline: bool
     :param cmap: matplotlib colormap to use (overwritten by solid_color if specified)
-    :type cmap: str, optional
+    :type cmap: str
     :param add_to_plot: pass an already existing plotter object to add on top of this plot
-    :type add_to_plot: pyvista.Plotter, optional
+    :type add_to_plot: pyvista.Plotter
     :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
-    :type notebook: bool, optional
+    :type notebook: bool
     :return: None is plot_directly is True, otherwise a plotter object
-    :rtype: pyvista.Plotter object or None
+    :rtype: pyvista.Plotter or None
 
     :Example
     >>> import pumapy as puma
@@ -60,35 +60,35 @@ def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface',
     """ Contour render using Pyvista Contour filter
 
     :param workspace: domain
-    :type workspace: Workspace or ndarray
+    :type workspace: Workspace or np.ndarray
     :param cutoff: specifying the values at which the isosurface is created
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :param solid_color: a solid color to color the surface (e.g. for white (1., 1., 1.))
-    :type solid_color: tuple(float, float, float), optional
+    :type solid_color: (float, float, float)
     :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
-    :type style: string, optional
+    :type style: string
     :param origin: origin of the data as
-    :type origin: tuple(float, float, float), optional
+    :type origin: (float, float, float)
     :param window_size: with the popup window size
-    :type window_size: tuple(int, int), optional
+    :type window_size: (int, int)
     :param opacity: opacity of contour
-    :type opacity: float, optional
+    :type opacity: float
     :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
-    :type: background: tuple(float, float, float)
+    :type: background: (float, float, float)
     :param show_grid: show the grid with the size of the sides
-    :type show_grid: bool, optional
+    :type show_grid: bool
     :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
-    :type plot_directly: bool, optional
+    :type plot_directly: bool
     :param show_axes: show orientation axis in the bottom left corner
-    :type show_axes: bool, optional
+    :type show_axes: bool
     :param show_outline: show the bounding box outline of the domain
-    :type show_outline: bool, optional
+    :type show_outline: bool
     :param add_to_plot: pass an already existing plotter object to add on top of this plot
-    :type add_to_plot: pyvista.Plotter, optional
+    :type add_to_plot: pyvista.Plotter
     :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
-    :type notebook: bool, optional
+    :type notebook: bool
     :return: None is plot_directly is True, otherwise a plotter object
-    :rtype: pyvista.Plotter object or None
+    :rtype: pyvista.Plotter or None
 
     :Example:
     >>> import pumapy as puma
@@ -106,35 +106,35 @@ def render_orientation(workspace, scale_factor=1., solid_color=(1., 1., 1.), sty
     """ Orientation render using Pyvista Glyph filter
 
     :param workspace: domain
-    :type workspace: Workspace or ndarray
+    :type workspace: Workspace or np.ndarray
     :param scale_factor: scale the arrows by a factor
     :type scale_factor: float
     :param solid_color: a solid color to color the surface (e.g. for white (1., 1., 1.))
-    :type solid_color: tuple(float, float, float), optional
+    :type solid_color: (float, float, float)
     :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
-    :type style: string, optional
+    :type style: string
     :param origin: origin of the data as
-    :type origin: tuple(float, float, float), optional
+    :type origin: (float, float, float)
     :param window_size: with the popup window size
-    :type window_size: tuple(int, int), optional
+    :type window_size: (int, int)
     :param opacity: opacity of arrows
-    :type opacity: float, optional
+    :type opacity: float
     :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
-    :type: background: tuple(float, float, float)
+    :type: background: (float, float, float)
     :param show_grid: show the grid with the size of the sides
-    :type show_grid: bool, optional
+    :type show_grid: bool
     :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
-    :type plot_directly: bool, optional
+    :type plot_directly: bool
     :param show_axes: show orientation axis in the bottom left corner
-    :type show_axes: bool, optional
+    :type show_axes: bool
     :param show_outline: show the bounding box outline of the domain
-    :type show_outline: bool, optional
+    :type show_outline: bool
     :param add_to_plot: pass an already existing plotter object to add on top of this plot
-    :type add_to_plot: pyvista.Plotter, optional
+    :type add_to_plot: pyvista.Plotter
     :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
-    :type notebook: bool, optional
+    :type notebook: bool
     :return: None is plot_directly is True, otherwise a plotter object
-    :rtype: pyvista.Plotter object or None
+    :rtype: pyvista.Plotter or None
 
     :Example:
     >>> import pumapy as puma
@@ -155,33 +155,33 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
     :param workspace: domain
     :type workspace: Workspace or ndarray
     :param cutoffs: n cutoffs is the number of materials. specifies the low and high cutoff ranges
-    :type cutoffs: tuple(tuple(int, int), tuple(int, int) ...)
+    :type cutoffs: ((int, int), (int, int))
     :param solid_colors: solid colors to color the different phases' surface e.g. for white ((1., 1., 1.), (0., 0., 0.), ...)
-    :type solid_colors: tuple(tuple(float, float, float), tuple(float, float, float) ...), optional
+    :type solid_colors: ((float, float, float), (float, float, float))
     :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
-    :type style: string, optional
+    :type style: string
     :param origin: origin of the data as
-    :type origin: tuple(float, float, float), optional
+    :type origin: (float, float, float)
     :param window_size: with the popup window size
-    :type window_size: tuple(int, int), optional
+    :type window_size: (int, int)
     :param opacity: opacity of contour
-    :type opacity: float, optional
+    :type opacity: float
     :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
-    :type: background: tuple(float, float, float)
+    :type: background: (float, float, float)
     :param show_grid: show the grid with the size of the sides
-    :type show_grid: bool, optional
+    :type show_grid: bool
     :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
-    :type plot_directly: bool, optional
+    :type plot_directly: bool
     :param show_axes: show orientation axis in the bottom left corner
-    :type show_axes: bool, optional
+    :type show_axes: bool
     :param show_outline: show the bounding box outline of the domain
-    :type show_outline: bool, optional
+    :type show_outline: bool
     :param add_to_plot: pass an already existing plotter object to add on top of this plot
-    :type add_to_plot: pyvista.Plotter, optional
+    :type add_to_plot: pyvista.Plotter
     :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
-    :type notebook: bool, optional
+    :type notebook: bool
     :return: None is plot_directly is True, otherwise a plotter object
-    :rtype: pyvista.Plotter object or None
+    :rtype: pyvista.Plotter or None
 
     >>> import pumapy as puma
     >>> ws_multiphase = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)

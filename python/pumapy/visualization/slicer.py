@@ -7,11 +7,11 @@ def plot_slices(ws_nparray, slice_direction='z', crange=None, cmap='gray', index
     """ Plot slices of domain along a specified direction (z default)
 
     :param ws_nparray: domain
-    :type ws_nparray: Workspace or ndarray
+    :type ws_nparray: Workspace or np.ndarray
     :param slice_direction: 'x', 'y', 'z'
     :type slice_direction: string
     :param crange: color range, i.e. specify min and max grayscale
-    :type crange: tuple(int, int)
+    :type crange: (int, int)
     :param cmap: color map for the plot, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
     :type cmap: string
     :param index: specifying the slice index in which the plot will be opened
@@ -37,17 +37,17 @@ def compare_slices(ws_nparray1, ws_nparray2, slice_direction='z', crange1=None, 
     """ Plot slices of domain along a specified direction (z default)
 
     :param ws_nparray1: domain
-    :type ws_nparray1: Workspace or ndarray
+    :type ws_nparray1: Workspace or np.ndarray
     :param ws_nparray2: domain
-    :type ws_nparray2: Workspace or ndarray
+    :type ws_nparray2: Workspace or np.ndarray
     :param slice_direction: 'x', 'y', 'z'
     :type slice_direction: string
     :param crange1: color range for plot 1, specify min and max grayscale
-    :type crange1: tuple(int, int)
+    :type crange1: (int, int)
     :param cmap1: color map for plot 1, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
     :type cmap1: string
     :param crange2: color range for plot 2, specify min and max grayscale
-    :type crange2: tuple(int, int)
+    :type crange2: (int, int)
     :param cmap2: color map for plot 2, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
     :type cmap2: string
     :param index: specifying the slice index in which the plot will be opened

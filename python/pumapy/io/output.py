@@ -16,7 +16,7 @@ def export_vti(filename, dict_data, voxel_length=None):
     :param dict_data: dictionary setup as {"name1": data1, "name2": data2 ...} containing either Workspaces or ndarrays
     :type dict_data: dict
     :param voxel_length: with voxel length to give to Numpy arrays (if any)
-    :type voxel_length: float, optional
+    :type voxel_length: float
     :return: True if successful, False otherwise.
     :rtype: bool
 
@@ -90,7 +90,7 @@ def export_3Dtiff(filename, ws_or_nparray, to8bit=False):
     :param ws_or_nparray: to be exported
     :type ws_or_nparray: Workspace or ndarray
     :param to8bit: if True, it converts the image to 8bit, otherwise 16bit is exported
-    :type to8bit: bool, optional
+    :type to8bit: bool
     :return: True if successful, False otherwise.
     :rtype: bool
 
@@ -139,7 +139,7 @@ def export_bin(filename, ws):
     :param filename: filepath and name
     :type filename: string
     :param ws: to be exported
-    :type: Workspace
+    :type: pumapy.Workspace
     :return: True if successful, False otherwise.
     :rtype: bool
 
@@ -175,7 +175,7 @@ def export_sparta_implicit_surfaces(filename, ws):
     :param filename: filepath and name
     :type filename: string
     :param ws: to be exported
-    :type ws: Workspace
+    :type ws: pumapy.Workspace
     :return: True if successful, False otherwise.
     :rtype: bool
     """
@@ -212,13 +212,13 @@ def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False
     :param filename: filepath and name
     :type filename: string
     :param ws: to be exported
-    :type ws: Workspace
+    :type ws: pumapy.Workspace
     :param cutoff: specify cutoff to binarize material
-    :type cutoff: tuple(int, int)
+    :type cutoff: (int, int)
     :param flag_closed_edges: close the surface edges on the boundaries
-    :type flag_closed_edges: bool, optional
+    :type flag_closed_edges: bool
     :param flag_gaussian: apply Gaussian filter before creating surface
-    :type flag_gaussian: bool, optional
+    :type flag_gaussian: bool
     :return: True if successful, False otherwise.
     :rtype: bool
 

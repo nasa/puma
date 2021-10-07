@@ -12,25 +12,25 @@ def compute_radiation(workspace, solid_cutoff, sources_number, degree_accuracy, 
     (N.B. 0 material ID in workspace refers to gas phases unless otherwise specified)
 
     :param workspace: domain
-    :type workspace: Workspace
+    :type workspace: pumapy.Workspace
     :param solid_cutoff: specify the solid phase
-    :type solid_cutoff: tuple(int, int)
+    :type solid_cutoff: (int, int)
     :param sources_number: number of light sources spread randomly in the void space (i.e. 0)
     :type sources_number: int
     :param degree_accuracy: angle difference between rays emitted in degrees (has to be an exact divider of 180°)
     :type degree_accuracy: int
     :param void_phase: ID of the void phase, defaulted as 0
-    :type void_phase: int, optional
+    :type void_phase: int
     :param boundary_behavior: how to treat particles exiting the domain: 0=kill, 1=periodic (default)
-    :type boundary_behavior: int, optional
+    :type boundary_behavior: int
     :param bin_density: number of bins used to create histogram of ray distances
-    :type bin_density: int, optional
+    :type bin_density: int
     :param exportparticles_filepathname: path and name of the particle files exported as VTK points
-    :type exportparticles_filepathname: string, optional
+    :type exportparticles_filepathname: string
     :param export_pathname: path to save curve plot of ray distance distribution
-    :type export_pathname: str, optional
+    :type export_pathname: str
     :return: extinction coefficient (beta), its standard deviation and of ray distances
-    :rtype: tuple(float, float, ndarray)
+    :rtype: (float, float, np.ndarray)
     """
     solver = Radiation(workspace, solid_cutoff, sources_number, degree_accuracy, void_phase, boundary_behavior, bin_density,
                        exportparticles_filepathname, export_pathname)
@@ -120,6 +120,24 @@ class Radiation:
 
 def compute_extinction_coefficients(ws, rays_distances, sources_number, degree_accuracy,
                                     bin_density=10000, export_pathname=None):
+    """ Compute the extinction coefficient based on the ray casting radiation simulation
+    (this is normally a step inside the compute_radiation function)
+
+    :param ws: domain
+    :type ws: pumapy.Workspace
+    :param rays_distances: rays distances, as output by compute_radiation function
+    :type rays_distances: np.ndarray
+    :param sources_number: number of light sources spread randomly in the void space (i.e. 0)
+    :type sources_number: int
+    :param degree_accuracy: angle difference between rays emitted in degrees (has to be an exact divider of 180°)
+    :type degree_accuracy: int
+    :param bin_density: number of bins used to create histogram of ray distances
+    :type bin_density: int
+    :param export_pathname: path to save curve plot of ray distance distribution
+    :type export_pathname: str
+    :return: extinction coefficient (beta), its standard deviation
+    :rtype: (float, float)
+    """
     print("\nComputing extinction coefficients ... ", end='')
 
     # splitting use the ray distances into bins (max ray distance in RayCasting is 2x the max cube diagonal)

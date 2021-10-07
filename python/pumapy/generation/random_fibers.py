@@ -18,35 +18,35 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90, t
     """ Generates random fibers from number of fibers or porosity
 
     :param shape: the size of the workspace to generate in (Nx, Ny, Nz) where N is the number of voxels.
-    :type shape: tuple(int, int, int)
+    :type shape: (int, int, int)
     :param radius: the radius of the fibers in voxels
     :type radius: int
     :param nfibers: the number of fibers to add to the domain. Adjust this value to control the final porosity,
         which is not easily specified since cylinders overlap and intersect different fractions of the domain
-    :type nfibers: int, optional
+    :type nfibers: int
     :param porosity: the target value for the porosity of the generated mat. The function uses an
         algorithm for predicting the number of required number of cylinder, and refines this over a certain number of
         fractional insertions (according to the 'iterations' input)
-    :type porosity: float, optional
+    :type porosity: float
     :param phi: a value between 0 and 90 that controls the amount that the fibers lie *out of* the XY plane,
         with 0 meaning all fibers lie in the XY plane, and 90 meaning that cylinders are randomly oriented out of the
         plane by as much as +/- 90 degrees
-    :type phi: float, optional
+    :type phi: float
     :param theta: a value between 0 and 90 that controls the amount of rotation *in the* XY plane,
         with 0 meaning all fibers point in the X-direction, and 90 meaning they are randomly rotated about the
         Z axis by as much as +/- 90 degrees
-    :type theta: float, optional
+    :type theta: float
     :param length: the length of the cylinders to add.  If ``None`` (default) then the cylinders will extend beyond the
         domain in both directions so no ends will exist. If a scalar value is given it will be interpreted as the
         Euclidean distance between the two ends of the cylinder.  Note that one or both of the ends *may* still lie
         outside the domain, depending on the randomly chosen center point of the cylinder
-    :type length: float, optional
+    :type length: float
     :param max_iter: the number of fractional fiber insertions used to target the requested porosity. By default a
         value of 3 is used (and this is typically effective in getting very close to the targeted porosity),
         but a greater number can be input to improve the achieved porosity
-    :type max_iter: int, optional
+    :type max_iter: int
     :param allow_intersect: allow intersection betweem the fibers
-    :type allow_intersect: bool, optional
+    :type allow_intersect: bool
     :return: random fibers domain
     :rtype: Workspace
 
