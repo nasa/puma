@@ -36,10 +36,10 @@ class Permeability(PropertySolver):
         self.velF = np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32)  # only fluid elements
         self.nelF = self.velF.shape[0]
 
-        self.ke = np.zeros((24, 24), dtype=float)
-        self.ge = np.zeros((24, 8), dtype=float)
-        self.pe = np.zeros((8, 8), dtype=float)
-        self.fe = np.zeros((8, 1), dtype=float)
+        self.ke = np.zeros((24, 24), dtype=np.float32)
+        self.ge = np.zeros((24, 8), dtype=np.float32)
+        self.pe = np.zeros((8, 8), dtype=np.float32)
+        self.fe = np.zeros((8, 1), dtype=np.float32)
         self.mgdlF = np.zeros((32, self.nelF), dtype=np.uint32)
         self.resolveF = None
         self.x_full = None
@@ -140,20 +140,23 @@ class Permeability(PropertySolver):
         self.calculate_element_matrices()
         sF = np.squeeze(np.tile(self.fe, (self.nelF * 3, 1)))
         self.bvec_full = csc_matrix((sF, (iF, jF)), shape=(4 * self.nels, 3))
+        self.bvec_full = self.bvec_full[self.resolveF]  # reducing vector
         print("Done")
 
     def assemble_Amatrix(self):
         print("Initializing large data structures ... ", flush=True, end='')
         iK = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)
-        jK = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')
         iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
         jG = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')
         iP = np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8)
+        iA = np.hstack((iK, iG, jG, iP))
+        del iK, iP
+        jK = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')
         jP = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')
-        del self.mgdlF
-        iA = np.hstack((iK, iG, jG, iP)) - 1
-        jA = np.hstack((jK, jG, iG, jP)) - 1
-        del iK, jK, iG, jG, iP, jP
+        jA = np.hstack((jK, jG, iG, jP))
+        del jK, jG, iG, jP
+        iA -= 1
+        jA -= 1
         coeff = np.hstack((np.tile(self.ke, self.nelF), np.tile(self.ge, self.nelF),
                            np.tile(self.ge, self.nelF), -np.tile(self.pe, self.nelF)))
         del self.fe, self.ke, self.ge, self.pe
@@ -163,9 +166,9 @@ class Permeability(PropertySolver):
         del coeff, iA, jA
         print("Done")
 
-        print("Reducing system of equations ... ", flush=True, end='')
+        # Reducing system of equations
         self.Amat = self.Amat[self.resolveF][:, self.resolveF]
-        self.bvec_full = self.bvec_full[self.resolveF]
+
         print("Done")
 
     def solve(self):
@@ -182,7 +185,7 @@ class Permeability(PropertySolver):
                 super().solve()
                 self.x_full[self.resolveF, i] = self.x
             del self.Amat, self.bvec, self.initial_guess
-        del self.bvec_full
+        del self.bvec_full, self.resolveF
 
     def compute_effective_coefficient(self):
         aux = 1

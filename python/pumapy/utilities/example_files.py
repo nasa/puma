@@ -20,7 +20,7 @@ def path_to_example_file(example_filename):
     file_path = os.path.join(path, 'data', example_filename)
 
     if not os.path.isfile(file_path):
-        raise Exception("Example file not found.")
+        raise Exception(f"Example file not found, available files are: {[i for i in list_example_files()]}.")
 
     return file_path
 

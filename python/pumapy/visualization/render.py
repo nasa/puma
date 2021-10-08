@@ -3,6 +3,8 @@ from pumapy.utilities.isosurface import generate_isosurface
 from pumapy.utilities.logger import print_warning
 import pyvista as pv
 import numpy as np
+import string
+import random
 
 
 def render_volume(workspace, cutoff=None, solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
@@ -283,7 +285,7 @@ class Renderer:
                  background, show_grid, plot_directly, show_axes, show_outline, cmap, scale_factor, notebook):
         self.filter_type = filter_type
         self.cutoff = cutoff
-        self.color = solid_color
+        self.solid_color = solid_color
         self.style = style
         self.origin = origin
         self.window_size = window_size
@@ -305,7 +307,7 @@ class Renderer:
             elif self.filter_type == "warp":
                 self.array = workspace.matrix
                 self.orientation = workspace.orientation
-                self.scale_factor *= self.voxel_length
+                # self.scale_factor *= self.voxel_length
             else:
                 self.array = workspace.matrix
 
@@ -378,29 +380,32 @@ class Renderer:
             for i in [0, 1, 2]:
                 tmp[:, i] = self.orientation[:, :, :, i].ravel(order='F')
             self.grid['vectors'] = tmp
-            if self.color == 'magnitude':
+            if self.solid_color == 'magnitude':
                 self.grid['scalars'] = np.linalg.norm(self.orientation, axis=3).ravel(order='F')
-            elif self.color == 'x':
+            elif self.solid_color == 'x':
                 self.grid['scalars'] = self.orientation[:, :, :, 0].flatten(order="F")
-            elif self.color == 'y':
+            elif self.solid_color == 'y':
                 self.grid['scalars'] = self.orientation[:, :, :, 1].flatten(order="F")
-            elif self.color == 'z':
+            elif self.solid_color == 'z':
                 self.grid['scalars'] = self.orientation[:, :, :, 2].flatten(order="F")
             else:  # defaulting to matrix, even if not correct
-                if self.color != 'matrix':
+                if self.solid_color != 'matrix':
                     print_warning("Options for color_by input are: 'magnitude', 'x', 'y', 'z', 'matrix'")
                 self.grid['scalars'] = self.array.flatten(order="F")
-            self.filter = self.grid.warp_by_vector('vectors', factor=1.)
+            self.filter = self.grid.warp_by_vector('vectors', factor=self.scale_factor)
 
         if self.filter_type != "warp":
-            self.p.add_mesh(self.filter, color=self.color, show_edges=show_edges, style=self.style,
+            self.p.add_mesh(self.filter, color=self.solid_color, show_edges=show_edges, style=self.style,
                             cmap=self.cmap, show_scalar_bar=False, opacity=self.opacity)
         else:
             self.p.add_mesh(self.filter, scalars='scalars', interpolate_before_map=False, show_edges=show_edges,
                             style=self.style, cmap=self.cmap, show_scalar_bar=False, opacity=self.opacity)
 
-        if self.cmap is not None and self.color is None:
-            self.p.add_scalar_bar(title='', height=0.5, vertical=True, position_x=0.05, position_y=0.3)
+        # this is because warp uses solid_color to select what to color the domain by
+        if self.solid_color is None or isinstance(self.solid_color, str):
+            # the title has to be a unique string for each subplot
+            self.p.add_scalar_bar(title="".join([random.choice(string.ascii_letters) for _ in range(10)]),
+                                  title_font_size=1, height=0.5, vertical=True, position_x=0.05, position_y=0.3)
 
         self.p.background_color = self.background
         self.p.window_size = self.window_size

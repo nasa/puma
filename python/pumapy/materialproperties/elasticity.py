@@ -26,7 +26,7 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_
     :type display_iter: bool
     :param print_matrices: corresponding to b, E, A, u, s decimal places. If 0, they are not printed
     :type print_matrices: (int, int, int, int, int)
-    :return: elasticity, displacement field, direct stresses, shear stresses
+    :return: elasticity, displacement field, direct stresses (sigma xx, yy, zz), shear stresses (tau yz, xz, xy)
     :rtype: ((float, float, float, float, float, float), numpy.ndarray, numpy.ndarray, numpy.ndarray)
 
     :Example:
@@ -75,7 +75,7 @@ def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', to
     :type display_iter: bool
     :param print_matrices: corresponding to b, E, A, u, s decimal places. If 0, they are not printed
     :type print_matrices: (int, int, int, int, int)
-    :return: displacement field, direct stresses, shear stresses 'yz', 'xz', 'xy'
+    :return: displacement field, direct stresses (sigma xx, yy, zz), shear stresses (tau yz, xz, xy)
     :rtype: (numpy.ndarray, numpy.ndarray, numpy.ndarray)
 
     :Example:
