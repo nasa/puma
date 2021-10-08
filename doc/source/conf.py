@@ -50,6 +50,9 @@ extensions = [
               'exhale',
               ]
 
+# avoid running the notebook's cells
+nbsphinx_execute = 'never'
+
 # to be able to add the README.md
 from m2r import MdInclude
 from recommonmark.transform import AutoStructify

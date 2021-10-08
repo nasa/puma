@@ -16,7 +16,7 @@ Root directory for the pumapy package.
 
 # Note: only this version has to be bumped for the whole puma project
 # create tag using: git tag -a v$(python setup.py --version) -m 'DESCRIBE VERSION'
-__version__ = "3.1.3"  
+__version__ = "3.1.4"
 
 
 # utilities
