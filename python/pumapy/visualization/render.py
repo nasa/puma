@@ -227,12 +227,13 @@ class Renderer:
         self.show_outline = show_outline
         self.cmap = cmap
         self.voxel_length = 1
+        self.scale_factor = scale_factor
 
         if isinstance(workspace, Workspace):
             self.voxel_length = workspace.voxel_length
             if self.filter_type == "glyph":
                 self.array = workspace.orientation
-                self.scale_factor = scale_factor * self.voxel_length
+                self.scale_factor *= self.voxel_length
             else:
                 self.array = workspace.matrix
 
