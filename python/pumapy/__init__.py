@@ -64,7 +64,8 @@ except ImportError:  # import it only if installed
     pass
 
 # visualization
-from pumapy.visualization.render import render_volume, render_contour, render_orientation, render_contour_multiphase
+from pumapy.visualization.render import (render_volume, render_contour, render_orientation, render_warp,
+                                         render_contour_multiphase)
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation

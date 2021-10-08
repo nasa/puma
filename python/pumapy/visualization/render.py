@@ -1,5 +1,6 @@
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.isosurface import generate_isosurface
+from pumapy.utilities.logger import print_warning
 import pyvista as pv
 import numpy as np
 
@@ -101,7 +102,7 @@ def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface',
 
 
 def render_orientation(workspace, scale_factor=1., solid_color=None, style='surface', origin=(0., 0., 0.),
-                       window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True,
+                       window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, cmap=None,
                        plot_directly=True, show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
     """ Orientation render using Pyvista Glyph filter
 
@@ -124,6 +125,8 @@ def render_orientation(workspace, scale_factor=1., solid_color=None, style='surf
     :type: background: (float, float, float)
     :param show_grid: show the grid with the size of the sides
     :type show_grid: bool
+    :param cmap: matplotlib colormap to use (overwritten by solid_color if specified)
+    :type cmap: str
     :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
     :type plot_directly: bool
     :param show_axes: show orientation axis in the bottom left corner
@@ -144,7 +147,72 @@ def render_orientation(workspace, scale_factor=1., solid_color=None, style='surf
     >>> puma.render_orientation(ws_orientation)
     """
     r = Renderer(add_to_plot, "glyph", workspace, None, solid_color, style, origin, window_size, opacity,
-                 background, show_grid, plot_directly, show_axes, show_outline, None, scale_factor, notebook)
+                 background, show_grid, plot_directly, show_axes, show_outline, cmap, scale_factor, notebook)
+    return r.render()
+
+
+def render_warp(workspace, scale_factor=1., color_by='magnitude', style='surface', origin=(0., 0., 0.),
+                window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, cmap='jet',
+                plot_directly=True, show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
+    """ Warp a domain by an orientation field
+
+    :param workspace: domain with both matrix and orientation defined
+    :type workspace: Workspace
+    :param scale_factor: scale the orientation by a factor
+    :type scale_factor: float
+    :param color_by: it can be 'magnitude', which colors warped domain by magnitude of vectors, or 'x', 'y' or 'z',
+                     which colors it by the orientation component, or 'matrix', which colors it by the matrix phases
+    :type color_by: str
+    :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
+    :type style: string
+    :param origin: origin of the data as
+    :type origin: (float, float, float)
+    :param window_size: with the popup window size
+    :type window_size: (int, int)
+    :param opacity: opacity of arrows
+    :type opacity: float
+    :param background: color of the background from (0., 0., 0.) (black) to (1., 1., 1.) (white)
+    :type: background: (float, float, float)
+    :param show_grid: show the grid with the size of the sides
+    :type show_grid: bool
+    :param cmap: matplotlib colormap to use (overwritten by solid_color if specified)
+    :type cmap: str
+    :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
+    :type plot_directly: bool
+    :param show_axes: show orientation axis in the bottom left corner
+    :type show_axes: bool
+    :param show_outline: show the bounding box outline of the domain
+    :type show_outline: bool
+    :param add_to_plot: pass an already existing plotter object to add on top of this plot
+    :type add_to_plot: pyvista.Plotter
+    :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+    :type notebook: bool
+    :return: None is plot_directly is True, otherwise a plotter object
+    :rtype: pyvista.Plotter or None
+
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.Workspace.from_shape_value((20, 25, 18), 1)
+    >>> ws[ws.matrix.shape[0]//2:] = 2
+    >>> elast_map = puma.ElasticityMap()
+    >>> elast_map.add_isotropic_material((1, 1), 200, 0.3)
+    >>> elast_map.add_isotropic_material((2, 2), 400, 0.1)
+    >>> bc = puma.ElasticityBC.from_workspace(ws)
+    >>> bc[0] = 0  # hold x -ve face
+    >>> bc[-1, :, :, 0] = 10   # displace x +ve face by 1 in x direction
+    >>> bc[-1, :, :, 1:] = 0  # hold x +ve face in y and z directions
+    >>> ws.orientation, _, _ = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='f', solver_type="direct")
+    >>> puma.render_warp(ws, color_by='y', style='edges')
+    """
+    if not isinstance(workspace, Workspace):
+        raise Exception('Input is not a pumapy.Workspace.')
+    if (workspace.matrix.shape[0] != workspace.orientation.shape[0] or
+            workspace.matrix.shape[1] != workspace.orientation.shape[1] or
+            workspace.matrix.shape[2] != workspace.orientation.shape[2]):
+        raise Exception('Workspace has to have matrix and orientation variables of the same shape.')
+
+    r = Renderer(add_to_plot, "warp", workspace, None, color_by, style, origin, window_size, opacity,
+                 background, show_grid, plot_directly, show_axes, show_outline, cmap, scale_factor, notebook)
     return r.render()
 
 
@@ -215,7 +283,7 @@ class Renderer:
                  background, show_grid, plot_directly, show_axes, show_outline, cmap, scale_factor, notebook):
         self.filter_type = filter_type
         self.cutoff = cutoff
-        self.solid_color = solid_color
+        self.color = solid_color
         self.style = style
         self.origin = origin
         self.window_size = window_size
@@ -234,6 +302,10 @@ class Renderer:
             if self.filter_type == "glyph":
                 self.array = workspace.orientation
                 self.scale_factor *= self.voxel_length
+            elif self.filter_type == "warp":
+                self.array = workspace.matrix
+                self.orientation = workspace.orientation
+                self.scale_factor *= self.voxel_length
             else:
                 self.array = workspace.matrix
 
@@ -245,9 +317,15 @@ class Renderer:
         else:
             raise Exception("Need to input either pumapy.Workspace or a numpy.ndarray")
 
-        if self.filter_type != "contour":
+        if self.filter_type != "contour" and self.filter_type != "warp":
             self.grid = pv.UniformGrid()
             self.grid.origin = self.origin
+        elif self.filter_type == "warp":
+            x = np.linspace(0, self.array.shape[0] - 1, self.array.shape[0])
+            y = np.linspace(0, self.array.shape[1] - 1, self.array.shape[1])
+            z = np.linspace(0, self.array.shape[2] - 1, self.array.shape[2])
+            x, y, z = np.meshgrid(x, y, z, indexing='ij')
+            self.grid = pv.StructuredGrid(x, y, z)
 
         self.filter = None
         if existing_plot is None:
@@ -295,10 +373,33 @@ class Renderer:
             self.grid.cell_data["vectors"] = tmp
             self.filter = self.grid.glyph(orient="vectors", scale="scalars", factor=self.scale_factor, geom=pv.Arrow())
 
-        self.p.add_mesh(self.filter, color=self.solid_color, show_edges=show_edges, style=self.style,
-                        cmap=self.cmap, show_scalar_bar=False, opacity=self.opacity)
+        elif self.filter_type == "warp":
+            tmp = np.zeros((self.orientation[:, :, :, 0].size, 3), dtype=float)
+            for i in [0, 1, 2]:
+                tmp[:, i] = self.orientation[:, :, :, i].ravel(order='F')
+            self.grid['vectors'] = tmp
+            if self.color == 'magnitude':
+                self.grid['scalars'] = np.linalg.norm(self.orientation, axis=3).ravel(order='F')
+            elif self.color == 'x':
+                self.grid['scalars'] = self.orientation[:, :, :, 0].flatten(order="F")
+            elif self.color == 'y':
+                self.grid['scalars'] = self.orientation[:, :, :, 1].flatten(order="F")
+            elif self.color == 'z':
+                self.grid['scalars'] = self.orientation[:, :, :, 2].flatten(order="F")
+            else:  # defaulting to matrix, even if not correct
+                if self.color != 'matrix':
+                    print_warning("Options for color_by input are: 'magnitude', 'x', 'y', 'z', 'matrix'")
+                self.grid['scalars'] = self.array.flatten(order="F")
+            self.filter = self.grid.warp_by_vector('vectors', factor=1.)
 
-        if self.cmap is not None and self.solid_color is None:
+        if self.filter_type != "warp":
+            self.p.add_mesh(self.filter, color=self.color, show_edges=show_edges, style=self.style,
+                            cmap=self.cmap, show_scalar_bar=False, opacity=self.opacity)
+        else:
+            self.p.add_mesh(self.filter, scalars='scalars', interpolate_before_map=False, show_edges=show_edges,
+                            style=self.style, cmap=self.cmap, show_scalar_bar=False, opacity=self.opacity)
+
+        if self.cmap is not None and self.color is None:
             self.p.add_scalar_bar(title='', height=0.5, vertical=True, position_x=0.05, position_y=0.3)
 
         self.p.background_color = self.background
