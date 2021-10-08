@@ -36,10 +36,10 @@ class Permeability(PropertySolver):
         self.velF = np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32)  # only fluid elements
         self.nelF = self.velF.shape[0]
 
-        self.ke = np.zeros((24, 24), dtype=np.float32)
-        self.ge = np.zeros((24, 8), dtype=np.float32)
-        self.pe = np.zeros((8, 8), dtype=np.float32)
-        self.fe = np.zeros((8, 1), dtype=np.float32)
+        self.ke = np.zeros((24, 24), dtype=float)
+        self.ge = np.zeros((24, 8),  dtype=float)
+        self.pe = np.zeros((8, 8),   dtype=float)
+        self.fe = np.zeros((8, 1),   dtype=float)
         self.mgdlF = np.zeros((32, self.nelF), dtype=np.uint32)
         self.resolveF = None
         self.x_full = None
