@@ -15,7 +15,13 @@ Root directory for the pumapy package.
 
 
 # Note: only this version has to be bumped for the whole puma project
-# create tag using: git tag -a v$(python setup.py --version) -m 'DESCRIBE VERSION'
+# to publish new version: (pre-requisite: conda install gh -c conda-forge)
+# - bump version below
+# - git add -A
+# - git commit -m 'Version bumped'
+# - git push nasa main
+# - git tag -a v$(python setup.py --version) -m 'INPUT DESCRIPTION'
+# - gh release create v$(python setup.py --version) --target main
 __version__ = "3.1.4"
 
 
@@ -34,7 +40,7 @@ from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_spart
 try:
     from pumapy.io.export_texgen_weave import export_weave_vtu
 except:
-    print_warning("WARNING: 'import TexGen.Core' failed: cannot use TexGen functions and pumapy.export_weave_vtu.")
+    print_warning("'import TexGen.Core' failed (TexGen is only made available when installing puma with conda on UNIX).")
 
 # material properties
 from pumapy.materialproperties.surfacearea import compute_surface_area

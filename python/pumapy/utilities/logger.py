@@ -3,7 +3,7 @@ import os
 
 
 def print_warning(warning_text):
-    print(Colors.WARNING + warning_text + Colors.ENDC)
+    print(Colors.WARNING + "WARNING: " + warning_text + Colors.ENDC)
 
 
 class Colors:

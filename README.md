@@ -55,7 +55,7 @@ If not, conda can be installed by following the instructions
 Once the conda command is working, all the PuMA components can be installed by executing 
 the following command in a terminal: (Note: The "solving environment" step can take a while on some systems so please be patient)
 
-    conda create -y --name puma conda-forge::puma>=3.1.0
+    conda create -y --name puma conda-forge::puma
 
 If only the pumapy python package is needed, it can be installed directly using:
 
