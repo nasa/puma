@@ -16,8 +16,9 @@ def render_volume(workspace, cutoff=None, solid_color=(1., 1., 1.), style='surfa
     :type workspace: Workspace or np.ndarray
     :param cutoff: specifying the values to render
     :type cutoff: (int, int)
-    :param solid_color: if set to None, the material is colored by the matrix's values. Otherwise, a solid color can be specified (e.g. for white (1., 1., 1.))
-    :type solid_color: (float, float, float)
+    :param solid_color: if set to None, the material is colored by the matrix's values.
+                        Otherwise, a solid color can be specified (e.g. for white (1., 1., 1.))
+    :type solid_color: (float, float, float) or None
     :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
     :type style: string
     :param origin: origin of the data as

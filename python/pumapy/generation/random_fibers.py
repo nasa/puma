@@ -47,7 +47,7 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90, t
     :type max_iter: int
     :param allow_intersect: allow intersection betweem the fibers
     :type allow_intersect: bool
-    :return: random fibers domain
+    :return: random fibers domain in which each fiber has a unique ID
     :rtype: Workspace
 
     :Example:

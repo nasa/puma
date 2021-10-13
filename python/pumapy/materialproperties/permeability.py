@@ -15,8 +15,8 @@ def compute_permeability(workspace, solid_cutoff, tol=1e-8, maxiter=10000, solve
     :param solver_type: solver type, options: 'minres' (default), 'direct', 'cg', 'bicgstab'
     :type solver_type: string
     :type display_iter: bool
-    :return: permeability, velocity field
-    :rtype: (numpy.ndarray, numpy.ndarray)
+    :return: effective permeability (3x3 matrix), velocity and pressure fields for x, y, z directions (u_x, p_x, etc)
+    :rtype: (numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray)
 
     :Example:
     >>> import pumapy as puma

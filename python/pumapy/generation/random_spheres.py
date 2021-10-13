@@ -16,7 +16,8 @@ def generate_random_spheres(size, diameter, porosity, allow_intersect=True):
     :type porosity: float
     :param allow_intersect: allow the spheres to intersect or not
     :type allow_intersect: bool
-    :return: domain with random spheres with input diameter
+    :return: random spheres domain filled with grayscales from 0 255, in which the desired sphere diameter is found
+             at threshold=128
     :rtype: Workspace
 
     :Example:
