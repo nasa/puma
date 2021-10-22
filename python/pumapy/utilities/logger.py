@@ -1,5 +1,6 @@
 import datetime
 import os
+import pumapy
 
 
 def print_warning(warning_text):
@@ -23,10 +24,10 @@ class Logger:
     def __init__(self):
 
         self.log = ""
-        self.location = ""
+        self.location = pumapy.settings['log_location']
 
-        if not os.path.exists('logs'):
-            os.mkdir('logs')
+        if not os.path.exists(self.location):
+            os.mkdir(self.location)
 
         now = datetime.datetime.now()
         month = str(now.month) if len(str(now.month)) == 2 else "0" + str(now.month)
@@ -34,10 +35,8 @@ class Logger:
         hour = str(now.hour) if len(str(now.hour)) == 2 else "0" + str(now.hour)
         minute = str(now.minute) if len(str(now.minute)) == 2 else "0" + str(now.minute)
         second = str(now.second) if len(str(now.second)) == 2 else "0" + str(now.second)
-        self.location = "logs/pumapy_log_" + str(now.year) + month + day + "_" + hour + minute + second + ".txt"
-
-    def set_location(self, location):
-        self.location = location
+        self.location = os.path.join(self.location, "pumapy_log_" + str(now.year) + month + day + "_" +
+                                     hour + minute + second + ".txt")
 
     def log_section(self, name):
         self.log += "\n---------------------------- \n " + str(name) + "\n---------------------------- \n"
