@@ -1,5 +1,7 @@
 #include "particles_isosurfacetortuosity.h"
 #include "isosurface.h"
+#include "export_STL.h"
+#include "export_3DTiff.h"
 
 
 puma::TortuosityReturn puma::compute_particle_isosurface_Tortuosity(puma::Workspace *grayWS, puma::Cutoff cutoff,
@@ -114,25 +116,11 @@ bool TortuosityParticles_Isosurface::solve(){
 
 
 double manipulateGrayscaleMatrix(puma::Matrix<float> *Matrix, puma::Cutoff cutoff){
-    double low;
-    double high;
 
-    low = (double)cutoff.first;
-    high = (double)cutoff.second;
-    // 3 Materials
-    if (cutoff.second != 255 && cutoff.first != 0) {
-        double average = (low+high)/2;
-        Matrix->flipAroundValue((float)average);
-    }
-        // Invert workspace if low cutoff is zero
-    else if (cutoff.second != 255 && cutoff.first == 0) {
-        low = 255 - high;
-#pragma omp parallel for
-        for (long l=0;l<Matrix->size();l++) {
-            Matrix->operator()(l) = 255 - Matrix->operator()(l);
-        }
-    }
-    return low;
+    double average = (double)(cutoff.first+cutoff.second)/2;
+    Matrix->flipAroundValue((float)average);
+    return cutoff.first;
+
 }
 
 bool TortuosityParticles_Isosurface::generateSurfaces() {
@@ -140,6 +128,8 @@ bool TortuosityParticles_Isosurface::generateSurfaces() {
     //generating the array for the vectors
     puma::Timer time;
     voxels = new Voxel[grayWS->size()];
+
+//    int count = 0;
 
     omp_set_num_threads(numThreads);
 #pragma omp parallel for
@@ -158,14 +148,37 @@ bool TortuosityParticles_Isosurface::generateSurfaces() {
                 newWork.at(6)=grayWS->matrix.at((long)Z*(Y*(i+1) + j+1) + k);
                 newWork.at(7)=grayWS->matrix.at((long)Z*(Y*(i+1) + j+1) + k+1);
 
-                double isoVal = manipulateGrayscaleMatrix(&newWork, puma::Cutoff(cutoff.first-0.5, cutoff.second+0.5));
+                double isoVal = manipulateGrayscaleMatrix(&newWork, cutoff);
 
                 MarchingCubes mc(&newWork, &voxels[(long)Z*(Y*(i) + j) + k].triangles);
                 mc.run( isoVal ) ;
 
+//                count += voxels[(long)Z*(Y*(i) + j) + k].triangles.size();
+
             }
         }
     }
+
+//    std::vector< puma::Triangle<float> > triangles(count);
+//    int newcount = 0;
+//    for(int i=0;i<X-1;i++){
+//        for(int j=0;j<Y-1;j++) {
+//            for (int k = 0; k < Z - 1; k++) {
+//                for(int t=0;t<voxels[(long)Z*(Y*(i) + j) + k].triangles.size();t++) {
+//                    triangles[newcount] = voxels[(long)Z*(Y*(i) + j) + k].triangles[t] + puma::Vec3<float>((float)i,(float)j,(float)k);
+//                    newcount++;
+//                }
+//
+//            }
+//        }
+//    }
+//
+//    puma::export_STL(&triangles,false,"/Users/josephferguson/Desktop/wtfiswrongwithmytriangles.stl");
+//
+//    puma::Workspace outwork(grayWS->X()-1, grayWS->Y()-1, grayWS->Z()-1, 1e-6);
+//    puma::export_3DTiff(&outwork,"/Users/josephferguson/Desktop/testmatrix.tif",false);
+
+
 
     int numTriangles =0;
     for(long i=0;i<grayWS->matrix.size();i++){
@@ -338,7 +351,7 @@ bool TortuosityParticles_Isosurface::generateWalkers(){
         double iVal = 255;
 
 
-        while(tCount!=0||iVal>cutoff.second){ //making sure that the walker is placed within the voids
+        while(tCount!=0||iVal>cutoff.second||iVal<cutoff.first){ //making sure that the walker is placed within the voids
             walkers[i].xPos = std::max((double)walkers[i].engine()/sitmo::prng_engine::max(),1e-8)*(X-2);
             walkers[i].yPos = std::max((double)walkers[i].engine()/sitmo::prng_engine::max(),1e-8)*(Y-2);
             walkers[i].zPos = std::max((double)walkers[i].engine()/sitmo::prng_engine::max(),1e-8)*(Z-2);

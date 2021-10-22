@@ -196,7 +196,6 @@ double IsoSurface::manipulateGrayscaleMatrix(puma::Matrix<float> *Matrix){
 
     double average = (double)(cutoff.first+cutoff.second)/2;
     Matrix->flipAroundValue((float)average);
-
     return cutoff.first;
 }
 
