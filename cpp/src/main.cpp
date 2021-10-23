@@ -24,10 +24,8 @@ int main (int argc, char **argv)
 
             generateRandomFibers(&grayWS,input);
 
-            puma::TortuosityReturn tortReturn = compute_particle_isosurface_Tortuosity(&grayWS,puma::Cutoff(0,127),20000,20000,500,1,10000,0);
-            cout << "Tortuosity: " << tortReturn.tortuosity.toString() << endl;
-            cout << "Mean Intercept Length: " << tortReturn.meanInterceptLength << endl;
-            cout << "Diffusion Coefficient: " << tortReturn.diffusionCoefficient.toString() << endl;
+            double vf = puma::compute_VolumeFraction(&grayWS, puma::Cutoff(128,255));
+            std::cout << "Volume Fraction: " << vf << std::endl;
 
         }
 

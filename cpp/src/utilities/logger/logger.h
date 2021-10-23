@@ -15,11 +15,9 @@ class Logger
 {
 public:
     Logger();
-    Logger(std::string folderLabel);
+    Logger(std::string folder_location);
     Logger(bool active);
-    Logger(std::string folderLabel, bool active);
-
-    bool generateSubFolder(std::string subFolderName);
+    Logger(std::string folder_location, bool active);
 
     void appendLogSection(std::string sectionName);
     void appendLogLine(std::string logLine);
@@ -36,7 +34,7 @@ public:
     bool writeLog();
 
     void emptyLog();
-    void emptyLog(std::string folderLabel);
+    void emptyLog(std::string folder_location);
 
     static std::string replaceAll(std::string baseString, std::string searchFor, std::string replaceWith);
     static std::string getTime();
@@ -50,9 +48,9 @@ private:
     bool active;
 
     bool generateRunFolder();
-    bool generateRunFolder(std::string folderLabel);
+    bool generateRunFolder(std::string folder_location);
 
-    void generateFolderName();
+    void generateFileName();
     bool generateDirectory(std::string directoryPath);
 
 };

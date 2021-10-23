@@ -203,6 +203,10 @@ namespace puma {
             this->voxelLength = voxelLength;
         }
 
+        void setLogLocation(std::string log_location) {
+            log->emptyLog(log_location);
+        }
+
         void setPrinter(puma::Printer *print) {
             std::cout << "Printer changed to user input" << std::endl;
             printer = print;

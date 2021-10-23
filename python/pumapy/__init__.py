@@ -76,3 +76,7 @@ from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation
 from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
+
+# global settings
+settings = {}
+settings["log_location"] = 'logs'

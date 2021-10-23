@@ -7,10 +7,10 @@ puma::Logger::Logger() {
     generateRunFolder();
 }
 
-puma::Logger::Logger(std::string folderLabel) {
+puma::Logger::Logger(std::string folder_location) {
     log="";
     active = true;
-    generateRunFolder(folderLabel);
+    generateRunFolder(folder_location);
 }
 
 puma::Logger::Logger(bool active) {
@@ -18,39 +18,43 @@ puma::Logger::Logger(bool active) {
     log="";
 }
 
-puma::Logger::Logger(std::string folderLabel, bool active) {
+puma::Logger::Logger(std::string folder_location, bool active) {
     this->active = active;
     log="";
-    generateRunFolder(folderLabel);
+    generateRunFolder(folder_location);
 }
 
 bool puma::Logger::generateRunFolder() {
 
     if(!active) { return true; }
 
-        generateFolderName();
+        char buff[FILENAME_MAX]; //create string buffer to hold path
+        GetCurrentDir( buff, FILENAME_MAX );
+        std::string current_working_dir(buff);
+        folderName = current_working_dir;
+        folderName.append("/logs");
 
-        std::cout << "Logs folder generated at: " << folderName << std::endl;
-        return generateDirectory(folderName);
+        generateFileName();
+
+        return true;
 }
 
-bool puma::Logger::generateRunFolder(std::string folderLabel) {
-
+bool puma::Logger::generateRunFolder(std::string folder_location) {
     if(!active) { return true; }
 
-        generateFolderName();
-        folderName.append(folderLabel);
-        return generateDirectory(folderName);
+        while(PString::ends_with(folder_location,"/")){
+            folder_location.pop_back();
+        }
+        std::cout << folder_location << std::endl;
+
+
+        folderName = folder_location;
+        generateFileName();
+
+        return true;
 }
 
-void puma::Logger::generateFolderName() {
-    
-    char buff[FILENAME_MAX]; //create string buffer to hold path
-    GetCurrentDir( buff, FILENAME_MAX );
-    std::string current_working_dir(buff);
-
-    folderName = current_working_dir;
-    folderName.append("/logs");
+void puma::Logger::generateFileName() {
 
     logLocation = folderName;
     logLocation.append("/puma_log_");
@@ -91,25 +95,25 @@ void puma::Logger::generateFolderName() {
 }
 
 bool puma::Logger::generateDirectory(std::string directoryPath) {
+    if(directoryPath == "") {
+        std::cout << "Warning: Empty log folder directory. Defaulting to ./logs/" << std::endl;
+        generateRunFolder();
+        generateDirectory(folderName);
+        return true;
+    }
+
     int dir_err;
 
     std::string str = "mkdir -p ";
 
     str.append(directoryPath);
     dir_err = system(str.c_str());
-    if (-1 == dir_err)
+    if (0 != dir_err)
     {
-        printf("Error creating directory!n");
+        printf("Error creating directory\n");
         return false;
     }
     return true;
-}
-
-bool puma::Logger::generateSubFolder(std::string subFolderName) {
-    std::string subFolderPath = folderName;
-    subFolderPath.append("/");
-    subFolderPath.append(subFolderName);
-    return generateDirectory(subFolderPath);
 }
 
 void puma::Logger::appendLogSection(std::string sectionName) {
@@ -173,6 +177,10 @@ std::string puma::Logger::getTime() {
 
 bool puma::Logger::writeLog() {
     if(!active) { return true; }
+    if(!generateDirectory(folderName)) {
+        std::cout << "Warning: unable to write log - invalid log folder location" << std::endl;
+        return false;
+    }
 
     std::ofstream myfile;
 
@@ -185,18 +193,15 @@ bool puma::Logger::writeLog() {
 
 void puma::Logger::emptyLog() {
     if(!active) { return; }
-
     log="";
     generateRunFolder();
 
 }
 
-void puma::Logger::emptyLog(std::string folderLabel) {
+void puma::Logger::emptyLog(std::string folder_location) {
     if(!active) { return; }
-
     log="";
-    generateRunFolder(folderLabel);
-
+    generateRunFolder(folder_location);
 }
 
 std::string puma::Logger::replaceAll(std::string baseString, std::string searchFor, std::string replaceWith) {
