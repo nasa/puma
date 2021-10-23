@@ -22,7 +22,7 @@ Root directory for the pumapy package.
 # - git push nasa main
 # - git tag -a v$(python setup.py --version) -m 'INPUT DESCRIPTION'
 # - gh release create v$(python setup.py --version) --target main
-__version__ = "3.1.4"
+__version__ = "3.1.5"
 
 
 # utilities
