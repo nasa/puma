@@ -57,10 +57,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    QString startPage = QString::fromStdString(":/images/StartPage_InvertedBlurred.png");
+    QString startPage = QString::fromStdString(":/images/StartPage_InvertedBlurred.jpg");
 
     pixmap.load(startPage);
-    ui->mainLabel->setPixmap(pixmap.scaledToHeight(600));
+    ui->mainLabel->setPixmap(pixmap.scaledToHeight(600, Qt::SmoothTransformation));
 
     ui->menuBar->setNativeMenuBar(false);
 
