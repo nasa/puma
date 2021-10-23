@@ -27,7 +27,12 @@ class Logger:
         self.location = pumapy.settings['log_location']
 
         if not os.path.exists(self.location):
-            os.mkdir(self.location)
+            try:
+                os.mkdir(self.location)
+            except PermissionError:
+                self.location = ""
+                print("\nInvalid log location. No log will be generated")
+
 
         now = datetime.datetime.now()
         month = str(now.month) if len(str(now.month)) == 2 else "0" + str(now.month)
@@ -62,6 +67,12 @@ class Logger:
     def write_log(self):
         if self.location == "":
             return
-        txt_file = open(self.location, "w")
-        txt_file.write(self.log)
-        txt_file.close()
+
+        try:
+            txt_file = open(self.location, "w")
+            txt_file.write(self.log)
+            txt_file.close()
+        except PermissionError:
+            self.location = ""
+            print("\nInvalid log location. No log will be generated")
+
