@@ -10,60 +10,64 @@ import numpy as np
 from pumapy.utilities.workspace import Workspace
 from pumapy.materialproperties.volumefraction import compute_volume_fraction
 from pumapy.utilities.logger import print_warning
+from pumapy.filters.filters import filter_gaussian
 import sys
 
 
-def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90, theta=90, length=None, max_iter=3,
-                           allow_intersect=True):
+def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., theta=90., length=None, max_iter=3,
+                           allow_intersect=True, segmented=True):
     """ Generates random fibers from number of fibers or porosity
 
-    :param shape: the size of the workspace to generate in (Nx, Ny, Nz) where N is the number of voxels.
-    :type shape: (int, int, int)
-    :param radius: the radius of the fibers in voxels
-    :type radius: int
-    :param nfibers: the number of fibers to add to the domain. Adjust this value to control the final porosity,
-        which is not easily specified since cylinders overlap and intersect different fractions of the domain
-    :type nfibers: int
-    :param porosity: the target value for the porosity of the generated mat. The function uses an
-        algorithm for predicting the number of required number of cylinder, and refines this over a certain number of
-        fractional insertions (according to the 'iterations' input)
-    :type porosity: float
-    :param phi: a value between 0 and 90 that controls the amount that the fibers lie *out of* the XY plane,
-        with 0 meaning all fibers lie in the XY plane, and 90 meaning that cylinders are randomly oriented out of the
-        plane by as much as +/- 90 degrees
-    :type phi: float
-    :param theta: a value between 0 and 90 that controls the amount of rotation *in the* XY plane,
-        with 0 meaning all fibers point in the X-direction, and 90 meaning they are randomly rotated about the
-        Z axis by as much as +/- 90 degrees
-    :type theta: float
-    :param length: the length of the cylinders to add.  If ``None`` (default) then the cylinders will extend beyond the
-        domain in both directions so no ends will exist. If a scalar value is given it will be interpreted as the
-        Euclidean distance between the two ends of the cylinder.  Note that one or both of the ends *may* still lie
-        outside the domain, depending on the randomly chosen center point of the cylinder
-    :type length: float
-    :param max_iter: the number of fractional fiber insertions used to target the requested porosity. By default a
-        value of 3 is used (and this is typically effective in getting very close to the targeted porosity),
-        but a greater number can be input to improve the achieved porosity
-    :type max_iter: int
-    :param allow_intersect: allow intersection betweem the fibers
-    :type allow_intersect: bool
-    :return: random fibers domain in which each fiber has a unique ID
-    :rtype: Workspace
+        :param shape: the shape of the workspace to generate in (Nx, Ny, Nz) where N is the number of voxels.
+        :type shape: (int, int, int)
+        :param radius: the radius of the fibers in voxels
+        :type radius: int
+        :param nfibers: the number of fibers to add to the domain. Adjust this value to control the final porosity,
+            which is not easily specified since cylinders overlap and intersect different fractions of the domain
+        :type nfibers: int
+        :param porosity: the target value for the porosity of the generated mat. The function uses an
+            algorithm for predicting the number of required number of cylinder, and refines this over a certain number of
+            fractional insertions (according to the 'iterations' input)
+        :type porosity: float
+        :param phi: a value between 0 and 90 that controls the amount that the fibers lie *out of* the XY plane,
+            with 0 meaning all fibers lie in the XY plane, and 90 meaning that cylinders are randomly oriented out of the
+            plane by as much as +/- 90 degrees
+        :type phi: float
+        :param theta: a value between 0 and 90 that controls the amount of rotation *in the* XY plane,
+            with 0 meaning all fibers point in the X-direction, and 90 meaning they are randomly rotated about the
+            Z axis by as much as +/- 90 degrees
+        :type theta: float
+        :param length: the length of the cylinders to add.  If ``None`` (default) then the cylinders will extend beyond the
+            domain in both directions so no ends will exist. If a scalar value is given it will be interpreted as the
+            Euclidean distance between the two ends of the cylinder.  Note that one or both of the ends *may* still lie
+            outside the domain, depending on the randomly chosen center point of the cylinder
+        :type length: float
+        :param max_iter: the number of fractional fiber insertions used to target the requested porosity. By default a
+            value of 3 is used (and this is typically effective in getting very close to the targeted porosity),
+            but a greater number can be input to improve the achieved porosity
+        :type max_iter: int
+        :param allow_intersect: allow intersection betweem the fibers
+        :type allow_intersect: bool
+        :param segmented: return a domain that is already segmented (i.e. each fiber with unique ID) or
+            with grayscales 0-255 with threshold=128 for the input diameter
+        :type segmented: bool
+        :return: random fibers domain
+        :rtype: Workspace
 
-    :Example:
-    >>> import pumapy as puma
-    >>> # specify porosity
-    >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, phi=90, theta=90, length=200)
-    >>> puma.render_contour(ws_fibers, cutoff=(1, 1))
-    >>> puma.render_orientation(ws_fibers)
-    >>> # specify number of fibers
-    >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, nfibers=100, phi=90, theta=90, length=200)
-    >>> puma.render_contour(ws_fibers, cutoff=(1, 1))
-    >>> puma.render_orientation(ws_fibers)
-    >>> # don't allow intersection between fibers
-    >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, phi=90, theta=90, length=200, allow_intersect=False)
-    >>> puma.render_contour(ws_fibers, cutoff=(1, 1))
-    >>> puma.render_orientation(ws_fibers)
+        :Example:
+        >>> import pumapy as puma
+        >>> # specify porosity
+        >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, phi=90, theta=90, length=200, allow_intersect=True, segmented=True)
+        >>> puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')
+        >>> puma.render_orientation(ws_fibers)
+        >>> # specify number of fibers
+        >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, nfibers=100, phi=90, theta=90, length=200, allow_intersect=True, segmented=False)
+        >>> puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')
+        >>> puma.render_orientation(ws_fibers)
+        >>> # don't allow intersection between fibers
+        >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, phi=90, theta=90, length=200, allow_intersect=False, segmented=True)
+        >>> puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')
+        >>> puma.render_orientation(ws_fibers)
     """
 
     # error checks and warnings
@@ -73,6 +77,17 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90, t
         raise Exception("'nfibers' and 'porosity' can't be both None")
     if nfibers is not None and porosity is not None:
         print_warning("'nfibers' and 'porosity' have both been provided: only nfibers used.")
+
+    # logging
+    ws = Workspace()
+    ws.log.log_section("Generating Random Fiber Domain")
+    ws.log.log_value("Domain Shape: ", shape)
+    ws.log.log_value("Fiber radius: ", radius)
+    ws.log.log_line(f"Porosity: {porosity}" if nfibers is None else f"Number of fibers: {nfibers}")
+    ws.log.log_line(f"Phi and theta angle variations: ({phi}, {theta})")
+    ws.log.log_line(f"Fiber length: {length}")
+    ws.log.log_line(f"Allow intersections: {allow_intersect}")
+    ws.log.write_log()
 
     ids_orient_dict = {}
     fiber_count = 0
@@ -131,21 +146,29 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90, t
                 vol_added = -np.log(porosity) * vol_total
                 vol_fiber = vol_added / fiber_count
 
-    img = Workspace.from_array(img.astype(np.uint16))
+    ws.matrix = img.astype(np.uint16)
 
     print("\nAssigning orientations ... ", end='')
     k = np.array(list(ids_orient_dict.keys()))
     v = np.array(list(ids_orient_dict.values()))
     mapping_ar = np.zeros((k.max() + 1, 3), dtype=v.dtype)
     mapping_ar[k] = v
-    img.orientation = mapping_ar[img.matrix]
+    ws.orientation = mapping_ar[ws.matrix]
     print("Done")
-    print("Generated random fibers domain with porosity: {}".format(compute_volume_fraction(img, (0, 0))))
-    return img
+    print("Generated random fibers domain with porosity: {}".format(compute_volume_fraction(ws, (0, 0))))
+
+    if not segmented:  # add grayscale gradients with Gaussian
+        ws.binarize(1)
+        ws.matrix *= 255
+        filter_gaussian(ws, sigma=radius//2)
+
+    ws.log.log_section("Finished Random Fiber Generation")
+    ws.log.write_log()
+    return ws
 
 
 def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_orient_dict, allow_intersect,
-                     phi=0, theta=90, length=None, existing_img=None):
+                     phi, theta, length=None, existing_img=None):
     """ Generates random fibers given nfibers"""
 
     # error checks
@@ -161,9 +184,9 @@ def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_or
     R = min(int(length / 2), 2 * H)
 
     if (phi > 90) or (phi < 0):
-        raise Exception('phi_max must be betwen 0 and 90')
+        raise Exception('phi_max must be between 0 and 90')
     if (theta > 90) or (theta < 0):
-        raise Exception('theta_max must be betwen 0 and 90')
+        raise Exception('theta_max must be between 0 and 90')
 
     n = 0  # current iteration number of fibers
     L = min(H, R)

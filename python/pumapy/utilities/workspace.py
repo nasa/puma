@@ -9,14 +9,14 @@ class Workspace:
     def __init__(self, **kwargs):
         """ Workspace class holding the domain as a numpy matrix
 
-        :param kwargs: keyword arguments
-        - No arguments --> zero matrix of shape (1,1,1)
-        - 'shape' argument --> then set all to zeros
-        - 'value' --> value set all to full of value
-        - 'nparray' --> set Workspace matrix as input array
-        - 'scalars' --> bool indicating if a Workspace contains scalars stored in matrix variable
-        - 'vectors' --> bool indicating if a Workspace contains vectors stored in orientation variable
-        :type kwargs: dict
+            :param kwargs: keyword arguments
+            - No arguments --> zero matrix of shape (1,1,1)
+            - 'shape' argument --> then set all to zeros
+            - 'value' --> value set all to full of value
+            - 'nparray' --> set Workspace matrix as input array
+            - 'scalars' --> bool indicating if a Workspace contains scalars stored in matrix variable
+            - 'vectors' --> bool indicating if a Workspace contains vectors stored in orientation variable
+            :type kwargs: dict
         """
         self.log = Logger()
         self.voxel_length = 1e-6
@@ -69,17 +69,17 @@ class Workspace:
     def from_shape(cls, shape, orientation=False):
         """ Generate workspace from shape, all matrix value set to zero.
 
-        :param shape: shape of workspace to be created
-        :type shape: (int, int, int)
-        :param orientation: specify if workspace contains orientation
-        :type orientation: bool
-        :return: new workspace
-        :rtype: pumapy.Workspace
+            :param shape: shape of workspace to be created
+            :type shape: (int, int, int)
+            :param orientation: specify if workspace contains orientation
+            :type orientation: bool
+            :return: new workspace
+            :rtype: pumapy.Workspace
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace.from_shape((10, 11, 12))
-        >>> puma.render_volume(ws, style='edges')
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace.from_shape((10, 11, 12))
+            >>> puma.render_volume(ws, style='edges')
         """
         return cls(shape=shape, vectors=orientation)
 
@@ -87,19 +87,19 @@ class Workspace:
     def from_shape_value(cls, shape, value, orientation=False):
         """ Generate workspace from shape, all matrix values set to the value passed.
 
-        :param shape: shape of workspace to be created
-        :type shape: (int, int, int)
-        :param value: value to be assigned to the matrix variable
-        :type value: int
-        :param orientation: specify if workspace contains orientation
-        :type orientation: bool
-        :return: new workspace
-        :rtype: pumapy.Workspace
+            :param shape: shape of workspace to be created
+            :type shape: (int, int, int)
+            :param value: value to be assigned to the matrix variable
+            :type value: int
+            :param orientation: specify if workspace contains orientation
+            :type orientation: bool
+            :return: new workspace
+            :rtype: pumapy.Workspace
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace.from_shape_value((20, 31, 212), 1)
-        >>> puma.render_volume(ws, style='edges')
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace.from_shape_value((20, 31, 212), 1)
+            >>> puma.render_volume(ws, style='edges')
         """
         return cls(shape=shape, value=value, vectors=orientation)
 
@@ -107,17 +107,17 @@ class Workspace:
     def from_shape_vector(cls, shape, vector):
         """ Generate workspace from shape, all orientation vectors set to the vector passed.
 
-        :param shape: shape of workspace to be created
-        :type shape: (int, int, int)
-        :param vector: vector to be assigned to the orientation variable
-        :type vector: (float, float, float)
-        :return: new workspace with orientation
-        :rtype: pumapy.Workspace
+            :param shape: shape of workspace to be created
+            :type shape: (int, int, int)
+            :param vector: vector to be assigned to the orientation variable
+            :type vector: (float, float, float)
+            :return: new workspace with orientation
+            :rtype: pumapy.Workspace
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace.from_shape_vector((5, 6, 2), (0.4, 2, 5))
-        >>> puma.render_orientation(ws)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace.from_shape_vector((5, 6, 2), (0.4, 2, 5))
+            >>> puma.render_orientation(ws)
         """
         return cls(shape=shape, vectorvalue=vector, vectors=True)
 
@@ -125,19 +125,19 @@ class Workspace:
     def from_shape_value_vector(cls, shape, value, vector):
         """ Generate workspace from shape, all matrix and orientation set to the values passed.
 
-        :param shape: shape of workspace to be created
-        :type shape: (int, int, int)
-        :param value: value to be assigned to the matrix variable
-        :type value: int
-        :param vector: vector to be assigned to the orientation variable
-        :type vector: (float, float, float)
-        :return: new workspace with orientation
-        :rtype: pumapy.Workspace
+            :param shape: shape of workspace to be created
+            :type shape: (int, int, int)
+            :param value: value to be assigned to the matrix variable
+            :type value: int
+            :param vector: vector to be assigned to the orientation variable
+            :type vector: (float, float, float)
+            :return: new workspace with orientation
+            :rtype: pumapy.Workspace
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace.from_shape_value_vector((5, 6, 2), 1, (0.4, 2, 5))
-        >>> puma.render_orientation(ws)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace.from_shape_value_vector((5, 6, 2), 1, (0.4, 2, 5))
+            >>> puma.render_orientation(ws)
         """
         return cls(shape=shape, value=value, vectorvalue=vector, vectors=True)
 
@@ -145,32 +145,32 @@ class Workspace:
     def from_array(cls, nparray):
         """ Generate workspace matrix from numpy array.
 
-        :param nparray: array of shape (X,Y,Z) to be assigned to the matrix variable. NB: array is turned into type uint16
-        :type nparray: np.ndarray
-        :return: new workspace
-        :rtype: pumapy.Workspace
+            :param nparray: array of shape (X,Y,Z) to be assigned to the matrix variable. NB: array is turned into type uint16
+            :type nparray: np.ndarray
+            :return: new workspace
+            :rtype: pumapy.Workspace
 
-        :Example:
-        >>> import pumapy as puma
-        >>> array = np.random.randint(5, size=(10, 10, 10))
-        >>> ws = puma.Workspace.from_array(array)
-        >>> puma.render_volume(ws, style='edges')
+            :Example:
+            >>> import pumapy as puma
+            >>> array = np.random.randint(5, size=(10, 10, 10))
+            >>> ws = puma.Workspace.from_array(array)
+            >>> puma.render_volume(ws, style='edges')
         """
         return cls(nparray=nparray, vectors=False)
 
     def set_voxel_length(self, voxel_length):
         """ Set voxel size, which by default is set to 1e-6
 
-        :param voxel_length: size of a voxel side
-        :type voxel_length: float
-        :return: None
+            :param voxel_length: size of a voxel side
+            :type voxel_length: float
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> array = np.random.randint(5, size=(10, 10, 10))
-        >>> ws = puma.Workspace.from_array(array)
-        >>> ws.set_voxel_length(1)  # equivalent to ws.voxel_length = 1
-        >>> puma.render_volume(ws, style='edges')
+            :Example:
+            >>> import pumapy as puma
+            >>> array = np.random.randint(5, size=(10, 10, 10))
+            >>> ws = puma.Workspace.from_array(array)
+            >>> ws.set_voxel_length(1)  # equivalent to ws.voxel_length = 1
+            >>> puma.render_volume(ws, style='edges')
         """
         if not isinstance(voxel_length, int) and not isinstance(voxel_length, float):
             raise Exception("Voxel_length needs to be an int or float, got " + str(type(voxel_length)))
@@ -180,16 +180,16 @@ class Workspace:
     def set_matrix(self, nparray):
         """ Set matrix with numpy array
 
-        :param nparray: array of shape (X,Y,Z) to be assigned to the matrix variable
-        :type nparray: np.ndarray
-        :return: None
+            :param nparray: array of shape (X,Y,Z) to be assigned to the matrix variable
+            :type nparray: np.ndarray
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace()
-        >>> nparray = np.random.randint(5, size=(10, 10, 10))
-        >>> ws.set_matrix(nparray)  # equivalent to ws.matrix = nparray.copy().astype(np.uint16)
-        >>> puma.render_volume(ws, style='edges')
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace()
+            >>> nparray = np.random.randint(5, size=(10, 10, 10))
+            >>> ws.set_matrix(nparray)  # equivalent to ws.matrix = nparray.copy().astype(np.uint16)
+            >>> puma.render_volume(ws, style='edges')
         """
         if isinstance(nparray, np.ndarray):
             if nparray.ndim == 3:
@@ -202,15 +202,15 @@ class Workspace:
     def set_orientation(self, nparray):
         """ Set orientation with numpy array
 
-        :param nparray: array of shape (X,Y,Z, 3) to be assigned to the orientation variable
-        :type nparray: np.ndarray
-        :return: None
+            :param nparray: array of shape (X,Y,Z, 3) to be assigned to the orientation variable
+            :type nparray: np.ndarray
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace()
-        >>> ws.set_orientation(np.random.rand(10, 10, 10, 3))
-        >>> puma.render_orientation(ws, solid_color=None)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace()
+            >>> ws.set_orientation(np.random.rand(10, 10, 10, 3))
+            >>> puma.render_orientation(ws, solid_color=None)
         """
         if isinstance(nparray, np.ndarray):
             if nparray.ndim == 4 and nparray.shape[3] == 3:
@@ -223,8 +223,8 @@ class Workspace:
     def copy(self):
         """ Create a copy of the workspace
 
-        :return: copy of workspace
-        :rtype: pumapy.Workspace
+            :return: copy of workspace
+            :rtype: pumapy.Workspace
         """
         return deepcopy(self)
 
@@ -237,104 +237,104 @@ class Workspace:
     def get_size(self):
         """ Return size
 
-        :return: number of voxels
-        :rtype: int
+            :return: number of voxels
+            :rtype: int
         """
         return self.matrix.size
 
     def len_x(self):
         """ Return x dimension length
 
-        :return: number of voxels in x dimension
-        :rtype: int
+            :return: number of voxels in x dimension
+            :rtype: int
         """
         return self.matrix.shape[0]
 
     def len_y(self):
         """ Return y dimension length
 
-        :return: number of voxels in y dimension
-        :rtype: int
+            :return: number of voxels in y dimension
+            :rtype: int
         """
         return self.matrix.shape[1]
 
     def len_z(self):
         """ Return z dimension length
 
-        :return: number of voxels in z dimension
-        :rtype: int
+            :return: number of voxels in z dimension
+            :rtype: int
         """
         return self.matrix.shape[2]
 
     def get_shape(self):
         """ Return shape of domain
 
-        :return: shape of domain (matrix)
-        :rtype: (int, int, int)
+            :return: shape of domain (matrix)
+            :rtype: (int, int, int)
         """
         return self.matrix.shape
 
     def min(self):
         """ Return minimum of domain
 
-        :return: minimum
-        :rtype: int
+            :return: minimum
+            :rtype: int
         """
         return np.min(self.matrix)
 
     def max(self):
         """ Return maximum of domain
 
-        :return: maximum
-        :rtype: int
+            :return: maximum
+            :rtype: int
         """
         return np.max(self.matrix)
 
     def average(self):
         """ Return average of domain
 
-        :return: grayscale average
-        :rtype: float
+            :return: grayscale average
+            :rtype: float
         """
         return self.matrix.mean()
 
     def unique_values(self):
         """ Return unique values in domain matrix variable
 
-        :return: unique values
-        :rtype: np.ndarray
+            :return: unique values
+            :rtype: np.ndarray
         """
         return np.unique(self.matrix)
 
     def unique_values_counts(self):
         """ Return unique values and their counts in domain matrix variable
 
-        :return: unique values and counts
-        :rtype: (np.ndarray, int)
+            :return: unique values and counts
+            :rtype: (np.ndarray, int)
         """
         return np.unique(self.matrix, return_counts=True)
 
     def orientation_magnitude(self):
         """ Return orientation vector's magnitude
 
-        :return: orientation field magnitude
-        :rtype: np.ndarray
+            :return: orientation field magnitude
+            :rtype: np.ndarray
         """
         return np.linalg.norm(self.orientation, axis=3)
 
     def resize_new_matrix(self, shape, value=None):
         """ Resize matrix numpy array
 
-        :param shape: shape of workspace to be resized
-        :type shape: (int, int, int)
-        :param value: value to be assigned to the new resized matrix variable
-        :type value: int
+            :param shape: shape of workspace to be resized
+            :type shape: (int, int, int)
+            :param value: value to be assigned to the new resized matrix variable
+            :type value: int
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace()
-        >>> ws.resize_new_matrix((10, 10, 10), value=3)
-        >>> puma.render_volume(ws, style='edges')
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace()
+            >>> ws.resize_new_matrix((10, 10, 10), value=3)
+            >>> puma.render_volume(ws, style='edges')
         """
         if isinstance(shape, tuple) and len(shape) == 3:
             if value is None:
@@ -347,16 +347,16 @@ class Workspace:
     def resize_new_orientation(self, shape, orientation_value=None):
         """ Resize orientation numpy array
 
-        :param shape: shape of workspace to be resized
-        :type shape: (int, int, int)
-        :param orientation_value: vector to be assigned to the new resized orientation variable
-        :type orientation_value: (float, float, float)
+            :param shape: shape of workspace to be resized
+            :type shape: (int, int, int)
+            :param orientation_value: vector to be assigned to the new resized orientation variable
+            :type orientation_value: (float, float, float)
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace()
-        >>> ws.resize_new_orientation((10, 10, 10), orientation_value=(1., 0., 0.))
-        >>> puma.render_orientation(ws)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace()
+            >>> ws.resize_new_orientation((10, 10, 10), orientation_value=(1., 0., 0.))
+            >>> puma.render_orientation(ws)
         """
         if isinstance(shape, tuple) and len(shape) == 3:
             if orientation_value is None:
@@ -372,37 +372,37 @@ class Workspace:
     def create_orientation(self):
         """ Create orientation field of the same size as the matrix 
 
-        :return: None
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace.from_shape((10, 10, 10))
-        >>> ws.create_orientation()
-        >>> print(ws.orientation.shape)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace.from_shape((10, 10, 10))
+            >>> ws.create_orientation()
+            >>> print(ws.orientation.shape)
         """
         self.orientation = np.zeros(list(self.matrix.shape) + [3], dtype=float)
 
     def resize(self, shape, segmented, anti_aliasing=True, interpolation_order=1):
         """ Resize both matrix and orientation (if present) by rescaling the content to specified size
 
-        :param shape: shape of workspace to be resized
-        :type shape: (int, int, int)
-        :param segmented: specifying whether the domain is already segmented (True) or grayscales (False)
-        :type segmented: bool
-        :param anti_aliasing: if aliasing is to be prevented applying a Gaussian filter to smooth
-            before scaling. If domain is segmented, automatically set to False in order to preserve domain
-        :type anti_aliasing: bool
-        :param interpolation_order: order of the interpolation spline used.
-            For segmented, it is enforced to be 0,which is 'nearest neighbor' to preserve the segmentation
-        :type interpolation_order: int
-        :return: None
+            :param shape: shape of workspace to be resized
+            :type shape: (int, int, int)
+            :param segmented: specifying whether the domain is already segmented (True) or grayscales (False)
+            :type segmented: bool
+            :param anti_aliasing: if aliasing is to be prevented applying a Gaussian filter to smooth
+                before scaling. If domain is segmented, automatically set to False in order to preserve domain
+            :type anti_aliasing: bool
+            :param interpolation_order: order of the interpolation spline used.
+                For segmented, it is enforced to be 0,which is 'nearest neighbor' to preserve the segmentation
+            :type interpolation_order: int
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-        >>> ws2 = ws_fiberform.copy()
-        >>> ws2.resize((100, 200, 200), segmented=False)
-        >>> puma.compare_slices(ws_fiberform, ws2)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            >>> ws2 = ws_fiberform.copy()
+            >>> ws2.resize((100, 200, 200), segmented=False)
+            >>> puma.compare_slices(ws_fiberform, ws2)
         """
         if isinstance(shape, tuple) and len(shape) == 3:
             if self.orientation.shape[:3] == self.matrix.shape:
@@ -420,24 +420,24 @@ class Workspace:
     def rescale(self, scale, segmented, anti_aliasing=True, interpolation_order=1):
         """ Rescale both matrix and orientation (if present) by rescaling the content by a specified factor
 
-        :param scale: specifying the scaling factor
-        :type scale: float
-        :param segmented: specifying whether the domain is already segmented (True) or grayscales (False)
-        :type segmented: bool
-        :param anti_aliasing: if aliasing is to be prevented applying a Gaussian filter
-            to smooth before scaling. If domain is segmented, automatically set to False in order to preserve domain
-        :type anti_aliasing: bool
-        :param interpolation_order: order of the interpolation spline used.
-            For segmented, it is enforced to be 0, which is 'nearest neighbor' to preserve the segmentation
-        :type interpolation_order: int
-        :return: None
+            :param scale: specifying the scaling factor
+            :type scale: float
+            :param segmented: specifying whether the domain is already segmented (True) or grayscales (False)
+            :type segmented: bool
+            :param anti_aliasing: if aliasing is to be prevented applying a Gaussian filter
+                to smooth before scaling. If domain is segmented, automatically set to False in order to preserve domain
+            :type anti_aliasing: bool
+            :param interpolation_order: order of the interpolation spline used.
+                For segmented, it is enforced to be 0, which is 'nearest neighbor' to preserve the segmentation
+            :type interpolation_order: int
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-        >>> ws2 = ws_fiberform.copy()
-        >>> ws2.rescale(0.5, segmented=False)
-        >>> puma.compare_slices(ws_fiberform, ws2)  # pay attention to the shape
+            :Example:
+            >>> import pumapy as puma
+            >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            >>> ws2 = ws_fiberform.copy()
+            >>> ws2.rescale(0.5, segmented=False)
+            >>> puma.compare_slices(ws_fiberform, ws2)  # pay attention to the shape
         """
 
         unit_dim_check = None
@@ -468,18 +468,18 @@ class Workspace:
     def set(self, matrix_value=None, orientation_value=None):
         """ Set all elements in matrix equal to value (and orientation to vectorvalue is passed)
 
-        :param matrix_value: value to fill to the matrix variable. NB this value will be turned into np.uint16
-        :type matrix_value: int
-        :param orientation_value: vector to fill to the orientation variable
-        :type orientation_value: ((float, float, float))
-        :return: None
+            :param matrix_value: value to fill to the matrix variable. NB this value will be turned into np.uint16
+            :type matrix_value: int
+            :param orientation_value: vector to fill to the orientation variable
+            :type orientation_value: ((float, float, float))
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace.from_shape_value((10, 10, 10), 5)
-        >>> print(ws.unique_values())
-        >>> ws.set(matrix_value=4)
-        >>> print(ws.unique_values())
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace.from_shape_value((10, 10, 10), 5)
+            >>> print(ws.unique_values())
+            >>> ws.set(matrix_value=4)
+            >>> print(ws.unique_values())
         """
         check = True
         if matrix_value is not None:
@@ -503,18 +503,18 @@ class Workspace:
     def apply_mask(self, mask, apply_to_orientation=False):
         """ Apply mask of same size as the matrix by leaving the mask's 1s unchanged and setting mask's 0s to 0
 
-        :param mask: array of type bool with same size as matrix
-        :type mask: np.ndarray
-        :param apply_to_orientation: specifying whether the mask is to be applied to the orientation (if present)
-        :type apply_to_orientation: bool
-        :return: None
+            :param mask: array of type bool with same size as matrix
+            :type mask: np.ndarray
+            :param apply_to_orientation: specifying whether the mask is to be applied to the orientation (if present)
+            :type apply_to_orientation: bool
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.Workspace.from_shape_value_vector((10, 10, 10), 1, (0.4, 2, 5))
-        >>> mask = np.random.randint(255, size=(10, 10, 10)) > 100
-        >>> ws.apply_mask(mask, apply_to_orientation=True)
-        >>> puma.render_volume(ws, style='edges')
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.Workspace.from_shape_value_vector((10, 10, 10), 1, (0.4, 2, 5))
+            >>> mask = np.random.randint(255, size=(10, 10, 10)) > 100
+            >>> ws.apply_mask(mask, apply_to_orientation=True)
+            >>> puma.render_volume(ws, style='edges')
         """
         if isinstance(mask, np.ndarray) and mask.dtype == 'bool':
             if mask.shape == self.matrix.shape:
@@ -529,19 +529,19 @@ class Workspace:
     def set_material_id(self, cutoff, value):
         """ Threshold the workspace according to cutoff (i.e. tuple with inclusive range to set)
 
-        :param cutoff: convert a range of grayscale values specified by the cutoff into an single ID number
-        :type cutoff: (int, int)
-        :param value: ID number to assign to range
-        :type value: int
-        :return: None
+            :param cutoff: convert a range of grayscale values specified by the cutoff into an single ID number
+            :type cutoff: (int, int)
+            :param value: ID number to assign to range
+            :type value: int
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-        >>> ws2 = ws_fiberform.copy()
-        >>> ws2.set_material_id((0, 100), 0)    # NB the order of these operations is important!
-        >>> ws2.set_material_id((100, 255), 1)  # this is why binarize and binarize_range should be preferred
-        >>> puma.compare_slices(ws_fiberform, ws2)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            >>> ws2 = ws_fiberform.copy()
+            >>> ws2.set_material_id((0, 100), 0)    # NB the order of these operations is important!
+            >>> ws2.set_material_id((100, 255), 1)  # this is why binarize and binarize_range should be preferred
+            >>> puma.compare_slices(ws_fiberform, ws2)
         """
         if value < 0:
             raise Exception("Value ID can only be positive. Leaving matrix unchanged.")
@@ -557,16 +557,16 @@ class Workspace:
     def binarize(self, threshold):
         """ Binarize the workspace according to threshold, inclusive for higher range set to 1, lower to 0
 
-        :param threshold: grayscale value dividing the domain into 0s and 1s (threshold turns into 1)
-        :type threshold: int
-        :return: None
+            :param threshold: grayscale value dividing the domain into 0s and 1s (threshold turns into 1)
+            :type threshold: int
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-        >>> ws2 = ws_fiberform.copy()
-        >>> ws2.binarize(100)
-        >>> puma.compare_slices(ws_fiberform, ws2)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            >>> ws2 = ws_fiberform.copy()
+            >>> ws2.binarize(100)
+            >>> puma.compare_slices(ws_fiberform, ws2)
         """
         self.matrix = np.where(self.matrix < threshold, np.uint16(0), np.uint16(1))
 
@@ -577,16 +577,16 @@ class Workspace:
     def binarize_range(self, ones_cutoff):
         """ Binarize the workspace according to range within cutoff, inclusive for cutoff ints set to 1, rest to 0
 
-        :param ones_cutoff: convert a range of grayscale values specified by the cutoff into 1s, rest into 0s
-        :type ones_cutoff: (int, int)
-        :return: None
+            :param ones_cutoff: convert a range of grayscale values specified by the cutoff into 1s, rest into 0s
+            :type ones_cutoff: (int, int)
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-        >>> ws2 = ws_fiberform.copy()
-        >>> ws2.binarize_range((100, 255))
-        >>> puma.compare_slices(ws_fiberform, ws2)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            >>> ws2 = ws_fiberform.copy()
+            >>> ws2.binarize_range((100, 255))
+            >>> puma.compare_slices(ws_fiberform, ws2)
         """
         self.matrix = np.where(np.logical_and(self.matrix >= ones_cutoff[0], self.matrix <= ones_cutoff[1]), np.uint16(1), np.uint16(0))
 
@@ -597,31 +597,31 @@ class Workspace:
     def rotate(self, degrees, around_axis, reshape=False, boundary_mode='reflect', apply_to_orientation=True):
         """ Rotate domain by specified degrees
 
-        :param degrees: degrees to rotate domain
-        :type degrees: float
-        :param around_axis: specify around what axis to perform the rotation. It can be 'x', 'y' or 'z'
-        :type around_axis: string
-        :param reshape: specify whether to reshape the domain to contain every voxel (reshape=True) or keep it as original size (reshape=False)
-        :type reshape: bool
-        :param boundary_mode: specifying what to do with the boundaries.
-            Options: ‘reflect’, ‘constant’, ‘nearest’, ‘mirror’, ‘wrap’
-        :type boundary_mode: string
-        :param apply_to_orientation: specify whether to apply rotation to the orientation, if present
-        :type apply_to_orientation: bool
-        :return: None
+            :param degrees: degrees to rotate domain
+            :type degrees: float
+            :param around_axis: specify around what axis to perform the rotation. It can be 'x', 'y' or 'z'
+            :type around_axis: string
+            :param reshape: specify whether to reshape the domain to contain every voxel (reshape=True) or keep it as original size (reshape=False)
+            :type reshape: bool
+            :param boundary_mode: specifying what to do with the boundaries.
+                Options: ‘reflect’, ‘constant’, ‘nearest’, ‘mirror’, ‘wrap’
+            :type boundary_mode: string
+            :param apply_to_orientation: specify whether to apply rotation to the orientation, if present
+            :type apply_to_orientation: bool
+            :return: None
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-        >>> ws_copy = ws_fiberform.copy()
-        >>> ws_copy.rotate(45, 'z', reshape=False, boundary_mode='reflect')
-        >>> puma.compare_slices(ws_fiberform, ws_copy)
-        >>> ws_copy = ws_fiberform.copy()
-        >>> ws_copy.rotate(45, 'z', reshape=True, boundary_mode='constant')
-        >>> puma.compare_slices(ws_fiberform, ws_copy)
-        >>> ws_copy = ws_fiberform.copy()
-        >>> ws_copy.rotate(45, 'z', reshape=True, boundary_mode='reflect')
-        >>> puma.compare_slices(ws_fiberform, ws_copy)
+            :Example:
+            >>> import pumapy as puma
+            >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            >>> ws_copy = ws_fiberform.copy()
+            >>> ws_copy.rotate(45, 'z', reshape=False, boundary_mode='reflect')
+            >>> puma.compare_slices(ws_fiberform, ws_copy)
+            >>> ws_copy = ws_fiberform.copy()
+            >>> ws_copy.rotate(45, 'z', reshape=True, boundary_mode='constant')
+            >>> puma.compare_slices(ws_fiberform, ws_copy)
+            >>> ws_copy = ws_fiberform.copy()
+            >>> ws_copy.rotate(45, 'z', reshape=True, boundary_mode='reflect')
+            >>> puma.compare_slices(ws_fiberform, ws_copy)
         """
         if around_axis == 'x':
             axes = (1, 2)

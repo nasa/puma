@@ -47,7 +47,7 @@ class VolumeFraction:
 
     def log_input(self):
         self.workspace.log.log_section("Computing Volume Fraction")
-        self.workspace.log.log_line("Domain Size: " + str(self.workspace.get_shape))
+        self.workspace.log.log_line("Domain Size: " + str(self.workspace.get_shape()))
         self.workspace.log.log_line("Cutoff: " + str(self.cutoff))
         self.workspace.log.write_log()
 

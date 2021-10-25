@@ -8,12 +8,12 @@ import numpy as np
 def generate_2d_square_array(size, porosity):
     """ Generate a 2D periodic array of circles
 
-    :param size: size of the output domain
-    :type size: int
-    :param porosity: porosity of the output domain
-    :type porosity: float
-    :return: array of circles
-    :rtype: Workspace
+        :param size: size of the output domain
+        :type size: int
+        :param porosity: porosity of the output domain
+        :type porosity: float
+        :return: array of circles
+        :rtype: Workspace
     """
     generator = GeneratorSquareArray(size, porosity)
 

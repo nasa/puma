@@ -7,7 +7,7 @@ import string
 import random
 
 
-def render_volume(workspace, cutoff=None, solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
+def render_volume(workspace, cutoff=None, solid_color=None, style='surface', origin=(0., 0., 0.),
                   window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, plot_directly=True,
                   show_axes=True, show_outline=True, cmap='gray', add_to_plot=None, notebook=False):
     """ Volume render using Pyvista Threshold filter

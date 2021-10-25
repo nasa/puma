@@ -8,14 +8,14 @@ import numpy as np
 def generate_sphere(size, center, diameter):
     """ Generation of a sphere at a given point and diameter
 
-    :param size: size of 3D domain (x,y,z)
-    :type size: (int, int, int)
-    :param center: centerpoint of sphere (x,y,z)
-    :type center: (int, int, int)
-    :param diameter: diameter of the random spheres in voxels
-    :type diameter: float
-    :return: domain with sphere with input diameter
-    :rtype: Workspace
+        :param size: size of 3D domain (x,y,z)
+        :type size: (int, int, int)
+        :param center: centerpoint of sphere (x,y,z)
+        :type center: (int, int, int)
+        :param diameter: diameter of the random spheres in voxels
+        :type diameter: float
+        :return: domain with sphere with input diameter
+        :rtype: Workspace
     """
 
     generator = GeneratorSphere(size, center, diameter)
