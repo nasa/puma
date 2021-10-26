@@ -1,28 +1,39 @@
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
 import pumapy.utilities.generic_checks as check
 from pumapy.generation.sphere import get_circle_even, get_circle_odd
 import numpy as np
 
 
-def generate_2d_square_array(size, porosity):
+def generate_2d_square_array(size, porosity, segmented=True):
     """ Generate a 2D periodic array of circles
 
-        :param size: size of the output domain
+        :param size: length of one side of the output domain
         :type size: int
         :param porosity: porosity of the output domain
         :type porosity: float
+        :param segmented: return a domain that is already segmented (i.e. each sphere with unique ID) or
+            with grayscales 0-255 with threshold=128 for the input diameter
+        :type segmented: bool
         :return: array of circles
         :rtype: Workspace
+
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.generate_2d_square_array(100, 0.8, segmented=True)
+        >>> puma.render_volume(ws)
     """
     generator = GeneratorSquareArray(size, porosity)
 
     generator.error_check()
 
     generator.log_input()
+    ws = generator.generate()
     generator.log_output()
 
-    return generator.generate()
+    if segmented:
+        ws.binarize(128)
+    return ws
 
 
 class GeneratorSquareArray:

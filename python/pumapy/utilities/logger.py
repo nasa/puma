@@ -39,10 +39,10 @@ class Logger:
         minute = str(now.minute) if len(str(now.minute)) == 2 else "0" + str(now.minute)
         second = str(now.second) if len(str(now.second)) == 2 else "0" + str(now.second)
         self.location = os.path.join(self.location, "pumapy_log_" + str(now.year) + '-' + month + '-' + day + "_" +
-                                     hour + '-' + minute + '-' + second + ".txt")
+                                     hour + ';' + minute + ';' + second + ".txt")
 
     def log_section(self, name):
-        self.log += "\n---------------------------- \n " + str(name) + "\n---------------------------- \n"
+        self.log += "\n---------------------------- \n" + str(name) + "\n---------------------------- \n"
 
     def log_line(self, val):
         self.log += str(val) + "\n"

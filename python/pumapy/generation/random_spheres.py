@@ -1,4 +1,4 @@
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 import pumapy.utilities.generic_checks as check
 from pumapy.generation.sphere import get_sphere
 import numpy as np
@@ -33,9 +33,9 @@ def generate_random_spheres(shape, diameter, porosity, allow_intersect=True, seg
     generator.error_check()
 
     generator.log_input()
+    ws = generator.generate()
     generator.log_output()
-
-    return generator.generate()
+    return ws
 
 
 class GeneratorSpheres:

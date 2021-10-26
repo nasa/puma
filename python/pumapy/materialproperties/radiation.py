@@ -2,40 +2,40 @@ from pumapy.utilities.raycasting import RayCasting
 from scipy.optimize import curve_fit
 from matplotlib import pyplot as plt
 import numpy as np
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
 
 
 def compute_radiation(workspace, solid_cutoff, sources_number, degree_accuracy, void_phase=0, boundary_behavior=1,
                       bin_density=10000, exportparticles_filepathname='', export_pathname=None):
     """ Compute the radiative thermal conductivity through ray tracing
-    (N.B. 0 material ID in workspace refers to gas phases unless otherwise specified)
+        (N.B. 0 material ID in workspace refers to gas phases unless otherwise specified)
 
-    :param workspace: domain
-    :type workspace: pumapy.Workspace
-    :param solid_cutoff: specify the solid phase
-    :type solid_cutoff: (int, int)
-    :param sources_number: number of light sources spread randomly in the void space (i.e. 0)
-    :type sources_number: int
-    :param degree_accuracy: angle difference between rays emitted in degrees (has to be an exact divider of 180°)
-    :type degree_accuracy: int
-    :param void_phase: ID of the void phase, defaulted as 0
-    :type void_phase: int
-    :param boundary_behavior: how to treat particles exiting the domain: 0=kill, 1=periodic (default)
-    :type boundary_behavior: int
-    :param bin_density: number of bins used to create histogram of ray distances
-    :type bin_density: int
-    :param exportparticles_filepathname: path and name of the particle files exported as VTK points
-    :type exportparticles_filepathname: string
-    :param export_pathname: path to save curve plot of ray distance distribution
-    :type export_pathname: str
-    :return: extinction coefficient (beta), its standard deviation and of ray distances
-    :rtype: (float, float, np.ndarray)
+        :param workspace: domain
+        :type workspace: pumapy.Workspace
+        :param solid_cutoff: specify the solid phase
+        :type solid_cutoff: (int, int)
+        :param sources_number: number of light sources spread randomly in the void space (i.e. 0)
+        :type sources_number: int
+        :param degree_accuracy: angle difference between rays emitted in degrees (has to be an exact divider of 180°)
+        :type degree_accuracy: int
+        :param void_phase: ID of the void phase, defaulted as 0
+        :type void_phase: int
+        :param boundary_behavior: how to treat particles exiting the domain: 0=kill, 1=periodic (default)
+        :type boundary_behavior: int
+        :param bin_density: number of bins used to create histogram of ray distances
+        :type bin_density: int
+        :param exportparticles_filepathname: path and name of the particle files exported as VTK points
+        :type exportparticles_filepathname: string
+        :param export_pathname: path to save curve plot of ray distance distribution
+        :type export_pathname: str
+        :return: extinction coefficient (beta), its standard deviation and of ray distances
+        :rtype: (float, float, np.ndarray)
 
-    :Example:
-    >>> import pumapy as puma
-    >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-    >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (104, 255), 100, 15)
+        :Example:
+        >>> import pumapy as puma
+        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (104, 255), 100, 15)
     """
     solver = Radiation(workspace, solid_cutoff, sources_number, degree_accuracy, void_phase, boundary_behavior, bin_density,
                        exportparticles_filepathname, export_pathname)
@@ -193,7 +193,7 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, degree_a
         fig.savefig(export_pathname)
     print("Done")
 
-    print("Extinction coefficient beta:")
+    print("Extinction coefficient (beta):")
     print("x: " + str(round(beta_out[0], 1)) + ' +/- ' + str(round(beta_std_out[0], 1)))
     print("y: " + str(round(beta_out[1], 1)) + ' +/- ' + str(round(beta_std_out[1], 1)))
     print("z: " + str(round(beta_out[2], 1)) + ' +/- ' + str(round(beta_std_out[2], 1)))

@@ -6,20 +6,20 @@ from os import path
 def export_weave_vtu(filename, weave, domain, max_dim_nvox, round_vox_up=True, export_orientation=True):
     """ Exporting weave to vtu, to be read by pumapy
 
-    :param filename: filepath and name
-    :type filename: string
-    :param weave: weave object, as defined in TexGen
-    :type weave: CTextile or child class of CTextile
-    :param domain: domain size object, as defined in TexGen
-    :type domain: CDomainPlanes
-    :param max_dim_nvox: number of voxels to add in the largest domain dimension
-    :type max_dim_nvox: int
-    :param round_vox_up: for the shorter dimensions, round number of voxels up (for +/-1 vox)
-    :type round_vox_up: bool
-    :param export_orientation: specify whether to export orientation
-    :type export_orientation: bool
-    :return: filename of weave exported (input filename + dimensions)
-    :rtype: string
+        :param filename: filepath and name
+        :type filename: string
+        :param weave: weave object, as defined in TexGen
+        :type weave: CTextile or child class of CTextile
+        :param domain: domain size object, as defined in TexGen
+        :type domain: CDomainPlanes
+        :param max_dim_nvox: number of voxels to add in the largest domain dimension
+        :type max_dim_nvox: int
+        :param round_vox_up: for the shorter dimensions, round number of voxels up (for +/-1 vox)
+        :type round_vox_up: bool
+        :param export_orientation: specify whether to export orientation
+        :type export_orientation: bool
+        :return: filename of weave exported (input filename + dimensions)
+        :rtype: string
     """
 
     if not isinstance(domain, CDomainPlanes):

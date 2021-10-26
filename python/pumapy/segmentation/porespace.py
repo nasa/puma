@@ -15,27 +15,28 @@ def identify_porespace(workspace, solid_cutoff):
 
         :Example:
         >>> import pumapy as puma
-        >>> ws = puma.generate_random_spheres((200, 200, 200), diameter=20, porosity=0.8, allow_intersect=True)
-        >>> ws.binarize_range((0, 128))  # invert material, i.e. consider spheres as pores
-        >>> pores = puma.identify_porespace(ws, (1, 1))
-        >>> puma.render_volume(pores, (1, pores.max()), solid_color=None, cmap='jet')
+        >>> ws = puma.generate_random_spheres((200, 200, 200), diameter=20, porosity=0.5, allow_intersect=True, segmented=False)
+        >>> ws.binarize_range((1, 254))
+        >>> puma.render_volume(ws, cutoff=(1, 1), notebook=True)
+        >>> filled_ws, pores = puma.fill_closed_pores(ws, (1, 1), 2, return_pores=True)
+        >>> puma.render_volume(pores[:pores.shape[0]//2], cutoff=(1, 10), solid_color=None, cmap='jet')
     """
 
     # error check
     check_ws_cutoff(workspace, solid_cutoff)
     ws = workspace.copy()
 
+    # logging
+    workspace.log.log_section("Identifying Porespace")
+    workspace.log.log_value("Solid Cutoff: ", solid_cutoff)
+    workspace.log.write_log()
+
     ws.binarize_range(solid_cutoff)
-
     pore_labels = measure.label(ws.matrix, background=1)
-
     unique_pore_ids, unique_id_counts = np.unique(pore_labels[pore_labels != 0], return_counts=True)
-
     sorted_unique_pore_ids = unique_pore_ids[np.argsort(unique_id_counts)[::-1]]
-
     keyarray = np.arange(np.max(pore_labels) + 1)
     keyarray[sorted_unique_pore_ids] = unique_pore_ids
-
     return keyarray[pore_labels]
 
 
@@ -65,13 +66,11 @@ def fill_closed_pores(workspace, solid_cutoff, fill_value, return_pores=False):
     """
 
     pores = identify_porespace(workspace, solid_cutoff)
-
     if isinstance(pores, bool):
         return False
 
     ws = workspace.copy()
     ws.binarize_range(solid_cutoff)
-
     ws[np.where(pores > 1)] = np.uint16(fill_value)
 
     if return_pores:

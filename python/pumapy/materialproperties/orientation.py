@@ -8,16 +8,16 @@ from pumapy.utilities.generic_checks import check_ws_cutoff
 def compute_angular_differences(matrix, orientation1, orientation2, cutoff):
     """ Compute angular difference between two orientation ndarrays
 
-    :param matrix: domain matrix
-    :type matrix: np.ndarray
-    :param orientation1: orientation as (x, y, z, 3)
-    :type orientation1: np.ndarray
-    :param orientation2: orientation as (x, y, z, 3)
-    :type orientation2: np.ndarray
-    :param cutoff: to binarize domain
-    :type cutoff: (int, int)
-    :return: angle_errors in degrees, mean, std
-    :rtype: (np.ndarray, float, float)
+        :param matrix: domain matrix
+        :type matrix: np.ndarray
+        :param orientation1: orientation as (x, y, z, 3)
+        :type orientation1: np.ndarray
+        :param orientation2: orientation as (x, y, z, 3)
+        :type orientation2: np.ndarray
+        :param cutoff: to binarize domain
+        :type cutoff: (int, int)
+        :return: angle_errors in degrees, mean, std
+        :rtype: (np.ndarray, float, float)
     """
 
     if not isinstance(matrix, np.ndarray) or not isinstance(orientation1, np.ndarray) or not isinstance(orientation2, np.ndarray):
@@ -48,41 +48,44 @@ def compute_angular_differences(matrix, orientation1, orientation2, cutoff):
 def compute_orientation_st(ws, sigma, rho, cutoff, edt=False):
     """ Compute orientation of the material by the structure tensor algorithm
 
-    :param ws: domain
-    :type ws: pumapy.Workspace
-    :param sigma: kernel size parameter for Gaussian derivatives (should be smaller than rho)
-    :type sigma: float
-    :param rho: kernel size parameter for Gaussian filter (should be bigger than sigma)
-    :type rho: float
-    :param cutoff: which grayscales to consider
-    :type cutoff: (int, int)
-    :param edt: indicating if we need to apply Euclidean Distance Transform before computing ST
-    :type edt: bool
-    :return: True if successful, False otherwise.
-    :rtype: bool
+        :param ws: domain
+        :type ws: pumapy.Workspace
+        :param sigma: kernel size parameter for Gaussian derivatives (should be smaller than rho)
+        :type sigma: float
+        :param rho: kernel size parameter for Gaussian filter (should be bigger than sigma)
+        :type rho: float
+        :param cutoff: which grayscales to consider
+        :type cutoff: (int, int)
+        :param edt: indicating if we need to apply Euclidean Distance Transform before computing ST
+        :type edt: bool
+        :return: True if successful, False otherwise.
+        :rtype: bool
 
-    :Example:
-    >>> import pumapy as puma
-    >>> import pyvista as pv
-    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
-    >>> puma.compute_orientation_st(ws, sigma=1.4, rho=0.7, cutoff=(90, 255)) # compute orientation
-    >>> p = pv.Plotter(shape=(1, 2))
-    >>> p.subplot(0, 0)
-    >>> p.add_text("Microstructure")
-    >>> puma.render_contour(ws, (90, 255), add_to_plot=p, plot_directly=False) # visualize the workspace
-    >>> p.subplot(0, 1)
-    >>> p.add_text("Detected fiber orientation")
-    >>> puma.render_orientation(ws, add_to_plot=p, plot_directly=False)
-    >>> p.show()
+        :Example:
+        >>> import pumapy as puma
+        >>> import pyvista as pv
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
+        >>> puma.compute_orientation_st(ws, sigma=1.4, rho=0.7, cutoff=(90, 255)) # compute orientation
+        >>> p = pv.Plotter(shape=(1, 2))
+        >>> p.subplot(0, 0)
+        >>> p.add_text("Microstructure")
+        >>> puma.render_contour(ws, (90, 255), add_to_plot=p, plot_directly=False) # visualize the workspace
+        >>> p.subplot(0, 1)
+        >>> p.add_text("Detected fiber orientation")
+        >>> puma.render_orientation(ws, add_to_plot=p, plot_directly=False)
+        >>> p.show()
     """
     solver = OrientationST(ws, sigma, rho, cutoff, edt)
 
     solver.error_check()
-    return solver.compute()
+
+    solver.log_input()
+    check = solver.compute()
+    solver.log_output()
+    return check
 
 
 class OrientationST:
-
     def __init__(self, ws, sigma, rho, cutoff, edt):
         self.ws = ws.copy()
         self.ws_in = ws
@@ -144,6 +147,18 @@ class OrientationST:
         self.ws_in.set_orientation(np.zeros((self.ws.matrix.shape[0], self.ws.matrix.shape[1], self.ws.matrix.shape[2], 3), dtype=float))
         self.ws_in.orientation[self.mask] = np.linalg.eigh(self.st[self.mask])[1][:, :, 0]
         print("Done")
+
+    def log_input(self):
+        self.ws.log.log_section("Detecting Orientation using the Structure Tensor (ST) method")
+        self.ws.log.log_value("Sigma", self.sigma)
+        self.ws.log.log_value("Rho", self.rho)
+        self.ws.log.log_value("Cutoff", self.cutoff)
+        self.ws.log.log_value("Apply EDT before computation", self.edt)
+        self.ws.log.write_log()
+
+    def log_output(self):
+        self.ws.log.log_section("Finished Orientation ST computation")
+        self.ws.log.write_log()
 
     def error_check(self):
         check_ws_cutoff(self.ws, self.cutoff)

@@ -1,4 +1,4 @@
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
 from pumapy.generation.tpms_utils import generate
 import numpy as np

@@ -2,7 +2,7 @@ from skimage.filters import gaussian
 from scipy.ndimage import distance_transform_edt, median_filter
 from scipy.ndimage.filters import uniform_filter
 from skimage.morphology import erosion, dilation, opening, closing, ball
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
 import numpy as np
 

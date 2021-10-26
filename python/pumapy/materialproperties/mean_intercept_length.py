@@ -6,18 +6,18 @@ import numpy as np
 def compute_mean_intercept_length(workspace, void_cutoff):
     """ Computation of the mean intercept length
 
-    :param workspace: domain
-    :type workspace: pumapy.Workspace
-    :param void_cutoff: specify the void or gaseous phase of the domain
-    :type void_cutoff: (int, int)
-    :return: mean intercept length in x,y,z
-    :rtype: (float, float, float)
+        :param workspace: domain
+        :type workspace: pumapy.Workspace
+        :param void_cutoff: specify the void or gaseous phase of the domain
+        :type void_cutoff: (int, int)
+        :return: mean intercept length in x,y,z
+        :rtype: (float, float, float)
 
-    :Example:
-    >>> import pumapy as puma
-    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-    >>> mil = puma.compute_mean_intercept_length(ws, (0, 89))
-    >>> print(mil)
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        >>> mil = puma.compute_mean_intercept_length(ws, (0, 89))
+        >>> print(mil)
     """
 
     check_ws_cutoff(workspace, void_cutoff)

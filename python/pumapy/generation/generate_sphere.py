@@ -1,31 +1,42 @@
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
 import pumapy.utilities.generic_checks as check
 from pumapy.generation.sphere import get_sphere
 import numpy as np
 
 
-def generate_sphere(size, center, diameter):
+def generate_sphere(shape, center, diameter, segmented=True):
     """ Generation of a sphere at a given point and diameter
 
-        :param size: size of 3D domain (x,y,z)
-        :type size: (int, int, int)
+        :param shape: size of 3D domain (x,y,z)
+        :type shape: (int, int, int)
         :param center: centerpoint of sphere (x,y,z)
         :type center: (int, int, int)
         :param diameter: diameter of the random spheres in voxels
         :type diameter: float
+        :param segmented: return a domain that is already segmented (i.e. each sphere with unique ID) or
+            with grayscales 0-255 with threshold=128 for the input diameter
+        :type segmented: bool
         :return: domain with sphere with input diameter
         :rtype: Workspace
+
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.generate_sphere((100, 100, 100), (50, 50, 50), 80)
+        >>> puma.render_volume(ws.matrix[:ws.matrix.shape[0]//2])
     """
 
-    generator = GeneratorSphere(size, center, diameter)
+    generator = GeneratorSphere(shape, center, diameter)
 
     generator.error_check()
 
     generator.log_input()
+    ws = generator.generate()
     generator.log_output()
 
-    return generator.generate()
+    if segmented:
+        ws.binarize(128)
+    return ws
 
 
 class GeneratorSphere:

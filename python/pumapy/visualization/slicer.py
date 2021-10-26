@@ -6,22 +6,22 @@ import pumapy.utilities.workspace as ws
 def plot_slices(ws_nparray, slice_direction='z', crange=None, cmap='gray', index=1):
     """ Plot slices of domain along a specified direction (z default)
 
-    :param ws_nparray: domain
-    :type ws_nparray: Workspace or np.ndarray
-    :param slice_direction: 'x', 'y', 'z'
-    :type slice_direction: string
-    :param crange: color range, i.e. specify min and max grayscale
-    :type crange: (int, int)
-    :param cmap: color map for the plot, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
-    :type cmap: string
-    :param index: specifying the slice index in which the plot will be opened
-    :type: int
-    :return: slicer object
-    :rtype: PlotSlicer
+        :param ws_nparray: domain
+        :type ws_nparray: Workspace or np.ndarray
+        :param slice_direction: 'x', 'y', 'z'
+        :type slice_direction: string
+        :param crange: color range, i.e. specify min and max grayscale
+        :type crange: (int, int)
+        :param cmap: color map for the plot, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
+        :type cmap: string
+        :param index: specifying the slice index in which the plot will be opened
+        :type: int
+        :return: slicer object
+        :rtype: PlotSlicer
 
-    >>> import pumapy as puma
-    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
-    >>> puma.plot_slices(ws)
+        >>> import pumapy as puma
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        >>> puma.plot_slices(ws)
     """
 
     img, _ = PlotSlicer.error_checks(ws_nparray, None, slice_direction)
@@ -36,30 +36,30 @@ def compare_slices(ws_nparray1, ws_nparray2, slice_direction='z', crange1=None, 
                    crange2=None, cmap2='gray', index=1):
     """ Plot slices of domain along a specified direction (z default)
 
-    :param ws_nparray1: domain
-    :type ws_nparray1: Workspace or np.ndarray
-    :param ws_nparray2: domain
-    :type ws_nparray2: Workspace or np.ndarray
-    :param slice_direction: 'x', 'y', 'z'
-    :type slice_direction: string
-    :param crange1: color range for plot 1, specify min and max grayscale
-    :type crange1: (int, int)
-    :param cmap1: color map for plot 1, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
-    :type cmap1: string
-    :param crange2: color range for plot 2, specify min and max grayscale
-    :type crange2: (int, int)
-    :param cmap2: color map for plot 2, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
-    :type cmap2: string
-    :param index: specifying the slice index in which the plot will be opened
-    :type index: int
-    :return: slicer object
-    :rtype: CompareSlicer
+        :param ws_nparray1: domain
+        :type ws_nparray1: Workspace or np.ndarray
+        :param ws_nparray2: domain
+        :type ws_nparray2: Workspace or np.ndarray
+        :param slice_direction: 'x', 'y', 'z'
+        :type slice_direction: string
+        :param crange1: color range for plot 1, specify min and max grayscale
+        :type crange1: (int, int)
+        :param cmap1: color map for plot 1, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
+        :type cmap1: string
+        :param crange2: color range for plot 2, specify min and max grayscale
+        :type crange2: (int, int)
+        :param cmap2: color map for plot 2, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
+        :type cmap2: string
+        :param index: specifying the slice index in which the plot will be opened
+        :type index: int
+        :return: slicer object
+        :rtype: CompareSlicer
 
-    >>> import pumapy as puma
-    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
-    >>> ws2 = ws.copy()
-    >>> ws2.binarize_range((100, 255))
-    >>> puma.compare_slices(ws, ws2)
+        >>> import pumapy as puma
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        >>> ws2 = ws.copy()
+        >>> ws2.binarize_range((100, 255))
+        >>> puma.compare_slices(ws, ws2)
     """
 
     img1, img2 = CompareSlicer.error_checks(ws_nparray1, ws_nparray2, slice_direction)

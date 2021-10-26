@@ -9,23 +9,16 @@ from pumapy.utilities.generic_checks import check_ws_cutoff
 def generate_isosurface(workspace, cutoff, flag_closed_edges=True, flag_gaussian=False):
     """ Generation of isosurface based on cutoff provided
 
-    :param workspace: domain
-    :type workspace: pumapy.Workspace or numpy.ndarray
-    :param cutoff: specify cutoff to binarize material
-    :type cutoff: (int, int)
-    :param flag_closed_edges: close edges of surfaces on the boundaries
-    :type flag_closed_edges: bool
-    :param flag_gaussian: apply Gaussian filter before generating surface
-    :type flag_gaussian: bool
-    :return: triangulated surface
-    :rtype: TriMesh
-
-    :Example:
-    >>> import pumapy as puma
-    >>> ws_isosurface = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"))
-    >>> ws_copy = ws_isosurface.copy()
-    >>> puma.utilities.isosurface.generate_isosurface(ws_copy, (128, 255))
-    >>> puma.compare_slices(ws_copy, ws_isosurface)
+        :param workspace: domain
+        :type workspace: pumapy.Workspace or numpy.ndarray
+        :param cutoff: specify cutoff to binarize material
+        :type cutoff: (int, int)
+        :param flag_closed_edges: close edges of surfaces on the boundaries
+        :type flag_closed_edges: bool
+        :param flag_gaussian: apply Gaussian filter before generating surface
+        :type flag_gaussian: bool
+        :return: triangulated surface
+        :rtype: TriMesh
     """
     iso = Isosurface(workspace, cutoff, flag_closed_edges, flag_gaussian)
 
@@ -114,7 +107,7 @@ class Isosurface:
 
     def log_input(self):
         self.workspace.log.log_section("Computing Isosurface")
-        self.workspace.log.log_line("Domain Size: " + str(self.workspace.get_shape))
+        self.workspace.log.log_line("Domain Size: " + str(self.workspace.get_shape()))
         self.workspace.log.log_line("Cutoff: " + str(self.cutoff))
 
         if self.flag_closed_edges:
