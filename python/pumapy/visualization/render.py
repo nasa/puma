@@ -16,7 +16,7 @@ def render_volume(workspace, cutoff=None, solid_color=None, style='surface', ori
         :type workspace: Workspace or np.ndarray
         :param cutoff: specifying the values to render
         :type cutoff: (int, int)
-        :param solid_color: if set to None, the material is colored by the matrix's values.
+        :param solid_color: if set to None (default), the material is colored by the matrix's values.
                             Otherwise, a solid color can be specified (e.g. for white (1., 1., 1.))
         :type solid_color: (float, float, float) or None
         :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
@@ -51,8 +51,6 @@ def render_volume(workspace, cutoff=None, solid_color=None, style='surface', ori
         >>> ws_volume = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
         >>> puma.render_volume(ws_volume)
     """
-    if cutoff is None:
-        solid_color = None
     r = Renderer(existing_plot=add_to_plot, filter_type="threshold", workspace=workspace, cutoff=cutoff,
                  solid_color=solid_color, style=style, origin=origin, window_size=window_size, opacity=opacity,
                  background=background, show_grid=show_grid, plot_directly=plot_directly, show_axes=show_axes,
@@ -155,7 +153,7 @@ def render_orientation(workspace, scale_factor=1., solid_color=None, style='surf
         :Example:
         >>> import pumapy as puma
         >>> ws_orientation = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
-        >>> puma.compute_orientation_st(ws_orientation, 0.7, 1.4, (90, 255))
+        >>> puma.compute_orientation_st(ws_orientation, (90, 255))
         >>> puma.render_orientation(ws_orientation)
     """
     r = Renderer(existing_plot=add_to_plot, filter_type="glyph", workspace=workspace, solid_color=solid_color, style=style,
@@ -242,9 +240,9 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
         :param workspace: domain
         :type workspace: Workspace or ndarray
         :param cutoffs: n cutoffs is the number of materials. specifies the low and high cutoff ranges
-        :type cutoffs: ((int, int), (int, int))
+        :type cutoffs: tuple
         :param solid_colors: solid colors to color the different phases' surface e.g. for white ((1., 1., 1.), (0., 0., 0.), ...)
-        :type solid_colors: ((float, float, float), (float, float, float))
+        :type solid_colors: tuple
         :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
         :type style: string
         :param origin: origin of the data as

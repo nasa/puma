@@ -1,3 +1,4 @@
+import pumapy
 from pumapy.utilities.logger import Logger, print_warning
 import skimage.transform as trans
 import numpy as np
@@ -594,14 +595,15 @@ class Workspace:
         self.log.log_line(str(ones_cutoff[0]) + " < matrix < " + str(ones_cutoff[1]) + " -> 1; 0 otherwise")
         self.log.write_log()
 
-    def rotate(self, degrees, around_axis, reshape=False, boundary_mode='reflect', apply_to_orientation=True):
+    def rotate(self, degrees, around_axis, reshape=True, boundary_mode='reflect', apply_to_orientation=True):
         """ Rotate domain by specified degrees
 
             :param degrees: degrees to rotate domain
             :type degrees: float
             :param around_axis: specify around what axis to perform the rotation. It can be 'x', 'y' or 'z'
             :type around_axis: string
-            :param reshape: specify whether to reshape the domain to contain every voxel (reshape=True) or keep it as original size (reshape=False)
+            :param reshape: specify whether to reshape the domain (and therefore contain every voxel - reshape=True)
+                            or keep its original size (reshape=False)
             :type reshape: bool
             :param boundary_mode: specifying what to do with the boundaries.
                 Options: ‘reflect’, ‘constant’, ‘nearest’, ‘mirror’, ‘wrap’
@@ -653,6 +655,22 @@ class Workspace:
 
             self.orientation = rotate(self.orientation, angle=degrees, axes=axes, mode=boundary_mode,
                                       reshape=reshape, order=0)
+
+    def porosity(self, cutoff=(0, 0)):
+        """ Compute porosity of domain
+
+            :param cutoff: void cutoff
+            :type cutoff: (int, int)
+            :return: volume fraction
+            :rtype: float
+
+            :Example:
+            >>> import pumapy as puma
+            >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+            >>> ws.porosity(cutoff=(0, 89)))
+        """
+        return pumapy.compute_volume_fraction(self, cutoff)
+
 
     def show_matrix(self):
         """ Print content of matrix domain's variable """

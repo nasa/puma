@@ -1,11 +1,11 @@
 import unittest
 import os
-pumadir = os.path.abspath('..')
 import pumapy as puma
+from pumapy.utilities.logger import print_warning
+pumadir = os.path.abspath('..')
 
 try:
     from TexGen.Core import *
-
 
     if os.path.exists(pumadir + "/python/TexGen/install/lib"):
         class TestWeaveIO(unittest.TestCase):
@@ -60,7 +60,7 @@ try:
                 self.assertEqual(max(ws.matrix.shape), 100)
 
 except:
-    puma.print_warning("Could not run test_weave_io because of failed TexGen import.")
+    print_warning("Could not run test_weave_io because of failed TexGen import.")
 
 if __name__ == '__main__':
     unittest.main()

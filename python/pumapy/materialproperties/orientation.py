@@ -45,17 +45,17 @@ def compute_angular_differences(matrix, orientation1, orientation2, cutoff):
     return angle_diff, diff.mean(), diff.std()
 
 
-def compute_orientation_st(ws, sigma, rho, cutoff, edt=False):
+def compute_orientation_st(ws, cutoff, sigma=1.4, rho=0.7, edt=False):
     """ Compute orientation of the material by the structure tensor algorithm
 
         :param ws: domain
         :type ws: pumapy.Workspace
+        :param cutoff: which grayscales to consider
+        :type cutoff: (int, int)
         :param sigma: kernel size parameter for Gaussian derivatives (should be smaller than rho)
         :type sigma: float
         :param rho: kernel size parameter for Gaussian filter (should be bigger than sigma)
         :type rho: float
-        :param cutoff: which grayscales to consider
-        :type cutoff: (int, int)
         :param edt: indicating if we need to apply Euclidean Distance Transform before computing ST
         :type edt: bool
         :return: True if successful, False otherwise.
@@ -65,7 +65,7 @@ def compute_orientation_st(ws, sigma, rho, cutoff, edt=False):
         >>> import pumapy as puma
         >>> import pyvista as pv
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
-        >>> puma.compute_orientation_st(ws, sigma=1.4, rho=0.7, cutoff=(90, 255)) # compute orientation
+        >>> puma.compute_orientation_st(ws, cutoff=(90, 255), sigma=1.4, rho=0.7) # compute orientation
         >>> p = pv.Plotter(shape=(1, 2))
         >>> p.subplot(0, 0)
         >>> p.add_text("Microstructure")

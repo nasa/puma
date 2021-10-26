@@ -8,7 +8,6 @@ from scipy.ndimage import distance_transform_edt as edt
 from skimage.segmentation import watershed
 import numpy as np
 from pumapy.utilities.workspace import Workspace
-from pumapy.materialproperties.volumefraction import compute_volume_fraction
 from pumapy.utilities.logger import print_warning
 from pumapy.filters.filters import filter_gaussian
 import sys
@@ -155,13 +154,15 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
     mapping_ar[k] = v
     ws.orientation = mapping_ar[ws.matrix]
     print("Done")
-    print("Generated random fibers domain with porosity: {}".format(compute_volume_fraction(ws, (0, 0))))
 
     if not segmented:  # add grayscale gradients with Gaussian
         ws.binarize(1)
         ws.matrix *= 255
-        filter_gaussian(ws, sigma=radius//2)
-
+        filter_gaussian(ws, sigma=int(round((radius//2-1))))
+        porosity = ws.porosity(cutoff=(0, 127))
+    else:
+        porosity = ws.porosity()
+    print("Generated random fibers domain with porosity: {}".format(porosity))
     ws.log.log_section("Finished Random Fiber Generation")
     ws.log.write_log()
     return ws

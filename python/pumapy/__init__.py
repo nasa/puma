@@ -58,8 +58,8 @@ from pumapy.filters.filters import (filter_median, filter_gaussian, filter_edt, 
 # generation
 from pumapy.generation.tpms import generate_tpms
 from pumapy.generation.random_spheres import generate_random_spheres
-from pumapy.generation.generate_sphere import generate_sphere
-from pumapy.generation.generate_2d_square_array import generate_2d_square_array
+from pumapy.generation.single_sphere import generate_sphere
+from pumapy.generation.cylinder_square_array import generate_cylinder_square_array
 from pumapy.generation.random_fibers import generate_random_fibers
 try:
     from pumapy.generation.weave_3mdcp.weave_3mdcp import generate_3mdcp

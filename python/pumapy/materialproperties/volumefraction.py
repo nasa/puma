@@ -40,7 +40,7 @@ class VolumeFraction:
         mask_high = self.workspace.matrix <= self.cutoff[1]
         mask = mask * mask_high
         self.vf = float(np.sum(mask)) / float(self.workspace.get_size())
-        print("Volume Fraction of workspace:", self.vf)
+        print(f"Volume Fraction for cutoff {self.cutoff}: {self.vf}")
 
     def error_check(self):
         check_ws_cutoff(self.workspace, self.cutoff)

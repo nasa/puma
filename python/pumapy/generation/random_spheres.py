@@ -1,6 +1,6 @@
 from pumapy.utilities.workspace import Workspace
 import pumapy.utilities.generic_checks as check
-from pumapy.generation.sphere import get_sphere
+from pumapy.generation.single_sphere import get_sphere
 import numpy as np
 import sys
 
@@ -67,7 +67,6 @@ class GeneratorSpheres:
     def generate(self):
         self._workspace.resize_new_matrix(self._size_padded)
         self._generate_spheres()
-
         return self._workspace
 
     def _generate_spheres(self):
@@ -143,12 +142,13 @@ class GeneratorSpheres:
                 current_volume = self._size[0] * self._size[1] * self._size[2] * (1 - current_porosity)
                 approx_volume_left = volume_all_spheres - current_volume
                 approx_spheres_left = approx_volume_left / volume_per_sphere
-                sys.stdout.write("\rSpheres Generated {}  Porosity = {} ".format(total_count, current_porosity))
+                sys.stdout.write("\rSpheres Generated {}  Porosity = {} ... ".format(total_count, current_porosity))
 
         self._workspace.matrix = self._workspace.matrix[self._start:self._endX, self._start:self._endY, self._start:self._endZ]
         if not self._segmented:
             self._workspace.matrix[self._workspace.matrix > 255] = 255
         self._workspace.matrix = self._workspace.matrix.astype(np.uint16)
+        print("Done")
 
     def log_input(self):
         self._workspace.log.log_section("Generating Random Spheres")
@@ -165,5 +165,5 @@ class GeneratorSpheres:
 
     def error_check(self):
         check.size_check(self._size)
-        check.greater_than_exc(self._diameter, 0, "diameter")
+        check.greater_than_exc(self._diameter, 3, "diameter")
         check.range_exc(self._porosity, (0, 1), "porosity")
