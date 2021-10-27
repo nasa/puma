@@ -51,25 +51,25 @@ class TestRandomSpheres(unittest.TestCase):
 class TestRandomFibers(unittest.TestCase):
 
     def test_random_fibers(self):
-        ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, length=200, max_iter=6,
+        ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=2, porosity=0.8, length=50, max_iter=6,
                                          allow_intersect=True, segmented=True)
         np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
-        self.assertLess(abs(ws.porosity() - 0.8), 0.0057)
+        self.assertLess(abs(ws.porosity() - 0.8), 0.001)
 
-        ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, nfibers=100, phi=20, theta=90, length=100,
+        ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=2, nfibers=100, phi=20, theta=90, length=100,
                                          max_iter=6, allow_intersect=True, segmented=True)
         np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
         self.assertEqual(ws.max(), 100)
 
-        ws = puma.generate_random_fibers(shape=(50, 50, 50), radius=4, porosity=0.8, length=50, max_iter=6,
+        ws = puma.generate_random_fibers(shape=(50, 50, 50), radius=2, porosity=0.8, length=50, max_iter=6,
                                          allow_intersect=False, segmented=True)
         np.testing.assert_equal(ws.matrix.shape, (50, 50, 50))
-        self.assertLess(abs(ws.porosity() - 0.8), 0.0038)
+        self.assertLess(abs(ws.porosity() - 0.8), 0.005)
 
-        ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, length=200, max_iter=6,
+        ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=2, porosity=0.8, length=50, max_iter=6,
                                          allow_intersect=True, segmented=False)
         np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
-        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.0012)
+        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.001)
 
     def test_51x44x87fibers_nfibers(self):
         nfibers = 100
