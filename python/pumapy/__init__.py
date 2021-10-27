@@ -27,9 +27,7 @@ __version__ = "3.1.5"
 
 # utilities
 from pumapy.utilities.workspace import Workspace
-from pumapy.utilities.logger import Logger, print_warning
 from pumapy.utilities.timer import Timer
-from pumapy.utilities.isosurface import generate_isosurface
 from pumapy.utilities.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
 from pumapy.utilities.boundary_conditions import ConductivityBC, ElasticityBC
 from pumapy.utilities.example_files import path_to_example_file, list_example_files
@@ -40,7 +38,7 @@ from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_spart
 try:
     from pumapy.io.export_texgen_weave import export_weave_vtu
 except:
-    print_warning("'import TexGen.Core' failed (TexGen is only made available when installing puma with conda on UNIX).")
+    print("'import TexGen.Core' failed (TexGen is only made available when installing puma with conda on UNIX).")
 
 # material properties
 from pumapy.materialproperties.surfacearea import compute_surface_area
@@ -59,10 +57,9 @@ from pumapy.filters.filters import (filter_median, filter_gaussian, filter_edt, 
 
 # generation
 from pumapy.generation.tpms import generate_tpms
-from pumapy.generation.sphere import get_sphere
 from pumapy.generation.random_spheres import generate_random_spheres
-from pumapy.generation.generate_sphere import generate_sphere
-from pumapy.generation.generate_2d_square_array import generate_2d_square_array
+from pumapy.generation.single_sphere import generate_sphere
+from pumapy.generation.cylinder_square_array import generate_cylinder_square_array
 from pumapy.generation.random_fibers import generate_random_fibers
 try:
     from pumapy.generation.weave_3mdcp.weave_3mdcp import generate_3mdcp
@@ -78,5 +75,4 @@ from pumapy.visualization.slicer import plot_slices, compare_slices
 from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
 
 # global settings
-settings = {}
-settings["log_location"] = 'logs'
+settings = {"log_location": 'logs'}

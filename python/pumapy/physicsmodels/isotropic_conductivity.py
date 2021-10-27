@@ -142,7 +142,7 @@ class IsotropicConductivity(Conductivity):
         self.keff[2] = flux_z * (self.len_z - 1)
 
         d = {'x': 'first', 'y': 'second', 'z': 'third'}
-        print(f'\nEffective conductivity tensor ({d[self.direction]} row): \n{self.keff}')
+        print(f'\nEffective conductivity tensor ({d[self.direction]} row): \n{self.keff}\n')
 
         # making the flux have the correct spacial units
         self.q /= self.ws.voxel_length

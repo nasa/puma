@@ -1,11 +1,10 @@
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 import numpy as np
 
 
 class ConductivityBC:
     def __init__(self, x, y, z):
         self.dirichlet = np.full((x, y, z), np.Inf, dtype=float)
-        # self.__neumann = np.full((x, y, z, 3), np.Inf, dtype=float)
 
     def __getitem__(self, key):
         return self.dirichlet[key]
@@ -17,8 +16,8 @@ class ConductivityBC:
     def from_workspace(cls, workspace):
         """ Generate ConductivityBC from a Workspace.
 
-        :param workspace: domain
-        :type workspace: Workspace
+            :param workspace: domain
+            :type workspace: Workspace
         """
         if isinstance(workspace, Workspace):
             return cls(workspace.len_x(), workspace.len_y(), workspace.len_z())
@@ -93,8 +92,8 @@ class ElasticityBC:
     def from_workspace(cls, workspace):
         """ Generate ElasticityBC from a Workspace.
 
-        :param workspace: domain
-        :type workspace: Workspace
+            :param workspace: domain
+            :type workspace: Workspace
         """
         if isinstance(workspace, Workspace):
             return cls(workspace.len_x(), workspace.len_y(), workspace.len_z())

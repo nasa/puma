@@ -190,6 +190,49 @@ class TestWorkspace(unittest.TestCase):
         self.ws.binarize(128)
         np.testing.assert_equal(self.ws.orientation, test)
 
+    def test_porosity(self):
+        ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        np.testing.assert_almost_equal(ws.porosity(cutoff=(0, 89)), 0.83286)
+
+    def test_rescale(self):
+        ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        ws_cp = ws.copy()
+        ws_cp.rescale(0.5, segmented=False)
+        np.testing.assert_almost_equal(ws_cp.matrix.shape, (100, 100, 100))
+        porosity_diff = abs(ws_cp.porosity(cutoff=(0, 89)) - ws.porosity(cutoff=(0, 89)))
+        self.assertLess(porosity_diff, 0.0011)
+
+    def test_resize(self):
+        ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        ws_cp = ws.copy()
+        ws_cp.resize((150, 100, 79), segmented=False)
+        np.testing.assert_almost_equal(ws_cp.matrix.shape, (150, 100, 79))
+        porosity_diff = abs(ws_cp.porosity(cutoff=(0, 89)) - ws.porosity(cutoff=(0, 89)))
+        self.assertLess(porosity_diff, 0.001)
+
+    def test_rotate(self):
+        ws = puma.Workspace.from_shape((30, 10, 40))
+        ws.matrix[0:ws.matrix.shape[0] // 2] = 1
+
+        ws_cp = ws.copy()
+        ws_cp.rotate(90, 'z')
+        self.assertEqual((10, 30, 40), ws_cp.matrix.shape)
+        self.assertEqual(ws.porosity(), ws_cp.porosity())
+
+        ws_cp = ws.copy()
+        ws_cp.rotate(90, 'z', reshape=False)
+        self.assertEqual((30, 10, 40), ws_cp.matrix.shape)
+        self.assertEqual(ws.porosity(), ws_cp.porosity())
+
+        ws_cp = ws.copy()
+        ws_cp.rotate(90, 'x')
+        self.assertEqual((30, 40, 10), ws_cp.matrix.shape)
+        self.assertEqual(ws.porosity(), ws_cp.porosity())
+
+        ws_cp = ws.copy()
+        ws_cp.rotate(90, 'y')
+        self.assertEqual((40, 10, 30), ws_cp.matrix.shape)
+        self.assertEqual(ws.porosity(), ws_cp.porosity())
 
 if __name__ == '__main__':
     unittest.main()

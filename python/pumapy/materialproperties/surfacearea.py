@@ -6,21 +6,21 @@ from skimage import measure
 def compute_surface_area(workspace, cutoff, flag_gaussian=False):
     """ Computation of the surface area based on isosurface
 
-    :param workspace: domain
-    :type workspace: pumapy.Workspace
-    :param cutoff: specify the solid phase
-    :type cutoff: (int, int)
-    :param flag_gaussian: apply Gaussian filter before generating surface
-    :type flag_gaussian: bool
-    :return: area, specific_area
-    :rtype: (float, float)
+        :param workspace: domain
+        :type workspace: pumapy.Workspace
+        :param cutoff: specify the solid phase
+        :type cutoff: (int, int)
+        :param flag_gaussian: apply Gaussian filter before generating surface
+        :type flag_gaussian: bool
+        :return: area, specific_area
+        :rtype: (float, float)
 
-    :Example:
-    >>> import pumapy as puma
-    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6) # import workspace
-    >>> area, specific_area = puma.compute_surface_area(ws, cutoff=(90, 255)) # computing surface area
-    >>> print("Surface area: ", area)
-    >>> print("Specific surface area: ", specific_area)
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6) # import workspace
+        >>> area, specific_area = puma.compute_surface_area(ws, cutoff=(90, 255)) # computing surface area
+        >>> print("Surface area: ", area)
+        >>> print("Specific surface area: ", specific_area)
     """
     check_ws_cutoff(workspace, cutoff)
 
@@ -34,7 +34,6 @@ def compute_surface_area(workspace, cutoff, flag_gaussian=False):
 
 
 class SurfaceArea:
-
     def __init__(self, workspace, cutoff, flag_gaussian):
         self.workspace = workspace
         self.cutoff = cutoff

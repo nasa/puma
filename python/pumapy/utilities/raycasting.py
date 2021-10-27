@@ -3,11 +3,10 @@ import os
 import numpy as np
 from pyevtk.hl import pointsToVTK
 import itertools
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 
 
 class RayCasting:
-
     def __init__(self, workspace, degree_accuracy, source_locations, valid_phase, boundary_behavior=0,
                  exportparticles_filepathname=''):
         self.ws = workspace

@@ -6,7 +6,6 @@ import sys
 
 
 class PropertySolver:
-
     def __init__(self, workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter):
         self.ws = workspace
         self.tolerance = tolerance

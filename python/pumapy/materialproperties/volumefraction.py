@@ -5,18 +5,17 @@ from pumapy.utilities.generic_checks import check_ws_cutoff
 def compute_volume_fraction(workspace, cutoff):
     """ Compute the volume fraction
 
-    :param workspace: domain
-    :type workspace: pumapy.Workspace
-    :param cutoff: to binarize domain
-    :type cutoff: (int, int)
-    :return: volume fraction
-    :rtype: float
+        :param workspace: domain
+        :type workspace: pumapy.Workspace
+        :param cutoff: to binarize domain
+        :type cutoff: (int, int)
+        :return: volume fraction
+        :rtype: float
 
-    :Example:
-    >>> import pumapy as puma
-    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)) # import example file
-    >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255)) # compute volume fraction
-    >>> print ("Volume Fraction of workspace:", vf)
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
+        >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255)) # compute volume fraction
     """
     volume_fraction = VolumeFraction(workspace, cutoff)
 
@@ -41,13 +40,14 @@ class VolumeFraction:
         mask_high = self.workspace.matrix <= self.cutoff[1]
         mask = mask * mask_high
         self.vf = float(np.sum(mask)) / float(self.workspace.get_size())
+        print(f"Volume Fraction for cutoff {self.cutoff}: {self.vf}")
 
     def error_check(self):
         check_ws_cutoff(self.workspace, self.cutoff)
 
     def log_input(self):
         self.workspace.log.log_section("Computing Volume Fraction")
-        self.workspace.log.log_line("Domain Size: " + str(self.workspace.get_shape))
+        self.workspace.log.log_line("Domain Size: " + str(self.workspace.get_shape()))
         self.workspace.log.log_line("Cutoff: " + str(self.cutoff))
         self.workspace.log.write_log()
 

@@ -1,34 +1,37 @@
-from pumapy import Workspace
+from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
 from pumapy.generation.tpms_utils import generate
 import numpy as np
 
 
-def generate_tpms(size, w, q, equation=0):
+def generate_tpms(shape, w, q, equation=0, segmented=True):
     """ Generation of triply periodic minimal surface material
 
-    :param size: size of 3D domain (x,y,z)
-    :type size: (int, int, int)
-    :param w: w parameter for tpms
-    :type w: float or (float, float)
-    :param q: q parameter for tpms (float or tuple)
-    :type q: float or (float, float)
-    :param equation: equation 0, 1, or 2 for tpms
-    :type equation: int
-    :return: TPMS domain
-    :rtype: Workspace
+        :param shape: shape of 3D domain (x,y,z)
+        :type shape: (int, int, int)
+        :param w: w parameter for tpms
+        :type w: float or (float, float)
+        :param q: q parameter for tpms (float or tuple)
+        :type q: float or (float, float)
+        :param equation: equation 0, 1, or 2 for tpms
+        :type equation: int
+        :param segmented: return a domain that is already segmented (i.e. 1 for solid and 0 for void) or
+            with grayscales 0-255 with threshold=128 for the solid
+        :type segmented: bool
+        :return: TPMS domain with grayscales from 0-255 with threshold=128 for the normal TPMS geometry
+        :rtype: Workspace
 
-    :Example:
-    >>> import pumapy as puma
-    >>> size = (200, 200, 200)  # size of the domain, in voxels.
-    >>> w = 0.08  # value of w in the equations above
-    >>> q = 0.2  # value of q in the equations above
-    >>> ws_eq0 = puma.generate_tpms(size, w, q, equation=0)
-    >>> ws_eq1 = puma.generate_tpms(size, w, q, equation=1)
-    >>> ws_eq2 = puma.generate_tpms(size, w, q, equation=2)
-    >>> puma.render_contour(ws_eq0, cutoff=(128, 255)) #visualize the workspace
-    >>> puma.render_contour(ws_eq1, cutoff=(128, 255))
-    >>> puma.render_contour(ws_eq2, cutoff=(128, 255))
+        :Example:
+        >>> import pumapy as puma
+        >>> shape = (200, 200, 200)  # size of the domain, in voxels.
+        >>> w = 0.08  # value of w in the equations above
+        >>> q = 0.2  # value of q in the equations above
+        >>> ws_eq0 = puma.generate_tpms(shape, w, q, equation=0, segmented=False)
+        >>> ws_eq1 = puma.generate_tpms(shape, w, q, equation=1, segmented=False)
+        >>> ws_eq2 = puma.generate_tpms(shape, w, q, equation=2, segmented=False)
+        >>> puma.render_contour(ws_eq0, cutoff=(128, 255)) #visualize the workspace
+        >>> puma.render_contour(ws_eq1, cutoff=(128, 255))
+        >>> puma.render_contour(ws_eq2, cutoff=(128, 255))
     """
 
     if isinstance(w, tuple):
@@ -45,18 +48,21 @@ def generate_tpms(size, w, q, equation=0):
     else:
         raise Exception("Invalid w, must be float or tuple")
 
-    generator = GeneratorTPMS(size, _w, _q, equation)
+    generator = GeneratorTPMS(shape, _w, _q, equation)
 
     generator.error_check()
 
     generator.log_input()
+    ws = generator.generate()
     generator.log_output()
 
-    return generator.generate()
+    if segmented:
+        ws.binarize(128)
+    return ws
 
 
 class GeneratorTPMS:
-    def __init__(self, size, w, q, equation=0):
+    def __init__(self, size, w, q, equation):
         self._workspace = Workspace()
         self._size = size
         self._wmin = w[0]
