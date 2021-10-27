@@ -64,7 +64,7 @@ class TestRandomFibers(unittest.TestCase):
         ws = puma.generate_random_fibers(shape=(50, 50, 50), radius=2, porosity=0.8, length=50, max_iter=6,
                                          allow_intersect=False, segmented=True)
         np.testing.assert_equal(ws.matrix.shape, (50, 50, 50))
-        self.assertLess(abs(ws.porosity() - 0.8), 0.005)
+        self.assertLess(abs(ws.porosity() - 0.8), 0.01)
 
         ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=2, porosity=0.8, length=50, max_iter=6,
                                          allow_intersect=True, segmented=False)
