@@ -1,6 +1,5 @@
 from pumapy.physicsmodels.anisotropic_conductivity_utils import pad_domain
-from pumapy.physicsmodels.elasticity_utils import (fill_stress_matrices, flatten_Cmat, add_nondiag, divP,
-                                                   find_unstable_vox)
+from pumapy.physicsmodels.elasticity_utils import fill_stress_matrices, flatten_Cmat, add_nondiag, divP, find_unstable_cv
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_mpsa_indices
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.boundary_conditions import ElasticityBC
@@ -12,7 +11,6 @@ import sys
 
 
 class Elasticity(PropertySolver):
-
     def __init__(self, workspace, elast_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
                  display_iter, print_matrices):
         allowed_solvers = ['direct', 'gmres', 'cg', 'bicgstab']
@@ -97,12 +95,20 @@ class Elasticity(PropertySolver):
             self.ws_pad[np.logical_and(self.ws_pad >= low, self.ws_pad <= high)] = low
 
         # Placing True on dirichlet boundaries to skip them
-        self.dir_vox = np.zeros(shape + [3], dtype=bool)
+        self.dir_cv = np.zeros(shape + [3], dtype=bool)
         if self.direction is not None:
-            self.dir_vox[[1, -2], 1:-1, 1:-1] = True
+            self.dir_cv[[1, -2], 1:-1, 1:-1] = True
         if self.prescribed_bc is not None:
-            self.dir_vox[1:-1, 1:-1, 1:-1][self.prescribed_bc.dirichlet != np.Inf] = True
+            self.dir_cv[1:-1, 1:-1, 1:-1][self.prescribed_bc.dirichlet != np.Inf] = True
         print("Done")
+
+        # Identify unstable IVs (i.e. with air voxels in them)
+        self.unstable_iv = np.zeros((self.len_x - 1, self.len_y - 1, self.len_z - 1), dtype=bool)
+        for i in range(self.len_x - 1):
+            for j in range(self.len_y - 1):
+                for k in range(self.len_z - 1):
+                    if np.prod(self.ws_pad[i:i + 2, j:j + 2, k:k + 2]) == 0:
+                        self.unstable_iv[i, j, k] = True
 
         # Initialize initial guess for iterative solver
         if self.solver_type != 'direct' and self.solver_type != 'spsolve':
@@ -166,21 +172,21 @@ class Elasticity(PropertySolver):
         self.__initialize_MPSA()
         j_indices = np.zeros((81 * 3 * (self.len_y - 2) * (self.len_z - 2)), dtype=np.uint32)
         values = np.zeros((81 * 3 * (self.len_y - 2) * (self.len_z - 2)), dtype=float)
-        self.dir_vox = self.dir_vox.astype(np.uint8)
+        self.dir_cv = self.dir_cv.astype(np.uint8)
         print("Done")
 
-        # Iterating through interior
+        # Iterating through interior CVs
         for i in range(1, self.len_x - 1):
             self.__compute_Cmat(2, i + 1)  # Computing third layer of Cmat
             self.__compute_transmissibility(1, i)  # Computing second layer of E
 
             # If all surrounding IV are unstable (i.e. partly or all gaseous), then put middle CV as Dirichlet
-            find_unstable_vox(i, self.len_y, self.len_z, self.dir_vox, self.unstable)
+            find_unstable_cv(i, self.len_y, self.len_z, self.dir_cv, self.unstable_iv[i - 1:i + 1])
 
             # Creating j indices and divergence values for slice
             j_indices.fill(-1)
             values.fill(np.NaN)
-            divP(i, self.len_x, self.len_y, self.len_z, self.dir_vox, j_indices, values, self.Emat)
+            divP(i, self.len_x, self.len_y, self.len_z, self.dir_cv, j_indices, values, self.Emat)
 
             # Creating i indices for slice
             i_indices, i_dirvox = self.__creating_indices(i)
@@ -195,13 +201,12 @@ class Elasticity(PropertySolver):
 
             # Passing second layer to first
             self.Emat[0] = self.Emat[1]
-            self.unstable[0] = self.unstable[1]
             self.Cmat[:2] = self.Cmat[1:]
             sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
 
         # Clear unnecessary variables before creating A
-        del self.Emat, self.Cf, self.Cmat, self.mpsa36x36, self.unstable
-        del self.dir_vox, i_indices, i_dirvox, i, j_indices, values
+        del self.Emat, self.Cf, self.Cmat, self.mpsa36x36
+        del self.dir_cv, i_indices, i_dirvox, i, j_indices, values
 
         # Adding all dirichlet voxels
         I[counter:counter + len(I_dirvox)] = I_dirvox
@@ -249,6 +254,90 @@ class Elasticity(PropertySolver):
         if self.print_matrices[2]:
             self._print_A(self.print_matrices[2])
         print("Done")
+
+    def __compute_transmissibility(self, i, i_cv):
+        # Reset layers
+        self.Emat[i].fill(0)
+        self.Cf.fill(0)
+        self.mpsa36x36.fill(0)
+        flatten_Cmat(i, self.len_y, self.len_z, self.Cmat[i:i + 2], self.Cf)
+
+        # Equivalent procedure, but with more matrices
+        # self.A = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)
+        # self.B = np.zeros((self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
+        # self.C = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)
+        # self.D = np.zeros((self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
+        # self.A[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.Cf)
+        # self.B[:, :] = fill_Bmpsa(self.Cf)
+        # self.C[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.Cf)
+        # self.D[:, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf)
+        # # Computing (A @ (Cinv @ D) + B) / 8
+        # self.Emat[i, ~self.unstable_iv[i_cv]] = (self.B[~self.unstable_iv[i_cv]] + self.A[~self.unstable_iv[i_cv]] @
+        #                                          np.linalg.inv(self.C[~self.unstable_iv[i_cv]]) @ self.D[~self.unstable_iv[i_cv]]) / 8.
+
+        # C might become close to singular when highly anisotropic
+        self.mpsa36x36[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.Cf)
+        det = np.linalg.det(self.mpsa36x36)
+        if np.min(det) < 1e-10:
+            self.unstable_iv[i_cv, det < 1e-10] = True
+
+        # Computing transmissibility matrix as: (A @ (Cinv @ D) + B) / 8
+        if not np.all(self.unstable_iv[i_cv]):
+            self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf)
+            self.Emat[i, self.unstable_iv[i_cv]] = 0
+
+            self.mpsa36x36[~self.unstable_iv[i_cv]] = np.linalg.inv(self.mpsa36x36[~self.unstable_iv[i_cv]])  # Cinv
+
+            self.Emat[i, ~self.unstable_iv[i_cv]] = (self.mpsa36x36[~self.unstable_iv[i_cv]] @
+                                                  self.Emat[i, ~self.unstable_iv[i_cv]])  # (Cinv @ D)
+
+            self.mpsa36x36.fill(0)
+            self.mpsa36x36[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.Cf)
+            self.Emat[i, ~self.unstable_iv[i_cv]] = (self.mpsa36x36[~self.unstable_iv[i_cv]] @
+                                                  self.Emat[i, ~self.unstable_iv[i_cv]])  # A @ (Cinv @ D)
+
+            self.Emat[i, ~self.unstable_iv[i_cv]] += fill_Bmpsa(self.Cf)[~self.unstable_iv[i_cv]]  # + B
+            self.Emat[i, ~self.unstable_iv[i_cv]] /= 8
+
+        if self.print_matrices[1]:
+            self._print_E(i, i_cv, self.print_matrices[1])
+
+    def __initialize_MPSA(self):
+        # Initialize matrix slice of conductivities
+        self.Cmat = np.zeros((3, self.len_y, self.len_z, 21), dtype=float)  # per CV
+        self.__compute_Cmat(0, 0)  # Computing first layer of Kmat
+        self.__compute_Cmat(1, 1)  # Computing second layer of Kmat
+
+        # Initialize MPSA variables (variables per IV)
+        self.Cf = np.zeros((168, self.len_y - 1, self.len_z - 1), dtype=float)
+        self.Emat = np.zeros((2, self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
+        self.mpsa36x36 = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)  # A, C
+        self.Aind, self.Cind, self.Dind = create_mpsa_indices()
+        self.__compute_transmissibility(0, 0)  # Computing first layer of E
+
+    def __creating_indices(self, i):
+        # Finding all indices for slice
+        i_indices = np.ones_like(self.ws_pad[i], dtype=np.uint32)
+        i_indices[[0, -1], :] = 0
+        i_indices[:, [0, -1]] = 0
+        i_indices = np.where(i_indices > 0)
+        i_indices = self.len_x * (self.len_y * i_indices[1] + i_indices[0]) + np.full(i_indices[0].size, i)
+        i_indices = np.hstack((i_indices, self.len_xyz + i_indices, 2 * self.len_xyz + i_indices))
+
+        # Removing dirichlet voxels
+        i_dirvox = np.where(self.dir_cv[i, :, :, 0])
+        i_dirvox = self.len_x * (self.len_y * i_dirvox[1] + i_dirvox[0]) + np.full(i_dirvox[0].size, i)
+        i_dirvox1 = np.where(self.dir_cv[i, :, :, 1])
+        i_dirvox1 = self.len_x * (self.len_y * i_dirvox1[1] + i_dirvox1[0]) + np.full(i_dirvox1[0].size, i)
+        i_dirvox = np.hstack((i_dirvox, self.len_xyz + i_dirvox1))
+        i_dirvox1 = np.where(self.dir_cv[i, :, :, 2])
+        i_dirvox1 = self.len_x * (self.len_y * i_dirvox1[1] + i_dirvox1[0]) + np.full(i_dirvox1[0].size, i)
+        i_dirvox = np.hstack((i_dirvox, 2 * self.len_xyz + i_dirvox1))
+        i_indices = i_indices[~np.in1d(i_indices, i_dirvox)]
+
+        # Duplicating the voxel indices where divergence happens
+        i_indices = np.repeat(i_indices, 81)
+        return i_indices, i_dirvox  # returning dirichlet voxel indices
 
     def compute_effective_coefficient(self):
         # reshaping solution
@@ -357,79 +446,6 @@ class Elasticity(PropertySolver):
                 ind = np.triu_indices(6)
                 self.Cmat[i, mask] = C_final[:, ind[0], ind[1]]
 
-    def __compute_transmissibility(self, i, i_cv):
-        # Reset layers
-        self.Emat[i].fill(0)
-        self.unstable[i].fill(0)
-        self.Cf.fill(0)
-        flatten_Cmat(i, self.len_y, self.len_z, self.Cmat[i:i + 2], self.Cf)
-
-        # C becomes singular sometimes when there are air voxels
-        self.mpsa36x36.fill(0)
-        self.mpsa36x36[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.Cf)
-        det = np.linalg.det(self.mpsa36x36)
-        if np.min(det) < 1e-10:
-            self.unstable[i, det < 1e-10] = True
-
-        # Computing transmissibility matrix as: (A @ (Cinv @ D) + B)/8
-        if not np.all(self.unstable[i]):
-            self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf)
-            self.Emat[i, self.unstable[i]] = 0
-
-            self.mpsa36x36[~self.unstable[i]] = np.linalg.inv(self.mpsa36x36[~self.unstable[i]])  # Cinv
-
-            self.Emat[i, ~self.unstable[i]] = (self.mpsa36x36[~self.unstable[i]] @
-                                               self.Emat[i, ~self.unstable[i]])  # (Cinv @ D)
-
-            self.mpsa36x36.fill(0)
-            self.mpsa36x36[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.Cf)
-            self.Emat[i, ~self.unstable[i]] = (self.mpsa36x36[~self.unstable[i]] @
-                                               self.Emat[i, ~self.unstable[i]])  # A @ (Cinv @ D)
-
-            self.Emat[i, ~self.unstable[i]] += fill_Bmpsa(self.Cf)[~self.unstable[i]]  # + B
-            self.Emat[i, ~self.unstable[i]] /= 8
-
-        if self.print_matrices[1]:
-            self._print_E(i, i_cv, self.print_matrices[1])
-
-    def __initialize_MPSA(self):
-        # Initialize matrix slice of conductivities
-        self.Cmat = np.zeros((3, self.len_y, self.len_z, 21), dtype=float)  # per CV
-        self.__compute_Cmat(0, 0)  # Computing first layer of Kmat
-        self.__compute_Cmat(1, 1)  # Computing second layer of Kmat
-
-        # Initialize MPSA variables
-        self.Cf = np.zeros((168, self.len_y - 1, self.len_z - 1), dtype=float)  # per IV
-        self.Emat = np.zeros((2, self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
-        self.unstable = np.zeros((2, self.len_y - 1, self.len_z - 1), dtype=bool)
-        self.mpsa36x36 = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)  # A, C
-        self.Aind, self.Cind, self.Dind = create_mpsa_indices()
-        self.__compute_transmissibility(0, 0)  # Computing first layer of E
-
-    def __creating_indices(self, i):
-        # Finding all indices for slice
-        i_indices = np.ones_like(self.ws_pad[i], dtype=np.uint32)
-        i_indices[[0, -1], :] = 0
-        i_indices[:, [0, -1]] = 0
-        i_indices = np.where(i_indices > 0)
-        i_indices = self.len_x * (self.len_y * i_indices[1] + i_indices[0]) + np.full(i_indices[0].size, i)
-        i_indices = np.hstack((i_indices, self.len_xyz + i_indices, 2 * self.len_xyz + i_indices))
-
-        # Removing dirichlet voxels
-        i_dirvox = np.where(self.dir_vox[i, :, :, 0])
-        i_dirvox = self.len_x * (self.len_y * i_dirvox[1] + i_dirvox[0]) + np.full(i_dirvox[0].size, i)
-        i_dirvox1 = np.where(self.dir_vox[i, :, :, 1])
-        i_dirvox1 = self.len_x * (self.len_y * i_dirvox1[1] + i_dirvox1[0]) + np.full(i_dirvox1[0].size, i)
-        i_dirvox = np.hstack((i_dirvox, self.len_xyz + i_dirvox1))
-        i_dirvox1 = np.where(self.dir_vox[i, :, :, 2])
-        i_dirvox1 = self.len_x * (self.len_y * i_dirvox1[1] + i_dirvox1[0]) + np.full(i_dirvox1[0].size, i)
-        i_dirvox = np.hstack((i_dirvox, 2 * self.len_xyz + i_dirvox1))
-        i_indices = i_indices[~np.in1d(i_indices, i_dirvox)]
-
-        # Duplicating the voxel indices where divergence happens
-        i_indices = np.repeat(i_indices, 81)
-        return i_indices, i_dirvox  # returning dirichlet voxel indices
-
     def __compute_stresses(self):
         # Initialize required data structures
         self.s, self.t = np.zeros((2, self.len_x - 2, self.len_y - 2, self.len_z - 2, 3))
@@ -485,7 +501,7 @@ class Elasticity(PropertySolver):
             self.Emat[0] = self.Emat[1]
             self.Cmat[:2] = self.Cmat[1:]
             sys.stdout.write("\rComputing stresses ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
-        del self.Emat, self.Cf, self.Cmat, self.mpsa36x36, self.unstable
+        del self.Emat, self.Cf, self.Cmat, self.mpsa36x36, self.unstable_iv
 
         self.s /= 8 * self.ws.voxel_length
         self.t /= 16 * self.ws.voxel_length
@@ -595,24 +611,8 @@ class Elasticity(PropertySolver):
                 raise Exception("prescribed_bc must be defined for compute_stress_analysis")
 
     # Printing functions of system matrices
-    def _print_E(self, i, i_cv, dec=4):
-        np.set_printoptions(precision=dec)
-        np.set_printoptions(linewidth=10000)
-        for j in range(self.len_y - 1):
-            for k in range(self.len_z - 1):
-                print()
-                print("index {},{},{}".format(i_cv, j, k))
-                print(self.Emat[i, j, k])
-
-    def _print_A(self, dec=4):
-        np.set_printoptions(linewidth=10000)
-        np.set_printoptions(threshold=sys.maxsize)
-        np.set_printoptions(formatter={'float': lambda x: "{:.{}f}".format(x, dec).rstrip('0').rstrip('.')})
-        print()
-        print("A matrix:")
-        print(self.Amat.toarray())
-
     def _print_b(self, dec=1):
+        """ Print b vector (first int in print_matrices) """
         print()
         print("b vector:")
         print("  o---> y")
@@ -629,8 +629,28 @@ class Elasticity(PropertySolver):
                 print()
             print()
 
+    def _print_E(self, i, i_cv, dec=4):
+        """ Print E transmissibility matrix (second int in print_matrices) """
+        np.set_printoptions(precision=dec)
+        np.set_printoptions(linewidth=10000)
+        for j in range(self.len_y - 1):
+            for k in range(self.len_z - 1):
+                print()
+                print("index {},{},{}".format(i_cv, j, k))
+                print(self.Emat[i, j, k])
+
+    def _print_A(self, dec=4):
+        """ Print A matrix (third int in print_matrices) """
+        np.set_printoptions(linewidth=10000)
+        np.set_printoptions(threshold=sys.maxsize)
+        np.set_printoptions(formatter={'float': lambda x: "{:.{}f}".format(x, dec).rstrip('0').rstrip('.')})
+        print()
+        print("A matrix:")
+        print(self.Amat.toarray())
+
 
 def show_u(u, dec=4):
+    """ Print u displacement (fourth int in print_matrices) """
     print()
     print("3D Displacement:")
     print("  o---> y")
@@ -647,6 +667,7 @@ def show_u(u, dec=4):
 
 
 def show_s(s, t, dec=4):
+    """ Print s stress (fifth int in print_matrices) """
     print()
     print("3D Stress:")
     print("  o---> y")

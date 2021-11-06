@@ -1930,6 +1930,7 @@ static const char __pyx_k_uz_te[] = "uz_te";
 static const char __pyx_k_uz_tn[] = "uz_tn";
 static const char __pyx_k_uz_ts[] = "uz_ts";
 static const char __pyx_k_uz_tw[] = "uz_tw";
+static const char __pyx_k_dir_cv[] = "dir_cv";
 static const char __pyx_k_encode[] = "encode";
 static const char __pyx_k_format[] = "format";
 static const char __pyx_k_import[] = "__import__";
@@ -1965,7 +1966,6 @@ static const char __pyx_k_uz_tse[] = "uz_tse";
 static const char __pyx_k_uz_tsw[] = "uz_tsw";
 static const char __pyx_k_values[] = "values";
 static const char __pyx_k_counter[] = "counter";
-static const char __pyx_k_dir_vox[] = "dir_vox";
 static const char __pyx_k_fortran[] = "fortran";
 static const char __pyx_k_len_xyz[] = "len_xyz";
 static const char __pyx_k_memview[] = "memview";
@@ -1977,7 +1977,6 @@ static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_itemsize[] = "itemsize";
 static const char __pyx_k_pyx_type[] = "__pyx_type";
 static const char __pyx_k_setstate[] = "__setstate__";
-static const char __pyx_k_unstable[] = "unstable";
 static const char __pyx_k_Cmat_flat[] = "Cmat_flat";
 static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_counter_j[] = "counter_j";
@@ -1996,6 +1995,7 @@ static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static const char __pyx_k_MemoryError[] = "MemoryError";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_add_nondiag[] = "add_nondiag";
+static const char __pyx_k_unstable_iv[] = "unstable_iv";
 static const char __pyx_k_flatten_Cmat[] = "flatten_Cmat";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "stringsource";
@@ -2006,7 +2006,7 @@ static const char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static const char __pyx_k_dtype_is_object[] = "dtype_is_object";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
-static const char __pyx_k_find_unstable_vox[] = "find_unstable_vox";
+static const char __pyx_k_find_unstable_cv[] = "find_unstable_cv";
 static const char __pyx_k_pyx_unpickle_Enum[] = "__pyx_unpickle_Enum";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_strided_and_direct[] = "<strided and direct>";
@@ -2087,14 +2087,14 @@ static PyObject *__pyx_n_s_counter_j;
 static PyObject *__pyx_n_s_counter_v;
 static PyObject *__pyx_n_s_d;
 static PyObject *__pyx_n_s_dict;
-static PyObject *__pyx_n_s_dir_vox;
+static PyObject *__pyx_n_s_dir_cv;
 static PyObject *__pyx_n_s_divP;
 static PyObject *__pyx_n_s_dtype_is_object;
 static PyObject *__pyx_n_s_encode;
 static PyObject *__pyx_n_s_enumerate;
 static PyObject *__pyx_n_s_error;
 static PyObject *__pyx_n_s_fill_stress_matrices;
-static PyObject *__pyx_n_s_find_unstable_vox;
+static PyObject *__pyx_n_s_find_unstable_cv;
 static PyObject *__pyx_n_s_flags;
 static PyObject *__pyx_n_s_flatten_Cmat;
 static PyObject *__pyx_n_s_float;
@@ -2179,7 +2179,7 @@ static PyObject *__pyx_n_s_u_tsw;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_n_s_unpack;
-static PyObject *__pyx_n_s_unstable;
+static PyObject *__pyx_n_s_unstable_iv;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_ux_b;
 static PyObject *__pyx_n_s_ux_be;
@@ -2267,8 +2267,8 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_flatten_Cma
 static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_2index_at_p(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index, PyObject *__pyx_v_size); /* proto */
 static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_4index_at_s(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index, PyObject *__pyx_v_size); /* proto */
 static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_6add_nondiag(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_nondiag, __Pyx_memviewslice __pyx_v_nondiag1s, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, PyObject *__pyx_v_side_bc); /* proto */
-static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unstable_vox(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_dir_vox, __Pyx_memviewslice __pyx_v_unstable); /* proto */
-static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_10divP(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_dir_vox, __Pyx_memviewslice __pyx_v_j_indices, __Pyx_memviewslice __pyx_v_values, __Pyx_memviewslice __pyx_v_Emat); /* proto */
+static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unstable_cv(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_dir_cv, __Pyx_memviewslice __pyx_v_unstable_iv); /* proto */
+static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_10divP(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_dir_cv, __Pyx_memviewslice __pyx_v_j_indices, __Pyx_memviewslice __pyx_v_values, __Pyx_memviewslice __pyx_v_Emat); /* proto */
 static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_12fill_stress_matrices(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED int __pyx_v_i, CYTHON_UNUSED int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_u, __Pyx_memviewslice __pyx_v_Emat, __Pyx_memviewslice __pyx_v_E_sw, __Pyx_memviewslice __pyx_v_E_se, __Pyx_memviewslice __pyx_v_E_nw, __Pyx_memviewslice __pyx_v_E_ne, __Pyx_memviewslice __pyx_v_E_tsw, __Pyx_memviewslice __pyx_v_E_tse, __Pyx_memviewslice __pyx_v_E_tnw, __Pyx_memviewslice __pyx_v_E_tne, __Pyx_memviewslice __pyx_v_u_sw, __Pyx_memviewslice __pyx_v_u_se, __Pyx_memviewslice __pyx_v_u_nw, __Pyx_memviewslice __pyx_v_u_ne, __Pyx_memviewslice __pyx_v_u_tsw, __Pyx_memviewslice __pyx_v_u_tse, __Pyx_memviewslice __pyx_v_u_tnw, __Pyx_memviewslice __pyx_v_u_tne); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
@@ -5414,28 +5414,28 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_6add_nondia
 /* "pumapy/physicsmodels/elasticity_utils.pyx":92
  * 
  * 
- * def find_unstable_vox(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned char [:,:,:] unstable):             # <<<<<<<<<<<<<<
+ * def find_unstable_cv(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned char [:,:,:] unstable_iv):             # <<<<<<<<<<<<<<
  * 
  *     cdef int j, k
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_vox(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_vox = {"find_unstable_vox", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_vox, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_vox(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_cv(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_cv = {"find_unstable_cv", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_cv, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_cv(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_i;
   int __pyx_v_len_y;
   int __pyx_v_len_z;
-  __Pyx_memviewslice __pyx_v_dir_vox = { 0, 0, { 0 }, { 0 }, { 0 } };
-  __Pyx_memviewslice __pyx_v_unstable = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_v_dir_cv = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_v_unstable_iv = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("find_unstable_vox (wrapper)", 0);
+  __Pyx_RefNannySetupContext("find_unstable_cv (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_i,&__pyx_n_s_len_y,&__pyx_n_s_len_z,&__pyx_n_s_dir_vox,&__pyx_n_s_unstable,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_i,&__pyx_n_s_len_y,&__pyx_n_s_len_z,&__pyx_n_s_dir_cv,&__pyx_n_s_unstable_iv,0};
     PyObject* values[5] = {0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -5463,29 +5463,29 @@ static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_9find_unsta
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_len_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("find_unstable_vox", 1, 5, 5, 1); __PYX_ERR(0, 92, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("find_unstable_cv", 1, 5, 5, 1); __PYX_ERR(0, 92, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_len_z)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("find_unstable_vox", 1, 5, 5, 2); __PYX_ERR(0, 92, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("find_unstable_cv", 1, 5, 5, 2); __PYX_ERR(0, 92, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
-        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dir_vox)) != 0)) kw_args--;
+        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dir_cv)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("find_unstable_vox", 1, 5, 5, 3); __PYX_ERR(0, 92, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("find_unstable_cv", 1, 5, 5, 3); __PYX_ERR(0, 92, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
-        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_unstable)) != 0)) kw_args--;
+        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_unstable_iv)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("find_unstable_vox", 1, 5, 5, 4); __PYX_ERR(0, 92, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("find_unstable_cv", 1, 5, 5, 4); __PYX_ERR(0, 92, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "find_unstable_vox") < 0)) __PYX_ERR(0, 92, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "find_unstable_cv") < 0)) __PYX_ERR(0, 92, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -5499,25 +5499,25 @@ static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_9find_unsta
     __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 92, __pyx_L3_error)
     __pyx_v_len_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_len_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 92, __pyx_L3_error)
     __pyx_v_len_z = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_len_z == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 92, __pyx_L3_error)
-    __pyx_v_dir_vox = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsds_unsigned_char(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dir_vox.memview)) __PYX_ERR(0, 92, __pyx_L3_error)
-    __pyx_v_unstable = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_unsigned_char(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_unstable.memview)) __PYX_ERR(0, 92, __pyx_L3_error)
+    __pyx_v_dir_cv = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsds_unsigned_char(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dir_cv.memview)) __PYX_ERR(0, 92, __pyx_L3_error)
+    __pyx_v_unstable_iv = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_unsigned_char(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_unstable_iv.memview)) __PYX_ERR(0, 92, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("find_unstable_vox", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 92, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("find_unstable_cv", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 92, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pumapy.physicsmodels.elasticity_utils.find_unstable_vox", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pumapy.physicsmodels.elasticity_utils.find_unstable_cv", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unstable_vox(__pyx_self, __pyx_v_i, __pyx_v_len_y, __pyx_v_len_z, __pyx_v_dir_vox, __pyx_v_unstable);
+  __pyx_r = __pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unstable_cv(__pyx_self, __pyx_v_i, __pyx_v_len_y, __pyx_v_len_z, __pyx_v_dir_cv, __pyx_v_unstable_iv);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unstable_vox(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_dir_vox, __Pyx_memviewslice __pyx_v_unstable) {
+static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unstable_cv(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_dir_cv, __Pyx_memviewslice __pyx_v_unstable_iv) {
   int __pyx_v_j;
   int __pyx_v_k;
   PyObject *__pyx_r = NULL;
@@ -5538,14 +5538,14 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("find_unstable_vox", 0);
+  __Pyx_RefNannySetupContext("find_unstable_cv", 0);
 
   /* "pumapy/physicsmodels/elasticity_utils.pyx":97
  * 
- *     # Marking unstable voxels (i.e. voxels with all surrounding IV with det(Cmpsa)==0) as Dirichlet to skip them
+ *     # Marking unstable CVs (i.e. voxels with all surrounding IV with det(Cmpsa)==0) as Dirichlet to skip them
  *     for j in range(1, len_y - 1):             # <<<<<<<<<<<<<<
  *         for k in range(1, len_z - 1):
- *             if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and
+ *             if (unstable_iv[0, j - 1, k - 1] and unstable_iv[1, j - 1, k - 1] and unstable_iv[0, j, k - 1] and unstable_iv[1, j, k - 1] and
  */
   __pyx_t_1 = (__pyx_v_len_y - 1);
   __pyx_t_2 = __pyx_t_1;
@@ -5553,11 +5553,11 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
     __pyx_v_j = __pyx_t_3;
 
     /* "pumapy/physicsmodels/elasticity_utils.pyx":98
- *     # Marking unstable voxels (i.e. voxels with all surrounding IV with det(Cmpsa)==0) as Dirichlet to skip them
+ *     # Marking unstable CVs (i.e. voxels with all surrounding IV with det(Cmpsa)==0) as Dirichlet to skip them
  *     for j in range(1, len_y - 1):
  *         for k in range(1, len_z - 1):             # <<<<<<<<<<<<<<
- *             if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and
- *                 unstable[0, j - 1, k] and unstable[1, j - 1, k] and unstable[0, j, k] and unstable[1, j, k]):
+ *             if (unstable_iv[0, j - 1, k - 1] and unstable_iv[1, j - 1, k - 1] and unstable_iv[0, j, k - 1] and unstable_iv[1, j, k - 1] and
+ *                 unstable_iv[0, j - 1, k] and unstable_iv[1, j - 1, k] and unstable_iv[0, j, k] and unstable_iv[1, j, k]):
  */
     __pyx_t_4 = (__pyx_v_len_z - 1);
     __pyx_t_5 = __pyx_t_4;
@@ -5567,31 +5567,31 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
       /* "pumapy/physicsmodels/elasticity_utils.pyx":99
  *     for j in range(1, len_y - 1):
  *         for k in range(1, len_z - 1):
- *             if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and             # <<<<<<<<<<<<<<
- *                 unstable[0, j - 1, k] and unstable[1, j - 1, k] and unstable[0, j, k] and unstable[1, j, k]):
- *                 dir_vox[i, j, k] = True
+ *             if (unstable_iv[0, j - 1, k - 1] and unstable_iv[1, j - 1, k - 1] and unstable_iv[0, j, k - 1] and unstable_iv[1, j, k - 1] and             # <<<<<<<<<<<<<<
+ *                 unstable_iv[0, j - 1, k] and unstable_iv[1, j - 1, k] and unstable_iv[0, j, k] and unstable_iv[1, j, k]):
+ *                 dir_cv[i, j, k] = True
  */
       __pyx_t_8 = 0;
       __pyx_t_9 = (__pyx_v_j - 1);
       __pyx_t_10 = (__pyx_v_k - 1);
       __pyx_t_11 = -1;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_unstable.shape[0];
+        __pyx_t_8 += __pyx_v_unstable_iv.shape[0];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable_iv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_unstable.shape[1];
+        __pyx_t_9 += __pyx_v_unstable_iv.shape[1];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable_iv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_unstable.shape[2];
+        __pyx_t_10 += __pyx_v_unstable_iv.shape[2];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable_iv.shape[2])) __pyx_t_11 = 2;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 99, __pyx_L1_error)
       }
-      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable.data + __pyx_t_8 * __pyx_v_unstable.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable.strides[1]) ) + __pyx_t_10 * __pyx_v_unstable.strides[2]) ))) != 0);
+      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable_iv.data + __pyx_t_8 * __pyx_v_unstable_iv.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable_iv.strides[1]) ) + __pyx_t_10 * __pyx_v_unstable_iv.strides[2]) ))) != 0);
       if (__pyx_t_12) {
       } else {
         __pyx_t_7 = __pyx_t_12;
@@ -5602,22 +5602,22 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
       __pyx_t_8 = (__pyx_v_k - 1);
       __pyx_t_11 = -1;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_unstable.shape[0];
+        __pyx_t_10 += __pyx_v_unstable_iv.shape[0];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable_iv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_unstable.shape[1];
+        __pyx_t_9 += __pyx_v_unstable_iv.shape[1];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable_iv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_unstable.shape[2];
+        __pyx_t_8 += __pyx_v_unstable_iv.shape[2];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable_iv.shape[2])) __pyx_t_11 = 2;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 99, __pyx_L1_error)
       }
-      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable.data + __pyx_t_10 * __pyx_v_unstable.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable.strides[1]) ) + __pyx_t_8 * __pyx_v_unstable.strides[2]) ))) != 0);
+      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable_iv.data + __pyx_t_10 * __pyx_v_unstable_iv.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable_iv.strides[1]) ) + __pyx_t_8 * __pyx_v_unstable_iv.strides[2]) ))) != 0);
       if (__pyx_t_12) {
       } else {
         __pyx_t_7 = __pyx_t_12;
@@ -5628,22 +5628,22 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
       __pyx_t_10 = (__pyx_v_k - 1);
       __pyx_t_11 = -1;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_unstable.shape[0];
+        __pyx_t_8 += __pyx_v_unstable_iv.shape[0];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable_iv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_unstable.shape[1];
+        __pyx_t_9 += __pyx_v_unstable_iv.shape[1];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable_iv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_unstable.shape[2];
+        __pyx_t_10 += __pyx_v_unstable_iv.shape[2];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable_iv.shape[2])) __pyx_t_11 = 2;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 99, __pyx_L1_error)
       }
-      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable.data + __pyx_t_8 * __pyx_v_unstable.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable.strides[1]) ) + __pyx_t_10 * __pyx_v_unstable.strides[2]) ))) != 0);
+      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable_iv.data + __pyx_t_8 * __pyx_v_unstable_iv.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable_iv.strides[1]) ) + __pyx_t_10 * __pyx_v_unstable_iv.strides[2]) ))) != 0);
       if (__pyx_t_12) {
       } else {
         __pyx_t_7 = __pyx_t_12;
@@ -5654,22 +5654,22 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
       __pyx_t_8 = (__pyx_v_k - 1);
       __pyx_t_11 = -1;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_unstable.shape[0];
+        __pyx_t_10 += __pyx_v_unstable_iv.shape[0];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable_iv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_unstable.shape[1];
+        __pyx_t_9 += __pyx_v_unstable_iv.shape[1];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable_iv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_unstable.shape[2];
+        __pyx_t_8 += __pyx_v_unstable_iv.shape[2];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable_iv.shape[2])) __pyx_t_11 = 2;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 99, __pyx_L1_error)
       }
-      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable.data + __pyx_t_10 * __pyx_v_unstable.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable.strides[1]) ) + __pyx_t_8 * __pyx_v_unstable.strides[2]) ))) != 0);
+      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable_iv.data + __pyx_t_10 * __pyx_v_unstable_iv.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable_iv.strides[1]) ) + __pyx_t_8 * __pyx_v_unstable_iv.strides[2]) ))) != 0);
       if (__pyx_t_12) {
       } else {
         __pyx_t_7 = __pyx_t_12;
@@ -5678,9 +5678,9 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
 
       /* "pumapy/physicsmodels/elasticity_utils.pyx":100
  *         for k in range(1, len_z - 1):
- *             if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and
- *                 unstable[0, j - 1, k] and unstable[1, j - 1, k] and unstable[0, j, k] and unstable[1, j, k]):             # <<<<<<<<<<<<<<
- *                 dir_vox[i, j, k] = True
+ *             if (unstable_iv[0, j - 1, k - 1] and unstable_iv[1, j - 1, k - 1] and unstable_iv[0, j, k - 1] and unstable_iv[1, j, k - 1] and
+ *                 unstable_iv[0, j - 1, k] and unstable_iv[1, j - 1, k] and unstable_iv[0, j, k] and unstable_iv[1, j, k]):             # <<<<<<<<<<<<<<
+ *                 dir_cv[i, j, k] = True
  * 
  */
       __pyx_t_8 = 0;
@@ -5688,22 +5688,22 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
       __pyx_t_10 = __pyx_v_k;
       __pyx_t_11 = -1;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_unstable.shape[0];
+        __pyx_t_8 += __pyx_v_unstable_iv.shape[0];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable_iv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_unstable.shape[1];
+        __pyx_t_9 += __pyx_v_unstable_iv.shape[1];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable_iv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_unstable.shape[2];
+        __pyx_t_10 += __pyx_v_unstable_iv.shape[2];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable_iv.shape[2])) __pyx_t_11 = 2;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 100, __pyx_L1_error)
       }
-      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable.data + __pyx_t_8 * __pyx_v_unstable.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable.strides[1]) ) + __pyx_t_10 * __pyx_v_unstable.strides[2]) ))) != 0);
+      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable_iv.data + __pyx_t_8 * __pyx_v_unstable_iv.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable_iv.strides[1]) ) + __pyx_t_10 * __pyx_v_unstable_iv.strides[2]) ))) != 0);
       if (__pyx_t_12) {
       } else {
         __pyx_t_7 = __pyx_t_12;
@@ -5714,22 +5714,22 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
       __pyx_t_8 = __pyx_v_k;
       __pyx_t_11 = -1;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_unstable.shape[0];
+        __pyx_t_10 += __pyx_v_unstable_iv.shape[0];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable_iv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_unstable.shape[1];
+        __pyx_t_9 += __pyx_v_unstable_iv.shape[1];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable_iv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_unstable.shape[2];
+        __pyx_t_8 += __pyx_v_unstable_iv.shape[2];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable_iv.shape[2])) __pyx_t_11 = 2;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 100, __pyx_L1_error)
       }
-      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable.data + __pyx_t_10 * __pyx_v_unstable.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable.strides[1]) ) + __pyx_t_8 * __pyx_v_unstable.strides[2]) ))) != 0);
+      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable_iv.data + __pyx_t_10 * __pyx_v_unstable_iv.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable_iv.strides[1]) ) + __pyx_t_8 * __pyx_v_unstable_iv.strides[2]) ))) != 0);
       if (__pyx_t_12) {
       } else {
         __pyx_t_7 = __pyx_t_12;
@@ -5740,22 +5740,22 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
       __pyx_t_10 = __pyx_v_k;
       __pyx_t_11 = -1;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_unstable.shape[0];
+        __pyx_t_8 += __pyx_v_unstable_iv.shape[0];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable_iv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_unstable.shape[1];
+        __pyx_t_9 += __pyx_v_unstable_iv.shape[1];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable_iv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_unstable.shape[2];
+        __pyx_t_10 += __pyx_v_unstable_iv.shape[2];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable_iv.shape[2])) __pyx_t_11 = 2;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 100, __pyx_L1_error)
       }
-      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable.data + __pyx_t_8 * __pyx_v_unstable.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable.strides[1]) ) + __pyx_t_10 * __pyx_v_unstable.strides[2]) ))) != 0);
+      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable_iv.data + __pyx_t_8 * __pyx_v_unstable_iv.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable_iv.strides[1]) ) + __pyx_t_10 * __pyx_v_unstable_iv.strides[2]) ))) != 0);
       if (__pyx_t_12) {
       } else {
         __pyx_t_7 = __pyx_t_12;
@@ -5766,48 +5766,48 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
       __pyx_t_8 = __pyx_v_k;
       __pyx_t_11 = -1;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_unstable.shape[0];
+        __pyx_t_10 += __pyx_v_unstable_iv.shape[0];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_unstable_iv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_unstable.shape[1];
+        __pyx_t_9 += __pyx_v_unstable_iv.shape[1];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_unstable_iv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_unstable.shape[2];
+        __pyx_t_8 += __pyx_v_unstable_iv.shape[2];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_unstable_iv.shape[2])) __pyx_t_11 = 2;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 100, __pyx_L1_error)
       }
-      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable.data + __pyx_t_10 * __pyx_v_unstable.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable.strides[1]) ) + __pyx_t_8 * __pyx_v_unstable.strides[2]) ))) != 0);
+      __pyx_t_12 = ((*((unsigned char *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_unstable_iv.data + __pyx_t_10 * __pyx_v_unstable_iv.strides[0]) ) + __pyx_t_9 * __pyx_v_unstable_iv.strides[1]) ) + __pyx_t_8 * __pyx_v_unstable_iv.strides[2]) ))) != 0);
       __pyx_t_7 = __pyx_t_12;
       __pyx_L8_bool_binop_done:;
 
       /* "pumapy/physicsmodels/elasticity_utils.pyx":99
  *     for j in range(1, len_y - 1):
  *         for k in range(1, len_z - 1):
- *             if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and             # <<<<<<<<<<<<<<
- *                 unstable[0, j - 1, k] and unstable[1, j - 1, k] and unstable[0, j, k] and unstable[1, j, k]):
- *                 dir_vox[i, j, k] = True
+ *             if (unstable_iv[0, j - 1, k - 1] and unstable_iv[1, j - 1, k - 1] and unstable_iv[0, j, k - 1] and unstable_iv[1, j, k - 1] and             # <<<<<<<<<<<<<<
+ *                 unstable_iv[0, j - 1, k] and unstable_iv[1, j - 1, k] and unstable_iv[0, j, k] and unstable_iv[1, j, k]):
+ *                 dir_cv[i, j, k] = True
  */
       if (__pyx_t_7) {
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":101
- *             if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and
- *                 unstable[0, j - 1, k] and unstable[1, j - 1, k] and unstable[0, j, k] and unstable[1, j, k]):
- *                 dir_vox[i, j, k] = True             # <<<<<<<<<<<<<<
+ *             if (unstable_iv[0, j - 1, k - 1] and unstable_iv[1, j - 1, k - 1] and unstable_iv[0, j, k - 1] and unstable_iv[1, j, k - 1] and
+ *                 unstable_iv[0, j - 1, k] and unstable_iv[1, j - 1, k] and unstable_iv[0, j, k] and unstable_iv[1, j, k]):
+ *                 dir_cv[i, j, k] = True             # <<<<<<<<<<<<<<
  * 
  * 
  */
-        __pyx_t_13.data = __pyx_v_dir_vox.data;
-        __pyx_t_13.memview = __pyx_v_dir_vox.memview;
+        __pyx_t_13.data = __pyx_v_dir_cv.data;
+        __pyx_t_13.memview = __pyx_v_dir_cv.memview;
         __PYX_INC_MEMVIEW(&__pyx_t_13, 0);
         {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_dir_vox.shape[0];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_dir_vox.strides[0];
+        Py_ssize_t __pyx_tmp_shape = __pyx_v_dir_cv.shape[0];
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_dir_cv.strides[0];
         if (__pyx_tmp_idx < 0)
             __pyx_tmp_idx += __pyx_tmp_shape;
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
@@ -5820,8 +5820,8 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
 
 {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_j;
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_dir_vox.shape[1];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_dir_vox.strides[1];
+        Py_ssize_t __pyx_tmp_shape = __pyx_v_dir_cv.shape[1];
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_dir_cv.strides[1];
         if (__pyx_tmp_idx < 0)
             __pyx_tmp_idx += __pyx_tmp_shape;
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
@@ -5834,8 +5834,8 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
 
 {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_k;
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_dir_vox.shape[2];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_dir_vox.strides[2];
+        Py_ssize_t __pyx_tmp_shape = __pyx_v_dir_cv.shape[2];
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_dir_cv.strides[2];
         if (__pyx_tmp_idx < 0)
             __pyx_tmp_idx += __pyx_tmp_shape;
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
@@ -5846,8 +5846,8 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8find_unsta
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_13.shape[0] = __pyx_v_dir_vox.shape[3];
-__pyx_t_13.strides[0] = __pyx_v_dir_vox.strides[3];
+__pyx_t_13.shape[0] = __pyx_v_dir_cv.shape[3];
+__pyx_t_13.strides[0] = __pyx_v_dir_cv.strides[3];
     __pyx_t_13.suboffsets[0] = -1;
 
 {
@@ -5871,9 +5871,9 @@ __pyx_t_13.strides[0] = __pyx_v_dir_vox.strides[3];
         /* "pumapy/physicsmodels/elasticity_utils.pyx":99
  *     for j in range(1, len_y - 1):
  *         for k in range(1, len_z - 1):
- *             if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and             # <<<<<<<<<<<<<<
- *                 unstable[0, j - 1, k] and unstable[1, j - 1, k] and unstable[0, j, k] and unstable[1, j, k]):
- *                 dir_vox[i, j, k] = True
+ *             if (unstable_iv[0, j - 1, k - 1] and unstable_iv[1, j - 1, k - 1] and unstable_iv[0, j, k - 1] and unstable_iv[1, j, k - 1] and             # <<<<<<<<<<<<<<
+ *                 unstable_iv[0, j - 1, k] and unstable_iv[1, j - 1, k] and unstable_iv[0, j, k] and unstable_iv[1, j, k]):
+ *                 dir_cv[i, j, k] = True
  */
       }
     }
@@ -5882,7 +5882,7 @@ __pyx_t_13.strides[0] = __pyx_v_dir_vox.strides[3];
   /* "pumapy/physicsmodels/elasticity_utils.pyx":92
  * 
  * 
- * def find_unstable_vox(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned char [:,:,:] unstable):             # <<<<<<<<<<<<<<
+ * def find_unstable_cv(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned char [:,:,:] unstable_iv):             # <<<<<<<<<<<<<<
  * 
  *     cdef int j, k
  */
@@ -5892,11 +5892,11 @@ __pyx_t_13.strides[0] = __pyx_v_dir_vox.strides[3];
   goto __pyx_L0;
   __pyx_L1_error:;
   __PYX_XDEC_MEMVIEW(&__pyx_t_13, 1);
-  __Pyx_AddTraceback("pumapy.physicsmodels.elasticity_utils.find_unstable_vox", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pumapy.physicsmodels.elasticity_utils.find_unstable_cv", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __PYX_XDEC_MEMVIEW(&__pyx_v_dir_vox, 1);
-  __PYX_XDEC_MEMVIEW(&__pyx_v_unstable, 1);
+  __PYX_XDEC_MEMVIEW(&__pyx_v_dir_cv, 1);
+  __PYX_XDEC_MEMVIEW(&__pyx_v_unstable_iv, 1);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -5905,7 +5905,7 @@ __pyx_t_13.strides[0] = __pyx_v_dir_vox.strides[3];
 /* "pumapy/physicsmodels/elasticity_utils.pyx":104
  * 
  * 
- * def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):             # <<<<<<<<<<<<<<
+ * def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):             # <<<<<<<<<<<<<<
  * 
  *     cdef int j, k
  */
@@ -5918,7 +5918,7 @@ static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_11divP(PyOb
   int __pyx_v_len_x;
   int __pyx_v_len_y;
   int __pyx_v_len_z;
-  __Pyx_memviewslice __pyx_v_dir_vox = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_v_dir_cv = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_j_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_values = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_Emat = { 0, 0, { 0 }, { 0 }, { 0 } };
@@ -5929,7 +5929,7 @@ static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_11divP(PyOb
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("divP (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_i,&__pyx_n_s_len_x,&__pyx_n_s_len_y,&__pyx_n_s_len_z,&__pyx_n_s_dir_vox,&__pyx_n_s_j_indices,&__pyx_n_s_values,&__pyx_n_s_Emat,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_i,&__pyx_n_s_len_x,&__pyx_n_s_len_y,&__pyx_n_s_len_z,&__pyx_n_s_dir_cv,&__pyx_n_s_j_indices,&__pyx_n_s_values,&__pyx_n_s_Emat,0};
     PyObject* values[8] = {0,0,0,0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -5979,7 +5979,7 @@ static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_11divP(PyOb
         }
         CYTHON_FALLTHROUGH;
         case  4:
-        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dir_vox)) != 0)) kw_args--;
+        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dir_cv)) != 0)) kw_args--;
         else {
           __Pyx_RaiseArgtupleInvalid("divP", 1, 8, 8, 4); __PYX_ERR(0, 104, __pyx_L3_error)
         }
@@ -6021,7 +6021,7 @@ static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_11divP(PyOb
     __pyx_v_len_x = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_len_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 104, __pyx_L3_error)
     __pyx_v_len_y = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_len_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 104, __pyx_L3_error)
     __pyx_v_len_z = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_len_z == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 104, __pyx_L3_error)
-    __pyx_v_dir_vox = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsds_unsigned_char(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dir_vox.memview)) __PYX_ERR(0, 104, __pyx_L3_error)
+    __pyx_v_dir_cv = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsds_unsigned_char(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dir_cv.memview)) __PYX_ERR(0, 104, __pyx_L3_error)
     __pyx_v_j_indices = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_j_indices.memview)) __PYX_ERR(0, 104, __pyx_L3_error)
     __pyx_v_values = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[6], PyBUF_WRITABLE); if (unlikely(!__pyx_v_values.memview)) __PYX_ERR(0, 104, __pyx_L3_error)
     __pyx_v_Emat = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsdsds_double(values[7], PyBUF_WRITABLE); if (unlikely(!__pyx_v_Emat.memview)) __PYX_ERR(0, 104, __pyx_L3_error)
@@ -6034,14 +6034,14 @@ static PyObject *__pyx_pw_6pumapy_13physicsmodels_16elasticity_utils_11divP(PyOb
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_10divP(__pyx_self, __pyx_v_i, __pyx_v_len_x, __pyx_v_len_y, __pyx_v_len_z, __pyx_v_dir_vox, __pyx_v_j_indices, __pyx_v_values, __pyx_v_Emat);
+  __pyx_r = __pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_10divP(__pyx_self, __pyx_v_i, __pyx_v_len_x, __pyx_v_len_y, __pyx_v_len_z, __pyx_v_dir_cv, __pyx_v_j_indices, __pyx_v_values, __pyx_v_Emat);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_10divP(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_dir_vox, __Pyx_memviewslice __pyx_v_j_indices, __Pyx_memviewslice __pyx_v_values, __Pyx_memviewslice __pyx_v_Emat) {
+static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_10divP(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, __Pyx_memviewslice __pyx_v_dir_cv, __Pyx_memviewslice __pyx_v_j_indices, __Pyx_memviewslice __pyx_v_values, __Pyx_memviewslice __pyx_v_Emat) {
   int __pyx_v_j;
   int __pyx_v_k;
   unsigned PY_LONG_LONG __pyx_v_counter_j;
@@ -6189,7 +6189,7 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_10divP(CYTH
       /* "pumapy/physicsmodels/elasticity_utils.pyx":118
  * 
  *             # When dirichlet voxel skip node
- *             if not dir_vox[i, j, k, 0]:             # <<<<<<<<<<<<<<
+ *             if not dir_cv[i, j, k, 0]:             # <<<<<<<<<<<<<<
  * 
  *                 # Computing x and y divergence equations for P control volume
  */
@@ -6199,26 +6199,26 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_10divP(CYTH
       __pyx_t_10 = 0;
       __pyx_t_11 = -1;
       if (__pyx_t_7 < 0) {
-        __pyx_t_7 += __pyx_v_dir_vox.shape[0];
+        __pyx_t_7 += __pyx_v_dir_cv.shape[0];
         if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_vox.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_dir_vox.shape[1];
+        __pyx_t_8 += __pyx_v_dir_cv.shape[1];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_vox.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_dir_vox.shape[2];
+        __pyx_t_9 += __pyx_v_dir_cv.shape[2];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_vox.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_dir_vox.shape[3];
+        __pyx_t_10 += __pyx_v_dir_cv.shape[3];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 3;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_vox.shape[3])) __pyx_t_11 = 3;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 118, __pyx_L1_error)
       }
-      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_vox.data + __pyx_t_7 * __pyx_v_dir_vox.strides[0]) ) + __pyx_t_8 * __pyx_v_dir_vox.strides[1]) ) + __pyx_t_9 * __pyx_v_dir_vox.strides[2]) ) + __pyx_t_10 * __pyx_v_dir_vox.strides[3]) ))) != 0)) != 0);
+      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_7 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_8 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_9 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_10 * __pyx_v_dir_cv.strides[3]) ))) != 0)) != 0);
       if (__pyx_t_12) {
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":121
@@ -16681,7 +16681,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
  * 
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_vox[i, j, k, 0] = True
+ *                     dir_cv[i, j, k, 0] = True
  *                     values[counter_v:counter_v + 81] = np.NAN
  */
         __Pyx_GetModuleGlobalName(__pyx_t_60, __pyx_n_s_np); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 213, __pyx_L1_error)
@@ -16762,7 +16762,7 @@ __pyx_t_62 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
           /* "pumapy/physicsmodels/elasticity_utils.pyx":214
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_vox[i, j, k, 0] = True             # <<<<<<<<<<<<<<
+ *                     dir_cv[i, j, k, 0] = True             # <<<<<<<<<<<<<<
  *                     values[counter_v:counter_v + 81] = np.NAN
  *                 else:
  */
@@ -16772,30 +16772,30 @@ __pyx_t_62 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
           __pyx_t_44 = 0;
           __pyx_t_11 = -1;
           if (__pyx_t_41 < 0) {
-            __pyx_t_41 += __pyx_v_dir_vox.shape[0];
+            __pyx_t_41 += __pyx_v_dir_cv.shape[0];
             if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-          } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_vox.shape[0])) __pyx_t_11 = 0;
+          } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
           if (__pyx_t_42 < 0) {
-            __pyx_t_42 += __pyx_v_dir_vox.shape[1];
+            __pyx_t_42 += __pyx_v_dir_cv.shape[1];
             if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-          } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_vox.shape[1])) __pyx_t_11 = 1;
+          } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
           if (__pyx_t_43 < 0) {
-            __pyx_t_43 += __pyx_v_dir_vox.shape[2];
+            __pyx_t_43 += __pyx_v_dir_cv.shape[2];
             if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 2;
-          } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_vox.shape[2])) __pyx_t_11 = 2;
+          } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
           if (__pyx_t_44 < 0) {
-            __pyx_t_44 += __pyx_v_dir_vox.shape[3];
+            __pyx_t_44 += __pyx_v_dir_cv.shape[3];
             if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 3;
-          } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_vox.shape[3])) __pyx_t_11 = 3;
+          } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
           if (unlikely(__pyx_t_11 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_11);
             __PYX_ERR(0, 214, __pyx_L1_error)
           }
-          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_vox.data + __pyx_t_41 * __pyx_v_dir_vox.strides[0]) ) + __pyx_t_42 * __pyx_v_dir_vox.strides[1]) ) + __pyx_t_43 * __pyx_v_dir_vox.strides[2]) ) + __pyx_t_44 * __pyx_v_dir_vox.strides[3]) )) = 1;
+          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_41 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_42 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_43 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_44 * __pyx_v_dir_cv.strides[3]) )) = 1;
 
           /* "pumapy/physicsmodels/elasticity_utils.pyx":215
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_vox[i, j, k, 0] = True
+ *                     dir_cv[i, j, k, 0] = True
  *                     values[counter_v:counter_v + 81] = np.NAN             # <<<<<<<<<<<<<<
  *                 else:
  *                     for k2 in range(-1, 2):
@@ -16850,7 +16850,7 @@ __pyx_t_62 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
  * 
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_vox[i, j, k, 0] = True
+ *                     dir_cv[i, j, k, 0] = True
  *                     values[counter_v:counter_v + 81] = np.NAN
  */
           goto __pyx_L8;
@@ -17195,7 +17195,7 @@ __pyx_t_62 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
         /* "pumapy/physicsmodels/elasticity_utils.pyx":118
  * 
  *             # When dirichlet voxel skip node
- *             if not dir_vox[i, j, k, 0]:             # <<<<<<<<<<<<<<
+ *             if not dir_cv[i, j, k, 0]:             # <<<<<<<<<<<<<<
  * 
  *                 # Computing x and y divergence equations for P control volume
  */
@@ -17230,7 +17230,7 @@ __pyx_t_62 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
       /* "pumapy/physicsmodels/elasticity_utils.pyx":240
  * 
  *             # When dirichlet voxel skip node
- *             if not dir_vox[i, j, k, 1]:             # <<<<<<<<<<<<<<
+ *             if not dir_cv[i, j, k, 1]:             # <<<<<<<<<<<<<<
  * 
  *                 # Computing x and y divergence equations for P control volume
  */
@@ -17240,26 +17240,26 @@ __pyx_t_62 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
       __pyx_t_41 = 1;
       __pyx_t_11 = -1;
       if (__pyx_t_44 < 0) {
-        __pyx_t_44 += __pyx_v_dir_vox.shape[0];
+        __pyx_t_44 += __pyx_v_dir_cv.shape[0];
         if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_vox.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_43 < 0) {
-        __pyx_t_43 += __pyx_v_dir_vox.shape[1];
+        __pyx_t_43 += __pyx_v_dir_cv.shape[1];
         if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_vox.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_42 < 0) {
-        __pyx_t_42 += __pyx_v_dir_vox.shape[2];
+        __pyx_t_42 += __pyx_v_dir_cv.shape[2];
         if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_vox.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
       if (__pyx_t_41 < 0) {
-        __pyx_t_41 += __pyx_v_dir_vox.shape[3];
+        __pyx_t_41 += __pyx_v_dir_cv.shape[3];
         if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 3;
-      } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_vox.shape[3])) __pyx_t_11 = 3;
+      } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 240, __pyx_L1_error)
       }
-      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_vox.data + __pyx_t_44 * __pyx_v_dir_vox.strides[0]) ) + __pyx_t_43 * __pyx_v_dir_vox.strides[1]) ) + __pyx_t_42 * __pyx_v_dir_vox.strides[2]) ) + __pyx_t_41 * __pyx_v_dir_vox.strides[3]) ))) != 0)) != 0);
+      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_44 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_43 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_42 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_41 * __pyx_v_dir_cv.strides[3]) ))) != 0)) != 0);
       if (__pyx_t_12) {
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":243
@@ -27722,7 +27722,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
  * 
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_vox[i, j, k, 1] = True
+ *                     dir_cv[i, j, k, 1] = True
  *                     values[counter_v:counter_v + 81] = np.NAN
  */
         __Pyx_GetModuleGlobalName(__pyx_t_61, __pyx_n_s_np); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 335, __pyx_L1_error)
@@ -27803,7 +27803,7 @@ __pyx_t_63 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
           /* "pumapy/physicsmodels/elasticity_utils.pyx":336
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_vox[i, j, k, 1] = True             # <<<<<<<<<<<<<<
+ *                     dir_cv[i, j, k, 1] = True             # <<<<<<<<<<<<<<
  *                     values[counter_v:counter_v + 81] = np.NAN
  *                 else:
  */
@@ -27813,30 +27813,30 @@ __pyx_t_63 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
           __pyx_t_7 = 1;
           __pyx_t_11 = -1;
           if (__pyx_t_10 < 0) {
-            __pyx_t_10 += __pyx_v_dir_vox.shape[0];
+            __pyx_t_10 += __pyx_v_dir_cv.shape[0];
             if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-          } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_vox.shape[0])) __pyx_t_11 = 0;
+          } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
           if (__pyx_t_9 < 0) {
-            __pyx_t_9 += __pyx_v_dir_vox.shape[1];
+            __pyx_t_9 += __pyx_v_dir_cv.shape[1];
             if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-          } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_vox.shape[1])) __pyx_t_11 = 1;
+          } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
           if (__pyx_t_8 < 0) {
-            __pyx_t_8 += __pyx_v_dir_vox.shape[2];
+            __pyx_t_8 += __pyx_v_dir_cv.shape[2];
             if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 2;
-          } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_vox.shape[2])) __pyx_t_11 = 2;
+          } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
           if (__pyx_t_7 < 0) {
-            __pyx_t_7 += __pyx_v_dir_vox.shape[3];
+            __pyx_t_7 += __pyx_v_dir_cv.shape[3];
             if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 3;
-          } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_vox.shape[3])) __pyx_t_11 = 3;
+          } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
           if (unlikely(__pyx_t_11 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_11);
             __PYX_ERR(0, 336, __pyx_L1_error)
           }
-          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_vox.data + __pyx_t_10 * __pyx_v_dir_vox.strides[0]) ) + __pyx_t_9 * __pyx_v_dir_vox.strides[1]) ) + __pyx_t_8 * __pyx_v_dir_vox.strides[2]) ) + __pyx_t_7 * __pyx_v_dir_vox.strides[3]) )) = 1;
+          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_10 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_9 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_8 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_7 * __pyx_v_dir_cv.strides[3]) )) = 1;
 
           /* "pumapy/physicsmodels/elasticity_utils.pyx":337
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_vox[i, j, k, 1] = True
+ *                     dir_cv[i, j, k, 1] = True
  *                     values[counter_v:counter_v + 81] = np.NAN             # <<<<<<<<<<<<<<
  *                 else:
  *                     for k2 in range(-1, 2):
@@ -27891,7 +27891,7 @@ __pyx_t_63 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
  * 
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_vox[i, j, k, 1] = True
+ *                     dir_cv[i, j, k, 1] = True
  *                     values[counter_v:counter_v + 81] = np.NAN
  */
           goto __pyx_L32;
@@ -28236,7 +28236,7 @@ __pyx_t_63 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
         /* "pumapy/physicsmodels/elasticity_utils.pyx":240
  * 
  *             # When dirichlet voxel skip node
- *             if not dir_vox[i, j, k, 1]:             # <<<<<<<<<<<<<<
+ *             if not dir_cv[i, j, k, 1]:             # <<<<<<<<<<<<<<
  * 
  *                 # Computing x and y divergence equations for P control volume
  */
@@ -28271,7 +28271,7 @@ __pyx_t_63 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
       /* "pumapy/physicsmodels/elasticity_utils.pyx":362
  * 
  *             # When dirichlet voxel skip node
- *             if not dir_vox[i, j, k, 2]:             # <<<<<<<<<<<<<<
+ *             if not dir_cv[i, j, k, 2]:             # <<<<<<<<<<<<<<
  * 
  *                 # Computing x and y divergence equations for P control volume
  */
@@ -28281,26 +28281,26 @@ __pyx_t_63 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
       __pyx_t_10 = 2;
       __pyx_t_11 = -1;
       if (__pyx_t_7 < 0) {
-        __pyx_t_7 += __pyx_v_dir_vox.shape[0];
+        __pyx_t_7 += __pyx_v_dir_cv.shape[0];
         if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_vox.shape[0])) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
       if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_dir_vox.shape[1];
+        __pyx_t_8 += __pyx_v_dir_cv.shape[1];
         if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_vox.shape[1])) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
       if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_dir_vox.shape[2];
+        __pyx_t_9 += __pyx_v_dir_cv.shape[2];
         if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_vox.shape[2])) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_dir_vox.shape[3];
+        __pyx_t_10 += __pyx_v_dir_cv.shape[3];
         if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 3;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_vox.shape[3])) __pyx_t_11 = 3;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 362, __pyx_L1_error)
       }
-      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_vox.data + __pyx_t_7 * __pyx_v_dir_vox.strides[0]) ) + __pyx_t_8 * __pyx_v_dir_vox.strides[1]) ) + __pyx_t_9 * __pyx_v_dir_vox.strides[2]) ) + __pyx_t_10 * __pyx_v_dir_vox.strides[3]) ))) != 0)) != 0);
+      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_7 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_8 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_9 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_10 * __pyx_v_dir_cv.strides[3]) ))) != 0)) != 0);
       if (__pyx_t_12) {
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":365
@@ -38763,7 +38763,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
  * 
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_vox[i, j, k, 2] = True
+ *                     dir_cv[i, j, k, 2] = True
  *                     values[counter_v:counter_v + 81] = np.NAN
  */
         __Pyx_GetModuleGlobalName(__pyx_t_60, __pyx_n_s_np); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 457, __pyx_L1_error)
@@ -38844,7 +38844,7 @@ __pyx_t_59 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
           /* "pumapy/physicsmodels/elasticity_utils.pyx":458
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_vox[i, j, k, 2] = True             # <<<<<<<<<<<<<<
+ *                     dir_cv[i, j, k, 2] = True             # <<<<<<<<<<<<<<
  *                     values[counter_v:counter_v + 81] = np.NAN
  *                 else:
  */
@@ -38854,30 +38854,30 @@ __pyx_t_59 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
           __pyx_t_44 = 2;
           __pyx_t_11 = -1;
           if (__pyx_t_41 < 0) {
-            __pyx_t_41 += __pyx_v_dir_vox.shape[0];
+            __pyx_t_41 += __pyx_v_dir_cv.shape[0];
             if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-          } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_vox.shape[0])) __pyx_t_11 = 0;
+          } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
           if (__pyx_t_42 < 0) {
-            __pyx_t_42 += __pyx_v_dir_vox.shape[1];
+            __pyx_t_42 += __pyx_v_dir_cv.shape[1];
             if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-          } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_vox.shape[1])) __pyx_t_11 = 1;
+          } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
           if (__pyx_t_43 < 0) {
-            __pyx_t_43 += __pyx_v_dir_vox.shape[2];
+            __pyx_t_43 += __pyx_v_dir_cv.shape[2];
             if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 2;
-          } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_vox.shape[2])) __pyx_t_11 = 2;
+          } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
           if (__pyx_t_44 < 0) {
-            __pyx_t_44 += __pyx_v_dir_vox.shape[3];
+            __pyx_t_44 += __pyx_v_dir_cv.shape[3];
             if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 3;
-          } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_vox.shape[3])) __pyx_t_11 = 3;
+          } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
           if (unlikely(__pyx_t_11 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_11);
             __PYX_ERR(0, 458, __pyx_L1_error)
           }
-          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_vox.data + __pyx_t_41 * __pyx_v_dir_vox.strides[0]) ) + __pyx_t_42 * __pyx_v_dir_vox.strides[1]) ) + __pyx_t_43 * __pyx_v_dir_vox.strides[2]) ) + __pyx_t_44 * __pyx_v_dir_vox.strides[3]) )) = 1;
+          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_41 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_42 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_43 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_44 * __pyx_v_dir_cv.strides[3]) )) = 1;
 
           /* "pumapy/physicsmodels/elasticity_utils.pyx":459
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_vox[i, j, k, 2] = True
+ *                     dir_cv[i, j, k, 2] = True
  *                     values[counter_v:counter_v + 81] = np.NAN             # <<<<<<<<<<<<<<
  *                 else:
  *                     for k2 in range(-1, 2):
@@ -38932,7 +38932,7 @@ __pyx_t_59 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
  * 
  *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
  *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_vox[i, j, k, 2] = True
+ *                     dir_cv[i, j, k, 2] = True
  *                     values[counter_v:counter_v + 81] = np.NAN
  */
           goto __pyx_L56;
@@ -39277,7 +39277,7 @@ __pyx_t_59 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
         /* "pumapy/physicsmodels/elasticity_utils.pyx":362
  * 
  *             # When dirichlet voxel skip node
- *             if not dir_vox[i, j, k, 2]:             # <<<<<<<<<<<<<<
+ *             if not dir_cv[i, j, k, 2]:             # <<<<<<<<<<<<<<
  * 
  *                 # Computing x and y divergence equations for P control volume
  */
@@ -39288,7 +39288,7 @@ __pyx_t_59 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
   /* "pumapy/physicsmodels/elasticity_utils.pyx":104
  * 
  * 
- * def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):             # <<<<<<<<<<<<<<
+ * def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):             # <<<<<<<<<<<<<<
  * 
  *     cdef int j, k
  */
@@ -39319,7 +39319,7 @@ __pyx_t_59 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
   __Pyx_XDECREF(__pyx_v_k2);
   __Pyx_XDECREF(__pyx_v_j2);
   __Pyx_XDECREF(__pyx_v_i2);
-  __PYX_XDEC_MEMVIEW(&__pyx_v_dir_vox, 1);
+  __PYX_XDEC_MEMVIEW(&__pyx_v_dir_cv, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_v_j_indices, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_v_values, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_v_Emat, 1);
@@ -60401,14 +60401,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_counter_v, __pyx_k_counter_v, sizeof(__pyx_k_counter_v), 0, 0, 1, 1},
   {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
-  {&__pyx_n_s_dir_vox, __pyx_k_dir_vox, sizeof(__pyx_k_dir_vox), 0, 0, 1, 1},
+  {&__pyx_n_s_dir_cv, __pyx_k_dir_cv, sizeof(__pyx_k_dir_cv), 0, 0, 1, 1},
   {&__pyx_n_s_divP, __pyx_k_divP, sizeof(__pyx_k_divP), 0, 0, 1, 1},
   {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
   {&__pyx_n_s_enumerate, __pyx_k_enumerate, sizeof(__pyx_k_enumerate), 0, 0, 1, 1},
   {&__pyx_n_s_error, __pyx_k_error, sizeof(__pyx_k_error), 0, 0, 1, 1},
   {&__pyx_n_s_fill_stress_matrices, __pyx_k_fill_stress_matrices, sizeof(__pyx_k_fill_stress_matrices), 0, 0, 1, 1},
-  {&__pyx_n_s_find_unstable_vox, __pyx_k_find_unstable_vox, sizeof(__pyx_k_find_unstable_vox), 0, 0, 1, 1},
+  {&__pyx_n_s_find_unstable_cv, __pyx_k_find_unstable_cv, sizeof(__pyx_k_find_unstable_cv), 0, 0, 1, 1},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
   {&__pyx_n_s_flatten_Cmat, __pyx_k_flatten_Cmat, sizeof(__pyx_k_flatten_Cmat), 0, 0, 1, 1},
   {&__pyx_n_s_float, __pyx_k_float, sizeof(__pyx_k_float), 0, 0, 1, 1},
@@ -60493,7 +60493,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_shape_and_str, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
   {&__pyx_n_s_unpack, __pyx_k_unpack, sizeof(__pyx_k_unpack), 0, 0, 1, 1},
-  {&__pyx_n_s_unstable, __pyx_k_unstable, sizeof(__pyx_k_unstable), 0, 0, 1, 1},
+  {&__pyx_n_s_unstable_iv, __pyx_k_unstable_iv, sizeof(__pyx_k_unstable_iv), 0, 0, 1, 1},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
   {&__pyx_n_s_ux_b, __pyx_k_ux_b, sizeof(__pyx_k_ux_b), 0, 0, 1, 1},
   {&__pyx_n_s_ux_be, __pyx_k_ux_be, sizeof(__pyx_k_ux_be), 0, 0, 1, 1},
@@ -60840,23 +60840,23 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "pumapy/physicsmodels/elasticity_utils.pyx":92
  * 
  * 
- * def find_unstable_vox(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned char [:,:,:] unstable):             # <<<<<<<<<<<<<<
+ * def find_unstable_cv(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned char [:,:,:] unstable_iv):             # <<<<<<<<<<<<<<
  * 
  *     cdef int j, k
  */
-  __pyx_tuple__27 = PyTuple_Pack(7, __pyx_n_s_i, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_dir_vox, __pyx_n_s_unstable, __pyx_n_s_j, __pyx_n_s_k); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(7, __pyx_n_s_i, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_dir_cv, __pyx_n_s_unstable_iv, __pyx_n_s_j, __pyx_n_s_k); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(5, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physicsmodels_elas, __pyx_n_s_find_unstable_vox, 92, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(5, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physicsmodels_elas, __pyx_n_s_find_unstable_cv, 92, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 92, __pyx_L1_error)
 
   /* "pumapy/physicsmodels/elasticity_utils.pyx":104
  * 
  * 
- * def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):             # <<<<<<<<<<<<<<
+ * def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):             # <<<<<<<<<<<<<<
  * 
  *     cdef int j, k
  */
-  __pyx_tuple__29 = PyTuple_Pack(24, __pyx_n_s_i, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_dir_vox, __pyx_n_s_j_indices, __pyx_n_s_values, __pyx_n_s_Emat, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_counter_j, __pyx_n_s_counter_v, __pyx_n_s_len_xyz, __pyx_n_s_E_sw, __pyx_n_s_E_se, __pyx_n_s_E_nw, __pyx_n_s_E_ne, __pyx_n_s_E_tsw, __pyx_n_s_E_tse, __pyx_n_s_E_tnw, __pyx_n_s_E_tne, __pyx_n_s_k2, __pyx_n_s_j2, __pyx_n_s_i2); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(24, __pyx_n_s_i, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_dir_cv, __pyx_n_s_j_indices, __pyx_n_s_values, __pyx_n_s_Emat, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_counter_j, __pyx_n_s_counter_v, __pyx_n_s_len_xyz, __pyx_n_s_E_sw, __pyx_n_s_E_se, __pyx_n_s_E_nw, __pyx_n_s_E_ne, __pyx_n_s_E_tsw, __pyx_n_s_E_tse, __pyx_n_s_E_tnw, __pyx_n_s_E_tne, __pyx_n_s_k2, __pyx_n_s_j2, __pyx_n_s_i2); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
   __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(8, 0, 24, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physicsmodels_elas, __pyx_n_s_divP, 104, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 104, __pyx_L1_error)
@@ -61359,19 +61359,19 @@ if (!__Pyx_RefNanny) {
   /* "pumapy/physicsmodels/elasticity_utils.pyx":92
  * 
  * 
- * def find_unstable_vox(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned char [:,:,:] unstable):             # <<<<<<<<<<<<<<
+ * def find_unstable_cv(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned char [:,:,:] unstable_iv):             # <<<<<<<<<<<<<<
  * 
  *     cdef int j, k
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_vox, NULL, __pyx_n_s_pumapy_physicsmodels_elasticity); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pumapy_13physicsmodels_16elasticity_utils_9find_unstable_cv, NULL, __pyx_n_s_pumapy_physicsmodels_elasticity); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_find_unstable_vox, __pyx_t_2) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_find_unstable_cv, __pyx_t_2) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pumapy/physicsmodels/elasticity_utils.pyx":104
  * 
  * 
- * def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):             # <<<<<<<<<<<<<<
+ * def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):             # <<<<<<<<<<<<<<
  * 
  *     cdef int j, k
  */
