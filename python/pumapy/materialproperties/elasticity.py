@@ -3,7 +3,7 @@ from pumapy.utilities.property_maps import ElasticityMap
 
 
 def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_bc=None, tolerance=1e-4,
-                       maxiter=10000, solver_type='bicgstab', display_iter=True, print_matrices=(0, 0, 0, 0, 0)):
+                       maxiter=100000, solver_type='gmres', display_iter=True, print_matrices=(0, 0, 0, 0, 0)):
     """ Compute the thermal conductivity (N.B. 0 material ID in workspace refers to air unless otherwise specified)
 
         :param workspace: domain
@@ -20,7 +20,7 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_
         :type: tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres', 'direct'
+        :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres' (default), 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
@@ -54,7 +54,7 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_
 
 
 def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', tolerance=1e-4,
-                            maxiter=10000, solver_type='bicgstab', display_iter=True, print_matrices=(0, 0, 0, 0, 0)):
+                            maxiter=100000, solver_type='gmres', display_iter=True, print_matrices=(0, 0, 0, 0, 0)):
     """ Compute the thermal conductivity (N.B. 0 material ID in workspace refers to air unless otherwise specified)
 
         :param workspace: domain
@@ -69,7 +69,7 @@ def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', to
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres', 'direct'
+        :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres' (default), 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool

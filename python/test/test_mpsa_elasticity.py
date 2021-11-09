@@ -3,6 +3,7 @@ import numpy as np
 import pumapy as puma
 from pumapy.physicsmodels.mpsa_elasticity import Elasticity
 import scipy.sparse
+import os
 
 
 class TestElasticity(unittest.TestCase):
@@ -278,27 +279,24 @@ class TestElasticity(unittest.TestCase):
         solver = Elasticity(ws, elast_map, None, 'f', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_xf.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_xf.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
         solver = Elasticity(ws, elast_map, None, 'p', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_xp.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_xp.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
         solver = Elasticity(ws, elast_map, None, 's', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_xs.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_xs.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
@@ -309,27 +307,24 @@ class TestElasticity(unittest.TestCase):
         solver = Elasticity(ws, elast_map, None, 'f', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_yf.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_yf.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
         solver = Elasticity(ws, elast_map, None, 'p', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_yp.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_yp.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
         solver = Elasticity(ws, elast_map, None, 's', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_ys.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_ys.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
@@ -340,29 +335,41 @@ class TestElasticity(unittest.TestCase):
         solver = Elasticity(ws, elast_map, None, 'f', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_zf.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_zf.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
         solver = Elasticity(ws, elast_map, None, 'p', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_zp.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_zp.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
         solver = Elasticity(ws, elast_map, None, 's', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
         solver.initialize()
-        solver.assemble_bvector()
         solver.assemble_Amatrix()
-        Amat_correct = scipy.sparse.load_npz('testdata/mpsa_Amat/Amat_builtinbeam596_zs.npz')
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_builtinbeam596_zs.npz"))
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
+
+    def test_Amat_fiberform(self):
+        ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"))
+        ws.rotate(90, 'z')
+        ws.rescale(0.5, False)
+        ws.binarize_range((104, 255))
+        ws.voxel_length = 1
+        elast_map = puma.ElasticityMap()
+        elast_map.add_isotropic_material((1, 1), 200.e9, 0.3)
+        solver = Elasticity(ws, elast_map, 'x', 'p', None, None, None, "direct", True, (0, 0, 0, 0, 0))
+        solver.error_check()
+        solver.initialize()
+        solver.assemble_Amatrix()
+        Amat_correct = scipy.sparse.load_npz(os.path.join("testdata", "mpsa_Amat", "Amat_correct_ff100_rot_05.npz"))
+        np.testing.assert_equal(Amat_correct.data,  solver.Amat.data)
 
 
 if __name__ == '__main__':
