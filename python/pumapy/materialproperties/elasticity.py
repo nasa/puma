@@ -1,5 +1,7 @@
 from pumapy.physicsmodels.mpsa_elasticity import Elasticity
 from pumapy.utilities.property_maps import ElasticityMap
+from scipy.optimize import fsolve
+import numpy as np
 
 
 def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_bc=None, tolerance=1e-4,
@@ -104,3 +106,39 @@ def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', to
     solver.compute()
     solver.log_output()
     return solver.u, solver.s, solver.t
+
+
+def get_E_nu_from_elasticity(C11, C12, C13, C22, C23, C33):
+    """ Compute Young's moduli E1, E2, E3 and Poisson's ratios nu12, nu23, nu31 from symmetric elastic stiffness tensor
+        :param C11: elasticity tensor component
+        :type C11: float
+        :param C12: elasticity tensor component
+        :type C12: float
+        :param C13: elasticity tensor component
+        :type C13: float
+        :param C22: elasticity tensor component
+        :type C22: float
+        :param C23: elasticity tensor component
+        :type C23: float
+        :param C33: elasticity tensor component
+        :type C33: float
+        :return: Young's moduli E1, E2, E3 and Poisson's ratios nu12, nu23, nu31
+        :rtype: (float, float, float, float, float, float)
+    """
+    def eqs(unknowns, *cs):
+        E1, E2, E3, nu12, nu23, nu31 = unknowns
+        c11, c12, c31, c22, c23, c33 = cs
+        nu21 = nu12 * E2 / E1
+        nu32 = nu23 * E3 / E2
+        nu13 = nu31 * E1 / E3
+        c0 = (1 - nu12 * nu21 - nu23 * nu32 - nu13 * nu31 - 2 * nu21 * nu32 * nu13) / (E1 * E2 * E3)
+        return (c11 - (1 - nu23 * nu32) / (c0 * E2 * E3),
+                c22 - (1 - nu13 * nu31) / (c0 * E1 * E3),
+                c33 - (1 - nu21 * nu12) / (c0 * E2 * E1),
+                c12 - (nu12 + nu32 * nu13) / (c0 * E1 * E3),
+                c23 - (nu23 + nu21 * nu13) / (c0 * E1 * E2),
+                c31 - (nu31 + nu21 * nu32) / (c0 * E2 * E3))
+
+    s = fsolve(eqs, np.full(6, 0.1), args=(C11, C12, C13, C22, C23, C33))
+    [print(i, j) for i, j in zip(["E1", "E2", "E3", "nu12", "nu23", "nu31"], s)]
+    return s

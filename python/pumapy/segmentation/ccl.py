@@ -1,6 +1,10 @@
+"""
+Functions to relying on Connected Component Labeling (CCL)
+"""
 import numpy as np
 from skimage import measure
 from pumapy.utilities.generic_checks import check_ws_cutoff
+from pumapy.utilities.workspace import Workspace
 
 
 def identify_porespace(workspace, solid_cutoff):
@@ -84,3 +88,46 @@ def fill_closed_pores(workspace, solid_cutoff, fill_value, return_pores=False):
         return ws, pores
     else:
         return ws
+
+
+def remove_rbms(workspace, void_cutoff, direction):
+    """ Rigid Body Movements (RBMs) removal
+
+        :param workspace: domain
+        :type workspace: pumapy.Workspace
+        :param void_cutoff: specify the void range to discard from RBMs identification
+        :type void_cutoff: (int, int)
+        :param direction: Cartesian direction that has to be connected, options: 'x', 'y', 'z'
+        :type direction: str
+        :return: workspace without the possible RBMs determined by not being connected from side to side
+        :rtype: pumapy.Workspace
+
+        :Example:
+        >>> workspace = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"))
+        >>> new_ws = puma.remove_rbms(workspace, void_cutoff=(0, 103), direction='y')
+        >>> puma.render_volume(workspace, (104, 255), solid_color=(1,1,1))
+        >>> puma.render_volume(new_ws, (1, new_ws.max()), solid_color=(1,1,1))
+    """
+
+    solid = identify_porespace(workspace, void_cutoff)
+    uniques = np.unique(solid)
+    if uniques[0] == 0:
+        uniques = uniques[1:]
+
+    supported_solid = Workspace.from_array(np.zeros_like(solid))
+
+    # only pass the phases connected from side to side
+    for unique in uniques:
+        mask = solid == unique
+        if direction == 'x':
+            if np.any(mask[0]) and np.any(mask[-1]):
+                supported_solid[mask] = unique
+        elif direction == 'y':
+            if np.any(mask[:, 0]) and np.any(mask[:, -1]):
+                supported_solid[mask] = unique
+        elif direction == 'z':
+            if np.any(mask[:, :, 0]) and np.any(mask[:, :, -1]):
+                supported_solid[mask] = unique
+        else:
+            raise Exception("direction input can only be 'x', 'y', 'z'")
+    return supported_solid

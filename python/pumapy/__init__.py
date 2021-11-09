@@ -47,7 +47,7 @@ from pumapy.materialproperties.mean_intercept_length import compute_mean_interce
 from pumapy.materialproperties.orientation import compute_orientation_st, compute_angular_differences
 from pumapy.materialproperties.conductivity import compute_thermal_conductivity, compute_electrical_conductivity
 from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
-from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis
+from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis, get_E_nu_from_elasticity
 from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
 from pumapy.materialproperties.permeability import compute_permeability
 
@@ -72,7 +72,7 @@ from pumapy.visualization.render import (render_volume, render_contour, render_o
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation
-from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
+from pumapy.segmentation.ccl import identify_porespace, fill_closed_pores, remove_rbms
 
 # global settings
 settings = {"log_location": 'logs'}
