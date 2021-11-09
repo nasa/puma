@@ -5,6 +5,7 @@ from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.boundary_conditions import ElasticityBC
 from pumapy.utilities.linear_solvers import PropertySolver
 from pumapy.utilities.timer import Timer
+from pumapy.utilities.logger import print_warning
 from scipy.sparse import csr_matrix, diags
 import numpy as np
 import sys
@@ -24,6 +25,7 @@ class Elasticity(PropertySolver):
         self.mat_elast = dict()
         self.need_to_orient = False  # changes if (E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12) detected
         self.orient_pad = None
+        self.shear_case = False
 
         self.Ceff = [-1., -1., -1.]
         self.solve_time = -1
@@ -33,14 +35,23 @@ class Elasticity(PropertySolver):
 
     def compute(self):
         t = Timer()
-        self.initialize()
-        self.assemble_bvector()
-        self.assemble_Amatrix()
-        print("Time to assemble matrices: ", t.elapsed()); t.reset()
-        super().solve()
-        print("Time to solve: ", t.elapsed())
-        self.compute_effective_coefficient()
-        self.solve_time = t.elapsed()
+
+        if not self.shear_case:
+            self.initialize()
+            self.assemble_bvector()
+            self.assemble_Amatrix()
+            print("Time to assemble matrices: ", t.elapsed()); t.reset()
+            super().solve()
+            print("Time to solve: ", t.elapsed())
+            self.compute_effective_coefficient()
+            self.solve_time = t.elapsed()
+        else:
+            # for shear cases, two full simulations are required
+            directions = self.direction
+            for self.direction in directions:
+                print(f"Shear case: running direction: {self.direction}")
+
+
 
     def initialize(self):
         print("Initializing and padding domains ... ", flush=True, end='')
@@ -58,7 +69,7 @@ class Elasticity(PropertySolver):
                 reorder = [2, 0, 1]
                 a1, b1, g1, a2, b2, g2, a3, b3, g3 = (0, 0, 1, 1, 0, 0, 0, 1, 0)
 
-            # Rotating matelast
+            # Rotating mat_elast
             C = np.zeros((6, 6), dtype=float)
             R = np.array([[a1 ** 2, a2 ** 2, a3 ** 2, -2 * a2 * a3, -2 * a3 * a1, -2 * a1 * a2],
                           [b1 ** 2, b2 ** 2, b3 ** 2, -2 * b2 * b3, -2 * b3 * b1, -2 * b1 * b2],
@@ -563,28 +574,30 @@ class Elasticity(PropertySolver):
                 np.all(np.sort(list(self.mat_elast.keys())).astype(np.uint16) != unique_matrixvalues)):
             raise Exception("All values in workspace must be included in ElasticityMap.")
 
+        # direction checks
+        if self.direction is not None:
+            if self.direction.lower() in ['x', 'y', 'z']:
+                self.direction = self.direction.lower()
+            elif self.direction.lower() in ['yz', 'xz', 'xy']:
+                self.direction = self.direction.lower()
+                self.shear_case = True
+            else:
+                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z', 'yz', 'xz', 'xy'.")
+
         # side_bc checks
-        if self.side_bc == "periodic" or self.side_bc == "Periodic" or self.side_bc == "p":
+        if self.side_bc.lower() == "periodic" or self.side_bc == "p":
             self.side_bc = "p"
-        elif self.side_bc == "symmetric" or self.side_bc == "Symmetric" or self.side_bc == "s":
+        elif self.side_bc.lower() == "symmetric" or self.side_bc == "s":
             self.side_bc = "s"
-        elif self.side_bc == "dirichlet" or self.side_bc == "Dirichlet" or self.side_bc == "d":
+        elif self.side_bc.lower() == "dirichlet" or self.side_bc == "d":
             self.side_bc = "d"
-        elif self.side_bc == "free" or self.side_bc == "Free" or self.side_bc == "f":
+        elif self.side_bc.lower() == "free" or self.side_bc == "f":
             self.side_bc = "f"
         else:
             raise Exception("Invalid side boundary conditions.")
 
-        # direction checks
-        if self.direction is not None:
-            if self.direction == "x" or self.direction == "X":
-                self.direction = "x"
-            elif self.direction == "y" or self.direction == "Y":
-                self.direction = "y"
-            elif self.direction == "z" or self.direction == "Z":
-                self.direction = "z"
-            else:
-                raise Exception("Invalid simulation direction.")
+        if self.shear_case and self.side_bc != "p":
+            print_warning("For shear cases, only periodic BC allowed.")
 
         # print_matrices checks
         if type(self.print_matrices) is not tuple or len(self.print_matrices) != 5:
@@ -596,12 +609,16 @@ class Elasticity(PropertySolver):
                 raise Exception("prescribed_bc must be a puma.ElasticityBC.")
             if self.prescribed_bc.dirichlet.shape[:3] != self.ws.matrix.shape:
                 raise Exception("prescribed_bc must be of the same size as the domain.")
+            if self.prescribed_bc.dirichlet.shape[3] != 3:
+                raise Exception("prescribed_bc must be of shape (X,Y,Z,3), third dimension not equal to 3.")
 
             # rotate it
             if self.direction == 'y':
-                self.prescribed_bc = self.prescribed_bc.dirichlet.transpose((1, 0, 2, 3))
+                self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet.transpose((1, 0, 2, 3))
+                self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet[:, :, :, [1, 0, 2]]
             elif self.direction == 'z':
-                self.prescribed_bc = self.prescribed_bc.dirichlet.transpose((2, 1, 0, 3))
+                self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet.transpose((2, 1, 0, 3))
+                self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet[:, :, :, [2, 1, 0]]
 
             if self.direction is not None:
                 if np.any((self.prescribed_bc[[0, -1]] == np.Inf)):

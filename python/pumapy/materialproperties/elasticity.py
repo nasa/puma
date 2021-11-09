@@ -17,7 +17,7 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_
         :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p'), dirichlet ('d') or free ('f')
         :type side_bc: string
         :param prescribed_bc: 3D array holding dirichlet BC
-        :type prescribed_bc: pumapy.ElasticityBC
+        :type prescribed_bc: pumapy.ElasticityBC or None
         :param tolerance: tolerance for iterative solver
         :type: tolerance: float
         :param maxiter: maximum Iterations for solver
