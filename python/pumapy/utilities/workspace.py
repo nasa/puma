@@ -464,6 +464,7 @@ class Workspace:
             self.matrix = np.expand_dims(self.matrix, axis=unit_dim_check)
 
         self.matrix = self.matrix.astype('uint16')
+        self.voxel_length /= scale
         print("Rescaled workspace size: {}".format(self.get_shape()))
 
     def set(self, matrix_value=None, orientation_value=None):
@@ -707,12 +708,12 @@ class Workspace:
     def show_orientation(self, dec=1):
         """ Print content of orientation domain's variable """
         if isinstance(self, Workspace):
-            x, y, z = self.matrix.shape
+            dims = self.matrix.shape
         elif isinstance(self, np.ndarray):
-            if self.ndim == 4 and self.shape[3] == 3:
-                x, y, z, _ = self.shape
+            if self.shape[3] == 3:
+                dims = self.shape
             else:
-                raise Exception("Numpy array has to be of size (x,y,z,3).")
+                raise Exception("Numpy array has to be of size (x,y,z,3,...).")
         else:
             raise Exception("Print can only be called on a Workspace or Numpy array.")
         print()
@@ -722,26 +723,40 @@ class Workspace:
         print("  |")
         print("x v")
         print('[', end='')
-        for k in range(z):
-            print("(:,:,{})".format(k))
-            print('[', end='')
-            for i in range(x):
+        if isinstance(self, Workspace):
+            for k in range(dims[2]):
+                print("(:,:,{})".format(k))
                 print('[', end='')
-                for j in range(y):
-                    if isinstance(self, Workspace):
+                for i in range(dims[0]):
+                    print('[', end='')
+                    for j in range(dims[1]):
                         print('({:.{}f}, {:.{}f}, {:.{}f})'.format(self.orientation[i, j, k, 0], dec,
                                                                    self.orientation[i, j, k, 1], dec,
                                                                    self.orientation[i, j, k, 2], dec), end='')
-                    else:
-                        print('({:.{}f}, {:.{}f}, {:.{}f})'.format(self[i, j, k, 0], dec,
-                                                                   self[i, j, k, 1], dec,
-                                                                   self[i, j, k, 2], dec), end='')
-                    if j != y - 1:
-                        print(' ', end='')
-                print(']', end='')
-                if i != x - 1:
+                        if j != dims[1] - 1:
+                            print(' ', end='')
+                    print(']', end='')
+                    if i != dims[0] - 1:
+                        print()
+                if k != dims[2] - 1:
                     print()
-            if k != z - 1:
-                print()
-                print()
+                    print()
+        else:
+            for k in range(dims[2]):
+                print("(:,:,{})".format(k))
+                print('[', end='')
+                for i in range(dims[0]):
+                    print('[', end='')
+                    for j in range(dims[1]):
+                        print('({}, {}, {})'.format(self[i, j, k, 0],
+                                                    self[i, j, k, 1],
+                                                    self[i, j, k, 2]), end='')
+                        if j != dims[1] - 1:
+                            print(' ', end='')
+                    print(']', end='')
+                    if i != dims[0] - 1:
+                        print()
+                if k != dims[2] - 1:
+                    print()
+                    print()
         print(']')

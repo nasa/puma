@@ -16,7 +16,7 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p') or dirichlet ('d')
         :type side_bc: string
         :param prescribed_bc: 3D array holding dirichlet BC.
-        :type prescribed_bc: pumapy.ConductivityBC
+        :type prescribed_bc: pumapy.ConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
@@ -32,13 +32,23 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
 
         :Example:
         >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        >>> ws_fiberform.rescale(0.5, segmented=False)
+        >>>
+        >>> # Conductivity with Isotropic local phases
         >>> cond_map = puma.IsotropicConductivityMap()
         >>> cond_map.add_material((0, 89), 0.0257)
         >>> cond_map.add_material((90, 255), 12)
-        >>> k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 's', tolerance=1e-2, solver_type='cg')
-        >>> print("Effective thermal conductivity tensor:")
-        >>> print(k_eff_x)
+        >>> k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 's')
+        >>>
+        >>> # Conductivity with Anisotropic local phases
+        >>> puma.compute_orientation_st(ws_fiberform, cutoff=(90, 255))
+        >>> cond_map = puma.AnisotropicConductivityMap()
+        >>> # conductivity of the void phase to be 0.0257 (air at STP)
+        >>> cond_map.add_isotropic_material((0, 89), 0.0257)
+        >>> # axial fiber conductivity of 12, radial fiber conductivity of 0.7
+        >>> cond_map.add_material_to_orient((90, 255), 12., 0.7)
+        >>> k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 's')
     """
     if isinstance(cond_map, IsotropicConductivityMap):
         solver = IsotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
@@ -70,7 +80,7 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
     :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p') or dirichlet ('d')
     :type side_bc: string
     :param prescribed_bc: 3D array holding dirichlet BC
-    :type prescribed_bc: pumapy.ConductivityBC
+    :type prescribed_bc: pumapy.ConductivityBC or None
     :param tolerance: tolerance for iterative solver
     :type tolerance: float
     :param maxiter: maximum Iterations for solver
@@ -92,8 +102,6 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
     >>> cond_map.add_material((0, 89), 0.0257)
     >>> cond_map.add_material((90, 255), 12)
     >>> k_eff_x, P_x, q_x = puma.compute_electrical_conductivity(ws_fiberform, cond_map, 'x', 's', tolerance=1e-2, solver_type='cg')
-    >>> print("Effective electrical conductivity tensor:")
-    >>> print(k_eff_x)
     """
     return compute_thermal_conductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
                                         solver_type, display_iter, print_matrices)

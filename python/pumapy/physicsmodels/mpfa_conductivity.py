@@ -3,6 +3,7 @@ from pumapy.physicsmodels.anisotropic_conductivity_utils import (pad_domain, add
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_mpfa_indices
 from pumapy.physicsmodels.conductivity_parent import Conductivity
 from pumapy.utilities.timer import Timer
+from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import csr_matrix, diags
 import numpy as np
 import sys
@@ -21,8 +22,9 @@ class AnisotropicConductivity(Conductivity):
     def compute(self):
         t = Timer()
         self.initialize()
-        self.assemble_bvector()
+        estimate_max_memory("anisotropic_conductivity", self.ws_pad[1:-1, 1:-1, 1:-1], self.solver_type, self.need_to_orient)
         self.assemble_Amatrix()
+        self.assemble_bvector()
         print("Time to assemble matrices: ", t.elapsed()); t.reset()
         super().solve()
         print("Time to solve: ", t.elapsed())
@@ -77,52 +79,11 @@ class AnisotropicConductivity(Conductivity):
         print("Done")
 
         # Initialize initial guess for iterative solver
-        if self.solver_type != 'direct' and self.solver_type != 'spsolve':
+        if self.solver_type != 'direct':
             self.initial_guess = np.zeros((self.len_x, self.len_y, self.len_z), dtype=float)
             for i in range(self.len_x - 1):
                 self.initial_guess[i] = i / (self.len_x - 2.)
             self.initial_guess = self.initial_guess.flatten('F')
-
-    def assemble_bvector(self):
-        print("Assembling b vector ... ", flush=True, end='')
-
-        I, V = ([] for _ in range(2))
-
-        if self.prescribed_bc is not None:
-            for i in range(1, self.len_x - 1):
-                for j in range(1, self.len_y - 1):
-                    for k in range(1, self.len_z - 1):
-                        if self.prescribed_bc[i - 1, j - 1, k - 1] != np.Inf:
-                            I.append(self.len_x * (self.len_y * k + j) + i)
-                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1])
-        else:
-            # Setting unit temperature
-            i = self.len_x - 2
-            for j in range(1, self.len_y - 1):
-                for k in range(1, self.len_z - 1):
-                    I.append(self.len_x * (self.len_y * k + j) + i)
-                    V.append(1.)
-
-        # Setting linear temperature on the boundaries if Dirichlet
-        if self.side_bc == 'd':
-            x = np.linspace(0, 1, self.len_x - 2)
-            for j in [1, self.len_y - 2]:
-                for i in range(1, self.len_x - 1):
-                    for k in range(1, self.len_z - 1):
-                        I.append(self.len_x * (self.len_y * k + j) + i)
-                        V.append(x[i - 1])
-            for k in [1, self.len_z - 2]:
-                for i in range(2, self.len_x - 2):
-                    for j in range(2, self.len_y - 2):
-                        I.append(self.len_x * (self.len_y * k + j) + i)
-                        V.append(x[i - 1])
-
-        self.bvec = csr_matrix((V, (I, np.zeros(len(I)))), shape=(self.len_xyz, 1))
-
-        if self.print_matrices[0]:
-            self._print_b(self.print_matrices[0])
-        print("Done")
-
 
     def assemble_Amatrix(self):
         print("Initializing large data structures ... ", flush=True, end='')
@@ -166,6 +127,7 @@ class AnisotropicConductivity(Conductivity):
         # Clear unnecessary variables before creating A
         del self.Emat, self.kf, self.Kmat, self.unstable
         del self.dir_vox, i_indices, j_indices, values, i_dirvox, i
+        del self.mpfa12x12, self.zeros, self.Aind, self.Cind, self.Dind
 
         # Adding all dirichlet voxels
         I[counter:counter + len(I_dirvox)] = I_dirvox
@@ -200,13 +162,53 @@ class AnisotropicConductivity(Conductivity):
 
         # Simple preconditioner
         diag = self.Amat.diagonal()
-        if np.any(diag == 0):
+        if np.any(diag == 0) or self.solver_type == "direct":
             self.M = None  # identity matrix if singularity has happened in MPFA
         else:
             self.M = diags(1. / self.Amat.diagonal(), 0).tocsr()
 
         if self.print_matrices[2]:
             self._print_A(self.print_matrices[2])
+        print("Done")
+
+    def assemble_bvector(self):
+        print("Assembling b vector ... ", flush=True, end='')
+
+        I, V = ([] for _ in range(2))
+
+        if self.prescribed_bc is not None:
+            for i in range(1, self.len_x - 1):
+                for j in range(1, self.len_y - 1):
+                    for k in range(1, self.len_z - 1):
+                        if self.prescribed_bc[i - 1, j - 1, k - 1] != np.Inf:
+                            I.append(self.len_x * (self.len_y * k + j) + i)
+                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1])
+        else:
+            # Setting unit temperature
+            i = self.len_x - 2
+            for j in range(1, self.len_y - 1):
+                for k in range(1, self.len_z - 1):
+                    I.append(self.len_x * (self.len_y * k + j) + i)
+                    V.append(1.)
+
+        # Setting linear temperature on the boundaries if Dirichlet
+        if self.side_bc == 'd':
+            x = np.linspace(0, 1, self.len_x - 2)
+            for j in [1, self.len_y - 2]:
+                for i in range(1, self.len_x - 1):
+                    for k in range(1, self.len_z - 1):
+                        I.append(self.len_x * (self.len_y * k + j) + i)
+                        V.append(x[i - 1])
+            for k in [1, self.len_z - 2]:
+                for i in range(2, self.len_x - 2):
+                    for j in range(2, self.len_y - 2):
+                        I.append(self.len_x * (self.len_y * k + j) + i)
+                        V.append(x[i - 1])
+
+        self.bvec = csr_matrix((V, (I, np.zeros(len(I)))), shape=(self.len_xyz, 1))
+
+        if self.print_matrices[0]:
+            self._print_b(self.print_matrices[0])
         print("Done")
 
     def compute_effective_coefficient(self):
@@ -363,8 +365,8 @@ class AnisotropicConductivity(Conductivity):
 
             # filling eight IVs
             fill_flux(i, self.len_x, self.len_y, self.len_z, self.T[i - 1:i + 2], self.Emat,
-                               E_sw, E_se, E_nw, E_ne, E_tsw, E_tse, E_tnw, E_tne,
-                               T_sw, T_se, T_nw, T_ne, T_tsw, T_tse, T_tnw, T_tne)
+                      E_sw, E_se, E_nw, E_ne, E_tsw, E_tse, E_tnw, E_tne,
+                      T_sw, T_se, T_nw, T_ne, T_tsw, T_tse, T_tnw, T_tne)
 
             # Computing fluxes by computing E x T
             q_sw = np.squeeze(E_sw @ T_sw[:, :, :, np.newaxis])

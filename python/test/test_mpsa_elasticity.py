@@ -159,17 +159,17 @@ class TestElasticity(unittest.TestCase):
     def test_symmetry(self):
         X, Y, Z = (8, 6, 4)
         ws = puma.Workspace.from_array(np.ones((X, Y, Z)))
-        bc = puma.ElasticityBC.from_workspace(ws)
+        bc = puma.ElasticityBC(ws)
 
         elast_map = puma.ElasticityMap()
         elast_map.add_isotropic_material((1, 1), 10, 0.3)
         elast_map.add_isotropic_material((2, 2), 7.3, 0.23)
 
         # Along x
-        bc[0, :, :, 0] = -1.
-        bc[-1, :, :, 0] = 1.
-        bc[0, :, :, [1, 2]] = 0.
-        bc[-1, :, :, [1, 2]] = 0.
+        bc.dirichlet[0, :, :, 0] = -1.
+        bc.dirichlet[-1, :, :, 0] = 1.
+        bc.dirichlet[0, :, :, [1, 2]] = 0.
+        bc.dirichlet[-1, :, :, [1, 2]] = 0.
         # puma.Workspace.show_orientation(bc)
 
         ws[:, :int(Y/2)] = 2
@@ -188,11 +188,11 @@ class TestElasticity(unittest.TestCase):
                                                        [1.00000000, 0.00000000, 0.]], dtype=float), u[int(X / 2):, 2, 2], decimal=7)
 
         # Along y
-        bc = puma.ElasticityBC.from_workspace(ws)
-        bc[:, 0, :, 1] = -1.
-        bc[:, -1, :, 1] = 1.
-        bc[:, 0, :, [0, 2]] = 0.
-        bc[:, -1, :, [0, 2]] = 0.
+        bc = puma.ElasticityBC(ws)
+        bc.dirichlet[:, 0, :, 1] = -1.
+        bc.dirichlet[:, -1, :, 1] = 1.
+        bc.dirichlet[:, 0, :, [0, 2]] = 0.
+        bc.dirichlet[:, -1, :, [0, 2]] = 0.
         # puma.Workspace.show_orientation(bc)
 
         ws = puma.Workspace.from_array(np.ones((X, Y, Z)))
@@ -207,11 +207,11 @@ class TestElasticity(unittest.TestCase):
         np.testing.assert_array_almost_equal(u[:, :int(Y / 2), :, 2],  u[:, int(Y / 2):, :, 2][:, ::-1], decimal=4)
 
         # Along z
-        bc = puma.ElasticityBC.from_workspace(ws)
-        bc[:, :, 0, 2] = -1.
-        bc[:, :, -1, 2] = 1.
-        bc[:, :, 0, [0, 1]] = 0.
-        bc[:, :, -1, [0, 1]] = 0.
+        bc = puma.ElasticityBC(ws)
+        bc.dirichlet[:, :, 0, 2] = -1.
+        bc.dirichlet[:, :, -1, 2] = 1.
+        bc.dirichlet[:, :, 0, [0, 1]] = 0.
+        bc.dirichlet[:, :, -1, [0, 1]] = 0.
         # puma.Workspace.show_orientation(bc)
 
         u, _, _ = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='p', solver_type='direct')
@@ -272,9 +272,9 @@ class TestElasticity(unittest.TestCase):
         elast_map = puma.ElasticityMap()
         elast_map.add_isotropic_material((1, 1), 200, 0.3)
 
-        bc = puma.ElasticityBC.from_workspace(ws)
-        bc[0] = 0
-        bc[-1] = [0, 1, 0]
+        bc = puma.ElasticityBC(ws)
+        bc.dirichlet[0] = 0
+        bc.dirichlet[-1] = [0, 1, 0]
 
         solver = Elasticity(ws, elast_map, None, 'f', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
@@ -300,9 +300,9 @@ class TestElasticity(unittest.TestCase):
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
-        bc = puma.ElasticityBC.from_workspace(ws)
-        bc[:, 0] = 0
-        bc[:, -1] = [0, 0, 1]
+        bc = puma.ElasticityBC(ws)
+        bc.dirichlet[:, 0] = 0
+        bc.dirichlet[:, -1] = [0, 0, 1]
 
         solver = Elasticity(ws, elast_map, None, 'f', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()
@@ -328,9 +328,9 @@ class TestElasticity(unittest.TestCase):
         test_Amat = np.abs(solver.Amat.toarray() - Amat_correct.toarray())
         self.assertAlmostEqual(test_Amat.max(), 0, 10)
 
-        bc = puma.ElasticityBC.from_workspace(ws)
-        bc[:, :, 0] = 0
-        bc[:, :, -1] = [1, 0, 0]
+        bc = puma.ElasticityBC(ws)
+        bc.dirichlet[:, :, 0] = 0
+        bc.dirichlet[:, :, -1] = [1, 0, 0]
 
         solver = Elasticity(ws, elast_map, None, 'f', bc, None, None, "direct", True, (0, 0, 0, 0, 0))
         solver.error_check()

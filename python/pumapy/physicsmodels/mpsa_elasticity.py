@@ -38,8 +38,8 @@ class Elasticity(PropertySolver):
 
         if not self.shear_case:
             self.initialize()
-            self.assemble_bvector()
             self.assemble_Amatrix()
+            self.assemble_bvector()
             print("Time to assemble matrices: ", t.elapsed()); t.reset()
             super().solve()
             print("Time to solve: ", t.elapsed())
@@ -56,7 +56,7 @@ class Elasticity(PropertySolver):
     def initialize(self):
         print("Initializing and padding domains ... ", flush=True, end='')
 
-        # Rotating domain to avoid cases and padding
+        # Rotating domain to avoid having different cases and padding
         shape = [self.len_x + 2, self.len_y + 2, self.len_z + 2]
         reorder = [0, 1, 2]
         if self.direction == 'y' or self.direction == 'z':
@@ -137,15 +137,15 @@ class Elasticity(PropertySolver):
             for i in range(1, self.len_x - 1):
                 for j in range(1, self.len_y - 1):
                     for k in range(1, self.len_z - 1):
-                        if self.prescribed_bc[i - 1, j - 1, k - 1, 0] != np.Inf:
+                        if self.prescribed_bc.dirichlet[i - 1, j - 1, k - 1, 0] != np.Inf:
                             I.append(self.len_x * (self.len_y * k + j) + i)
-                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 0])  # ux
-                        if self.prescribed_bc[i - 1, j - 1, k - 1, 1] != np.Inf:
+                            V.append(self.prescribed_bc.dirichlet[i - 1, j - 1, k - 1, 0])  # ux
+                        if self.prescribed_bc.dirichlet[i - 1, j - 1, k - 1, 1] != np.Inf:
                             I.append(self.len_xyz + self.len_x * (self.len_y * k + j) + i)
-                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 1])  # uy
-                        if self.prescribed_bc[i - 1, j - 1, k - 1, 2] != np.Inf:
+                            V.append(self.prescribed_bc.dirichlet[i - 1, j - 1, k - 1, 1])  # uy
+                        if self.prescribed_bc.dirichlet[i - 1, j - 1, k - 1, 2] != np.Inf:
                             I.append(2 * self.len_xyz + self.len_x * (self.len_y * k + j) + i)
-                            V.append(self.prescribed_bc[i - 1, j - 1, k - 1, 2])  # uz
+                            V.append(self.prescribed_bc.dirichlet[i - 1, j - 1, k - 1, 2])  # uz
         else:
             # Setting unit displacement
             i = self.len_x - 2
@@ -596,8 +596,13 @@ class Elasticity(PropertySolver):
         else:
             raise Exception("Invalid side boundary conditions.")
 
-        if self.shear_case and self.side_bc != "p":
-            print_warning("For shear cases, only periodic BC allowed.")
+        if self.shear_case:
+            if self.side_bc != "p":
+                print_warning("For shear cases, only periodic BC allowed. Setting side_bc='p'")
+                self.side_bc = "p"
+            if self.prescribed_bc is not None:
+                print_warning("For shear cases, prescribed cannot be defined. Setting prescribed_bc=None.")
+                self.prescribed_bc = None
 
         # print_matrices checks
         if type(self.print_matrices) is not tuple or len(self.print_matrices) != 5:
@@ -621,7 +626,7 @@ class Elasticity(PropertySolver):
                 self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet[:, :, :, [2, 1, 0]]
 
             if self.direction is not None:
-                if np.any((self.prescribed_bc[[0, -1]] == np.Inf)):
+                if np.any((self.prescribed_bc.dirichlet[[0, -1]] == np.Inf)):
                     raise Exception("prescribed_bc must be defined on the direction sides")
         else:
             if self.direction is None:

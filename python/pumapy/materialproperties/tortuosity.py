@@ -16,7 +16,7 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
         :param side_bc: side boundary conditions (string) can be symmetric ('s'), periodic ('p') or dirichlet ('d')
         :type side_bc: string
         :param prescribed_bc: 3D array holding dirichlet BC
-        :type prescribed_bc: pumapy.ConductivityBC
+        :type prescribed_bc: pumapy.ConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
         :param maxiter: maximum Iterations for solver

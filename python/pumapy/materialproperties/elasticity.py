@@ -6,7 +6,8 @@ import numpy as np
 
 def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_bc=None, tolerance=1e-4,
                        maxiter=100000, solver_type='gmres', display_iter=True, print_matrices=(0, 0, 0, 0, 0)):
-    """ Compute the thermal conductivity (N.B. 0 material ID in workspace refers to air unless otherwise specified)
+    """ Compute the effective elasticity coefficient
+        (N.B. 0 material ID in workspace refers to air unless otherwise specified)
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
@@ -57,7 +58,8 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_
 
 def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', tolerance=1e-4,
                             maxiter=100000, solver_type='gmres', display_iter=True, print_matrices=(0, 0, 0, 0, 0)):
-    """ Compute the thermal conductivity (N.B. 0 material ID in workspace refers to air unless otherwise specified)
+    """ Compute stress analysis
+        (N.B. 0 material ID in workspace refers to air unless otherwise specified)
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
@@ -87,10 +89,10 @@ def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', to
         >>> elast_map = puma.ElasticityMap()
         >>> elast_map.add_isotropic_material((1, 1), 200, 0.3)
         >>> elast_map.add_isotropic_material((2, 2), 400, 0.1)
-        >>> bc = puma.ElasticityBC.from_workspace(ws)
-        >>> bc[0] = 0  # hold x -ve face
-        >>> bc[-1, :, :, 0] = 1   # displace x +ve face by 1 in x direction
-        >>> bc[-1, :, :, 1:] = 0  # hold x +ve face in y and z directions
+        >>> bc = puma.ElasticityBC(ws)
+        >>> bc.dirichlet[0] = 0  # hold x -ve face
+        >>> bc.dirichlet[-1, :, :, 0] = 1   # displace x +ve face by 1 in x direction
+        >>> bc.dirichlet[-1, :, :, 1:] = 0  # hold x +ve face in y and z directions
         >>> u, s, t = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='f', solver_type="direct")
         >>> puma.render_volume(u[:, :, :, 1], cmap='jet')  # displacement magnitude in y direction
     """

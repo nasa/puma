@@ -78,5 +78,5 @@ class Conductivity(PropertySolver):
                 self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet.transpose((1, 0, 2))
             elif self.direction == 'z':
                 self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet.transpose((2, 1, 0))
-            if np.any((self.prescribed_bc[[0, -1]] == np.Inf)):
+            if np.any((self.prescribed_bc.dirichlet[[0, -1]] == np.Inf)):
                 raise Exception("prescribed_bc must be defined on the direction sides")

@@ -210,19 +210,20 @@ def render_warp(workspace, scale_factor=1., color_by='magnitude', style='surface
         >>> elast_map = puma.ElasticityMap()
         >>> elast_map.add_isotropic_material((1, 1), 200, 0.3)
         >>> elast_map.add_isotropic_material((2, 2), 400, 0.1)
-        >>> bc = puma.ElasticityBC.from_workspace(ws)
-        >>> bc[0] = 0  # hold x -ve face
-        >>> bc[-1, :, :, 0] = 10   # displace x +ve face by 1 in x direction
-        >>> bc[-1, :, :, 1:] = 0  # hold x +ve face in y and z directions
+        >>> bc = puma.ElasticityBC(ws)
+        >>> bc.dirichlet[0] = 0  # hold x -ve face
+        >>> bc.dirichlet[-1, :, :, 0] = 10   # displace x +ve face by 1 in x direction
+        >>> bc.dirichlet[-1, :, :, 1:] = 0  # hold x +ve face in y and z directions
         >>> ws.orientation, _, _ = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='f', solver_type="direct")
         >>> puma.render_warp(ws, color_by='y', style='edges')
     """
     if not isinstance(workspace, Workspace):
         raise Exception('Input is not a pumapy.Workspace.')
-    if (workspace.matrix.shape[0] != workspace.orientation.shape[0] or
-            workspace.matrix.shape[1] != workspace.orientation.shape[1] or
-            workspace.matrix.shape[2] != workspace.orientation.shape[2]):
-        raise Exception('Workspace has to have matrix and orientation variables of the same shape.')
+    if color_by == "matrix":
+        if (workspace.matrix.shape[0] != workspace.orientation.shape[0] or
+                workspace.matrix.shape[1] != workspace.orientation.shape[1] or
+                workspace.matrix.shape[2] != workspace.orientation.shape[2]):
+            raise Exception('Workspace has to have matrix and orientation variables of the same shape.')
 
     r = Renderer(existing_plot=add_to_plot, filter_type="warp", workspace=workspace, solid_color=color_by, style=style,
                  origin=origin, window_size=window_size, opacity=opacity, background=background, show_grid=show_grid,
@@ -354,9 +355,9 @@ class Renderer:
             self.grid = pv.UniformGrid()
             self.grid.origin = self.origin
         elif self.filter_type == "warp":
-            x = np.linspace(0, self.array.shape[0] - 1, self.array.shape[0])
-            y = np.linspace(0, self.array.shape[1] - 1, self.array.shape[1])
-            z = np.linspace(0, self.array.shape[2] - 1, self.array.shape[2])
+            x = np.linspace(0, self.orientation.shape[0] - 1, self.orientation.shape[0])
+            y = np.linspace(0, self.orientation.shape[1] - 1, self.orientation.shape[1])
+            z = np.linspace(0, self.orientation.shape[2] - 1, self.orientation.shape[2])
             x, y, z = np.meshgrid(x, y, z, indexing='ij')
             self.grid = pv.StructuredGrid(x, y, z)
 

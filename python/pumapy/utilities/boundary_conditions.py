@@ -3,31 +3,18 @@ import numpy as np
 
 
 class ConductivityBC:
-    def __init__(self, x, y, z):
-        self.dirichlet = np.full((x, y, z), np.Inf, dtype=float)
-
-    def __getitem__(self, key):
-        return self.dirichlet[key]
-
-    def __setitem__(self, key, value):
-        self.dirichlet[key] = value
-
-    @classmethod
-    def from_workspace(cls, workspace):
-        """ Generate ConductivityBC from a Workspace.
+    def __init__(self, workspace):
+        """ Conductivity prescribed boundary conditions class. This contains two arrays:
 
             :param workspace: domain
             :type workspace: Workspace
+
+            :var dirichlet: of size (X, Y, Z), it describes voxels to keep fixed to a certain temperature
+            :vartype dirichlet: np.ndarray
         """
-        if isinstance(workspace, Workspace):
-            return cls(workspace.len_x(), workspace.len_y(), workspace.len_z())
-        else:
-            raise Exception("Cannot create ConductivityBC, the input to the from_workspace method has to be a Workspace.")
+        self.dirichlet = np.full((workspace.len_x(), workspace.len_y(), workspace.len_z()), np.Inf, dtype=float)
 
-    def get_shape(self):
-        return self.dirichlet.shape
-
-    def show(self):
+    def show_dirichlet(self):
         Workspace.show_matrix(self.dirichlet)
 
 
@@ -78,30 +65,27 @@ class Isotropic_periodicBC:
 
 
 class ElasticityBC:
-    def __init__(self, x, y, z):
-        self.dirichlet = np.full((x, y, z, 3), np.Inf, dtype=float)
-        # self.__neumann = np.full((x, y, z, 6), np.Inf, dtype=float)
-
-    def __getitem__(self, key):
-        return self.dirichlet[key]
-
-    def __setitem__(self, key, value):
-        self.dirichlet[key] = value
-
-    @classmethod
-    def from_workspace(cls, workspace):
-        """ Generate ElasticityBC from a Workspace.
+    def __init__(self, workspace):
+        """ Elasticity prescribed boundary conditions class.
+            N.B. links attribute takes precedence over dirichlet if a voxel prescribed for both attributes
 
             :param workspace: domain
             :type workspace: Workspace
+
+            Attributes:
+                dirichlet np.ndarray of size (X, Y, Z, 3), it describes voxels and DOFs to keep fixed to a certain
+                          displacement. If unset, value is np.Inf, otherwise a float
+                links:    np.ndarray of size (X, Y, Z, 3, 4), it describes voxels to link to each other,
+                          provided as coordinates to link  e.g. bc.links[2, 4, 5, 2] = [0, 0, 0, 0] links the
+                          z-component of voxel in position (2, 4, 5) to the x-component of voxel in position (0, 0, 0)
+                indices   np.ndarray of size (X, Y, Z, 3, 4) containing the indices of the domain
         """
-        if isinstance(workspace, Workspace):
-            return cls(workspace.len_x(), workspace.len_y(), workspace.len_z())
-        else:
-            raise Exception("Cannot create ElasticityBC, the input to the from_workspace method has to be a Workspace.")
+        self.dirichlet = np.full((workspace.len_x(), workspace.len_y(), workspace.len_z(), 3), np.Inf, dtype=float)
+        self.links = np.full((workspace.len_x(), workspace.len_y(), workspace.len_z(), 3, 4), -1, dtype=int)
+        self.indices = np.indices((workspace.len_x(), workspace.len_y(), workspace.len_z(), 3)).transpose((1, 2, 3, 4, 0))
 
-    def get_shape(self):
-        return self.dirichlet.shape
-
-    def show(self):
+    def show_dirichlet(self):
         Workspace.show_orientation(self.dirichlet)
+
+    def show_links(self):
+        Workspace.show_orientation(self.links)
