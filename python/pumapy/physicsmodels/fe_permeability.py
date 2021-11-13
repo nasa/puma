@@ -8,10 +8,10 @@ Fluids, 5(1), p.16.
 See https://www.mdpi.com/2311-5521/5/1/16 for the publication.
 See https://zenodo.org/record/3612168#.YUYlSWZKhTZ for 2D MATLAB implementation.
 """
-
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.linear_solvers import PropertySolver
+from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import csc_matrix
 import numpy as np
 
@@ -51,6 +51,7 @@ class Permeability(PropertySolver):
 
     def compute(self):
         t = Timer()
+        estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type)
         self.initialize()
         self.assemble_bvector()
         self.assemble_Amatrix()

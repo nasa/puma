@@ -6,6 +6,7 @@ from pumapy.utilities.boundary_conditions import ElasticityBC
 from pumapy.utilities.linear_solvers import PropertySolver
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.logger import print_warning
+from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import csr_matrix, diags
 import numpy as np
 import sys
@@ -38,6 +39,7 @@ class Elasticity(PropertySolver):
 
         if not self.shear_case:
             self.initialize()
+            estimate_max_memory("elasticity", self.ws_pad[1:-1, 1:-1, 1:-1].shape, self.solver_type, self.need_to_orient)
             self.assemble_Amatrix()
             self.assemble_bvector()
             print("Time to assemble matrices: ", t.elapsed()); t.reset()

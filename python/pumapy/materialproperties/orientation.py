@@ -1,3 +1,22 @@
+"""
+Further explained in publication:
+Semeraro, F., Ferguson, J.C., Panerai, F., King, R.J. and Mansour, N.N., 2020.
+Anisotropic analysis of fibrous and woven materials part 1: Estimation of local orientation.
+Computational Materials Science, 178, p.109631.
+(https://www.sciencedirect.com/science/article/abs/pii/S0927025620301221)
+
+Please cite using this BibTex:
+@article{semeraro2020anisotropic,
+  title={Anisotropic analysis of fibrous and woven materials part 1: Estimation of local orientation},
+  author={Semeraro, Federico and Ferguson, Joseph C and Panerai, Francesco and King, Robert J and Mansour, Nagi N},
+  journal={Computational Materials Science},
+  volume={178},
+  pages={109631},
+  year={2020},
+  publisher={Elsevier}
+}
+"""
+
 import sys
 import numpy as np
 from scipy.ndimage.filters import gaussian_filter

@@ -73,7 +73,7 @@ class PropertySolver:
             raise Exception("Solver illegal input or breakdown")
 
         if self.del_matrices:
-            del self.Amat, self.bvec, self.initial_guess
+            del self.Amat, self.bvec, self.initial_guess, self.M
         print(" ... Done")
 
 

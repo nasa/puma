@@ -3,6 +3,7 @@ from pumapy.utilities.timer import Timer
 from pumapy.utilities.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
 from pumapy.physicsmodels.conductivity_parent import Conductivity
 from pumapy.physicsmodels.isotropic_conductivity_utils import setup_matrices_cy, compute_flux
+from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import csr_matrix, diags
 import numpy as np
 
@@ -44,6 +45,7 @@ class IsotropicConductivity(Conductivity):
 
     def compute(self):
         t = Timer()
+        estimate_max_memory("isotropic_conductivity", self.ws.get_shape(), self.solver_type)
         self.initialize()
         self.assemble_bvector()  # needs to be first because of prescribed_bc
         self.assemble_Amatrix()
