@@ -1,5 +1,5 @@
 from pumapy.physicsmodels.anisotropic_conductivity_utils import pad_domain
-from pumapy.physicsmodels.elasticity_utils import fill_stress_matrices, flatten_Cmat, add_nondiag, divP, find_unstable_cv
+from pumapy.physicsmodels.elasticity_utils import fill_stress_matrices, flatten_Cmat, add_nondiag, divP
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_mpsa_indices
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.boundary_conditions import ElasticityBC
@@ -7,7 +7,7 @@ from pumapy.utilities.linear_solvers import PropertySolver
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.generic_checks import estimate_max_memory
-from scipy.sparse import csr_matrix, diags
+from scipy.sparse import coo_matrix, diags
 import numpy as np
 import sys
 
@@ -52,8 +52,6 @@ class Elasticity(PropertySolver):
             directions = self.direction
             for self.direction in directions:
                 print(f"Shear case: running direction: {self.direction}")
-
-
 
     def initialize(self):
         print("Initializing and padding domains ... ", flush=True, end='')
@@ -109,19 +107,12 @@ class Elasticity(PropertySolver):
 
         # Placing True on dirichlet boundaries to skip them
         self.dir_cv = np.zeros(shape + [3], dtype=bool)
+        self.dir_cv[self.ws_pad == 0] = True  # ID=0 is reserved for gas phase, which is put as dirichlet (i.e. disp=0)
         if self.direction is not None:
             self.dir_cv[[1, -2], 1:-1, 1:-1] = True
         if self.prescribed_bc is not None:
             self.dir_cv[1:-1, 1:-1, 1:-1][self.prescribed_bc.dirichlet != np.Inf] = True
         print("Done")
-
-        # Identify unstable IVs (i.e. with air voxels in them)
-        self.unstable_iv = np.zeros((self.len_x - 1, self.len_y - 1, self.len_z - 1), dtype=bool)
-        for i in range(self.len_x - 1):
-            for j in range(self.len_y - 1):
-                for k in range(self.len_z - 1):
-                    if np.prod(self.ws_pad[i:i + 2, j:j + 2, k:k + 2]) == 0:
-                        self.unstable_iv[i, j, k] = True
 
         # Initialize initial guess for iterative solver
         if self.solver_type != 'direct' and self.solver_type != 'spsolve':
@@ -170,7 +161,7 @@ class Elasticity(PropertySolver):
                         I.append(self.len_x * (self.len_y * k + j) + i)
                         V.append(x[i - 1])
 
-        self.bvec = csr_matrix((V, (I, np.zeros(len(I)))), shape=(3 * self.len_xyz, 1))
+        self.bvec = coo_matrix((V, (I, np.zeros(len(I)))), shape=(3 * self.len_xyz, 1)).tocsr()
 
         if self.print_matrices[0]:
             self._print_b(self.print_matrices[0])
@@ -192,9 +183,6 @@ class Elasticity(PropertySolver):
         for i in range(1, self.len_x - 1):
             self.__compute_Cmat(2, i + 1)  # Computing third layer of Cmat
             self.__compute_transmissibility(1, i)  # Computing second layer of E
-
-            # If all surrounding IV are unstable (i.e. partly or all gaseous), then put middle CV as Dirichlet
-            find_unstable_cv(i, self.len_y, self.len_z, self.dir_cv, self.unstable_iv[i - 1:i + 1])
 
             # Creating j indices and divergence values for slice
             j_indices.fill(-1)
@@ -255,7 +243,7 @@ class Elasticity(PropertySolver):
         del diag_1s, counter
 
         # Assemble sparse A matrix
-        self.Amat = csr_matrix((V, (I, J)), shape=(3 * self.len_xyz, 3 * self.len_xyz))
+        self.Amat = coo_matrix((V, (I, J)), shape=(3 * self.len_xyz, 3 * self.len_xyz)).tocsr()
 
         # Simple preconditioner
         diag = self.Amat.diagonal()
@@ -275,7 +263,7 @@ class Elasticity(PropertySolver):
         self.mpsa36x36.fill(0)
         flatten_Cmat(i, self.len_y, self.len_z, self.Cmat[i:i + 2], self.Cf)
 
-        # Equivalent procedure, but with more matrices
+        # Equivalent procedure, but with more matrices (optimized below to only have 1 extra matrix)
         # self.A = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)
         # self.B = np.zeros((self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
         # self.C = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)
@@ -285,32 +273,35 @@ class Elasticity(PropertySolver):
         # self.C[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.Cf)
         # self.D[:, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf)
         # # Computing (A @ (Cinv @ D) + B) / 8
-        # self.Emat[i, ~self.unstable_iv[i_cv]] = (self.B[~self.unstable_iv[i_cv]] + self.A[~self.unstable_iv[i_cv]] @
-        #                                          np.linalg.inv(self.C[~self.unstable_iv[i_cv]]) @ self.D[~self.unstable_iv[i_cv]]) / 8.
+        # self.Emat[i] = (self.B + self.A @ np.linalg.inv(self.C) @ self.D) / 8.
 
-        # C might become close to singular when highly anisotropic
+        # creating C
         self.mpsa36x36[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.Cf)
-        det = np.linalg.det(self.mpsa36x36)
-        if np.min(det) < 1e-10:
-            self.unstable_iv[i_cv, det < 1e-10] = True
 
-        # Computing transmissibility matrix as: (A @ (Cinv @ D) + B) / 8
-        if not np.all(self.unstable_iv[i_cv]):
-            self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf)
-            self.Emat[i, self.unstable_iv[i_cv]] = 0
+        # C becomes singular in IVs with both air and solid --> stabilize those stress continuity equations
+        inds_rows = np.where(self.mpsa36x36.sum(axis=3) == 0)
+        inds_cols = np.where(self.mpsa36x36.sum(axis=2) == 0)
+        self.mpsa36x36[inds_rows[0], inds_rows[1], inds_rows[2], inds_cols[2]] = 1.
 
-            self.mpsa36x36[~self.unstable_iv[i_cv]] = np.linalg.inv(self.mpsa36x36[~self.unstable_iv[i_cv]])  # Cinv
+        # creating D
+        self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf)
 
-            self.Emat[i, ~self.unstable_iv[i_cv]] = (self.mpsa36x36[~self.unstable_iv[i_cv]] @
-                                                  self.Emat[i, ~self.unstable_iv[i_cv]])  # (Cinv @ D)
+        # computing:  Cinv
+        self.mpsa36x36[:] = np.linalg.inv(self.mpsa36x36)  # Cinv
 
-            self.mpsa36x36.fill(0)
-            self.mpsa36x36[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.Cf)
-            self.Emat[i, ~self.unstable_iv[i_cv]] = (self.mpsa36x36[~self.unstable_iv[i_cv]] @
-                                                  self.Emat[i, ~self.unstable_iv[i_cv]])  # A @ (Cinv @ D)
+        # computing:  Cinv @ D
+        self.Emat[i] = self.mpsa36x36 @ self.Emat[i]  # (Cinv @ D)
 
-            self.Emat[i, ~self.unstable_iv[i_cv]] += fill_Bmpsa(self.Cf)[~self.unstable_iv[i_cv]]  # + B
-            self.Emat[i, ~self.unstable_iv[i_cv]] /= 8
+        # creating A
+        self.mpsa36x36.fill(0)
+        self.mpsa36x36[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.Cf)
+
+        # computing:  A @ (Cinv @ D)
+        self.Emat[i] = self.mpsa36x36 @ self.Emat[i]  # A @ (Cinv @ D)
+
+        # creating and adding B:  (A @ (Cinv @ D) + B)/8
+        self.Emat[i] += fill_Bmpsa(self.Cf)  # + B
+        self.Emat[i] /= 8
 
         if self.print_matrices[1]:
             self._print_E(i, i_cv, self.print_matrices[1])
@@ -514,7 +505,7 @@ class Elasticity(PropertySolver):
             self.Emat[0] = self.Emat[1]
             self.Cmat[:2] = self.Cmat[1:]
             sys.stdout.write("\rComputing stresses ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
-        del self.Emat, self.Cf, self.Cmat, self.mpsa36x36, self.unstable_iv
+        del self.Emat, self.Cf, self.Cmat, self.mpsa36x36
 
         self.s /= 8 * self.ws.voxel_length
         self.t /= 16 * self.ws.voxel_length

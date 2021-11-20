@@ -89,18 +89,6 @@ def add_nondiag(unsigned int [:] nondiag, signed char [:] nondiag1s, int len_x, 
                         counter += 1
 
 
-def find_unstable_cv(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned char [:,:,:] unstable_iv):
-
-    cdef int j, k
-
-    # Marking unstable CVs (i.e. voxels with all surrounding IV with det(Cmpsa)==0) as Dirichlet to skip them
-    for j in range(1, len_y - 1):
-        for k in range(1, len_z - 1):
-            if (unstable_iv[0, j - 1, k - 1] and unstable_iv[1, j - 1, k - 1] and unstable_iv[0, j, k - 1] and unstable_iv[1, j, k - 1] and
-                unstable_iv[0, j - 1, k] and unstable_iv[1, j - 1, k] and unstable_iv[0, j, k] and unstable_iv[1, j, k]):
-                dir_cv[i, j, k] = True
-
-
 def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):
 
     cdef int j, k

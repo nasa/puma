@@ -2,7 +2,7 @@ import numpy as np
 DTYPE = np.float
 
 
-def flatten_Kmat_find_unstable_iv(int len_y, int len_z, double [:,:,:,:] Kmat, double [:,:,:] Kmat_flat, unsigned char [:,:] unstable):
+def flatten_Kmat(int len_y, int len_z, double [:,:,:,:] Kmat, double [:,:,:] Kmat_flat):
 
     cdef int j, k, i2, j2, k2, counter
 
@@ -14,16 +14,6 @@ def flatten_Kmat_find_unstable_iv(int len_y, int len_z, double [:,:,:,:] Kmat, d
                     for i2 in range(2):
                         Kmat_flat[counter:counter + 6, j, k] = Kmat[i2, j + j2, k + k2]
                         counter += 6
-
-            if (Kmat[0, j, k, 0] == 0. or Kmat[0, j, k, 1] == 0. or Kmat[0, j, k, 2] == 0. or
-                    Kmat[1, j, k, 0] == 0. or Kmat[0 + 1, j, k, 1] == 0. or Kmat[0 + 1, j, k, 2] == 0. or
-                    Kmat[0, j + 1, k, 0] == 0. or Kmat[0, j + 1, k, 1] == 0. or Kmat[0, j + 1, k, 2] == 0. or
-                    Kmat[1, j + 1, k, 0] == 0. or Kmat[0 + 1, j + 1, k, 1] == 0. or Kmat[0 + 1, j + 1, k, 2] == 0. or
-                    Kmat[0, j, k + 1, 0] == 0. or Kmat[0, j, k + 1, 1] == 0. or Kmat[0, j, k + 1, 2] == 0. or
-                    Kmat[1, j, k + 1, 0] == 0. or Kmat[0 + 1, j, k + 1, 1] == 0. or Kmat[0 + 1, j, k + 1, 2] == 0. or
-                    Kmat[0, j + 1, k + 1, 0] == 0. or Kmat[0, j + 1, k + 1, 1] == 0. or Kmat[0, j + 1, k + 1, 2] == 0. or
-                    Kmat[1, j + 1, k + 1, 0] == 0. or Kmat[0 + 1, j + 1, k + 1, 1] == 0. or Kmat[0 + 1, j + 1, k + 1, 2] == 0.):
-                unstable[j, k] = True
 
 
 def index_at_p(index, size):

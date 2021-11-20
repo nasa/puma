@@ -17,12 +17,12 @@ Please cite using this BibTex:
 }
 """
 from pumapy.physicsmodels.anisotropic_conductivity_utils import (pad_domain, add_nondiag, divP,
-                                                                 fill_flux, flatten_Kmat_find_unstable_iv)
+                                                                 fill_flux, flatten_Kmat)
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_mpfa_indices
 from pumapy.physicsmodels.conductivity_parent import Conductivity
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.generic_checks import estimate_max_memory
-from scipy.sparse import csr_matrix, diags
+from scipy.sparse import coo_matrix, diags
 import numpy as np
 import sys
 
@@ -143,7 +143,7 @@ class AnisotropicConductivity(Conductivity):
             sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
 
         # Clear unnecessary variables before creating A
-        del self.Emat, self.kf, self.Kmat, self.unstable
+        del self.Emat, self.kf, self.Kmat
         del self.dir_vox, i_indices, j_indices, values, i_dirvox, i
         del self.mpfa12x12, self.zeros, self.Aind, self.Cind, self.Dind
 
@@ -176,7 +176,7 @@ class AnisotropicConductivity(Conductivity):
         del diag_1s, counter
 
         # Assemble sparse A matrix
-        self.Amat = csr_matrix((V, (I, J)), shape=(self.len_xyz, self.len_xyz))
+        self.Amat = coo_matrix((V, (I, J)), shape=(self.len_xyz, self.len_xyz)).tocsr()
 
         # Simple preconditioner
         diag = self.Amat.diagonal()
@@ -223,7 +223,7 @@ class AnisotropicConductivity(Conductivity):
                         I.append(self.len_x * (self.len_y * k + j) + i)
                         V.append(x[i - 1])
 
-        self.bvec = csr_matrix((V, (I, np.zeros(len(I)))), shape=(self.len_xyz, 1))
+        self.bvec = coo_matrix((V, (I, np.zeros(len(I)))), shape=(self.len_xyz, 1)).tocsr()
 
         if self.print_matrices[0]:
             self._print_b(self.print_matrices[0])
@@ -301,38 +301,37 @@ class AnisotropicConductivity(Conductivity):
     def __compute_transmissibility(self, i, i_cv):
         # reset layers
         self.Emat[i].fill(0)
-        self.unstable[i].fill(False)
         self.kf.fill(0)
+        flatten_Kmat(self.len_y, self.len_z, self.Kmat[i:i + 2], self.kf)
 
-        # if any of the surrounding CV have a zero diagonal cond, then set IV as unstable to skip computation
-        flatten_Kmat_find_unstable_iv(self.len_y, self.len_z, self.Kmat[i:i + 2], self.kf, self.unstable[i])
-
+        # Computing transmissibility matrix as: A @ (Cinv @ D) + B
         # creating C
         self.mpfa12x12.fill(0)
         self.mpfa12x12[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpfa(self.kf)
 
-        # Computing transmissibility matrix as: A @ (Cinv @ D) + B
-        if not np.all(self.unstable[i]):
+        # C becomes singular in IVs with both air and solid --> stabilize those stress continuity equations
+        inds_rows = np.where(self.mpfa12x12.sum(axis=3) == 0)
+        inds_cols = np.where(self.mpfa12x12.sum(axis=2) == 0)
+        self.mpfa12x12[inds_rows[0], inds_rows[1], inds_rows[2], inds_cols[2]] = 1.
 
-            # creating D
-            self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpfa(self.kf)
-            self.Emat[i, self.unstable[i]] = 0
+        # creating D
+        self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpfa(self.kf)
 
-            # computing:  Cinv
-            self.mpfa12x12[~self.unstable[i]] = np.linalg.inv(self.mpfa12x12[~self.unstable[i]])
+        # computing:  Cinv
+        self.mpfa12x12[:] = np.linalg.inv(self.mpfa12x12)
 
-            # computing:  Cinv @ D
-            self.Emat[i, ~self.unstable[i]] = self.mpfa12x12[~self.unstable[i]] @ self.Emat[i, ~self.unstable[i]]
+        # computing:  Cinv @ D
+        self.Emat[i] = self.mpfa12x12 @ self.Emat[i]
 
-            # creating A
-            self.mpfa12x12.fill(0)
-            self.mpfa12x12[:, :, self.Aind[0], self.Aind[1]] = fill_Ampfa(self.kf)
+        # creating A
+        self.mpfa12x12.fill(0)
+        self.mpfa12x12[:, :, self.Aind[0], self.Aind[1]] = fill_Ampfa(self.kf)
 
-            # computing:  A @ (Cinv @ D)
-            self.Emat[i, ~self.unstable[i]] = self.mpfa12x12[~self.unstable[i]] @ self.Emat[i, ~self.unstable[i]]
+        # computing:  A @ (Cinv @ D)
+        self.Emat[i] = self.mpfa12x12 @ self.Emat[i]
 
-            # creating and adding B:  A @ (Cinv @ D) + B
-            self.Emat[i, ~self.unstable[i]] += fill_Bmpfa(self.kf, self.zeros)[~self.unstable[i]]
+        # creating and adding B:  A @ (Cinv @ D) + B
+        self.Emat[i] += fill_Bmpfa(self.kf, self.zeros)
 
         if self.print_matrices[1]:
             self._print_E(i, i_cv, self.print_matrices[1])
@@ -346,7 +345,6 @@ class AnisotropicConductivity(Conductivity):
         # Initialize MPFA variables
         self.kf = np.zeros((48, self.len_y - 1, self.len_z - 1), dtype=float)  # per IV
         self.Emat = np.zeros((2, self.len_y - 1, self.len_z - 1, 12, 8), dtype=float)
-        self.unstable = np.zeros((2, self.len_y - 1, self.len_z - 1), dtype=bool)
         self.mpfa12x12 = np.zeros((self.len_y - 1, self.len_z - 1, 12, 12), dtype=float)  # A, C
         self.zeros = np.zeros(self.kf[0].shape)
         self.Aind, self.Cind, self.Dind = create_mpfa_indices()
@@ -408,7 +406,7 @@ class AnisotropicConductivity(Conductivity):
             self.Emat[0] = self.Emat[1]
             self.Kmat[0:2] = self.Kmat[1:3]
             sys.stdout.write("\rComputing fluxes ... {:.1f}% ".format(i / (self.len_x - 2) * 100))
-        del self.Emat, self.kf, self.Kmat, self.unstable
+        del self.Emat, self.kf, self.Kmat
 
         # Extract only interior temperature, ignoring exterior used as bc
         self.T = self.T[1:-1, 1:-1, 1:-1]
