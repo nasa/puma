@@ -7,13 +7,16 @@ from pumapy.utilities.generic_checks import check_ws_cutoff
 from pumapy.utilities.workspace import Workspace
 
 
-def identify_porespace(workspace, solid_cutoff):
+def identify_porespace(workspace, solid_cutoff, connectivity=None):
     """ Identify the porespace
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
         :param solid_cutoff: specify the solid range to discard from pores identification
         :type solid_cutoff: (int, int)
+        :param connectivity: Maximum number of orthogonal hops to consider a pixel/voxel as a neighbor
+        (None automatically gives full connectivity of ``input.ndim``, which for 3D domain is 3, for 2D is 2)
+        :type connectivity: int or None
         :return: porespace marked as: 0 solid, 1 largest pore (likely open porosity), >1 other pores
         :rtype: np.ndarray
 
@@ -41,7 +44,7 @@ def identify_porespace(workspace, solid_cutoff):
     array = np.ones((ws.matrix.shape[0] + 2, ws.matrix.shape[1] + 2, ws.matrix.shape[2] + 2))
     array[1:-1, 1:-1, 1:-1] = ws.matrix
 
-    pore_labels = measure.label(array, background=1)
+    pore_labels = measure.label(array, background=1, connectivity=connectivity)
     pore_labels = pore_labels[1:-1, 1:-1, 1:-1]
     unique_pore_ids, unique_id_counts = np.unique(pore_labels[pore_labels != 0], return_counts=True)
     sorted_unique_pore_ids = unique_pore_ids[np.argsort(unique_id_counts)[::-1]]
@@ -90,31 +93,33 @@ def fill_closed_pores(workspace, solid_cutoff, fill_value, return_pores=False):
         return ws
 
 
-def remove_rbms(workspace, void_cutoff, direction):
-    """ Rigid Body Movements (RBMs) removal
+def remove_rbms(workspace, void_id, direction):
+    """ Rigid Body Movements (RBMs) removal in segmented domain
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
-        :param void_cutoff: specify the void range to discard from RBMs identification
-        :type void_cutoff: (int, int)
+        :param void_id: specify the void ID to discard from RBMs identification
+        :type void_id: int
         :param direction: Cartesian direction that has to be connected, options: 'x', 'y', 'z'
         :type direction: str
         :return: workspace without the possible RBMs determined by not being connected from side to side
         :rtype: pumapy.Workspace
 
         :Example:
+        >>> import pumapy as puma
         >>> workspace = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"))
         >>> new_ws = puma.remove_rbms(workspace, void_cutoff=(0, 103), direction='y')
         >>> puma.render_volume(workspace, (104, 255), solid_color=(1,1,1))
         >>> puma.render_volume(new_ws, (1, new_ws.max()), solid_color=(1,1,1))
     """
 
-    solid = identify_porespace(workspace, void_cutoff)
+    solid = identify_porespace(workspace, (void_id, void_id), connectivity=1)
     uniques = np.unique(solid)
     if uniques[0] == 0:
         uniques = uniques[1:]
 
-    supported_solid = Workspace.from_array(np.zeros_like(solid))
+    supported_solid = Workspace.from_array(np.full_like(solid, void_id))
+    supported_solid.voxel_length = workspace.voxel_length
 
     # only pass the phases connected from side to side
     for unique in uniques:
