@@ -27,6 +27,7 @@ class Elasticity(PropertySolver):
         self.need_to_orient = False  # changes if (E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12) detected
         self.orient_pad = None
         self.shear_case = False
+        self.dir_cv = None
 
         self.Ceff = [-1., -1., -1.]
         self.solve_time = -1
@@ -97,8 +98,7 @@ class Elasticity(PropertySolver):
 
         if self.side_bc != "f":
             # Padding domain, imposing symmetric or periodic BC on faces
-            pad_domain(self.ws_pad, self.orient_pad, self.need_to_orient, self.len_x, self.len_y, self.len_z,
-                       self.side_bc)
+            pad_domain(self.ws_pad, self.orient_pad, self.need_to_orient, self.len_x, self.len_y, self.len_z, self.side_bc)
 
         # Segmenting padded domain
         for i in range(self.elast_map.get_size()):
@@ -107,7 +107,8 @@ class Elasticity(PropertySolver):
 
         # Placing True on dirichlet boundaries to skip them
         self.dir_cv = np.zeros(shape + [3], dtype=bool)
-        self.dir_cv[self.ws_pad == 0] = True  # ID=0 is reserved for gas phase, which is put as dirichlet (i.e. disp=0)
+        # ID=0 is reserved for gas phase, which is put as dirichlet (i.e. disp=0)
+        self.dir_cv[1:-1, 1:-1, 1:-1][self.ws_pad[1:-1, 1:-1, 1:-1] == 0] = True
         if self.direction is not None:
             self.dir_cv[[1, -2], 1:-1, 1:-1] = True
         if self.prescribed_bc is not None:

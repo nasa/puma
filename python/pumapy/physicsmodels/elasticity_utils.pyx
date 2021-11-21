@@ -197,28 +197,23 @@ def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv
                 values[counter_v + 79] = E_tne[0, 22] - E_tnw[0, 23] + E_tne[13, 22] + E_tnw[16, 23] + E_tne[26, 22] + E_tnw[29, 23]
                 values[counter_v + 80] = E_tne[0, 23] + E_tne[13, 23] + E_tne[26, 23]
 
-                # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
-                if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
-                    dir_cv[i, j, k, 0] = True
-                    values[counter_v:counter_v + 81] = np.NAN
-                else:
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
 
-                    counter_v += 81
+                counter_v += 81
 
     # divP_y
     for j in range(1, len_y - 1):
@@ -319,28 +314,23 @@ def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv
                 values[counter_v + 79] = E_tne[2, 22] - E_tnw[2, 23] + E_tne[12, 22] + E_tnw[15, 23] + E_tne[25, 22] + E_tnw[28, 23]
                 values[counter_v + 80] = E_tne[2, 23] + E_tne[12, 23] + E_tne[25, 23]
 
-                # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
-                if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
-                    dir_cv[i, j, k, 1] = True
-                    values[counter_v:counter_v + 81] = np.NAN
-                else:
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
 
-                    counter_v += 81
+                counter_v += 81
 
     # divP_z
     for j in range(1, len_y - 1):
@@ -441,28 +431,23 @@ def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv
                 values[counter_v + 79] = E_tne[1, 22] - E_tnw[1, 23] + E_tne[14, 22] + E_tnw[17, 23] + E_tne[24, 22] + E_tnw[27, 23]
                 values[counter_v + 80] = E_tne[1, 23] + E_tne[14, 23] + E_tne[24, 23]
 
-                # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
-                if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
-                    dir_cv[i, j, k, 2] = True
-                    values[counter_v:counter_v + 81] = np.NAN
-                else:
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
 
-                    counter_v += 81
+                counter_v += 81
 
 
 def fill_stress_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:,:] u, double [:,:,:,:,:] Emat,

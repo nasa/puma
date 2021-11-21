@@ -1309,17 +1309,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 /* BufferIndexError.proto */
 static void __Pyx_RaiseBufferIndexError(int axis);
 
-/* PyObjectCall2Args.proto */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
-
-/* PyObjectCallMethO.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
-#endif
-
-/* PyObjectCallOneArg.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
-
 /* ArgTypeTest.proto */
 #define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
     ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
@@ -1364,6 +1353,17 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+
+/* PyObjectCall2Args.proto */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
+
+/* PyObjectCallMethO.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
+#endif
+
+/* PyObjectCallOneArg.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
 /* None.proto */
 static CYTHON_INLINE Py_ssize_t __Pyx_div_Py_ssize_t(Py_ssize_t, Py_ssize_t);
@@ -1697,10 +1697,6 @@ static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_dou
 /* ObjectToMemviewSlice.proto */
 static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsdsdsds_double(PyObject *, int writable_flag);
 
-/* MemviewDtypeToObject.proto */
-static CYTHON_INLINE PyObject *__pyx_memview_get_double(const char *itemp);
-static CYTHON_INLINE int __pyx_memview_set_double(const char *itemp, PyObject *obj);
-
 /* MemviewSliceCopyTemplate.proto */
 static __Pyx_memviewslice
 __pyx_memoryview_copy_new_contig(const __Pyx_memviewslice *from_mvs,
@@ -1821,11 +1817,8 @@ static const char __pyx_k_id[] = "id";
 static const char __pyx_k_j2[] = "j2";
 static const char __pyx_k_k2[] = "k2";
 static const char __pyx_k_np[] = "np";
-static const char __pyx_k_NAN[] = "NAN";
-static const char __pyx_k_abs[] = "abs";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_obj[] = "obj";
-static const char __pyx_k_sum[] = "sum";
 static const char __pyx_k_Cmat[] = "Cmat";
 static const char __pyx_k_E_ne[] = "E_ne";
 static const char __pyx_k_E_nw[] = "E_nw";
@@ -2059,7 +2052,6 @@ static PyObject *__pyx_kp_s_Invalid_shape_in_axis_d_d;
 static PyObject *__pyx_n_s_MemoryError;
 static PyObject *__pyx_kp_s_MemoryView_of_r_at_0x_x;
 static PyObject *__pyx_kp_s_MemoryView_of_r_object;
-static PyObject *__pyx_n_s_NAN;
 static PyObject *__pyx_n_b_O;
 static PyObject *__pyx_kp_s_Out_of_bounds_on_buffer_access_a;
 static PyObject *__pyx_n_s_PickleError;
@@ -2067,7 +2059,6 @@ static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_Unable_to_convert_item_to_object;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_View_MemoryView;
-static PyObject *__pyx_n_s_abs;
 static PyObject *__pyx_n_s_add_nondiag;
 static PyObject *__pyx_n_s_allocate_buffer;
 static PyObject *__pyx_n_s_base;
@@ -2158,7 +2149,6 @@ static PyObject *__pyx_kp_s_strided_and_direct_or_indirect;
 static PyObject *__pyx_kp_s_strided_and_indirect;
 static PyObject *__pyx_kp_s_stringsource;
 static PyObject *__pyx_n_s_struct;
-static PyObject *__pyx_n_s_sum;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_u;
 static PyObject *__pyx_n_s_u_local;
@@ -5617,18 +5607,15 @@ static PyObject *__pyx_pf_6pumapy_13physicsmodels_16elasticity_utils_8divP(CYTHO
   Py_ssize_t __pyx_t_56;
   Py_ssize_t __pyx_t_57;
   Py_ssize_t __pyx_t_58;
-  PyObject *__pyx_t_59 = NULL;
+  long __pyx_t_59;
   PyObject *__pyx_t_60 = NULL;
-  PyObject *__pyx_t_61 = NULL;
-  PyObject *__pyx_t_62 = NULL;
+  long __pyx_t_61;
+  long __pyx_t_62;
   PyObject *__pyx_t_63 = NULL;
-  __Pyx_memviewslice __pyx_t_64 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  PyObject *__pyx_t_64 = NULL;
   PyObject *__pyx_t_65 = NULL;
-  double __pyx_t_66;
-  long __pyx_t_67;
-  long __pyx_t_68;
-  long __pyx_t_69;
-  unsigned int __pyx_t_70;
+  unsigned int __pyx_t_66;
+  PyObject *__pyx_t_67 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -16176,520 +16163,338 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
         }
         *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_44 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) ))));
 
-        /* "pumapy/physicsmodels/elasticity_utils.pyx":201
- * 
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_cv[i, j, k, 0] = True
- *                     values[counter_v:counter_v + 81] = np.NAN
- */
-        __Pyx_GetModuleGlobalName(__pyx_t_60, __pyx_n_s_np); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_60);
-        __pyx_t_61 = __Pyx_PyObject_GetAttrStr(__pyx_t_60, __pyx_n_s_sum); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_61);
-        __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-        __Pyx_GetModuleGlobalName(__pyx_t_62, __pyx_n_s_np); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_62);
-        __pyx_t_63 = __Pyx_PyObject_GetAttrStr(__pyx_t_62, __pyx_n_s_abs); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_63);
-        __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-        __pyx_t_64.data = __pyx_v_values.data;
-        __pyx_t_64.memview = __pyx_v_values.memview;
-        __PYX_INC_MEMVIEW(&__pyx_t_64, 0);
-        __pyx_t_11 = -1;
-        if (unlikely(__pyx_memoryview_slice_memviewslice(
-    &__pyx_t_64,
-    __pyx_v_values.shape[0], __pyx_v_values.strides[0], __pyx_v_values.suboffsets[0],
-    0,
-    0,
-    &__pyx_t_11,
-    __pyx_v_counter_v,
-    (__pyx_v_counter_v + 81),
-    0,
-    1,
-    1,
-    0,
-    1) < 0))
-{
-    __PYX_ERR(0, 201, __pyx_L1_error)
-}
-
-__pyx_t_62 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_62);
-        __PYX_XDEC_MEMVIEW(&__pyx_t_64, 1);
-        __pyx_t_64.memview = NULL;
-        __pyx_t_64.data = NULL;
-        __pyx_t_65 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_63))) {
-          __pyx_t_65 = PyMethod_GET_SELF(__pyx_t_63);
-          if (likely(__pyx_t_65)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_63);
-            __Pyx_INCREF(__pyx_t_65);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_63, function);
-          }
-        }
-        __pyx_t_60 = (__pyx_t_65) ? __Pyx_PyObject_Call2Args(__pyx_t_63, __pyx_t_65, __pyx_t_62) : __Pyx_PyObject_CallOneArg(__pyx_t_63, __pyx_t_62);
-        __Pyx_XDECREF(__pyx_t_65); __pyx_t_65 = 0;
-        __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-        if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_60);
-        __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-        __pyx_t_63 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_61))) {
-          __pyx_t_63 = PyMethod_GET_SELF(__pyx_t_61);
-          if (likely(__pyx_t_63)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_61);
-            __Pyx_INCREF(__pyx_t_63);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_61, function);
-          }
-        }
-        __pyx_t_59 = (__pyx_t_63) ? __Pyx_PyObject_Call2Args(__pyx_t_61, __pyx_t_63, __pyx_t_60) : __Pyx_PyObject_CallOneArg(__pyx_t_61, __pyx_t_60);
-        __Pyx_XDECREF(__pyx_t_63); __pyx_t_63 = 0;
-        __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-        if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_59);
-        __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-        __pyx_t_61 = __Pyx_PyInt_EqObjC(__pyx_t_59, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_61);
-        __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_61); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 201, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-        if (__pyx_t_12) {
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":202
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_cv[i, j, k, 0] = True             # <<<<<<<<<<<<<<
- *                     values[counter_v:counter_v + 81] = np.NAN
- *                 else:
- */
-          __pyx_t_41 = __pyx_v_i;
-          __pyx_t_42 = __pyx_v_j;
-          __pyx_t_43 = __pyx_v_k;
-          __pyx_t_44 = 0;
-          __pyx_t_11 = -1;
-          if (__pyx_t_41 < 0) {
-            __pyx_t_41 += __pyx_v_dir_cv.shape[0];
-            if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-          } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
-          if (__pyx_t_42 < 0) {
-            __pyx_t_42 += __pyx_v_dir_cv.shape[1];
-            if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-          } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
-          if (__pyx_t_43 < 0) {
-            __pyx_t_43 += __pyx_v_dir_cv.shape[2];
-            if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 2;
-          } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
-          if (__pyx_t_44 < 0) {
-            __pyx_t_44 += __pyx_v_dir_cv.shape[3];
-            if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 3;
-          } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
-          if (unlikely(__pyx_t_11 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_11);
-            __PYX_ERR(0, 202, __pyx_L1_error)
-          }
-          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_41 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_42 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_43 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_44 * __pyx_v_dir_cv.strides[3]) )) = 1;
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":203
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_cv[i, j, k, 0] = True
- *                     values[counter_v:counter_v + 81] = np.NAN             # <<<<<<<<<<<<<<
- *                 else:
- *                     for k2 in range(-1, 2):
- */
-          __Pyx_GetModuleGlobalName(__pyx_t_61, __pyx_n_s_np); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 203, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_61);
-          __pyx_t_59 = __Pyx_PyObject_GetAttrStr(__pyx_t_61, __pyx_n_s_NAN); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 203, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_59);
-          __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-          __pyx_t_66 = __pyx_PyFloat_AsDouble(__pyx_t_59); if (unlikely((__pyx_t_66 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 203, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-          __pyx_t_64.data = __pyx_v_values.data;
-          __pyx_t_64.memview = __pyx_v_values.memview;
-          __PYX_INC_MEMVIEW(&__pyx_t_64, 0);
-          __pyx_t_11 = -1;
-          if (unlikely(__pyx_memoryview_slice_memviewslice(
-    &__pyx_t_64,
-    __pyx_v_values.shape[0], __pyx_v_values.strides[0], __pyx_v_values.suboffsets[0],
-    0,
-    0,
-    &__pyx_t_11,
-    __pyx_v_counter_v,
-    (__pyx_v_counter_v + 81),
-    0,
-    1,
-    1,
-    0,
-    1) < 0))
-{
-    __PYX_ERR(0, 203, __pyx_L1_error)
-}
-
-{
-              double __pyx_temp_scalar = __pyx_t_66;
-              {
-                  Py_ssize_t __pyx_temp_extent_0 = __pyx_t_64.shape[0];
-                  Py_ssize_t __pyx_temp_stride_0 = __pyx_t_64.strides[0];
-                  char *__pyx_temp_pointer_0;
-                  Py_ssize_t __pyx_temp_idx_0;
-                  __pyx_temp_pointer_0 = __pyx_t_64.data;
-                  for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 < __pyx_temp_extent_0; __pyx_temp_idx_0++) {
-                    *((double *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
-                    __pyx_temp_pointer_0 += __pyx_temp_stride_0;
-                  }
-              }
-          }
-          __PYX_XDEC_MEMVIEW(&__pyx_t_64, 1);
-          __pyx_t_64.memview = NULL;
-          __pyx_t_64.data = NULL;
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":201
- * 
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_cv[i, j, k, 0] = True
- *                     values[counter_v:counter_v + 81] = np.NAN
- */
-          goto __pyx_L8;
-        }
-
         /* "pumapy/physicsmodels/elasticity_utils.pyx":205
- *                     values[counter_v:counter_v + 81] = np.NAN
- *                 else:
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
+ *                 #     values[counter_v:counter_v + 81] = np.NAN
+ *                 # else:
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
  */
-        /*else*/ {
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_59 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 205, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_59);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_59);
-            __pyx_t_59 = 0;
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 205, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_60);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_60);
+          __pyx_t_60 = 0;
 
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":206
- *                 else:
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":206
+ *                 # else:
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
  */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_59 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 206, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_59);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_59);
-              __pyx_t_59 = 0;
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 206, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_60);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_60);
+            __pyx_t_60 = 0;
 
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":207
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":207
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
  */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_59 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 207, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_59);
-                __pyx_t_59 = 0;
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 207, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_60);
+              __pyx_t_60 = 0;
 
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":208
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":208
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
  */
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_63 = PyNumber_Add(__pyx_t_60, __pyx_v_k2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Multiply(__pyx_t_61, __pyx_t_63); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_61 = PyNumber_Add(__pyx_t_63, __pyx_v_j2); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = PyNumber_Add(__pyx_t_60, __pyx_t_61); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Multiply(__pyx_t_59, __pyx_t_63); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_59 = PyNumber_Add(__pyx_t_63, __pyx_v_i2); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = PyNumber_Add(__pyx_t_61, __pyx_t_59); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_63); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 208, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 208, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":209
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_65 = PyNumber_Add(__pyx_t_64, __pyx_v_k2); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Multiply(__pyx_t_63, __pyx_t_65); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_65, __pyx_v_j2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Multiply(__pyx_t_60, __pyx_t_65); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_60 = PyNumber_Add(__pyx_t_65, __pyx_v_i2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = PyNumber_Add(__pyx_t_63, __pyx_t_60); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_65); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 208, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 208, __pyx_L1_error)
               }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":209
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
             }
           }
+        }
 
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":210
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":210
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
  */
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 210, __pyx_L1_error)
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 210, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_65);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_65);
+          __pyx_t_65 = 0;
+
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":211
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ */
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 211, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_65);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_65);
+            __pyx_t_65 = 0;
+
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":212
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ */
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 212, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_65);
+              __pyx_t_65 = 0;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":213
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ */
+              __pyx_t_65 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_len_xyz); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_67 = PyNumber_Add(__pyx_t_64, __pyx_v_k2); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Multiply(__pyx_t_63, __pyx_t_67); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_67, __pyx_v_j2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Multiply(__pyx_t_60, __pyx_t_67); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Add(__pyx_t_65, __pyx_t_63); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_65 = PyNumber_Add(__pyx_t_63, __pyx_v_i2); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Add(__pyx_t_67, __pyx_t_65); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_63); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 213, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 213, __pyx_L1_error)
+              }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":214
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+            }
+          }
+        }
+
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":215
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ */
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 215, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_63);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_63);
+          __pyx_t_63 = 0;
+
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":216
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ */
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 216, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_63);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_63);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_63);
             __pyx_t_63 = 0;
 
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":211
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":217
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
  */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 211, __pyx_L1_error)
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 217, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_63);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_63);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_63);
               __pyx_t_63 = 0;
 
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":212
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":218
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
+ * 
  */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 212, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_63);
-                __pyx_t_63 = 0;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":213
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- */
-                __pyx_t_63 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_len_xyz); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_62 = PyNumber_Add(__pyx_t_60, __pyx_v_k2); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Multiply(__pyx_t_61, __pyx_t_62); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_61 = PyNumber_Add(__pyx_t_62, __pyx_v_j2); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = PyNumber_Add(__pyx_t_60, __pyx_t_61); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Multiply(__pyx_t_59, __pyx_t_62); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = PyNumber_Add(__pyx_t_63, __pyx_t_61); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_63 = PyNumber_Add(__pyx_t_61, __pyx_v_i2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Add(__pyx_t_62, __pyx_t_63); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_61); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 213, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 213, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":214
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+              __pyx_t_63 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG((2 * __pyx_v_len_xyz)); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_64 = PyNumber_Add(__pyx_t_60, __pyx_v_k2); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_60 = PyNumber_Multiply(__pyx_t_67, __pyx_t_64); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_67 = PyNumber_Add(__pyx_t_64, __pyx_v_j2); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Add(__pyx_t_60, __pyx_t_67); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Multiply(__pyx_t_65, __pyx_t_64); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Add(__pyx_t_63, __pyx_t_67); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_67, __pyx_v_i2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_67); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 218, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 218, __pyx_L1_error)
               }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":219
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ * 
+ *                 counter_v += 81
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
             }
           }
+        }
 
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":215
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- */
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_61 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 215, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_61);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_61);
-            __pyx_t_61 = 0;
-
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":216
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_61 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 216, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_61);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_61);
-              __pyx_t_61 = 0;
-
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":217
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_61 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 217, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_61);
-                __pyx_t_61 = 0;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":218
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":221
+ *                             counter_j += 1
  * 
- */
-                __pyx_t_61 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG((2 * __pyx_v_len_xyz)); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_60 = PyNumber_Add(__pyx_t_59, __pyx_v_k2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = PyNumber_Multiply(__pyx_t_62, __pyx_t_60); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_62 = PyNumber_Add(__pyx_t_60, __pyx_v_j2); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Add(__pyx_t_59, __pyx_t_62); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = PyNumber_Multiply(__pyx_t_63, __pyx_t_60); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Add(__pyx_t_61, __pyx_t_62); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_61 = PyNumber_Add(__pyx_t_62, __pyx_v_i2); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = PyNumber_Add(__pyx_t_60, __pyx_t_61); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_62); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 218, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 218, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":219
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- * 
- *                     counter_v += 81
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
-              }
-            }
-          }
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":221
- *                                 counter_j += 1
- * 
- *                     counter_v += 81             # <<<<<<<<<<<<<<
+ *                 counter_v += 81             # <<<<<<<<<<<<<<
  * 
  *     # divP_y
  */
-          __pyx_v_counter_v = (__pyx_v_counter_v + 81);
-        }
-        __pyx_L8:;
+        __pyx_v_counter_v = (__pyx_v_counter_v + 81);
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":106
  * 
@@ -16733,32 +16538,32 @@ __pyx_t_62 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
  * 
  *                 # Computing x and y divergence equations for P control volume
  */
-      __pyx_t_44 = __pyx_v_i;
-      __pyx_t_43 = __pyx_v_j;
-      __pyx_t_42 = __pyx_v_k;
-      __pyx_t_41 = 1;
+      __pyx_t_41 = __pyx_v_i;
+      __pyx_t_42 = __pyx_v_j;
+      __pyx_t_43 = __pyx_v_k;
+      __pyx_t_44 = 1;
       __pyx_t_11 = -1;
-      if (__pyx_t_44 < 0) {
-        __pyx_t_44 += __pyx_v_dir_cv.shape[0];
-        if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
-      if (__pyx_t_43 < 0) {
-        __pyx_t_43 += __pyx_v_dir_cv.shape[1];
-        if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
-      if (__pyx_t_42 < 0) {
-        __pyx_t_42 += __pyx_v_dir_cv.shape[2];
-        if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
       if (__pyx_t_41 < 0) {
-        __pyx_t_41 += __pyx_v_dir_cv.shape[3];
-        if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 3;
-      } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
+        __pyx_t_41 += __pyx_v_dir_cv.shape[0];
+        if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
+      if (__pyx_t_42 < 0) {
+        __pyx_t_42 += __pyx_v_dir_cv.shape[1];
+        if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
+      if (__pyx_t_43 < 0) {
+        __pyx_t_43 += __pyx_v_dir_cv.shape[2];
+        if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
+      if (__pyx_t_44 < 0) {
+        __pyx_t_44 += __pyx_v_dir_cv.shape[3];
+        if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 3;
+      } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 228, __pyx_L1_error)
       }
-      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_44 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_43 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_42 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_41 * __pyx_v_dir_cv.strides[3]) ))) != 0)) != 0);
+      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_41 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_42 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_43 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_44 * __pyx_v_dir_cv.strides[3]) ))) != 0)) != 0);
       if (__pyx_t_12) {
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":231
@@ -17288,32 +17093,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
  *                 values[counter_v +  1] = E_se[11, 0] - E_sw[11, 1] - E_se[18, 0] - E_sw[21, 1] - E_se[31, 0] - E_sw[34, 1]
  *                 values[counter_v +  2] = E_se[11, 1] - E_se[18, 1] - E_se[31, 1]
  */
-        __pyx_t_41 = 11;
-        __pyx_t_42 = 0;
+        __pyx_t_44 = 11;
+        __pyx_t_43 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 240, __pyx_L1_error)
         }
-        __pyx_t_43 = 21;
-        __pyx_t_44 = 0;
+        __pyx_t_42 = 21;
+        __pyx_t_41 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 240, __pyx_L1_error)
@@ -17340,7 +17145,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 240, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":241
  * 
@@ -17364,32 +17169,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 241, __pyx_L1_error)
         }
-        __pyx_t_44 = 11;
-        __pyx_t_43 = 1;
+        __pyx_t_41 = 11;
+        __pyx_t_42 = 1;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 241, __pyx_L1_error)
         }
-        __pyx_t_42 = 18;
-        __pyx_t_41 = 0;
+        __pyx_t_43 = 18;
+        __pyx_t_44 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 241, __pyx_L1_error)
@@ -17446,7 +17251,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 241, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_42 * __pyx_v_E_se.strides[0]) ) + __pyx_t_41 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_35 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_37 * __pyx_v_E_se.strides[0]) ) + __pyx_t_38 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_43 * __pyx_v_E_se.strides[0]) ) + __pyx_t_44 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_35 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_37 * __pyx_v_E_se.strides[0]) ) + __pyx_t_38 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":242
  *                 values[counter_v +  0] = - E_sw[11, 0] - E_sw[21, 0] - E_sw[34, 0]
@@ -17561,32 +17366,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 243, __pyx_L1_error)
         }
-        __pyx_t_41 = 11;
-        __pyx_t_42 = 2;
+        __pyx_t_44 = 11;
+        __pyx_t_43 = 2;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 243, __pyx_L1_error)
         }
-        __pyx_t_43 = 21;
-        __pyx_t_44 = 2;
+        __pyx_t_42 = 21;
+        __pyx_t_41 = 2;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 243, __pyx_L1_error)
@@ -17613,7 +17418,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 243, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":244
  *                 values[counter_v +  2] = E_se[11, 1] - E_se[18, 1] - E_se[31, 1]
@@ -17637,32 +17442,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 244, __pyx_L1_error)
         }
-        __pyx_t_44 = 8;
-        __pyx_t_43 = 1;
+        __pyx_t_41 = 8;
+        __pyx_t_42 = 1;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 244, __pyx_L1_error)
         }
-        __pyx_t_42 = 18;
-        __pyx_t_41 = 0;
+        __pyx_t_43 = 18;
+        __pyx_t_44 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_ne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_ne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_ne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_ne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 244, __pyx_L1_error)
@@ -17809,7 +17614,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 244, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_44 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_42 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_40 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_38 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_53 * __pyx_v_E_se.strides[0]) ) + __pyx_t_54 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_55 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_57 * __pyx_v_E_se.strides[0]) ) + __pyx_t_58 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_47 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_51 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_41 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_43 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_40 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_38 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_53 * __pyx_v_E_se.strides[0]) ) + __pyx_t_54 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_55 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_57 * __pyx_v_E_se.strides[0]) ) + __pyx_t_58 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_47 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_51 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":245
  *                 values[counter_v +  3] = E_nw[21, 0] - E_nw[8, 0] - E_nw[28, 0] - E_sw[11, 2] - E_sw[21, 2] - E_sw[34, 2]
@@ -18393,32 +18198,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 250, __pyx_L1_error)
         }
-        __pyx_t_41 = 15;
-        __pyx_t_42 = 1;
+        __pyx_t_44 = 15;
+        __pyx_t_43 = 1;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tsw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tsw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tsw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tsw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 250, __pyx_L1_error)
         }
-        __pyx_t_43 = 31;
-        __pyx_t_44 = 0;
+        __pyx_t_42 = 31;
+        __pyx_t_41 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 250, __pyx_L1_error)
@@ -18445,7 +18250,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 250, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_58 * __pyx_v_E_se.strides[0]) ) + __pyx_t_57 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_56 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_54 * __pyx_v_E_se.strides[0]) ) + __pyx_t_53 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_52 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_51 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_48 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_47 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_35 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_39 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_41 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_43 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_58 * __pyx_v_E_se.strides[0]) ) + __pyx_t_57 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_56 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_54 * __pyx_v_E_se.strides[0]) ) + __pyx_t_53 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_52 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_51 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_48 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_47 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_35 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_39 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_44 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_42 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":251
  *                 values[counter_v +  9] = E_tsw[34, 0] - E_sw[21, 4] - E_sw[34, 4] - E_tsw[5, 0] - E_tsw[15, 0] - E_sw[11, 4]
@@ -18469,32 +18274,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 251, __pyx_L1_error)
         }
-        __pyx_t_44 = 18;
-        __pyx_t_43 = 5;
+        __pyx_t_41 = 18;
+        __pyx_t_42 = 5;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 251, __pyx_L1_error)
         }
-        __pyx_t_42 = 31;
-        __pyx_t_41 = 5;
+        __pyx_t_43 = 31;
+        __pyx_t_44 = 5;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 251, __pyx_L1_error)
@@ -18551,7 +18356,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 251, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_44 * __pyx_v_E_se.strides[0]) ) + __pyx_t_43 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_42 * __pyx_v_E_se.strides[0]) ) + __pyx_t_41 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_38 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_41 * __pyx_v_E_se.strides[0]) ) + __pyx_t_42 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_43 * __pyx_v_E_se.strides[0]) ) + __pyx_t_44 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_38 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":252
  *                 values[counter_v + 10] = E_se[11, 4] - E_sw[11, 5] - E_se[18, 4] - E_sw[21, 5] - E_se[31, 4] - E_sw[34, 5] + E_tse[5, 0] - E_tsw[5, 1] - E_tse[12, 0] - E_tsw[15, 1] + E_tse[31, 0] + E_tsw[34, 1]
@@ -18605,32 +18410,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 252, __pyx_L1_error)
         }
-        __pyx_t_41 = 11;
-        __pyx_t_42 = 6;
+        __pyx_t_44 = 11;
+        __pyx_t_43 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 252, __pyx_L1_error)
         }
-        __pyx_t_43 = 21;
-        __pyx_t_44 = 6;
+        __pyx_t_42 = 21;
+        __pyx_t_41 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 252, __pyx_L1_error)
@@ -18747,7 +18552,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 252, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_47 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_49 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_51 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_53 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_55 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_47 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_49 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_51 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_53 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_55 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":253
  *                 values[counter_v + 11] = E_se[11, 5] - E_se[18, 5] - E_se[31, 5] + E_tse[5, 1] - E_tse[12, 1] + E_tse[31, 1]
@@ -18861,32 +18666,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 253, __pyx_L1_error)
         }
-        __pyx_t_44 = 11;
-        __pyx_t_43 = 7;
+        __pyx_t_41 = 11;
+        __pyx_t_42 = 7;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 253, __pyx_L1_error)
         }
-        __pyx_t_42 = 18;
-        __pyx_t_41 = 6;
+        __pyx_t_43 = 18;
+        __pyx_t_44 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 253, __pyx_L1_error)
@@ -19123,7 +18928,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 253, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_56 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_54 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_52 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_51 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_50 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_49 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_48 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_47 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_42 * __pyx_v_E_se.strides[0]) ) + __pyx_t_41 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_40 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_17 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_19 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_21 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_10 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_8 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_14 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_29 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_31 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_32 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_33 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_23 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_25 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_56 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_54 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_52 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_51 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_50 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_49 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_48 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_47 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_43 * __pyx_v_E_se.strides[0]) ) + __pyx_t_44 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_40 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_17 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_19 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_21 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_10 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_8 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_14 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_29 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_31 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_32 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_33 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_23 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_25 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":254
  *                 values[counter_v + 12] = E_nw[21, 4] - E_nw[8, 4] - E_nw[28, 4] - E_sw[11, 6] - E_sw[21, 6] - E_sw[34, 6] - E_tnw[2, 0] - E_tsw[5, 2] + E_tnw[15, 0] - E_tsw[15, 2] + E_tnw[28, 0] + E_tsw[34, 2]
@@ -22293,32 +22098,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 280, __pyx_L1_error)
         }
-        __pyx_t_41 = 18;
-        __pyx_t_42 = 14;
+        __pyx_t_44 = 18;
+        __pyx_t_43 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 280, __pyx_L1_error)
         }
-        __pyx_t_43 = 15;
-        __pyx_t_44 = 9;
+        __pyx_t_42 = 15;
+        __pyx_t_41 = 9;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 280, __pyx_L1_error)
@@ -22435,7 +22240,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 280, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_28 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_27 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_26 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_24 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_23 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_34 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_33 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_32 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_31 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_30 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_29 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_15 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_7 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_9 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_22 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_20 * __pyx_v_E_se.strides[0]) ) + __pyx_t_19 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_18 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_35 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_36 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_37 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_41 * __pyx_v_E_se.strides[0]) ) + __pyx_t_42 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_43 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_47 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_51 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_53 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_55 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_28 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_27 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_26 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_24 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_23 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_34 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_33 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_32 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_31 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_30 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_29 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_15 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_7 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_9 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_22 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_20 * __pyx_v_E_se.strides[0]) ) + __pyx_t_19 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_18 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_35 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_36 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_37 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_44 * __pyx_v_E_se.strides[0]) ) + __pyx_t_43 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_42 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_47 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_51 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_53 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_55 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":281
  *                 values[counter_v + 39] = E_tnw[15, 8] - E_tnw[2, 8] - E_nw[8, 12] + E_tnw[28, 8] + E_nw[21, 12] - E_tsw[5, 10] - E_sw[11, 14] - E_nw[28, 12] - E_tsw[15, 10] - E_sw[21, 14] - E_sw[34, 14] + E_tsw[34, 10]
@@ -22549,32 +22354,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 281, __pyx_L1_error)
         }
-        __pyx_t_44 = 12;
-        __pyx_t_43 = 11;
+        __pyx_t_41 = 12;
+        __pyx_t_42 = 11;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 281, __pyx_L1_error)
         }
-        __pyx_t_42 = 18;
-        __pyx_t_41 = 15;
+        __pyx_t_43 = 18;
+        __pyx_t_44 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 281, __pyx_L1_error)
@@ -22631,7 +22436,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 281, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_56 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_54 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_52 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_48 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_47 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_44 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_42 * __pyx_v_E_se.strides[0]) ) + __pyx_t_41 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_56 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_54 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_52 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_48 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_47 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_41 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_43 * __pyx_v_E_se.strides[0]) ) + __pyx_t_44 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":282
  *                 values[counter_v + 40] = E_ne[8, 12] - E_nw[8, 13] + E_tne[2, 8] + E_tne[12, 8] + E_tne[25, 8] + E_ne[18, 12] - E_tnw[2, 9] + E_tse[5, 10] + E_nw[21, 13] - E_tsw[5, 11] + E_se[11, 14] - E_sw[11, 15] - E_ne[25, 12] - E_tse[12, 10] - E_nw[28, 13] - E_se[18, 14] + E_tnw[15, 9] - E_tsw[15, 11] - E_sw[21, 15] - E_se[31, 14] + E_tnw[28, 9] - E_sw[34, 15] + E_tse[31, 10] + E_tsw[34, 11]
@@ -22685,32 +22490,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 282, __pyx_L1_error)
         }
-        __pyx_t_41 = 28;
-        __pyx_t_42 = 14;
+        __pyx_t_44 = 28;
+        __pyx_t_43 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 282, __pyx_L1_error)
         }
-        __pyx_t_43 = 15;
-        __pyx_t_44 = 10;
+        __pyx_t_42 = 15;
+        __pyx_t_41 = 10;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 282, __pyx_L1_error)
@@ -22737,7 +22542,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 282, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_41 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_43 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_44 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_42 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":283
  *                 values[counter_v + 41] = E_ne[8, 13] + E_ne[18, 13] + E_tne[2, 9] + E_tse[5, 11] + E_se[11, 15] - E_ne[25, 13] + E_tne[12, 9] - E_tse[12, 11] - E_se[18, 15] + E_tne[25, 9] - E_se[31, 15] + E_tse[31, 11]
@@ -22761,32 +22566,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 283, __pyx_L1_error)
         }
-        __pyx_t_44 = 8;
-        __pyx_t_43 = 15;
+        __pyx_t_41 = 8;
+        __pyx_t_42 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 283, __pyx_L1_error)
         }
-        __pyx_t_42 = 18;
-        __pyx_t_41 = 14;
+        __pyx_t_43 = 18;
+        __pyx_t_44 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_ne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_ne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_ne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_ne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 283, __pyx_L1_error)
@@ -22933,7 +22738,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 283, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_44 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_42 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_38 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_47 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_48 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_49 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_51 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_55 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_57 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_41 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_43 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_38 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_47 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_48 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_49 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_51 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_55 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_57 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":284
  *                 values[counter_v + 42] = E_nw[21, 14] - E_tnw[2, 10] - E_nw[8, 14] - E_nw[28, 14] + E_tnw[15, 10] + E_tnw[28, 10]
@@ -23517,32 +23322,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 289, __pyx_L1_error)
         }
-        __pyx_t_41 = 28;
-        __pyx_t_42 = 13;
+        __pyx_t_44 = 28;
+        __pyx_t_43 = 13;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 289, __pyx_L1_error)
         }
-        __pyx_t_43 = 31;
-        __pyx_t_44 = 14;
+        __pyx_t_42 = 31;
+        __pyx_t_41 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 289, __pyx_L1_error)
@@ -23569,7 +23374,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 289, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_48 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_58 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_56 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_54 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_35 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_39 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_43 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_48 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_58 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_56 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_54 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_35 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_39 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_42 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":290
  *                 values[counter_v + 48] = E_tnw[15, 12] - E_tsw[5, 14] - E_tnw[2, 12] - E_tsw[15, 14] + E_tnw[28, 12] + E_tsw[34, 14]
@@ -23593,32 +23398,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 290, __pyx_L1_error)
         }
-        __pyx_t_44 = 5;
-        __pyx_t_43 = 15;
+        __pyx_t_41 = 5;
+        __pyx_t_42 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 290, __pyx_L1_error)
         }
-        __pyx_t_42 = 12;
-        __pyx_t_41 = 13;
+        __pyx_t_43 = 12;
+        __pyx_t_44 = 13;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 290, __pyx_L1_error)
@@ -23675,7 +23480,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 290, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_44 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_38 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_41 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_38 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":291
  *                 values[counter_v + 49] = E_tne[2, 12] - E_tnw[2, 13] + E_tse[5, 14] - E_tsw[5, 15] + E_tne[12, 12] - E_tse[12, 14] + E_tnw[15, 13] - E_tsw[15, 15] + E_tne[25, 12] + E_tnw[28, 13] + E_tse[31, 14] + E_tsw[34, 15]
@@ -23790,32 +23595,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 292, __pyx_L1_error)
         }
-        __pyx_t_41 = 15;
-        __pyx_t_42 = 15;
+        __pyx_t_44 = 15;
+        __pyx_t_43 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 292, __pyx_L1_error)
         }
-        __pyx_t_43 = 25;
-        __pyx_t_44 = 14;
+        __pyx_t_42 = 25;
+        __pyx_t_41 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 292, __pyx_L1_error)
@@ -23842,7 +23647,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 292, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_38 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_38 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":293
  *                 values[counter_v + 51] = E_tnw[15, 14] - E_tnw[2, 14] + E_tnw[28, 14]
@@ -23866,32 +23671,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 293, __pyx_L1_error)
         }
-        __pyx_t_44 = 12;
-        __pyx_t_43 = 15;
+        __pyx_t_41 = 12;
+        __pyx_t_42 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 293, __pyx_L1_error)
         }
-        __pyx_t_42 = 25;
-        __pyx_t_41 = 15;
+        __pyx_t_43 = 25;
+        __pyx_t_44 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 293, __pyx_L1_error)
@@ -23903,7 +23708,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 293, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_44 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_41 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":294
  *                 values[counter_v + 52] = E_tne[2, 14] - E_tnw[2, 15] + E_tne[12, 14] + E_tnw[15, 15] + E_tne[25, 14] + E_tnw[28, 15]
@@ -23912,32 +23717,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
  *                 values[counter_v + 55] = E_se[11, 16] - E_sw[11, 17] - E_se[18, 16] - E_sw[21, 17] - E_se[31, 16] - E_sw[34, 17]
  *                 values[counter_v + 56] = E_se[11, 17] - E_se[18, 17] - E_se[31, 17]
  */
-        __pyx_t_41 = 11;
-        __pyx_t_42 = 16;
+        __pyx_t_44 = 11;
+        __pyx_t_43 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 294, __pyx_L1_error)
         }
-        __pyx_t_43 = 21;
-        __pyx_t_44 = 16;
+        __pyx_t_42 = 21;
+        __pyx_t_41 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 294, __pyx_L1_error)
@@ -23964,7 +23769,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 294, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":295
  *                 values[counter_v + 53] = E_tne[2, 15] + E_tne[12, 15] + E_tne[25, 15]
@@ -23988,32 +23793,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 295, __pyx_L1_error)
         }
-        __pyx_t_44 = 11;
-        __pyx_t_43 = 17;
+        __pyx_t_41 = 11;
+        __pyx_t_42 = 17;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 295, __pyx_L1_error)
         }
-        __pyx_t_42 = 18;
-        __pyx_t_41 = 16;
+        __pyx_t_43 = 18;
+        __pyx_t_44 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 295, __pyx_L1_error)
@@ -24070,7 +23875,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 295, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_42 * __pyx_v_E_se.strides[0]) ) + __pyx_t_41 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_35 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_37 * __pyx_v_E_se.strides[0]) ) + __pyx_t_38 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_43 * __pyx_v_E_se.strides[0]) ) + __pyx_t_44 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_35 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_37 * __pyx_v_E_se.strides[0]) ) + __pyx_t_38 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":296
  *                 values[counter_v + 54] = - E_sw[11, 16] - E_sw[21, 16] - E_sw[34, 16]
@@ -24185,32 +23990,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 297, __pyx_L1_error)
         }
-        __pyx_t_41 = 28;
-        __pyx_t_42 = 16;
+        __pyx_t_44 = 28;
+        __pyx_t_43 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 297, __pyx_L1_error)
         }
-        __pyx_t_43 = 21;
-        __pyx_t_44 = 18;
+        __pyx_t_42 = 21;
+        __pyx_t_41 = 18;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 297, __pyx_L1_error)
@@ -24237,7 +24042,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 297, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_41 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_44 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":298
  *                 values[counter_v + 56] = E_se[11, 17] - E_se[18, 17] - E_se[31, 17]
@@ -24261,32 +24066,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 298, __pyx_L1_error)
         }
-        __pyx_t_44 = 8;
-        __pyx_t_43 = 17;
+        __pyx_t_41 = 8;
+        __pyx_t_42 = 17;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 298, __pyx_L1_error)
         }
-        __pyx_t_42 = 18;
-        __pyx_t_41 = 16;
+        __pyx_t_43 = 18;
+        __pyx_t_44 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_ne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_ne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_ne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_ne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 298, __pyx_L1_error)
@@ -24433,7 +24238,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 298, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_44 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_42 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_40 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_36 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_53 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_54 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_55 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_57 * __pyx_v_E_se.strides[0]) ) + __pyx_t_58 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_47 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_51 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_41 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_43 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_40 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_36 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_53 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_54 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_55 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_57 * __pyx_v_E_se.strides[0]) ) + __pyx_t_58 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_47 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_51 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":299
  *                 values[counter_v + 57] = E_nw[21, 16] - E_nw[8, 16] - E_sw[11, 18] - E_nw[28, 16] - E_sw[21, 18] - E_sw[34, 18]
@@ -25017,32 +24822,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 304, __pyx_L1_error)
         }
-        __pyx_t_41 = 34;
-        __pyx_t_42 = 21;
+        __pyx_t_44 = 34;
+        __pyx_t_43 = 21;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 304, __pyx_L1_error)
         }
-        __pyx_t_43 = 31;
-        __pyx_t_44 = 16;
+        __pyx_t_42 = 31;
+        __pyx_t_41 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 304, __pyx_L1_error)
@@ -25069,7 +24874,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 304, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_58 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tse.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_56 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_54 * __pyx_v_E_se.strides[0]) ) + __pyx_t_53 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_52 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_51 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_50 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_48 * __pyx_v_E_se.strides[0]) ) + __pyx_t_47 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_35 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_37 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_39 * __pyx_v_E_se.strides[0]) ) + __pyx_t_40 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_43 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_58 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tse.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_56 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_54 * __pyx_v_E_se.strides[0]) ) + __pyx_t_53 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_52 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_51 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_50 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_48 * __pyx_v_E_se.strides[0]) ) + __pyx_t_47 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_35 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_37 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_39 * __pyx_v_E_se.strides[0]) ) + __pyx_t_40 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_42 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":305
  *                 values[counter_v + 63] = E_tsw[34, 16] - E_sw[11, 20] - E_tsw[15, 16] - E_sw[21, 20] - E_sw[34, 20] - E_tsw[5, 16]
@@ -25093,32 +24898,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 305, __pyx_L1_error)
         }
-        __pyx_t_44 = 11;
-        __pyx_t_43 = 21;
+        __pyx_t_41 = 11;
+        __pyx_t_42 = 21;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 305, __pyx_L1_error)
         }
-        __pyx_t_42 = 12;
-        __pyx_t_41 = 17;
+        __pyx_t_43 = 12;
+        __pyx_t_44 = 17;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 305, __pyx_L1_error)
@@ -25175,7 +24980,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 305, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_46 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tse.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_44 * __pyx_v_E_se.strides[0]) ) + __pyx_t_43 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_42 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_40 * __pyx_v_E_se.strides[0]) ) + __pyx_t_39 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_46 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tse.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_41 * __pyx_v_E_se.strides[0]) ) + __pyx_t_42 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_43 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_40 * __pyx_v_E_se.strides[0]) ) + __pyx_t_39 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":306
  *                 values[counter_v + 64] = E_tse[5, 16] - E_tsw[5, 17] + E_se[11, 20] - E_sw[11, 21] - E_tse[12, 16] - E_se[18, 20] - E_tsw[15, 17] - E_sw[21, 21] - E_se[31, 20] - E_sw[34, 21] + E_tse[31, 16] + E_tsw[34, 17]
@@ -25229,32 +25034,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 306, __pyx_L1_error)
         }
-        __pyx_t_41 = 5;
-        __pyx_t_42 = 18;
+        __pyx_t_44 = 5;
+        __pyx_t_43 = 18;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tsw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tsw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tsw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tsw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 306, __pyx_L1_error)
         }
-        __pyx_t_43 = 11;
-        __pyx_t_44 = 22;
+        __pyx_t_42 = 11;
+        __pyx_t_41 = 22;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 306, __pyx_L1_error)
@@ -25371,7 +25176,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 306, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_41 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_45 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_47 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_49 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_51 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_55 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_44 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_45 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_47 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_49 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_51 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_55 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":307
  *                 values[counter_v + 65] = E_tse[5, 17] + E_se[11, 21] - E_tse[12, 17] - E_se[18, 21] - E_se[31, 21] + E_tse[31, 17]
@@ -25485,32 +25290,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 307, __pyx_L1_error)
         }
-        __pyx_t_44 = 5;
-        __pyx_t_43 = 19;
+        __pyx_t_41 = 5;
+        __pyx_t_42 = 19;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tsw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tsw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tsw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tsw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 307, __pyx_L1_error)
         }
-        __pyx_t_42 = 11;
-        __pyx_t_41 = 22;
+        __pyx_t_43 = 11;
+        __pyx_t_44 = 22;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 307, __pyx_L1_error)
@@ -25747,7 +25552,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 307, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_56 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_54 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_48 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_46 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_45 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_44 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_42 * __pyx_v_E_se.strides[0]) ) + __pyx_t_41 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_40 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_38 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_17 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_18 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_19 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_21 * __pyx_v_E_se.strides[0]) ) + __pyx_t_22 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_10 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_8 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_29 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_30 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_31 * __pyx_v_E_se.strides[0]) ) + __pyx_t_32 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_33 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_23 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_25 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_56 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_54 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_48 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_46 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_45 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_41 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_43 * __pyx_v_E_se.strides[0]) ) + __pyx_t_44 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_40 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_38 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_17 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_18 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_19 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_21 * __pyx_v_E_se.strides[0]) ) + __pyx_t_22 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_10 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_8 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_29 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_30 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_31 * __pyx_v_E_se.strides[0]) ) + __pyx_t_32 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_33 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_23 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_25 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":308
  *                 values[counter_v + 66] = E_nw[21, 20] - E_tnw[2, 16] - E_nw[8, 20] - E_tsw[5, 18] - E_sw[11, 22] - E_nw[28, 20] + E_tnw[15, 16] - E_tsw[15, 18] - E_sw[21, 22] + E_tnw[28, 16] - E_sw[34, 22] + E_tsw[34, 18]
@@ -27217,520 +27022,338 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
         }
         *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_15 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_7 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_9 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tne.strides[1]) ))));
 
-        /* "pumapy/physicsmodels/elasticity_utils.pyx":323
- * 
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_cv[i, j, k, 1] = True
- *                     values[counter_v:counter_v + 81] = np.NAN
- */
-        __Pyx_GetModuleGlobalName(__pyx_t_61, __pyx_n_s_np); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_61);
-        __pyx_t_60 = __Pyx_PyObject_GetAttrStr(__pyx_t_61, __pyx_n_s_sum); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_60);
-        __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-        __Pyx_GetModuleGlobalName(__pyx_t_63, __pyx_n_s_np); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_63);
-        __pyx_t_59 = __Pyx_PyObject_GetAttrStr(__pyx_t_63, __pyx_n_s_abs); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_59);
-        __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-        __pyx_t_64.data = __pyx_v_values.data;
-        __pyx_t_64.memview = __pyx_v_values.memview;
-        __PYX_INC_MEMVIEW(&__pyx_t_64, 0);
-        __pyx_t_11 = -1;
-        if (unlikely(__pyx_memoryview_slice_memviewslice(
-    &__pyx_t_64,
-    __pyx_v_values.shape[0], __pyx_v_values.strides[0], __pyx_v_values.suboffsets[0],
-    0,
-    0,
-    &__pyx_t_11,
-    __pyx_v_counter_v,
-    (__pyx_v_counter_v + 81),
-    0,
-    1,
-    1,
-    0,
-    1) < 0))
-{
-    __PYX_ERR(0, 323, __pyx_L1_error)
-}
-
-__pyx_t_63 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_63);
-        __PYX_XDEC_MEMVIEW(&__pyx_t_64, 1);
-        __pyx_t_64.memview = NULL;
-        __pyx_t_64.data = NULL;
-        __pyx_t_65 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_59))) {
-          __pyx_t_65 = PyMethod_GET_SELF(__pyx_t_59);
-          if (likely(__pyx_t_65)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_59);
-            __Pyx_INCREF(__pyx_t_65);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_59, function);
-          }
-        }
-        __pyx_t_61 = (__pyx_t_65) ? __Pyx_PyObject_Call2Args(__pyx_t_59, __pyx_t_65, __pyx_t_63) : __Pyx_PyObject_CallOneArg(__pyx_t_59, __pyx_t_63);
-        __Pyx_XDECREF(__pyx_t_65); __pyx_t_65 = 0;
-        __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-        if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_61);
-        __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-        __pyx_t_59 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_60))) {
-          __pyx_t_59 = PyMethod_GET_SELF(__pyx_t_60);
-          if (likely(__pyx_t_59)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_60);
-            __Pyx_INCREF(__pyx_t_59);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_60, function);
-          }
-        }
-        __pyx_t_62 = (__pyx_t_59) ? __Pyx_PyObject_Call2Args(__pyx_t_60, __pyx_t_59, __pyx_t_61) : __Pyx_PyObject_CallOneArg(__pyx_t_60, __pyx_t_61);
-        __Pyx_XDECREF(__pyx_t_59); __pyx_t_59 = 0;
-        __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-        if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_62);
-        __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-        __pyx_t_60 = __Pyx_PyInt_EqObjC(__pyx_t_62, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_60);
-        __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_60); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 323, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-        if (__pyx_t_12) {
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":324
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_cv[i, j, k, 1] = True             # <<<<<<<<<<<<<<
- *                     values[counter_v:counter_v + 81] = np.NAN
- *                 else:
- */
-          __pyx_t_10 = __pyx_v_i;
-          __pyx_t_9 = __pyx_v_j;
-          __pyx_t_8 = __pyx_v_k;
-          __pyx_t_7 = 1;
-          __pyx_t_11 = -1;
-          if (__pyx_t_10 < 0) {
-            __pyx_t_10 += __pyx_v_dir_cv.shape[0];
-            if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-          } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
-          if (__pyx_t_9 < 0) {
-            __pyx_t_9 += __pyx_v_dir_cv.shape[1];
-            if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-          } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
-          if (__pyx_t_8 < 0) {
-            __pyx_t_8 += __pyx_v_dir_cv.shape[2];
-            if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 2;
-          } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
-          if (__pyx_t_7 < 0) {
-            __pyx_t_7 += __pyx_v_dir_cv.shape[3];
-            if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 3;
-          } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
-          if (unlikely(__pyx_t_11 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_11);
-            __PYX_ERR(0, 324, __pyx_L1_error)
-          }
-          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_10 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_9 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_8 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_7 * __pyx_v_dir_cv.strides[3]) )) = 1;
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":325
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_cv[i, j, k, 1] = True
- *                     values[counter_v:counter_v + 81] = np.NAN             # <<<<<<<<<<<<<<
- *                 else:
- *                     for k2 in range(-1, 2):
- */
-          __Pyx_GetModuleGlobalName(__pyx_t_60, __pyx_n_s_np); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_60);
-          __pyx_t_62 = __Pyx_PyObject_GetAttrStr(__pyx_t_60, __pyx_n_s_NAN); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_62);
-          __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-          __pyx_t_66 = __pyx_PyFloat_AsDouble(__pyx_t_62); if (unlikely((__pyx_t_66 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-          __pyx_t_64.data = __pyx_v_values.data;
-          __pyx_t_64.memview = __pyx_v_values.memview;
-          __PYX_INC_MEMVIEW(&__pyx_t_64, 0);
-          __pyx_t_11 = -1;
-          if (unlikely(__pyx_memoryview_slice_memviewslice(
-    &__pyx_t_64,
-    __pyx_v_values.shape[0], __pyx_v_values.strides[0], __pyx_v_values.suboffsets[0],
-    0,
-    0,
-    &__pyx_t_11,
-    __pyx_v_counter_v,
-    (__pyx_v_counter_v + 81),
-    0,
-    1,
-    1,
-    0,
-    1) < 0))
-{
-    __PYX_ERR(0, 325, __pyx_L1_error)
-}
-
-{
-              double __pyx_temp_scalar = __pyx_t_66;
-              {
-                  Py_ssize_t __pyx_temp_extent_0 = __pyx_t_64.shape[0];
-                  Py_ssize_t __pyx_temp_stride_0 = __pyx_t_64.strides[0];
-                  char *__pyx_temp_pointer_0;
-                  Py_ssize_t __pyx_temp_idx_0;
-                  __pyx_temp_pointer_0 = __pyx_t_64.data;
-                  for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 < __pyx_temp_extent_0; __pyx_temp_idx_0++) {
-                    *((double *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
-                    __pyx_temp_pointer_0 += __pyx_temp_stride_0;
-                  }
-              }
-          }
-          __PYX_XDEC_MEMVIEW(&__pyx_t_64, 1);
-          __pyx_t_64.memview = NULL;
-          __pyx_t_64.data = NULL;
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":323
- * 
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_cv[i, j, k, 1] = True
- *                     values[counter_v:counter_v + 81] = np.NAN
- */
-          goto __pyx_L32;
-        }
-
         /* "pumapy/physicsmodels/elasticity_utils.pyx":327
- *                     values[counter_v:counter_v + 81] = np.NAN
- *                 else:
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
+ *                 #     values[counter_v:counter_v + 81] = np.NAN
+ *                 # else:
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
  */
-        /*else*/ {
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_62 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 327, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_62);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_62);
-            __pyx_t_62 = 0;
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_67 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 327, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_67);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_67);
+          __pyx_t_67 = 0;
 
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":328
- *                 else:
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":328
+ *                 # else:
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
  */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_62 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 328, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_62);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_62);
-              __pyx_t_62 = 0;
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_67 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 328, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_67);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_67);
+            __pyx_t_67 = 0;
 
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":329
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":329
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
  */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_62 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 329, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_62);
-                __pyx_t_62 = 0;
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_67 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 329, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_67);
+              __pyx_t_67 = 0;
 
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":330
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":330
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
  */
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_59 = PyNumber_Add(__pyx_t_61, __pyx_v_k2); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Multiply(__pyx_t_60, __pyx_t_59); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_60 = PyNumber_Add(__pyx_t_59, __pyx_v_j2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = PyNumber_Add(__pyx_t_61, __pyx_t_60); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Multiply(__pyx_t_62, __pyx_t_59); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_62 = PyNumber_Add(__pyx_t_59, __pyx_v_i2); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = PyNumber_Add(__pyx_t_60, __pyx_t_62); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_59); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 330, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 330, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":331
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_65 = PyNumber_Add(__pyx_t_64, __pyx_v_k2); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Multiply(__pyx_t_63, __pyx_t_65); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_65, __pyx_v_j2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Multiply(__pyx_t_67, __pyx_t_65); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_67 = PyNumber_Add(__pyx_t_65, __pyx_v_i2); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = PyNumber_Add(__pyx_t_63, __pyx_t_67); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_65); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 330, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 330, __pyx_L1_error)
               }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":331
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
             }
           }
+        }
 
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":332
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":332
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
  */
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_59 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 332, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_59);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_59);
-            __pyx_t_59 = 0;
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 332, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_65);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_65);
+          __pyx_t_65 = 0;
 
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":333
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":333
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
  */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_59 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 333, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_59);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_59);
-              __pyx_t_59 = 0;
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 333, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_65);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_65);
+            __pyx_t_65 = 0;
 
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":334
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":334
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
  */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_59 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 334, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_59);
-                __pyx_t_59 = 0;
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 334, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_65);
+              __pyx_t_65 = 0;
 
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":335
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":335
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
  */
-                __pyx_t_59 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_len_xyz); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_63 = PyNumber_Add(__pyx_t_61, __pyx_v_k2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Multiply(__pyx_t_60, __pyx_t_63); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_60 = PyNumber_Add(__pyx_t_63, __pyx_v_j2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = PyNumber_Add(__pyx_t_61, __pyx_t_60); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Multiply(__pyx_t_62, __pyx_t_63); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = PyNumber_Add(__pyx_t_59, __pyx_t_60); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_59 = PyNumber_Add(__pyx_t_60, __pyx_v_i2); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Add(__pyx_t_63, __pyx_t_59); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_60); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 335, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 335, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":336
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
-              }
-            }
-          }
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":337
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- */
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 337, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_60);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_60);
-            __pyx_t_60 = 0;
-
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":338
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 338, __pyx_L1_error)
+              __pyx_t_65 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_len_xyz); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_60 = PyNumber_Add(__pyx_t_64, __pyx_v_k2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_60);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_60);
-              __pyx_t_60 = 0;
-
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":339
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 339, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_60);
-                __pyx_t_60 = 0;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":340
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
- * 
- */
-                __pyx_t_60 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG((2 * __pyx_v_len_xyz)); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_61 = PyNumber_Add(__pyx_t_62, __pyx_v_k2); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = PyNumber_Multiply(__pyx_t_63, __pyx_t_61); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_63 = PyNumber_Add(__pyx_t_61, __pyx_v_j2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Add(__pyx_t_62, __pyx_t_63); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = PyNumber_Multiply(__pyx_t_59, __pyx_t_61); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Add(__pyx_t_60, __pyx_t_63); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_60 = PyNumber_Add(__pyx_t_63, __pyx_v_i2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = PyNumber_Add(__pyx_t_61, __pyx_t_60); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_63); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 340, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 340, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":341
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- * 
- *                     counter_v += 81
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Multiply(__pyx_t_63, __pyx_t_60); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_60, __pyx_v_j2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_60 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Multiply(__pyx_t_67, __pyx_t_60); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_60 = PyNumber_Add(__pyx_t_65, __pyx_t_63); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_65 = PyNumber_Add(__pyx_t_63, __pyx_v_i2); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Add(__pyx_t_60, __pyx_t_65); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_63); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 335, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 335, __pyx_L1_error)
               }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":336
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
             }
           }
+        }
 
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":343
- *                                 counter_j += 1
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":337
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ */
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 337, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_63);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_63);
+          __pyx_t_63 = 0;
+
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":338
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ */
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 338, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_63);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_63);
+            __pyx_t_63 = 0;
+
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":339
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ */
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 339, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_63);
+              __pyx_t_63 = 0;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":340
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
  * 
- *                     counter_v += 81             # <<<<<<<<<<<<<<
+ */
+              __pyx_t_63 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG((2 * __pyx_v_len_xyz)); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_64 = PyNumber_Add(__pyx_t_67, __pyx_v_k2); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Multiply(__pyx_t_60, __pyx_t_64); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_60 = PyNumber_Add(__pyx_t_64, __pyx_v_j2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Add(__pyx_t_67, __pyx_t_60); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_60 = PyNumber_Multiply(__pyx_t_65, __pyx_t_64); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Add(__pyx_t_63, __pyx_t_60); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_60, __pyx_v_i2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_60 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_60); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 340, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 340, __pyx_L1_error)
+              }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":341
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ * 
+ *                 counter_v += 81
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+            }
+          }
+        }
+
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":343
+ *                             counter_j += 1
+ * 
+ *                 counter_v += 81             # <<<<<<<<<<<<<<
  * 
  *     # divP_z
  */
-          __pyx_v_counter_v = (__pyx_v_counter_v + 81);
-        }
-        __pyx_L32:;
+        __pyx_v_counter_v = (__pyx_v_counter_v + 81);
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":228
  * 
@@ -27774,32 +27397,32 @@ __pyx_t_63 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
  * 
  *                 # Computing x and y divergence equations for P control volume
  */
-      __pyx_t_7 = __pyx_v_i;
-      __pyx_t_8 = __pyx_v_j;
-      __pyx_t_9 = __pyx_v_k;
-      __pyx_t_10 = 2;
+      __pyx_t_10 = __pyx_v_i;
+      __pyx_t_9 = __pyx_v_j;
+      __pyx_t_8 = __pyx_v_k;
+      __pyx_t_7 = 2;
       __pyx_t_11 = -1;
-      if (__pyx_t_7 < 0) {
-        __pyx_t_7 += __pyx_v_dir_cv.shape[0];
-        if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-      } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
-      if (__pyx_t_8 < 0) {
-        __pyx_t_8 += __pyx_v_dir_cv.shape[1];
-        if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-      } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
-      if (__pyx_t_9 < 0) {
-        __pyx_t_9 += __pyx_v_dir_cv.shape[2];
-        if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 2;
-      } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
       if (__pyx_t_10 < 0) {
-        __pyx_t_10 += __pyx_v_dir_cv.shape[3];
-        if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 3;
-      } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
+        __pyx_t_10 += __pyx_v_dir_cv.shape[0];
+        if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+      } else if (unlikely(__pyx_t_10 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
+      if (__pyx_t_9 < 0) {
+        __pyx_t_9 += __pyx_v_dir_cv.shape[1];
+        if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+      } else if (unlikely(__pyx_t_9 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
+      if (__pyx_t_8 < 0) {
+        __pyx_t_8 += __pyx_v_dir_cv.shape[2];
+        if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 2;
+      } else if (unlikely(__pyx_t_8 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
+      if (__pyx_t_7 < 0) {
+        __pyx_t_7 += __pyx_v_dir_cv.shape[3];
+        if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 3;
+      } else if (unlikely(__pyx_t_7 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
       if (unlikely(__pyx_t_11 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_11);
         __PYX_ERR(0, 350, __pyx_L1_error)
       }
-      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_7 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_8 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_9 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_10 * __pyx_v_dir_cv.strides[3]) ))) != 0)) != 0);
+      __pyx_t_12 = ((!((*((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_10 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_9 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_8 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_7 * __pyx_v_dir_cv.strides[3]) ))) != 0)) != 0);
       if (__pyx_t_12) {
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":353
@@ -28329,32 +27952,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
  *                 values[counter_v +  1] = E_se[10, 0] - E_sw[10, 1] - E_se[20, 0] - E_sw[23, 1] - E_se[30, 0] - E_sw[33, 1]
  *                 values[counter_v +  2] = E_se[10, 1] - E_se[20, 1] - E_se[30, 1]
  */
-        __pyx_t_10 = 10;
-        __pyx_t_9 = 0;
+        __pyx_t_7 = 10;
+        __pyx_t_8 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 362, __pyx_L1_error)
         }
-        __pyx_t_8 = 23;
-        __pyx_t_7 = 0;
+        __pyx_t_9 = 23;
+        __pyx_t_10 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 362, __pyx_L1_error)
@@ -28381,7 +28004,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 362, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_8 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_9 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":363
  * 
@@ -28405,32 +28028,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 363, __pyx_L1_error)
         }
-        __pyx_t_7 = 10;
-        __pyx_t_8 = 1;
+        __pyx_t_10 = 10;
+        __pyx_t_9 = 1;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 363, __pyx_L1_error)
         }
-        __pyx_t_9 = 20;
-        __pyx_t_10 = 0;
+        __pyx_t_8 = 20;
+        __pyx_t_7 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 363, __pyx_L1_error)
@@ -28487,7 +28110,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 363, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_15 * __pyx_v_E_se.strides[0]) ) + __pyx_t_14 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_9 * __pyx_v_E_se.strides[0]) ) + __pyx_t_10 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_17 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_19 * __pyx_v_E_se.strides[0]) ) + __pyx_t_20 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_21 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_15 * __pyx_v_E_se.strides[0]) ) + __pyx_t_14 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_8 * __pyx_v_E_se.strides[0]) ) + __pyx_t_7 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_17 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_19 * __pyx_v_E_se.strides[0]) ) + __pyx_t_20 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_21 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":364
  *                 values[counter_v +  0] = - E_sw[10, 0] - E_sw[23, 0] - E_sw[33, 0]
@@ -28602,32 +28225,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 365, __pyx_L1_error)
         }
-        __pyx_t_10 = 10;
-        __pyx_t_9 = 2;
+        __pyx_t_7 = 10;
+        __pyx_t_8 = 2;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 365, __pyx_L1_error)
         }
-        __pyx_t_8 = 23;
-        __pyx_t_7 = 2;
+        __pyx_t_9 = 23;
+        __pyx_t_10 = 2;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 365, __pyx_L1_error)
@@ -28654,7 +28277,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 365, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_19 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_21 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_8 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_19 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_21 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_9 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":366
  *                 values[counter_v +  2] = E_se[10, 1] - E_se[20, 1] - E_se[30, 1]
@@ -28678,32 +28301,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 366, __pyx_L1_error)
         }
-        __pyx_t_7 = 7;
-        __pyx_t_8 = 1;
+        __pyx_t_10 = 7;
+        __pyx_t_9 = 1;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 366, __pyx_L1_error)
         }
-        __pyx_t_9 = 20;
-        __pyx_t_10 = 0;
+        __pyx_t_8 = 20;
+        __pyx_t_7 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_ne.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_ne.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_ne.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_ne.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 366, __pyx_L1_error)
@@ -28850,7 +28473,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 366, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_15 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_7 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_9 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_10 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_22 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_21 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_20 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_19 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_18 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_23 * __pyx_v_E_se.strides[0]) ) + __pyx_t_24 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_25 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_26 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_27 * __pyx_v_E_se.strides[0]) ) + __pyx_t_28 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_29 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_31 * __pyx_v_E_se.strides[0]) ) + __pyx_t_32 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_33 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_15 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_10 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_8 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_7 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_22 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_21 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_20 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_19 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_18 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_23 * __pyx_v_E_se.strides[0]) ) + __pyx_t_24 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_25 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_26 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_27 * __pyx_v_E_se.strides[0]) ) + __pyx_t_28 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_29 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_31 * __pyx_v_E_se.strides[0]) ) + __pyx_t_32 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_33 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":367
  *                 values[counter_v +  3] = E_nw[23, 0] - E_nw[7, 0] - E_nw[27, 0] - E_sw[10, 2] - E_sw[23, 2] - E_sw[33, 2]
@@ -29434,32 +29057,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 372, __pyx_L1_error)
         }
-        __pyx_t_10 = 17;
-        __pyx_t_9 = 1;
+        __pyx_t_7 = 17;
+        __pyx_t_8 = 1;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_tsw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_tsw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_tsw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_tsw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 372, __pyx_L1_error)
         }
-        __pyx_t_8 = 30;
-        __pyx_t_7 = 0;
+        __pyx_t_9 = 30;
+        __pyx_t_10 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 372, __pyx_L1_error)
@@ -29486,7 +29109,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 372, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_28 * __pyx_v_E_se.strides[0]) ) + __pyx_t_27 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_26 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_24 * __pyx_v_E_se.strides[0]) ) + __pyx_t_23 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_34 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_33 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_32 * __pyx_v_E_se.strides[0]) ) + __pyx_t_31 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_30 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_29 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_17 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_18 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_19 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_21 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_10 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_8 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_14 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_28 * __pyx_v_E_se.strides[0]) ) + __pyx_t_27 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_26 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_24 * __pyx_v_E_se.strides[0]) ) + __pyx_t_23 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_34 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_33 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_32 * __pyx_v_E_se.strides[0]) ) + __pyx_t_31 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_30 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_29 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_17 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_18 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_19 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_21 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_7 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_9 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_14 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":373
  *                 values[counter_v +  9] = E_tsw[33, 0] - E_sw[23, 4] - E_sw[33, 4] - E_tsw[4, 0] - E_tsw[17, 0] - E_sw[10, 4]
@@ -29510,32 +29133,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 373, __pyx_L1_error)
         }
-        __pyx_t_7 = 20;
-        __pyx_t_8 = 5;
+        __pyx_t_10 = 20;
+        __pyx_t_9 = 5;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 373, __pyx_L1_error)
         }
-        __pyx_t_9 = 30;
-        __pyx_t_10 = 5;
+        __pyx_t_8 = 30;
+        __pyx_t_7 = 5;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 373, __pyx_L1_error)
@@ -29592,7 +29215,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 373, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_15 * __pyx_v_E_se.strides[0]) ) + __pyx_t_14 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_7 * __pyx_v_E_se.strides[0]) ) + __pyx_t_8 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_9 * __pyx_v_E_se.strides[0]) ) + __pyx_t_10 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_22 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_20 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_19 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_18 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_15 * __pyx_v_E_se.strides[0]) ) + __pyx_t_14 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_10 * __pyx_v_E_se.strides[0]) ) + __pyx_t_9 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_8 * __pyx_v_E_se.strides[0]) ) + __pyx_t_7 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_22 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_20 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_19 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_18 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":374
  *                 values[counter_v + 10] = E_se[10, 4] - E_sw[10, 5] - E_se[20, 4] - E_sw[23, 5] - E_se[30, 4] - E_sw[33, 5] + E_tse[4, 0] - E_tsw[4, 1] - E_tse[14, 0] - E_tsw[17, 1] + E_tse[30, 0] + E_tsw[33, 1]
@@ -29646,32 +29269,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 374, __pyx_L1_error)
         }
-        __pyx_t_10 = 10;
-        __pyx_t_9 = 6;
+        __pyx_t_7 = 10;
+        __pyx_t_8 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 374, __pyx_L1_error)
         }
-        __pyx_t_8 = 23;
-        __pyx_t_7 = 6;
+        __pyx_t_9 = 23;
+        __pyx_t_10 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 374, __pyx_L1_error)
@@ -29788,7 +29411,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 374, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_19 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_21 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_8 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_29 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_31 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_32 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_33 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_23 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_25 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_19 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_21 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_9 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_29 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_31 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_32 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_33 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_23 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_25 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":375
  *                 values[counter_v + 11] = E_se[10, 5] - E_se[20, 5] - E_se[30, 5] + E_tse[4, 1] - E_tse[14, 1] + E_tse[30, 1]
@@ -29902,32 +29525,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 375, __pyx_L1_error)
         }
-        __pyx_t_7 = 10;
-        __pyx_t_8 = 7;
+        __pyx_t_10 = 10;
+        __pyx_t_9 = 7;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 375, __pyx_L1_error)
         }
-        __pyx_t_9 = 20;
-        __pyx_t_10 = 6;
+        __pyx_t_8 = 20;
+        __pyx_t_7 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 375, __pyx_L1_error)
@@ -30022,32 +29645,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 375, __pyx_L1_error)
         }
-        __pyx_t_41 = 4;
-        __pyx_t_42 = 3;
+        __pyx_t_44 = 4;
+        __pyx_t_43 = 3;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tsw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tsw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tsw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tsw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 375, __pyx_L1_error)
         }
-        __pyx_t_43 = 14;
-        __pyx_t_44 = 0;
+        __pyx_t_42 = 14;
+        __pyx_t_41 = 0;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 375, __pyx_L1_error)
@@ -30164,7 +29787,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 375, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_28 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_27 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_26 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_24 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_23 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_34 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_33 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_32 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_31 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_30 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_29 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_15 * __pyx_v_E_se.strides[0]) ) + __pyx_t_14 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_9 * __pyx_v_E_se.strides[0]) ) + __pyx_t_10 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_22 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_21 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_20 * __pyx_v_E_se.strides[0]) ) + __pyx_t_19 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_18 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_35 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_39 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_41 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_45 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_47 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_49 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_51 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_55 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_28 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_27 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_26 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_24 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_23 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_34 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_33 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_32 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_31 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_30 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_29 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_15 * __pyx_v_E_se.strides[0]) ) + __pyx_t_14 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_8 * __pyx_v_E_se.strides[0]) ) + __pyx_t_7 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_22 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_21 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_20 * __pyx_v_E_se.strides[0]) ) + __pyx_t_19 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_18 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_35 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_39 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_44 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_45 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_47 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_49 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_51 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_55 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":376
  *                 values[counter_v + 12] = E_nw[23, 4] - E_nw[7, 4] - E_nw[27, 4] - E_sw[10, 6] - E_sw[23, 6] - E_sw[33, 6] - E_tnw[1, 0] - E_tsw[4, 2] + E_tnw[17, 0] - E_tsw[17, 2] + E_tnw[27, 0] + E_tsw[33, 2]
@@ -30278,32 +29901,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 376, __pyx_L1_error)
         }
-        __pyx_t_44 = 4;
-        __pyx_t_43 = 3;
+        __pyx_t_41 = 4;
+        __pyx_t_42 = 3;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 376, __pyx_L1_error)
         }
-        __pyx_t_42 = 14;
-        __pyx_t_41 = 1;
+        __pyx_t_43 = 14;
+        __pyx_t_44 = 1;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 376, __pyx_L1_error)
@@ -30360,7 +29983,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 376, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_56 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_54 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_52 * __pyx_v_E_se.strides[0]) ) + __pyx_t_51 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_48 * __pyx_v_E_se.strides[0]) ) + __pyx_t_47 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_44 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_38 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_56 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_54 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_52 * __pyx_v_E_se.strides[0]) ) + __pyx_t_51 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_48 * __pyx_v_E_se.strides[0]) ) + __pyx_t_47 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_41 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_38 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":377
  *                 values[counter_v + 13] = E_ne[7, 4] - E_nw[7, 5] + E_ne[20, 4] - E_ne[24, 4] + E_nw[23, 5] - E_nw[27, 5] + E_se[10, 6] - E_sw[10, 7] - E_se[20, 6] - E_sw[23, 7] - E_se[30, 6] + E_tne[1, 0] - E_sw[33, 7] - E_tnw[1, 1] + E_tse[4, 2] - E_tsw[4, 3] + E_tne[14, 0] - E_tse[14, 2] + E_tnw[17, 1] - E_tsw[17, 3] + E_tne[24, 0] + E_tnw[27, 1] + E_tse[30, 2] + E_tsw[33, 3]
@@ -30414,32 +30037,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 377, __pyx_L1_error)
         }
-        __pyx_t_41 = 1;
-        __pyx_t_42 = 2;
+        __pyx_t_44 = 1;
+        __pyx_t_43 = 2;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 377, __pyx_L1_error)
         }
-        __pyx_t_43 = 17;
-        __pyx_t_44 = 2;
+        __pyx_t_42 = 17;
+        __pyx_t_41 = 2;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 377, __pyx_L1_error)
@@ -30466,7 +30089,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 377, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_43 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_42 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":378
  *                 values[counter_v + 14] = E_ne[7, 5] + E_ne[20, 5] - E_ne[24, 5] + E_se[10, 7] - E_se[20, 7] - E_se[30, 7] + E_tne[1, 1] + E_tse[4, 3] + E_tne[14, 1] - E_tse[14, 3] + E_tne[24, 1] + E_tse[30, 3]
@@ -30490,32 +30113,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 378, __pyx_L1_error)
         }
-        __pyx_t_44 = 7;
-        __pyx_t_43 = 7;
+        __pyx_t_41 = 7;
+        __pyx_t_42 = 7;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 378, __pyx_L1_error)
         }
-        __pyx_t_42 = 20;
-        __pyx_t_41 = 6;
+        __pyx_t_43 = 20;
+        __pyx_t_44 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_ne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_ne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_ne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_ne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 378, __pyx_L1_error)
@@ -30662,7 +30285,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 378, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_44 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_42 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_40 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_38 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_47 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_49 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_51 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_55 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_57 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_41 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_43 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_40 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_38 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_47 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_49 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_51 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_55 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_57 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":379
  *                 values[counter_v + 15] = E_nw[23, 6] - E_nw[7, 6] - E_nw[27, 6] - E_tnw[1, 2] + E_tnw[17, 2] + E_tnw[27, 2]
@@ -31246,32 +30869,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 384, __pyx_L1_error)
         }
-        __pyx_t_41 = 27;
-        __pyx_t_42 = 5;
+        __pyx_t_44 = 27;
+        __pyx_t_43 = 5;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 384, __pyx_L1_error)
         }
-        __pyx_t_43 = 30;
-        __pyx_t_44 = 6;
+        __pyx_t_42 = 30;
+        __pyx_t_41 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 384, __pyx_L1_error)
@@ -31298,7 +30921,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 384, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_48 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_58 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_56 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_54 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_35 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_39 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_43 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_48 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_58 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_56 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_54 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_35 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_39 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_42 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":385
  *                 values[counter_v + 21] = E_tnw[17, 4] - E_tsw[4, 6] - E_tnw[1, 4] - E_tsw[17, 6] + E_tnw[27, 4] + E_tsw[33, 6]
@@ -31322,32 +30945,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 385, __pyx_L1_error)
         }
-        __pyx_t_44 = 4;
-        __pyx_t_43 = 7;
+        __pyx_t_41 = 4;
+        __pyx_t_42 = 7;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 385, __pyx_L1_error)
         }
-        __pyx_t_42 = 14;
-        __pyx_t_41 = 5;
+        __pyx_t_43 = 14;
+        __pyx_t_44 = 5;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 385, __pyx_L1_error)
@@ -31404,7 +31027,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 385, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_44 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_38 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_41 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_38 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":386
  *                 values[counter_v + 22] = E_tne[1, 4] - E_tnw[1, 5] + E_tse[4, 6] - E_tsw[4, 7] + E_tne[14, 4] - E_tse[14, 6] + E_tnw[17, 5] - E_tsw[17, 7] + E_tne[24, 4] + E_tnw[27, 5] + E_tse[30, 6] + E_tsw[33, 7]
@@ -31519,32 +31142,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 387, __pyx_L1_error)
         }
-        __pyx_t_41 = 17;
-        __pyx_t_42 = 7;
+        __pyx_t_44 = 17;
+        __pyx_t_43 = 7;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 387, __pyx_L1_error)
         }
-        __pyx_t_43 = 24;
-        __pyx_t_44 = 6;
+        __pyx_t_42 = 24;
+        __pyx_t_41 = 6;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 387, __pyx_L1_error)
@@ -31571,7 +31194,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 387, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_38 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_38 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":388
  *                 values[counter_v + 24] = E_tnw[17, 6] - E_tnw[1, 6] + E_tnw[27, 6]
@@ -31595,32 +31218,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 388, __pyx_L1_error)
         }
-        __pyx_t_44 = 14;
-        __pyx_t_43 = 7;
+        __pyx_t_41 = 14;
+        __pyx_t_42 = 7;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 388, __pyx_L1_error)
         }
-        __pyx_t_42 = 24;
-        __pyx_t_41 = 7;
+        __pyx_t_43 = 24;
+        __pyx_t_44 = 7;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 388, __pyx_L1_error)
@@ -31632,7 +31255,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 388, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_44 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_41 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":389
  *                 values[counter_v + 25] = E_tne[1, 6] - E_tnw[1, 7] + E_tne[14, 6] + E_tnw[17, 7] + E_tne[24, 6] + E_tnw[27, 7]
@@ -31641,32 +31264,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
  *                 values[counter_v + 28] = E_se[10, 8] - E_se[20, 8] - E_se[30, 8] - E_sw[10, 9] - E_sw[23, 9] - E_sw[33, 9]
  *                 values[counter_v + 29] = E_se[10, 9] - E_se[20, 9] - E_se[30, 9]
  */
-        __pyx_t_41 = 10;
-        __pyx_t_42 = 8;
+        __pyx_t_44 = 10;
+        __pyx_t_43 = 8;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 389, __pyx_L1_error)
         }
-        __pyx_t_43 = 23;
-        __pyx_t_44 = 8;
+        __pyx_t_42 = 23;
+        __pyx_t_41 = 8;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 389, __pyx_L1_error)
@@ -31693,7 +31316,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 389, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":390
  *                 values[counter_v + 26] = E_tne[1, 7] + E_tne[14, 7] + E_tne[24, 7]
@@ -31717,32 +31340,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 390, __pyx_L1_error)
         }
-        __pyx_t_44 = 20;
-        __pyx_t_43 = 8;
+        __pyx_t_41 = 20;
+        __pyx_t_42 = 8;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 390, __pyx_L1_error)
         }
-        __pyx_t_42 = 30;
-        __pyx_t_41 = 8;
+        __pyx_t_43 = 30;
+        __pyx_t_44 = 8;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 390, __pyx_L1_error)
@@ -31799,7 +31422,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 390, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_44 * __pyx_v_E_se.strides[0]) ) + __pyx_t_43 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_42 * __pyx_v_E_se.strides[0]) ) + __pyx_t_41 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_35 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_37 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_46 * __pyx_v_E_se.strides[0]) ) + __pyx_t_45 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_41 * __pyx_v_E_se.strides[0]) ) + __pyx_t_42 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_43 * __pyx_v_E_se.strides[0]) ) + __pyx_t_44 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_35 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_37 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":391
  *                 values[counter_v + 27] = - E_sw[10, 8] - E_sw[23, 8] - E_sw[33, 8]
@@ -31914,32 +31537,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 392, __pyx_L1_error)
         }
-        __pyx_t_41 = 10;
-        __pyx_t_42 = 10;
+        __pyx_t_44 = 10;
+        __pyx_t_43 = 10;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 392, __pyx_L1_error)
         }
-        __pyx_t_43 = 23;
-        __pyx_t_44 = 10;
+        __pyx_t_42 = 23;
+        __pyx_t_41 = 10;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 392, __pyx_L1_error)
@@ -31966,7 +31589,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 392, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_41 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_37 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_44 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":393
  *                 values[counter_v + 29] = E_se[10, 9] - E_se[20, 9] - E_se[30, 9]
@@ -31990,32 +31613,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 393, __pyx_L1_error)
         }
-        __pyx_t_44 = 20;
-        __pyx_t_43 = 8;
+        __pyx_t_41 = 20;
+        __pyx_t_42 = 8;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_ne.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_ne.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_ne.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_ne.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 393, __pyx_L1_error)
         }
-        __pyx_t_42 = 24;
-        __pyx_t_41 = 8;
+        __pyx_t_43 = 24;
+        __pyx_t_44 = 8;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_ne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_ne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_ne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_ne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 393, __pyx_L1_error)
@@ -32162,7 +31785,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 393, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_44 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_43 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_42 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_40 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_36 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_53 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_55 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_57 * __pyx_v_E_se.strides[0]) ) + __pyx_t_58 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_47 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_51 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_41 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_42 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_43 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_40 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_36 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_53 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_55 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_57 * __pyx_v_E_se.strides[0]) ) + __pyx_t_58 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_47 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_51 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":394
  *                 values[counter_v + 30] = E_nw[23, 8] - E_nw[7, 8] - E_nw[27, 8] - E_sw[10, 10] - E_sw[23, 10] - E_sw[33, 10]
@@ -32746,32 +32369,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 399, __pyx_L1_error)
         }
-        __pyx_t_41 = 30;
-        __pyx_t_42 = 12;
+        __pyx_t_44 = 30;
+        __pyx_t_43 = 12;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 399, __pyx_L1_error)
         }
-        __pyx_t_43 = 33;
-        __pyx_t_44 = 13;
+        __pyx_t_42 = 33;
+        __pyx_t_41 = 13;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 399, __pyx_L1_error)
@@ -32798,7 +32421,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 399, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_58 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tse.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_56 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_54 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_52 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_48 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_47 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_35 * __pyx_v_E_se.strides[0]) ) + __pyx_t_36 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_41 * __pyx_v_E_se.strides[0]) ) + __pyx_t_42 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_43 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_58 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tse.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_56 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_54 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_52 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_48 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_47 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_35 * __pyx_v_E_se.strides[0]) ) + __pyx_t_36 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_39 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_44 * __pyx_v_E_se.strides[0]) ) + __pyx_t_43 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_42 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":400
  *                 values[counter_v + 36] = E_tsw[33, 8] - E_tsw[17, 8] - E_tsw[4, 8] - E_sw[10, 12] - E_sw[23, 12] - E_sw[33, 12]
@@ -32822,32 +32445,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 400, __pyx_L1_error)
         }
-        __pyx_t_44 = 10;
-        __pyx_t_43 = 13;
+        __pyx_t_41 = 10;
+        __pyx_t_42 = 13;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 400, __pyx_L1_error)
         }
-        __pyx_t_42 = 14;
-        __pyx_t_41 = 9;
+        __pyx_t_43 = 14;
+        __pyx_t_44 = 9;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 400, __pyx_L1_error)
@@ -32904,7 +32527,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 400, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_46 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tse.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_44 * __pyx_v_E_se.strides[0]) ) + __pyx_t_43 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_42 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_40 * __pyx_v_E_se.strides[0]) ) + __pyx_t_39 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_46 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tse.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_41 * __pyx_v_E_se.strides[0]) ) + __pyx_t_42 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_43 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_40 * __pyx_v_E_se.strides[0]) ) + __pyx_t_39 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":401
  *                 values[counter_v + 37] = E_tse[4, 8] - E_tse[14, 8] + E_tse[30, 8] - E_tsw[4, 9] + E_se[10, 12] - E_sw[10, 13] - E_se[20, 12] - E_tsw[17, 9] - E_sw[23, 13] - E_se[30, 12] - E_sw[33, 13] + E_tsw[33, 9]
@@ -32958,32 +32581,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 401, __pyx_L1_error)
         }
-        __pyx_t_41 = 27;
-        __pyx_t_42 = 8;
+        __pyx_t_44 = 27;
+        __pyx_t_43 = 8;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 401, __pyx_L1_error)
         }
-        __pyx_t_43 = 4;
-        __pyx_t_44 = 10;
+        __pyx_t_42 = 4;
+        __pyx_t_41 = 10;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tsw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tsw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tsw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tsw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 401, __pyx_L1_error)
@@ -33100,7 +32723,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 401, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_35 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tnw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_43 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_47 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_49 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_51 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_53 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_55 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_35 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tnw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_42 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_47 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_48 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_49 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_51 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_53 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_55 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_56 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":402
  *                 values[counter_v + 38] = E_tse[4, 9] + E_se[10, 13] - E_tse[14, 9] - E_se[20, 13] - E_se[30, 13] + E_tse[30, 9]
@@ -33214,32 +32837,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 402, __pyx_L1_error)
         }
-        __pyx_t_44 = 4;
-        __pyx_t_43 = 10;
+        __pyx_t_41 = 4;
+        __pyx_t_42 = 10;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 402, __pyx_L1_error)
         }
-        __pyx_t_42 = 4;
-        __pyx_t_41 = 11;
+        __pyx_t_43 = 4;
+        __pyx_t_44 = 11;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tsw.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tsw.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tsw.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tsw.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 402, __pyx_L1_error)
@@ -33334,32 +32957,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 402, __pyx_L1_error)
         }
-        __pyx_t_10 = 20;
-        __pyx_t_9 = 14;
+        __pyx_t_7 = 20;
+        __pyx_t_8 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 402, __pyx_L1_error)
         }
-        __pyx_t_8 = 17;
-        __pyx_t_7 = 9;
+        __pyx_t_9 = 17;
+        __pyx_t_10 = 9;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 402, __pyx_L1_error)
@@ -33476,7 +33099,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 402, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_56 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_54 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_48 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_44 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_42 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_40 * __pyx_v_E_se.strides[0]) ) + __pyx_t_39 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_38 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_17 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_18 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_19 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_21 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_10 * __pyx_v_E_se.strides[0]) ) + __pyx_t_9 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_8 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_14 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_29 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_31 * __pyx_v_E_se.strides[0]) ) + __pyx_t_32 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_33 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_23 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_25 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_56 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_55 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_54 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_48 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_41 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_43 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_40 * __pyx_v_E_se.strides[0]) ) + __pyx_t_39 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_38 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_17 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_18 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_19 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_21 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_7 * __pyx_v_E_se.strides[0]) ) + __pyx_t_8 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_9 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_14 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_29 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_31 * __pyx_v_E_se.strides[0]) ) + __pyx_t_32 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_33 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_23 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_25 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":403
  *                 values[counter_v + 39] = E_tnw[17, 8] - E_tnw[1, 8] - E_nw[7, 12] + E_tnw[27, 8] - E_tsw[4, 10] - E_sw[10, 14] + E_nw[23, 12] - E_nw[27, 12] - E_tsw[17, 10] - E_sw[23, 14] - E_sw[33, 14] + E_tsw[33, 10]
@@ -33590,32 +33213,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 403, __pyx_L1_error)
         }
-        __pyx_t_7 = 14;
-        __pyx_t_8 = 11;
+        __pyx_t_10 = 14;
+        __pyx_t_9 = 11;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 403, __pyx_L1_error)
         }
-        __pyx_t_9 = 20;
-        __pyx_t_10 = 15;
+        __pyx_t_8 = 20;
+        __pyx_t_7 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 403, __pyx_L1_error)
@@ -33672,7 +33295,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 403, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_28 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_27 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_26 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_25 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_24 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_23 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_34 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_33 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_32 * __pyx_v_E_se.strides[0]) ) + __pyx_t_31 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_30 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_29 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_15 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_7 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_9 * __pyx_v_E_se.strides[0]) ) + __pyx_t_10 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_22 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_20 * __pyx_v_E_se.strides[0]) ) + __pyx_t_19 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_18 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_28 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_27 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_26 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_25 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_24 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_23 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_34 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_33 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_32 * __pyx_v_E_se.strides[0]) ) + __pyx_t_31 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_30 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_29 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_15 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_10 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_8 * __pyx_v_E_se.strides[0]) ) + __pyx_t_7 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_22 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_20 * __pyx_v_E_se.strides[0]) ) + __pyx_t_19 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_18 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":404
  *                 values[counter_v + 40] = E_ne[7, 12] - E_nw[7, 13] + E_tne[1, 8] + E_tne[14, 8] - E_tnw[1, 9] + E_tne[24, 8] + E_ne[20, 12] + E_tse[4, 10] - E_tsw[4, 11] + E_se[10, 14] - E_sw[10, 15] + E_nw[23, 13] - E_ne[24, 12] - E_nw[27, 13] - E_tse[14, 10] - E_se[20, 14] + E_tnw[17, 9] - E_tsw[17, 11] - E_sw[23, 15] - E_se[30, 14] + E_tnw[27, 9] - E_sw[33, 15] + E_tse[30, 10] + E_tsw[33, 11]
@@ -33726,32 +33349,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 404, __pyx_L1_error)
         }
-        __pyx_t_10 = 27;
-        __pyx_t_9 = 14;
+        __pyx_t_7 = 27;
+        __pyx_t_8 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 404, __pyx_L1_error)
         }
-        __pyx_t_8 = 17;
-        __pyx_t_7 = 10;
+        __pyx_t_9 = 17;
+        __pyx_t_10 = 10;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 404, __pyx_L1_error)
@@ -33778,7 +33401,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 404, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_19 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_21 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_10 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_8 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_14 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_19 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_21 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_7 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_9 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_14 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":405
  *                 values[counter_v + 41] = E_ne[7, 13] + E_tne[1, 9] + E_ne[20, 13] + E_tse[4, 11] + E_se[10, 15] - E_ne[24, 13] + E_tne[14, 9] - E_tse[14, 11] - E_se[20, 15] + E_tne[24, 9] - E_se[30, 15] + E_tse[30, 11]
@@ -33802,32 +33425,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 405, __pyx_L1_error)
         }
-        __pyx_t_7 = 7;
-        __pyx_t_8 = 15;
+        __pyx_t_10 = 7;
+        __pyx_t_9 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 405, __pyx_L1_error)
         }
-        __pyx_t_9 = 1;
-        __pyx_t_10 = 10;
+        __pyx_t_8 = 1;
+        __pyx_t_7 = 10;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 405, __pyx_L1_error)
@@ -33974,7 +33597,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 405, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_15 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_7 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_9 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_22 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_20 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_19 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_18 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_29 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_30 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_31 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_32 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_33 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_23 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_25 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_27 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_15 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_10 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_8 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_22 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_20 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_19 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_18 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_29 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_30 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_31 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_32 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_33 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_34 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_23 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_25 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_26 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_27 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":406
  *                 values[counter_v + 42] = E_nw[23, 14] - E_tnw[1, 10] - E_nw[7, 14] - E_nw[27, 14] + E_tnw[17, 10] + E_tnw[27, 10]
@@ -34558,32 +34181,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 411, __pyx_L1_error)
         }
-        __pyx_t_10 = 27;
-        __pyx_t_9 = 13;
+        __pyx_t_7 = 27;
+        __pyx_t_8 = 13;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 411, __pyx_L1_error)
         }
-        __pyx_t_8 = 30;
-        __pyx_t_7 = 14;
+        __pyx_t_9 = 30;
+        __pyx_t_10 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 411, __pyx_L1_error)
@@ -34610,7 +34233,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 411, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_34 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_33 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_32 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_31 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_30 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_29 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_28 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_27 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_26 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_25 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_24 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_23 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_17 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_19 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_21 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_10 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_8 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_14 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_34 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_33 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_32 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_31 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_30 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_29 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_28 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_27 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_26 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_25 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_24 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_23 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_17 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_19 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_21 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_7 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_9 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_14 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":412
  *                 values[counter_v + 48] = E_tnw[17, 12] - E_tsw[4, 14] - E_tnw[1, 12] - E_tsw[17, 14] + E_tnw[27, 12] + E_tsw[33, 14]
@@ -34634,32 +34257,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 412, __pyx_L1_error)
         }
-        __pyx_t_7 = 4;
-        __pyx_t_8 = 15;
+        __pyx_t_10 = 4;
+        __pyx_t_9 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 412, __pyx_L1_error)
         }
-        __pyx_t_9 = 14;
-        __pyx_t_10 = 13;
+        __pyx_t_8 = 14;
+        __pyx_t_7 = 13;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 412, __pyx_L1_error)
@@ -34716,7 +34339,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 412, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_15 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_7 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_9 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_22 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_20 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_19 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_18 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_15 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_10 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_8 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_22 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_20 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_19 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_18 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":413
  *                 values[counter_v + 49] = E_tne[1, 12] - E_tnw[1, 13] + E_tse[4, 14] - E_tsw[4, 15] + E_tne[14, 12] - E_tse[14, 14] + E_tnw[17, 13] - E_tsw[17, 15] + E_tne[24, 12] + E_tnw[27, 13] + E_tse[30, 14] + E_tsw[33, 15]
@@ -34831,32 +34454,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 414, __pyx_L1_error)
         }
-        __pyx_t_10 = 17;
-        __pyx_t_9 = 15;
+        __pyx_t_7 = 17;
+        __pyx_t_8 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 414, __pyx_L1_error)
         }
-        __pyx_t_8 = 24;
-        __pyx_t_7 = 14;
+        __pyx_t_9 = 24;
+        __pyx_t_10 = 14;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 414, __pyx_L1_error)
@@ -34883,7 +34506,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 414, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_22 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_20 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_19 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_18 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_10 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_8 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_14 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_22 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_21 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_20 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_19 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_18 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_7 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_9 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_14 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":415
  *                 values[counter_v + 51] = E_tnw[17, 14] - E_tnw[1, 14] + E_tnw[27, 14]
@@ -34907,32 +34530,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 415, __pyx_L1_error)
         }
-        __pyx_t_7 = 14;
-        __pyx_t_8 = 15;
+        __pyx_t_10 = 14;
+        __pyx_t_9 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 415, __pyx_L1_error)
         }
-        __pyx_t_9 = 24;
-        __pyx_t_10 = 15;
+        __pyx_t_8 = 24;
+        __pyx_t_7 = 15;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 415, __pyx_L1_error)
@@ -34944,7 +34567,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 415, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_15 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_7 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_8 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_9 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tne.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_15 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_10 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_9 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_8 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tne.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":416
  *                 values[counter_v + 52] = E_tne[1, 14] - E_tnw[1, 15] + E_tne[14, 14] + E_tnw[17, 15] + E_tne[24, 14] + E_tnw[27, 15]
@@ -34953,32 +34576,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
  *                 values[counter_v + 55] = E_se[10, 16] - E_sw[10, 17] - E_se[20, 16] - E_sw[23, 17] - E_se[30, 16] - E_sw[33, 17]
  *                 values[counter_v + 56] = E_se[10, 17] - E_se[20, 17] - E_se[30, 17]
  */
-        __pyx_t_10 = 10;
-        __pyx_t_9 = 16;
+        __pyx_t_7 = 10;
+        __pyx_t_8 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 416, __pyx_L1_error)
         }
-        __pyx_t_8 = 23;
-        __pyx_t_7 = 16;
+        __pyx_t_9 = 23;
+        __pyx_t_10 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 416, __pyx_L1_error)
@@ -35005,7 +34628,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 416, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_8 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((-(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_9 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":417
  *                 values[counter_v + 53] = E_tne[1, 15] + E_tne[14, 15] + E_tne[24, 15]
@@ -35029,32 +34652,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 417, __pyx_L1_error)
         }
-        __pyx_t_7 = 10;
-        __pyx_t_8 = 17;
+        __pyx_t_10 = 10;
+        __pyx_t_9 = 17;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 417, __pyx_L1_error)
         }
-        __pyx_t_9 = 20;
-        __pyx_t_10 = 16;
+        __pyx_t_8 = 20;
+        __pyx_t_7 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 417, __pyx_L1_error)
@@ -35111,7 +34734,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 417, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_15 * __pyx_v_E_se.strides[0]) ) + __pyx_t_14 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_9 * __pyx_v_E_se.strides[0]) ) + __pyx_t_10 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_17 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_19 * __pyx_v_E_se.strides[0]) ) + __pyx_t_20 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_21 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_15 * __pyx_v_E_se.strides[0]) ) + __pyx_t_14 * __pyx_v_E_se.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_8 * __pyx_v_E_se.strides[0]) ) + __pyx_t_7 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_17 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_19 * __pyx_v_E_se.strides[0]) ) + __pyx_t_20 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_21 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":418
  *                 values[counter_v + 54] = - E_sw[10, 16] - E_sw[23, 16] - E_sw[33, 16]
@@ -35226,32 +34849,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 419, __pyx_L1_error)
         }
-        __pyx_t_10 = 27;
-        __pyx_t_9 = 16;
+        __pyx_t_7 = 27;
+        __pyx_t_8 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 419, __pyx_L1_error)
         }
-        __pyx_t_8 = 23;
-        __pyx_t_7 = 18;
+        __pyx_t_9 = 23;
+        __pyx_t_10 = 18;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 419, __pyx_L1_error)
@@ -35278,7 +34901,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 419, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_19 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_21 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_10 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_8 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_19 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_21 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_7 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_9 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_14 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":420
  *                 values[counter_v + 56] = E_se[10, 17] - E_se[20, 17] - E_se[30, 17]
@@ -35302,32 +34925,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 420, __pyx_L1_error)
         }
-        __pyx_t_7 = 7;
-        __pyx_t_8 = 17;
+        __pyx_t_10 = 7;
+        __pyx_t_9 = 17;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 420, __pyx_L1_error)
         }
-        __pyx_t_9 = 20;
-        __pyx_t_10 = 16;
+        __pyx_t_8 = 20;
+        __pyx_t_7 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_ne.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_ne.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_ne.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_ne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_ne.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_ne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 420, __pyx_L1_error)
@@ -35474,7 +35097,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 420, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_15 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_7 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_9 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_10 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_22 * __pyx_v_E_se.strides[0]) ) + __pyx_t_21 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_20 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_19 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_18 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_23 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_24 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_25 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_26 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_27 * __pyx_v_E_se.strides[0]) ) + __pyx_t_28 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_29 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_31 * __pyx_v_E_se.strides[0]) ) + __pyx_t_32 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_33 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_sw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_15 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_14 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_10 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_8 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_7 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_22 * __pyx_v_E_se.strides[0]) ) + __pyx_t_21 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_20 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_19 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_18 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_23 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_24 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_25 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_26 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_27 * __pyx_v_E_se.strides[0]) ) + __pyx_t_28 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_29 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_31 * __pyx_v_E_se.strides[0]) ) + __pyx_t_32 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_33 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_sw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":421
  *                 values[counter_v + 57] = E_nw[23, 16] - E_sw[10, 18] - E_nw[7, 16] - E_nw[27, 16] - E_sw[23, 18] - E_sw[33, 18]
@@ -36058,32 +35681,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 426, __pyx_L1_error)
         }
-        __pyx_t_10 = 33;
-        __pyx_t_9 = 21;
+        __pyx_t_7 = 33;
+        __pyx_t_8 = 21;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 426, __pyx_L1_error)
         }
-        __pyx_t_8 = 30;
-        __pyx_t_7 = 16;
+        __pyx_t_9 = 30;
+        __pyx_t_10 = 16;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 426, __pyx_L1_error)
@@ -36110,7 +35733,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 426, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_28 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_27 * __pyx_v_E_tse.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_26 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_24 * __pyx_v_E_se.strides[0]) ) + __pyx_t_23 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_34 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_33 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_32 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_31 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_30 * __pyx_v_E_se.strides[0]) ) + __pyx_t_29 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_17 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_19 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_21 * __pyx_v_E_se.strides[0]) ) + __pyx_t_22 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_8 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_14 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_28 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_27 * __pyx_v_E_tse.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_26 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_24 * __pyx_v_E_se.strides[0]) ) + __pyx_t_23 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_34 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_33 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_32 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_31 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_30 * __pyx_v_E_se.strides[0]) ) + __pyx_t_29 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_17 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_19 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_21 * __pyx_v_E_se.strides[0]) ) + __pyx_t_22 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_9 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_14 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":427
  *                 values[counter_v + 63] = E_tsw[33, 16] - E_sw[10, 20] - E_tsw[17, 16] - E_sw[23, 20] - E_sw[33, 20] - E_tsw[4, 16]
@@ -36134,32 +35757,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 427, __pyx_L1_error)
         }
-        __pyx_t_7 = 10;
-        __pyx_t_8 = 21;
+        __pyx_t_10 = 10;
+        __pyx_t_9 = 21;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 427, __pyx_L1_error)
         }
-        __pyx_t_9 = 14;
-        __pyx_t_10 = 17;
+        __pyx_t_8 = 14;
+        __pyx_t_7 = 17;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 427, __pyx_L1_error)
@@ -36216,7 +35839,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 427, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_15 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tse.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_7 * __pyx_v_E_se.strides[0]) ) + __pyx_t_8 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_9 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_10 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_22 * __pyx_v_E_se.strides[0]) ) + __pyx_t_21 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_20 * __pyx_v_E_se.strides[0]) ) + __pyx_t_19 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_18 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_15 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tse.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_10 * __pyx_v_E_se.strides[0]) ) + __pyx_t_9 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_8 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_7 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_22 * __pyx_v_E_se.strides[0]) ) + __pyx_t_21 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_20 * __pyx_v_E_se.strides[0]) ) + __pyx_t_19 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_18 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_17 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":428
  *                 values[counter_v + 64] = E_tse[4, 16] - E_tsw[4, 17] + E_se[10, 20] - E_sw[10, 21] - E_tse[14, 16] - E_se[20, 20] - E_tsw[17, 17] - E_sw[23, 21] - E_se[30, 20] - E_sw[33, 21] + E_tse[30, 16] + E_tsw[33, 17]
@@ -36270,32 +35893,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 428, __pyx_L1_error)
         }
-        __pyx_t_10 = 10;
-        __pyx_t_9 = 22;
+        __pyx_t_7 = 10;
+        __pyx_t_8 = 22;
         __pyx_t_11 = -1;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 428, __pyx_L1_error)
         }
-        __pyx_t_8 = 7;
-        __pyx_t_7 = 20;
+        __pyx_t_9 = 7;
+        __pyx_t_10 = 20;
         __pyx_t_11 = -1;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 428, __pyx_L1_error)
@@ -36412,7 +36035,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 428, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_19 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_21 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_10 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_9 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_8 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_14 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_29 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_31 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_32 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_33 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_23 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_25 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_26 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_17 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_18 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_19 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_20 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_21 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_22 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_7 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_8 * __pyx_v_E_sw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_9 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_14 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_15 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_29 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_30 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_31 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_32 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_33 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_34 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_23 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_24 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_25 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_26 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_27 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_28 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":429
  *                 values[counter_v + 65] = E_tse[4, 17] + E_se[10, 21] - E_tse[14, 17] - E_se[20, 21] - E_se[30, 21] + E_tse[30, 17]
@@ -36526,32 +36149,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 429, __pyx_L1_error)
         }
-        __pyx_t_7 = 10;
-        __pyx_t_8 = 22;
+        __pyx_t_10 = 10;
+        __pyx_t_9 = 22;
         __pyx_t_11 = -1;
-        if (__pyx_t_7 < 0) {
-          __pyx_t_7 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_8 < 0) {
-          __pyx_t_8 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_9 < 0) {
+          __pyx_t_9 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 429, __pyx_L1_error)
         }
-        __pyx_t_9 = 10;
-        __pyx_t_10 = 23;
+        __pyx_t_8 = 10;
+        __pyx_t_7 = 23;
         __pyx_t_11 = -1;
-        if (__pyx_t_9 < 0) {
-          __pyx_t_9 += __pyx_v_E_sw.shape[0];
-          if (unlikely(__pyx_t_9 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_9 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_10 < 0) {
-          __pyx_t_10 += __pyx_v_E_sw.shape[1];
-          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_10 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_8 < 0) {
+          __pyx_t_8 += __pyx_v_E_sw.shape[0];
+          if (unlikely(__pyx_t_8 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_8 >= __pyx_v_E_sw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_7 < 0) {
+          __pyx_t_7 += __pyx_v_E_sw.shape[1];
+          if (unlikely(__pyx_t_7 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_7 >= __pyx_v_E_sw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 429, __pyx_L1_error)
@@ -36646,32 +36269,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 429, __pyx_L1_error)
         }
-        __pyx_t_41 = 17;
-        __pyx_t_42 = 17;
+        __pyx_t_44 = 17;
+        __pyx_t_43 = 17;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 429, __pyx_L1_error)
         }
-        __pyx_t_43 = 17;
-        __pyx_t_44 = 19;
+        __pyx_t_42 = 17;
+        __pyx_t_41 = 19;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tsw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tsw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tsw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tsw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tsw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tsw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 429, __pyx_L1_error)
@@ -36788,7 +36411,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 429, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_28 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_27 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_26 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_24 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_23 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_34 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_33 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_32 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_31 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_30 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_29 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_15 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_7 * __pyx_v_E_se.strides[0]) ) + __pyx_t_8 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_9 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_10 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_22 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_21 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_20 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_19 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_18 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_35 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_37 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_39 * __pyx_v_E_se.strides[0]) ) + __pyx_t_40 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_43 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_47 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_51 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_53 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_55 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_28 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_27 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_26 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_25 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_24 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_23 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_34 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_33 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_32 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_31 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_30 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_29 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_15 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_14 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_10 * __pyx_v_E_se.strides[0]) ) + __pyx_t_9 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_8 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_7 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_22 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_21 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_20 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_19 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_18 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_17 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_35 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_37 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_39 * __pyx_v_E_se.strides[0]) ) + __pyx_t_40 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_42 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tsw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_45 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_47 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_48 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_49 * __pyx_v_E_se.strides[0]) ) + __pyx_t_50 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_51 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_sw.data + __pyx_t_53 * __pyx_v_E_sw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_sw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_55 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_57 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":430
  *                 values[counter_v + 66] = E_nw[23, 20] - E_tnw[1, 16] - E_tsw[4, 18] - E_sw[10, 22] - E_nw[7, 20] - E_nw[27, 20] + E_tnw[17, 16] - E_tsw[17, 18] - E_sw[23, 22] + E_tnw[27, 16] - E_sw[33, 22] + E_tsw[33, 18]
@@ -36902,32 +36525,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 430, __pyx_L1_error)
         }
-        __pyx_t_44 = 14;
-        __pyx_t_43 = 19;
+        __pyx_t_41 = 14;
+        __pyx_t_42 = 19;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 430, __pyx_L1_error)
         }
-        __pyx_t_42 = 20;
-        __pyx_t_41 = 23;
+        __pyx_t_43 = 20;
+        __pyx_t_44 = 23;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_se.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_se.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_se.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_se.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_se.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_se.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 430, __pyx_L1_error)
@@ -36984,7 +36607,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 430, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_56 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_54 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_52 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_48 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_47 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_44 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_42 * __pyx_v_E_se.strides[0]) ) + __pyx_t_41 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_58 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_57 * __pyx_v_E_ne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_56 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_54 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_53 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_52 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_50 * __pyx_v_E_se.strides[0]) ) + __pyx_t_49 * __pyx_v_E_se.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_48 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_47 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_41 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_43 * __pyx_v_E_se.strides[0]) ) + __pyx_t_44 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_se.data + __pyx_t_38 * __pyx_v_E_se.strides[0]) ) + __pyx_t_37 * __pyx_v_E_se.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":431
  *                 values[counter_v + 67] = E_ne[7, 20] - E_nw[7, 21] + E_tne[1, 16] - E_tnw[1, 17] + E_ne[20, 20] + E_tse[4, 18] - E_tsw[4, 19] + E_se[10, 22] - E_sw[10, 23] + E_nw[23, 21] - E_ne[24, 20] - E_nw[27, 21] + E_tne[14, 16] - E_tse[14, 18] - E_se[20, 22] + E_tnw[17, 17] - E_tsw[17, 19] - E_sw[23, 23] + E_tne[24, 16] - E_se[30, 22] + E_tnw[27, 17] - E_sw[33, 23] + E_tse[30, 18] + E_tsw[33, 19]
@@ -37038,32 +36661,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 431, __pyx_L1_error)
         }
-        __pyx_t_41 = 27;
-        __pyx_t_42 = 22;
+        __pyx_t_44 = 27;
+        __pyx_t_43 = 22;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 431, __pyx_L1_error)
         }
-        __pyx_t_43 = 17;
-        __pyx_t_44 = 18;
+        __pyx_t_42 = 17;
+        __pyx_t_41 = 18;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 431, __pyx_L1_error)
@@ -37090,7 +36713,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 431, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_41 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_43 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_35 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_nw.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_37 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_39 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_40 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_44 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_42 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":432
  *                 values[counter_v + 68] = E_ne[7, 21] + E_tne[1, 17] + E_ne[20, 21] + E_tse[4, 19] + E_se[10, 23] - E_ne[24, 21] + E_tne[14, 17] - E_tse[14, 19] - E_se[20, 23] + E_tne[24, 17] - E_se[30, 23] + E_tse[30, 19]
@@ -37114,32 +36737,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 432, __pyx_L1_error)
         }
-        __pyx_t_44 = 7;
-        __pyx_t_43 = 23;
+        __pyx_t_41 = 7;
+        __pyx_t_42 = 23;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_nw.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_nw.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_nw.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_nw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_nw.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_nw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 432, __pyx_L1_error)
         }
-        __pyx_t_42 = 1;
-        __pyx_t_41 = 18;
+        __pyx_t_43 = 1;
+        __pyx_t_44 = 18;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 432, __pyx_L1_error)
@@ -37286,7 +36909,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 432, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_44 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_40 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_38 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_47 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_48 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_49 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_51 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_55 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_57 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_46 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_ne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_41 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_40 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_38 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_ne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_36 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_35 * __pyx_v_E_nw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_ne.data + __pyx_t_47 * __pyx_v_E_ne.strides[0]) ) + __pyx_t_48 * __pyx_v_E_ne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_nw.data + __pyx_t_49 * __pyx_v_E_nw.strides[0]) ) + __pyx_t_50 * __pyx_v_E_nw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_51 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_52 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_53 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_54 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_55 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_56 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_57 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_58 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":433
  *                 values[counter_v + 69] = E_nw[23, 22] - E_tnw[1, 18] - E_nw[7, 22] - E_nw[27, 22] + E_tnw[17, 18] + E_tnw[27, 18]
@@ -37870,32 +37493,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 438, __pyx_L1_error)
         }
-        __pyx_t_41 = 27;
-        __pyx_t_42 = 21;
+        __pyx_t_44 = 27;
+        __pyx_t_43 = 21;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 438, __pyx_L1_error)
         }
-        __pyx_t_43 = 30;
-        __pyx_t_44 = 22;
+        __pyx_t_42 = 30;
+        __pyx_t_41 = 22;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 438, __pyx_L1_error)
@@ -37922,7 +37545,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 438, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_48 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_58 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_56 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_54 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_35 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_39 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_43 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_52 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_51 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_50 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_49 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_48 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_47 * __pyx_v_E_tse.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_58 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_57 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_56 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_55 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_54 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_53 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_35 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_36 * __pyx_v_E_tnw.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_37 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_38 * __pyx_v_E_tsw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_39 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_40 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_42 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tsw.data + __pyx_t_45 * __pyx_v_E_tsw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tsw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":439
  *                 values[counter_v + 75] = E_tnw[17, 20] - E_tsw[4, 22] - E_tnw[1, 20] - E_tsw[17, 22] + E_tnw[27, 20] + E_tsw[33, 22]
@@ -37946,32 +37569,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 439, __pyx_L1_error)
         }
-        __pyx_t_44 = 4;
-        __pyx_t_43 = 23;
+        __pyx_t_41 = 4;
+        __pyx_t_42 = 23;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tse.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tse.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tse.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tse.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tse.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tse.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 439, __pyx_L1_error)
         }
-        __pyx_t_42 = 14;
-        __pyx_t_41 = 21;
+        __pyx_t_43 = 14;
+        __pyx_t_44 = 21;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 439, __pyx_L1_error)
@@ -38028,7 +37651,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 439, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_44 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_38 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_41 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_40 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tse.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_38 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tse.data + __pyx_t_36 * __pyx_v_E_tse.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tse.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":440
  *                 values[counter_v + 76] = E_tne[1, 20] - E_tnw[1, 21] + E_tse[4, 22] - E_tsw[4, 23] + E_tne[14, 20] - E_tse[14, 22] + E_tnw[17, 21] - E_tsw[17, 23] + E_tne[24, 20] + E_tnw[27, 21] + E_tse[30, 22] + E_tsw[33, 23]
@@ -38143,32 +37766,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 441, __pyx_L1_error)
         }
-        __pyx_t_41 = 17;
-        __pyx_t_42 = 23;
+        __pyx_t_44 = 17;
+        __pyx_t_43 = 23;
         __pyx_t_11 = -1;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tnw.shape[0];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tnw.shape[1];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tnw.shape[0];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tnw.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tnw.shape[1];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tnw.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 441, __pyx_L1_error)
         }
-        __pyx_t_43 = 24;
-        __pyx_t_44 = 22;
+        __pyx_t_42 = 24;
+        __pyx_t_41 = 22;
         __pyx_t_11 = -1;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 441, __pyx_L1_error)
@@ -38195,7 +37818,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 441, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_38 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_41 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = ((((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_40 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_39 * __pyx_v_E_tne.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_38 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_37 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_36 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_35 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_44 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tnw.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tnw.data + __pyx_t_45 * __pyx_v_E_tnw.strides[0]) ) + __pyx_t_46 * __pyx_v_E_tnw.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":442
  *                 values[counter_v + 78] = E_tnw[17, 22] - E_tnw[1, 22] + E_tnw[27, 22]
@@ -38219,32 +37842,32 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 442, __pyx_L1_error)
         }
-        __pyx_t_44 = 14;
-        __pyx_t_43 = 23;
+        __pyx_t_41 = 14;
+        __pyx_t_42 = 23;
         __pyx_t_11 = -1;
-        if (__pyx_t_44 < 0) {
-          __pyx_t_44 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_43 < 0) {
-          __pyx_t_43 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_41 < 0) {
+          __pyx_t_41 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_42 < 0) {
+          __pyx_t_42 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 442, __pyx_L1_error)
         }
-        __pyx_t_42 = 24;
-        __pyx_t_41 = 23;
+        __pyx_t_43 = 24;
+        __pyx_t_44 = 23;
         __pyx_t_11 = -1;
-        if (__pyx_t_42 < 0) {
-          __pyx_t_42 += __pyx_v_E_tne.shape[0];
-          if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 0;
-        } else if (unlikely(__pyx_t_42 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
-        if (__pyx_t_41 < 0) {
-          __pyx_t_41 += __pyx_v_E_tne.shape[1];
-          if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 1;
-        } else if (unlikely(__pyx_t_41 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
+        if (__pyx_t_43 < 0) {
+          __pyx_t_43 += __pyx_v_E_tne.shape[0];
+          if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_43 >= __pyx_v_E_tne.shape[0])) __pyx_t_11 = 0;
+        if (__pyx_t_44 < 0) {
+          __pyx_t_44 += __pyx_v_E_tne.shape[1];
+          if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 1;
+        } else if (unlikely(__pyx_t_44 >= __pyx_v_E_tne.shape[1])) __pyx_t_11 = 1;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 442, __pyx_L1_error)
@@ -38256,522 +37879,340 @@ __PYX_XDEC_MEMVIEW(&__pyx_v_E_tne, 1);
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
           __PYX_ERR(0, 442, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_44 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_43 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_42 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_41 * __pyx_v_E_tne.strides[1]) ))));
-
-        /* "pumapy/physicsmodels/elasticity_utils.pyx":445
- * 
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_cv[i, j, k, 2] = True
- *                     values[counter_v:counter_v + 81] = np.NAN
- */
-        __Pyx_GetModuleGlobalName(__pyx_t_60, __pyx_n_s_np); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_60);
-        __pyx_t_61 = __Pyx_PyObject_GetAttrStr(__pyx_t_60, __pyx_n_s_sum); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_61);
-        __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-        __Pyx_GetModuleGlobalName(__pyx_t_59, __pyx_n_s_np); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_59);
-        __pyx_t_62 = __Pyx_PyObject_GetAttrStr(__pyx_t_59, __pyx_n_s_abs); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_62);
-        __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-        __pyx_t_64.data = __pyx_v_values.data;
-        __pyx_t_64.memview = __pyx_v_values.memview;
-        __PYX_INC_MEMVIEW(&__pyx_t_64, 0);
-        __pyx_t_11 = -1;
-        if (unlikely(__pyx_memoryview_slice_memviewslice(
-    &__pyx_t_64,
-    __pyx_v_values.shape[0], __pyx_v_values.strides[0], __pyx_v_values.suboffsets[0],
-    0,
-    0,
-    &__pyx_t_11,
-    __pyx_v_counter_v,
-    (__pyx_v_counter_v + 81),
-    0,
-    1,
-    1,
-    0,
-    1) < 0))
-{
-    __PYX_ERR(0, 445, __pyx_L1_error)
-}
-
-__pyx_t_59 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_59);
-        __PYX_XDEC_MEMVIEW(&__pyx_t_64, 1);
-        __pyx_t_64.memview = NULL;
-        __pyx_t_64.data = NULL;
-        __pyx_t_65 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_62))) {
-          __pyx_t_65 = PyMethod_GET_SELF(__pyx_t_62);
-          if (likely(__pyx_t_65)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_62);
-            __Pyx_INCREF(__pyx_t_65);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_62, function);
-          }
-        }
-        __pyx_t_60 = (__pyx_t_65) ? __Pyx_PyObject_Call2Args(__pyx_t_62, __pyx_t_65, __pyx_t_59) : __Pyx_PyObject_CallOneArg(__pyx_t_62, __pyx_t_59);
-        __Pyx_XDECREF(__pyx_t_65); __pyx_t_65 = 0;
-        __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-        if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_60);
-        __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-        __pyx_t_62 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_61))) {
-          __pyx_t_62 = PyMethod_GET_SELF(__pyx_t_61);
-          if (likely(__pyx_t_62)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_61);
-            __Pyx_INCREF(__pyx_t_62);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_61, function);
-          }
-        }
-        __pyx_t_63 = (__pyx_t_62) ? __Pyx_PyObject_Call2Args(__pyx_t_61, __pyx_t_62, __pyx_t_60) : __Pyx_PyObject_CallOneArg(__pyx_t_61, __pyx_t_60);
-        __Pyx_XDECREF(__pyx_t_62); __pyx_t_62 = 0;
-        __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-        if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_63);
-        __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-        __pyx_t_61 = __Pyx_PyInt_EqObjC(__pyx_t_63, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_61);
-        __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_61); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 445, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-        if (__pyx_t_12) {
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":446
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_cv[i, j, k, 2] = True             # <<<<<<<<<<<<<<
- *                     values[counter_v:counter_v + 81] = np.NAN
- *                 else:
- */
-          __pyx_t_41 = __pyx_v_i;
-          __pyx_t_42 = __pyx_v_j;
-          __pyx_t_43 = __pyx_v_k;
-          __pyx_t_44 = 2;
-          __pyx_t_11 = -1;
-          if (__pyx_t_41 < 0) {
-            __pyx_t_41 += __pyx_v_dir_cv.shape[0];
-            if (unlikely(__pyx_t_41 < 0)) __pyx_t_11 = 0;
-          } else if (unlikely(__pyx_t_41 >= __pyx_v_dir_cv.shape[0])) __pyx_t_11 = 0;
-          if (__pyx_t_42 < 0) {
-            __pyx_t_42 += __pyx_v_dir_cv.shape[1];
-            if (unlikely(__pyx_t_42 < 0)) __pyx_t_11 = 1;
-          } else if (unlikely(__pyx_t_42 >= __pyx_v_dir_cv.shape[1])) __pyx_t_11 = 1;
-          if (__pyx_t_43 < 0) {
-            __pyx_t_43 += __pyx_v_dir_cv.shape[2];
-            if (unlikely(__pyx_t_43 < 0)) __pyx_t_11 = 2;
-          } else if (unlikely(__pyx_t_43 >= __pyx_v_dir_cv.shape[2])) __pyx_t_11 = 2;
-          if (__pyx_t_44 < 0) {
-            __pyx_t_44 += __pyx_v_dir_cv.shape[3];
-            if (unlikely(__pyx_t_44 < 0)) __pyx_t_11 = 3;
-          } else if (unlikely(__pyx_t_44 >= __pyx_v_dir_cv.shape[3])) __pyx_t_11 = 3;
-          if (unlikely(__pyx_t_11 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_11);
-            __PYX_ERR(0, 446, __pyx_L1_error)
-          }
-          *((unsigned char *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dir_cv.data + __pyx_t_41 * __pyx_v_dir_cv.strides[0]) ) + __pyx_t_42 * __pyx_v_dir_cv.strides[1]) ) + __pyx_t_43 * __pyx_v_dir_cv.strides[2]) ) + __pyx_t_44 * __pyx_v_dir_cv.strides[3]) )) = 1;
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":447
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
- *                     dir_cv[i, j, k, 2] = True
- *                     values[counter_v:counter_v + 81] = np.NAN             # <<<<<<<<<<<<<<
- *                 else:
- *                     for k2 in range(-1, 2):
- */
-          __Pyx_GetModuleGlobalName(__pyx_t_61, __pyx_n_s_np); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 447, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_61);
-          __pyx_t_63 = __Pyx_PyObject_GetAttrStr(__pyx_t_61, __pyx_n_s_NAN); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 447, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_63);
-          __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-          __pyx_t_66 = __pyx_PyFloat_AsDouble(__pyx_t_63); if (unlikely((__pyx_t_66 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 447, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-          __pyx_t_64.data = __pyx_v_values.data;
-          __pyx_t_64.memview = __pyx_v_values.memview;
-          __PYX_INC_MEMVIEW(&__pyx_t_64, 0);
-          __pyx_t_11 = -1;
-          if (unlikely(__pyx_memoryview_slice_memviewslice(
-    &__pyx_t_64,
-    __pyx_v_values.shape[0], __pyx_v_values.strides[0], __pyx_v_values.suboffsets[0],
-    0,
-    0,
-    &__pyx_t_11,
-    __pyx_v_counter_v,
-    (__pyx_v_counter_v + 81),
-    0,
-    1,
-    1,
-    0,
-    1) < 0))
-{
-    __PYX_ERR(0, 447, __pyx_L1_error)
-}
-
-{
-              double __pyx_temp_scalar = __pyx_t_66;
-              {
-                  Py_ssize_t __pyx_temp_extent_0 = __pyx_t_64.shape[0];
-                  Py_ssize_t __pyx_temp_stride_0 = __pyx_t_64.strides[0];
-                  char *__pyx_temp_pointer_0;
-                  Py_ssize_t __pyx_temp_idx_0;
-                  __pyx_temp_pointer_0 = __pyx_t_64.data;
-                  for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 < __pyx_temp_extent_0; __pyx_temp_idx_0++) {
-                    *((double *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
-                    __pyx_temp_pointer_0 += __pyx_temp_stride_0;
-                  }
-              }
-          }
-          __PYX_XDEC_MEMVIEW(&__pyx_t_64, 1);
-          __pyx_t_64.memview = NULL;
-          __pyx_t_64.data = NULL;
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":445
- * 
- *                 # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
- *                 if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:             # <<<<<<<<<<<<<<
- *                     dir_cv[i, j, k, 2] = True
- *                     values[counter_v:counter_v + 81] = np.NAN
- */
-          goto __pyx_L56;
-        }
+        *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_16 * __pyx_v_values.strides[0]) )) = (((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_46 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_45 * __pyx_v_E_tne.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_41 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_42 * __pyx_v_E_tne.strides[1]) )))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_E_tne.data + __pyx_t_43 * __pyx_v_E_tne.strides[0]) ) + __pyx_t_44 * __pyx_v_E_tne.strides[1]) ))));
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":449
- *                     values[counter_v:counter_v + 81] = np.NAN
- *                 else:
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
+ *                 #     values[counter_v:counter_v + 81] = np.NAN
+ *                 # else:
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
  */
-        /*else*/ {
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 449, __pyx_L1_error)
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 449, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_60);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_60);
+          __pyx_t_60 = 0;
+
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":450
+ *                 # else:
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ */
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 450, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_60);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_60);
+            __pyx_t_60 = 0;
+
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":451
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ */
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_60 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 451, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_60);
+              __pyx_t_60 = 0;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":452
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ */
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_65 = PyNumber_Add(__pyx_t_64, __pyx_v_k2); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Multiply(__pyx_t_63, __pyx_t_65); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_65, __pyx_v_j2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Multiply(__pyx_t_60, __pyx_t_65); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_60 = PyNumber_Add(__pyx_t_65, __pyx_v_i2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_65 = PyNumber_Add(__pyx_t_63, __pyx_t_60); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_65); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 452, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 452, __pyx_L1_error)
+              }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":453
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+            }
+          }
+        }
+
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":454
+ *                             j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ */
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 454, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_65);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_65);
+          __pyx_t_65 = 0;
+
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":455
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ */
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 455, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_65);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_65);
+            __pyx_t_65 = 0;
+
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":456
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ */
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_65 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 456, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_65);
+              __pyx_t_65 = 0;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":457
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ */
+              __pyx_t_65 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_len_xyz); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_67 = PyNumber_Add(__pyx_t_64, __pyx_v_k2); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Multiply(__pyx_t_63, __pyx_t_67); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_67, __pyx_v_j2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Multiply(__pyx_t_60, __pyx_t_67); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Add(__pyx_t_65, __pyx_t_63); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_65 = PyNumber_Add(__pyx_t_63, __pyx_v_i2); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_63 = PyNumber_Add(__pyx_t_67, __pyx_t_65); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_63); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 457, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 457, __pyx_L1_error)
+              }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":458
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+            }
+          }
+        }
+
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":459
+ *                             j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ */
+        for (__pyx_t_59 = -1L; __pyx_t_59 < 2; __pyx_t_59+=1) {
+          __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_59); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 459, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_63);
+          __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_63);
+          __pyx_t_63 = 0;
+
+          /* "pumapy/physicsmodels/elasticity_utils.pyx":460
+ *                             counter_j += 1
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ */
+          for (__pyx_t_61 = -1L; __pyx_t_61 < 2; __pyx_t_61+=1) {
+            __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_61); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 460, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_63);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_63);
+            __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_63);
             __pyx_t_63 = 0;
 
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":450
- *                 else:
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+            /* "pumapy/physicsmodels/elasticity_utils.pyx":461
+ *                 for k2 in range(-1, 2):
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1
  */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 450, __pyx_L1_error)
+            for (__pyx_t_62 = -1L; __pyx_t_62 < 2; __pyx_t_62+=1) {
+              __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_62); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 461, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_63);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_63);
+              __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_63);
               __pyx_t_63 = 0;
 
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":451
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":462
+ *                     for j2 in range(-1, 2):
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
+ *                             counter_j += 1
+ * 
  */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_63 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 451, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_63);
-                __pyx_t_63 = 0;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":452
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- */
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_62 = PyNumber_Add(__pyx_t_60, __pyx_v_k2); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Multiply(__pyx_t_61, __pyx_t_62); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_61 = PyNumber_Add(__pyx_t_62, __pyx_v_j2); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = PyNumber_Add(__pyx_t_60, __pyx_t_61); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Multiply(__pyx_t_63, __pyx_t_62); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_63 = PyNumber_Add(__pyx_t_62, __pyx_v_i2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_62 = PyNumber_Add(__pyx_t_61, __pyx_t_63); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_62); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 452, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 452, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":453
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
+              __pyx_t_63 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG((2 * __pyx_v_len_xyz)); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __pyx_t_65 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_65)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_65);
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __pyx_t_64 = PyNumber_Add(__pyx_t_60, __pyx_v_k2); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __pyx_t_60 = PyNumber_Multiply(__pyx_t_67, __pyx_t_64); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_60);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __pyx_t_67 = PyNumber_Add(__pyx_t_64, __pyx_v_j2); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Add(__pyx_t_60, __pyx_t_67); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Multiply(__pyx_t_65, __pyx_t_64); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_65); __pyx_t_65 = 0;
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __pyx_t_64 = PyNumber_Add(__pyx_t_63, __pyx_t_67); if (unlikely(!__pyx_t_64)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_64);
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __pyx_t_63 = PyNumber_Add(__pyx_t_67, __pyx_v_i2); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_63);
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_67 = PyNumber_Add(__pyx_t_64, __pyx_t_63); if (unlikely(!__pyx_t_67)) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_67);
+              __Pyx_DECREF(__pyx_t_64); __pyx_t_64 = 0;
+              __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
+              __pyx_t_66 = __Pyx_PyInt_As_unsigned_int(__pyx_t_67); if (unlikely((__pyx_t_66 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 462, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_67); __pyx_t_67 = 0;
+              __pyx_t_16 = __pyx_v_counter_j;
+              __pyx_t_11 = -1;
+              if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
+              if (unlikely(__pyx_t_11 != -1)) {
+                __Pyx_RaiseBufferIndexError(__pyx_t_11);
+                __PYX_ERR(0, 462, __pyx_L1_error)
               }
+              *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_66;
+
+              /* "pumapy/physicsmodels/elasticity_utils.pyx":463
+ *                         for i2 in range(-1, 2):
+ *                             j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+ *                             counter_j += 1             # <<<<<<<<<<<<<<
+ * 
+ *                 counter_v += 81
+ */
+              __pyx_v_counter_j = (__pyx_v_counter_j + 1);
             }
           }
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":454
- *                                 j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- */
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_62 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 454, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_62);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_62);
-            __pyx_t_62 = 0;
-
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":455
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_62 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 455, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_62);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_62);
-              __pyx_t_62 = 0;
-
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":456
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_62 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 456, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_62);
-                __pyx_t_62 = 0;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":457
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- */
-                __pyx_t_62 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_len_xyz); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_59 = PyNumber_Add(__pyx_t_60, __pyx_v_k2); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Multiply(__pyx_t_61, __pyx_t_59); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_61 = PyNumber_Add(__pyx_t_59, __pyx_v_j2); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = PyNumber_Add(__pyx_t_60, __pyx_t_61); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Multiply(__pyx_t_63, __pyx_t_59); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = PyNumber_Add(__pyx_t_62, __pyx_t_61); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_62 = PyNumber_Add(__pyx_t_61, __pyx_v_i2); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_61 = PyNumber_Add(__pyx_t_59, __pyx_t_62); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_61); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 457, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 457, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":458
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
-              }
-            }
-          }
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":459
- *                                 j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- */
-          for (__pyx_t_67 = -1L; __pyx_t_67 < 2; __pyx_t_67+=1) {
-            __pyx_t_61 = __Pyx_PyInt_From_long(__pyx_t_67); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 459, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_61);
-            __Pyx_XDECREF_SET(__pyx_v_k2, __pyx_t_61);
-            __pyx_t_61 = 0;
-
-            /* "pumapy/physicsmodels/elasticity_utils.pyx":460
- *                                 counter_j += 1
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- */
-            for (__pyx_t_68 = -1L; __pyx_t_68 < 2; __pyx_t_68+=1) {
-              __pyx_t_61 = __Pyx_PyInt_From_long(__pyx_t_68); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 460, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_61);
-              __Pyx_XDECREF_SET(__pyx_v_j2, __pyx_t_61);
-              __pyx_t_61 = 0;
-
-              /* "pumapy/physicsmodels/elasticity_utils.pyx":461
- *                     for k2 in range(-1, 2):
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):             # <<<<<<<<<<<<<<
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1
- */
-              for (__pyx_t_69 = -1L; __pyx_t_69 < 2; __pyx_t_69+=1) {
-                __pyx_t_61 = __Pyx_PyInt_From_long(__pyx_t_69); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 461, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_XDECREF_SET(__pyx_v_i2, __pyx_t_61);
-                __pyx_t_61 = 0;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":462
- *                         for j2 in range(-1, 2):
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)             # <<<<<<<<<<<<<<
- *                                 counter_j += 1
- * 
- */
-                __pyx_t_61 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG((2 * __pyx_v_len_xyz)); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __pyx_t_62 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_62)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_62);
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_63 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __pyx_t_60 = PyNumber_Add(__pyx_t_63, __pyx_v_k2); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __pyx_t_63 = PyNumber_Multiply(__pyx_t_59, __pyx_t_60); if (unlikely(!__pyx_t_63)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_63);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __pyx_t_59 = PyNumber_Add(__pyx_t_60, __pyx_v_j2); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Add(__pyx_t_63, __pyx_t_59); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_63); __pyx_t_63 = 0;
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = PyNumber_Multiply(__pyx_t_62, __pyx_t_60); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_62); __pyx_t_62 = 0;
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __pyx_t_60 = PyNumber_Add(__pyx_t_61, __pyx_t_59); if (unlikely(!__pyx_t_60)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_60);
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __pyx_t_61 = PyNumber_Add(__pyx_t_59, __pyx_v_i2); if (unlikely(!__pyx_t_61)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_61);
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_59 = PyNumber_Add(__pyx_t_60, __pyx_t_61); if (unlikely(!__pyx_t_59)) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_59);
-                __Pyx_DECREF(__pyx_t_60); __pyx_t_60 = 0;
-                __Pyx_DECREF(__pyx_t_61); __pyx_t_61 = 0;
-                __pyx_t_70 = __Pyx_PyInt_As_unsigned_int(__pyx_t_59); if (unlikely((__pyx_t_70 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 462, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_59); __pyx_t_59 = 0;
-                __pyx_t_16 = __pyx_v_counter_j;
-                __pyx_t_11 = -1;
-                if (unlikely(__pyx_t_16 >= (size_t)__pyx_v_j_indices.shape[0])) __pyx_t_11 = 0;
-                if (unlikely(__pyx_t_11 != -1)) {
-                  __Pyx_RaiseBufferIndexError(__pyx_t_11);
-                  __PYX_ERR(0, 462, __pyx_L1_error)
-                }
-                *((unsigned int *) ( /* dim=0 */ (__pyx_v_j_indices.data + __pyx_t_16 * __pyx_v_j_indices.strides[0]) )) = __pyx_t_70;
-
-                /* "pumapy/physicsmodels/elasticity_utils.pyx":463
- *                             for i2 in range(-1, 2):
- *                                 j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
- *                                 counter_j += 1             # <<<<<<<<<<<<<<
- * 
- *                     counter_v += 81
- */
-                __pyx_v_counter_j = (__pyx_v_counter_j + 1);
-              }
-            }
-          }
-
-          /* "pumapy/physicsmodels/elasticity_utils.pyx":465
- *                                 counter_j += 1
- * 
- *                     counter_v += 81             # <<<<<<<<<<<<<<
- * 
- * 
- */
-          __pyx_v_counter_v = (__pyx_v_counter_v + 81);
         }
-        __pyx_L56:;
+
+        /* "pumapy/physicsmodels/elasticity_utils.pyx":465
+ *                             counter_j += 1
+ * 
+ *                 counter_v += 81             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+        __pyx_v_counter_v = (__pyx_v_counter_v + 81);
 
         /* "pumapy/physicsmodels/elasticity_utils.pyx":350
  * 
@@ -38797,13 +38238,11 @@ __pyx_t_59 = __pyx_memoryview_fromslice(__pyx_t_64, 1, (PyObject *(*)(char *)) _
   goto __pyx_L0;
   __pyx_L1_error:;
   __PYX_XDEC_MEMVIEW(&__pyx_t_13, 1);
-  __Pyx_XDECREF(__pyx_t_59);
   __Pyx_XDECREF(__pyx_t_60);
-  __Pyx_XDECREF(__pyx_t_61);
-  __Pyx_XDECREF(__pyx_t_62);
   __Pyx_XDECREF(__pyx_t_63);
-  __PYX_XDEC_MEMVIEW(&__pyx_t_64, 1);
+  __Pyx_XDECREF(__pyx_t_64);
   __Pyx_XDECREF(__pyx_t_65);
+  __Pyx_XDECREF(__pyx_t_67);
   __Pyx_AddTraceback("pumapy.physicsmodels.elasticity_utils.divP", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -59877,7 +59316,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_MemoryError, __pyx_k_MemoryError, sizeof(__pyx_k_MemoryError), 0, 0, 1, 1},
   {&__pyx_kp_s_MemoryView_of_r_at_0x_x, __pyx_k_MemoryView_of_r_at_0x_x, sizeof(__pyx_k_MemoryView_of_r_at_0x_x), 0, 0, 1, 0},
   {&__pyx_kp_s_MemoryView_of_r_object, __pyx_k_MemoryView_of_r_object, sizeof(__pyx_k_MemoryView_of_r_object), 0, 0, 1, 0},
-  {&__pyx_n_s_NAN, __pyx_k_NAN, sizeof(__pyx_k_NAN), 0, 0, 1, 1},
   {&__pyx_n_b_O, __pyx_k_O, sizeof(__pyx_k_O), 0, 0, 0, 1},
   {&__pyx_kp_s_Out_of_bounds_on_buffer_access_a, __pyx_k_Out_of_bounds_on_buffer_access_a, sizeof(__pyx_k_Out_of_bounds_on_buffer_access_a), 0, 0, 1, 0},
   {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
@@ -59885,7 +59323,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Unable_to_convert_item_to_object, __pyx_k_Unable_to_convert_item_to_object, sizeof(__pyx_k_Unable_to_convert_item_to_object), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_View_MemoryView, __pyx_k_View_MemoryView, sizeof(__pyx_k_View_MemoryView), 0, 0, 1, 1},
-  {&__pyx_n_s_abs, __pyx_k_abs, sizeof(__pyx_k_abs), 0, 0, 1, 1},
   {&__pyx_n_s_add_nondiag, __pyx_k_add_nondiag, sizeof(__pyx_k_add_nondiag), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
   {&__pyx_n_s_base, __pyx_k_base, sizeof(__pyx_k_base), 0, 0, 1, 1},
@@ -59976,7 +59413,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_strided_and_indirect, __pyx_k_strided_and_indirect, sizeof(__pyx_k_strided_and_indirect), 0, 0, 1, 0},
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
   {&__pyx_n_s_struct, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
-  {&__pyx_n_s_sum, __pyx_k_sum, sizeof(__pyx_k_sum), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_u, __pyx_k_u, sizeof(__pyx_k_u), 0, 0, 1, 1},
   {&__pyx_n_s_u_local, __pyx_k_u_local, sizeof(__pyx_k_u_local), 0, 0, 1, 1},
@@ -61942,95 +61378,6 @@ static void __Pyx_RaiseBufferIndexError(int axis) {
      "Out of bounds on buffer access (axis %d)", axis);
 }
 
-/* PyObjectCall2Args */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
-    PyObject *args, *result = NULL;
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(function)) {
-        PyObject *args[2] = {arg1, arg2};
-        return __Pyx_PyFunction_FastCall(function, args, 2);
-    }
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(function)) {
-        PyObject *args[2] = {arg1, arg2};
-        return __Pyx_PyCFunction_FastCall(function, args, 2);
-    }
-    #endif
-    args = PyTuple_New(2);
-    if (unlikely(!args)) goto done;
-    Py_INCREF(arg1);
-    PyTuple_SET_ITEM(args, 0, arg1);
-    Py_INCREF(arg2);
-    PyTuple_SET_ITEM(args, 1, arg2);
-    Py_INCREF(function);
-    result = __Pyx_PyObject_Call(function, args, NULL);
-    Py_DECREF(args);
-    Py_DECREF(function);
-done:
-    return result;
-}
-
-/* PyObjectCallMethO */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
-    PyObject *self, *result;
-    PyCFunction cfunc;
-    cfunc = PyCFunction_GET_FUNCTION(func);
-    self = PyCFunction_GET_SELF(func);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = cfunc(self, arg);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
-/* PyObjectCallOneArg */
-#if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_New(1);
-    if (unlikely(!args)) return NULL;
-    Py_INCREF(arg);
-    PyTuple_SET_ITEM(args, 0, arg);
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, &arg, 1);
-    }
-#endif
-    if (likely(PyCFunction_Check(func))) {
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
-            return __Pyx_PyObject_CallMethO(func, arg);
-#if CYTHON_FAST_PYCCALL
-        } else if (__Pyx_PyFastCFunction_Check(func)) {
-            return __Pyx_PyCFunction_FastCall(func, &arg, 1);
-#endif
-        }
-    }
-    return __Pyx__PyObject_CallOneArg(func, arg);
-}
-#else
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_Pack(1, arg);
-    if (unlikely(!args)) return NULL;
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-#endif
-
 /* ArgTypeTest */
 static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
 {
@@ -62232,6 +61579,95 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
 bad:
     Py_XDECREF(owned_instance);
     return;
+}
+#endif
+
+/* PyObjectCall2Args */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
+    PyObject *args, *result = NULL;
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyFunction_FastCall(function, args, 2);
+    }
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyCFunction_FastCall(function, args, 2);
+    }
+    #endif
+    args = PyTuple_New(2);
+    if (unlikely(!args)) goto done;
+    Py_INCREF(arg1);
+    PyTuple_SET_ITEM(args, 0, arg1);
+    Py_INCREF(arg2);
+    PyTuple_SET_ITEM(args, 1, arg2);
+    Py_INCREF(function);
+    result = __Pyx_PyObject_Call(function, args, NULL);
+    Py_DECREF(args);
+    Py_DECREF(function);
+done:
+    return result;
+}
+
+/* PyObjectCallMethO */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
+    PyObject *self, *result;
+    PyCFunction cfunc;
+    cfunc = PyCFunction_GET_FUNCTION(func);
+    self = PyCFunction_GET_SELF(func);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = cfunc(self, arg);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+/* PyObjectCallOneArg */
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_New(1);
+    if (unlikely(!args)) return NULL;
+    Py_INCREF(arg);
+    PyTuple_SET_ITEM(args, 0, arg);
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+#if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(func)) {
+        return __Pyx_PyFunction_FastCall(func, &arg, 1);
+    }
+#endif
+    if (likely(PyCFunction_Check(func))) {
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
+            return __Pyx_PyObject_CallMethO(func, arg);
+#if CYTHON_FAST_PYCCALL
+        } else if (__Pyx_PyFastCFunction_Check(func)) {
+            return __Pyx_PyCFunction_FastCall(func, &arg, 1);
+#endif
+        }
+    }
+    return __Pyx__PyObject_CallOneArg(func, arg);
+}
+#else
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_Pack(1, arg);
+    if (unlikely(!args)) return NULL;
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
 }
 #endif
 
@@ -64365,18 +63801,6 @@ __pyx_fail:
     result.memview = NULL;
     result.data = NULL;
     return result;
-}
-
-/* MemviewDtypeToObject */
-  static CYTHON_INLINE PyObject *__pyx_memview_get_double(const char *itemp) {
-    return (PyObject *) PyFloat_FromDouble(*(double *) itemp);
-}
-static CYTHON_INLINE int __pyx_memview_set_double(const char *itemp, PyObject *obj) {
-    double value = __pyx_PyFloat_AsDouble(obj);
-    if ((value == (double)-1) && PyErr_Occurred())
-        return 0;
-    *(double *) itemp = value;
-    return 1;
 }
 
 /* MemviewSliceCopyTemplate */
