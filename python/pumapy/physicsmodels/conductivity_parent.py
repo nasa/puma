@@ -1,6 +1,6 @@
 from pumapy.utilities.workspace import Workspace
-from pumapy.utilities.boundary_conditions import ConductivityBC
-from pumapy.utilities.linear_solvers import PropertySolver
+from pumapy.physicsmodels.boundary_conditions import ConductivityBC
+from pumapy.physicsmodels.linear_solvers import PropertySolver
 import numpy as np
 
 

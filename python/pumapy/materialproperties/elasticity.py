@@ -1,5 +1,5 @@
 from pumapy.physicsmodels.mpsa_elasticity import Elasticity
-from pumapy.utilities.property_maps import ElasticityMap
+from pumapy.physicsmodels.property_maps import ElasticityMap
 from scipy.optimize import fsolve
 import numpy as np
 

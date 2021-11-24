@@ -1,5 +1,5 @@
 from pumapy.materialproperties.volumefraction import compute_volume_fraction
-from pumapy.utilities.property_maps import IsotropicConductivityMap
+from pumapy.physicsmodels.property_maps import IsotropicConductivityMap
 from pumapy.physicsmodels.isotropic_conductivity import IsotropicConductivity
 
 

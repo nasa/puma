@@ -31,16 +31,16 @@ Please refer to this publication for a detailed software architecture explanatio
 # - git push nasa main
 # - git tag -a v$(python setup.py --version) -m 'INPUT DESCRIPTION'
 # - gh release create v$(python setup.py --version) --target main
-__version__ = "3.1.5"
+__version__ = "3.1.6"
 
 
 # utilities
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
-from pumapy.utilities.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
-from pumapy.utilities.boundary_conditions import ConductivityBC, ElasticityBC
+from pumapy.physicsmodels.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
+from pumapy.physicsmodels.boundary_conditions import ConductivityBC, ElasticityBC
 from pumapy.utilities.example_files import path_to_example_file, list_example_files
-from pumapy.utilities.generic_checks import estimate_max_memory
+from pumapy.utilities.generic_checks import estimate_max_memory, set_random_seed
 
 # input/output
 from pumapy.io.input import import_3Dtiff, import_bin, import_weave_vtu, import_vti

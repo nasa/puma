@@ -298,44 +298,6 @@ class AnisotropicConductivity(Conductivity):
                 Ry_krot = R @ Rz_kinit @ np.linalg.inv(R)
                 self.Kmat[i, mask] = Ry_krot[:, [0, 1, 2, 0, 0, 1], [0, 1, 2, 1, 2, 2]]
 
-    def __compute_transmissibility(self, i, i_cv):
-        # reset layers
-        self.Emat[i].fill(0)
-        self.kf.fill(0)
-        flatten_Kmat(self.len_y, self.len_z, self.Kmat[i:i + 2], self.kf)
-
-        # Computing transmissibility matrix as: A @ (Cinv @ D) + B
-        # creating C
-        self.mpfa12x12.fill(0)
-        self.mpfa12x12[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpfa(self.kf)
-
-        # C becomes singular in IVs with both air and solid --> stabilize those stress continuity equations
-        inds_rows = np.where(self.mpfa12x12.sum(axis=3) == 0)
-        inds_cols = np.where(self.mpfa12x12.sum(axis=2) == 0)
-        self.mpfa12x12[inds_rows[0], inds_rows[1], inds_rows[2], inds_cols[2]] = 1.
-
-        # creating D
-        self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpfa(self.kf)
-
-        # computing:  Cinv
-        self.mpfa12x12[:] = np.linalg.inv(self.mpfa12x12)
-
-        # computing:  Cinv @ D
-        self.Emat[i] = self.mpfa12x12 @ self.Emat[i]
-
-        # creating A
-        self.mpfa12x12.fill(0)
-        self.mpfa12x12[:, :, self.Aind[0], self.Aind[1]] = fill_Ampfa(self.kf)
-
-        # computing:  A @ (Cinv @ D)
-        self.Emat[i] = self.mpfa12x12 @ self.Emat[i]
-
-        # creating and adding B:  A @ (Cinv @ D) + B
-        self.Emat[i] += fill_Bmpfa(self.kf, self.zeros)
-
-        if self.print_matrices[1]:
-            self._print_E(i, i_cv, self.print_matrices[1])
-
     def __initialize_MPFA(self):
         # Initialize matrix slice of conductivities
         self.Kmat = np.zeros((3, self.len_y, self.len_z, 6), dtype=float)  # per CV: kxx, kyy, kzz, kxy, kxz, kyz
@@ -349,6 +311,44 @@ class AnisotropicConductivity(Conductivity):
         self.zeros = np.zeros(self.kf[0].shape)
         self.Aind, self.Cind, self.Dind = create_mpfa_indices()
         self.__compute_transmissibility(0, 0)  # Computing first layer of E
+
+    def __compute_transmissibility(self, i, i_cv):
+        # reset layers
+        self.Emat[i].fill(0)
+        self.mpfa12x12.fill(0)
+        self.kf.fill(0)
+        flatten_Kmat(self.len_y, self.len_z, self.Kmat[i:i + 2], self.kf)
+
+        # Computing transmissibility matrix as: A @ (Cinv @ D) + B
+        # creating C
+        self.mpfa12x12[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpfa(self.kf)
+
+        # C becomes singular in IVs with both air and solid --> stabilize those stress continuity equations
+        inds_rows = np.where(self.mpfa12x12.sum(axis=3) == 0)
+        inds_cols = np.where(self.mpfa12x12.sum(axis=2) == 0)
+        self.mpfa12x12[inds_rows[0], inds_rows[1], inds_rows[2], inds_cols[2]] = 1.
+
+        # creating D
+        self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpfa(self.kf)
+
+        # computing: Cinv
+        self.mpfa12x12[:] = np.linalg.inv(self.mpfa12x12)
+
+        # computing: Cinv @ D
+        self.Emat[i] = self.mpfa12x12 @ self.Emat[i]
+
+        # creating A
+        self.mpfa12x12.fill(0)
+        self.mpfa12x12[:, :, self.Aind[0], self.Aind[1]] = fill_Ampfa(self.kf)
+
+        # computing: A @ (Cinv @ D)
+        self.Emat[i] = self.mpfa12x12 @ self.Emat[i]
+
+        # creating and adding B: A @ (Cinv @ D) + B
+        self.Emat[i] += fill_Bmpfa(self.kf, self.zeros)
+
+        if self.print_matrices[1]:
+            self._print_E(i, i_cv, self.print_matrices[1])
 
     def __creating_indices(self, i):
         # Finding all indices for slice

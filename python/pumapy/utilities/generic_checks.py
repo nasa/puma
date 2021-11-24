@@ -1,6 +1,5 @@
 from pumapy.utilities.workspace import Workspace
 import math
-import sys
 import numpy as np
 
 
@@ -60,14 +59,27 @@ def check_ws_cutoff(workspace, cutoff):
         raise Exception("Invalid cutoff. cutoff[0] should be <= cutoff[1]")
 
 
-def estimate_max_memory(material_property, workspace_shape, solver_type='bicgstab', need_to_orient=False,
-                        permeability_solid_cutoff=(1,1)):
-    """ Compute a rough estimate of the extra maximum memory required to run a specified material property
+def estimate_max_memory(material_property, workspace_shape, solver_type='iterative', need_to_orient=False,
+                        permeability_fluid_vf=1.):
+    """ Compute an estimate of the extra maximum memory required to run a specified material property on a domain
 
+        :param material_property: property to estimate, options:
+        'anisotropic_conductivity', 'isotropic_conductivity', 'tortuosity', 'elasticity', 'permeability'
+        :type material_property: string
+        :param workspace_shape: size of the domain to compute
+        :type workspace_shape: (int, int, int)
+        :param solver_type: type of solver, options: 'direct', 'iterative'
+        :type solver_type: string
+        :param need_to_orient: domain with orientation (needed for anisotropic conductivity and elasticity)
+        :type need_to_orient: bool
+        :param permeability_fluid_vf: volume fraction of the fluid (needed for permeability)
+        :type permeability_fluid_vf: float
+        :return: number of Bytes
+        :rtype: int
     """
 
-    mat_properties = ['anisotropic_conductivity', 'isotropic_conductivity', 'tortuosity', 'elasticity', 'permeability',
-                      'orientation', 'radiation']
+    # missing properties: 'orientation', 'radiation'
+    mat_properties = ['anisotropic_conductivity', 'isotropic_conductivity', 'tortuosity', 'elasticity', 'permeability']
 
     if material_property not in mat_properties:
         raise Exception(f"material_property input can only be one of the following types: {mat_properties}")
@@ -89,75 +101,96 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='bicgsta
     len_x, len_y, len_z = workspace_shape
     total_bytes = 0
 
-    if material_property in mat_properties[:5]:
+    # General idea: peak memory should be reached at Amat sparse matrix creation
+    if material_property in ["anisotropic_conductivity", "elasticity"]:
 
-        if material_property in ["anisotropic_conductivity", "elasticity"]:
+        # because of the use of padded domains
+        len_x += 2
+        len_y += 2
+        len_z += 2
 
-            # because of the use of padded domains
-            len_x += 2
-            len_y += 2
-            len_z += 2
+        if material_property == "anisotropic_conductivity":
+            values_in_Amat_rows = 27
+            dof = 1.  # degrees of freedom
+        else:
+            values_in_Amat_rows = 81
+            dof = 3.
 
-            if material_property == "anisotropic_conductivity":
-                values_in_Amat_rows = 27
-                dof = 1.  # degrees of freedom
-            else:
-                values_in_Amat_rows = 81
-                dof = 3.
+        len_xyz = len_x * len_y * len_z
 
-            len_xyz = len_x * len_y * len_z
+        # Amat size (V, I, J)
+        A_rows = dof * values_in_Amat_rows * len_xyz
+        total_bytes += 2 * (A_rows * float_size + 2 * A_rows * uint32_size)
 
-            # Amat size (V, I, J)
-            total_bytes += (dof * values_in_Amat_rows * len_xyz * float_size +
-                           2 * dof * values_in_Amat_rows * len_xyz * uint32_size)
+        # bvec size
+        bvec = dof * len_y * len_z * float_size + 2 * len_xyz * uint32_size
+        total_bytes += bvec
 
-            # bvec size
-            total_bytes += 2 * (dof * len_y * len_z * float_size + 2 * len_xyz * uint32_size)
+        # ws_pad_size
+        total_bytes += len_xyz * uint16_size
 
-            # ws_pad_size
-            total_bytes += len_xyz * uint16_size
+        # case dependent variables
+        if solver_type != "direct":
+            total_bytes += dof * len_xyz * float_size  # initial guess size
 
-            # case dependent variables
-            if solver_type != "direct":
-                total_bytes += dof * len_xyz * float_size  # initial guess size
-                total_bytes +=  dof * len_xyz * float_size + 2 * len_xyz * uint32_size  # preconditioner M size
+        if need_to_orient:
+            total_bytes += 3 * len_xyz * float_size  # orient_pad_size
 
-            if need_to_orient:
-                total_bytes += 3 * len_xyz * float_size  # orient_pad_size
+    elif material_property in ["isotropic_conductivity", "tortuosity"]:
 
-            # empirical factor observed from memory used (possibly due to iterative solver)
-            if material_property == "anisotropic_conductivity":
-                total_bytes *= 3.
-            else:
-                total_bytes *= 6.
+        # Amat size (V, I, J)
+        A_rows = (len_x - 2) * len_y * len_z * 7 + 2 * len_y * len_z
+        total_bytes += 2 * (A_rows * float_size + 2 * A_rows * uint32_size)
 
-        elif material_property in ["isotropic_conductivity", "tortuosity"]:
-            # Amat size (V, I, J)
-            total_bytes += (((len_x - 2) * len_y * len_z * 7 + 2 * len_y * len_z) * float_size +
-                            2 * ((len_x - 2) * len_y * len_z * 7 + 2 * len_y * len_z) * uint32_size)
+        len_xyz = len_x * len_y * len_z
 
-            len_xyz = len_x * len_y * len_z
+        # bvec size
+        total_bytes += len_xyz * float_size
 
-            # bvec size
-            total_bytes += len_xyz * float_size
+        # ws_pad_size
+        total_bytes += len_xyz * uint16_size
 
-            # ws_pad_size
-            total_bytes += len_xyz * uint16_size
+        if solver_type != "direct":
+            total_bytes += len_xyz * float_size  # initial guess size
 
-            if solver_type != "direct":
-                total_bytes += len_xyz * float_size  # initial guess size
-                total_bytes += len_xyz * float_size + 2 * len_xyz * uint32_size  # preconditioner M size
+    elif material_property == "permeability":
 
-            # empirical factor observed from memory used (possibly due to iterative solver)
-            total_bytes *= 2.5
+        # Amat size (V, I, J)
+        ndofs = permeability_fluid_vf * len_x * len_y * len_z
+        A_rows = ndofs * 24 * 24 + ndofs * 24 * 8 + ndofs * 192 + ndofs * 8 * 8
+        total_bytes += 2 * (A_rows * float_size + 2 * A_rows * uint32_size)
 
-        elif material_property == "permeability":
-            pass
+        # bvec
+        total_bytes += 3 * (4 * ndofs * float_size + 2 * 4 * ndofs * uint32_size)
 
-    elif material_property == "orientation":
-        pass
+        # mgdlF and resolveF
+        total_bytes += 32 * ndofs
+        total_bytes += 3.5 * ndofs  # rough
 
-    elif material_property == "radiation":
-        pass
+    # elif material_property == "orientation":
+    #     pass
+    #
+    # elif material_property == "radiation":
+    #     pass
 
     print(f"Memory requirement for conductivity simulation: {convert_bytes_size(total_bytes)}")
+    return total_bytes
+
+
+def set_random_seed(seed):
+    """ Set random seed for scipy and numpy to make results reproducible.
+        NB: if you want to generate the same material twice in the same process, you need to call it twice (see example)
+
+        :param seed: random seed
+        :type seed: int
+
+        :Example:
+        >>> import pumapy as puma
+        >>> puma.set_random_seed(1)
+        >>> ws = puma.generate_random_spheres((100, 100, 100), 20, 0.5, allow_intersect=True, segmented=False)
+        >>> puma.render_volume(ws)
+        >>> puma.set_random_seed(1)  # need to call it again to get the same domain!
+        >>> ws = puma.generate_random_spheres((100, 100, 100), 20, 0.5, allow_intersect=True, segmented=False)
+        >>> puma.render_volume(ws)
+    """
+    np.random.seed(seed)

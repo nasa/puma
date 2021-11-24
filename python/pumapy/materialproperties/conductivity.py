@@ -1,6 +1,6 @@
 from pumapy.physicsmodels.isotropic_conductivity import IsotropicConductivity
 from pumapy.physicsmodels.mpfa_conductivity import AnisotropicConductivity
-from pumapy.utilities.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap
+from pumapy.physicsmodels.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap
 
 
 def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', prescribed_bc=None, tolerance=1e-4,

@@ -2,10 +2,9 @@ from pumapy.physicsmodels.anisotropic_conductivity_utils import pad_domain
 from pumapy.physicsmodels.elasticity_utils import fill_stress_matrices, flatten_Cmat, add_nondiag, divP
 from pumapy.physicsmodels.mpxa_matrices import fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_mpsa_indices
 from pumapy.utilities.workspace import Workspace
-from pumapy.utilities.boundary_conditions import ElasticityBC
-from pumapy.utilities.linear_solvers import PropertySolver
+from pumapy.physicsmodels.boundary_conditions import ElasticityBC
+from pumapy.physicsmodels.linear_solvers import PropertySolver
 from pumapy.utilities.timer import Timer
-from pumapy.utilities.logger import print_warning
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags
 import numpy as np
@@ -26,7 +25,6 @@ class Elasticity(PropertySolver):
         self.mat_elast = dict()
         self.need_to_orient = False  # changes if (E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12) detected
         self.orient_pad = None
-        self.shear_case = False
         self.dir_cv = None
 
         self.Ceff = [-1., -1., -1.]
@@ -37,22 +35,15 @@ class Elasticity(PropertySolver):
 
     def compute(self):
         t = Timer()
-
-        if not self.shear_case:
-            self.initialize()
-            estimate_max_memory("elasticity", self.ws_pad[1:-1, 1:-1, 1:-1].shape, self.solver_type, self.need_to_orient)
-            self.assemble_Amatrix()
-            self.assemble_bvector()
-            print("Time to assemble matrices: ", t.elapsed()); t.reset()
-            super().solve()
-            print("Time to solve: ", t.elapsed())
-            self.compute_effective_coefficient()
-            self.solve_time = t.elapsed()
-        else:
-            # for shear cases, two full simulations are required
-            directions = self.direction
-            for self.direction in directions:
-                print(f"Shear case: running direction: {self.direction}")
+        self.initialize()
+        estimate_max_memory("elasticity", self.ws_pad[1:-1, 1:-1, 1:-1].shape, self.solver_type, self.need_to_orient)
+        self.assemble_bvector()
+        self.assemble_Amatrix()
+        print("Time to assemble matrices: ", t.elapsed()); t.reset()
+        super().solve()
+        print("Time to solve: ", t.elapsed())
+        self.compute_effective_coefficient()
+        self.solve_time = t.elapsed()
 
     def initialize(self):
         print("Initializing and padding domains ... ", flush=True, end='')
@@ -108,7 +99,9 @@ class Elasticity(PropertySolver):
         # Placing True on dirichlet boundaries to skip them
         self.dir_cv = np.zeros(shape + [3], dtype=bool)
         # ID=0 is reserved for gas phase, which is put as dirichlet (i.e. disp=0)
-        self.dir_cv[1:-1, 1:-1, 1:-1][self.ws_pad[1:-1, 1:-1, 1:-1] == 0] = True
+        gas_mask = self.ws_pad[1:-1, 1:-1, 1:-1] == 0
+        self.ndofs = 3 * (self.len_xyz - gas_mask.sum())
+        self.dir_cv[1:-1, 1:-1, 1:-1][gas_mask] = True
         if self.direction is not None:
             self.dir_cv[[1, -2], 1:-1, 1:-1] = True
         if self.prescribed_bc is not None:
@@ -170,8 +163,8 @@ class Elasticity(PropertySolver):
 
     def assemble_Amatrix(self):
         print("Initializing large data structures ... ", flush=True, end='')
-        I, J = np.zeros((2, 81 * 3 * self.len_xyz), dtype=np.uint32)
-        V = np.zeros(81 * 3 * self.len_xyz, dtype=float)
+        I, J = np.zeros((2, 81 * self.ndofs), dtype=np.uint32)
+        V = np.zeros(81 * self.ndofs, dtype=float)
         counter = 0  # counter to keep record of the index in Amat
         I_dirvox = []
         self.__initialize_MPSA()
@@ -253,29 +246,56 @@ class Elasticity(PropertySolver):
         else:
             self.M = diags(1. / self.Amat.diagonal(), 0).tocsr()
 
+        # reduce system of eqs
+        # self.I = np.where(abs(self.Amat).sum(1) + abs(self.bvec) != 1)[0].flatten() # np.delete(np.arange(3 * self.len_xyz), I_dirvox)
+        # self.Amat = self.Amat[self.I][:, self.I]
+        # self.bvec = self.bvec[self.I]
+        # if self.solver_type != 'direct' and self.solver_type != 'spsolve':
+        #     self.initial_guess = self.initial_guess[self.I]
+        #     if self.M is not None:
+        #         self.M = self.M[self.I][:, self.I]
+
         if self.print_matrices[2]:
             self._print_A(self.print_matrices[2])
         print("Done")
 
-    def __compute_transmissibility(self, i, i_cv):
-        # Reset layers
-        self.Emat[i].fill(0)
-        self.Cf.fill(0)
-        self.mpsa36x36.fill(0)
-        flatten_Cmat(i, self.len_y, self.len_z, self.Cmat[i:i + 2], self.Cf)
+    def __initialize_MPSA(self):
+        # Initialize matrix slice of conductivities
+        self.Cmat = np.zeros((3, self.len_y, self.len_z, 21), dtype=float)  # per CV
+        self.__compute_Cmat(0, 0)  # Computing first layer of Kmat
+        self.__compute_Cmat(1, 1)  # Computing second layer of Kmat
 
-        # Equivalent procedure, but with more matrices (optimized below to only have 1 extra matrix)
+        # Initialize MPSA variables (variables per IV)
+        self.Cf = np.zeros((168, self.len_y - 1, self.len_z - 1), dtype=float)
+        self.Emat = np.zeros((2, self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
         # self.A = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)
         # self.B = np.zeros((self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
         # self.C = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)
         # self.D = np.zeros((self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
+        self.mpsa36x36 = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)  # A, C
+        self.Aind, self.Cind, self.Dind = create_mpsa_indices()
+        self.__compute_transmissibility(0, 0)  # Computing first layer of E
+
+    def __compute_transmissibility(self, i, i_cv):
+        # Reset layers
+        self.Emat[i].fill(0)
+        self.mpsa36x36.fill(0)
+        self.Cf.fill(0)
+        flatten_Cmat(i, self.len_y, self.len_z, self.Cmat[i:i + 2], self.Cf)
+
+        # Equivalent procedure, but with more matrices instead of just one
+        # (NB the computation results in very slightly different results because of float multiplication)
+        # self.A.fill(0), self.B.fill(0), self.C.fill(0), self.D.fill(0)
         # self.A[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.Cf)
         # self.B[:, :] = fill_Bmpsa(self.Cf)
         # self.C[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.Cf)
-        # self.D[:, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf)
-        # # Computing (A @ (Cinv @ D) + B) / 8
+        # inds_rows = np.where(self.C.sum(axis=3) == 0)
+        # inds_cols = np.where(self.C.sum(axis=2) == 0)
+        # self.C[inds_rows[0], inds_rows[1], inds_rows[2], inds_cols[2]] = 1.
+        # self.D[:, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf).transpose((1, 2, 0))
         # self.Emat[i] = (self.B + self.A @ np.linalg.inv(self.C) @ self.D) / 8.
 
+        # Computing transmissibility matrix as: (A @ (Cinv @ D) + B) / 8
         # creating C
         self.mpsa36x36[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.Cf)
 
@@ -287,38 +307,25 @@ class Elasticity(PropertySolver):
         # creating D
         self.Emat[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.Cf)
 
-        # computing:  Cinv
-        self.mpsa36x36[:] = np.linalg.inv(self.mpsa36x36)  # Cinv
+        # computing: Cinv
+        self.mpsa36x36[:] = np.linalg.inv(self.mpsa36x36)
 
-        # computing:  Cinv @ D
-        self.Emat[i] = self.mpsa36x36 @ self.Emat[i]  # (Cinv @ D)
+        # computing: Cinv @ D
+        self.Emat[i] = self.mpsa36x36 @ self.Emat[i]
 
         # creating A
         self.mpsa36x36.fill(0)
         self.mpsa36x36[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.Cf)
 
-        # computing:  A @ (Cinv @ D)
-        self.Emat[i] = self.mpsa36x36 @ self.Emat[i]  # A @ (Cinv @ D)
+        # computing: A @ (Cinv @ D)
+        self.Emat[i] = self.mpsa36x36 @ self.Emat[i]
 
-        # creating and adding B:  (A @ (Cinv @ D) + B)/8
-        self.Emat[i] += fill_Bmpsa(self.Cf)  # + B
+        # creating and adding B: (A @ (Cinv @ D) + B)/8
+        self.Emat[i] += fill_Bmpsa(self.Cf)
         self.Emat[i] /= 8
 
         if self.print_matrices[1]:
             self._print_E(i, i_cv, self.print_matrices[1])
-
-    def __initialize_MPSA(self):
-        # Initialize matrix slice of conductivities
-        self.Cmat = np.zeros((3, self.len_y, self.len_z, 21), dtype=float)  # per CV
-        self.__compute_Cmat(0, 0)  # Computing first layer of Kmat
-        self.__compute_Cmat(1, 1)  # Computing second layer of Kmat
-
-        # Initialize MPSA variables (variables per IV)
-        self.Cf = np.zeros((168, self.len_y - 1, self.len_z - 1), dtype=float)
-        self.Emat = np.zeros((2, self.len_y - 1, self.len_z - 1, 36, 24), dtype=float)
-        self.mpsa36x36 = np.zeros((self.len_y - 1, self.len_z - 1, 36, 36), dtype=float)  # A, C
-        self.Aind, self.Cind, self.Dind = create_mpsa_indices()
-        self.__compute_transmissibility(0, 0)  # Computing first layer of E
 
     def __creating_indices(self, i):
         # Finding all indices for slice
@@ -347,6 +354,9 @@ class Elasticity(PropertySolver):
     def compute_effective_coefficient(self):
         # reshaping solution
         self.u = self.x.reshape([self.len_x, self.len_y, self.len_z, 3], order='F')
+        # self.u = np.zeros((self.len_x * self.len_y * self.len_z * 3))  # reduced system
+        # self.u[self.I] = self.x
+        # self.u = self.u.reshape([self.len_x, self.len_y, self.len_z, 3], order='F')
         del self.x
 
         # Mirroring boundaries for flux computation
@@ -572,11 +582,8 @@ class Elasticity(PropertySolver):
         if self.direction is not None:
             if self.direction.lower() in ['x', 'y', 'z']:
                 self.direction = self.direction.lower()
-            elif self.direction.lower() in ['yz', 'xz', 'xy']:
-                self.direction = self.direction.lower()
-                self.shear_case = True
             else:
-                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z', 'yz', 'xz', 'xy'.")
+                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z'.")
 
         # side_bc checks
         if self.side_bc.lower() == "periodic" or self.side_bc == "p":
@@ -589,14 +596,6 @@ class Elasticity(PropertySolver):
             self.side_bc = "f"
         else:
             raise Exception("Invalid side boundary conditions.")
-
-        if self.shear_case:
-            if self.side_bc != "p":
-                print_warning("For shear cases, only periodic BC allowed. Setting side_bc='p'")
-                self.side_bc = "p"
-            if self.prescribed_bc is not None:
-                print_warning("For shear cases, prescribed cannot be defined. Setting prescribed_bc=None.")
-                self.prescribed_bc = None
 
         # print_matrices checks
         if type(self.print_matrices) is not tuple or len(self.print_matrices) != 5:

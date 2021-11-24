@@ -1,10 +1,10 @@
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.timer import Timer
-from pumapy.utilities.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
+from pumapy.physicsmodels.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
 from pumapy.physicsmodels.conductivity_parent import Conductivity
 from pumapy.physicsmodels.isotropic_conductivity_utils import setup_matrices_cy, compute_flux
 from pumapy.utilities.generic_checks import estimate_max_memory
-from scipy.sparse import csr_matrix, diags
+from scipy.sparse import coo_matrix, diags
 import numpy as np
 
 
@@ -105,7 +105,7 @@ class IsotropicConductivity(Conductivity):
         self._row, self._col, self._data = setup_matrices_cy(self.cond.flatten('F'), self.len_x, self.len_y, self.len_z,
                                                              self.bc_check, self.prescribed_bc)
         del self.prescribed_bc
-        self.Amat = csr_matrix((self._data, (self._row, self._col)), shape=(self.len_xyz, self.len_xyz))
+        self.Amat = coo_matrix((self._data, (self._row, self._col)), shape=(self.len_xyz, self.len_xyz)).tocsr()
         del self._data, self._row, self._col
         print("Done")
 
