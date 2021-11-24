@@ -1,9 +1,10 @@
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.timer import Timer
-from pumapy.utilities.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
+from pumapy.physicsmodels.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
 from pumapy.physicsmodels.conductivity_parent import Conductivity
 from pumapy.physicsmodels.isotropic_conductivity_utils import setup_matrices_cy, compute_flux
-from scipy.sparse import csr_matrix, diags
+from pumapy.utilities.generic_checks import estimate_max_memory
+from scipy.sparse import coo_matrix, diags
 import numpy as np
 
 
@@ -41,12 +42,12 @@ class IsotropicConductivity(Conductivity):
         self.M = None
         self.bvec = np.zeros(1)
         self.initial_guess = np.zeros(1)
-        self._kf = np.zeros(1)
 
     def compute(self):
         t = Timer()
+        estimate_max_memory("isotropic_conductivity", self.ws.get_shape(), self.solver_type)
         self.initialize()
-        self.assemble_bvector()
+        self.assemble_bvector()  # needs to be first because of prescribed_bc
         self.assemble_Amatrix()
         print("Time to assemble matrices: ", t.elapsed()); t.reset()
         super().solve()
@@ -66,21 +67,21 @@ class IsotropicConductivity(Conductivity):
         print("Done")
 
         print("Initializing temperature field ... ", end='')
-        self.T = np.zeros([self.len_x, self.len_y, self.len_z])
-        for i in range(self.len_x):
-            self.T[i, :, :] = i / (self.len_x - 1.)
-        self.initial_guess = self.T.flatten('F')
+        if self.solver_type != "direct":
+            self.initial_guess = np.zeros([self.len_x, self.len_y, self.len_z])
+            for i in range(self.len_x):
+                self.initial_guess[i, :, :] = i / (self.len_x - 1.)
+            self.initial_guess = self.initial_guess.flatten('F')
         print("Done")
 
     def assemble_bvector(self):
-
         print("Setting up b matrix ... ", end='')
         bsq = np.zeros([self.len_x, self.len_y, self.len_z])
         if self.prescribed_bc is not None:
             for i in range(self.len_x):
                 for j in range(self.len_y):
                     for k in range(self.len_z):
-                        if self.prescribed_bc[i, j, k] != np.Inf:
+                        if self.prescribed_bc.dirichlet[i, j, k] != np.Inf:
                             bsq[i, j, k] = self.prescribed_bc[i, j, k]
 
             self.prescribed_bc = self.prescribed_bc.dirichlet  # because of cython, cannot pass object
@@ -101,11 +102,11 @@ class IsotropicConductivity(Conductivity):
         print("Done")
 
     def assemble_Amatrix(self):
-        self._kf = self.cond.flatten('F')
-        self._row, self._col, self._data = setup_matrices_cy(self._kf, self.len_x, self.len_y, self.len_z,
+        self._row, self._col, self._data = setup_matrices_cy(self.cond.flatten('F'), self.len_x, self.len_y, self.len_z,
                                                              self.bc_check, self.prescribed_bc)
-        n_elem = self.len_xyz
-        self.Amat = csr_matrix((self._data, (self._row, self._col)), shape=(n_elem, n_elem))
+        del self.prescribed_bc
+        self.Amat = coo_matrix((self._data, (self._row, self._col)), shape=(self.len_xyz, self.len_xyz)).tocsr()
+        del self._data, self._row, self._col
         print("Done")
 
         print("Setting up preconditioner ...", end ='')

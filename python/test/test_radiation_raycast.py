@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 import pumapy as puma
-from pumapy.utilities.raycasting import RayCasting
+from pumapy.physicsmodels.raycasting import RayCasting
 import platform
 
 

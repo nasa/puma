@@ -7,10 +7,19 @@ THE SOFTWARE AND/OR TECHNICAL DATA ARE PROVIDED "AS IS" WITHOUT ANY WARRANTY OF 
 THE UNITED STATES GOVERNMENT DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD PARTY COMPUTER SOFTWARE, DATA, OR DOCUMENTATION, IF SAID THIRD PARTY COMPUTER SOFTWARE, DATA, OR DOCUMENTATION IS PRESENT IN THE NASA SOFTWARE AND/OR TECHNICAL DATA, AND DISTRIBUTES IT "AS IS."
 RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE UNITED STATES GOVERNMENT AND ITS CONTRACTORS AND SUBCONTRACTORS, AND SHALL INDEMNIFY AND HOLD HARMLESS THE UNITED STATES GOVERNMENT AND ITS CONTRACTORS AND SUBCONTRACTORS FOR ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES THAT MAY ARISE FROM RECIPIENT'S USE OF THE SOFTWARE AND/OR TECHNICAL DATA, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, THE USE THEREOF.
 IF RECIPIENT FURTHER RELEASES OR DISTRIBUTES THE NASA SOFTWARE AND/OR TECHNICAL DATA, RECIPIENT AGREES TO OBTAIN THIS IDENTICAL WAIVER OF CLAIMS, INDEMNIFICATION AND HOLD HARMLESS, AGREEMENT WITH ANY ENTITIES THAT ARE PROVIDED WITH THE SOFTWARE AND/OR TECHNICAL DATA.
-"""
 
-""" pumapy
 Root directory for the pumapy package.
+Please refer to this publication for a detailed software architecture explanation:
+
+@article{ferguson2021update,
+  title={Update 3.0 to “puma: The porous microstructure analysis software”,(pii: s2352711018300281)},
+  author={Ferguson, Joseph C and Semeraro, Federico and Thornton, John M and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
+  journal={SoftwareX},
+  volume={15},
+  pages={100775},
+  year={2021},
+  publisher={Elsevier}
+}
 """
 
 
@@ -22,15 +31,16 @@ Root directory for the pumapy package.
 # - git push nasa main
 # - git tag -a v$(python setup.py --version) -m 'INPUT DESCRIPTION'
 # - gh release create v$(python setup.py --version) --target main
-__version__ = "3.1.5"
+__version__ = "3.1.6"
 
 
 # utilities
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
-from pumapy.utilities.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
-from pumapy.utilities.boundary_conditions import ConductivityBC, ElasticityBC
+from pumapy.physicsmodels.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
+from pumapy.physicsmodels.boundary_conditions import ConductivityBC, ElasticityBC
 from pumapy.utilities.example_files import path_to_example_file, list_example_files
+from pumapy.utilities.generic_checks import estimate_max_memory, set_random_seed
 
 # input/output
 from pumapy.io.input import import_3Dtiff, import_bin, import_weave_vtu, import_vti
@@ -47,7 +57,7 @@ from pumapy.materialproperties.mean_intercept_length import compute_mean_interce
 from pumapy.materialproperties.orientation import compute_orientation_st, compute_angular_differences
 from pumapy.materialproperties.conductivity import compute_thermal_conductivity, compute_electrical_conductivity
 from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
-from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis
+from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis, get_E_nu_from_elasticity
 from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
 from pumapy.materialproperties.permeability import compute_permeability
 
@@ -72,7 +82,7 @@ from pumapy.visualization.render import (render_volume, render_contour, render_o
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation
-from pumapy.segmentation.porespace import identify_porespace, fill_closed_pores
+from pumapy.segmentation.ccl import identify_porespace, fill_closed_pores, remove_rbms
 
 # global settings
 settings = {"log_location": 'logs'}

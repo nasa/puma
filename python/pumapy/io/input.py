@@ -223,7 +223,7 @@ def import_weave_vtu(filename, from_texgen_gui=False):
     yarn_index = vtk_to_numpy(vtkobject.GetCellData().GetArray(0)) + 1
     ws = Workspace.from_array(yarn_index.reshape(int(dims[0]), int(dims[1]), int(dims[2]), order="F"))
 
-    if vtkobject.GetCellData().GetNumberOfArrays() == 2:
+    if vtkobject.GetCellData().GetNumberOfArrays() > 2:
         if from_texgen_gui:
             # ORIGINAL TEXGEN (GUI in Windows)
             # Number Of Arrays: 6

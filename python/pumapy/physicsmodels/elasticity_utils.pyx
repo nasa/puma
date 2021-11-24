@@ -89,20 +89,8 @@ def add_nondiag(unsigned int [:] nondiag, signed char [:] nondiag1s, int len_x, 
                         counter += 1
 
 
-def find_unstable_vox(int i, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned char [:,:,:] unstable):
-    
-    cdef int j, k
+def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_cv, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):
 
-    # Marking unstable voxels (i.e. voxels with all surrounding IV with det(Cmpsa)==0) as Dirichlet to skip them
-    for j in range(1, len_y - 1):
-        for k in range(1, len_z - 1):
-            if (unstable[0, j - 1, k - 1] and unstable[1, j - 1, k - 1] and unstable[0, j, k - 1] and unstable[1, j, k - 1] and
-                unstable[0, j - 1, k] and unstable[1, j - 1, k] and unstable[0, j, k] and unstable[1, j, k]):
-                dir_vox[i, j, k] = True
-
-
-def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vox, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):
-    
     cdef int j, k
     cdef unsigned long long counter_j, counter_v, len_xyz
     cdef double [:,:] E_sw, E_se, E_nw, E_ne, E_tsw, E_tse, E_tnw, E_tne
@@ -115,7 +103,7 @@ def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vo
         for k in range(1, len_z - 1):
 
             # When dirichlet voxel skip node
-            if not dir_vox[i, j, k, 0]:
+            if not dir_cv[i, j, k, 0]:
 
                 # Computing x and y divergence equations for P control volume
                 E_sw = Emat[0, j - 1, k - 1]
@@ -209,35 +197,30 @@ def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vo
                 values[counter_v + 79] = E_tne[0, 22] - E_tnw[0, 23] + E_tne[13, 22] + E_tnw[16, 23] + E_tne[26, 22] + E_tnw[29, 23]
                 values[counter_v + 80] = E_tne[0, 23] + E_tne[13, 23] + E_tne[26, 23]
 
-                # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
-                if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
-                    dir_vox[i, j, k, 0] = True
-                    values[counter_v:counter_v + 81] = np.NAN
-                else:
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
 
-                    counter_v += 81
+                counter_v += 81
 
     # divP_y
     for j in range(1, len_y - 1):
         for k in range(1, len_z - 1):
 
             # When dirichlet voxel skip node
-            if not dir_vox[i, j, k, 1]:
+            if not dir_cv[i, j, k, 1]:
 
                 # Computing x and y divergence equations for P control volume
                 E_sw = Emat[0, j - 1, k - 1]
@@ -331,35 +314,30 @@ def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vo
                 values[counter_v + 79] = E_tne[2, 22] - E_tnw[2, 23] + E_tne[12, 22] + E_tnw[15, 23] + E_tne[25, 22] + E_tnw[28, 23]
                 values[counter_v + 80] = E_tne[2, 23] + E_tne[12, 23] + E_tne[25, 23]
 
-                # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
-                if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
-                    dir_vox[i, j, k, 1] = True
-                    values[counter_v:counter_v + 81] = np.NAN
-                else:
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
 
-                    counter_v += 81
+                counter_v += 81
 
     # divP_z
     for j in range(1, len_y - 1):
         for k in range(1, len_z - 1):
 
             # When dirichlet voxel skip node
-            if not dir_vox[i, j, k, 2]:
+            if not dir_cv[i, j, k, 2]:
 
                 # Computing x and y divergence equations for P control volume
                 E_sw = Emat[0, j - 1, k - 1]
@@ -453,28 +431,23 @@ def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:, :] dir_vo
                 values[counter_v + 79] = E_tne[1, 22] - E_tnw[1, 23] + E_tne[14, 22] + E_tnw[17, 23] + E_tne[24, 22] + E_tnw[27, 23]
                 values[counter_v + 80] = E_tne[1, 23] + E_tne[14, 23] + E_tne[24, 23]
 
-                # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
-                if np.sum(np.abs(values[counter_v:counter_v + 81])) == 0:
-                    dir_vox[i, j, k, 2] = True
-                    values[counter_v:counter_v + 81] = np.NAN
-                else:
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
+                for k2 in range(-1, 2):
+                    for j2 in range(-1, 2):
+                        for i2 in range(-1, 2):
+                            j_indices[counter_j] = 2 * len_xyz + len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
+                            counter_j += 1
 
-                    counter_v += 81
+                counter_v += 81
 
 
 def fill_stress_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:,:] u, double [:,:,:,:,:] Emat,
@@ -558,7 +531,7 @@ def fill_stress_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:,:
             u_se[j - 1, k - 1, 21] = uz_se
             u_se[j - 1, k - 1, 22] = uz_p
             u_se[j - 1, k - 1, 23] = uz_e
-            
+
             u_nw[j - 1, k - 1, 0] =  ux_bw
             u_nw[j - 1, k - 1, 1] =  ux_b
             u_nw[j - 1, k - 1, 2] =  ux_bnw
@@ -583,7 +556,7 @@ def fill_stress_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:,:
             u_nw[j - 1, k - 1, 21] = uz_p
             u_nw[j - 1, k - 1, 22] = uz_nw
             u_nw[j - 1, k - 1, 23] = uz_n
-            
+
             u_ne[j - 1, k - 1, 0] =  ux_b
             u_ne[j - 1, k - 1, 1] =  ux_be
             u_ne[j - 1, k - 1, 2] =  ux_bn
@@ -608,7 +581,7 @@ def fill_stress_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:,:
             u_ne[j - 1, k - 1, 21] = uz_e
             u_ne[j - 1, k - 1, 22] = uz_n
             u_ne[j - 1, k - 1, 23] = uz_ne
-            
+
             u_tsw[j - 1, k - 1, 0] =  ux_sw
             u_tsw[j - 1, k - 1, 1] =  ux_s
             u_tsw[j - 1, k - 1, 2] =  ux_w
@@ -633,7 +606,7 @@ def fill_stress_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:,:
             u_tsw[j - 1, k - 1, 21] = uz_ts
             u_tsw[j - 1, k - 1, 22] = uz_tw
             u_tsw[j - 1, k - 1, 23] = uz_t
-            
+
             u_tse[j - 1, k - 1, 0] =  ux_s
             u_tse[j - 1, k - 1, 1] =  ux_se
             u_tse[j - 1, k - 1, 2] =  ux_p
@@ -658,7 +631,7 @@ def fill_stress_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:,:
             u_tse[j - 1, k - 1, 21] = uz_tse
             u_tse[j - 1, k - 1, 22] = uz_t
             u_tse[j - 1, k - 1, 23] = uz_te
-            
+
             u_tnw[j - 1, k - 1, 0] =  ux_w
             u_tnw[j - 1, k - 1, 1] =  ux_p
             u_tnw[j - 1, k - 1, 2] =  ux_nw
@@ -683,7 +656,7 @@ def fill_stress_matrices(int i, int len_x, int len_y, int len_z, double [:,:,:,:
             u_tnw[j - 1, k - 1, 21] = uz_t
             u_tnw[j - 1, k - 1, 22] = uz_tnw
             u_tnw[j - 1, k - 1, 23] = uz_tn
-            
+
             u_tne[j - 1, k - 1, 0] =  ux_p
             u_tne[j - 1, k - 1, 1] =  ux_e
             u_tne[j - 1, k - 1, 2] =  ux_n

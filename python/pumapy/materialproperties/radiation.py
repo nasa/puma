@@ -1,4 +1,4 @@
-from pumapy.utilities.raycasting import RayCasting
+from pumapy.physicsmodels.raycasting import RayCasting
 from scipy.optimize import curve_fit
 from matplotlib import pyplot as plt
 import numpy as np

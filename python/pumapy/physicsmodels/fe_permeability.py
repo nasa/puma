@@ -8,11 +8,11 @@ Fluids, 5(1), p.16.
 See https://www.mdpi.com/2311-5521/5/1/16 for the publication.
 See https://zenodo.org/record/3612168#.YUYlSWZKhTZ for 2D MATLAB implementation.
 """
-
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.workspace import Workspace
-from pumapy.utilities.linear_solvers import PropertySolver
-from scipy.sparse import csc_matrix
+from pumapy.physicsmodels.linear_solvers import PropertySolver
+from pumapy.utilities.generic_checks import estimate_max_memory
+from scipy.sparse import coo_matrix
 import numpy as np
 
 
@@ -51,6 +51,7 @@ class Permeability(PropertySolver):
 
     def compute(self):
         t = Timer()
+        estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type)
         self.initialize()
         self.assemble_bvector()
         self.assemble_Amatrix()
@@ -139,7 +140,7 @@ class Permeability(PropertySolver):
 
         self.calculate_element_matrices()
         sF = np.squeeze(np.tile(self.fe, (self.nelF * 3, 1)))
-        self.bvec_full = csc_matrix((sF, (iF, jF)), shape=(4 * self.nels, 3))
+        self.bvec_full = coo_matrix((sF, (iF, jF)), shape=(4 * self.nels, 3)).tocsr()
         self.bvec_full = self.bvec_full[self.resolveF]  # reducing vector
         print("Done")
 
@@ -162,7 +163,7 @@ class Permeability(PropertySolver):
         del self.fe, self.ke, self.ge, self.pe
 
         print("Done\nAssembling A matrix ... ", flush=True, end='')
-        self.Amat = csc_matrix((coeff, (iA, jA)))
+        self.Amat = coo_matrix((coeff, (iA, jA))).tocsr()
         del coeff, iA, jA
         print("Done")
 

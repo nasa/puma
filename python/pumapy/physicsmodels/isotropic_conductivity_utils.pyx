@@ -34,11 +34,11 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
     nEntries *= l_z
     nEntries *= 7
     nEntries += 2 * l_y * l_z
-    _row = np.zeros(nEntries)
-    _col = np.zeros(nEntries)
+    _row = np.zeros(nEntries, dtype=np.uint32)
+    _col = np.zeros(nEntries, dtype=np.uint32)
     _data = np.zeros(nEntries)
-    cdef double[:] row = _row
-    cdef double[:] col = _col
+    cdef unsigned int[:] row = _row
+    cdef unsigned int[:] col = _col
     cdef double[:] data = _data
 
     cdef unsigned long long count = 0

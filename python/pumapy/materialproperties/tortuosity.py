@@ -1,5 +1,5 @@
 from pumapy.materialproperties.volumefraction import compute_volume_fraction
-from pumapy.utilities.property_maps import IsotropicConductivityMap
+from pumapy.physicsmodels.property_maps import IsotropicConductivityMap
 from pumapy.physicsmodels.isotropic_conductivity import IsotropicConductivity
 
 
@@ -16,12 +16,12 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
         :param side_bc: side boundary conditions (string) can be symmetric ('s'), periodic ('p') or dirichlet ('d')
         :type side_bc: string
         :param prescribed_bc: 3D array holding dirichlet BC
-        :type prescribed_bc: pumapy.ConductivityBC
+        :type prescribed_bc: pumapy.ConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'cg', 'bicgstab', 'direct'
+        :param solver_type: solver type, options: 'cg' (default), 'bicgstab', 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
