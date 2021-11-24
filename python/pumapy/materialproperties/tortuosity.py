@@ -21,7 +21,7 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'cg', 'bicgstab', 'direct'
+        :param solver_type: solver type, options: 'cg' (default), 'bicgstab', 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool

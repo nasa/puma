@@ -21,7 +21,7 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres', 'direct'
+        :param solver_type: solver type, options: 'bicgstab' (default), 'cg', 'gmres', 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
@@ -85,7 +85,7 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
     :type tolerance: float
     :param maxiter: maximum Iterations for solver
     :type maxiter: int
-    :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres', 'direct'
+    :param solver_type: solver type, options: 'bicgstab' (default), 'cg', 'gmres', 'direct'
     :type solver_type: string
     :param display_iter: display iterations and residual
     :type display_iter: bool
