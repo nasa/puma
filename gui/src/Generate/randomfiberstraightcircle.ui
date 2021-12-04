@@ -103,7 +103,7 @@
               <string notr="true">font: 10pt &quot;Serif&quot;;</string>
              </property>
              <property name="text">
-              <string>100</string>
+              <string>200</string>
              </property>
             </widget>
            </item>
@@ -133,7 +133,7 @@
               <string notr="true">font: 10pt &quot;Serif&quot;;</string>
              </property>
              <property name="text">
-              <string>100</string>
+              <string>200</string>
              </property>
             </widget>
            </item>
@@ -163,7 +163,7 @@
               <string notr="true">font: 10pt &quot;Serif&quot;;</string>
              </property>
              <property name="text">
-              <string>100</string>
+              <string>200</string>
              </property>
             </widget>
            </item>
@@ -223,7 +223,7 @@
               <string notr="true">font: 10pt &quot;Serif&quot;;</string>
              </property>
              <property name="text">
-              <string>100</string>
+              <string>200</string>
              </property>
             </widget>
            </item>
@@ -312,7 +312,7 @@
               <string notr="true">font: 10pt &quot;Serif&quot;;</string>
              </property>
              <property name="text">
-              <string>5</string>
+              <string>6</string>
              </property>
             </widget>
            </item>
@@ -536,7 +536,7 @@
             <string notr="true">font: 10pt &quot;Serif&quot;;</string>
            </property>
            <property name="text">
-            <string>0.9</string>
+            <string>0.8</string>
            </property>
           </widget>
          </item>

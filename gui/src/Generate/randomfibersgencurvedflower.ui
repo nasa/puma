@@ -270,7 +270,7 @@
                  <item>
                   <widget class="QLineEdit" name="avgRadiusCurvEdit">
                    <property name="text">
-                    <string>60</string>
+                    <string>100</string>
                    </property>
                   </widget>
                  </item>
@@ -563,7 +563,7 @@
                <item>
                 <widget class="QLineEdit" name="lengthDevEdit">
                  <property name="text">
-                  <string>15</string>
+                  <string>0</string>
                  </property>
                 </widget>
                </item>
