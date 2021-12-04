@@ -33,7 +33,7 @@ double Fiber::pointSegment_Uncapped( puma::Vec3<double> &voxel_point, puma::Vec3
 
     double c1 = v.dot(w);
 
-    if(c1<=0) return 1e6;
+    if(c1<0) return 1e6;
     double c2 = v.dot(v);
     if(c2<=c1) return 1e6;
 
