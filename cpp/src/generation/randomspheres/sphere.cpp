@@ -19,7 +19,8 @@ short Sphere::getGrayValue(int i, int j, int k) {
     double deltaG = 127.0 / sphere_radius;
 
     puma::Vec3<double> voxelPoint(i,j,k);
-    double gray = 255.0 - deltaG*distanceFromCenter(voxelPoint, center_point);
+//    double gray = 255.0 - deltaG*distanceFromCenter(voxelPoint, center_point);
+    double gray = (255.-127.5*(1+std::tanh(( 0.5 * ( distanceFromCenter(voxelPoint, center_point) - sphere_radius)))));
     if(gray<0) gray=0;
 
     return (short)gray;

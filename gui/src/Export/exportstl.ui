@@ -69,7 +69,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lowEdit"/>
+      <widget class="QLineEdit" name="lowEdit">
+       <property name="text">
+        <string>128</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -86,7 +90,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="highEdit"/>
+      <widget class="QLineEdit" name="highEdit">
+       <property name="text">
+        <string>255</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
