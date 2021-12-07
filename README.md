@@ -81,7 +81,7 @@ Open a terminal, navigate to the directory you would like PuMA installed, and ex
 
     xcode-select --install                                                                 # run this on MacOS
     sudo apt-get install git build-essential mesa-common-dev                               # Debian (Ubuntu)
-    sudo yum group install "Development Tools"; sudo yum install git g++ mesa-libGL-devel  # Fedora (CentOS, RHEL)
+    sudo yum group install "Development Tools"; sudo yum install git gcc mesa-libGL-devel  # Fedora (CentOS, RHEL)
 
 Note: If XCode command line tools are already installed, the command will result in an error, which is not a problem. 
 
