@@ -26,6 +26,8 @@ private slots:
 
     void on_Generate_clicked();
 
+    void on_angle_combo_currentIndexChanged(int index);
+
 private:
     Ui::RandomFiberStraightCircle *ui;
     Viewer *view;

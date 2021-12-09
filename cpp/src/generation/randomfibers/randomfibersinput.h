@@ -34,12 +34,21 @@ public:
     double dRadius;
     double avgLength;
     double dLength;
-    int angleVarX;
-    int angleVarY;
-    int angleVarZ;
     bool intersect;
     double poro;
     int randomSeed;
+
+
+    int angleVarX;
+    int angleVarY;
+    int angleVarZ;
+    // 0 = isotropic
+    // 1 = transverse isotropic
+    // 2 = 1D
+    int angleType;
+    double angle_variability;
+    int var_direction; // 0=x, 1=y, 2=z
+
 
     // 0 = straightCirculer
     // 1 = curvedCircular
@@ -82,9 +91,6 @@ public:
         this->avgLength = -1;
         this->dRadius = -1;
         this->dLength = -1;
-        this->angleVarX = -1;
-        this->angleVarY = -1;
-        this->angleVarZ = -1;
         this->intersect = -1;
         this->poro = -1;
         this->randomSeed = -1;
@@ -104,6 +110,14 @@ public:
         this->bindFibers = false;
         this->binderRadius = -1;
         this->numThreads = 0;
+
+        this->angleVarX = -1;
+        this->angleVarY = -1;
+        this->angleVarZ = -1;
+
+        this->angleType=-1;
+        this->var_direction = -1;
+        this->angle_variability=-1;
 
         this->print = true;
     }
@@ -130,7 +144,7 @@ public:
      *
      */
     void straightCircle(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                        double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                        double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                         bool intersect, double poro, int randomSeed, int numThreads = 0) {
         this->xSize = xSize;
         this->ySize = ySize;
@@ -139,9 +153,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -210,7 +224,7 @@ public:
      *
      */
     void curvedCircle(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                      double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                      double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                       bool intersect, double poro, int randomSeed,
                       double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy, int numThreads = 0) {
         this->xSize = xSize;
@@ -220,9 +234,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -295,7 +309,7 @@ public:
      *
      */
     void straightFlower(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                        double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                        double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                         bool intersect, double poro, int randomSeed,
                         double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement, int numThreads = 0) {
         this->xSize = xSize;
@@ -305,9 +319,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -355,7 +369,7 @@ public:
      *
      */
     void straightFlower_Hollow(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                               double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                               double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                                bool intersect, double poro, int randomSeed,
                                double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement,
                                double fractionOfHollowFibers, double avgHollowRadius, double dHollowRadius, int numThreads = 0) {
@@ -366,9 +380,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -419,7 +433,7 @@ public:
      *
      */
     void curvedFlower(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                      double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                      double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                       bool intersect, double poro, int randomSeed,
                       double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy,
                       double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement, int numThreads = 0) {
@@ -430,9 +444,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -486,7 +500,7 @@ public:
      *
      */
     void curvedFlower_Hollow(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                             double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                             double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                              bool intersect, double poro, int randomSeed,
                              double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy,
                              double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement,
@@ -498,9 +512,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;

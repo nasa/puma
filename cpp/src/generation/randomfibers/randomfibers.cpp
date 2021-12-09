@@ -388,23 +388,23 @@ bool Generate_RandomFibers::errorCheck(std::string *errorMessage) {
         (*errorMessage) = "dLength invalid. Must be < avgLength";
         return false;
     }
-    if(input.angleVarX < 0 || input.angleVarX > 90) {
-        (*errorMessage) = "angleVarX invalid. Must be between 0 and 90";
-        return false;
-    }
-    if(input.angleVarY < 0 || input.angleVarY > 90) {
-        (*errorMessage) = "angleVarY invalid. Must be between 0 and 90";
-        return false;
-    }
-    if(input.angleVarZ < 0 || input.angleVarZ > 90) {
-        (*errorMessage) = "angleVarZ invalid. Must be between 0 and 90";
-        return false;
-    }
-
-    if(input.angleVarX == 0 && input.angleVarY == 0 && input.angleVarZ == 0 ) {
-        (*errorMessage) = "All angle variations are 0. At least one needs to be above 0 but less than 90.";
-        return false;
-    }
+//    if(input.angleVarX < 0 || input.angleVarX > 90) {
+//        (*errorMessage) = "angleVarX invalid. Must be between 0 and 90";
+//        return false;
+//    }
+//    if(input.angleVarY < 0 || input.angleVarY > 90) {
+//        (*errorMessage) = "angleVarY invalid. Must be between 0 and 90";
+//        return false;
+//    }
+//    if(input.angleVarZ < 0 || input.angleVarZ > 90) {
+//        (*errorMessage) = "angleVarZ invalid. Must be between 0 and 90";
+//        return false;
+//    }
+//
+//    if(input.angleVarX == 0 && input.angleVarY == 0 && input.angleVarZ == 0 ) {
+//        (*errorMessage) = "All angle variations are 0. At least one needs to be above 0 but less than 90.";
+//        return false;
+//    }
 
     if(input.poro < 0 || input.poro > 1) {
         (*errorMessage) = "poro invalid. Must be between 0 and 1";

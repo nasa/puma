@@ -1,5 +1,5 @@
 #include "straightcirclefiber.h"
-
+#include <math.h>
 
 StraightCircleFiber::StraightCircleFiber(double& radius, double& length, puma::Vec3<double>& startPos, puma::Vec3<double>& endPos) {
     this->radius = radius;
@@ -81,10 +81,6 @@ double StraightCircleFiber::approximateVolume(RandomFibersInput& input) {
 
 
 bool StraightCircleFiber::randomParameters(RandomFibersInput& input, sitmo::prng_engine *engine) {
-    double dX;
-    double dY;
-    double dZ;
-
     //new radius based on average value and deviation
     double rand0 = 2*std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8)-1;
     radius = input.avgRadius + rand0*input.dRadius;
@@ -98,56 +94,97 @@ bool StraightCircleFiber::randomParameters(RandomFibersInput& input, sitmo::prng
     startPos.y=(int)(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8)*input.ySize);
     startPos.z=(int)(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8)*input.zSize);
 
-    //direction in each
-    if(input.angleVarX!=0){
-        dX=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarX*2)-(input.angleVarX);
-        dX=length*sin(dX*3.1415926/180);
-    }else{
-        dX=0;
+    // TEMPORARY TESTING
+
+    startPos = puma::Vec3<double>(input.xSize/2,input.ySize/2,input.zSize/2);
+    puma::Vec3<double> dir_vec(1,1,1);
+
+    if(input.angleType == 0) { //isotropic
+        double theta = std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8) * M_PI;
+        double phi = std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8) * 2.0 * M_PI;
+        dir_vec.x = std::cos(phi) * std::sin(theta);
+        dir_vec.y = std::sin(phi) * std::sin(theta);
+        dir_vec.z = std::cos(theta);
+
+    } else if(input.angleType == 1) { //transverse isotropic
+        double theta = std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8) * 2 * input.angle_variability * M_PI / 180.0 - input.angle_variability;
+        double phi = std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8) * 2.0 * M_PI;
+
+        puma::Vec3<double> temp_vec(std::cos(phi) * std::sin(theta), std::sin(phi) * std::sin(theta),std::cos(theta));
+
+        if(input.var_direction == 0) { // 1D in x
+            dir_vec = puma::Vec3<double>(temp_vec.z,temp_vec.y,temp_vec.x);
+        } else if(input.var_direction == 1) { // 1D in y
+            dir_vec = puma::Vec3<double>(temp_vec.x,temp_vec.z,temp_vec.y);
+        } else if(input.var_direction == 2) { // 1D in z
+            dir_vec = puma::Vec3<double>(temp_vec.x,temp_vec.y,temp_vec.z);
+        }
+
+    } else if(input.angleType == 2) { // 1D
+        if(input.var_direction == 0) { // 1D in x
+            dir_vec = puma::Vec3<double>(1,0,0);
+        } else if(input.var_direction == 1) { // 1D in y
+            dir_vec = puma::Vec3<double>(0,1,0);
+        } else if(input.var_direction == 2) { // 1D in z
+            dir_vec = puma::Vec3<double>(0,0,1);
+        }
     }
 
-    if(input.angleVarY!=0){
-        dY=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarY*2)-(input.angleVarY);
-        dY=length*sin(dY*3.1415926/180);
-    }else{
-        dY=0;
-    }
+    endPos = startPos + dir_vec * length;
 
-    if(input.angleVarZ!=0){
-        dZ=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarZ*2)-(input.angleVarZ);
-        dZ=length*sin(dZ*3.1415926/180);
-    }else{
-        dZ=0;
-    }
+    // END TEMPORARY TESTING
 
-    //dX, dY, and dZ define a vector for the direction of the fiber
 
-    float d = sqrt(dX*dX+dY*dY+dZ*dZ);
-    float factor = length/d;
-    //d is the magnitude of the direction vector
-    //<dX,dY,dZ> / d = unit vector
-    //factor is length of the domain / magnitude of direction vector
-
-    endPos.x=fabs(dX*factor);
-    if(dX>=0){
-        endPos.x=startPos.x+endPos.x;
-    }else{
-        endPos.x=startPos.x-endPos.x;
-    }
-
-    endPos.y=fabs(dY*factor);
-    if(dY>=0){
-        endPos.y=startPos.y+endPos.y;
-    }else{
-        endPos.y=startPos.y-endPos.y;
-    }
-
-    endPos.z=fabs(dZ*factor);
-    if(dZ>=0){
-        endPos.z=startPos.z+endPos.z;
-    }else{
-        endPos.z=startPos.z-endPos.z;
-    }
+//    //direction in each
+//    if(input.angleVarX!=0){
+//        dX=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarX*2)-(input.angleVarX);
+//        dX=length*sin(dX*3.1415926/180);
+//    }else{
+//        dX=0;
+//    }
+//
+//    if(input.angleVarY!=0){
+//        dY=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarY*2)-(input.angleVarY);
+//        dY=length*sin(dY*3.1415926/180);
+//    }else{
+//        dY=0;
+//    }
+//
+//    if(input.angleVarZ!=0){
+//        dZ=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarZ*2)-(input.angleVarZ);
+//        dZ=length*sin(dZ*3.1415926/180);
+//    }else{
+//        dZ=0;
+//    }
+//
+//    //dX, dY, and dZ define a vector for the direction of the fiber
+//
+//    float d = sqrt(dX*dX+dY*dY+dZ*dZ);
+//    float factor = length/d;
+//    //d is the magnitude of the direction vector
+//    //<dX,dY,dZ> / d = unit vector
+//    //factor is length of the domain / magnitude of direction vector
+//
+//    endPos.x=fabs(dX*factor);
+//    if(dX>=0){
+//        endPos.x=startPos.x+endPos.x;
+//    }else{
+//        endPos.x=startPos.x-endPos.x;
+//    }
+//
+//    endPos.y=fabs(dY*factor);
+//    if(dY>=0){
+//        endPos.y=startPos.y+endPos.y;
+//    }else{
+//        endPos.y=startPos.y-endPos.y;
+//    }
+//
+//    endPos.z=fabs(dZ*factor);
+//    if(dZ>=0){
+//        endPos.z=startPos.z+endPos.z;
+//    }else{
+//        endPos.z=startPos.z-endPos.z;
+//    }
 
     return true;
 }
