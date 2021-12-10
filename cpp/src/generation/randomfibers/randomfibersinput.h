@@ -183,31 +183,6 @@ public:
         this->binderRadius = binderRadius;
     }
 
-//    void straightCircle_Hollow(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-//                               double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
-//                               bool intersect, double poro, int randomSeed, double fractionOfHollowFibers, double avgHollowRadius, double dHollowRadius) {
-//        this->xSize = xSize;
-//        this->ySize = ySize;
-//        this->zSize = zSize;
-//        this->avgRadius = avgRadius;
-//        this->avgLength = avgLength;
-//        this->dRadius = dRadius;
-//        this->dLength = dLength;
-//        angle_type: 0 for isotropic fibers, 1 for transverse isotropic, 2 for 1D
-//        angle_variability: Only relevant for transverse isotropic fibers, angle variability from the opposite plane
-//        var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance.
-//        this->intersect = intersect;
-//        this->poro = poro;
-//        this->randomSeed = randomSeed;
-//        this->fiberType = 0;
-//        this->hollow = true;
-//        this->fractionOfHollowFibers = fractionOfHollowFibers;
-//        this->avgHollowRadius = avgHollowRadius;
-//        this->dHollowRadius = dHollowRadius;
-
-//        this->print = true;
-
-//    }
 
 
     /*
@@ -496,7 +471,7 @@ public:
      * dLength: deviation in length. Cannot be more than avgLength. Often 0.
      * angle_type: 0 for isotropic fibers, 1 for transverse isotropic, 2 for 1D
      * angle_variability: Only relevant for transverse isotropic fibers, angle variability from the opposite plane
-     * var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance. 
+     * var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance.
      * intersect: true for cylinders allowed to intersect, false of they cannot
      *      note: not allowing intersections significantly slows the generation. Also there will be a porosity limit.
      *            for example, non-intersecting cylinders with porosity <0.8 will often fail to ever generate
