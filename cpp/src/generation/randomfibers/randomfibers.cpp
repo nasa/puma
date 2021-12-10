@@ -389,7 +389,7 @@ bool Generate_RandomFibers::errorCheck(std::string *errorMessage) {
         return false;
     }
 
-    if(input.angle_variability < 0 || input.angle_variability > 90 ) {
+    if((input.angleType == 1 ) && (input.angle_variability < 0 || input.angle_variability > 90)) {
         (*errorMessage) = "Invalid angle variability - should be between 0 and 90";
         return false;
     }
@@ -399,7 +399,7 @@ bool Generate_RandomFibers::errorCheck(std::string *errorMessage) {
         return false;
     }
 
-    if(input.var_direction < 0 || input.var_direction > 2) {
+    if( (input.angleType == 1 || input.angleType == 2) && (input.var_direction < 0 || input.var_direction > 2)) {
         (*errorMessage) = "Invalid direction, should be 0 for x, 1 for y, 2 for z";
         return false;
     }

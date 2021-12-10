@@ -91,7 +91,7 @@ public:
 
         std::string suiteName = "Generate_RandomFibers_Test";
         std::string testName = "Straight circle fiber error catch #1 - Invalid X Size";
-        std::string testDescription = "Generate_RandomFibers_Test: xsize=-1, ysize=200, zsize=200, avgRadius=5.0, dRadius=1.0, avgLength=5.0, dLength=1.0, angleVarX=90, angleVarY=90, "
+        std::string testDescription = "Generate_RandomFibers_Test: xsize=-1, ysize=200, zsize=200, avgRadius=5.0, dRadius=1.0, avgLength=5.0, dLength=1.0, angleType=1, angleVarY=90, "
                                       "angleVarZ=90, intersect=false, poro=0.8, randomSeed=100,"
                                       "; Should return false because of invalid xsize (negative)";
         TestResult result(suiteName, testName, 1, testDescription);
