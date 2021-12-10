@@ -66,7 +66,7 @@ void RandomFiberStraightCircle::on_Generate_clicked()
     bool bindFibers = ui->bindCheck->isChecked();
 
     RandomFibersInput input_straightCircle;
-    input_straightCircle.straightCircle(xSize,ySize,zSize,avgRadius,radiusDev,avgLength,lengthDev,angleType,var_direction,var_direction,Intersect,Porosity,randomSeed);
+    input_straightCircle.straightCircle(xSize,ySize,zSize,avgRadius,radiusDev,avgLength,lengthDev,angleType,angle_variation,var_direction,Intersect,Porosity,randomSeed);
 
     if(bindFibers) {
         input_straightCircle.addBinder(binderRadius);
