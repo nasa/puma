@@ -8,6 +8,11 @@ RandomFiberGenCurvedCircle::RandomFiberGenCurvedCircle(QWidget *parent) :
     ui(new Ui::RandomFiberGenCurvedCircle)
 {
     ui->setupUi(this);
+
+    ui->variability_edit->setVisible(false);
+    ui->variability_label->setVisible(false);
+    ui->direction_combo->setVisible(false);
+    ui->direction_label->setVisible(false);
 }
 
 RandomFiberGenCurvedCircle::~RandomFiberGenCurvedCircle()
@@ -31,9 +36,9 @@ void RandomFiberGenCurvedCircle::on_Generate_clicked()
     double radiusDev = ui->radiusDevEdit_2->text().toDouble();
     double avgLength = ui->avgLengthEdit_2->text().toDouble();
     double lengthDev = ui->lengthDevEdit_2->text().toDouble();
-    int angleVarX = ui->xAngleEdit_2->text().toInt();
-    int angleVarY = ui->yAngleEdit_2->text().toInt();
-    int angleVarZ = ui->zAngleEdit_2->text().toInt();
+    int angleType = ui->angle_combo->currentIndex();
+    int var_direction = ui->direction_combo->currentIndex();
+    double angle_variation = ui->variability_edit->text().toDouble();
     bool Intersect = ui->Intersect->isChecked();
     double Porosity = ui->porosityEdit_2->text().toDouble();
     int randomSeed = ui->randSeedEdit_2->text().toInt();
@@ -44,7 +49,7 @@ void RandomFiberGenCurvedCircle::on_Generate_clicked()
     bool bindFibers = ui->bindCheck->isChecked();
 
     RandomFibersInput input_curvedCircle;
-    input_curvedCircle.curvedCircle(xSize,ySize,zSize,avgRadius,radiusDev,avgLength,lengthDev,angleVarX,angleVarY,angleVarZ,Intersect,Porosity,randomSeed,avgRadiusCurvature,radiusCurvatureDev,Accuracy);
+    input_curvedCircle.curvedCircle(xSize,ySize,zSize,avgRadius,radiusDev,avgLength,lengthDev,angleType,angle_variation,var_direction,Intersect,Porosity,randomSeed,avgRadiusCurvature,radiusCurvatureDev,Accuracy);
 
     if(bindFibers) {
         input_curvedCircle.addBinder(binderRadius);
@@ -61,3 +66,24 @@ void RandomFiberGenCurvedCircle::on_Generate_clicked()
         view->slider->setValue(0);
     }
 }
+
+void RandomFiberGenCurvedCircle::on_angle_combo_currentIndexChanged(int index)
+{
+    if(index == 0) { //isotropic
+        ui->variability_edit->setVisible(false);
+        ui->variability_label->setVisible(false);
+        ui->direction_combo->setVisible(false);
+        ui->direction_label->setVisible(false);
+    } else if(index == 1) { // transverse isotropic
+        ui->variability_edit->setVisible(true);
+        ui->variability_label->setVisible(true);
+        ui->direction_combo->setVisible(true);
+        ui->direction_label->setVisible(true);
+    } else if(index == 2) { // 1D
+        ui->variability_edit->setVisible(false);
+        ui->variability_label->setVisible(false);
+        ui->direction_combo->setVisible(true);
+        ui->direction_label->setVisible(true);
+    }
+}
+

@@ -591,7 +591,7 @@ public:
     static TestResult test22() {
 
         std::string suiteName = "Generate_RandomFibers_Test";
-        std::string testName = "Straight Flower fiber error catch #11 - valid direction";
+        std::string testName = "Straight Flower fiber error catch #11 - invalid direction";
         std::string testDescription = "Generate_RandomFibers_Test: xsize=200, ysize=200, zsize=200, avgRadius=5.0, dRadius=1.0, avgLength=5, dLength=1.0, type=2, var=-1, "
                                       "direction=-1, intersect=false, poro=0.8, randomSeed=100, avgSmallradius=4, dSmallRadius=0, avgNumSmallFibers=5, dNumSmallFibers=0, dPlacement=0"
                                       "; Should return true because of valid direction (0)";
@@ -604,7 +604,7 @@ public:
 
         input.print = false; bool success = puma::generateRandomFibers(&grayWS, input);
 
-        if(!assertEquals(true,success,&result)) {
+        if(!assertEquals(false,success,&result)) {
             return result;
         }
 

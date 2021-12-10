@@ -92,10 +92,15 @@ puma::Vec3<double> Fiber::get_end_position(RandomFibersInput *input, sitmo::prng
 
     } else if(input->angleType == 1) { //transverse isotropic
         double theta = std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8) * 2.0 * M_PI;
-        double phi = std::acos(1 - 2 * std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8));
+        double phi = 0;
 
-        while( std::fabs( M_PI / 2.0 - phi ) > input->angle_variability * M_PI / 180.0  ) {
+        if(input->angle_variability <= 0.5) { // 0.5 is a bit arbitrary, but basically if it's close to or equal to 0, i set it to 0
+            phi = M_PI/2.0;
+        } else {
             phi = std::acos(1 - 2 * std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8));
+            while( std::fabs( M_PI / 2.0 - phi ) > input->angle_variability * M_PI / 180.0  ) {
+                phi = std::acos(1 - 2 * std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8));
+            }
         }
 
         puma::Vec3<double> temp_vec(std::sin(phi) * std::cos(theta), std::sin(phi) * std::sin(theta),std::cos(phi));

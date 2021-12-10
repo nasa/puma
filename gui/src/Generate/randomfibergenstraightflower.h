@@ -26,6 +26,8 @@ private slots:
 
     void on_hollowCheckBox_clicked(bool checked);
 
+    void on_angle_combo_currentIndexChanged(int index);
+
 private:
     Ui::RandomFiberGenStraightFlower *ui;
     Viewer *view;
