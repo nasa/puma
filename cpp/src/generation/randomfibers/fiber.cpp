@@ -79,3 +79,44 @@ double Fiber::pointSegment( double px, double py, double pz, double s1x, double 
     return distance;
 }
 
+puma::Vec3<double> Fiber::get_end_position(RandomFibersInput *input, sitmo::prng_engine *engine, puma::Vec3<double> startPos, double length) {
+    puma::Vec3<double> dir_vec(1,1,1);
+
+    if(input->angleType == 0) { //isotropic
+        double theta = std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8) * 2.0 * M_PI;
+        double phi = std::acos(1 - 2 * std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8));
+
+        dir_vec.x = std::sin(phi) * std::cos(theta);
+        dir_vec.y = std::sin(phi) * std::sin(theta);
+        dir_vec.z = std::cos(phi);
+
+    } else if(input->angleType == 1) { //transverse isotropic
+        double theta = std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8) * 2.0 * M_PI;
+        double phi = std::acos(1 - 2 * std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8));
+
+        while( std::fabs( M_PI / 2.0 - phi ) > input->angle_variability * M_PI / 180.0  ) {
+            phi = std::acos(1 - 2 * std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8));
+        }
+
+        puma::Vec3<double> temp_vec(std::sin(phi) * std::cos(theta), std::sin(phi) * std::sin(theta),std::cos(phi));
+
+        if(input->var_direction == 0) { // 1D in x
+            dir_vec = puma::Vec3<double>(temp_vec.z,temp_vec.y,temp_vec.x);
+        } else if(input->var_direction == 1) { // 1D in y
+            dir_vec = puma::Vec3<double>(temp_vec.x,temp_vec.z,temp_vec.y);
+        } else if(input->var_direction == 2) { // 1D in z
+            dir_vec = puma::Vec3<double>(temp_vec.x,temp_vec.y,temp_vec.z);
+        }
+
+    } else if(input->angleType == 2) { // 1D
+        if(input->var_direction == 0) { // 1D in x
+            dir_vec = puma::Vec3<double>(1,0,0);
+        } else if(input->var_direction == 1) { // 1D in y
+            dir_vec = puma::Vec3<double>(0,1,0);
+        } else if(input->var_direction == 2) { // 1D in z
+            dir_vec = puma::Vec3<double>(0,0,1);
+        }
+    }
+
+    return startPos + dir_vec * length;
+}
