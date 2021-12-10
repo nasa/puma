@@ -38,10 +38,6 @@ public:
     double poro;
     int randomSeed;
 
-
-    int angleVarX;
-    int angleVarY;
-    int angleVarZ;
     // 0 = isotropic
     // 1 = transverse isotropic
     // 2 = 1D
