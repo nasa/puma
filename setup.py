@@ -62,7 +62,7 @@ setup(
     cmdclass={'clean': CleanCommand},
     install_requires=[  # TexGen also required, but it can be installed as add-on
         "numpy",
-        "scikit-image",
+        "scikit-image >=0.17",  # in order to have marching_cubes in the API
         "scipy",
         "matplotlib",
         "pyevtk",

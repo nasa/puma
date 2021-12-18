@@ -6,6 +6,7 @@
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/version.svg)](https://anaconda.org/conda-forge/puma)
 [![PyPI version](https://badge.fury.io/py/pumapy.svg)](https://badge.fury.io/py/pumapy)
 ![pumapy Tests](https://github.com/nasa/puma/actions/workflows/test-pumapy.yml/badge.svg)
+[![Gitter](https://badges.gitter.im/puma-nasa/community.svg)](https://gitter.im/puma-nasa/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 -----
 
@@ -14,7 +15,7 @@
 The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma),
 whereas the latest development can be found on the
 [development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). Access the
-[PuMA documentation](https://puma-nasa.readthedocs.io) for detailed use of each function or to get started with the tutorial.
+[PuMA documentation](https://puma-nasa.readthedocs.io) for detailed use of each function.
 
 The Porous Microstructure Analysis (PuMA) software has been developed to
 compute effective material properties and perform material response simulations on
@@ -25,7 +26,8 @@ Version 3 includes modules to compute simple morphological properties such as po
 volume fractions, pore diameter, and specific surface area. Additional capabilities include
 the determination of effective thermal and electrical conductivity (both radiative and solid conduction - 
 including the ability to simulate local anisotropy for the latter); effective diffusivity and 
-tortuosity from the continuum to the rarefied regime; techniques to determine the local material orientation, as well as the mechanical properties (elasticity coefficient), and the permeability of a material.
+tortuosity from the continuum to the rarefied regime; techniques to determine the local material orientation, 
+as well as the mechanical properties (elasticity coefficient), and the permeability of a material.
 
 Some examples of microstructures that have been run in the past are shown in the pictures below,
 together with PuMA's software architecture schematic.

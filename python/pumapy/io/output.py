@@ -15,7 +15,7 @@ def export_vti(filename, dict_data, voxel_length=None):
         :param filename: filepath and name
         :type filename: string
         :param dict_data: dictionary setup as {"name1": data1, "name2": data2 ...} containing either Workspaces or ndarrays
-        :type dict_data: dict
+        :type dict_data: dict or Workspace or np.ndarray
         :param voxel_length: with voxel length to give to Numpy arrays (if any)
         :type voxel_length: float
         :return: True if successful, False otherwise.
