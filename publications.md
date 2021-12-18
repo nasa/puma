@@ -3,6 +3,12 @@
 The following is a chronological list of publications and presentations about the PuMA software and its capabilities:
 
 
+- Ferguson, J.C., Borner, A., Panerai, F., Close, S. and Mansour, N.N., 2022. 
+  Continuum to rarefied diffusive tortuosity factors in porous media from X-ray microtomography. 
+  Computational Materials Science, 203, p.111030.
+  [link to paper](https://www.sciencedirect.com/science/article/pii/S092702562100714X)
+
+
 - Ferguson, J.C., Semeraro, F., Thornton, J.M., Panerai, F., Borner, A. and Mansour, N.N., 2021. 
   Update 3.0 to “PuMA: The Porous Microstructure Analysis software”,(PII: S2352711018300281).  
   SoftwareX, 15, p.100775.

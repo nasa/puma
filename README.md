@@ -14,8 +14,12 @@
 
 The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma),
 whereas the latest development can be found on the
-[development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). Access the
-[PuMA documentation](https://puma-nasa.readthedocs.io) for detailed use of each function.
+[development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). A couple of useful resources: 
+- Check out the [documentation](https://puma-nasa.readthedocs.io) for detailed use of each function 
+- Get in touch on the [community chat](https://gitter.im/puma-nasa/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link),
+  where you can ask questions, report bugs, request new features, or leave us a comment.
+
+## Software description
 
 The Porous Microstructure Analysis (PuMA) software has been developed to
 compute effective material properties and perform material response simulations on
@@ -55,7 +59,7 @@ If not, conda can be installed by following the instructions
 ### Binaries (UNIX and Windows)
 
 Once the conda command is working, all the PuMA components can be installed by executing 
-the following command in a terminal: (Note: The "solving environment" step can take a while on some systems so please be patient)
+the following command in a terminal: (Note: The "solving environment" step can take a while on some systems)
 
     conda create -y --name puma conda-forge::puma
 
@@ -72,7 +76,7 @@ advanced compilation. A friendly warning will appear when TexGen is not installe
 
 ### Build from source (UNIX-only)
 
-This is the recommended installation for developers that need to make modifications to PuMA.
+This is the recommended installation for developers that need to make modifications to the C++ part of PuMA.
 The installation is broken into two sections:
 
 1. Installation of basic dependencies that may be missing from your system
@@ -96,7 +100,7 @@ After installation, close the terminal and open a new one.
 
 ### Uninstalling PuMA
 
-To uninstall PuMA and all the installed dependencies, execute the following:
+To uninstall PuMA and all the installed dependencies, execute the following command to delete the puma environment:
 
     conda remove -y --name puma --all
 
@@ -156,15 +160,18 @@ and its numerical methods.
 ## Common errors and bug reporting
 This is a list of the common errors encountered during the setup and how to solve them:
 
-- If PuMA was partially installed but was interrupted, this can cause errors when trying to install the software. To fix this, first follow the instructions to uninstall puma, and then repeat the installation procedure
-- If an error "make: Warning: File ... has modification time ... s in the future" is displayed, then run "sudo apt install ntp" (or equivalent for your distribution)
+- If PuMA was partially installed but was interrupted, this can cause errors when trying to install the software. 
+  To fix this, first follow the instructions to uninstall puma, and then repeat the installation procedure
+- If an error "make: Warning: File ... has modification time ... s in the future" is displayed, 
+  then run "sudo apt install ntp" (or equivalent for your distribution)
 
 If any bugs are found, or if the software crashes for any reason, please open an issue at [this link](https://github.com/nasa/puma/issues)
 and/or contact either of the authors mentioned below.
 
 ## Contributing to PuMA
 Since PuMA is a free open-source code, any user is welcome to contribute or collaborate however they would like.
-If you are interested in significant development for your research goals, please contact either of the authors mentioned below.
+If you are interested in significant development for your research goals, please contact either of the authors mentioned 
+below, either by email or on the community chat.
 
 ## Authors
 Creator:  Joseph Ferguson
