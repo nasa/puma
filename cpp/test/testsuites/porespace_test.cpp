@@ -159,7 +159,7 @@ public:
 
         double average =  poreMatrix.average();
 
-        if(!assertEquals(3.07607, average, 0.01, &result)) {
+        if(!assertEquals(3.66542, average, 0.01, &result)) {
             return result;
         }
 
@@ -187,7 +187,7 @@ public:
 
         double average = grayWS.matrix.average() ;
 
-        if(!assertEquals(0.7237, average, 0.01, &result)) {
+        if(!assertEquals(0.80765, average, 0.01, &result)) {
             return result;
         }
 
