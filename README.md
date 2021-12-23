@@ -14,10 +14,15 @@
 
 The stable releases of PuMA can be found on the [official NASA Github repository](https://github.com/nasa/puma),
 whereas the latest development can be found on the
-[development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). A couple of useful resources: 
-- Check out the [documentation](https://puma-nasa.readthedocs.io) for detailed use of each function 
-- Get in touch on the [community chat](https://gitter.im/puma-nasa/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link),
-  where you can ask questions, report bugs, request new features, or leave us a comment.
+[development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). 
+
+A few useful resources: 
+- [Documentation](https://puma-nasa.readthedocs.io) detailing the use of each function 
+- [Community chat](https://gitter.im/puma-nasa/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+  to ask questions or to get in touch
+- [YouTube channel](https://www.youtube.com/channel/UCBp_QC6ctwzdyxfZn7uHj0w/playlists) with the video tutorials
+- [Online tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorial/puma_tutorial.ipynb) with 
+examples for both python and C++
 
 ## Software description
 
