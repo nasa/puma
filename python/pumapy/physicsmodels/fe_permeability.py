@@ -13,12 +13,13 @@ from pumapy.utilities.workspace import Workspace
 from pumapy.physicsmodels.linear_solvers import PropertySolver
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix
+from scipy.sparse.linalg import LinearOperator
 import numpy as np
 
 
 class Permeability(PropertySolver):
 
-    def __init__(self, workspace, solid_cutoff, tolerance, maxiter, solver_type, display_iter):
+    def __init__(self, workspace, solid_cutoff, tolerance, maxiter, solver_type, display_iter, matrix_free):
         allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
@@ -27,6 +28,7 @@ class Permeability(PropertySolver):
         self.ws.binarize_range(self.solid_cutoff)
 
         self.solver_type = solver_type
+        self.matrix_free = matrix_free
         self.len_x, self.len_y, self.len_z = self.ws.matrix.shape
         self.voxlength = self.ws.voxel_length
 
@@ -146,29 +148,81 @@ class Permeability(PropertySolver):
 
     def assemble_Amatrix(self):
         print("Initializing large data structures ... ", flush=True, end='')
-        iK = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)
-        iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
-        jG = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')
-        iP = np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8)
-        iA = np.hstack((iK, iG, jG, iP))
-        del iK, iP
-        jK = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')
-        jP = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')
-        jA = np.hstack((jK, jG, iG, jP))
-        del jK, jG, iG, jP
-        iA -= 1
-        jA -= 1
-        coeff = np.hstack((np.tile(self.ke, self.nelF), np.tile(self.ge, self.nelF),
-                           np.tile(self.ge, self.nelF), -np.tile(self.pe, self.nelF)))
-        del self.fe, self.ke, self.ge, self.pe
 
-        print("Done\nAssembling A matrix ... ", flush=True, end='')
-        self.Amat = coo_matrix((coeff, (iA, jA))).tocsr()
-        del coeff, iA, jA
-        print("Done")
+        if not self.matrix_free or self.solver_type == 'direct':
+            iK = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)
+            iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
+            jG = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')
+            iP = np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8)
+            iA = np.hstack((iK, iG, jG, iP))
+            del iK, iP
+            jK = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')
+            jP = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')
+            jA = np.hstack((jK, jG, iG, jP))
+            del jK, jG, iG, jP
+            iA -= 1
+            jA -= 1
+            coeff = np.hstack((np.tile(self.ke, self.nelF), np.tile(self.ge, self.nelF),
+                               np.tile(self.ge, self.nelF), -np.tile(self.pe, self.nelF)))
+            del self.fe, self.ke, self.ge, self.pe
 
-        # Reducing system of equations
-        self.Amat = self.Amat[self.resolveF][:, self.resolveF]
+            print("Done\nAssembling A matrix ... ", flush=True, end='')
+            self.Amat = coo_matrix((coeff, (iA, jA))).tocsr()
+            del coeff, iA, jA
+            print("Done")
+
+            # Reducing system of equations
+            self.Amat = self.Amat[self.resolveF][:, self.resolveF]
+        else:
+            # matrix-free
+            keys = np.zeros(int(self.resolveF[-1] + 1), dtype=np.uint32)
+            keys[self.resolveF] = np.arange(self.resolveF.shape[0])
+
+            # K
+            I = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24) - 1
+            J = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F') - 1
+            mask_keep_i = np.in1d(I, self.resolveF)
+            mask_keep_j = np.in1d(J, self.resolveF)
+            mask_K = np.logical_and(mask_keep_i, mask_keep_j)
+
+            # G
+            I = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8) - 1
+            J = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F') - 1
+            mask_keep_i = np.in1d(I, self.resolveF)
+            mask_keep_j = np.in1d(J, self.resolveF)
+            mask_G = np.logical_and(mask_keep_i, mask_keep_j)
+
+            # P
+            I = np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8) - 1
+            J = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F') - 1
+            mask_keep_i = np.in1d(I, self.resolveF)
+            mask_keep_j = np.in1d(J, self.resolveF)
+            mask_P = np.logical_and(mask_keep_i, mask_keep_j)
+            del mask_keep_i, mask_keep_j
+
+            def matvec(x):
+                y = np.zeros_like(x)
+                # K
+                I = keys[np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)[mask_K] - 1]
+                J = keys[np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')[mask_K] - 1]
+                coeff = np.tile(self.ke, self.nelF)[mask_K]
+                np.add.at(y, I, coeff * x[J])
+
+                # G
+                I = keys[np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)[mask_G] - 1]
+                J = keys[np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')[mask_G] - 1]
+                coeff = np.tile(self.ge, self.nelF)[mask_G]
+                np.add.at(y, I, coeff * x[J])
+                np.add.at(y, J, coeff * x[I])
+
+                # P
+                I = keys[np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8)[mask_P] - 1]
+                J = keys[np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')[mask_P] - 1]
+                coeff = -np.tile(self.pe, self.nelF)[mask_P]
+                np.add.at(y, I, coeff * x[J])
+                return y
+
+            self.Amat = LinearOperator(shape=(self.resolveF.shape[0], self.resolveF.shape[0]), matvec=matvec)
 
         print("Done")
 
