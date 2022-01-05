@@ -1,7 +1,6 @@
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.isosurface import generate_isosurface
 from pumapy.utilities.logger import print_warning
-import pyvista as pv
 import numpy as np
 import string
 import random
@@ -15,7 +14,7 @@ def render_volume(workspace, cutoff=None, solid_color=None, style='surface', ori
         :param workspace: domain
         :type workspace: Workspace or np.ndarray
         :param cutoff: specifying the values to render
-        :type cutoff: (int, int) or None
+        :type cutoff: (int, int) or (float, float) or None
         :param solid_color: if set to None (default), the material is colored by the matrix's values.
                             Otherwise, a solid color can be specified (e.g. for white (1., 1., 1.))
         :type solid_color: (float, float, float) or None
@@ -120,7 +119,7 @@ def render_orientation(workspace, scale_factor=1., solid_color=None, style='surf
         :type scale_factor: float
         :param solid_color: a solid color for the arrows. Deafult is None, which colors the vectors by their magnitude.
                             To color white, input set solid_color=(1., 1., 1.)
-        :type solid_color: None or (float, float, float)
+        :type solid_color: None or (float, float, float) or str
         :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
         :type style: string
         :param origin: origin of the data as
@@ -276,6 +275,7 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
     """
 
     if add_to_plot is None:
+        import pyvista as pv  # lazily import pyvista to solve Dragonfly's crash
         p = pv.Plotter(notebook=notebook)
     else:
         p = add_to_plot
@@ -316,6 +316,8 @@ class Renderer:
         self.cmap = cmap
         self.voxel_length = 1
         self.scale_factor = scale_factor
+
+        import pyvista as pv  # lazily import pyvista to solve Dragonfly's crash
 
         if isinstance(workspace, Workspace):
             self.voxel_length = workspace.voxel_length
@@ -405,6 +407,7 @@ class Renderer:
                 tmp[:, i] = self.array[:, :, :, i].ravel(order='F')
             self.grid.cell_data["scalars"] = np.linalg.norm(self.array, axis=3).ravel(order='F')
             self.grid.cell_data["vectors"] = tmp
+            import pyvista as pv  # lazily import pyvista to solve Dragonfly's crash
             self.filter = self.grid.glyph(orient="vectors", scale="scalars", factor=self.scale_factor, geom=pv.Arrow())
 
         elif self.filter_type == "warp":

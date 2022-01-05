@@ -1,7 +1,6 @@
 import numpy as np
 from skimage import measure
 import scipy.ndimage as ndimage
-import pyvista as pv
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.generic_checks import check_ws_cutoff
 
@@ -46,6 +45,7 @@ class TriMesh:
         self.values = np.copy(other.values)
 
     def create_mesh(self):
+        import pyvista as pv  # lazily import pyvista to solve Dragonfly's crash
         f = np.zeros((self.faces.shape[0], 4), dtype=np.uint32)
         f[:, 0] = 3
         f[:, 1:] = self.faces
@@ -83,7 +83,7 @@ class Isosurface:
         import warnings
         warnings.simplefilter(action='ignore', category=FutureWarning)
         self.tri_mesh.verts, self.tri_mesh.faces, self.tri_mesh.normals, self.tri_mesh.values \
-            = measure.marching_cubes_lewiner(self.matrix, self.iso_value)
+            = measure.marching_cubes(self.matrix, self.iso_value)
 
     def flip_matrix(self):
         self.matrix = np.copy(self.workspace.matrix).astype(np.float32)
