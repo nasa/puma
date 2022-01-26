@@ -10,7 +10,7 @@ dependencies:
   - scipy =1.7.1
   - matplotlib =3.4.3
   - pyevtk =1.4.1
-  - pyvista =0.31.3
+  - pyvista
 
   # puma cpp
   - fftw =3.3.9
