@@ -11,22 +11,30 @@ bool puma::import_3DTiff(Workspace *work, std::string fileName, int xMin, int xM
     return importer.import();
 }
 
+
+std::string exec(const char* cmd) {
+    char buffer[128];
+    std::string result = "";
+    FILE* pipe = popen(cmd, "r");
+    if (!pipe) throw std::runtime_error("popen() failed!");
+    try {
+        while (fgets(buffer, sizeof buffer, pipe) != NULL) {
+            result += buffer;
+        }
+    } catch (...) {
+        pclose(pipe);
+        throw;
+    }
+    pclose(pipe);
+    return result;
+}
+
 std::string puma::path_to_example_file(std::string example_filename){
-    std::string path = __FILE__;
-    std::string filepathname = path.substr(0, path.rfind("\\"));
 
-    std::size_t last_slash = filepathname.find_last_of("/");
-    std::string dir = filepathname.substr(0, last_slash);
-    last_slash = dir.find_last_of("/");
-    dir = filepathname.substr(0, last_slash);
-        last_slash = dir.find_last_of("/");
-    dir = filepathname.substr(0, last_slash);
-        last_slash = dir.find_last_of("/");
-    dir = filepathname.substr(0, last_slash);
-        last_slash = dir.find_last_of("/");
-    dir = filepathname.substr(0, last_slash);
+    std::string command = "python -c 'import pumapy; print(pumapy.path_to_example_file(\"";
+    command += example_filename;
+    command += "\"))'";
 
-
-    std::cout << dir << std::endl;
-    return dir + "/python/pumapy/data/" + example_filename;
+    std::string out = exec(command.c_str());
+    return out;
 }

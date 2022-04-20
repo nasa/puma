@@ -66,9 +66,7 @@ If not, conda can be installed by following the instructions
 Once the conda command is working, all the PuMA components can be installed by executing 
 the following commands in a terminal (note that the "solving environment" step can sometimes take up to 15 mins):
 
-    conda config --add channels conda-forge
-    conda config --set channel_priority strict
-    conda create -y --name puma conda-forge::puma
+    conda create -y --name puma -c conda-forge puma
 
 On **UNIX** (i.e. Mac or Linux), the conda command installs the PuMA C++ library, pumapy python package and GUI. 
 On **Windows**, only the pumapy python package is available.

@@ -377,10 +377,10 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_14">
+    <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item alignment="Qt::AlignBottom">
+       <item>
         <widget class="QLabel" name="fibAngleVarLabel">
          <property name="maximumSize">
           <size>
@@ -397,9 +397,34 @@
         </widget>
        </item>
        <item>
+        <widget class="QComboBox" name="angle_combo">
+         <item>
+          <property name="text">
+           <string>Isotropic</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Transverse Isotropic</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1D</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
-          <widget class="QLabel" name="xDirLabel">
+          <widget class="QLabel" name="direction_label">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
            <property name="styleSheet">
             <string notr="true">font: 10pt &quot;Serif&quot;;</string>
            </property>
@@ -410,18 +435,30 @@
             <enum>QFrame::Sunken</enum>
            </property>
            <property name="text">
-            <string>X-Direction:</string>
+            <string>Direction:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="xAngleEdit">
-           <property name="styleSheet">
-            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+          <widget class="QComboBox" name="direction_combo">
+           <property name="currentIndex">
+            <number>2</number>
            </property>
-           <property name="text">
-            <string>90</string>
-           </property>
+           <item>
+            <property name="text">
+             <string>x</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>y</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>z</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>
@@ -429,7 +466,13 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
-          <widget class="QLabel" name="yDirLabel">
+          <widget class="QLabel" name="variability_label">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
            <property name="styleSheet">
             <string notr="true">font: 10pt &quot;Serif&quot;;</string>
            </property>
@@ -440,47 +483,17 @@
             <enum>QFrame::Sunken</enum>
            </property>
            <property name="text">
-            <string>Y-Direction:</string>
+            <string>Variability (deg):</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="yAngleEdit">
+          <widget class="QLineEdit" name="variability_edit">
            <property name="styleSheet">
             <string notr="true">font: 10pt &quot;Serif&quot;;</string>
            </property>
            <property name="text">
-            <string>90</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <widget class="QLabel" name="zDirLabel">
-           <property name="styleSheet">
-            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::Panel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
-           </property>
-           <property name="text">
-            <string>Z-Direction:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="zAngleEdit">
-           <property name="styleSheet">
-            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-           </property>
-           <property name="text">
-            <string>90</string>
+            <string>15</string>
            </property>
           </widget>
          </item>
@@ -729,10 +742,7 @@
   <tabstop>lengthDevEdit</tabstop>
   <tabstop>radiusDevEdit</tabstop>
   <tabstop>Intersect</tabstop>
-  <tabstop>xAngleEdit</tabstop>
   <tabstop>porosityEdit</tabstop>
-  <tabstop>yAngleEdit</tabstop>
-  <tabstop>zAngleEdit</tabstop>
   <tabstop>randSeedEdit</tabstop>
   <tabstop>bindCheck</tabstop>
   <tabstop>bindRadiusEdit</tabstop>

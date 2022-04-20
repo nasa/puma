@@ -150,7 +150,7 @@ public:
         puma::Workspace grayWS(10,10,1,1e-6);
 
         RandomFibersInput input;
-        input.straightFlower_Hollow(200,200,1, 30, 0, 1, 0, 0, 0, 90, true, 0.6, 2, 1, 0, 0, 0, 0, 1, 20, 0);
+        input.straightFlower_Hollow(200,200,1, 30, 0, 1, 0, 2, -1, 2, true, 0.6, 2, 1, 0, 0, 0, 0, 1, 20, 0);
         generateRandomFibers(&grayWS,input);
 
 
@@ -159,7 +159,7 @@ public:
 
         double average =  poreMatrix.average();
 
-        if(!assertEquals(3.07607, average, 0.01, &result)) {
+        if(!assertEquals(3.66542, average, 0.01, &result)) {
             return result;
         }
 
@@ -177,7 +177,7 @@ public:
         puma::Workspace grayWS(10,10,1,1e-6);
 
         RandomFibersInput input;
-        input.straightFlower_Hollow(200,200,1, 30, 0, 1, 0, 0, 0, 90, true, 0.6, 2, 1, 0, 0, 0, 0, 1, 20, 0);
+        input.straightFlower_Hollow(200,200,1, 30, 0, 1, 0, 2, -1, 2, true, 0.6, 2, 1, 0, 0, 0, 0, 1, 20, 0);
         generateRandomFibers(&grayWS,input);
 
         puma::fillClosedPores(&grayWS, puma::Cutoff(0,127), 255);
@@ -187,7 +187,7 @@ public:
 
         double average = grayWS.matrix.average() ;
 
-        if(!assertEquals(0.7237, average, 0.01, &result)) {
+        if(!assertEquals(0.80765, average, 0.01, &result)) {
             return result;
         }
 

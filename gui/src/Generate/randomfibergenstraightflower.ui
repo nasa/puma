@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Generate</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <widget class="QLabel" name="randFiberGenerationsLabel">
      <property name="maximumSize">
@@ -579,15 +579,15 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_22">
+    <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="QLabel" name="fibAngleVarLabel">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>19</height>
+           <height>20</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -599,22 +599,32 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <property name="spacing">
-          <number>0</number>
-         </property>
+        <widget class="QComboBox" name="angle_combo">
          <item>
-          <widget class="QLabel" name="xDirLabel">
-           <property name="minimumSize">
-            <size>
-             <width>85</width>
-             <height>0</height>
-            </size>
-           </property>
+          <property name="text">
+           <string>Isotropic</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Transverse Isotropic</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1D</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="direction_label">
            <property name="maximumSize">
             <size>
-             <width>80</width>
-             <height>19</height>
+             <width>16777215</width>
+             <height>20</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -627,39 +637,42 @@
             <enum>QFrame::Sunken</enum>
            </property>
            <property name="text">
-            <string>X-Direction:</string>
+            <string>Direction:</string>
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignLeft">
-          <widget class="QLineEdit" name="xAngleEdit">
-           <property name="styleSheet">
-            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+         <item>
+          <widget class="QComboBox" name="direction_combo">
+           <property name="currentIndex">
+            <number>2</number>
            </property>
-           <property name="text">
-            <string>90</string>
-           </property>
+           <item>
+            <property name="text">
+             <string>x</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>y</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>z</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_9">
-         <property name="spacing">
-          <number>0</number>
-         </property>
          <item>
-          <widget class="QLabel" name="yDirLabel">
-           <property name="minimumSize">
-            <size>
-             <width>85</width>
-             <height>0</height>
-            </size>
-           </property>
+          <widget class="QLabel" name="variability_label">
            <property name="maximumSize">
             <size>
-             <width>80</width>
-             <height>19</height>
+             <width>16777215</width>
+             <height>20</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -672,62 +685,17 @@
             <enum>QFrame::Sunken</enum>
            </property>
            <property name="text">
-            <string>Y-Direction:</string>
+            <string>Variability (deg):</string>
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignLeft">
-          <widget class="QLineEdit" name="yAngleEdit">
-           <property name="styleSheet">
-            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-           </property>
-           <property name="text">
-            <string>90</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <property name="spacing">
-          <number>0</number>
-         </property>
          <item>
-          <widget class="QLabel" name="zDirLabel">
-           <property name="minimumSize">
-            <size>
-             <width>85</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>80</width>
-             <height>19</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::Panel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
-           </property>
-           <property name="text">
-            <string>Z-Direction:</string>
-           </property>
-          </widget>
-         </item>
-         <item alignment="Qt::AlignLeft">
-          <widget class="QLineEdit" name="zAngleEdit">
+          <widget class="QLineEdit" name="variability_edit">
            <property name="styleSheet">
             <string notr="true">font: 10pt &quot;Serif&quot;;</string>
            </property>
            <property name="text">
-            <string>90</string>
+            <string>15</string>
            </property>
           </widget>
          </item>
@@ -1141,9 +1109,6 @@
   <tabstop>petalPlacementEdit</tabstop>
   <tabstop>avgLengthEdit</tabstop>
   <tabstop>lengthDevEdit</tabstop>
-  <tabstop>xAngleEdit</tabstop>
-  <tabstop>yAngleEdit</tabstop>
-  <tabstop>zAngleEdit</tabstop>
   <tabstop>Intersect</tabstop>
   <tabstop>hollowCheckBox</tabstop>
   <tabstop>pushButton</tabstop>

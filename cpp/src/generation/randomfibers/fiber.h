@@ -24,6 +24,7 @@ public:
     static double pointSegment( double px, double py, double pz, double s1x, double s1y, double s1z, double s2x, double s2y, double s2z);
     static double pointSegment_Uncapped( puma::Vec3<double> &voxel_point, puma::Vec3<double> &point_1, puma::Vec3<double> &point_2);
 
+    static puma::Vec3<double> get_end_position(RandomFibersInput *input, sitmo::prng_engine *engine, puma::Vec3<double> startPos, double length);
 
 };
 
