@@ -13,7 +13,7 @@ fi
 conda activate puma
 
 # this is to fix a libGL path problem on linux
-if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+if [ "$(uname)" != "Darwin" ]; then
 	VAR=$(conda list mesa-libgl-cos6-x86_64)
 	if [[ $VAR != *"mesa-libgl-cos6-x86_64"* ]]; then
 		echo -e "\n*** If a message 'The environment is inconsistent' is shown, let the conda solver resolve it ***\n"
