@@ -5,11 +5,11 @@ dependencies:
   - python
 
   # pumapy
-  - numpy
-  - scikit-image >=0.17
-  - scipy
-  - matplotlib
-  - pyevtk
+  - numpy =1.21.2 
+  - scikit-image =0.18.3
+  - scipy =1.7.1
+  - matplotlib =3.4.3
+  - pyevtk =1.4.1
   - pyvista
 
   # puma cpp

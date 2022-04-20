@@ -15,470 +15,284 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_11">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_16">
+    <layout class="QVBoxLayout" name="verticalLayout_14">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_15">
+      <layout class="QVBoxLayout" name="verticalLayout_13">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_14">
+        <layout class="QVBoxLayout" name="verticalLayout_12">
+         <item alignment="Qt::AlignHCenter">
+          <widget class="QLabel" name="randFiberGenerationsLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 75 16pt &quot;Serif&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Random Fiber Generations</string>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignHCenter">
+          <widget class="QLabel" name="straightCirclesLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 12pt &quot;Serif&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Curved Flower</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_13">
+          <widget class="QLabel" name="label_3">
+           <property name="styleSheet">
+            <string notr="true">font: 11pt &quot;Serif&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Domain Dimensions</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_12">
-             <item alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="randFiberGenerationsLabel">
+            <widget class="QLabel" name="xSizeLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>x-size:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="xSizeEdit">
+             <property name="maximumSize">
+              <size>
+               <width>100000</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>250</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="ySizeLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>y-size:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="ySizeEdit">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>250</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="zSizeLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>z-size:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="zSizeEdit">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>250</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_23">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="coreCircleDimensionsLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 11pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Fiber Core Circle Dimensions</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLabel" name="avgRadiusLabel">
                <property name="styleSheet">
-                <string notr="true">font: 75 16pt &quot;Serif&quot;;</string>
+                <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Panel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
                </property>
                <property name="text">
-                <string>Random Fiber Generations</string>
+                <string>Average Radius:</string>
                </property>
               </widget>
              </item>
-             <item alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="straightCirclesLabel">
+             <item>
+              <widget class="QLineEdit" name="avgRadiusEdit">
                <property name="styleSheet">
-                <string notr="true">font: 12pt &quot;Serif&quot;;</string>
+                <string notr="true">font: 10pt &quot;Serif&quot;;</string>
                </property>
                <property name="text">
-                <string>Curved Flower</string>
+                <string>5</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
            <item>
-            <widget class="Line" name="line">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout">
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="radiusDevLabel">
                <property name="styleSheet">
-                <string notr="true">font: 11pt &quot;Serif&quot;;</string>
+                <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Panel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
                </property>
                <property name="text">
-                <string>Domain Dimensions</string>
+                <string>Radius Deviation:</string>
                </property>
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QLabel" name="xSizeLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>x-size:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="xSizeEdit">
-                 <property name="maximumSize">
-                  <size>
-                   <width>100000</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>250</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
-               <item>
-                <widget class="QLabel" name="ySizeLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>y-size:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="ySizeEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>250</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_3">
-               <item>
-                <widget class="QLabel" name="zSizeLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>z-size:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="zSizeEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>250</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <widget class="QLineEdit" name="radiusDevEdit">
+               <property name="styleSheet">
+                <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+               </property>
+               <property name="text">
+                <string>1</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_23">
+          <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_7">
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <item>
-                <widget class="QLabel" name="coreCircleDimensionsLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 11pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>Fiber Core Circle Dimensions</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                 <item>
-                  <widget class="QLabel" name="avgRadiusLabel">
-                   <property name="styleSheet">
-                    <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Panel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>Average Radius:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="avgRadiusEdit">
-                   <property name="styleSheet">
-                    <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                   </property>
-                   <property name="text">
-                    <string>5</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_4">
-                 <item>
-                  <widget class="QLabel" name="radiusDevLabel">
-                   <property name="styleSheet">
-                    <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Panel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>Radius Deviation:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="radiusDevEdit">
-                   <property name="styleSheet">
-                    <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                   </property>
-                   <property name="text">
-                    <string>1</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_9">
-               <item>
-                <widget class="QLabel" name="label_5">
-                 <property name="text">
-                  <string>Radius of Curvature</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_25">
-                 <item>
-                  <widget class="QLabel" name="avgRadiusCurvLabel">
-                   <property name="frameShape">
-                    <enum>QFrame::Panel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>Average Curvature:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="avgRadiusCurvEdit">
-                   <property name="text">
-                    <string>100</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_26">
-                 <item>
-                  <widget class="QLabel" name="curvDeviationLabel">
-                   <property name="frameShape">
-                    <enum>QFrame::Panel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>Curvature Deviation:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="radiusCurvDeviationEdit">
-                   <property name="text">
-                    <string>2</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-            </layout>
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Radius of Curvature</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_6">
+            <layout class="QHBoxLayout" name="horizontalLayout_25">
              <item>
-              <widget class="QLabel" name="fiberPetalDimensionsLabel">
-               <property name="styleSheet">
-                <string notr="true">font: 11pt &quot;Serif&quot;;</string>
+              <widget class="QLabel" name="avgRadiusCurvLabel">
+               <property name="frameShape">
+                <enum>QFrame::Panel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
                </property>
                <property name="text">
-                <string>Fiber Petal Dimensions</string>
+                <string>Average Curvature:</string>
                </property>
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_15">
-               <item>
-                <widget class="QLabel" name="avgPetalRadiusLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>Average Radius:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="avgPetalRadiusEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>6</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <widget class="QLineEdit" name="avgRadiusCurvEdit">
+               <property name="text">
+                <string>100</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_26">
+             <item>
+              <widget class="QLabel" name="curvDeviationLabel">
+               <property name="frameShape">
+                <enum>QFrame::Panel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="text">
+                <string>Curvature Deviation:</string>
+               </property>
+              </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_14">
-               <item>
-                <widget class="QLabel" name="petalRadiusDevLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>Radius Deviation:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="petalRadiusDevEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>1</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_16">
-               <item>
-                <widget class="QLabel" name="avgNumPetalsLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>Average # Petals:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="avgNumPetalsEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>10</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_18">
-               <item>
-                <widget class="QLabel" name="numPetalsDevLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string># Petals Deviation:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="numPetalsDevEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>2</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_5">
-               <item>
-                <widget class="QLabel" name="label_4">
-                 <property name="styleSheet">
-                  <string notr="true">font: 9pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>Values from 0 to 30° around core circle</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_13">
-                 <item>
-                  <widget class="QLabel" name="petalPlacementLabel">
-                   <property name="styleSheet">
-                    <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Panel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>Petal Placement:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="petalPlacementEdit">
-                   <property name="styleSheet">
-                    <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                   </property>
-                   <property name="text">
-                    <string>10</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
+              <widget class="QLineEdit" name="radiusCurvDeviationEdit">
+               <property name="text">
+                <string>2</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -487,191 +301,176 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_10">
+        <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="fiberPetalDimensionsLabel">
            <property name="styleSheet">
             <string notr="true">font: 11pt &quot;Serif&quot;;</string>
            </property>
            <property name="text">
-            <string>Fiber Lengths and Orientation</string>
+            <string>Fiber Petal Dimensions</string>
            </property>
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QLabel" name="label_10">
-               <property name="styleSheet">
-                <string notr="true">font: 11pt &quot;Serif&quot;;</string>
-               </property>
-               <property name="text">
-                <string>Fiber Length</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
-               <item>
-                <widget class="QLabel" name="avgLength">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>Average Length:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="avgLengthEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>100</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7">
-               <item>
-                <widget class="QLabel" name="lengthDevLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>Length Deviation:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lengthDevEdit">
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
+            <widget class="QLabel" name="avgPetalRadiusLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>Average Radius:</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
+            <widget class="QLineEdit" name="avgPetalRadiusEdit">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>6</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_14">
+           <item>
+            <widget class="QLabel" name="petalRadiusDevLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>Radius Deviation:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="petalRadiusDevEdit">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_16">
+           <item>
+            <widget class="QLabel" name="avgNumPetalsLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>Average # Petals:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="avgNumPetalsEdit">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>10</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_18">
+           <item>
+            <widget class="QLabel" name="numPetalsDevLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string># Petals Deviation:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="numPetalsDevEdit">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>2</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Values from 0 to 30° around core circle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_13">
              <item>
-              <widget class="QLabel" name="fibAngleVarLabel">
+              <widget class="QLabel" name="petalPlacementLabel">
                <property name="styleSheet">
-                <string notr="true">font: 11pt &quot;Serif&quot;;</string>
+                <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Panel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
                </property>
                <property name="text">
-                <string>Fiber Angle Variability</string>
+                <string>Petal Placement:</string>
                </property>
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_8">
-               <item>
-                <widget class="QLabel" name="xDirLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>X-Direction:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="xAngleEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>90</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_9">
-               <item>
-                <widget class="QLabel" name="yDirLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>Y-Direction:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="yAngleEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>90</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_10">
-               <item>
-                <widget class="QLabel" name="zDirLabel">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Panel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string>Z-Direction:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="zAngleEdit">
-                 <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;Serif&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>90</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <widget class="QLineEdit" name="petalPlacementEdit">
+               <property name="styleSheet">
+                <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+               </property>
+               <property name="text">
+                <string>10</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -681,24 +480,236 @@
        </item>
       </layout>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
-      <widget class="QCheckBox" name="hollowCheckBox">
-       <property name="text">
-        <string>Create Hollow Fibers</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_10">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="styleSheet">
+          <string notr="true">font: 11pt &quot;Serif&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Fiber Lengths and Orientation</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="styleSheet">
+            <string notr="true">font: 11pt &quot;Serif&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Fiber Length</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QLabel" name="avgLength">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>Average Length:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="avgLengthEdit">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="text">
+              <string>100</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QLabel" name="lengthDevLabel">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Panel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>Length Deviation:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lengthDevEdit">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QCheckBox" name="Intersect">
-       <property name="text">
-        <string>Allow Fibers to Intersect</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QLabel" name="fibAngleVarLabel">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 11pt &quot;Serif&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Fiber Angle Variability</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="angle_combo">
+         <item>
+          <property name="text">
+           <string>Isotropic</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Transverse Isotropic</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1D</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="direction_label">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Panel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="text">
+            <string>Direction:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="direction_combo">
+           <property name="currentIndex">
+            <number>2</number>
+           </property>
+           <item>
+            <property name="text">
+             <string>x</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>y</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>z</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <widget class="QLabel" name="variability_label">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Panel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="text">
+            <string>Variability (deg):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="variability_edit">
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;Serif&quot;;</string>
+           </property>
+           <property name="text">
+            <string>15</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="hollowCheckBox">
+     <property name="text">
+      <string>Create Hollow Fibers</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="Intersect">
+     <property name="text">
+      <string>Allow Fibers to Intersect</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_22">
@@ -1082,9 +1093,6 @@
   <tabstop>petalPlacementEdit</tabstop>
   <tabstop>avgLengthEdit</tabstop>
   <tabstop>lengthDevEdit</tabstop>
-  <tabstop>xAngleEdit</tabstop>
-  <tabstop>yAngleEdit</tabstop>
-  <tabstop>zAngleEdit</tabstop>
   <tabstop>hollowCheckBox</tabstop>
   <tabstop>Intersect</tabstop>
   <tabstop>fracHollowFiberEdit</tabstop>

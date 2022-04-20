@@ -64,19 +64,16 @@ If not, conda can be installed by following the instructions
 ### Binaries (UNIX and Windows)
 
 Once the conda command is working, all the PuMA components can be installed by executing 
-the following command in a terminal: (Note: The "solving environment" step can take a while on some systems)
+the following commands in a terminal (note that the "solving environment" step can sometimes take up to 15 mins):
 
+    conda config --add channels conda-forge
+    conda config --set channel_priority strict
     conda create -y --name puma conda-forge::puma
 
-If only the pumapy python package is needed, it can be installed directly using:
+On **UNIX** (i.e. Mac or Linux), the conda command installs the PuMA C++ library, pumapy python package and GUI. 
+On **Windows**, only the pumapy python package is available.
 
-    pip install pumapy
-
-On UNIX (i.e. Mac or Linux), the conda command installs the PuMA C++ library, pumapy python package and GUI.
-
-On Windows, only the pumapy python package is available, so both commands are equivalent.
-
-Note: TexGen (C++ library to create artificial weaves) is only installed when using conda on UNIX, because it needs more 
+Note: TexGen (C++ library to create artificial weaves) is only installed on UNIX, because it needs more 
 advanced compilation. A friendly warning will appear when TexGen is not installed and pumapy is imported. 
 
 ### Build from source (UNIX-only)

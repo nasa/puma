@@ -3,6 +3,12 @@
 The following is a chronological list of publications and presentations about the PuMA software and its capabilities:
 
 
+- Fraile Izquierdo, S., Semeraro, F. and Acín, M., 2022. 
+  Multi-Scale Analysis of Effective Mechanical Properties of Porous 3D Woven Composite Materials. 
+  In AIAA SCITECH 2022 Forum (p. 2281).
+  [link to paper](https://arc.aiaa.org/doi/abs/10.2514/6.2022-2281)
+
+
 - Ferguson, J.C., Borner, A., Panerai, F., Close, S. and Mansour, N.N., 2022. 
   Continuum to rarefied diffusive tortuosity factors in porous media from X-ray microtomography. 
   Computational Materials Science, 203, p.111030.

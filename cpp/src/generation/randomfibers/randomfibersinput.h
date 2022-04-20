@@ -34,12 +34,17 @@ public:
     double dRadius;
     double avgLength;
     double dLength;
-    int angleVarX;
-    int angleVarY;
-    int angleVarZ;
     bool intersect;
     double poro;
     int randomSeed;
+
+    // 0 = isotropic
+    // 1 = transverse isotropic
+    // 2 = 1D
+    int angleType;
+    double angle_variability;
+    int var_direction; // 0=x, 1=y, 2=z
+
 
     // 0 = straightCirculer
     // 1 = curvedCircular
@@ -82,9 +87,6 @@ public:
         this->avgLength = -1;
         this->dRadius = -1;
         this->dLength = -1;
-        this->angleVarX = -1;
-        this->angleVarY = -1;
-        this->angleVarZ = -1;
         this->intersect = -1;
         this->poro = -1;
         this->randomSeed = -1;
@@ -105,6 +107,10 @@ public:
         this->binderRadius = -1;
         this->numThreads = 0;
 
+        this->angleType=-1;
+        this->var_direction = -1;
+        this->angle_variability=-1;
+
         this->print = true;
     }
 
@@ -117,9 +123,9 @@ public:
      * dRadius: deviation in radius. Cannot be more than avgRadius. Often 0
      * avgLength: average Length of the cylinders (in voxels). Usually 10x-50x the avgRadius, or approx equal to the domain size
      * dLength: deviation in length. Cannot be more than avgLength. Often 0.
-     * angleVarX: Between 0 and 90. 0 being all cylinders aligned in the x direction and 90 being fully random. Often 90
-     * angleVarY: Between 0 and 90. 0 being all cylinders aligned in the y direction and 90 being fully random. Often 90
-     * angleVarZ: Between 0 and 90. 0 being all cylinders aligned in the z direction and 90 being fully random. Often 90
+     * angle_type: 0 for isotropic fibers, 1 for transverse isotropic, 2 for 1D
+     * angle_variability: Only relevant for transverse isotropic fibers, angle variability from the opposite plane
+     * var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance.
      * intersect: true for cylinders allowed to intersect, false of they cannot
      *      note: not allowing intersections significantly slows the generation. Also there will be a porosity limit.
      *            for example, non-intersecting cylinders with porosity <0.8 will often fail to ever generate
@@ -129,8 +135,11 @@ public:
      *             and parameters, the structure will be identical each time.
      *
      */
+
+
+
     void straightCircle(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                        double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                        double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                         bool intersect, double poro, int randomSeed, int numThreads = 0) {
         this->xSize = xSize;
         this->ySize = ySize;
@@ -139,9 +148,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -153,36 +162,27 @@ public:
 
     }
 
+//    void straightCircle_isotropic(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                           double avgLength, double dLength,
+//                           bool intersect, double poro, int randomSeed, int numThreads = 0) {
+//        straightCircle(xSize,ySize,zSize,avgRadius,dRadius,avgLength,dLength,0,90,0,intersect,poro,randomSeed,numThreads);
+//    }
+//    void straightCircle_transverse(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                           double avgLength, double dLength, double angle_variability, int var_direction,
+//                           bool intersect, double poro, int randomSeed, int numThreads = 0) {
+//        straightCircle(xSize,ySize,zSize,avgRadius,dRadius,avgLength,dLength,1,angle_variability,var_direction,intersect,poro,randomSeed,numThreads);
+//    }
+//    void straightCircle_1D(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                           double avgLength, double dLength, int var_direction,
+//                           bool intersect, double poro, int randomSeed, int numThreads = 0) {
+//        straightCircle(xSize,ySize,zSize,avgRadius,dRadius,avgLength,dLength,2,90,var_direction,intersect,poro,randomSeed,numThreads);
+//    }
+
     void addBinder(double binderRadius) {
         this->bindFibers = true;
         this->binderRadius = binderRadius;
     }
 
-//    void straightCircle_Hollow(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-//                               double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
-//                               bool intersect, double poro, int randomSeed, double fractionOfHollowFibers, double avgHollowRadius, double dHollowRadius) {
-//        this->xSize = xSize;
-//        this->ySize = ySize;
-//        this->zSize = zSize;
-//        this->avgRadius = avgRadius;
-//        this->avgLength = avgLength;
-//        this->dRadius = dRadius;
-//        this->dLength = dLength;
-//        this->angleVarX = angleVarX;
-//        this->angleVarY = angleVarY;
-//        this->angleVarZ = angleVarZ;
-//        this->intersect = intersect;
-//        this->poro = poro;
-//        this->randomSeed = randomSeed;
-//        this->fiberType = 0;
-//        this->hollow = true;
-//        this->fractionOfHollowFibers = fractionOfHollowFibers;
-//        this->avgHollowRadius = avgHollowRadius;
-//        this->dHollowRadius = dHollowRadius;
-
-//        this->print = true;
-
-//    }
 
 
     /*
@@ -193,9 +193,9 @@ public:
      * dRadius: deviation in radius. Cannot be more than avgRadius. Often 0
      * avgLength: average Length of the cylinders (in voxels). Usually 10x-50x the avgRadius, or approx equal to the domain size
      * dLength: deviation in length. Cannot be more than avgLength. Often 0.
-     * angleVarX: Between 0 and 90. 0 being all cylinders aligned in the x direction and 90 being fully random. Often 90
-     * angleVarY: Between 0 and 90. 0 being all cylinders aligned in the y direction and 90 being fully random. Often 90
-     * angleVarZ: Between 0 and 90. 0 being all cylinders aligned in the z direction and 90 being fully random. Often 90
+     * angle_type: 0 for isotropic fibers, 1 for transverse isotropic, 2 for 1D
+     * angle_variability: Only relevant for transverse isotropic fibers, angle variability from the opposite plane
+     * var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance.
      * intersect: true for cylinders allowed to intersect, false of they cannot
      *      note: not allowing intersections significantly slows the generation. Also there will be a porosity limit.
      *            for example, non-intersecting cylinders with porosity <0.8 will often fail to ever generate
@@ -210,7 +210,7 @@ public:
      *
      */
     void curvedCircle(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                      double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                      double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                       bool intersect, double poro, int randomSeed,
                       double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy, int numThreads = 0) {
         this->xSize = xSize;
@@ -220,9 +220,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -238,34 +238,23 @@ public:
     }
 
 
-//    void curvedCircle_Hollow(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-//                             double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
-//                             bool intersect, double poro, int randomSeed,
-//                             double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy, double fractionOfHollowFibers, double avgHollowRadius, double dHollowRadius) {
-//        this->xSize = xSize;
-//        this->ySize = ySize;
-//        this->zSize = zSize;
-//        this->avgRadius = avgRadius;
-//        this->avgLength = avgLength;
-//        this->dRadius = dRadius;
-//        this->dLength = dLength;
-//        this->angleVarX = angleVarX;
-//        this->angleVarY = angleVarY;
-//        this->angleVarZ = angleVarZ;
-//        this->intersect = intersect;
-//        this->poro = poro;
-//        this->randomSeed = randomSeed;
-//        this->fiberType = 1;
-//        this->avgRadiusOfCurvature = avgRadiusOfCurvature;
-//        this->dRadiusOfCurvature = dRadiusOfCurvature;
-//        this->accuracy = accuracy;
-//        this->hollow = true;
-//        this->fractionOfHollowFibers = fractionOfHollowFibers;
-//        this->avgHollowRadius = avgHollowRadius;
-//        this->dHollowRadius = dHollowRadius;
-
-//        this->print = true;
-
+//    void curvedCircle_isotropic(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                                double avgLength, double dLength,
+//                                bool intersect, double poro, int randomSeed,
+//                                double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy, int numThreads = 0) {
+//        curvedCircle(xSize, ySize,zSize,avgRadius,dRadius,avgLength,dLength, 0, 90,0,intersect, poro, randomSeed,avgRadiusOfCurvature, dRadiusOfCurvature, accuracy, numThreads);
+//    }
+//    void curvedCircle_transverse(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                                 double avgLength, double dLength, double angle_variability, int var_direction,
+//                                 bool intersect, double poro, int randomSeed,
+//                                 double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy, int numThreads = 0) {
+//        curvedCircle(xSize, ySize,zSize,avgRadius,dRadius,avgLength,dLength, 1, angle_variability,var_direction,intersect, poro, randomSeed,avgRadiusOfCurvature, dRadiusOfCurvature, accuracy, numThreads);
+//    }
+//    void curvedCircle_1D(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                         double avgLength, double dLength, int var_direction,
+//                         bool intersect, double poro, int randomSeed,
+//                         double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy, int numThreads = 0) {
+//        curvedCircle(xSize, ySize,zSize,avgRadius,dRadius,avgLength,dLength, 2, 90,var_direction,intersect, poro, randomSeed,avgRadiusOfCurvature, dRadiusOfCurvature, accuracy, numThreads);
 //    }
 
 
@@ -277,9 +266,9 @@ public:
      * dRadius: deviation in radius. Cannot be more than avgRadius. Often 0
      * avgLength: average Length of the cylinders (in voxels). Usually 10x-50x the avgRadius, or approx equal to the domain size
      * dLength: deviation in length. Cannot be more than avgLength. Often 0.
-     * angleVarX: Between 0 and 90. 0 being all cylinders aligned in the x direction and 90 being fully random. Often 90
-     * angleVarY: Between 0 and 90. 0 being all cylinders aligned in the y direction and 90 being fully random. Often 90
-     * angleVarZ: Between 0 and 90. 0 being all cylinders aligned in the z direction and 90 being fully random. Often 90
+     * angle_type: 0 for isotropic fibers, 1 for transverse isotropic, 2 for 1D
+     * angle_variability: Only relevant for transverse isotropic fibers, angle variability from the opposite plane
+     * var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance.
      * intersect: true for cylinders allowed to intersect, false of they cannot
      *      note: not allowing intersections significantly slows the generation. Also there will be a porosity limit.
      *            for example, non-intersecting cylinders with porosity <0.8 will often fail to ever generate
@@ -295,7 +284,7 @@ public:
      *
      */
     void straightFlower(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                        double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                        double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                         bool intersect, double poro, int randomSeed,
                         double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement, int numThreads = 0) {
         this->xSize = xSize;
@@ -305,9 +294,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -324,6 +313,25 @@ public:
 
     }
 
+//    void straightFlower_isotropic(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                                  double avgLength, double dLength,
+//                                  bool intersect, double poro, int randomSeed,
+//                                  double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement, int numThreads = 0) {
+//        straightFlower(xSize,ySize,zSize,avgRadius,dRadius,avgLength,dLength,0,90,0,intersect,poro,randomSeed,AvgSmallRadius, dSmallRadius, AvgNumSmallFibers, dNumSmallFibers, dPlacement, numThreads);
+//    }
+//    void straightFlower_transverse(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                                   double avgLength, double dLength, double angle_variability, int var_direction,
+//                                   bool intersect, double poro, int randomSeed,
+//                                   double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement, int numThreads = 0) {
+//        straightFlower(xSize,ySize,zSize,avgRadius,dRadius,avgLength,dLength,1,angle_variability,var_direction,intersect,poro,randomSeed,AvgSmallRadius, dSmallRadius, AvgNumSmallFibers, dNumSmallFibers, dPlacement, numThreads);
+//    }
+//    void straightFlower_1D(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
+//                           double avgLength, double dLength,  int var_direction,
+//                           bool intersect, double poro, int randomSeed,
+//                           double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement, int numThreads = 0) {
+//        straightFlower(xSize,ySize,zSize,avgRadius,dRadius,avgLength,dLength,2,90,var_direction,intersect,poro,randomSeed,AvgSmallRadius, dSmallRadius, AvgNumSmallFibers, dNumSmallFibers, dPlacement, numThreads);
+//    }
+
 
     /*
      * xSize: domain size in x direction. Usually between 100-1000
@@ -333,9 +341,9 @@ public:
      * dRadius: deviation in radius. Cannot be more than avgRadius. Often 0
      * avgLength: average Length of the cylinders (in voxels). Usually 10x-50x the avgRadius, or approx equal to the domain size
      * dLength: deviation in length. Cannot be more than avgLength. Often 0.
-     * angleVarX: Between 0 and 90. 0 being all cylinders aligned in the x direction and 90 being fully random. Often 90
-     * angleVarY: Between 0 and 90. 0 being all cylinders aligned in the y direction and 90 being fully random. Often 90
-     * angleVarZ: Between 0 and 90. 0 being all cylinders aligned in the z direction and 90 being fully random. Often 90
+     * angle_type: 0 for isotropic fibers, 1 for transverse isotropic, 2 for 1D
+     * angle_variability: Only relevant for transverse isotropic fibers, angle variability from the opposite plane
+     * var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance.
      * intersect: true for cylinders allowed to intersect, false of they cannot
      *      note: not allowing intersections significantly slows the generation. Also there will be a porosity limit.
      *            for example, non-intersecting cylinders with porosity <0.8 will often fail to ever generate
@@ -355,7 +363,7 @@ public:
      *
      */
     void straightFlower_Hollow(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                               double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                               double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                                bool intersect, double poro, int randomSeed,
                                double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement,
                                double fractionOfHollowFibers, double avgHollowRadius, double dHollowRadius, int numThreads = 0) {
@@ -366,9 +374,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -397,9 +405,9 @@ public:
      * dRadius: deviation in radius. Cannot be more than avgRadius. Often 0
      * avgLength: average Length of the cylinders (in voxels). Usually 10x-50x the avgRadius, or approx equal to the domain size
      * dLength: deviation in length. Cannot be more than avgLength. Often 0.
-     * angleVarX: Between 0 and 90. 0 being all cylinders aligned in the x direction and 90 being fully random. Often 90
-     * angleVarY: Between 0 and 90. 0 being all cylinders aligned in the y direction and 90 being fully random. Often 90
-     * angleVarZ: Between 0 and 90. 0 being all cylinders aligned in the z direction and 90 being fully random. Often 90
+     * angle_type: 0 for isotropic fibers, 1 for transverse isotropic, 2 for 1D
+     * angle_variability: Only relevant for transverse isotropic fibers, angle variability from the opposite plane
+     * var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance.
      * intersect: true for cylinders allowed to intersect, false of they cannot
      *      note: not allowing intersections significantly slows the generation. Also there will be a porosity limit.
      *            for example, non-intersecting cylinders with porosity <0.8 will often fail to ever generate
@@ -419,7 +427,7 @@ public:
      *
      */
     void curvedFlower(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                      double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                      double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                       bool intersect, double poro, int randomSeed,
                       double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy,
                       double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement, int numThreads = 0) {
@@ -430,9 +438,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;
@@ -461,9 +469,9 @@ public:
      * dRadius: deviation in radius. Cannot be more than avgRadius. Often 0
      * avgLength: average Length of the cylinders (in voxels). Usually 10x-50x the avgRadius, or approx equal to the domain size
      * dLength: deviation in length. Cannot be more than avgLength. Often 0.
-     * angleVarX: Between 0 and 90. 0 being all cylinders aligned in the x direction and 90 being fully random. Often 90
-     * angleVarY: Between 0 and 90. 0 being all cylinders aligned in the y direction and 90 being fully random. Often 90
-     * angleVarZ: Between 0 and 90. 0 being all cylinders aligned in the z direction and 90 being fully random. Often 90
+     * angle_type: 0 for isotropic fibers, 1 for transverse isotropic, 2 for 1D
+     * angle_variability: Only relevant for transverse isotropic fibers, angle variability from the opposite plane
+     * var_direction: relevant for 1D and transverse isotropic fibers. Direction of relevance.
      * intersect: true for cylinders allowed to intersect, false of they cannot
      *      note: not allowing intersections significantly slows the generation. Also there will be a porosity limit.
      *            for example, non-intersecting cylinders with porosity <0.8 will often fail to ever generate
@@ -486,7 +494,7 @@ public:
      *
      */
     void curvedFlower_Hollow(int xSize, int ySize, int zSize, double avgRadius, double dRadius,
-                             double avgLength, double dLength, int angleVarX, int angleVarY, int angleVarZ,
+                             double avgLength, double dLength, int angle_type, double angle_variability, int var_direction,
                              bool intersect, double poro, int randomSeed,
                              double avgRadiusOfCurvature, double dRadiusOfCurvature, double accuracy,
                              double AvgSmallRadius, double dSmallRadius, int AvgNumSmallFibers, int dNumSmallFibers, double dPlacement,
@@ -498,9 +506,9 @@ public:
         this->avgLength = avgLength;
         this->dRadius = dRadius;
         this->dLength = dLength;
-        this->angleVarX = angleVarX;
-        this->angleVarY = angleVarY;
-        this->angleVarZ = angleVarZ;
+        this->angleType = angle_type;
+        this->angle_variability = angle_variability;
+        this->var_direction = var_direction;
         this->intersect = intersect;
         this->poro = poro;
         this->randomSeed = randomSeed;

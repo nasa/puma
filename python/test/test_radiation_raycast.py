@@ -21,16 +21,16 @@ class TestRadiation(unittest.TestCase):
         ws[4, 4, 4] = 0
         self.assertTrue(puma.compute_radiation(ws, (1, 1), 1, 45) is not False)
 
-    if platform.system() != 'Windows':  # not same answer on windows
-        def test_artfib(self):
-            ws = puma.import_vti("testdata/artifib.vtk")
-            ws.set_material_id((0, 128), 0)
-            ws.set_material_id((129, 255), 1)
+    # if platform.system() != 'Windows':  # not same answer on windows
+    #     def test_artfib(self):
+    #         ws = puma.import_vti("testdata/artifib.vtk")
+    #         ws.set_material_id((0, 128), 0)
+    #         ws.set_material_id((129, 255), 1)
 
-            np.random.seed(0)
-            beta, beta_std, _ = puma.compute_radiation(ws, (1, 1), 100, 15, boundary_behavior=0)
-            print(beta)
-            np.testing.assert_almost_equal(beta, [0.18048920415267472, 0.17922697533941973, 0.1241739185326434], decimal=4)
+    #         np.random.seed(0)
+    #         beta, beta_std, _ = puma.compute_radiation(ws, (1, 1), 100, 15, boundary_behavior=0)
+    #         print(beta)
+    #         np.testing.assert_almost_equal(beta, [0.18048920415267472, 0.17922697533941973, 0.1241739185326434], decimal=4)
 
 
 class TestRayCasting(unittest.TestCase):
@@ -73,18 +73,18 @@ class TestRayCasting(unittest.TestCase):
                                         simulation.rays_distances[:, 1]**2 +
                                         simulation.rays_distances[:, 2]**2), np.repeat(4.5, 6))
 
-    if platform.system() != 'Windows':  # not same answer on windows
-        def test_distancetravelled2(self):
-            ws = puma.Workspace.from_shape_value((9, 9, 9), 1)
-            ws.voxel_length = 1
-            simulation = RayCasting(ws, 45, np.array([[4, 4, 4]]), 1)
-            self.assertFalse(simulation.error_check())
-            simulation.generate_spherical_walkers()
-            simulation.expand_sources()
-            np.testing.assert_almost_equal(np.sort(np.sqrt(simulation.rays_distances[:, 0]**2 +
-                                                           simulation.rays_distances[:, 1]**2 +
-                                                           simulation.rays_distances[:, 2]**2)),
-                                           np.concatenate((np.repeat(4.5, 6), np.repeat(np.sqrt(2) * 4.5, 20))), 7)
+    # if platform.system() != 'Windows':  # not same answer on windows
+    #     def test_distancetravelled2(self):
+    #         ws = puma.Workspace.from_shape_value((9, 9, 9), 1)
+    #         ws.voxel_length = 1
+    #         simulation = RayCasting(ws, 45, np.array([[4, 4, 4]]), 1)
+    #         self.assertFalse(simulation.error_check())
+    #         simulation.generate_spherical_walkers()
+    #         simulation.expand_sources()
+    #         np.testing.assert_almost_equal(np.sort(np.sqrt(simulation.rays_distances[:, 0]**2 +
+    #                                                        simulation.rays_distances[:, 1]**2 +
+    #                                                        simulation.rays_distances[:, 2]**2)),
+    #                                        np.concatenate((np.repeat(4.5, 6), np.repeat(np.sqrt(2) * 4.5, 20))), 7)
 
     def test_distancetravelled_withcollision(self):
         ws = puma.Workspace.from_shape_value((9, 9, 9), 1)

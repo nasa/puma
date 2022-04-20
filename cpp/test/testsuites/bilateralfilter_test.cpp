@@ -226,7 +226,7 @@ public:
         puma::Workspace grayWS(1e-6,false);
 
         RandomFibersInput input;
-        input.straightCircle(100,100,100,4,0,200,0,90,90,90,true,0.6,42);
+        input.straightCircle(100,100,100,4,0,200,0,0,-1,-1,true,0.6,42);
         input.print = false;
 
         puma::generateRandomFibers(&grayWS,input);

@@ -388,21 +388,19 @@ bool Generate_RandomFibers::errorCheck(std::string *errorMessage) {
         (*errorMessage) = "dLength invalid. Must be < avgLength";
         return false;
     }
-    if(input.angleVarX < 0 || input.angleVarX > 90) {
-        (*errorMessage) = "angleVarX invalid. Must be between 0 and 90";
-        return false;
-    }
-    if(input.angleVarY < 0 || input.angleVarY > 90) {
-        (*errorMessage) = "angleVarY invalid. Must be between 0 and 90";
-        return false;
-    }
-    if(input.angleVarZ < 0 || input.angleVarZ > 90) {
-        (*errorMessage) = "angleVarZ invalid. Must be between 0 and 90";
+
+    if((input.angleType == 1 ) && (input.angle_variability < 0 || input.angle_variability > 90)) {
+        (*errorMessage) = "Invalid angle variability - should be between 0 and 90";
         return false;
     }
 
-    if(input.angleVarX == 0 && input.angleVarY == 0 && input.angleVarZ == 0 ) {
-        (*errorMessage) = "All angle variations are 0. At least one needs to be above 0 but less than 90.";
+    if(input.angleType < 0 || input.angleType > 2) {
+        (*errorMessage) = "Invalid angle type - should be 0 for isotropic, 1 for transverse isotropic, and 2 for 1d";
+        return false;
+    }
+
+    if( (input.angleType == 1 || input.angleType == 2) && (input.var_direction < 0 || input.var_direction > 2)) {
+        (*errorMessage) = "Invalid direction, should be 0 for x, 1 for y, 2 for z";
         return false;
     }
 
@@ -600,14 +598,14 @@ bool Generate_RandomFibers::logInput() {
     (*log).appendLogItem(" +- ");
     (*log).appendLogItem(input.dLength);
     (*log).newLine();
-    (*log).appendLogItem("angleVarX: ");
-    (*log).appendLogItem(input.angleVarX);
+    (*log).appendLogItem("Angle Type: ");
+    (*log).appendLogItem(input.angleType);
     (*log).newLine();
-    (*log).appendLogItem("angleVarY: ");
-    (*log).appendLogItem(input.angleVarY);
+    (*log).appendLogItem("Angle Variability: ");
+    (*log).appendLogItem(input.angle_variability);
     (*log).newLine();
-    (*log).appendLogItem("angleVarZ: ");
-    (*log).appendLogItem(input.angleVarZ);
+    (*log).appendLogItem("Direction for variability: ");
+    (*log).appendLogItem(input.var_direction);
     (*log).newLine();
     (*log).appendLogItem("Intersect: ");
     (*log).appendLogItem(input.intersect);
