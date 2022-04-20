@@ -56,56 +56,9 @@ bool StraightFlowerFiber::randomParameters(RandomFibersInput& input, sitmo::prng
     fibers[0].startPos.y=(int)(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8)*input.ySize);
     fibers[0].startPos.z=(int)(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8)*input.zSize);
 
-    //direction in each
-    if(input.angleVarX!=0){
-        dX=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarX*2)-(input.angleVarX);
-        dX=length*sin(dX*3.1415926/180);
-    }else{
-        dX=0;
-    }
 
-    if(input.angleVarY!=0){
-        dY=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarY*2)-(input.angleVarY);
-        dY=length*sin(dY*3.1415926/180);
-    }else{
-        dY=0;
-    }
+    fibers[0].endPos = get_end_position(&input, engine, fibers[0].startPos, length);
 
-    if(input.angleVarZ!=0){
-        dZ=(std::max((double)engine->operator ()()/sitmo::prng_engine::max(),1e-8))*(input.angleVarZ*2)-(input.angleVarZ);
-        dZ=length*sin(dZ*3.1415926/180);
-    }else{
-        dZ=0;
-    }
-
-    //dX, dY, and dZ define a vector for the direction of the fiber
-
-    auto d = (float)sqrt(dX*dX+dY*dY+dZ*dZ);
-    float factor = (float)length/d;
-    //d is the magnitude of the direction vector
-    //<dX,dY,dZ> / d = unit vector
-    //factor is length of the domain / magnitude of direction vector
-
-    fibers[0].endPos.x=fabs(dX*factor);
-    if(dX>=0){
-        fibers[0].endPos.x=fibers[0].startPos.x+fibers[0].endPos.x;
-    }else{
-        fibers[0].endPos.x=fibers[0].startPos.x-fibers[0].endPos.x;
-    }
-
-    fibers[0].endPos.y=fabs(dY*factor);
-    if(dY>=0){
-        fibers[0].endPos.y=fibers[0].startPos.y+fibers[0].endPos.y;
-    }else{
-        fibers[0].endPos.y=fibers[0].startPos.y-fibers[0].endPos.y;
-    }
-
-    fibers[0].endPos.z=fabs(dZ*factor);
-    if(dZ>=0){
-        fibers[0].endPos.z=fibers[0].startPos.z+fibers[0].endPos.z;
-    }else{
-        fibers[0].endPos.z=fibers[0].startPos.z-fibers[0].endPos.z;
-    }
 
     if(thisFiberIsHollow) {
         fibers[fibers.size()-1].startPos = fibers[0].startPos;

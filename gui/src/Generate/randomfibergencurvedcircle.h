@@ -24,6 +24,8 @@ public:
 private slots:
     void on_Generate_clicked();
 
+    void on_angle_combo_currentIndexChanged(int index);
+
 private:
     Ui::RandomFiberGenCurvedCircle *ui;
     Viewer *view;

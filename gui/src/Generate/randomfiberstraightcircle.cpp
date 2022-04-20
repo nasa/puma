@@ -8,6 +8,11 @@ RandomFiberStraightCircle::RandomFiberStraightCircle(QWidget *parent) :
     ui(new Ui::RandomFiberStraightCircle)
 {
     ui->setupUi(this);
+
+    ui->variability_edit->setVisible(false);
+    ui->variability_label->setVisible(false);
+    ui->direction_combo->setVisible(false);
+    ui->direction_label->setVisible(false);
 }
 
 RandomFiberStraightCircle::~RandomFiberStraightCircle()
@@ -20,6 +25,25 @@ void RandomFiberStraightCircle::setViewer(Viewer *view) {
     this->view = view;
 }
 
+void RandomFiberStraightCircle::on_angle_combo_currentIndexChanged(int index)
+{
+    if(index == 0) { //isotropic
+        ui->variability_edit->setVisible(false);
+        ui->variability_label->setVisible(false);
+        ui->direction_combo->setVisible(false);
+        ui->direction_label->setVisible(false);
+    } else if(index == 1) { // transverse isotropic
+        ui->variability_edit->setVisible(true);
+        ui->variability_label->setVisible(true);
+        ui->direction_combo->setVisible(true);
+        ui->direction_label->setVisible(true);
+    } else if(index == 2) { // 1D
+        ui->variability_edit->setVisible(false);
+        ui->variability_label->setVisible(false);
+        ui->direction_combo->setVisible(true);
+        ui->direction_label->setVisible(true);
+    }
+}
 
 // Generates the new workspace using the user entries
 void RandomFiberStraightCircle::on_Generate_clicked()
@@ -32,9 +56,9 @@ void RandomFiberStraightCircle::on_Generate_clicked()
     double radiusDev = ui->radiusDevEdit->text().toDouble();
     double avgLength = ui->avgLengthEdit->text().toDouble();
     double lengthDev = ui->lengthDevEdit->text().toDouble();
-    int angleVarX = ui->xAngleEdit->text().toInt();
-    int angleVarY = ui->yAngleEdit->text().toInt();
-    int angleVarZ = ui->zAngleEdit->text().toInt();
+    int angleType = ui->angle_combo->currentIndex();
+    int var_direction = ui->direction_combo->currentIndex();
+    double angle_variation = ui->variability_edit->text().toDouble();
     bool Intersect = ui->Intersect->isChecked();
     double Porosity = ui->porosityEdit->text().toDouble();
     int randomSeed = ui->randSeedEdit->text().toInt();
@@ -42,7 +66,7 @@ void RandomFiberStraightCircle::on_Generate_clicked()
     bool bindFibers = ui->bindCheck->isChecked();
 
     RandomFibersInput input_straightCircle;
-    input_straightCircle.straightCircle(xSize,ySize,zSize,avgRadius,radiusDev,avgLength,lengthDev,angleVarX,angleVarY,angleVarZ,Intersect,Porosity,randomSeed);
+    input_straightCircle.straightCircle(xSize,ySize,zSize,avgRadius,radiusDev,avgLength,lengthDev,angleType,angle_variation,var_direction,Intersect,Porosity,randomSeed);
 
     if(bindFibers) {
         input_straightCircle.addBinder(binderRadius);
@@ -62,3 +86,6 @@ void RandomFiberStraightCircle::on_Generate_clicked()
 
 
 }
+
+
+

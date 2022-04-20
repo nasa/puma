@@ -16,8 +16,8 @@ def render_volume(workspace, cutoff=None, solid_color=None, style='surface', ori
         :param cutoff: specifying the values to render
         :type cutoff: (int, int) or (float, float) or None
         :param solid_color: if set to None (default), the material is colored by the matrix's values.
-                            Otherwise, a solid color can be specified (e.g. for white (1., 1., 1.))
-        :type solid_color: (float, float, float) or None
+                            Otherwise, a solid color can be specified (e.g. for white (255, 255, 255))
+        :type solid_color: (int, int, int) or None
         :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
         :type style: string
         :param origin: origin of the data as
@@ -58,7 +58,7 @@ def render_volume(workspace, cutoff=None, solid_color=None, style='surface', ori
     return r.render()
 
 
-def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface', origin=(0., 0., 0.),
+def render_contour(workspace, cutoff, solid_color=(255, 255, 255), style='surface', origin=(0., 0., 0.),
                    window_size=(1920, 1200), opacity=1., background=(0.3, 0.3, 0.3), show_grid=True, plot_directly=True,
                    show_axes=True, show_outline=True, add_to_plot=None, notebook=False):
     """ Contour render using Pyvista Contour filter
@@ -67,8 +67,8 @@ def render_contour(workspace, cutoff, solid_color=(1., 1., 1.), style='surface',
         :type workspace: Workspace or np.ndarray
         :param cutoff: specifying the values at which the isosurface is created
         :type cutoff: (int, int)
-        :param solid_color: a solid color to color the surface (e.g. for white (1., 1., 1.))
-        :type solid_color: (float, float, float)
+        :param solid_color: a solid color to color the surface (e.g. for white (255, 255, 255))
+        :type solid_color: (int, int, int)
         :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
         :type style: string
         :param origin: origin of the data as
@@ -118,8 +118,8 @@ def render_orientation(workspace, scale_factor=1., solid_color=None, style='surf
         :param scale_factor: scale the arrows by a factor
         :type scale_factor: float
         :param solid_color: a solid color for the arrows. Deafult is None, which colors the vectors by their magnitude.
-                            To color white, input set solid_color=(1., 1., 1.)
-        :type solid_color: None or (float, float, float) or str
+                            To color white, input set solid_color=(255, 255, 255)
+        :type solid_color: None or (int, int, int) or str
         :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
         :type style: string
         :param origin: origin of the data as
@@ -187,7 +187,7 @@ def render_warp(workspace, scale_factor=1., color_by='magnitude', style='surface
         :type: background: (float, float, float)
         :param show_grid: show the grid with the size of the sides
         :type show_grid: bool
-        :param cmap: matplotlib colormap to use (overwritten by solid_color if specified)
+        :param cmap: matplotlib colormap to use
         :type cmap: str
         :param plot_directly: whether to return a Plotter object (to make further changes to it) or show the plot directly
         :type plot_directly: bool
@@ -241,7 +241,7 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
         :type workspace: Workspace or ndarray
         :param cutoffs: n cutoffs is the number of materials. specifies the low and high cutoff ranges
         :type cutoffs: tuple
-        :param solid_colors: solid colors to color the different phases' surface e.g. for white ((1., 1., 1.), (0., 0., 0.), ...)
+        :param solid_colors: solid colors to color the different phases' surface e.g. for white ((255, 255, 255), (0, 0, 0), ...)
         :type solid_colors: tuple or None
         :param style: specifying the representation style ('surface', 'edges', 'wireframe', 'points')
         :type style: string
@@ -390,7 +390,7 @@ class Renderer:
         if self.filter_type == "threshold":
             self.grid.dimensions = np.array(self.array.shape) + 1
             self.grid.spacing = (self.voxel_length, self.voxel_length, self.voxel_length)
-            self.grid.cell_data["values"] = self.array.flatten(order="F")
+            self.grid["values"] = self.array.flatten(order="F")
             self.filter = self.grid.threshold(self.cutoff)
 
         elif self.filter_type == "contour":
@@ -405,8 +405,8 @@ class Renderer:
             tmp = np.zeros((self.array[:, :, :, 0].size, 3), dtype=float)
             for i in range(3):
                 tmp[:, i] = self.array[:, :, :, i].ravel(order='F')
-            self.grid.cell_data["scalars"] = np.linalg.norm(self.array, axis=3).ravel(order='F')
-            self.grid.cell_data["vectors"] = tmp
+            self.grid["scalars"] = np.linalg.norm(self.array, axis=3).ravel(order='F')
+            self.grid["vectors"] = tmp
             import pyvista as pv  # lazily import pyvista to solve Dragonfly's crash
             self.filter = self.grid.glyph(orient="vectors", scale="scalars", factor=self.scale_factor, geom=pv.Arrow())
 

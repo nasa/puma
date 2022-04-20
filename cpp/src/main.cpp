@@ -20,7 +20,7 @@ int main (int argc, char **argv)
             puma::Workspace grayWS(100,100,100,1e-6);
 
             RandomFibersInput input;
-            input.straightCircle(200,200,200,5,0,200,0,90,90,90,true,0.6,1);
+            input.straightCircle(200,200,200,5,0,200,0,0,-1,-1,true,0.6,1);
 
             generateRandomFibers(&grayWS,input);
 

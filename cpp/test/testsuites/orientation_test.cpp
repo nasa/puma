@@ -1025,7 +1025,7 @@ public:
         puma::MatVec3<double> tangents;
         RandomFibersInput input;
 
-        input.straightCircle(scale,scale,scale,2,0,scale,0,90,90,90,false,0.9,1);
+        input.straightCircle(scale,scale,scale,2,0,scale,0,0, -1, -1,false,0.9,1);
         input.print = false; puma::generateRandomFibers(&grayWS,&tangents,input);
 
         puma::Workspace segWS(grayWS.shape(), false);
@@ -1038,10 +1038,10 @@ public:
         puma::Matrix<double> error;
         std::pair <double, double> MeanSD = puma::compute_orientationComparison(&segWS, &dirs, &tangents, &error, puma::Cutoff(1,1));
 
-        if(!assertEquals(8.79974, MeanSD.first, 1e-2, &result)) {
+        if(!assertEquals(7.93948, MeanSD.first, 1e-2, &result)) {
             return result;
         }
-        if(!assertEquals(11.0941, MeanSD.second, 1e-1, &result)) {
+        if(!assertEquals(9.73364, MeanSD.second, 1e-1, &result)) {
             return result;
         }
 
@@ -1110,7 +1110,7 @@ public:
         puma::MatVec3<double> tangents;
         RandomFibersInput input;
 
-        input.straightCircle(scale,scale,scale,2,0,scale,0,90,90,90,false,0.9,1);
+        input.straightCircle(scale,scale,scale,2,0,scale,0,0, -1, -1,false,0.9,1);
         input.print = false; puma::generateRandomFibers(&grayWS,&tangents,input);
 
         puma::Workspace segWS(grayWS.shape(), false);
@@ -1253,7 +1253,7 @@ public:
         puma::MatVec3<double> tangents;
         RandomFibersInput input;
 
-        input.straightCircle(scale,scale,scale,2,0,scale,0,90,90,90,false,0.9,1);
+        input.straightCircle(scale,scale,scale,2,0,scale,0,0, -1, -1,false,0.9,1);
         input.print = false; puma::generateRandomFibers(&grayWS,&tangents,input);
 
         puma::Workspace segWS(grayWS.shape(), false);
@@ -1266,10 +1266,10 @@ public:
         puma::Matrix<double> error;
         std::pair <double, double> MeanSD = puma::compute_orientationComparison(&segWS, &dirs, &tangents, &error, puma::Cutoff(1,1));
 
-        if(!assertEquals(5.76674, MeanSD.first, 1e-5, &result)) {
+        if(!assertEquals(5.80349, MeanSD.first, 1e-5, &result)) {
             return result;
         }
-        if(!assertEquals(10.0109, MeanSD.second, 1e-4, &result)) {
+        if(!assertEquals(9.34072, MeanSD.second, 1e-4, &result)) {
             return result;
         }
 
