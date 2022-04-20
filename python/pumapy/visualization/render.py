@@ -390,7 +390,7 @@ class Renderer:
         if self.filter_type == "threshold":
             self.grid.dimensions = np.array(self.array.shape) + 1
             self.grid.spacing = (self.voxel_length, self.voxel_length, self.voxel_length)
-            self.grid.cell_data["values"] = self.array.flatten(order="F")
+            self.grid["values"] = self.array.flatten(order="F")
             self.filter = self.grid.threshold(self.cutoff)
 
         elif self.filter_type == "contour":
@@ -405,8 +405,8 @@ class Renderer:
             tmp = np.zeros((self.array[:, :, :, 0].size, 3), dtype=float)
             for i in range(3):
                 tmp[:, i] = self.array[:, :, :, i].ravel(order='F')
-            self.grid.cell_data["scalars"] = np.linalg.norm(self.array, axis=3).ravel(order='F')
-            self.grid.cell_data["vectors"] = tmp
+            self.grid["scalars"] = np.linalg.norm(self.array, axis=3).ravel(order='F')
+            self.grid["vectors"] = tmp
             import pyvista as pv  # lazily import pyvista to solve Dragonfly's crash
             self.filter = self.grid.glyph(orient="vectors", scale="scalars", factor=self.scale_factor, geom=pv.Arrow())
 
