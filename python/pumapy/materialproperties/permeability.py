@@ -1,14 +1,16 @@
 from pumapy.physicsmodels.fe_permeability import Permeability
 
 
-def compute_permeability(workspace, solid_cutoff, tol=1e-8, maxiter=10000, solver_type='minres', display_iter=True,
-                         matrix_free=True):
+def compute_permeability(workspace, solid_cutoff, direction='all', tol=1e-8, maxiter=10000, solver_type='minres',
+                         display_iter=True, matrix_free=True):
     """ Compute the permeability using first order Q1-Q1 Finite Element solver and periodic BC on the sides
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
         :param solid_cutoff: specify the solid phase
         :type solid_cutoff: (int, int)
+        :param direction: direction for solve ('all','x','y','z'). Note that if solver_type='direct', then ignored
+        :type direction: str
         :param tol: tolerance for iterative solver
         :type tol: float
         :param maxiter: maximum Iterations for solver
@@ -28,7 +30,7 @@ def compute_permeability(workspace, solid_cutoff, tol=1e-8, maxiter=10000, solve
         >>> keff, u_x, p_x, u_y, p_y, u_z, p_z = puma.compute_permeability(ws, (1, ws.max()))
         >>> puma.render_orientation(u_x, scale_factor=5e11, solid_color=None)
     """
-    solver = Permeability(workspace, solid_cutoff, tol, maxiter, solver_type, display_iter, matrix_free)
+    solver = Permeability(workspace, solid_cutoff, direction, tol, maxiter, solver_type, display_iter, matrix_free)
 
     solver.error_check()
 

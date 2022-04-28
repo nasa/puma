@@ -9,6 +9,7 @@ See https://www.mdpi.com/2311-5521/5/1/16 for the publication.
 See https://zenodo.org/record/3612168#.YUYlSWZKhTZ for 2D MATLAB implementation.
 """
 from pumapy.utilities.timer import Timer
+from pumapy.utilities.logger import print_warning
 from pumapy.utilities.workspace import Workspace
 from pumapy.physicsmodels.linear_solvers import PropertySolver
 from pumapy.utilities.generic_checks import estimate_max_memory
@@ -19,12 +20,14 @@ import numpy as np
 
 class Permeability(PropertySolver):
 
-    def __init__(self, workspace, solid_cutoff, tolerance, maxiter, solver_type, display_iter, matrix_free):
+    def __init__(self, workspace, solid_cutoff, direction, tolerance, maxiter, solver_type, display_iter, matrix_free):
         allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
         self.ws = workspace.copy()
         self.solid_cutoff = solid_cutoff
+        self.direction = direction
+        self.direction_dict = {"x": [1], "y": [0], "z": [2], "all": [1, 0, 2]}
         self.ws.binarize_range(self.solid_cutoff)
 
         self.solver_type = solver_type
@@ -38,12 +41,12 @@ class Permeability(PropertySolver):
         self.velF = np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32)  # only fluid elements
         self.nelF = self.velF.shape[0]
 
-        self.ke = np.zeros((24, 24), dtype=float)
-        self.ge = np.zeros((24, 8),  dtype=float)
-        self.pe = np.zeros((8, 8),   dtype=float)
-        self.fe = np.zeros((8, 1),   dtype=float)
+        self.k = np.zeros((24, 24), dtype=float)
+        self.g = np.zeros((24, 8), dtype=float)
+        self.p = np.zeros((8, 8), dtype=float)
+        self.f = np.zeros((8, 1), dtype=float)
         self.mgdlF = np.zeros((32, self.nelF), dtype=np.uint32)
-        self.resolveF = None
+        self.solveF = None
         self.x_full = None
         self.bvec_full = None
 
@@ -57,7 +60,7 @@ class Permeability(PropertySolver):
         self.initialize()
         self.assemble_bvector()
         self.assemble_Amatrix()
-        print("Time to assemble matrices: ", t.elapsed()); t.reset()
+        print("Time to setup system: ", t.elapsed()); t.reset()
         self.solve()
         print("Time to solve: ", t.elapsed())
         self.compute_effective_coefficient()
@@ -93,42 +96,19 @@ class Permeability(PropertySolver):
         resolveF_u = np.delete(resolveF_u, gdlnulos - 1)
         resolveF_p = self.nels * 3 + np.unique(mConectP[np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32), :8])
         del nosnulos, gdlnulos
-        self.resolveF = np.hstack((resolveF_u, resolveF_p)) - 1
+        self.solveF = np.hstack((resolveF_u, resolveF_p)) - 1
         del resolveF_u, resolveF_p
 
         # degrees of freedom matrix
-        self.mgdlF[0] =  mConectP[self.velF, 0] * 3 - 2
-        self.mgdlF[1] =  mConectP[self.velF, 0] * 3 - 1
-        self.mgdlF[2] =  mConectP[self.velF, 0] * 3
-        self.mgdlF[3] =  mConectP[self.velF, 1] * 3 - 2
-        self.mgdlF[4] =  mConectP[self.velF, 1] * 3 - 1
-        self.mgdlF[5] =  mConectP[self.velF, 1] * 3
-        self.mgdlF[6] =  mConectP[self.velF, 2] * 3 - 2
-        self.mgdlF[7] =  mConectP[self.velF, 2] * 3 - 1
-        self.mgdlF[8] =  mConectP[self.velF, 2] * 3
-        self.mgdlF[9] =  mConectP[self.velF, 3] * 3 - 2
-        self.mgdlF[10] = mConectP[self.velF, 3] * 3 - 1
-        self.mgdlF[11] = mConectP[self.velF, 3] * 3
-        self.mgdlF[12] = mConectP[self.velF, 4] * 3 - 2
-        self.mgdlF[13] = mConectP[self.velF, 4] * 3 - 1
-        self.mgdlF[14] = mConectP[self.velF, 4] * 3
-        self.mgdlF[15] = mConectP[self.velF, 5] * 3 - 2
-        self.mgdlF[16] = mConectP[self.velF, 5] * 3 - 1
-        self.mgdlF[17] = mConectP[self.velF, 5] * 3
-        self.mgdlF[18] = mConectP[self.velF, 6] * 3 - 2
-        self.mgdlF[19] = mConectP[self.velF, 6] * 3 - 1
-        self.mgdlF[20] = mConectP[self.velF, 6] * 3
-        self.mgdlF[21] = mConectP[self.velF, 7] * 3 - 2
-        self.mgdlF[22] = mConectP[self.velF, 7] * 3 - 1
-        self.mgdlF[23] = mConectP[self.velF, 7] * 3
-        self.mgdlF[24] = 3 * self.nels + mConectP[self.velF, 0]
-        self.mgdlF[25] = 3 * self.nels + mConectP[self.velF, 1]
-        self.mgdlF[26] = 3 * self.nels + mConectP[self.velF, 2]
-        self.mgdlF[27] = 3 * self.nels + mConectP[self.velF, 3]
-        self.mgdlF[28] = 3 * self.nels + mConectP[self.velF, 4]
-        self.mgdlF[29] = 3 * self.nels + mConectP[self.velF, 5]
-        self.mgdlF[30] = 3 * self.nels + mConectP[self.velF, 6]
-        self.mgdlF[31] = 3 * self.nels + mConectP[self.velF, 7]
+        counter = 0
+        for i in range(8):
+            self.mgdlF[counter] = mConectP[self.velF, i] * 3 - 2
+            counter += 1
+            self.mgdlF[counter] = mConectP[self.velF, i] * 3 - 1
+            counter += 1
+            self.mgdlF[counter] = mConectP[self.velF, i] * 3
+            counter += 1
+        self.mgdlF[24:] = 3 * self.nels + np.swapaxes(mConectP[self.velF], 1, 0)
         print("Done")
 
     def assemble_bvector(self):
@@ -141,9 +121,9 @@ class Permeability(PropertySolver):
                         np.full(self.nelF * 8, 2, dtype=np.uint8)))
 
         self.calculate_element_matrices()
-        sF = np.squeeze(np.tile(self.fe, (self.nelF * 3, 1)))
-        self.bvec_full = coo_matrix((sF, (iF, jF)), shape=(4 * self.nels, 3)).tocsr()
-        self.bvec_full = self.bvec_full[self.resolveF]  # reducing vector
+        sF = np.squeeze(np.tile(self.f, (self.nelF * 3, 1)))
+        self.bvec_full = coo_matrix((sF, (iF, jF)), shape=(4 * self.nels, 3)).tocsc()
+        self.bvec_full = self.bvec_full[self.solveF]  # reducing vector
         print("Done")
 
     def assemble_Amatrix(self):
@@ -154,77 +134,268 @@ class Permeability(PropertySolver):
             iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
             jG = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')
             iP = np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8)
-            iA = np.hstack((iK, iG, jG, iP))
+            iA = np.hstack((iK, iG, jG, iP)) - 1
             del iK, iP
             jK = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')
             jP = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')
-            jA = np.hstack((jK, jG, iG, jP))
+            jA = np.hstack((jK, jG, iG, jP)) - 1
             del jK, jG, iG, jP
-            iA -= 1
-            jA -= 1
-            coeff = np.hstack((np.tile(self.ke, self.nelF), np.tile(self.ge, self.nelF),
-                               np.tile(self.ge, self.nelF), -np.tile(self.pe, self.nelF)))
-            del self.fe, self.ke, self.ge, self.pe
+            self.k = self.k.ravel()
+            self.g = self.g.ravel()
+            self.p = self.p.ravel()
+            coeff = np.hstack((np.tile(self.k, self.nelF), np.tile(self.g, self.nelF),
+                               np.tile(self.g, self.nelF), -np.tile(self.p, self.nelF)))
+            del self.f, self.k, self.g, self.p
 
             print("Done\nAssembling A matrix ... ", flush=True, end='')
-            self.Amat = coo_matrix((coeff, (iA, jA))).tocsr()
+            self.Amat = coo_matrix((coeff, (iA, jA))).tocsc()
             del coeff, iA, jA
-            print("Done")
 
             # Reducing system of equations
-            self.Amat = self.Amat[self.resolveF][:, self.resolveF]
+            self.Amat = self.Amat[self.solveF][:, self.solveF]
         else:
-            # matrix-free
-            keys = np.zeros(int(self.resolveF[-1] + 1), dtype=np.uint32)
-            keys[self.resolveF] = np.arange(self.resolveF.shape[0])
+            print("Done\nCreating matvec function for matrix-free ... ", flush=True, end='')
 
-            # K
-            I = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24) - 1
-            J = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F') - 1
-            mask_keep_i = np.in1d(I, self.resolveF)
-            mask_keep_j = np.in1d(J, self.resolveF)
-            mask_K = np.logical_and(mask_keep_i, mask_keep_j)
-
-            # G
-            I = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8) - 1
-            J = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F') - 1
-            mask_keep_i = np.in1d(I, self.resolveF)
-            mask_keep_j = np.in1d(J, self.resolveF)
-            mask_G = np.logical_and(mask_keep_i, mask_keep_j)
-
-            # P
-            I = np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8) - 1
-            J = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F') - 1
-            mask_keep_i = np.in1d(I, self.resolveF)
-            mask_keep_j = np.in1d(J, self.resolveF)
-            mask_P = np.logical_and(mask_keep_i, mask_keep_j)
-            del mask_keep_i, mask_keep_j
+            vFluidElems_new, numVelocityNodes, DOFMap = self.create_vFluidElems_DOFMap()
+            pElemDOFNumV, pElemDOFNumP, isOnlyFluid = self.create_pElemDOFNum_isOnlyFluid(vFluidElems_new, numVelocityNodes, DOFMap)
 
             def matvec(x):
                 y = np.zeros_like(x)
-                # K
-                I = keys[np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)[mask_K] - 1]
-                J = keys[np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')[mask_K] - 1]
-                coeff = np.tile(self.ke, self.nelF)[mask_K]
-                np.add.at(y, I, coeff * x[J])
-
-                # G
-                I = keys[np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)[mask_G] - 1]
-                J = keys[np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')[mask_G] - 1]
-                coeff = np.tile(self.ge, self.nelF)[mask_G]
-                np.add.at(y, I, coeff * x[J])
-                np.add.at(y, J, coeff * x[I])
-
-                # P
-                I = keys[np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8)[mask_P] - 1]
-                J = keys[np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')[mask_P] - 1]
-                coeff = -np.tile(self.pe, self.nelF)[mask_P]
-                np.add.at(y, I, coeff * x[J])
+                ops = np.einsum('ij, jk, jk -> ik', self.k, x[pElemDOFNumV], isOnlyFluid) * isOnlyFluid
+                ops += np.einsum('ij, jk -> ik', self.g, x[pElemDOFNumP]) * isOnlyFluid
+                for i in range(24):
+                    y[pElemDOFNumV[i]] += ops[i]
+                ops = np.einsum('ji, jk, jk -> ik', self.g, x[pElemDOFNumV], isOnlyFluid)
+                ops -= np.einsum('ij, jk -> ik', self.p, x[pElemDOFNumP])
+                for i in range(8):
+                    y[pElemDOFNumP[i]] += ops[i]
                 return y
 
-            self.Amat = LinearOperator(shape=(self.resolveF.shape[0], self.resolveF.shape[0]), matvec=matvec)
+            self.Amat = LinearOperator(shape=(self.solveF.shape[0], self.solveF.shape[0]), matvec=matvec)
+            print("Done")
 
-        print("Done")
+    def create_vFluidElems_DOFMap(self):
+        nNodes = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
+        NodesperSlice = (self.len_x + 1) * (self.len_y + 1)
+        ElemsperSlice = self.len_x * self.len_y
+        numVelocityNodes = 0
+        numInterfaceNodes = 0
+        numFluidElems = 0
+        vFluidElems = np.zeros(nNodes, dtype=int)
+        elemMatMap = self.ws.matrix.ravel(order='F') > 0
+        DOFMap = np.zeros(nNodes, dtype=np.int64)
+
+        for N in range(1, nNodes + 1):
+            # Nodes's column and row
+            slice = int((N - 1) / ((self.len_x + 1) * (self.len_y + 1)) + 1)
+            c = int(((N - (slice - 1) * NodesperSlice - 1) / (self.len_y + 1)) + 1)
+            r = int(N - (slice - 1) * NodesperSlice - (c - 1) * (self.len_y + 1))
+
+            # Flags - Boundary nodes
+            flag_lastcol = (c // (self.len_x + 1) == 1)
+            flag_lastrow = (r // (self.len_y + 1) == 1)
+            flag_lastslice = (slice // (self.len_z + 1) == 1)
+            flag_firstcol = c == 1
+            flag_firstrow = r == 1
+            flag_firstslice = slice == 1
+
+            # Check Neighboring   |nw|ne|
+            #                      - N -
+            #                     |sw|se|
+            elem_se_back = int(N - (slice - 1) * NodesperSlice - c + 1 + (slice - 1) * ElemsperSlice + flag_lastrow * (
+                -self.len_y) + flag_lastcol * (-self.len_x * (self.len_y + 1) + c - 1) + flag_lastslice * (
+                                       -(slice - 1) * ElemsperSlice))
+            elem_ne_back = int(N - (slice - 1) * NodesperSlice - c + (slice - 1) * ElemsperSlice + flag_firstrow * (
+                self.len_y) + flag_lastcol * (-self.len_x * self.len_y) + flag_lastslice * (
+                                       -(slice - 1) * ElemsperSlice))
+            elem_nw_back = int(
+                N - (slice - 1) * NodesperSlice - c + (slice - 1) * ElemsperSlice - self.len_y + flag_firstrow * (
+                    self.len_y) + flag_firstcol * (self.len_x) * self.len_y + flag_lastslice * (
+                        -(slice - 1) * ElemsperSlice))
+            elem_sw_back = int(
+                N - (slice - 1) * NodesperSlice - c + 1 + (slice - 1) * ElemsperSlice - self.len_y + flag_firstcol * (
+                    self.len_x) * self.len_y + flag_lastrow * (-self.len_y) + flag_lastslice * (
+                        -(slice - 1) * ElemsperSlice))
+            elem_se_front = elem_se_back - ElemsperSlice + flag_firstslice * (
+                    self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+            elem_ne_front = elem_ne_back - ElemsperSlice + flag_firstslice * (
+                    self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+            elem_nw_front = elem_nw_back - ElemsperSlice + flag_firstslice * (
+                    self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+            elem_sw_front = elem_sw_back - ElemsperSlice + flag_firstslice * (
+                    self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+
+            elem_se_back_m = elem_se_back - 1
+            elem_ne_back_m = elem_ne_back - 1
+            elem_nw_back_m = elem_nw_back - 1
+            elem_sw_back_m = elem_sw_back - 1
+            elem_se_front_m = elem_se_front - 1
+            elem_ne_front_m = elem_ne_front - 1
+            elem_nw_front_m = elem_nw_front - 1
+            elem_sw_front_m = elem_sw_front - 1
+
+            # Flags - type of node (At least one fluid elem / At least one solid elem / Only fluid elems)
+            flag_oneFluidElem = - (
+                    elemMatMap[elem_se_front_m] * elemMatMap[elem_ne_front_m] * elemMatMap[elem_nw_front_m] *
+                    elemMatMap[elem_sw_front_m] * elemMatMap[elem_se_back_m] * elemMatMap[elem_ne_back_m] *
+                    elemMatMap[elem_nw_back_m] * elemMatMap[elem_sw_back_m] - 1)
+            flag_oneSolidElem = (elemMatMap[elem_se_front_m] + elemMatMap[elem_ne_front_m] + elemMatMap[
+                elem_nw_front_m] +
+                                 elemMatMap[elem_sw_front_m] + elemMatMap[elem_se_back_m] + elemMatMap[elem_ne_back_m] +
+                                 elemMatMap[elem_nw_back_m] + elemMatMap[elem_sw_back_m]) > 0
+            flag_onlyFluidElems = (elemMatMap[elem_se_front_m] + elemMatMap[elem_ne_front_m] + elemMatMap[
+                elem_nw_front_m] +
+                                   elemMatMap[elem_sw_front_m] + elemMatMap[elem_se_back_m] + elemMatMap[
+                                       elem_ne_back_m] +
+                                   elemMatMap[elem_nw_back_m] + elemMatMap[elem_sw_back_m]) == 0
+
+            # Creation of DofMap
+            numVelocityNodes += flag_onlyFluidElems * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
+            numInterfaceNodes += flag_oneSolidElem * flag_oneFluidElem * (1 - flag_lastrow) * (1 - flag_lastcol) * (
+                    1 - flag_lastslice)
+            value_CaseVelocity = numVelocityNodes
+            value_CaseInterface = nNodes + numInterfaceNodes
+            Nm = N - 1
+            DOFMap[
+                Nm] = flag_onlyFluidElems * value_CaseVelocity + flag_oneFluidElem * flag_oneSolidElem * value_CaseInterface
+
+            # Application of PBC
+            top_node = flag_lastrow * (N - self.len_y) + (1 - flag_lastrow) - 1
+            left_node = flag_lastcol * (N - self.len_x * (self.len_y + 1)) + (1 - flag_lastcol) - 1
+            front_node = flag_lastslice * (N - (slice - 1) * NodesperSlice) + (1 - flag_lastslice) - 1
+            DOFMap[Nm] += (1 - flag_lastslice) * (flag_lastrow * (-DOFMap[Nm] + DOFMap[top_node]) + flag_lastcol *
+                                                  (-DOFMap[Nm] + DOFMap[left_node]) + flag_lastrow * flag_lastcol *
+                                                  (+DOFMap[Nm] - DOFMap[left_node])) + flag_lastslice * (
+                                  -DOFMap[Nm] + DOFMap[front_node])
+
+            # Vector of Fluid Elements
+            numFluidElems += (elemMatMap[elem_se_back_m] == 0) * (1 - flag_lastrow) * (1 - flag_lastcol) * (
+                    1 - flag_lastslice)
+            vFluidElems[numFluidElems * (elemMatMap[elem_se_back_m] == 0) + (elemMatMap[elem_se_back_m] != 0) - 1] += \
+                ((elemMatMap[elem_se_back_m] == 0) * elem_se_back) * (1 - flag_lastrow) * (1 - flag_lastcol) * (
+                        1 - flag_lastslice)
+
+        # N = np.arange(1, nNodes + 1, dtype=int)
+        #
+        # # Nodes's column and row
+        # slice = ((N - 1) / ((self.len_x + 1) * (self.len_y + 1)) + 1).astype(int)
+        # c = (((N - (slice - 1) * NodesperSlice - 1) / (self.len_y + 1)) + 1).astype(int)
+        # r = (N - (slice - 1) * NodesperSlice - (c - 1) * (self.len_y + 1)).astype(int)
+        #
+        # # Flags - Boundary nodes
+        # flag_lastcol = (c // (self.len_x + 1) == 1)
+        # flag_lastrow = (r // (self.len_y + 1) == 1)
+        # flag_lastslice = (slice // (self.len_z + 1) == 1)
+        # flag_firstcol = c == 1
+        # flag_firstrow = r == 1
+        # flag_firstslice = slice == 1
+        #
+        # # Check Neighboring   |nw|ne|
+        # #                      - N -
+        # #                     |sw|se|
+        # elem_se_back = (N - (slice - 1) * NodesperSlice - c + 1 + (slice - 1) * ElemsperSlice + flag_lastrow * (-self.len_y) + flag_lastcol * (-self.len_x * (self.len_y + 1) + c - 1) + flag_lastslice * (-(slice - 1) * ElemsperSlice)).astype(int)
+        # elem_ne_back = (N - (slice - 1) * NodesperSlice - c + (slice - 1) * ElemsperSlice + flag_firstrow * (self.len_y) + flag_lastcol * (-self.len_x * self.len_y) + flag_lastslice * (-(slice - 1) * ElemsperSlice)).astype(int)
+        # elem_nw_back = (N - (slice - 1) * NodesperSlice - c + (slice - 1) * ElemsperSlice - self.len_y + flag_firstrow * (self.len_y) + flag_firstcol * (self.len_x) * self.len_y + flag_lastslice * (-(slice - 1) * ElemsperSlice)).astype(int)
+        # elem_sw_back = (N - (slice - 1) * NodesperSlice - c + 1 + (slice - 1) * ElemsperSlice - self.len_y + flag_firstcol * (self.len_x) * self.len_y + flag_lastrow * (-self.len_y) + flag_lastslice * (-(slice - 1) * ElemsperSlice)).astype(int)
+        # elem_se_front = elem_se_back - ElemsperSlice + flag_firstslice * (self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+        # elem_ne_front = elem_ne_back - ElemsperSlice + flag_firstslice * (self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+        # elem_nw_front = elem_nw_back - ElemsperSlice + flag_firstslice * (self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+        # elem_sw_front = elem_sw_back - ElemsperSlice + flag_firstslice * (self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+        #
+        # elem_se_back_m = elem_se_back - 1
+        # elem_ne_back_m = elem_ne_back - 1
+        # elem_nw_back_m = elem_nw_back - 1
+        # elem_sw_back_m = elem_sw_back - 1
+        # elem_se_front_m = elem_se_front - 1
+        # elem_ne_front_m = elem_ne_front - 1
+        # elem_nw_front_m = elem_nw_front - 1
+        # elem_sw_front_m = elem_sw_front - 1
+        #
+        # # Flags - type of node (At least one fluid elem / At least one solid elem / Only fluid elems)
+        # flag_oneFluidElem   = - (elemMatMap[elem_se_front_m] * elemMatMap[elem_ne_front_m] * elemMatMap[elem_nw_front_m] *
+        #                          elemMatMap[elem_sw_front_m] * elemMatMap[elem_se_back_m] * elemMatMap[elem_ne_back_m] *
+        #                          elemMatMap[elem_nw_back_m] * elemMatMap[elem_sw_back_m] - 1)
+        # flag_oneSolidElem   =   (elemMatMap[elem_se_front_m] + elemMatMap[elem_ne_front_m] + elemMatMap[elem_nw_front_m] +
+        #                          elemMatMap[elem_sw_front_m] + elemMatMap[elem_se_back_m] + elemMatMap[elem_ne_back_m] +
+        #                          elemMatMap[elem_nw_back_m] + elemMatMap[elem_sw_back_m]) > 0
+        # flag_onlyFluidElems =   (elemMatMap[elem_se_front_m] + elemMatMap[elem_ne_front_m] + elemMatMap[elem_nw_front_m] +
+        #                          elemMatMap[elem_sw_front_m] + elemMatMap[elem_se_back_m] + elemMatMap[elem_ne_back_m] +
+        #                          elemMatMap[elem_nw_back_m] + elemMatMap[elem_sw_back_m]) == 0
+        #
+        # # Creation of DofMap
+        # numVelocityNodes += flag_onlyFluidElems * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
+        # numInterfaceNodes += flag_oneSolidElem * flag_oneFluidElem * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
+        # value_CaseVelocity = numVelocityNodes
+        # value_CaseInterface = nNodes + numInterfaceNodes
+        # Nm = N - 1
+        # DOFMap[Nm] = flag_onlyFluidElems * value_CaseVelocity + flag_oneFluidElem * flag_oneSolidElem * value_CaseInterface
+        #
+        # # Application of PBC
+        # top_node = flag_lastrow * (N - self.len_y) + (1 - flag_lastrow) - 1
+        # left_node = flag_lastcol * (N - self.len_x * (self.len_y + 1)) + (1 - flag_lastcol) - 1
+        # front_node = flag_lastslice * (N - (slice - 1) * NodesperSlice) + (1 - flag_lastslice) - 1
+        # DOFMap[Nm] += (1 - flag_lastslice) * (flag_lastrow * (-DOFMap[Nm] + DOFMap[top_node]) + flag_lastcol *
+        #                                       (-DOFMap[Nm] + DOFMap[left_node]) + flag_lastrow * flag_lastcol *
+        #                                       (+DOFMap[Nm] - DOFMap[left_node])) + flag_lastslice * (-DOFMap[Nm] + DOFMap[front_node])
+        #
+        # # Vector of Fluid Elements
+        # numFluidElems += (elemMatMap[elem_se_back_m] == 0) * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
+        # vFluidElems[numFluidElems * (elemMatMap[elem_se_back_m] == 0) + (elemMatMap[elem_se_back_m] != 0) - 1] += \
+        #     ((elemMatMap[elem_se_back_m] == 0) * elem_se_back) * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
+        #
+
+        # Correction of the numbering of interface nodes and reduction of the vector of fluid elements
+        vFluidElems_new = np.zeros(numFluidElems, dtype=int)
+        for N in range(1, nNodes + 1):
+            Nm = N - 1
+            DOFMap[Nm] += (DOFMap[Nm] > numVelocityNodes) * (-nNodes + numVelocityNodes)
+            vFluidElems_new[(N <= numFluidElems) * N + (N > numFluidElems) - 1] += vFluidElems[Nm] * (N <= numFluidElems)
+        return vFluidElems_new, numVelocityNodes, DOFMap
+
+    def create_pElemDOFNum_isOnlyFluid(self, vFluidElems_new, numVelocityNodes, DOFMap):
+        numVDOFs = 3 * numVelocityNodes
+        pElemDOFNumP = np.zeros((8, vFluidElems_new.shape[0]), dtype=np.int64)
+        pElemDOFNumV = np.zeros((24, vFluidElems_new.shape[0]), dtype=np.int64)
+        isOnlyFluid = np.zeros((24, vFluidElems_new.shape[0]), dtype=bool)
+        dofs = np.zeros((8, vFluidElems_new.shape[0]), dtype=np.int64)
+
+        # dofs variable tranforms into dofs, but this is n
+        dofs[0] = ((vFluidElems_new - 1) % (self.len_x * self.len_y) +
+                   (((vFluidElems_new - 1) % (self.len_x * self.len_y)) // self.len_y) +
+                   ((vFluidElems_new - 1) // (self.len_x * self.len_y)) * (self.len_x + 1) * (self.len_y + 1)) + 2
+        dofs[1] = dofs[0] + self.len_y + 1
+        dofs[2] = dofs[1] - 1
+        dofs[3] = dofs[2] - (self.len_y + 1)
+        dofs[4] = dofs[3] + (self.len_x + 1) * (self.len_y + 1) + 1
+        dofs[5] = dofs[4] + self.len_y + 1
+        dofs[6] = dofs[5] - 1
+        dofs[7] = dofs[6] - (self.len_y + 1)
+
+        dofs[:] = DOFMap[dofs - 1]
+        pElemDOFNumP[:] = numVDOFs + dofs - 1
+
+        tiles = np.tile(np.arange(1, 4), (vFluidElems_new.shape[0], 1))
+        pElemDOFNumV[:3] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[0], axis=1) *
+                                       (np.expand_dims(dofs[0], axis=1) * 3 - 4 + tiles), 1, 0)
+        pElemDOFNumV[3:6] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[1], axis=1) *
+                                        (np.expand_dims(dofs[1], axis=1) * 3 - 4 + tiles), 1, 0)
+        pElemDOFNumV[6:9] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[2], axis=1) *
+                                        (np.expand_dims(dofs[2], axis=1) * 3 - 4 + tiles), 1, 0)
+        pElemDOFNumV[9:12] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[3], axis=1) *
+                                         (np.expand_dims(dofs[3], axis=1) * 3 - 4 + tiles), 1, 0)
+        pElemDOFNumV[12:15] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[4], axis=1) *
+                                          (np.expand_dims(dofs[4], axis=1) * 3 - 4 + tiles), 1, 0)
+        pElemDOFNumV[15:18] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[5], axis=1) *
+                                          (np.expand_dims(dofs[5], axis=1) * 3 - 4 + tiles), 1, 0)
+        pElemDOFNumV[18:21] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[6], axis=1) *
+                                          (np.expand_dims(dofs[6], axis=1) * 3 - 4 + tiles), 1, 0)
+        pElemDOFNumV[21:] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[7], axis=1) *
+                                        (np.expand_dims(dofs[7], axis=1) * 3 - 4 + tiles), 1, 0)
+
+        for i in range(vFluidElems_new.shape[0]):
+            isOnlyFluid[:, i] = np.repeat(numVelocityNodes >= dofs[:, i], 3)
+
+        return pElemDOFNumV, pElemDOFNumP, isOnlyFluid
 
     def solve(self):
         self.x_full = np.zeros((4 * self.nels, 3), dtype=float)
@@ -232,15 +403,17 @@ class Permeability(PropertySolver):
         if self.solver_type == 'direct':
             self.bvec = self.bvec_full
             super().solve()
-            self.x_full[self.resolveF] = self.x.toarray()
+            self.x_full[self.solveF] = self.x.toarray()
         else:  # solves one direction at a time
             self.del_matrices = False
-            for i in range(3):
-                self.bvec = self.bvec_full[:, i]
+            directions = ['y', 'x', 'z']
+            for d in self.direction_dict[self.direction]:
+                print(f"Running {directions[d]} direction")
+                self.bvec = self.bvec_full[:, d]
                 super().solve()
-                self.x_full[self.resolveF, i] = self.x
+                self.x_full[self.solveF, d] = self.x
             del self.Amat, self.bvec, self.initial_guess
-        del self.bvec_full, self.resolveF
+        del self.bvec_full, self.solveF
 
     def compute_effective_coefficient(self):
         aux = 1
@@ -258,13 +431,13 @@ class Permeability(PropertySolver):
         vIdNosP = np.unique(vIdNosP)
 
         self.keff[0, 0] =   np.sum(self.x_full[vIdNosP * 3 - 2, 1])
-        self.keff[0, 1] = - np.sum(self.x_full[vIdNosP * 3 - 3, 1])
-        self.keff[0, 2] = - np.sum(self.x_full[vIdNosP * 3 - 1, 1])
-        self.keff[1, 0] = - np.sum(self.x_full[vIdNosP * 3 - 2, 0])
+        self.keff[1, 0] = - np.sum(self.x_full[vIdNosP * 3 - 3, 1])
+        self.keff[2, 0] = - np.sum(self.x_full[vIdNosP * 3 - 1, 1])
+        self.keff[0, 1] = - np.sum(self.x_full[vIdNosP * 3 - 2, 0])
         self.keff[1, 1] =   np.sum(self.x_full[vIdNosP * 3 - 3, 0])
-        self.keff[1, 2] =   np.sum(self.x_full[vIdNosP * 3 - 1, 0])
-        self.keff[2, 0] = - np.sum(self.x_full[vIdNosP * 3 - 2, 2])
-        self.keff[2, 1] =   np.sum(self.x_full[vIdNosP * 3 - 3, 2])
+        self.keff[2, 1] =   np.sum(self.x_full[vIdNosP * 3 - 1, 0])
+        self.keff[0, 2] = - np.sum(self.x_full[vIdNosP * 3 - 2, 2])
+        self.keff[1, 2] =   np.sum(self.x_full[vIdNosP * 3 - 3, 2])
         self.keff[2, 2] =   np.sum(self.x_full[vIdNosP * 3 - 1, 2])
         self.keff /= self.nels
         print(f'\nEffective permeability tensor: \n{self.keff}')
@@ -362,14 +535,10 @@ class Permeability(PropertySolver):
                                   [0, DNxy[2, 0], DNxy[1, 0], 0, DNxy[2, 1], DNxy[1, 1], 0, DNxy[2, 2], DNxy[1, 2], 0, DNxy[2, 3], DNxy[1, 3],
                                    0, DNxy[2, 4], DNxy[1, 4], 0, DNxy[2, 5], DNxy[1, 5], 0, DNxy[2, 6], DNxy[1, 6], 0, DNxy[2, 7], DNxy[1, 7]]])
 
-                    self.ke += weight * B.T @ C @ B
-                    self.ge += weight * B.T @ mat111000 @ N.ravel(order='F')[::9][np.newaxis]
-                    self.pe += weight * stab * DNxy.T @ DNxy
-                    self.fe += weight * N[0][::3][:, np.newaxis]
-
-        self.ke = self.ke.ravel()
-        self.ge = self.ge.ravel()
-        self.pe = self.pe.ravel()
+                    self.k += weight * B.T @ C @ B
+                    self.g += weight * B.T @ mat111000 @ N.ravel(order='F')[::9][np.newaxis]
+                    self.p += weight * stab * DNxy.T @ DNxy
+                    self.f += weight * N[0][::3][:, np.newaxis]
 
     def log_input(self):
         self.ws.log.log_section("Computing Permeability")
@@ -388,3 +557,7 @@ class Permeability(PropertySolver):
     def error_check(self):
         if not isinstance(self.ws, Workspace):
             raise Exception("Workspace must be a puma.Workspace.")
+
+        if self.direction not in self.direction_dict:
+            print_warning("Direction can only be 'all', 'x', 'y', 'z', defaulting to 'all'")
+            self.direction = 'all'
