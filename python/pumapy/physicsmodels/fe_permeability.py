@@ -36,7 +36,7 @@ class Permeability(PropertySolver):
         self.voxlength = self.ws.voxel_length
 
         self.nel = self.len_x * self.len_y
-        self.nels = self.len_x * self.len_y * self.len_z
+        self.nels = self.nel * self.len_z
         self.nnP2 = (self.len_x + 1) * (self.len_y + 1)
         self.velF = np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32)  # only fluid elements
         self.nelF = self.velF.shape[0]
@@ -155,214 +155,109 @@ class Permeability(PropertySolver):
             self.Amat = self.Amat[self.solveF][:, self.solveF]
         else:
             print("Done\nCreating matvec function for matrix-free ... ", flush=True, end='')
-
-            vFluidElems_new, numVelocityNodes, DOFMap = self.create_vFluidElems_DOFMap()
-            pElemDOFNumV, pElemDOFNumP, isOnlyFluid = self.create_pElemDOFNum_isOnlyFluid(vFluidElems_new, numVelocityNodes, DOFMap)
+            el_dof_v, el_dof_p, only_fluid = self.generate_inds()
 
             def matvec(x):
                 y = np.zeros_like(x)
-                ops = np.einsum('ij, jk, jk -> ik', self.k, x[pElemDOFNumV], isOnlyFluid) * isOnlyFluid
-                ops += np.einsum('ij, jk -> ik', self.g, x[pElemDOFNumP]) * isOnlyFluid
+                ops = np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid
+                ops += np.einsum('ij, jk -> ik', self.g, x[el_dof_p]) * only_fluid
                 for i in range(24):
-                    y[pElemDOFNumV[i]] += ops[i]
-                ops = np.einsum('ji, jk, jk -> ik', self.g, x[pElemDOFNumV], isOnlyFluid)
-                ops -= np.einsum('ij, jk -> ik', self.p, x[pElemDOFNumP])
+                    y[el_dof_v[i]] += ops[i]
+                ops = np.einsum('ji, jk, jk -> ik', self.g, x[el_dof_v], only_fluid)
+                ops -= np.einsum('ij, jk -> ik', self.p, x[el_dof_p])
                 for i in range(8):
-                    y[pElemDOFNumP[i]] += ops[i]
+                    y[el_dof_p[i]] += ops[i]
                 return y
 
             self.Amat = LinearOperator(shape=(self.solveF.shape[0], self.solveF.shape[0]), matvec=matvec)
             print("Done")
 
-    def create_vFluidElems_DOFMap(self):
-        nNodes = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
-        NodesperSlice = (self.len_x + 1) * (self.len_y + 1)
-        ElemsperSlice = self.len_x * self.len_y
-        numVelocityNodes = 0
-        numInterfaceNodes = 0
-        numFluidElems = 0
-        vFluidElems = np.zeros(nNodes, dtype=int)
-        elemMatMap = self.ws.matrix.ravel(order='F') > 0
-        DOFMap = np.zeros(nNodes, dtype=np.int64)
+    def generate_inds(self):
 
-        for N in range(1, nNodes + 1):
-            # Nodes's column and row
-            slice = int((N - 1) / ((self.len_x + 1) * (self.len_y + 1)) + 1)
-            c = int(((N - (slice - 1) * NodesperSlice - 1) / (self.len_y + 1)) + 1)
-            r = int(N - (slice - 1) * NodesperSlice - (c - 1) * (self.len_y + 1))
+        nodes_n = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
+        slice_n = (self.len_x + 1) * (self.len_y + 1)
+        ns = np.arange(1, nodes_n + 1, dtype=int)
 
-            # Flags - Boundary nodes
-            flag_lastcol = (c // (self.len_x + 1) == 1)
-            flag_lastrow = (r // (self.len_y + 1) == 1)
-            flag_lastslice = (slice // (self.len_z + 1) == 1)
-            flag_firstcol = c == 1
-            flag_firstrow = r == 1
-            flag_firstslice = slice == 1
+        # Nodes's column and row
+        slices = ((ns - 1) / ((self.len_x + 1) * (self.len_y + 1)) + 1).astype(int)
+        cs = (((ns - (slices - 1) * slice_n - 1) / (self.len_y + 1)) + 1).astype(int)
+        rs = (ns - (slices - 1) * slice_n - (cs - 1) * (self.len_y + 1)).astype(int)
 
-            # Check Neighboring   |nw|ne|
-            #                      - N -
-            #                     |sw|se|
-            elem_se_back = int(N - (slice - 1) * NodesperSlice - c + 1 + (slice - 1) * ElemsperSlice + flag_lastrow * (
-                -self.len_y) + flag_lastcol * (-self.len_x * (self.len_y + 1) + c - 1) + flag_lastslice * (
-                                       -(slice - 1) * ElemsperSlice))
-            elem_ne_back = int(N - (slice - 1) * NodesperSlice - c + (slice - 1) * ElemsperSlice + flag_firstrow * (
-                self.len_y) + flag_lastcol * (-self.len_x * self.len_y) + flag_lastslice * (
-                                       -(slice - 1) * ElemsperSlice))
-            elem_nw_back = int(
-                N - (slice - 1) * NodesperSlice - c + (slice - 1) * ElemsperSlice - self.len_y + flag_firstrow * (
-                    self.len_y) + flag_firstcol * (self.len_x) * self.len_y + flag_lastslice * (
-                        -(slice - 1) * ElemsperSlice))
-            elem_sw_back = int(
-                N - (slice - 1) * NodesperSlice - c + 1 + (slice - 1) * ElemsperSlice - self.len_y + flag_firstcol * (
-                    self.len_x) * self.len_y + flag_lastrow * (-self.len_y) + flag_lastslice * (
-                        -(slice - 1) * ElemsperSlice))
-            elem_se_front = elem_se_back - ElemsperSlice + flag_firstslice * (
-                    self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
-            elem_ne_front = elem_ne_back - ElemsperSlice + flag_firstslice * (
-                    self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
-            elem_nw_front = elem_nw_back - ElemsperSlice + flag_firstslice * (
-                    self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
-            elem_sw_front = elem_sw_back - ElemsperSlice + flag_firstslice * (
-                    self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
+        flag_lastcols = (cs // (self.len_x + 1) == 1)
+        flag_lastrows = (rs // (self.len_y + 1) == 1)
+        flag_lastslices = (slices // (self.len_z + 1) == 1)
+        flag_firstcols = cs == 1
+        flag_firstrows = rs == 1
+        flag_firstslices = slices == 1
 
-            elem_se_back_m = elem_se_back - 1
-            elem_ne_back_m = elem_ne_back - 1
-            elem_nw_back_m = elem_nw_back - 1
-            elem_sw_back_m = elem_sw_back - 1
-            elem_se_front_m = elem_se_front - 1
-            elem_ne_front_m = elem_ne_front - 1
-            elem_nw_front_m = elem_nw_front - 1
-            elem_sw_front_m = elem_sw_front - 1
+        # Check Neighboring   |nw|ne|
+        #                      - N -
+        #                     |sw|se|
+        reps = ns - (slices - 1) * slice_n - cs + (slices - 1) * self.nel + flag_lastslices * ((1 - slices) * self.nel)
+        el_se_back = (reps - flag_lastrows * self.len_y + flag_lastcols * (-self.len_x * (self.len_y + 1) + cs - 1) + 1).astype(int)
+        el_ne_back = (reps + flag_firstrows * self.len_y + flag_lastcols * (-self.nel)).astype(int)
+        el_nw_back = (reps - self.len_y + flag_firstrows * self.len_y + flag_firstcols * self.nel).astype(int)
+        el_sw_back = (reps - self.len_y + flag_firstcols * self.nel + flag_lastrows * (-self.len_y) + 1).astype(int)
+        reps = flag_firstslices * self.nels + flag_lastslices * self.nels
+        del cs, rs, flag_firstcols, flag_firstrows, flag_firstslices
+        el_se_front = el_se_back - self.nel + reps
+        el_ne_front = el_ne_back - self.nel + reps
+        el_nw_front = el_nw_back - self.nel + reps
+        el_sw_front = el_sw_back - self.nel + reps
+        elem_se_back_ms = el_se_back - 1
+        elem_ne_back_ms = el_ne_back - 1
+        elem_nw_back_ms = el_nw_back - 1
+        elem_sw_back_ms = el_sw_back - 1
+        elem_se_front_ms = el_se_front - 1
+        elem_ne_front_ms = el_ne_front - 1
+        elem_nw_front_ms = el_nw_front - 1
+        elem_sw_front_ms = el_sw_front - 1
 
-            # Flags - type of node (At least one fluid elem / At least one solid elem / Only fluid elems)
-            flag_oneFluidElem = - (
-                    elemMatMap[elem_se_front_m] * elemMatMap[elem_ne_front_m] * elemMatMap[elem_nw_front_m] *
-                    elemMatMap[elem_sw_front_m] * elemMatMap[elem_se_back_m] * elemMatMap[elem_ne_back_m] *
-                    elemMatMap[elem_nw_back_m] * elemMatMap[elem_sw_back_m] - 1)
-            flag_oneSolidElem = (elemMatMap[elem_se_front_m] + elemMatMap[elem_ne_front_m] + elemMatMap[
-                elem_nw_front_m] +
-                                 elemMatMap[elem_sw_front_m] + elemMatMap[elem_se_back_m] + elemMatMap[elem_ne_back_m] +
-                                 elemMatMap[elem_nw_back_m] + elemMatMap[elem_sw_back_m]) > 0
-            flag_onlyFluidElems = (elemMatMap[elem_se_front_m] + elemMatMap[elem_ne_front_m] + elemMatMap[
-                elem_nw_front_m] +
-                                   elemMatMap[elem_sw_front_m] + elemMatMap[elem_se_back_m] + elemMatMap[
-                                       elem_ne_back_m] +
-                                   elemMatMap[elem_nw_back_m] + elemMatMap[elem_sw_back_m]) == 0
+        # Flags - type of node (At least one fluid elem / At least one solid elem / Only fluid elems)
+        mat_map = self.ws.matrix.ravel(order='F') > 0
+        flag_one_fluid = - (mat_map[elem_se_front_ms] * mat_map[elem_ne_front_ms] * mat_map[elem_nw_front_ms] *
+                            mat_map[elem_sw_front_ms] * mat_map[elem_se_back_ms] * mat_map[elem_ne_back_ms] *
+                            mat_map[elem_nw_back_ms] * mat_map[elem_sw_back_ms] - 1)
+        flag_one_solid = (mat_map[elem_se_front_ms] + mat_map[elem_ne_front_ms] + mat_map[elem_nw_front_ms] +
+                          mat_map[elem_sw_front_ms] + mat_map[elem_se_back_ms] + mat_map[elem_ne_back_ms] +
+                          mat_map[elem_nw_back_ms] + mat_map[elem_sw_back_ms]) > 0
+        flag_only_fluid = (mat_map[elem_se_front_ms] + mat_map[elem_ne_front_ms] + mat_map[elem_nw_front_ms] +
+                           mat_map[elem_sw_front_ms] + mat_map[elem_se_back_ms] + mat_map[elem_ne_back_ms] +
+                           mat_map[elem_nw_back_ms] + mat_map[elem_sw_back_ms]) == 0
+        del reps, elem_ne_back_ms, elem_nw_back_ms, elem_sw_back_ms, elem_se_front_ms, elem_ne_front_ms, elem_nw_front_ms, elem_sw_front_ms
 
-            # Creation of DofMap
-            numVelocityNodes += flag_onlyFluidElems * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
-            numInterfaceNodes += flag_oneSolidElem * flag_oneFluidElem * (1 - flag_lastrow) * (1 - flag_lastcol) * (
-                    1 - flag_lastslice)
-            value_CaseVelocity = numVelocityNodes
-            value_CaseInterface = nNodes + numInterfaceNodes
-            Nm = N - 1
-            DOFMap[
-                Nm] = flag_onlyFluidElems * value_CaseVelocity + flag_oneFluidElem * flag_oneSolidElem * value_CaseInterface
+        vel_nodes_n = np.cumsum(flag_only_fluid * (1 - flag_lastrows) * (1 - flag_lastcols) * (1 - flag_lastslices))
+        dof_map = flag_only_fluid * vel_nodes_n + flag_one_fluid * flag_one_solid * \
+                  (nodes_n + np.cumsum(flag_one_solid * flag_one_fluid * (1 - flag_lastrows) * (1 - flag_lastcols) * (1 - flag_lastslices)))
 
-            # Application of PBC
-            top_node = flag_lastrow * (N - self.len_y) + (1 - flag_lastrow) - 1
-            left_node = flag_lastcol * (N - self.len_x * (self.len_y + 1)) + (1 - flag_lastcol) - 1
-            front_node = flag_lastslice * (N - (slice - 1) * NodesperSlice) + (1 - flag_lastslice) - 1
-            DOFMap[Nm] += (1 - flag_lastslice) * (flag_lastrow * (-DOFMap[Nm] + DOFMap[top_node]) + flag_lastcol *
-                                                  (-DOFMap[Nm] + DOFMap[left_node]) + flag_lastrow * flag_lastcol *
-                                                  (+DOFMap[Nm] - DOFMap[left_node])) + flag_lastslice * (
-                                  -DOFMap[Nm] + DOFMap[front_node])
+        # Application of PBC
+        top_nodes = flag_lastrows * (ns - self.len_y) + (1 - flag_lastrows) - 1
+        left_nodes = flag_lastcols * (ns - self.len_x * (self.len_y + 1)) + (1 - flag_lastcols) - 1
+        front_nodes = flag_lastslices * (ns - (slices - 1) * slice_n) + (1 - flag_lastslices) - 1
 
-            # Vector of Fluid Elements
-            numFluidElems += (elemMatMap[elem_se_back_m] == 0) * (1 - flag_lastrow) * (1 - flag_lastcol) * (
-                    1 - flag_lastslice)
-            vFluidElems[numFluidElems * (elemMatMap[elem_se_back_m] == 0) + (elemMatMap[elem_se_back_m] != 0) - 1] += \
-                ((elemMatMap[elem_se_back_m] == 0) * elem_se_back) * (1 - flag_lastrow) * (1 - flag_lastcol) * (
-                        1 - flag_lastslice)
-
-        # N = np.arange(1, nNodes + 1, dtype=int)
-        #
-        # # Nodes's column and row
-        # slice = ((N - 1) / ((self.len_x + 1) * (self.len_y + 1)) + 1).astype(int)
-        # c = (((N - (slice - 1) * NodesperSlice - 1) / (self.len_y + 1)) + 1).astype(int)
-        # r = (N - (slice - 1) * NodesperSlice - (c - 1) * (self.len_y + 1)).astype(int)
-        #
-        # # Flags - Boundary nodes
-        # flag_lastcol = (c // (self.len_x + 1) == 1)
-        # flag_lastrow = (r // (self.len_y + 1) == 1)
-        # flag_lastslice = (slice // (self.len_z + 1) == 1)
-        # flag_firstcol = c == 1
-        # flag_firstrow = r == 1
-        # flag_firstslice = slice == 1
-        #
-        # # Check Neighboring   |nw|ne|
-        # #                      - N -
-        # #                     |sw|se|
-        # elem_se_back = (N - (slice - 1) * NodesperSlice - c + 1 + (slice - 1) * ElemsperSlice + flag_lastrow * (-self.len_y) + flag_lastcol * (-self.len_x * (self.len_y + 1) + c - 1) + flag_lastslice * (-(slice - 1) * ElemsperSlice)).astype(int)
-        # elem_ne_back = (N - (slice - 1) * NodesperSlice - c + (slice - 1) * ElemsperSlice + flag_firstrow * (self.len_y) + flag_lastcol * (-self.len_x * self.len_y) + flag_lastslice * (-(slice - 1) * ElemsperSlice)).astype(int)
-        # elem_nw_back = (N - (slice - 1) * NodesperSlice - c + (slice - 1) * ElemsperSlice - self.len_y + flag_firstrow * (self.len_y) + flag_firstcol * (self.len_x) * self.len_y + flag_lastslice * (-(slice - 1) * ElemsperSlice)).astype(int)
-        # elem_sw_back = (N - (slice - 1) * NodesperSlice - c + 1 + (slice - 1) * ElemsperSlice - self.len_y + flag_firstcol * (self.len_x) * self.len_y + flag_lastrow * (-self.len_y) + flag_lastslice * (-(slice - 1) * ElemsperSlice)).astype(int)
-        # elem_se_front = elem_se_back - ElemsperSlice + flag_firstslice * (self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
-        # elem_ne_front = elem_ne_back - ElemsperSlice + flag_firstslice * (self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
-        # elem_nw_front = elem_nw_back - ElemsperSlice + flag_firstslice * (self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
-        # elem_sw_front = elem_sw_back - ElemsperSlice + flag_firstslice * (self.len_z * ElemsperSlice) + flag_lastslice * (self.len_z * ElemsperSlice)
-        #
-        # elem_se_back_m = elem_se_back - 1
-        # elem_ne_back_m = elem_ne_back - 1
-        # elem_nw_back_m = elem_nw_back - 1
-        # elem_sw_back_m = elem_sw_back - 1
-        # elem_se_front_m = elem_se_front - 1
-        # elem_ne_front_m = elem_ne_front - 1
-        # elem_nw_front_m = elem_nw_front - 1
-        # elem_sw_front_m = elem_sw_front - 1
-        #
-        # # Flags - type of node (At least one fluid elem / At least one solid elem / Only fluid elems)
-        # flag_oneFluidElem   = - (elemMatMap[elem_se_front_m] * elemMatMap[elem_ne_front_m] * elemMatMap[elem_nw_front_m] *
-        #                          elemMatMap[elem_sw_front_m] * elemMatMap[elem_se_back_m] * elemMatMap[elem_ne_back_m] *
-        #                          elemMatMap[elem_nw_back_m] * elemMatMap[elem_sw_back_m] - 1)
-        # flag_oneSolidElem   =   (elemMatMap[elem_se_front_m] + elemMatMap[elem_ne_front_m] + elemMatMap[elem_nw_front_m] +
-        #                          elemMatMap[elem_sw_front_m] + elemMatMap[elem_se_back_m] + elemMatMap[elem_ne_back_m] +
-        #                          elemMatMap[elem_nw_back_m] + elemMatMap[elem_sw_back_m]) > 0
-        # flag_onlyFluidElems =   (elemMatMap[elem_se_front_m] + elemMatMap[elem_ne_front_m] + elemMatMap[elem_nw_front_m] +
-        #                          elemMatMap[elem_sw_front_m] + elemMatMap[elem_se_back_m] + elemMatMap[elem_ne_back_m] +
-        #                          elemMatMap[elem_nw_back_m] + elemMatMap[elem_sw_back_m]) == 0
-        #
-        # # Creation of DofMap
-        # numVelocityNodes += flag_onlyFluidElems * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
-        # numInterfaceNodes += flag_oneSolidElem * flag_oneFluidElem * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
-        # value_CaseVelocity = numVelocityNodes
-        # value_CaseInterface = nNodes + numInterfaceNodes
-        # Nm = N - 1
-        # DOFMap[Nm] = flag_onlyFluidElems * value_CaseVelocity + flag_oneFluidElem * flag_oneSolidElem * value_CaseInterface
-        #
-        # # Application of PBC
-        # top_node = flag_lastrow * (N - self.len_y) + (1 - flag_lastrow) - 1
-        # left_node = flag_lastcol * (N - self.len_x * (self.len_y + 1)) + (1 - flag_lastcol) - 1
-        # front_node = flag_lastslice * (N - (slice - 1) * NodesperSlice) + (1 - flag_lastslice) - 1
-        # DOFMap[Nm] += (1 - flag_lastslice) * (flag_lastrow * (-DOFMap[Nm] + DOFMap[top_node]) + flag_lastcol *
-        #                                       (-DOFMap[Nm] + DOFMap[left_node]) + flag_lastrow * flag_lastcol *
-        #                                       (+DOFMap[Nm] - DOFMap[left_node])) + flag_lastslice * (-DOFMap[Nm] + DOFMap[front_node])
-        #
-        # # Vector of Fluid Elements
-        # numFluidElems += (elemMatMap[elem_se_back_m] == 0) * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
-        # vFluidElems[numFluidElems * (elemMatMap[elem_se_back_m] == 0) + (elemMatMap[elem_se_back_m] != 0) - 1] += \
-        #     ((elemMatMap[elem_se_back_m] == 0) * elem_se_back) * (1 - flag_lastrow) * (1 - flag_lastcol) * (1 - flag_lastslice)
-        #
+        # Vector of Fluid Elements
+        fluid_el_n = np.cumsum((mat_map[elem_se_back_ms] == 0) * (1 - flag_lastrows) * (1 - flag_lastcols) * (1 - flag_lastslices))
+        v_fluid_tmp = np.zeros(nodes_n, dtype=int)
+        np.add.at(v_fluid_tmp, fluid_el_n * (mat_map[elem_se_back_ms] == 0) + (mat_map[elem_se_back_ms] != 0) - 1,
+                  ((mat_map[elem_se_back_ms] == 0) * el_se_back) * (1 - flag_lastrows) * (1 - flag_lastcols) * (1 - flag_lastslices))
+        for nms in range(nodes_n):
+            dof_map[nms] += (1 - flag_lastslices[nms]) * (flag_lastrows[nms] * (-dof_map[nms] + dof_map[top_nodes[nms]]) + flag_lastcols[nms] * (-dof_map[nms] + dof_map[left_nodes[nms]]) +
+                                                          flag_lastrows[nms] * flag_lastcols[nms] * (+dof_map[nms] - dof_map[left_nodes[nms]])) + flag_lastslices[nms] * (-dof_map[nms] + dof_map[front_nodes[nms]])
+        del top_nodes, left_nodes, front_nodes, slices, mat_map, flag_one_fluid, flag_one_solid, flag_only_fluid
 
         # Correction of the numbering of interface nodes and reduction of the vector of fluid elements
-        vFluidElems_new = np.zeros(numFluidElems, dtype=int)
-        for N in range(1, nNodes + 1):
-            Nm = N - 1
-            DOFMap[Nm] += (DOFMap[Nm] > numVelocityNodes) * (-nNodes + numVelocityNodes)
-            vFluidElems_new[(N <= numFluidElems) * N + (N > numFluidElems) - 1] += vFluidElems[Nm] * (N <= numFluidElems)
-        return vFluidElems_new, numVelocityNodes, DOFMap
+        nms = ns - 1
+        dof_map[nms] += (dof_map[nms] > vel_nodes_n[-1]) * (-nodes_n + vel_nodes_n[-1])
+        v_fluid = np.zeros(fluid_el_n[-1], dtype=int)
+        v_fluid[(ns <= fluid_el_n[-1]) * ns + (ns > fluid_el_n[-1]) - 1] += v_fluid_tmp[nms] * (ns <= fluid_el_n[-1])
 
-    def create_pElemDOFNum_isOnlyFluid(self, vFluidElems_new, numVelocityNodes, DOFMap):
-        numVDOFs = 3 * numVelocityNodes
-        pElemDOFNumP = np.zeros((8, vFluidElems_new.shape[0]), dtype=np.int64)
-        pElemDOFNumV = np.zeros((24, vFluidElems_new.shape[0]), dtype=np.int64)
-        isOnlyFluid = np.zeros((24, vFluidElems_new.shape[0]), dtype=bool)
-        dofs = np.zeros((8, vFluidElems_new.shape[0]), dtype=np.int64)
+        v_nodes_n = vel_nodes_n[-1]
+        del vel_nodes_n, nms, ns, fluid_el_n, v_fluid_tmp
 
         # dofs variable tranforms into dofs, but this is n
-        dofs[0] = ((vFluidElems_new - 1) % (self.len_x * self.len_y) +
-                   (((vFluidElems_new - 1) % (self.len_x * self.len_y)) // self.len_y) +
-                   ((vFluidElems_new - 1) // (self.len_x * self.len_y)) * (self.len_x + 1) * (self.len_y + 1)) + 2
+        dofs = np.zeros((8, v_fluid.shape[0]), dtype=np.int64)
+        dofs[0] = ((v_fluid - 1) % (self.nel) + (((v_fluid - 1) % self.nel) // self.len_y) +
+                   ((v_fluid - 1) // self.nel) * (self.len_x + 1) * (self.len_y + 1)) + 2
         dofs[1] = dofs[0] + self.len_y + 1
         dofs[2] = dofs[1] - 1
         dofs[3] = dofs[2] - (self.len_y + 1)
@@ -371,31 +266,30 @@ class Permeability(PropertySolver):
         dofs[6] = dofs[5] - 1
         dofs[7] = dofs[6] - (self.len_y + 1)
 
-        dofs[:] = DOFMap[dofs - 1]
-        pElemDOFNumP[:] = numVDOFs + dofs - 1
+        dofs[:] = dof_map[dofs - 1]
+        el_dof_p = 3 * v_nodes_n + dofs - 1
 
-        tiles = np.tile(np.arange(1, 4), (vFluidElems_new.shape[0], 1))
-        pElemDOFNumV[:3] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[0], axis=1) *
-                                       (np.expand_dims(dofs[0], axis=1) * 3 - 4 + tiles), 1, 0)
-        pElemDOFNumV[3:6] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[1], axis=1) *
-                                        (np.expand_dims(dofs[1], axis=1) * 3 - 4 + tiles), 1, 0)
-        pElemDOFNumV[6:9] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[2], axis=1) *
-                                        (np.expand_dims(dofs[2], axis=1) * 3 - 4 + tiles), 1, 0)
-        pElemDOFNumV[9:12] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[3], axis=1) *
-                                         (np.expand_dims(dofs[3], axis=1) * 3 - 4 + tiles), 1, 0)
-        pElemDOFNumV[12:15] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[4], axis=1) *
-                                          (np.expand_dims(dofs[4], axis=1) * 3 - 4 + tiles), 1, 0)
-        pElemDOFNumV[15:18] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[5], axis=1) *
-                                          (np.expand_dims(dofs[5], axis=1) * 3 - 4 + tiles), 1, 0)
-        pElemDOFNumV[18:21] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[6], axis=1) *
-                                          (np.expand_dims(dofs[6], axis=1) * 3 - 4 + tiles), 1, 0)
-        pElemDOFNumV[21:] = np.swapaxes(np.expand_dims(numVelocityNodes >= dofs[7], axis=1) *
-                                        (np.expand_dims(dofs[7], axis=1) * 3 - 4 + tiles), 1, 0)
+        tiles = np.tile(np.arange(1, 4), (v_fluid.shape[0], 1))
+        el_dof_v = np.zeros((24, v_fluid.shape[0]), dtype=np.int64)
+        el_dof_v[:3] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[0], axis=1) *
+                                   (np.expand_dims(dofs[0], axis=1) * 3 - 4 + tiles), 1, 0)
+        el_dof_v[3:6] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[1], axis=1) *
+                                    (np.expand_dims(dofs[1], axis=1) * 3 - 4 + tiles), 1, 0)
+        el_dof_v[6:9] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[2], axis=1) *
+                                    (np.expand_dims(dofs[2], axis=1) * 3 - 4 + tiles), 1, 0)
+        el_dof_v[9:12] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[3], axis=1) *
+                                     (np.expand_dims(dofs[3], axis=1) * 3 - 4 + tiles), 1, 0)
+        el_dof_v[12:15] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[4], axis=1) *
+                                      (np.expand_dims(dofs[4], axis=1) * 3 - 4 + tiles), 1, 0)
+        el_dof_v[15:18] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[5], axis=1) *
+                                      (np.expand_dims(dofs[5], axis=1) * 3 - 4 + tiles), 1, 0)
+        el_dof_v[18:21] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[6], axis=1) *
+                                      (np.expand_dims(dofs[6], axis=1) * 3 - 4 + tiles), 1, 0)
+        el_dof_v[21:] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[7], axis=1) *
+                                    (np.expand_dims(dofs[7], axis=1) * 3 - 4 + tiles), 1, 0)
 
-        for i in range(vFluidElems_new.shape[0]):
-            isOnlyFluid[:, i] = np.repeat(numVelocityNodes >= dofs[:, i], 3)
-
-        return pElemDOFNumV, pElemDOFNumP, isOnlyFluid
+        only_fluid = np.repeat(v_nodes_n >= dofs, 3, axis=0).astype(bool)
+        return el_dof_v, el_dof_p, only_fluid
 
     def solve(self):
         self.x_full = np.zeros((4 * self.nels, 3), dtype=float)
