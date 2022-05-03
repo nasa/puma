@@ -1,12 +1,9 @@
 """
 The following FE numerical method and implementation are based on the following research paper:
 
-Vianna, R.S., Cunha, A.M., Azeredo, R.B., Leiderman, R. and Pereira, A., 2020.
-Computing Effective Permeability of Porous Media with FEM and Micro-CT: An Educational Approach.
-Fluids, 5(1), p.16.
-
-See https://www.mdpi.com/2311-5521/5/1/16 for the publication.
-See https://zenodo.org/record/3612168#.YUYlSWZKhTZ for 2D MATLAB implementation.
+Pedro C. F. Lopes, Rafael S. Vianna, Victor W. Sapucaia, Federico Semeraro, Ricardo Leiderman, Andre M. B. Pereira, 2022.
+Simulation Toolkit for Digital Material Characterization of Large Image-based Microstructures.
+(to appear)
 """
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.logger import print_warning
@@ -56,7 +53,8 @@ class Permeability(PropertySolver):
 
     def compute(self):
         t = Timer()
-        estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type)
+        estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type,
+                            perm_mf=self.matrix_free, perm_fluid_vf=self.ws.porosity((0, 0)))
         self.initialize()
         self.assemble_bvector()
         self.assemble_Amatrix()
@@ -139,7 +137,7 @@ class Permeability(PropertySolver):
             jK = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')
             jP = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')
             jA = np.hstack((jK, jG, iG, jP)) - 1
-            del jK, jG, iG, jP
+            del jK, jG, iG, jP, self.mgdlF
             self.k = self.k.ravel()
             self.g = self.g.ravel()
             self.p = self.p.ravel()
@@ -154,25 +152,24 @@ class Permeability(PropertySolver):
             # Reducing system of equations
             self.Amat = self.Amat[self.solveF][:, self.solveF]
         else:
-            print("Done\nCreating matvec function for matrix-free ... ", flush=True, end='')
             el_dof_v, el_dof_p, only_fluid = self.generate_inds()
+            print("Done\nCreating matvec function for matrix-free ... ", flush=True, end='')
 
             def matvec(x):
                 y = np.zeros_like(x)
-                ops = np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid
-                ops += np.einsum('ij, jk -> ik', self.g, x[el_dof_p]) * only_fluid
-                for i in range(24):
-                    y[el_dof_v[i]] += ops[i]
+                ops = np.einsum('ij, jk -> ik', self.g, x[el_dof_p]) * only_fluid
+                ops += np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid
+                np.add.at(y, el_dof_v, ops)
                 ops = np.einsum('ji, jk, jk -> ik', self.g, x[el_dof_v], only_fluid)
                 ops -= np.einsum('ij, jk -> ik', self.p, x[el_dof_p])
-                for i in range(8):
-                    y[el_dof_p[i]] += ops[i]
+                np.add.at(y, el_dof_p, ops)
                 return y
 
             self.Amat = LinearOperator(shape=(self.solveF.shape[0], self.solveF.shape[0]), matvec=matvec)
             print("Done")
 
     def generate_inds(self):
+        del self.mgdlF
 
         nodes_n = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
         slice_n = (self.len_x + 1) * (self.len_y + 1)
@@ -249,7 +246,7 @@ class Permeability(PropertySolver):
         nms = ns - 1
         dof_map[nms] += (dof_map[nms] > vel_nodes_n[-1]) * (-nodes_n + vel_nodes_n[-1])
         v_fluid = np.zeros(fluid_el_n[-1], dtype=int)
-        v_fluid[(ns <= fluid_el_n[-1]) * ns + (ns > fluid_el_n[-1]) - 1] += v_fluid_tmp[nms] * (ns <= fluid_el_n[-1])
+        np.add.at(v_fluid, (ns <= fluid_el_n[-1]) * ns + (ns > fluid_el_n[-1]) - 1, v_fluid_tmp[nms] * (ns <= fluid_el_n[-1]))
 
         v_nodes_n = vel_nodes_n[-1]
         del vel_nodes_n, nms, ns, fluid_el_n, v_fluid_tmp
@@ -289,7 +286,7 @@ class Permeability(PropertySolver):
                                     (np.expand_dims(dofs[7], axis=1) * 3 - 4 + tiles), 1, 0)
 
         only_fluid = np.repeat(v_nodes_n >= dofs, 3, axis=0).astype(bool)
-        return el_dof_v, el_dof_p, only_fluid
+        return el_dof_v.astype(np.uint32), el_dof_p.astype(np.uint32), only_fluid
 
     def solve(self):
         self.x_full = np.zeros((4 * self.nels, 3), dtype=float)

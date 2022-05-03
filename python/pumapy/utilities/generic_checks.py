@@ -60,7 +60,7 @@ def check_ws_cutoff(workspace, cutoff):
 
 
 def estimate_max_memory(material_property, workspace_shape, solver_type='iterative', need_to_orient=False,
-                        permeability_fluid_vf=1.):
+                        perm_mf=True, perm_fluid_vf=1.):
     """ Compute an estimate of the extra maximum memory required to run a specified material property on a domain
 
         :param material_property: property to estimate, options:
@@ -72,8 +72,8 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
         :type solver_type: string
         :param need_to_orient: domain with orientation (needed for anisotropic conductivity and elasticity)
         :type need_to_orient: bool
-        :param permeability_fluid_vf: volume fraction of the fluid (needed for permeability)
-        :type permeability_fluid_vf: float
+        :param matrix_free: using matrix-free construction of the system (needed for permeability)
+        :type matrix_free: bool
         :return: number of Bytes
         :rtype: int
     """
@@ -155,17 +155,14 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
 
     elif material_property == "permeability":
 
-        # Amat size (V, I, J)
-        ndofs = permeability_fluid_vf * len_x * len_y * len_z
-        A_rows = ndofs * 24 * 24 + ndofs * 24 * 8 + ndofs * 192 + ndofs * 8 * 8
-        total_bytes += 2 * (A_rows * float_size + 2 * A_rows * uint32_size)
+        n_elems = len_x * len_y * len_z
+        n_dofs = n_elems * 4 * perm_fluid_vf
+        n_nodes = (len_x + 1) * (len_y + 1) * (len_z + 1)
 
-        # bvec
-        total_bytes += 3 * (4 * ndofs * float_size + 2 * 4 * ndofs * uint32_size)
-
-        # mgdlF and resolveF
-        total_bytes += 32 * ndofs
-        total_bytes += 3.5 * ndofs  # rough
+        if perm_mf == False or solver_type=='direct':
+            total_bytes += (16 * n_elems + 64 * n_nodes + 2 * 64 * n_dofs + 18 * 64 * n_elems) / 8
+        else:  # sparse assembly
+            total_bytes += (16 * n_elems + 64 * n_nodes + 5 * 64 * n_dofs) / 8
 
     # elif material_property == "orientation":
     #     pass
@@ -173,7 +170,7 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
     # elif material_property == "radiation":
     #     pass
 
-    print(f"Memory requirement for conductivity simulation: {convert_bytes_size(total_bytes)}")
+    print(f"Memory requirement for conductivity simulation: {convert_bytes_size(int(round(total_bytes)))}")
     return total_bytes
 
 
