@@ -28,12 +28,20 @@ class PropertySolver:
         self.len_xy = self.len_x * self.len_y
         self.len_xyz = self.len_xy * self.len_z
 
+        self.callback = None
+        self.display_iter = display_iter
+
     def solve(self):
         if self.solver_type not in self.allowed_solvers:
             print_warning(f"Unrecognized solver, defaulting to {self.allowed_solvers[0]}.")
             self.solver_type = self.allowed_solvers[0]
 
         print(f"Solving Ax=b using {self.solver_type} solver", end='')
+        if self.display_iter:
+            if self.solver_type == "minres":
+                self.callback = MinResSolverDisplay()
+            else:
+                self.callback = SolverDisplay()
 
         info = 0
         if (self.solver_type == 'direct') and self.solver_type in self.allowed_solvers:
@@ -46,19 +54,19 @@ class PropertySolver:
         # iterative solvers
         if self.solver_type == 'gmres' and self.solver_type in self.allowed_solvers:
             self.x, info = gmres(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
-                                 atol=self.tolerance, maxiter=self.maxiter, callback=SolverDisplay())
+                                 atol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         elif self.solver_type == 'minres' and self.solver_type in self.allowed_solvers:
             self.x, info = minres(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
-                                  tol=self.tolerance, maxiter=self.maxiter, callback=MinResSolverDisplay())
+                                  tol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         elif self.solver_type == 'cg' and self.solver_type in self.allowed_solvers:
             self.x, info = cg(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
-                              atol=self.tolerance, maxiter=self.maxiter, callback=SolverDisplay())
+                              atol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         elif self.solver_type == 'bicgstab' and self.solver_type in self.allowed_solvers:
             self.x, info = bicgstab(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
-                                    atol=self.tolerance, maxiter=self.maxiter, callback=SolverDisplay())
+                                    atol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         if info > 0:
             raise Exception("Convergence to tolerance not achieved.")
