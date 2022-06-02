@@ -1,8 +1,8 @@
 from pumapy.physicsmodels.fe_permeability import Permeability
 
 
-def compute_permeability(workspace, solid_cutoff, direction='all', tol=1e-8, maxiter=10000, solver_type='minres',
-                         display_iter=True, matrix_free=True):
+def compute_permeability(workspace, solid_cutoff, direction='all', tol=1e-6, maxiter=10000, solver_type='bicgstab',
+                         display_iter=True, matrix_free=True, preconditioner=True):
     """ Compute the permeability using first order Q1-Q1 Finite Element solver and periodic BC on the sides
 
         :param workspace: domain
@@ -19,8 +19,10 @@ def compute_permeability(workspace, solid_cutoff, direction='all', tol=1e-8, max
         :type solver_type: string
         :param display_iter: display iteration in iterative solver
         :type display_iter: bool
-        :param matrix_free: solve system using matrix-free method (True) or building the sparse A matrix (False)
+        :param matrix_free: solve system using matrix-free method (True, recommended) or building the sparse A matrix (False)
         :type matrix_free: bool
+        :param preconditioner: solve system with Jacobi preconditioner (True, recommended) or without (False, reduces memory, but more iterations)
+        :type preconditioner: bool
         :return: effective permeability (3x3 matrix), velocity and pressure fields for x, y, z directions (u_x, p_x, etc)
         :rtype: numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray
 
@@ -30,7 +32,7 @@ def compute_permeability(workspace, solid_cutoff, direction='all', tol=1e-8, max
         >>> keff, u_x, p_x, u_y, p_y, u_z, p_z = puma.compute_permeability(ws, (1, ws.max()))
         >>> puma.render_orientation(u_x, scale_factor=5e11, solid_color=None)
     """
-    solver = Permeability(workspace, solid_cutoff, direction, tol, maxiter, solver_type, display_iter, matrix_free)
+    solver = Permeability(workspace, solid_cutoff, direction, tol, maxiter, solver_type, display_iter, matrix_free, preconditioner)
 
     solver.error_check()
 

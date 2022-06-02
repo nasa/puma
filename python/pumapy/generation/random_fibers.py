@@ -23,7 +23,7 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
         :type radius: int
         :param nfibers: the number of fibers to add to the domain. Adjust this value to control the final porosity,
             which is not easily specified since cylinders overlap and intersect different fractions of the domain
-        :type nfibers: int
+        :type nfibers: int or None
         :param porosity: the target value for the porosity of the generated mat. The function uses an
             algorithm for predicting the number of required number of cylinder, and refines this over a certain number of
             fractional insertions (according to the 'iterations' input)

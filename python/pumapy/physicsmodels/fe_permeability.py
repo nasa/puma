@@ -10,14 +10,14 @@ from pumapy.utilities.logger import print_warning
 from pumapy.utilities.workspace import Workspace
 from pumapy.physicsmodels.linear_solvers import PropertySolver
 from pumapy.utilities.generic_checks import estimate_max_memory
-from scipy.sparse import coo_matrix
+from scipy.sparse import coo_matrix, diags
 from scipy.sparse.linalg import LinearOperator
 import numpy as np
 
 
 class Permeability(PropertySolver):
 
-    def __init__(self, workspace, solid_cutoff, direction, tolerance, maxiter, solver_type, display_iter, matrix_free):
+    def __init__(self, workspace, solid_cutoff, direction, tolerance, maxiter, solver_type, display_iter, matrix_free, preconditioner):
         allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
@@ -46,10 +46,11 @@ class Permeability(PropertySolver):
         self.solveF = None
         self.x_full = None
         self.bvec_full = None
+        self.preconditioner = preconditioner
 
         self.keff = np.zeros((3, 3))
         self.solve_time = -1
-        self.u_x, self.u_y, self.u_z = None, None, None
+        self.u_x, self.u_y, self.u_z, self.p_x, self.p_y, self.p_z = 6 * [None]
 
     def compute(self):
         t = Timer()
@@ -70,21 +71,21 @@ class Permeability(PropertySolver):
         # Matrix with element connectivity with Periodic boundary conditions (PBC)
         mConectP1 = np.zeros((self.nel, 4, self.len_z + 1), dtype=np.uint32)
         aux = 1
-        for slice in range(self.len_z):
+        for k in range(self.len_z):
             mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_x, self.len_y), order='F')
             mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
             mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
-            mConectP1[:, 0, slice] = np.ravel(mIdNosP[1:, :-1], order='F')
-            mConectP1[:, 1, slice] = np.ravel(mIdNosP[1:, 1:], order='F')
-            mConectP1[:, 2, slice] = np.ravel(mIdNosP[:-1, 1:], order='F')
-            mConectP1[:, 3, slice] = np.ravel(mIdNosP[:-1, :-1], order='F')
+            mConectP1[:, 0, k] = np.ravel(mIdNosP[1:, :-1], order='F')
+            mConectP1[:, 1, k] = np.ravel(mIdNosP[1:, 1:], order='F')
+            mConectP1[:, 2, k] = np.ravel(mIdNosP[:-1, 1:], order='F')
+            mConectP1[:, 3, k] = np.ravel(mIdNosP[:-1, :-1], order='F')
             aux += self.nel
         mConectP1[:, :, -1] = mConectP1[:, :, 0]
 
         mConectP = np.zeros((self.nels, 8), dtype=np.uint32)
-        for slice in range(self.len_z):
-            mConectP[self.nel * slice:self.nel * (slice + 1), :4] = mConectP1[:, :, slice]
-            mConectP[self.nel * slice:self.nel * (slice + 1), 4:] = mConectP1[:, :, slice + 1]
+        for k in range(self.len_z):
+            mConectP[self.nel * k:self.nel * (k + 1), :4] = mConectP1[:, :, k]
+            mConectP[self.nel * k:self.nel * (k + 1), 4:] = mConectP1[:, :, k + 1]
         del mConectP1
 
         # matrix to reduce the system
@@ -92,7 +93,7 @@ class Permeability(PropertySolver):
         nosnulos = np.unique(mConectP[np.where(self.ws.matrix.ravel(order='F') > 0)[0], :8])
         gdlnulos = np.hstack((nosnulos * 3 - 2, nosnulos * 3 - 1, nosnulos * 3))
         resolveF_u = np.delete(resolveF_u, gdlnulos - 1)
-        resolveF_p = self.nels * 3 + np.unique(mConectP[np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32), :8])
+        resolveF_p = self.nels * 3 + np.unique(mConectP[np.where(self.ws.matrix.ravel(order='F')==0)[0].astype(np.uint32), :8])
         del nosnulos, gdlnulos
         self.solveF = np.hstack((resolveF_u, resolveF_p)) - 1
         del resolveF_u, resolveF_p
@@ -127,6 +128,8 @@ class Permeability(PropertySolver):
     def assemble_Amatrix(self):
         print("Initializing large data structures ... ", flush=True, end='')
 
+        el_dof_v, el_dof_p, only_fluid = self.generate_inds()
+
         if not self.matrix_free or self.solver_type == 'direct':
             iK = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)
             iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
@@ -138,12 +141,11 @@ class Permeability(PropertySolver):
             jP = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')
             jA = np.hstack((jK, jG, iG, jP)) - 1
             del jK, jG, iG, jP, self.mgdlF
-            self.k = self.k.ravel()
-            self.g = self.g.ravel()
-            self.p = self.p.ravel()
-            coeff = np.hstack((np.tile(self.k, self.nelF), np.tile(self.g, self.nelF),
-                               np.tile(self.g, self.nelF), -np.tile(self.p, self.nelF)))
-            del self.f, self.k, self.g, self.p
+            k_f = self.k.ravel()
+            g_f = self.g.ravel()
+            p_f = self.p.ravel()
+            coeff = np.hstack((np.tile(k_f, self.nelF), np.tile(g_f, self.nelF),
+                               np.tile(g_f, self.nelF), -np.tile(p_f, self.nelF)))
 
             print("Done\nAssembling A matrix ... ", flush=True, end='')
             self.Amat = coo_matrix((coeff, (iA, jA))).tocsc()
@@ -152,24 +154,16 @@ class Permeability(PropertySolver):
             # Reducing system of equations
             self.Amat = self.Amat[self.solveF][:, self.solveF]
         else:
-            el_dof_v, el_dof_p, only_fluid = self.generate_inds()
-            print("Done\nCreating matvec function for matrix-free ... ", flush=True, end='')
-
             def matvec(x):
                 y = np.zeros_like(x)
-                ops = np.einsum('ij, jk -> ik', self.g, x[el_dof_p]) * only_fluid
-                ops += np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid
-                np.add.at(y, el_dof_v, ops)
-                ops = np.einsum('ji, jk, jk -> ik', self.g, x[el_dof_v], only_fluid)
-                ops -= np.einsum('ij, jk -> ik', self.p, x[el_dof_p])
-                np.add.at(y, el_dof_p, ops)
+                np.add.at(y, el_dof_v, np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid)
+                np.add.at(y, el_dof_v, np.einsum('ij, jk -> ik', self.g, x[el_dof_p]) * only_fluid)
+                np.add.at(y, el_dof_p, np.einsum('ji, jk, jk -> ik', self.g, x[el_dof_v], only_fluid))
+                np.add.at(y, el_dof_p, -np.einsum('ij, jk -> ik', self.p, x[el_dof_p]))
                 return y
-
             self.Amat = LinearOperator(shape=(self.solveF.shape[0], self.solveF.shape[0]), matvec=matvec)
-            print("Done")
 
     def generate_inds(self):
-        del self.mgdlF
 
         nodes_n = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
         slice_n = (self.len_x + 1) * (self.len_y + 1)
@@ -211,7 +205,8 @@ class Permeability(PropertySolver):
         elem_sw_front_ms = el_sw_front - 1
 
         # Flags - type of node (At least one fluid elem / At least one solid elem / Only fluid elems)
-        mat_map = self.ws.matrix.ravel(order='F') > 0
+        mat_map = self.ws.matrix.swapaxes(1, 0).ravel(order='F') > 0  # NB swapaxes
+
         flag_one_fluid = - (mat_map[elem_se_front_ms] * mat_map[elem_ne_front_ms] * mat_map[elem_nw_front_ms] *
                             mat_map[elem_sw_front_ms] * mat_map[elem_se_back_ms] * mat_map[elem_ne_back_ms] *
                             mat_map[elem_nw_back_ms] * mat_map[elem_sw_back_ms] - 1)
@@ -239,12 +234,12 @@ class Permeability(PropertySolver):
                   ((mat_map[elem_se_back_ms] == 0) * el_se_back) * (1 - flag_lastrows) * (1 - flag_lastcols) * (1 - flag_lastslices))
         for nms in range(nodes_n):
             dof_map[nms] += (1 - flag_lastslices[nms]) * (flag_lastrows[nms] * (-dof_map[nms] + dof_map[top_nodes[nms]]) + flag_lastcols[nms] * (-dof_map[nms] + dof_map[left_nodes[nms]]) +
-                                                          flag_lastrows[nms] * flag_lastcols[nms] * (+dof_map[nms] - dof_map[left_nodes[nms]])) + flag_lastslices[nms] * (-dof_map[nms] + dof_map[front_nodes[nms]])
+                                                          flag_lastrows[nms] * flag_lastcols[nms] * (dof_map[nms] - dof_map[left_nodes[nms]])) + flag_lastslices[nms] * (-dof_map[nms] + dof_map[front_nodes[nms]])
         del top_nodes, left_nodes, front_nodes, slices, mat_map, flag_one_fluid, flag_one_solid, flag_only_fluid
 
         # Correction of the numbering of interface nodes and reduction of the vector of fluid elements
         nms = ns - 1
-        dof_map[nms] += (dof_map[nms] > vel_nodes_n[-1]) * (-nodes_n + vel_nodes_n[-1])
+        dof_map[nms] += (dof_map[nms] > vel_nodes_n[-1]) * (vel_nodes_n[-1] - nodes_n)
         v_fluid = np.zeros(fluid_el_n[-1], dtype=int)
         np.add.at(v_fluid, (ns <= fluid_el_n[-1]) * ns + (ns > fluid_el_n[-1]) - 1, v_fluid_tmp[nms] * (ns <= fluid_el_n[-1]))
 
@@ -253,7 +248,7 @@ class Permeability(PropertySolver):
 
         # dofs variable tranforms into dofs, but this is n
         dofs = np.zeros((8, v_fluid.shape[0]), dtype=np.int64)
-        dofs[0] = ((v_fluid - 1) % (self.nel) + (((v_fluid - 1) % self.nel) // self.len_y) +
+        dofs[0] = ((v_fluid - 1) % self.nel + (((v_fluid - 1) % self.nel) // self.len_y) +
                    ((v_fluid - 1) // self.nel) * (self.len_x + 1) * (self.len_y + 1)) + 2
         dofs[1] = dofs[0] + self.len_y + 1
         dofs[2] = dofs[1] - 1
@@ -263,29 +258,22 @@ class Permeability(PropertySolver):
         dofs[6] = dofs[5] - 1
         dofs[7] = dofs[6] - (self.len_y + 1)
 
-        dofs[:] = dof_map[dofs - 1]
+        dofs = dof_map[dofs - 1]
         el_dof_p = 3 * v_nodes_n + dofs - 1
 
-        tiles = np.tile(np.arange(1, 4), (v_fluid.shape[0], 1))
-        el_dof_v = np.zeros((24, v_fluid.shape[0]), dtype=np.int64)
-        el_dof_v[:3] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[0], axis=1) *
-                                   (np.expand_dims(dofs[0], axis=1) * 3 - 4 + tiles), 1, 0)
-        el_dof_v[3:6] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[1], axis=1) *
-                                    (np.expand_dims(dofs[1], axis=1) * 3 - 4 + tiles), 1, 0)
-        el_dof_v[6:9] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[2], axis=1) *
-                                    (np.expand_dims(dofs[2], axis=1) * 3 - 4 + tiles), 1, 0)
-        el_dof_v[9:12] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[3], axis=1) *
-                                     (np.expand_dims(dofs[3], axis=1) * 3 - 4 + tiles), 1, 0)
-        el_dof_v[12:15] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[4], axis=1) *
-                                      (np.expand_dims(dofs[4], axis=1) * 3 - 4 + tiles), 1, 0)
-        el_dof_v[15:18] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[5], axis=1) *
-                                      (np.expand_dims(dofs[5], axis=1) * 3 - 4 + tiles), 1, 0)
-        el_dof_v[18:21] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[6], axis=1) *
-                                      (np.expand_dims(dofs[6], axis=1) * 3 - 4 + tiles), 1, 0)
-        el_dof_v[21:] = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[7], axis=1) *
-                                    (np.expand_dims(dofs[7], axis=1) * 3 - 4 + tiles), 1, 0)
-
+        el_dof_v = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[np.arange(8)], axis=2) *
+                               (np.expand_dims(dofs[np.arange(8)], axis=2) * 3 - 4 +
+                                np.tile(np.arange(1, 4), (v_fluid.shape[0], 1))), 2, 1).reshape(24, v_fluid.shape[0])
         only_fluid = np.repeat(v_nodes_n >= dofs, 3, axis=0).astype(bool)
+
+        if self.preconditioner:
+            self.M = np.zeros(self.solveF.shape[0])
+            inds = np.arange(8)
+            np.add.at(self.M, 3 * v_nodes_n + dofs[inds] - 1, -np.expand_dims(self.p[inds, inds], axis=1))
+            np.add.at(self.M, el_dof_v, np.einsum('i, jk -> jik', self.k[inds[:3], inds[:3]],
+                                                  v_nodes_n >= dofs[np.arange(8)]).reshape(24, v_fluid.shape[0]))
+            self.M = diags(1. / self.M, 0).tocsr()
+
         return el_dof_v.astype(np.uint32), el_dof_p.astype(np.uint32), only_fluid
 
     def solve(self):
@@ -309,27 +297,27 @@ class Permeability(PropertySolver):
     def compute_effective_coefficient(self):
         aux = 1
         vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint32)
-        for slice in range(self.len_z):
+        for k in range(self.len_z):
             mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_x, self.len_y), order='F')
             mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
             mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
 
-            vIdNosP[self.nnP2 * slice:self.nnP2 * (slice + 1)] = mIdNosP.ravel(order='F')
+            vIdNosP[self.nnP2 * k:self.nnP2 * (k + 1)] = mIdNosP.ravel(order='F')
             aux += self.nel
         del mIdNosP
 
         vIdNosP = np.append(vIdNosP, (vIdNosP[:self.nnP2]))
         vIdNosP = np.unique(vIdNosP)
 
-        self.keff[0, 0] =   np.sum(self.x_full[vIdNosP * 3 - 2, 1])
-        self.keff[1, 0] = - np.sum(self.x_full[vIdNosP * 3 - 3, 1])
-        self.keff[2, 0] = - np.sum(self.x_full[vIdNosP * 3 - 1, 1])
-        self.keff[0, 1] = - np.sum(self.x_full[vIdNosP * 3 - 2, 0])
-        self.keff[1, 1] =   np.sum(self.x_full[vIdNosP * 3 - 3, 0])
-        self.keff[2, 1] =   np.sum(self.x_full[vIdNosP * 3 - 1, 0])
-        self.keff[0, 2] = - np.sum(self.x_full[vIdNosP * 3 - 2, 2])
-        self.keff[1, 2] =   np.sum(self.x_full[vIdNosP * 3 - 3, 2])
-        self.keff[2, 2] =   np.sum(self.x_full[vIdNosP * 3 - 1, 2])
+        self.keff[0, 0] = np.sum(self.x_full[vIdNosP * 3 - 2, 1])
+        self.keff[1, 0] = np.sum(self.x_full[vIdNosP * 3 - 3, 1])
+        self.keff[2, 0] = np.sum(self.x_full[vIdNosP * 3 - 1, 1])
+        self.keff[0, 1] = np.sum(self.x_full[vIdNosP * 3 - 2, 0])
+        self.keff[1, 1] = np.sum(self.x_full[vIdNosP * 3 - 3, 0])
+        self.keff[2, 1] = np.sum(self.x_full[vIdNosP * 3 - 1, 0])
+        self.keff[0, 2] = np.sum(self.x_full[vIdNosP * 3 - 2, 2])
+        self.keff[1, 2] = np.sum(self.x_full[vIdNosP * 3 - 3, 2])
+        self.keff[2, 2] = np.sum(self.x_full[vIdNosP * 3 - 1, 2])
         self.keff /= self.nels
         print(f'\nEffective permeability tensor: \n{self.keff}')
 
@@ -419,12 +407,9 @@ class Permeability(PropertySolver):
                     B = np.array([[DNxy[0, 0], 0, 0, DNxy[0, 1], 0, 0, DNxy[0, 2], 0, 0, DNxy[0, 3], 0, 0, DNxy[0, 4], 0, 0, DNxy[0, 5], 0, 0, DNxy[0, 6], 0, 0, DNxy[0, 7], 0, 0],
                                   [0, DNxy[1, 0], 0, 0, DNxy[1, 1], 0, 0, DNxy[1, 2], 0, 0, DNxy[1, 3], 0, 0, DNxy[1, 4], 0, 0, DNxy[1, 5], 0, 0, DNxy[1, 6], 0, 0, DNxy[1, 7], 0],
                                   [0, 0, DNxy[2, 0], 0, 0, DNxy[2, 1], 0, 0, DNxy[2, 2], 0, 0, DNxy[2, 3], 0, 0, DNxy[2, 4], 0, 0, DNxy[2, 5], 0, 0, DNxy[2, 6], 0, 0, DNxy[2, 7]],
-                                  [DNxy[1, 0], DNxy[0, 0], 0, DNxy[1, 1], DNxy[0, 1], 0, DNxy[1, 2], DNxy[0, 2], 0, DNxy[1, 3], DNxy[0, 3], 0,
-                                   DNxy[1, 4], DNxy[0, 4], 0, DNxy[1, 5], DNxy[0, 5], 0, DNxy[1, 6], DNxy[0, 6], 0, DNxy[1, 7], DNxy[0, 7], 0],
-                                  [DNxy[2, 0], 0, DNxy[0, 0], DNxy[2, 1], 0, DNxy[0, 1], DNxy[2, 2], 0, DNxy[0, 2], DNxy[2, 3], 0, DNxy[0, 3],
-                                   DNxy[2, 4], 0, DNxy[0, 4], DNxy[2, 5], 0, DNxy[0, 5], DNxy[2, 6], 0, DNxy[0, 6], DNxy[2, 7], 0, DNxy[0, 7]],
-                                  [0, DNxy[2, 0], DNxy[1, 0], 0, DNxy[2, 1], DNxy[1, 1], 0, DNxy[2, 2], DNxy[1, 2], 0, DNxy[2, 3], DNxy[1, 3],
-                                   0, DNxy[2, 4], DNxy[1, 4], 0, DNxy[2, 5], DNxy[1, 5], 0, DNxy[2, 6], DNxy[1, 6], 0, DNxy[2, 7], DNxy[1, 7]]])
+                                  [DNxy[1, 0], DNxy[0, 0], 0, DNxy[1, 1], DNxy[0, 1], 0, DNxy[1, 2], DNxy[0, 2], 0, DNxy[1, 3], DNxy[0, 3], 0, DNxy[1, 4], DNxy[0, 4], 0, DNxy[1, 5], DNxy[0, 5], 0, DNxy[1, 6], DNxy[0, 6], 0, DNxy[1, 7], DNxy[0, 7], 0],
+                                  [DNxy[2, 0], 0, DNxy[0, 0], DNxy[2, 1], 0, DNxy[0, 1], DNxy[2, 2], 0, DNxy[0, 2], DNxy[2, 3], 0, DNxy[0, 3], DNxy[2, 4], 0, DNxy[0, 4], DNxy[2, 5], 0, DNxy[0, 5], DNxy[2, 6], 0, DNxy[0, 6], DNxy[2, 7], 0, DNxy[0, 7]],
+                                  [0, DNxy[2, 0], DNxy[1, 0], 0, DNxy[2, 1], DNxy[1, 1], 0, DNxy[2, 2], DNxy[1, 2], 0, DNxy[2, 3], DNxy[1, 3], 0, DNxy[2, 4], DNxy[1, 4], 0, DNxy[2, 5], DNxy[1, 5], 0, DNxy[2, 6], DNxy[1, 6], 0, DNxy[2, 7], DNxy[1, 7]]])
 
                     self.k += weight * B.T @ C @ B
                     self.g += weight * B.T @ mat111000 @ N.ravel(order='F')[::9][np.newaxis]
@@ -452,3 +437,8 @@ class Permeability(PropertySolver):
         if self.direction not in self.direction_dict:
             print_warning("Direction can only be 'all', 'x', 'y', 'z', defaulting to 'all'")
             self.direction = 'all'
+
+        if self.solver_type == 'minres' and self.preconditioner:
+            print_warning("Cannot have the minres solver together with the Jacobi preconditioner "
+                          "(because it leads to an asymmetric matrix), defaulting to bicgstab")
+            self.solver_type = "bicgstab"
