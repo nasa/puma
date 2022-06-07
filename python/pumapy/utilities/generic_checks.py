@@ -170,7 +170,7 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
     # elif material_property == "radiation":
     #     pass
 
-    print(f"Memory requirement for conductivity simulation: {convert_bytes_size(int(round(total_bytes)))}")
+    print(f"Memory requirement for {material_property} simulation: {convert_bytes_size(int(round(total_bytes)))}")
     return total_bytes
 
 

@@ -17,16 +17,19 @@ import numpy as np
 
 class Permeability(PropertySolver):
 
-    def __init__(self, workspace, solid_cutoff, direction, tolerance, maxiter, solver_type, display_iter, matrix_free, preconditioner):
+    def __init__(self, workspace, solid_cutoff, direction, tolerance, maxiter, solver_type, display_iter,
+                 matrix_free, preconditioner, output_fields):
         allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
-        self.ws = workspace.copy()
         self.solid_cutoff = solid_cutoff
-        self.direction = direction
-        self.direction_dict = {"x": [1], "y": [0], "z": [2], "all": [1, 0, 2]}
-        self.ws.binarize_range(self.solid_cutoff)
 
+        self.ws = workspace.copy()
+        self.ws.binarize_range(self.solid_cutoff)
+        if solver_type != "direct":  # this is due to swapaxes in self.generate_inds_and_preconditioner function
+            self.ws.matrix = self.ws.matrix.swapaxes(1, 0)
+
+        self.direction = direction
         self.solver_type = solver_type
         self.matrix_free = matrix_free
         self.len_x, self.len_y, self.len_z = self.ws.matrix.shape
@@ -35,34 +38,36 @@ class Permeability(PropertySolver):
         self.nel = self.len_x * self.len_y
         self.nels = self.nel * self.len_z
         self.nnP2 = (self.len_x + 1) * (self.len_y + 1)
-        self.velF = np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32)  # only fluid elements
-        self.nelF = self.velF.shape[0]
 
         self.k = np.zeros((24, 24), dtype=float)
         self.g = np.zeros((24, 8), dtype=float)
         self.p = np.zeros((8, 8), dtype=float)
         self.f = np.zeros((8, 1), dtype=float)
-        self.mgdlF = np.zeros((32, self.nelF), dtype=np.uint32)
-        self.solveF = None
+        self.mgdlF = None
+        self.nelF = None
+        self.vIdNosP = None
+        self.reduce = None
         self.x_full = None
-        self.bvec_full = None
         self.preconditioner = preconditioner
 
         self.keff = np.zeros((3, 3))
         self.solve_time = -1
-        self.u_x, self.u_y, self.u_z, self.p_x, self.p_y, self.p_z = 6 * [None]
+        self.output_fields = output_fields
+        if self.output_fields:
+            self.fields = [[], [], []]
+        else:
+            self.fields = None
 
     def compute(self):
         t = Timer()
         estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type,
                             perm_mf=self.matrix_free, perm_fluid_vf=self.ws.porosity((0, 0)))
         self.initialize()
-        self.assemble_bvector()
+        self.calculate_element_matrices()
         self.assemble_Amatrix()
         print("Time to setup system: ", t.elapsed()); t.reset()
         self.solve()
         print("Time to solve: ", t.elapsed())
-        self.compute_effective_coefficient()
         self.solve_time = t.elapsed()
 
     def initialize(self):
@@ -80,6 +85,7 @@ class Permeability(PropertySolver):
             mConectP1[:, 2, k] = np.ravel(mIdNosP[:-1, 1:], order='F')
             mConectP1[:, 3, k] = np.ravel(mIdNosP[:-1, :-1], order='F')
             aux += self.nel
+        del mIdNosP
         mConectP1[:, :, -1] = mConectP1[:, :, 0]
 
         mConectP = np.zeros((self.nels, 8), dtype=np.uint32)
@@ -95,76 +101,111 @@ class Permeability(PropertySolver):
         resolveF_u = np.delete(resolveF_u, gdlnulos - 1)
         resolveF_p = self.nels * 3 + np.unique(mConectP[np.where(self.ws.matrix.ravel(order='F')==0)[0].astype(np.uint32), :8])
         del nosnulos, gdlnulos
-        self.solveF = np.hstack((resolveF_u, resolveF_p)) - 1
+        self.reduce = np.hstack((resolveF_u, resolveF_p)) - 1
         del resolveF_u, resolveF_p
 
         # degrees of freedom matrix
-        counter = 0
-        for i in range(8):
-            self.mgdlF[counter] = mConectP[self.velF, i] * 3 - 2
-            counter += 1
-            self.mgdlF[counter] = mConectP[self.velF, i] * 3 - 1
-            counter += 1
-            self.mgdlF[counter] = mConectP[self.velF, i] * 3
-            counter += 1
-        self.mgdlF[24:] = 3 * self.nels + np.swapaxes(mConectP[self.velF], 1, 0)
-        print("Done")
-
-    def assemble_bvector(self):
-        print("Assembling b vector ... ", flush=True, end='')
-        iF = np.hstack((np.reshape(self.mgdlF[:24:3],  self.nelF * 8, order='F'),
-                        np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F'),
-                        np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F'))) - 1
-        jF = np.hstack((np.zeros(self.nelF * 8, dtype=np.uint8),
-                        np.ones(self.nelF * 8, dtype=np.uint8),
-                        np.full(self.nelF * 8, 2, dtype=np.uint8)))
-
-        self.calculate_element_matrices()
-        sF = np.squeeze(np.tile(self.f, (self.nelF * 3, 1)))
-        self.bvec_full = coo_matrix((sF, (iF, jF)), shape=(4 * self.nels, 3)).tocsc()
-        self.bvec_full = self.bvec_full[self.solveF]  # reducing vector
-        print("Done")
+        velF = np.where(self.ws.matrix.ravel(order='F') == 0)[0].astype(np.uint32)  # only fluid elements
+        self.nelF = velF.shape[0]
+        self.mgdlF = np.zeros((32, self.nelF), dtype=np.uint32)
+        self.mgdlF[np.arange(0, 24, 3)] = mConectP[velF, np.arange(8)[:, np.newaxis]] * 3 - 3
+        self.mgdlF[np.arange(1, 24, 3)] = mConectP[velF, np.arange(8)[:, np.newaxis]] * 3 - 2
+        self.mgdlF[np.arange(2, 24, 3)] = mConectP[velF, np.arange(8)[:, np.newaxis]] * 3 - 1
+        self.mgdlF[24:] = 3 * self.nels + np.swapaxes(mConectP[velF], 1, 0) - 1
 
     def assemble_Amatrix(self):
-        print("Initializing large data structures ... ", flush=True, end='')
-
-        el_dof_v, el_dof_p, only_fluid = self.generate_inds()
+        el_dof_v, el_dof_p, only_fluid = self.generate_inds_and_preconditioner()
+        print("Done")
 
         if not self.matrix_free or self.solver_type == 'direct':
+            del el_dof_v, el_dof_p, only_fluid
             iK = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)
             iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
             jG = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')
             iP = np.repeat(np.reshape(self.mgdlF[24:], self.nelF * 8, order='F'), 8)
-            iA = np.hstack((iK, iG, jG, iP)) - 1
+            iA = np.hstack((iK, iG, jG, iP))
             del iK, iP
             jK = np.reshape(np.repeat(self.mgdlF[:24], 24, axis=1), self.nelF * 576, order='F')
             jP = np.reshape(np.repeat(self.mgdlF[24:], 8, axis=1), self.nelF * 64, order='F')
-            jA = np.hstack((jK, jG, iG, jP)) - 1
-            del jK, jG, iG, jP, self.mgdlF
+            jA = np.hstack((jK, jG, iG, jP))
+            del jK, jG, iG, jP
             k_f = self.k.ravel()
             g_f = self.g.ravel()
             p_f = self.p.ravel()
             coeff = np.hstack((np.tile(k_f, self.nelF), np.tile(g_f, self.nelF),
                                np.tile(g_f, self.nelF), -np.tile(p_f, self.nelF)))
 
-            print("Done\nAssembling A matrix ... ", flush=True, end='')
+            print("Assembling A matrix ... ", flush=True, end='')
             self.Amat = coo_matrix((coeff, (iA, jA))).tocsc()
             del coeff, iA, jA
 
             # Reducing system of equations
-            self.Amat = self.Amat[self.solveF][:, self.solveF]
-        else:
+            self.Amat = self.Amat[self.reduce][:, self.reduce]
+
+        else:  # matrix-free
+            y = np.zeros(self.reduce.shape[0], dtype=float)
             def matvec(x):
-                y = np.zeros_like(x)
-                np.add.at(y, el_dof_v, np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid)
-                np.add.at(y, el_dof_v, np.einsum('ij, jk -> ik', self.g, x[el_dof_p]) * only_fluid)
-                np.add.at(y, el_dof_p, np.einsum('ji, jk, jk -> ik', self.g, x[el_dof_v], only_fluid))
-                np.add.at(y, el_dof_p, -np.einsum('ij, jk -> ik', self.p, x[el_dof_p]))
+                y.fill(0)
+                tmp = np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid
+                tmp += np.einsum('ij, jk -> ik', self.g, x[el_dof_p]) * only_fluid
+                np.add.at(y, el_dof_v, tmp)
+                tmp = np.einsum('ji, jk, jk -> ik', self.g, x[el_dof_v], only_fluid)
+                tmp -= np.einsum('ij, jk -> ik', self.p, x[el_dof_p])
+                np.add.at(y, el_dof_p, tmp)
                 return y
-            self.Amat = LinearOperator(shape=(self.solveF.shape[0], self.solveF.shape[0]), matvec=matvec)
+            self.Amat = LinearOperator(shape=(self.reduce.shape[0], self.reduce.shape[0]), matvec=matvec)
 
-    def generate_inds(self):
+    def solve(self):
+        self.x_full = np.zeros(4 * self.nels, dtype=float)
+        self.del_matrices = False
 
+        for j, d in enumerate(self.direction):
+            print(f"Running {['x', 'y', 'z'][j]} direction")
+            self.assemble_bvector(d)
+            super().solve()
+            self.x_full[self.reduce] = self.x
+            self.compute_effective_coefficient(j)
+
+        self.keff /= self.nels
+        print(f'\nEffective permeability tensor: \n{self.keff}')
+
+    def assemble_bvector(self, direction):
+        if direction == 'x':
+            iF = np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F')
+        elif direction == 'y':
+            iF = np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F')
+        elif direction == 'z':
+            iF = np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F')
+        self.bvec = coo_matrix((np.squeeze(np.tile(self.f, (self.nelF, 1))),
+                                (iF, np.zeros(self.nelF * 8, dtype=np.uint8))),
+                               shape=(4 * self.nels, 1)).tocsc()[self.reduce]
+
+    def compute_effective_coefficient(self, j):
+        if self.vIdNosP is None:
+            aux = 1
+            self.vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint32)
+            for k in range(self.len_z):
+                mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_x, self.len_y), order='F')
+                mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
+                mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
+                self.vIdNosP[self.nnP2 * k:self.nnP2 * (k + 1)] = mIdNosP.ravel(order='F')
+                aux += self.nel
+            del mIdNosP
+            self.vIdNosP = np.append(self.vIdNosP, (self.vIdNosP[:self.nnP2]))
+            self.vIdNosP = np.unique(self.vIdNosP)
+
+        index_order = [1, 0, 2]
+        for i in range(3):
+            self.keff[i, index_order[j]] = np.sum(self.x_full[self.vIdNosP * 3 - (3 - index_order[i])])
+
+        if self.output_fields:
+            u = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+            for i in range(3):
+                u[:, :, :, i] = np.reshape(self.x_full[self.vIdNosP * 3 - (3 - index_order[i])], (self.len_x, self.len_y, self.len_z), order='F')
+            p = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+            self.fields[index_order[j]].extend([u.copy(), p.copy()])
+
+    def generate_inds_and_preconditioner(self):
         nodes_n = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
         slice_n = (self.len_x + 1) * (self.len_y + 1)
         ns = np.arange(1, nodes_n + 1, dtype=int)
@@ -233,8 +274,10 @@ class Permeability(PropertySolver):
         np.add.at(v_fluid_tmp, fluid_el_n * (mat_map[elem_se_back_ms] == 0) + (mat_map[elem_se_back_ms] != 0) - 1,
                   ((mat_map[elem_se_back_ms] == 0) * el_se_back) * (1 - flag_lastrows) * (1 - flag_lastcols) * (1 - flag_lastslices))
         for nms in range(nodes_n):
-            dof_map[nms] += (1 - flag_lastslices[nms]) * (flag_lastrows[nms] * (-dof_map[nms] + dof_map[top_nodes[nms]]) + flag_lastcols[nms] * (-dof_map[nms] + dof_map[left_nodes[nms]]) +
-                                                          flag_lastrows[nms] * flag_lastcols[nms] * (dof_map[nms] - dof_map[left_nodes[nms]])) + flag_lastslices[nms] * (-dof_map[nms] + dof_map[front_nodes[nms]])
+            dof_map[nms] += ((1 - flag_lastslices[nms]) * (flag_lastrows[nms] * (-dof_map[nms] + dof_map[top_nodes[nms]]) +
+                                                           flag_lastcols[nms] * (-dof_map[nms] + dof_map[left_nodes[nms]]) +
+                                                           flag_lastrows[nms] * flag_lastcols[nms] * (dof_map[nms] - dof_map[left_nodes[nms]])) +
+                             flag_lastslices[nms] * (-dof_map[nms] + dof_map[front_nodes[nms]]))
         del top_nodes, left_nodes, front_nodes, slices, mat_map, flag_one_fluid, flag_one_solid, flag_only_fluid
 
         # Correction of the numbering of interface nodes and reduction of the vector of fluid elements
@@ -267,78 +310,14 @@ class Permeability(PropertySolver):
         only_fluid = np.repeat(v_nodes_n >= dofs, 3, axis=0).astype(bool)
 
         if self.preconditioner:
-            self.M = np.zeros(self.solveF.shape[0])
+            self.M = np.zeros(self.reduce.shape[0])
             inds = np.arange(8)
             np.add.at(self.M, 3 * v_nodes_n + dofs[inds] - 1, -np.expand_dims(self.p[inds, inds], axis=1))
             np.add.at(self.M, el_dof_v, np.einsum('i, jk -> jik', self.k[inds[:3], inds[:3]],
                                                   v_nodes_n >= dofs[np.arange(8)]).reshape(24, v_fluid.shape[0]))
-            self.M = diags(1. / self.M, 0).tocsr()
+            self.M = diags(1./self.M, 0).tocsr()
 
         return el_dof_v.astype(np.uint32), el_dof_p.astype(np.uint32), only_fluid
-
-    def solve(self):
-        self.x_full = np.zeros((4 * self.nels, 3), dtype=float)
-        # solves the system in the 3 directions directly
-        if self.solver_type == 'direct':
-            self.bvec = self.bvec_full
-            super().solve()
-            self.x_full[self.solveF] = self.x.toarray()
-        else:  # solves one direction at a time
-            self.del_matrices = False
-            directions = ['y', 'x', 'z']
-            for d in self.direction_dict[self.direction]:
-                print(f"Running {directions[d]} direction")
-                self.bvec = self.bvec_full[:, d]
-                super().solve()
-                self.x_full[self.solveF, d] = self.x
-            del self.Amat, self.bvec, self.initial_guess
-        del self.bvec_full, self.solveF
-
-    def compute_effective_coefficient(self):
-        aux = 1
-        vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint32)
-        for k in range(self.len_z):
-            mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_x, self.len_y), order='F')
-            mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
-            mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
-
-            vIdNosP[self.nnP2 * k:self.nnP2 * (k + 1)] = mIdNosP.ravel(order='F')
-            aux += self.nel
-        del mIdNosP
-
-        vIdNosP = np.append(vIdNosP, (vIdNosP[:self.nnP2]))
-        vIdNosP = np.unique(vIdNosP)
-
-        self.keff[0, 0] = np.sum(self.x_full[vIdNosP * 3 - 2, 1])
-        self.keff[1, 0] = np.sum(self.x_full[vIdNosP * 3 - 3, 1])
-        self.keff[2, 0] = np.sum(self.x_full[vIdNosP * 3 - 1, 1])
-        self.keff[0, 1] = np.sum(self.x_full[vIdNosP * 3 - 2, 0])
-        self.keff[1, 1] = np.sum(self.x_full[vIdNosP * 3 - 3, 0])
-        self.keff[2, 1] = np.sum(self.x_full[vIdNosP * 3 - 1, 0])
-        self.keff[0, 2] = np.sum(self.x_full[vIdNosP * 3 - 2, 2])
-        self.keff[1, 2] = np.sum(self.x_full[vIdNosP * 3 - 3, 2])
-        self.keff[2, 2] = np.sum(self.x_full[vIdNosP * 3 - 1, 2])
-        self.keff /= self.nels
-        print(f'\nEffective permeability tensor: \n{self.keff}')
-
-        # Extracting velocity fields
-        self.u_x = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        self.u_y = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        self.u_z = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        self.u_x[:, :, :, 0] =   np.reshape(self.x_full[vIdNosP * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_x[:, :, :, 1] = - np.reshape(self.x_full[vIdNosP * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_x[:, :, :, 2] = - np.reshape(self.x_full[vIdNosP * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_y[:, :, :, 0] = - np.reshape(self.x_full[vIdNosP * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_y[:, :, :, 1] =   np.reshape(self.x_full[vIdNosP * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_y[:, :, :, 2] =   np.reshape(self.x_full[vIdNosP * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_z[:, :, :, 0] = - np.reshape(self.x_full[vIdNosP * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_z[:, :, :, 1] =   np.reshape(self.x_full[vIdNosP * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u_z[:, :, :, 2] =   np.reshape(self.x_full[vIdNosP * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
-
-        # Extracting pressure fields
-        self.p_x = np.reshape(self.x_full[vIdNosP + self.nels * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
-        self.p_y = np.reshape(self.x_full[vIdNosP + self.nels * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
-        self.p_z = np.reshape(self.x_full[vIdNosP + self.nels * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
 
     def calculate_element_matrices(self):
         coordsElem = np.array([[0, 0, 0], [self.voxlength, 0, 0], [self.voxlength, self.voxlength, 0],
@@ -351,14 +330,12 @@ class Permeability(PropertySolver):
         C = np.diag([2., 2., 2., 1., 1., 1.])
         stab = (self.voxlength ** 2 + self.voxlength ** 2 + self.voxlength ** 2) / 18.
         mat111000 = np.array([[1.], [1.], [1.], [0.], [0.], [0.]])
-
         for i in range(2):
             r = rr[i]
             for j in range(2):
                 s = ss[j]
                 for k in range(2):
                     t = tt[k]
-
                     N1 = (1 - r) * (1 - s) * (1 - t)
                     N2 = (1 + r) * (1 - s) * (1 - t)
                     N3 = (1 + r) * (1 + s) * (1 - t)
@@ -370,7 +347,6 @@ class Permeability(PropertySolver):
                     N = 0.125 * np.array([[N1, 0, 0, N2, 0, 0, N3, 0, 0, N4, 0, 0, N5, 0, 0, N6, 0, 0, N7, 0, 0, N8, 0, 0],
                                           [0, N1, 0, 0, N2, 0, 0, N3, 0, 0, N4, 0, 0, N5, 0, 0, N6, 0, 0, N7, 0, 0, N8, 0],
                                           [0, 0, N1, 0, 0, N2, 0, 0, N3, 0, 0, N4, 0, 0, N5, 0, 0, N6, 0, 0, N7, 0, 0, N8]])
-
                     dN1dr = -0.125 * (1 - s) * (1 - t)
                     dN1ds = -0.125 * (1 - r) * (1 - t)
                     dN1dt = -0.125 * (1 - r) * (1 - s)
@@ -398,7 +374,6 @@ class Permeability(PropertySolver):
                     DN = np.array([[dN1dr, dN2dr, dN3dr, dN4dr, dN5dr, dN6dr, dN7dr, dN8dr],
                                    [dN1ds, dN2ds, dN3ds, dN4ds, dN5ds, dN6ds, dN7ds, dN8ds],
                                    [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]])
-
                     J = DN @ coordsElem
                     detJ = np.linalg.det(J)
                     weight = detJ * ww[i] * ww[j] * ww[k]
@@ -410,7 +385,6 @@ class Permeability(PropertySolver):
                                   [DNxy[1, 0], DNxy[0, 0], 0, DNxy[1, 1], DNxy[0, 1], 0, DNxy[1, 2], DNxy[0, 2], 0, DNxy[1, 3], DNxy[0, 3], 0, DNxy[1, 4], DNxy[0, 4], 0, DNxy[1, 5], DNxy[0, 5], 0, DNxy[1, 6], DNxy[0, 6], 0, DNxy[1, 7], DNxy[0, 7], 0],
                                   [DNxy[2, 0], 0, DNxy[0, 0], DNxy[2, 1], 0, DNxy[0, 1], DNxy[2, 2], 0, DNxy[0, 2], DNxy[2, 3], 0, DNxy[0, 3], DNxy[2, 4], 0, DNxy[0, 4], DNxy[2, 5], 0, DNxy[0, 5], DNxy[2, 6], 0, DNxy[0, 6], DNxy[2, 7], 0, DNxy[0, 7]],
                                   [0, DNxy[2, 0], DNxy[1, 0], 0, DNxy[2, 1], DNxy[1, 1], 0, DNxy[2, 2], DNxy[1, 2], 0, DNxy[2, 3], DNxy[1, 3], 0, DNxy[2, 4], DNxy[1, 4], 0, DNxy[2, 5], DNxy[1, 5], 0, DNxy[2, 6], DNxy[1, 6], 0, DNxy[2, 7], DNxy[1, 7]]])
-
                     self.k += weight * B.T @ C @ B
                     self.g += weight * B.T @ mat111000 @ N.ravel(order='F')[::9][np.newaxis]
                     self.p += weight * stab * DNxy.T @ DNxy
@@ -434,9 +408,9 @@ class Permeability(PropertySolver):
         if not isinstance(self.ws, Workspace):
             raise Exception("Workspace must be a puma.Workspace.")
 
-        if self.direction not in self.direction_dict:
-            print_warning("Direction can only be 'all', 'x', 'y', 'z', defaulting to 'all'")
-            self.direction = 'all'
+        if self.direction not in ['xyz', 'x', 'y', 'z']:
+            print_warning("Direction can only be 'xyz', 'x', 'y', 'z', defaulting to 'xyz'")
+            self.direction = 'xyz'
 
         if self.solver_type == 'minres' and self.preconditioner:
             print_warning("Cannot have the minres solver together with the Jacobi preconditioner "
