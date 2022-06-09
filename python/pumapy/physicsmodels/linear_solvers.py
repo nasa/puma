@@ -45,7 +45,7 @@ class PropertySolver:
 
         info = 0
         if (self.solver_type == 'direct') and self.solver_type in self.allowed_solvers:
-            self.x = spsolve(self.Amat, self.bvec)
+            self.x = spsolve(self.Amat, self.bvec).toarray()
         else:  # in order to use UMFPACK in spsolve, bvec needs to be a sparse matrix
             if not isinstance(self.bvec, np.ndarray):
                 self.bvec = self.bvec.todense()

@@ -54,7 +54,7 @@ class Permeability(PropertySolver):
         self.solve_time = -1
         self.output_fields = output_fields
         if self.output_fields:
-            self.fields = [[], [], []]
+            self.fields = [[None, None], [None, None], [None, None]]
         else:
             self.fields = None
 
@@ -65,9 +65,9 @@ class Permeability(PropertySolver):
         self.initialize()
         self.calculate_element_matrices()
         self.assemble_Amatrix()
-        print("Time to setup system: ", t.elapsed()); t.reset()
+        print(f"Time to setup system: {t.elapsed()}"); t.reset()
         self.solve()
-        print("Time to solve: ", t.elapsed())
+        print(f"Time to solve: {t.elapsed()}\n")
         self.solve_time = t.elapsed()
 
     def initialize(self):
@@ -155,32 +155,53 @@ class Permeability(PropertySolver):
                 return y
             self.Amat = LinearOperator(shape=(self.reduce.shape[0], self.reduce.shape[0]), matvec=matvec)
 
+    def assemble_bvector(self, direction):
+        if direction in ['x', 'y', 'z']:
+
+            if direction == 'x':
+                iF = np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F')
+            elif direction == 'y':
+                iF = np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F')
+            else:
+                iF = np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F')
+            jF = np.zeros(self.nelF * 8, dtype=np.uint8)
+            sF = np.squeeze(np.tile(self.f, (self.nelF, 1)))
+            shape = (4 * self.nels, 1)
+
+        else:  # for direct solver
+            iF = np.hstack((np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F'),
+                            np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F'),
+                            np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F'))) - 1
+            jF = np.hstack((np.full(self.nelF * 8, 2, dtype=np.uint8),
+                            np.zeros(self.nelF * 8, dtype=np.uint8),
+                            np.ones(self.nelF * 8, dtype=np.uint8),))
+            sF = np.squeeze(np.tile(self.f, (self.nelF * 3, 1)))
+            shape = (4 * self.nels, 3)
+
+        self.bvec = coo_matrix((sF, (iF, jF)), shape=shape).tocsc()[self.reduce]
+
     def solve(self):
-        self.x_full = np.zeros(4 * self.nels, dtype=float)
-        self.del_matrices = False
+        if self.solver_type != "direct":
+            self.x_full = np.zeros(4 * self.nels, dtype=float)
+            self.del_matrices = False
+        else:
+            self.x_full = np.zeros((4 * self.nels, 3), dtype=float)
 
         for j, d in enumerate(self.direction):
-            print(f"Running {['x', 'y', 'z'][j]} direction")
+            if self.solver_type != "direct":
+                print(f"Running {d} direction")
             self.assemble_bvector(d)
             super().solve()
             self.x_full[self.reduce] = self.x
-            self.compute_effective_coefficient(j)
+            self.compute_effective_coefficient(d)
 
         self.keff /= self.nels
         print(f'\nEffective permeability tensor: \n{self.keff}')
 
-    def assemble_bvector(self, direction):
-        if direction == 'x':
-            iF = np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F')
-        elif direction == 'y':
-            iF = np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F')
-        elif direction == 'z':
-            iF = np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F')
-        self.bvec = coo_matrix((np.squeeze(np.tile(self.f, (self.nelF, 1))),
-                                (iF, np.zeros(self.nelF * 8, dtype=np.uint8))),
-                               shape=(4 * self.nels, 1)).tocsc()[self.reduce]
+        if self.output_fields:
+            tuple(tuple(field_pair) for field_pair in self.fields)
 
-    def compute_effective_coefficient(self, j):
+    def compute_effective_coefficient(self, d):
         if self.vIdNosP is None:
             aux = 1
             self.vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint32)
@@ -194,16 +215,88 @@ class Permeability(PropertySolver):
             self.vIdNosP = np.append(self.vIdNosP, (self.vIdNosP[:self.nnP2]))
             self.vIdNosP = np.unique(self.vIdNosP)
 
-        index_order = [1, 0, 2]
-        for i in range(3):
-            self.keff[i, index_order[j]] = np.sum(self.x_full[self.vIdNosP * 3 - (3 - index_order[i])])
-
         if self.output_fields:
-            u = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-            for i in range(3):
-                u[:, :, :, i] = np.reshape(self.x_full[self.vIdNosP * 3 - (3 - index_order[i])], (self.len_x, self.len_y, self.len_z), order='F')
-            p = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
-            self.fields[index_order[j]].extend([u.copy(), p.copy()])
+            if d == "d":
+                u = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+                p = np.zeros((self.len_x, self.len_y, self.len_z))
+            else:  # because of swapaxes
+                u = np.zeros((self.len_y, self.len_x, self.len_z, 3))
+                p = np.zeros((self.len_y, self.len_x, self.len_z))
+
+        if d == "d":  # if direct solver, then x_full contains the 3 solutions
+                self.keff[0, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 2, 1])
+                self.keff[1, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 3, 1])
+                self.keff[2, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 1, 1])
+                self.keff[0, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 2, 0])
+                self.keff[1, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 3, 0])
+                self.keff[2, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 1, 0])
+                self.keff[0, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 2, 2])
+                self.keff[1, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 3, 2])
+                self.keff[2, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 1, 2])
+                if self.output_fields:
+                    u[:, :, :, 0] =   np.reshape(self.x_full[self.vIdNosP * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 1] = - np.reshape(self.x_full[self.vIdNosP * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 2] = - np.reshape(self.x_full[self.vIdNosP * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    self.fields[0] = [u.copy(), p.copy()]
+                    u[:, :, :, 0] = - np.reshape(self.x_full[self.vIdNosP * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 1] =   np.reshape(self.x_full[self.vIdNosP * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 2] =   np.reshape(self.x_full[self.vIdNosP * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                    self.fields[1] = [u.copy(), p.copy()]
+                    u[:, :, :, 0] = - np.reshape(self.x_full[self.vIdNosP * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 1] =   np.reshape(self.x_full[self.vIdNosP * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 2] =   np.reshape(self.x_full[self.vIdNosP * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                    self.fields[2] = [u.copy(), p.copy()]
+
+        else:
+            if d == "x":
+                self.keff[0, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 2])
+                self.keff[1, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 3])
+                self.keff[2, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 1])
+                if self.output_fields:
+                    u[:, :, :, 0] = - np.reshape(self.x_full[self.vIdNosP * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 1] =   np.reshape(self.x_full[self.vIdNosP * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 2] =   np.reshape(self.x_full[self.vIdNosP * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    self.fields[0] = [u.copy(), p.copy()]
+
+            if d == "y":
+                self.keff[0, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 2])
+                self.keff[1, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 3])
+                self.keff[2, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 1])
+                if self.output_fields:
+
+                    if self.vIdNosP is None:
+                        aux = 1
+                        self.vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint32)
+                        for k in range(self.len_z):
+                            mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_y, self.len_x), order='F')
+                            mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
+                            mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
+                            self.vIdNosP[self.nnP2 * k:self.nnP2 * (k + 1)] = mIdNosP.ravel(order='F')
+                            aux += self.nel
+                        del mIdNosP
+                        self.vIdNosP = np.append(self.vIdNosP, (self.vIdNosP[:self.nnP2]))
+                        self.vIdNosP = np.unique(self.vIdNosP)
+
+                    u[:, :, :, 0] =   np.reshape(self.x_full[self.vIdNosP * 3 - 2], (self.len_y, self.len_x, self.len_z), order='F')
+                    u[:, :, :, 1] = - np.reshape(self.x_full[self.vIdNosP * 3 - 3], (self.len_y, self.len_x, self.len_z), order='F')
+                    u[:, :, :, 2] = - np.reshape(self.x_full[self.vIdNosP * 3 - 1], (self.len_y, self.len_x, self.len_z), order='F')
+                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1], (self.len_y, self.len_x, self.len_z), order='F')
+                    self.fields[1] = [u.copy(), p.copy()]
+
+            if d == "z":
+                self.keff[0, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 2])
+                self.keff[1, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 3])
+                self.keff[2, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 1])
+                if self.output_fields:
+                    u[:, :, :, 0] = - np.reshape(self.x_full[self.vIdNosP * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 1] =   np.reshape(self.x_full[self.vIdNosP * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
+                    u[:, :, :, 2] =   np.reshape(self.x_full[self.vIdNosP * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    self.fields[2] = [u.copy(), p.copy()]
 
     def generate_inds_and_preconditioner(self):
         nodes_n = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
@@ -414,5 +507,11 @@ class Permeability(PropertySolver):
 
         if self.solver_type == 'minres' and self.preconditioner:
             print_warning("Cannot have the minres solver together with the Jacobi preconditioner "
-                          "(because it leads to an asymmetric matrix), defaulting to bicgstab")
-            self.solver_type = "bicgstab"
+                          "(it leads to an asymmetric matrix), defaulting to cg")
+            self.solver_type = "cg"
+
+        if self.solver_type == 'direct':
+            self.direction = 'd'
+
+        if not (isinstance(self.solid_cutoff, tuple) and len(self.solid_cutoff) == 2 and self.solid_cutoff[0] <= self.solid_cutoff[1]):
+            raise Exception("solid_cutoff must be a tuple(int, int) indicating the solid ID range in the workspace.")
