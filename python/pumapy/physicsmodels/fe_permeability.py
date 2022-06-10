@@ -26,7 +26,6 @@ class Permeability(PropertySolver):
 
         self.ws = workspace.copy()
         self.ws.binarize_range(self.solid_cutoff)
-        # if matrix_free or :  # this is due to swapaxes in self.generate_inds_and_preconditioner function
         self.ws.matrix = self.ws.matrix.swapaxes(1, 0)
 
         self.direction = direction
@@ -65,8 +64,8 @@ class Permeability(PropertySolver):
         t = Timer()
         estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type,
                             perm_mf=self.matrix_free, perm_fluid_vf=self.ws.porosity((0, 0)))
-        self.initialize()
         self.calculate_element_matrices()
+        self.initialize()
         self.assemble_Amatrix()
         print(f"Time to setup system: {t.elapsed()}"); t.reset()
         self.solve()
@@ -199,7 +198,7 @@ class Permeability(PropertySolver):
             self.x_full[self.reduce] = self.x
             self.compute_effective_coefficient(d)
 
-        self.keff /= self.nels
+        self.keff = (self.keff * self.voxlength ** 2) / self.nels
         print(f'\nEffective permeability tensor: \n{self.keff}')
 
     def compute_effective_coefficient(self, d):
@@ -381,67 +380,81 @@ class Permeability(PropertySolver):
             inds = np.arange(8)
             np.add.at(self.M, 3 * v_nodes_n + dofs[inds] - 1, -np.expand_dims(self.p[inds, inds], axis=1))
             np.add.at(self.M, self.el_dof_v, np.einsum('i, jk -> jik', self.k[inds[:3], inds[:3]],
-                                                       v_nodes_n >= dofs[np.arange(8)]).reshape(24, v_fluid.shape[0]))
+                                                       v_nodes_n >= dofs[np.arange(8)]).reshape(24, self.v_fluid.shape[0]))
             self.M = diags(1./self.M, 0).tocsr()
 
     def calculate_element_matrices(self):
-        coordsElem = np.array([[0, 0, 0], [self.voxlength, 0, 0], [self.voxlength, self.voxlength, 0],
-                               [0, self.voxlength, 0], [0, 0, self.voxlength], [self.voxlength, 0, self.voxlength],
-                               [self.voxlength, self.voxlength, self.voxlength], [0, self.voxlength, self.voxlength]])
+        delta = 1.
+        coordsElem = np.array([[0, 0, 0], [delta, 0, 0], [delta, delta, 0],
+                               [0, delta, 0], [0, 0, delta], [delta, 0, delta],
+                               [delta, delta, delta], [0, delta, delta]])
         rr = np.array([-1. / np.sqrt(3), 1. / np.sqrt(3)])
         ss = rr.copy()
         tt = rr.copy()
-        ww = np.array([1, 1])
         C = np.diag([2., 2., 2., 1., 1., 1.])
-        stab = (self.voxlength ** 2 + self.voxlength ** 2 + self.voxlength ** 2) / 18.
+        h2 = 3.
+        stab = h2 / 18. / 1.
         mat111000 = np.array([[1.], [1.], [1.], [0.], [0.], [0.]])
+        N = np.zeros((3, 24), dtype=float)
         for i in range(2):
             r = rr[i]
             for j in range(2):
                 s = ss[j]
                 for k in range(2):
                     t = tt[k]
-                    N1 = (1 - r) * (1 - s) * (1 - t)
-                    N2 = (1 + r) * (1 - s) * (1 - t)
-                    N3 = (1 + r) * (1 + s) * (1 - t)
-                    N4 = (1 - r) * (1 + s) * (1 - t)
-                    N5 = (1 - r) * (1 - s) * (1 + t)
-                    N6 = (1 + r) * (1 - s) * (1 + t)
-                    N7 = (1 + r) * (1 + s) * (1 + t)
-                    N8 = (1 - r) * (1 + s) * (1 + t)
-                    N = 0.125 * np.array([[N1, 0, 0, N2, 0, 0, N3, 0, 0, N4, 0, 0, N5, 0, 0, N6, 0, 0, N7, 0, 0, N8, 0, 0],
-                                          [0, N1, 0, 0, N2, 0, 0, N3, 0, 0, N4, 0, 0, N5, 0, 0, N6, 0, 0, N7, 0, 0, N8, 0],
-                                          [0, 0, N1, 0, 0, N2, 0, 0, N3, 0, 0, N4, 0, 0, N5, 0, 0, N6, 0, 0, N7, 0, 0, N8]])
-                    dN1dr = -0.125 * (1 - s) * (1 - t)
-                    dN1ds = -0.125 * (1 - r) * (1 - t)
-                    dN1dt = -0.125 * (1 - r) * (1 - s)
-                    dN2dr = +0.125 * (1 - s) * (1 - t)
-                    dN2ds = -0.125 * (1 + r) * (1 - t)
-                    dN2dt = -0.125 * (1 + r) * (1 - s)
-                    dN3dr = +0.125 * (1 + s) * (1 - t)
-                    dN3ds = +0.125 * (1 + r) * (1 - t)
-                    dN3dt = -0.125 * (1 + r) * (1 + s)
-                    dN4dr = -0.125 * (1 + s) * (1 - t)
-                    dN4ds = +0.125 * (1 - r) * (1 - t)
-                    dN4dt = -0.125 * (1 - r) * (1 + s)
-                    dN5dr = -0.125 * (1 - s) * (1 + t)
-                    dN5ds = -0.125 * (1 - r) * (1 + t)
-                    dN5dt = +0.125 * (1 - r) * (1 - s)
-                    dN6dr = +0.125 * (1 - s) * (1 + t)
-                    dN6ds = -0.125 * (1 + r) * (1 + t)
-                    dN6dt = +0.125 * (1 + r) * (1 - s)
-                    dN7dr = +0.125 * (1 + s) * (1 + t)
-                    dN7ds = +0.125 * (1 + r) * (1 + t)
-                    dN7dt = +0.125 * (1 + r) * (1 + s)
-                    dN8dr = -0.125 * (1 + s) * (1 + t)
-                    dN8ds = +0.125 * (1 - r) * (1 + t)
-                    dN8dt = +0.125 * (1 - r) * (1 + s)
-                    DN = np.array([[dN1dr, dN2dr, dN3dr, dN4dr, dN5dr, dN6dr, dN7dr, dN8dr],
-                                   [dN1ds, dN2ds, dN3ds, dN4ds, dN5ds, dN6ds, dN7ds, dN8ds],
-                                   [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]])
+                    N[0,  1 - 1] = 0.125 * (1 - r) * (1 - s) * (1 - t)
+                    N[0,  4 - 1] = 0.125 * (1 + r) * (1 - s) * (1 - t)
+                    N[0,  7 - 1] = 0.125 * (1 + r) * (1 + s) * (1 - t)
+                    N[0, 10 - 1] = 0.125 * (1 - r) * (1 + s) * (1 - t)
+                    N[0, 13 - 1] = 0.125 * (1 - r) * (1 - s) * (1 + t)
+                    N[0, 16 - 1] = 0.125 * (1 + r) * (1 - s) * (1 + t)
+                    N[0, 19 - 1] = 0.125 * (1 + r) * (1 + s) * (1 + t)
+                    N[0, 22 - 1] = 0.125 * (1 - r) * (1 + s) * (1 + t)
+                    N[1,  2 - 1] = N[0,  1 - 1]
+                    N[1,  5 - 1] = N[0,  4 - 1]
+                    N[1,  8 - 1] = N[0,  7 - 1]
+                    N[1, 11 - 1] = N[0, 10 - 1]
+                    N[1, 14 - 1] = N[0, 13 - 1]
+                    N[1, 17 - 1] = N[0, 16 - 1]
+                    N[1, 20 - 1] = N[0, 19 - 1]
+                    N[1, 23 - 1] = N[0, 22 - 1]
+                    N[2,  3 - 1] = N[0,  1 - 1]
+                    N[2,  6 - 1] = N[0,  4 - 1]
+                    N[2,  9 - 1] = N[0,  7 - 1]
+                    N[2, 12 - 1] = N[0, 10 - 1]
+                    N[2, 15 - 1] = N[0, 13 - 1]
+                    N[2, 18 - 1] = N[0, 16 - 1]
+                    N[2, 21 - 1] = N[0, 19 - 1]
+                    N[2, 24 - 1] = N[0, 22 - 1]
+                    dN1dr = - 0.125 * (1 - s) * (1 - t)
+                    dN2dr = + 0.125 * (1 - s) * (1 - t)
+                    dN3dr = + 0.125 * (1 + s) * (1 - t)
+                    dN4dr = - 0.125 * (1 + s) * (1 - t)
+                    dN5dr = - 0.125 * (1 - s) * (1 + t)
+                    dN6dr = + 0.125 * (1 - s) * (1 + t)
+                    dN7dr = + 0.125 * (1 + s) * (1 + t)
+                    dN8dr = - 0.125 * (1 + s) * (1 + t)
+                    dN1ds = - 0.125 * (1 - r) * (1 - t)
+                    dN2ds = - 0.125 * (1 + r) * (1 - t)
+                    dN3ds = + 0.125 * (1 + r) * (1 - t)
+                    dN4ds = + 0.125 * (1 - r) * (1 - t)
+                    dN5ds = - 0.125 * (1 - r) * (1 + t)
+                    dN6ds = - 0.125 * (1 + r) * (1 + t)
+                    dN7ds = + 0.125 * (1 + r) * (1 + t)
+                    dN8ds = + 0.125 * (1 - r) * (1 + t)
+                    dN1dt = - 0.125 * (1 - r) * (1 - s)
+                    dN2dt = - 0.125 * (1 + r) * (1 - s)
+                    dN3dt = - 0.125 * (1 + r) * (1 + s)
+                    dN4dt = - 0.125 * (1 - r) * (1 + s)
+                    dN5dt = + 0.125 * (1 - r) * (1 - s)
+                    dN6dt = + 0.125 * (1 + r) * (1 - s)
+                    dN7dt = + 0.125 * (1 + r) * (1 + s)
+                    dN8dt = + 0.125 * (1 - r) * (1 + s)
+                    DN = [[dN1dr, dN2dr, dN3dr, dN4dr, dN5dr, dN6dr, dN7dr, dN8dr],
+                          [dN1ds, dN2ds, dN3ds, dN4ds, dN5ds, dN6ds, dN7ds, dN8ds],
+                          [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]]
                     J = DN @ coordsElem
                     detJ = np.linalg.det(J)
-                    weight = detJ * ww[i] * ww[j] * ww[k]
                     invJ = np.linalg.inv(J)
                     DNxy = invJ @ DN
                     B = np.array([[DNxy[0, 0], 0, 0, DNxy[0, 1], 0, 0, DNxy[0, 2], 0, 0, DNxy[0, 3], 0, 0, DNxy[0, 4], 0, 0, DNxy[0, 5], 0, 0, DNxy[0, 6], 0, 0, DNxy[0, 7], 0, 0],
@@ -450,10 +463,10 @@ class Permeability(PropertySolver):
                                   [DNxy[1, 0], DNxy[0, 0], 0, DNxy[1, 1], DNxy[0, 1], 0, DNxy[1, 2], DNxy[0, 2], 0, DNxy[1, 3], DNxy[0, 3], 0, DNxy[1, 4], DNxy[0, 4], 0, DNxy[1, 5], DNxy[0, 5], 0, DNxy[1, 6], DNxy[0, 6], 0, DNxy[1, 7], DNxy[0, 7], 0],
                                   [DNxy[2, 0], 0, DNxy[0, 0], DNxy[2, 1], 0, DNxy[0, 1], DNxy[2, 2], 0, DNxy[0, 2], DNxy[2, 3], 0, DNxy[0, 3], DNxy[2, 4], 0, DNxy[0, 4], DNxy[2, 5], 0, DNxy[0, 5], DNxy[2, 6], 0, DNxy[0, 6], DNxy[2, 7], 0, DNxy[0, 7]],
                                   [0, DNxy[2, 0], DNxy[1, 0], 0, DNxy[2, 1], DNxy[1, 1], 0, DNxy[2, 2], DNxy[1, 2], 0, DNxy[2, 3], DNxy[1, 3], 0, DNxy[2, 4], DNxy[1, 4], 0, DNxy[2, 5], DNxy[1, 5], 0, DNxy[2, 6], DNxy[1, 6], 0, DNxy[2, 7], DNxy[1, 7]]])
-                    self.k += weight * B.T @ C @ B
-                    self.g += weight * B.T @ mat111000 @ N.ravel(order='F')[::9][np.newaxis]
-                    self.p += weight * stab * DNxy.T @ DNxy
-                    self.f += weight * N[0][::3][:, np.newaxis]
+                    self.k  += (B.T @ C @ B) * detJ
+                    self.g  += (B.T @ mat111000 @ np.array([N[0,0], N[0,3], N[0,6], N[0,9], N[0,12], N[0,15], N[0,18], N[0,21]])[np.newaxis]) * detJ
+                    self.p  += stab * (DNxy.T @ DNxy) * detJ
+                    self.f  += np.array([N[0,0], N[0,3], N[0,6], N[0,9], N[0,12], N[0,15], N[0,18], N[0,21]])[np.newaxis].T * detJ
                     self.SN += N * detJ
 
     def log_input(self):
