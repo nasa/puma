@@ -43,6 +43,8 @@ class Permeability(PropertySolver):
         self.g = np.zeros((24, 8), dtype=float)
         self.p = np.zeros((8, 8), dtype=float)
         self.f = np.zeros((8, 1), dtype=float)
+        self.SN = np.zeros((3, 24), dtype=float)
+
         self.mgdlF = None
         self.nelF = None
         self.vIdNosP = None
@@ -53,10 +55,7 @@ class Permeability(PropertySolver):
         self.keff = np.zeros((3, 3))
         self.solve_time = -1
         self.output_fields = output_fields
-        if self.output_fields:
-            self.fields = [[None, None], [None, None], [None, None]]
-        else:
-            self.fields = None
+        self.ux, self.uy, self.uz = None, None, None
 
     def compute(self):
         t = Timer()
@@ -156,8 +155,17 @@ class Permeability(PropertySolver):
             self.Amat = LinearOperator(shape=(self.reduce.shape[0], self.reduce.shape[0]), matvec=matvec)
 
     def assemble_bvector(self, direction):
-        if direction in ['x', 'y', 'z']:
+        if direction == 'd':  # direct solver
+            iF = np.hstack((np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F'),
+                            np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F'),
+                            np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F'))) - 1
+            jF = np.hstack((np.full(self.nelF * 8, 2, dtype=np.uint8),
+                            np.zeros(self.nelF * 8, dtype=np.uint8),
+                            np.ones(self.nelF * 8, dtype=np.uint8),))
+            sF = np.squeeze(np.tile(self.f, (self.nelF * 3, 1)))
+            shape = (4 * self.nels, 3)
 
+        else:
             if direction == 'x':
                 iF = np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F')
             elif direction == 'y':
@@ -167,16 +175,6 @@ class Permeability(PropertySolver):
             jF = np.zeros(self.nelF * 8, dtype=np.uint8)
             sF = np.squeeze(np.tile(self.f, (self.nelF, 1)))
             shape = (4 * self.nels, 1)
-
-        else:  # for direct solver
-            iF = np.hstack((np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F'),
-                            np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F'),
-                            np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F'))) - 1
-            jF = np.hstack((np.full(self.nelF * 8, 2, dtype=np.uint8),
-                            np.zeros(self.nelF * 8, dtype=np.uint8),
-                            np.ones(self.nelF * 8, dtype=np.uint8),))
-            sF = np.squeeze(np.tile(self.f, (self.nelF * 3, 1)))
-            shape = (4 * self.nels, 3)
 
         self.bvec = coo_matrix((sF, (iF, jF)), shape=shape).tocsc()[self.reduce]
 
@@ -198,105 +196,75 @@ class Permeability(PropertySolver):
         self.keff /= self.nels
         print(f'\nEffective permeability tensor: \n{self.keff}')
 
-        if self.output_fields:
-            tuple(tuple(field_pair) for field_pair in self.fields)
-
     def compute_effective_coefficient(self, d):
-        if self.vIdNosP is None:
-            aux = 1
-            self.vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint32)
-            for k in range(self.len_z):
-                mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_x, self.len_y), order='F')
-                mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
-                mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
-                self.vIdNosP[self.nnP2 * k:self.nnP2 * (k + 1)] = mIdNosP.ravel(order='F')
-                aux += self.nel
-            del mIdNosP
-            self.vIdNosP = np.append(self.vIdNosP, (self.vIdNosP[:self.nnP2]))
-            self.vIdNosP = np.unique(self.vIdNosP)
-
-        if self.output_fields:
-            if d == "d":
-                u = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-                p = np.zeros((self.len_x, self.len_y, self.len_z))
-            else:  # because of swapaxes
-                u = np.zeros((self.len_y, self.len_x, self.len_z, 3))
-                p = np.zeros((self.len_y, self.len_x, self.len_z))
+        inds = np.arange(1, self.nels + 1)
 
         if d == "d":  # if direct solver, then x_full contains the 3 solutions
-                self.keff[0, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 2, 1])
-                self.keff[1, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 3, 1])
-                self.keff[2, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 1, 1])
-                self.keff[0, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 2, 0])
-                self.keff[1, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 3, 0])
-                self.keff[2, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 1, 0])
-                self.keff[0, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 2, 2])
-                self.keff[1, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 3, 2])
-                self.keff[2, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 1, 2])
-                if self.output_fields:
-                    u[:, :, :, 0] =   np.reshape(self.x_full[self.vIdNosP * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 1] = - np.reshape(self.x_full[self.vIdNosP * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 2] = - np.reshape(self.x_full[self.vIdNosP * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                    self.fields[0] = [u.copy(), p.copy()]
-                    u[:, :, :, 0] = - np.reshape(self.x_full[self.vIdNosP * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 1] =   np.reshape(self.x_full[self.vIdNosP * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 2] =   np.reshape(self.x_full[self.vIdNosP * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                    self.fields[1] = [u.copy(), p.copy()]
-                    u[:, :, :, 0] = - np.reshape(self.x_full[self.vIdNosP * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 1] =   np.reshape(self.x_full[self.vIdNosP * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 2] =   np.reshape(self.x_full[self.vIdNosP * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
-                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
-                    self.fields[2] = [u.copy(), p.copy()]
+            self.keff[0, 0] = np.sum(self.x_full[inds * 3 - 2, 1])
+            self.keff[1, 0] = np.sum(self.x_full[inds * 3 - 3, 1])
+            self.keff[2, 0] = np.sum(self.x_full[inds * 3 - 1, 1])
+            self.keff[0, 1] = np.sum(self.x_full[inds * 3 - 2, 0])
+            self.keff[1, 1] = np.sum(self.x_full[inds * 3 - 3, 0])
+            self.keff[2, 1] = np.sum(self.x_full[inds * 3 - 1, 0])
+            self.keff[0, 2] = np.sum(self.x_full[inds * 3 - 2, 2])
+            self.keff[1, 2] = np.sum(self.x_full[inds * 3 - 3, 2])
+            self.keff[2, 2] = np.sum(self.x_full[inds * 3 - 1, 2])
+            if self.output_fields:
+                self.ux = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+                self.uy = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+                self.uz = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+                self.ux[:, :, :, 0] =   np.reshape(self.x_full[inds * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                self.ux[:, :, :, 1] = - np.reshape(self.x_full[inds * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                self.ux[:, :, :, 2] = - np.reshape(self.x_full[inds * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uy[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uy[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uy[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uz[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
 
         else:
             if d == "x":
-                self.keff[0, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 2])
-                self.keff[1, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 3])
-                self.keff[2, 0] = np.sum(self.x_full[self.vIdNosP * 3 - 1])
+                self.keff[0, 0] = np.sum(self.x_full[inds * 3 - 2])
+                self.keff[1, 0] = np.sum(self.x_full[inds * 3 - 3])
+                self.keff[2, 0] = np.sum(self.x_full[inds * 3 - 1])
+
                 if self.output_fields:
-                    u[:, :, :, 0] = - np.reshape(self.x_full[self.vIdNosP * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 1] =   np.reshape(self.x_full[self.vIdNosP * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 2] =   np.reshape(self.x_full[self.vIdNosP * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
-                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
-                    self.fields[0] = [u.copy(), p.copy()]
+                    self.ux = self.reconstruct_velocity()
+                    self.ux[:, :, :, [1, 2]] = - self.ux[:, :, :, [1, 2]]
 
             if d == "y":
-                self.keff[0, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 2])
-                self.keff[1, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 3])
-                self.keff[2, 1] = np.sum(self.x_full[self.vIdNosP * 3 - 1])
+                self.keff[0, 1] = np.sum(self.x_full[inds * 3 - 2])
+                self.keff[1, 1] = np.sum(self.x_full[inds * 3 - 3])
+                self.keff[2, 1] = np.sum(self.x_full[inds * 3 - 1])
                 if self.output_fields:
-
-                    if self.vIdNosP is None:
-                        aux = 1
-                        self.vIdNosP = np.zeros(self.len_z * self.nnP2, dtype=np.uint32)
-                        for k in range(self.len_z):
-                            mIdNosP = np.reshape(np.arange(aux, aux + self.nel, dtype=np.uint32), (self.len_y, self.len_x), order='F')
-                            mIdNosP = np.append(mIdNosP, mIdNosP[0][np.newaxis], axis=0)  # Numbering bottom nodes
-                            mIdNosP = np.append(mIdNosP, mIdNosP[:, 0][:, np.newaxis], axis=1)  # Numbering right nodes
-                            self.vIdNosP[self.nnP2 * k:self.nnP2 * (k + 1)] = mIdNosP.ravel(order='F')
-                            aux += self.nel
-                        del mIdNosP
-                        self.vIdNosP = np.append(self.vIdNosP, (self.vIdNosP[:self.nnP2]))
-                        self.vIdNosP = np.unique(self.vIdNosP)
-
-                    u[:, :, :, 0] =   np.reshape(self.x_full[self.vIdNosP * 3 - 2], (self.len_y, self.len_x, self.len_z), order='F')
-                    u[:, :, :, 1] = - np.reshape(self.x_full[self.vIdNosP * 3 - 3], (self.len_y, self.len_x, self.len_z), order='F')
-                    u[:, :, :, 2] = - np.reshape(self.x_full[self.vIdNosP * 3 - 1], (self.len_y, self.len_x, self.len_z), order='F')
-                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1], (self.len_y, self.len_x, self.len_z), order='F')
-                    self.fields[1] = [u.copy(), p.copy()]
+                    self.uy = self.reconstruct_velocity()
+                    self.uy[:, :, :, 0] = - self.uy[:, :, :, 0]
 
             if d == "z":
-                self.keff[0, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 2])
-                self.keff[1, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 3])
-                self.keff[2, 2] = np.sum(self.x_full[self.vIdNosP * 3 - 1])
+                self.keff[0, 2] = np.sum(self.x_full[inds * 3 - 2])
+                self.keff[1, 2] = np.sum(self.x_full[inds * 3 - 3])
+                self.keff[2, 2] = np.sum(self.x_full[inds * 3 - 1])
                 if self.output_fields:
-                    u[:, :, :, 0] = - np.reshape(self.x_full[self.vIdNosP * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 1] =   np.reshape(self.x_full[self.vIdNosP * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
-                    u[:, :, :, 2] =   np.reshape(self.x_full[self.vIdNosP * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
-                    p[:] = np.reshape(self.x_full[self.vIdNosP + self.nels * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
-                    self.fields[2] = [u.copy(), p.copy()]
+                    self.uz = self.reconstruct_velocity()
+                    self.uz[:, :, :, 0] = - self.uz[:, :, :, 0]
+
+    def reconstruct_velocity(self):
+        u = np.zeros((3, self.v_fluid.shape[0]), dtype=float)
+        for i in range(self.v_fluid.shape[0]):
+            counter = 0
+            for j in range(8):
+                for k in range(3):
+                    u[k, i] += self.SN[k, counter] * self.x[self.el_dof_v[counter, i]] * self.only_fluid[counter, i]
+                    counter += 1
+
+        u_full = np.zeros((3, self.nels), dtype=float)
+        for k in range(3):
+            u_full[k, self.v_fluid - 1] = u[k]
+        u_full = np.stack((np.reshape(u_full[1], (self.len_y, self.len_x, self.len_z), order='F'),
+                           np.reshape(u_full[0], (self.len_y, self.len_x, self.len_z), order='F'),
+                           np.reshape(u_full[2], (self.len_y, self.len_x, self.len_z), order='F')), axis=3)
+        return u_full
 
     def generate_inds_and_preconditioner(self):
         nodes_n = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
@@ -402,6 +370,12 @@ class Permeability(PropertySolver):
                                 np.tile(np.arange(1, 4), (v_fluid.shape[0], 1))), 2, 1).reshape(24, v_fluid.shape[0])
         only_fluid = np.repeat(v_nodes_n >= dofs, 3, axis=0).astype(bool)
 
+        self.dofs = dofs
+        self.el_dof_v = el_dof_v
+        self.v_fluid = v_fluid
+        self.v_nodes_n = v_nodes_n
+        self.el_dof_v, self.el_dof_p, self.only_fluid = el_dof_v, el_dof_p, only_fluid
+
         if self.preconditioner:
             self.M = np.zeros(self.reduce.shape[0])
             inds = np.arange(8)
@@ -482,6 +456,7 @@ class Permeability(PropertySolver):
                     self.g += weight * B.T @ mat111000 @ N.ravel(order='F')[::9][np.newaxis]
                     self.p += weight * stab * DNxy.T @ DNxy
                     self.f += weight * N[0][::3][:, np.newaxis]
+                    self.SN += N * detJ
 
     def log_input(self):
         self.ws.log.log_section("Computing Permeability")

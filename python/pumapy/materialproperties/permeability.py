@@ -30,15 +30,14 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         :type precondition: bool
         :param output_fields: export velocity and pressure fields (True) or not (False, default)
         :type output_fields: bool
-        :return: effective permeability (3x3 matrix) and, if output_fields=True, velocity and pressure fields
-        for the corresponding direction (arranged as tuple of tuples of numpy.ndarrays, i.e.
-        ((u_x, p_x), (u_y, p_y), (u_z, p_z))). If output_fields=False, then the fields will be None
+        :return: effective permeability (3x3 matrix) and, if output_fields=True, the velocity field for the corresponding direction
+        (arranged as tuple of numpy.ndarrays, i.e. (u_x, u_y, u_z). If output_fields=False, then (None, None, None) is output
         :rtype: numpy.ndarray, tuple
 
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=3, porosity=0.7, phi=90, theta=90, length=200)
-        >>> keff, ((u_x, p_x), ...) = puma.compute_permeability(ws, (1, ws.max()), direction='x')
+        >>> keff, (u_x, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x')
         >>> puma.render_orientation(u_x, scale_factor=5e11, solid_color=None)
     """
     solver = Permeability(workspace, solid_cutoff, direction, tol, maxiter, solver_type, display_iter,
@@ -49,4 +48,4 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
     solver.log_input()
     solver.compute()
     solver.log_output()
-    return solver.keff, solver.fields
+    return solver.keff, (solver.ux, solver.uy, solver.uz)
