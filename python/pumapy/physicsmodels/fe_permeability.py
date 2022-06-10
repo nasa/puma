@@ -26,7 +26,8 @@ class Permeability(PropertySolver):
 
         self.ws = workspace.copy()
         self.ws.binarize_range(self.solid_cutoff)
-        self.ws.matrix = self.ws.matrix.swapaxes(1, 0)
+        if solver_type == "direct" or matrix_free:
+            self.ws.matrix = self.ws.matrix.swapaxes(1, 0)
 
         self.direction = direction
         self.solver_type = solver_type
@@ -121,7 +122,8 @@ class Permeability(PropertySolver):
 
     def assemble_Amatrix(self):
         if not self.matrix_free or self.solver_type == 'direct':
-            del self.el_dof_v, self.el_dof_p, self.only_fluid, self.v_fluid
+            if self.solver_type == 'direct':
+                del self.el_dof_v, self.el_dof_p, self.only_fluid, self.v_fluid
             iK = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)
             iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
             jG = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')
@@ -235,28 +237,43 @@ class Permeability(PropertySolver):
                 self.keff[0, 0] =   np.sum(self.x_full[inds * 3 - 2])
                 self.keff[1, 0] =   np.sum(self.x_full[inds * 3 - 3])
                 self.keff[2, 0] = - np.sum(self.x_full[inds * 3 - 1])
-
-                if self.output_fields:
-                    self.ux = self.reconstruct_velocity()
-                    self.ux[:, :, :, [1, 2]] = - self.ux[:, :, :, [1, 2]]
-
-            if d == "y":
+            elif d == "y":
                 self.keff[0, 1] =   np.sum(self.x_full[inds * 3 - 2])
                 self.keff[1, 1] =   np.sum(self.x_full[inds * 3 - 3])
                 self.keff[2, 1] = - np.sum(self.x_full[inds * 3 - 1])
-
-                if self.output_fields:
-                    self.uy = self.reconstruct_velocity()
-                    self.uy[:, :, :, 0] = - self.uy[:, :, :, 0]
-
-            if d == "z":
+            else:
                 self.keff[0, 2] = - np.sum(self.x_full[inds * 3 - 2])
                 self.keff[1, 2] = - np.sum(self.x_full[inds * 3 - 3])
                 self.keff[2, 2] =   np.sum(self.x_full[inds * 3 - 1])
 
-                if self.output_fields:
-                    self.uz = self.reconstruct_velocity()
-                    self.uz[:, :, :, 0] = - self.uz[:, :, :, 0]
+            if self.output_fields:
+                if d == "x":
+                    if not self.matrix_free:
+                        self.ux = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+                        self.ux[:, :, :, 0] =   np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.ux[:, :, :, 1] = - np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.ux[:, :, :, 2] = - np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    else:
+                        self.ux = self.reconstruct_velocity()
+                        self.ux[:, :, :, [1, 2]] = - self.ux[:, :, :, [1, 2]]
+                elif d == "y":
+                    if not self.matrix_free:
+                        self.uy = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+                        self.uy[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.uy[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.uy[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    else:
+                        self.uy = self.reconstruct_velocity()
+                        self.uy[:, :, :, 0] = - self.uy[:, :, :, 0]
+                else:
+                    if not self.matrix_free:
+                        self.uz = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+                        self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.uz[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                    else:
+                        self.uz = self.reconstruct_velocity()
+                        self.uz[:, :, :, 0] = - self.uz[:, :, :, 0]
 
     def reconstruct_velocity(self):
         u = np.sum(self.SN[np.arange(3), 3 * np.arange(8)[:, np.newaxis] + np.arange(3), np.newaxis] * \
@@ -402,30 +419,30 @@ class Permeability(PropertySolver):
                 s = ss[j]
                 for k in range(2):
                     t = tt[k]
-                    N[0,  1 - 1] = 0.125 * (1 - r) * (1 - s) * (1 - t)
-                    N[0,  4 - 1] = 0.125 * (1 + r) * (1 - s) * (1 - t)
-                    N[0,  7 - 1] = 0.125 * (1 + r) * (1 + s) * (1 - t)
-                    N[0, 10 - 1] = 0.125 * (1 - r) * (1 + s) * (1 - t)
-                    N[0, 13 - 1] = 0.125 * (1 - r) * (1 - s) * (1 + t)
-                    N[0, 16 - 1] = 0.125 * (1 + r) * (1 - s) * (1 + t)
-                    N[0, 19 - 1] = 0.125 * (1 + r) * (1 + s) * (1 + t)
-                    N[0, 22 - 1] = 0.125 * (1 - r) * (1 + s) * (1 + t)
-                    N[1,  2 - 1] = N[0,  1 - 1]
-                    N[1,  5 - 1] = N[0,  4 - 1]
-                    N[1,  8 - 1] = N[0,  7 - 1]
-                    N[1, 11 - 1] = N[0, 10 - 1]
-                    N[1, 14 - 1] = N[0, 13 - 1]
-                    N[1, 17 - 1] = N[0, 16 - 1]
-                    N[1, 20 - 1] = N[0, 19 - 1]
-                    N[1, 23 - 1] = N[0, 22 - 1]
-                    N[2,  3 - 1] = N[0,  1 - 1]
-                    N[2,  6 - 1] = N[0,  4 - 1]
-                    N[2,  9 - 1] = N[0,  7 - 1]
-                    N[2, 12 - 1] = N[0, 10 - 1]
-                    N[2, 15 - 1] = N[0, 13 - 1]
-                    N[2, 18 - 1] = N[0, 16 - 1]
-                    N[2, 21 - 1] = N[0, 19 - 1]
-                    N[2, 24 - 1] = N[0, 22 - 1]
+                    N[0,  0] = 0.125 * (1 - r) * (1 - s) * (1 - t)
+                    N[0,  3] = 0.125 * (1 + r) * (1 - s) * (1 - t)
+                    N[0,  6] = 0.125 * (1 + r) * (1 + s) * (1 - t)
+                    N[0,  9] = 0.125 * (1 - r) * (1 + s) * (1 - t)
+                    N[0, 12] = 0.125 * (1 - r) * (1 - s) * (1 + t)
+                    N[0, 15] = 0.125 * (1 + r) * (1 - s) * (1 + t)
+                    N[0, 18] = 0.125 * (1 + r) * (1 + s) * (1 + t)
+                    N[0, 21] = 0.125 * (1 - r) * (1 + s) * (1 + t)
+                    N[1,  1] = N[0,  0]
+                    N[1,  4] = N[0,  3]
+                    N[1,  7] = N[0,  6]
+                    N[1, 10] = N[0,  9]
+                    N[1, 13] = N[0, 12]
+                    N[1, 16] = N[0, 15]
+                    N[1, 19] = N[0, 18]
+                    N[1, 22] = N[0, 21]
+                    N[2,  2] = N[0,  0]
+                    N[2,  5] = N[0,  3]
+                    N[2,  8] = N[0,  6]
+                    N[2, 11] = N[0,  9]
+                    N[2, 14] = N[0, 12]
+                    N[2, 17] = N[0, 15]
+                    N[2, 20] = N[0, 18]
+                    N[2, 23] = N[0, 21]
                     dN1dr = - 0.125 * (1 - s) * (1 - t)
                     dN2dr = + 0.125 * (1 - s) * (1 - t)
                     dN3dr = + 0.125 * (1 + s) * (1 - t)
