@@ -26,31 +26,36 @@ class Permeability(PropertySolver):
 
         self.ws = workspace.copy()
         self.ws.binarize_range(self.solid_cutoff)
-        if solver_type != "direct":  # this is due to swapaxes in self.generate_inds_and_preconditioner function
-            self.ws.matrix = self.ws.matrix.swapaxes(1, 0)
+        # if matrix_free or :  # this is due to swapaxes in self.generate_inds_and_preconditioner function
+        self.ws.matrix = self.ws.matrix.swapaxes(1, 0)
 
         self.direction = direction
         self.solver_type = solver_type
         self.matrix_free = matrix_free
-        self.len_x, self.len_y, self.len_z = self.ws.matrix.shape
         self.voxlength = self.ws.voxel_length
-
+        self.len_x, self.len_y, self.len_z = self.ws.matrix.shape
         self.nel = self.len_x * self.len_y
         self.nels = self.nel * self.len_z
         self.nnP2 = (self.len_x + 1) * (self.len_y + 1)
 
+        # calculate_element_matrices
         self.k = np.zeros((24, 24), dtype=float)
         self.g = np.zeros((24, 8), dtype=float)
         self.p = np.zeros((8, 8), dtype=float)
         self.f = np.zeros((8, 1), dtype=float)
         self.SN = np.zeros((3, 24), dtype=float)
 
+        # from initialize
         self.mgdlF = None
         self.nelF = None
         self.reduce = None
-        self.x_full = None
+
+        # from generate_mf_inds_and_preconditioner
+        self.el_dof_v, self.el_dof_p, self.only_fluid, self.v_fluid = None, None, None, None
         self.preconditioner = preconditioner
 
+        # from solve
+        self.x_full = None
         self.keff = np.zeros((3, 3))
         self.solve_time = -1
         self.output_fields = output_fields
@@ -71,7 +76,7 @@ class Permeability(PropertySolver):
     def initialize(self):
         print("Initializing indexing matrices ... ", flush=True, end='')
 
-        # Matrix with element connectivity with Periodic boundary conditions (PBC)
+        # matrix with element connectivity with Periodic boundary conditions (PBC)
         mConectP1 = np.zeros((self.nel, 4, self.len_z + 1), dtype=np.uint32)
         aux = 1
         for k in range(self.len_z):
@@ -144,6 +149,7 @@ class Permeability(PropertySolver):
         else:  # matrix-free mat-vec function
             y = np.zeros(self.reduce.shape[0], dtype=float)
             el_dof_v, el_dof_p, only_fluid = self.el_dof_v, self.el_dof_p, self.only_fluid
+
             def matvec(x):
                 y.fill(0)
                 tmp = np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid
@@ -157,12 +163,12 @@ class Permeability(PropertySolver):
 
     def assemble_bvector(self, direction):
         if direction == 'd':  # direct solver
-            iF = np.hstack((np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F'),
-                            np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F'),
-                            np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F'))) - 1
-            jF = np.hstack((np.full(self.nelF * 8, 2, dtype=np.uint8),
-                            np.zeros(self.nelF * 8, dtype=np.uint8),
-                            np.ones(self.nelF * 8, dtype=np.uint8),))
+            iF = np.hstack((np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F'),
+                            np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F'),
+                            np.reshape(self.mgdlF[2:24:3], self.nelF * 8, order='F')))
+            jF = np.hstack((np.zeros(self.nelF * 8, dtype=np.uint8),
+                            np.ones(self.nelF * 8, dtype=np.uint8),
+                            np.full(self.nelF * 8, 2, dtype=np.uint8)))
             sF = np.squeeze(np.tile(self.f, (self.nelF * 3, 1)))
             shape = (4 * self.nels, 3)
         else:
@@ -200,47 +206,55 @@ class Permeability(PropertySolver):
         inds = np.arange(1, self.nels + 1)
 
         if d == "d":  # if direct solver, then x_full contains the 3 solutions
-            self.keff[0, 0] = np.sum(self.x_full[inds * 3 - 2, 1])
-            self.keff[1, 0] = np.sum(self.x_full[inds * 3 - 3, 1])
+            self.keff[0, 0] = np.sum(self.x_full[inds * 3 - 3, 1])
+            self.keff[1, 0] = np.sum(self.x_full[inds * 3 - 2, 1])
             self.keff[2, 0] = np.sum(self.x_full[inds * 3 - 1, 1])
-            self.keff[0, 1] = np.sum(self.x_full[inds * 3 - 2, 0])
-            self.keff[1, 1] = np.sum(self.x_full[inds * 3 - 3, 0])
+            self.keff[0, 1] = np.sum(self.x_full[inds * 3 - 3, 0])
+            self.keff[1, 1] = np.sum(self.x_full[inds * 3 - 2, 0])
             self.keff[2, 1] = np.sum(self.x_full[inds * 3 - 1, 0])
-            self.keff[0, 2] = np.sum(self.x_full[inds * 3 - 2, 2])
-            self.keff[1, 2] = np.sum(self.x_full[inds * 3 - 3, 2])
+            self.keff[0, 2] = np.sum(self.x_full[inds * 3 - 3, 2])
+            self.keff[1, 2] = np.sum(self.x_full[inds * 3 - 2, 2])
             self.keff[2, 2] = np.sum(self.x_full[inds * 3 - 1, 2])
             if self.output_fields:
                 self.ux = np.zeros((self.len_x, self.len_y, self.len_z, 3))
                 self.uy = np.zeros((self.len_x, self.len_y, self.len_z, 3))
                 self.uz = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-                self.ux[:, :, :, 0] =   np.reshape(self.x_full[inds * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                self.ux[:, :, :, 1] = - np.reshape(self.x_full[inds * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                self.ux[:, :, :, 0] =   np.reshape(self.x_full[inds * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
+                self.ux[:, :, :, 1] = - np.reshape(self.x_full[inds * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
                 self.ux[:, :, :, 2] = - np.reshape(self.x_full[inds * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uy[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uy[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uy[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uy[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
                 self.uy[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
                 self.uz[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                self.ux = self.ux.swapaxes(0, 1)
+                self.uy = self.uy.swapaxes(0, 1)
+                self.uz = self.uz.swapaxes(0, 1)
         else:
             if d == "x":
-                self.keff[0, 0] = np.sum(self.x_full[inds * 3 - 2])
-                self.keff[1, 0] = np.sum(self.x_full[inds * 3 - 3])
-                self.keff[2, 0] = np.sum(self.x_full[inds * 3 - 1])
+                self.keff[0, 0] =   np.sum(self.x_full[inds * 3 - 2])
+                self.keff[1, 0] =   np.sum(self.x_full[inds * 3 - 3])
+                self.keff[2, 0] = - np.sum(self.x_full[inds * 3 - 1])
+
                 if self.output_fields:
                     self.ux = self.reconstruct_velocity()
                     self.ux[:, :, :, [1, 2]] = - self.ux[:, :, :, [1, 2]]
+
             if d == "y":
-                self.keff[0, 1] = np.sum(self.x_full[inds * 3 - 2])
-                self.keff[1, 1] = np.sum(self.x_full[inds * 3 - 3])
-                self.keff[2, 1] = np.sum(self.x_full[inds * 3 - 1])
+                self.keff[0, 1] =   np.sum(self.x_full[inds * 3 - 2])
+                self.keff[1, 1] =   np.sum(self.x_full[inds * 3 - 3])
+                self.keff[2, 1] = - np.sum(self.x_full[inds * 3 - 1])
+
                 if self.output_fields:
                     self.uy = self.reconstruct_velocity()
                     self.uy[:, :, :, 0] = - self.uy[:, :, :, 0]
+
             if d == "z":
-                self.keff[0, 2] = np.sum(self.x_full[inds * 3 - 2])
-                self.keff[1, 2] = np.sum(self.x_full[inds * 3 - 3])
-                self.keff[2, 2] = np.sum(self.x_full[inds * 3 - 1])
+                self.keff[0, 2] = - np.sum(self.x_full[inds * 3 - 2])
+                self.keff[1, 2] = - np.sum(self.x_full[inds * 3 - 3])
+                self.keff[2, 2] =   np.sum(self.x_full[inds * 3 - 1])
+
                 if self.output_fields:
                     self.uz = self.reconstruct_velocity()
                     self.uz[:, :, :, 0] = - self.uz[:, :, :, 0]
@@ -257,6 +271,7 @@ class Permeability(PropertySolver):
         return u_full
 
     def generate_mf_inds_and_preconditioner(self):
+
         nodes_n = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
         slice_n = (self.len_x + 1) * (self.len_y + 1)
         ns = np.arange(1, nodes_n + 1, dtype=int)

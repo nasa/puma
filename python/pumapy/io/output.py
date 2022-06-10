@@ -87,7 +87,7 @@ def export_vti(filename, dict_data, voxel_length=None):
     return True
 
 
-def export_3Dtiff(filename, ws_or_nparray, to8bit=False):
+def export_3Dtiff(filename, ws_or_nparray, to8bit=True):
     """ Export either a puma.Workspace or numpy array to 3Dtiff
 
         :param filename: filepath and name
