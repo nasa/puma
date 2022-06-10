@@ -19,7 +19,7 @@ class Permeability(PropertySolver):
 
     def __init__(self, workspace, solid_cutoff, direction, tolerance, maxiter, solver_type, display_iter,
                  matrix_free, preconditioner, output_fields):
-        allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab']
+        allowed_solvers = ['minres', 'direct', 'cg']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
         self.solid_cutoff = solid_cutoff
@@ -47,7 +47,6 @@ class Permeability(PropertySolver):
 
         self.mgdlF = None
         self.nelF = None
-        self.vIdNosP = None
         self.reduce = None
         self.x_full = None
         self.preconditioner = preconditioner
@@ -112,7 +111,8 @@ class Permeability(PropertySolver):
         self.mgdlF[np.arange(2, 24, 3)] = mConectP[velF, np.arange(8)[:, np.newaxis]] * 3 - 1
         self.mgdlF[24:] = 3 * self.nels + np.swapaxes(mConectP[velF], 1, 0) - 1
 
-        self.generate_inds_and_preconditioner()
+        # creates indexing for matrix-free and M preconditioner
+        self.generate_mf_inds_and_preconditioner()
         print("Done")
 
     def assemble_Amatrix(self):
@@ -256,7 +256,7 @@ class Permeability(PropertySolver):
                            np.reshape(u_full[2], (self.len_y, self.len_x, self.len_z), order='F')), axis=3)
         return u_full
 
-    def generate_inds_and_preconditioner(self):
+    def generate_mf_inds_and_preconditioner(self):
         nodes_n = (self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1)
         slice_n = (self.len_x + 1) * (self.len_y + 1)
         ns = np.arange(1, nodes_n + 1, dtype=int)

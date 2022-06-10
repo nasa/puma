@@ -19,7 +19,7 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         :type tol: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'minres' (default, only works if preconditioner=False), 'cg', 'bicgstab', 'direct'
+        :param solver_type: solver type, options: 'minres' (default, only works if precondition=False), 'cg', 'direct'
         :type solver_type: string
         :param display_iter: display iteration in iterative solver
         :type display_iter: bool
@@ -37,7 +37,7 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=3, porosity=0.7, phi=90, theta=90, length=200)
-        >>> keff, (u_x, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x')
+        >>> keff, (u_x, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x', output_fields=True)
         >>> puma.render_orientation(u_x, scale_factor=5e11, solid_color=None)
     """
     solver = Permeability(workspace, solid_cutoff, direction, tol, maxiter, solver_type, display_iter,
