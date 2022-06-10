@@ -112,12 +112,12 @@ class Permeability(PropertySolver):
         self.mgdlF[np.arange(2, 24, 3)] = mConectP[velF, np.arange(8)[:, np.newaxis]] * 3 - 1
         self.mgdlF[24:] = 3 * self.nels + np.swapaxes(mConectP[velF], 1, 0) - 1
 
-    def assemble_Amatrix(self):
-        el_dof_v, el_dof_p, only_fluid = self.generate_inds_and_preconditioner()
+        self.generate_inds_and_preconditioner()
         print("Done")
 
+    def assemble_Amatrix(self):
         if not self.matrix_free or self.solver_type == 'direct':
-            del el_dof_v, el_dof_p, only_fluid
+            del self.el_dof_v, self.el_dof_p, self.only_fluid, self.v_fluid
             iK = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 24)
             iG = np.repeat(np.reshape(self.mgdlF[:24], self.nelF * 24, order='F'), 8)
             jG = np.reshape(np.repeat(self.mgdlF[24:], 24, axis=1), self.nelF * 192, order='F')
@@ -141,8 +141,9 @@ class Permeability(PropertySolver):
             # Reducing system of equations
             self.Amat = self.Amat[self.reduce][:, self.reduce]
 
-        else:  # matrix-free
+        else:  # matrix-free mat-vec function
             y = np.zeros(self.reduce.shape[0], dtype=float)
+            el_dof_v, el_dof_p, only_fluid = self.el_dof_v, self.el_dof_p, self.only_fluid
             def matvec(x):
                 y.fill(0)
                 tmp = np.einsum('ij, jk, jk -> ik', self.k, x[el_dof_v], only_fluid) * only_fluid
@@ -164,7 +165,6 @@ class Permeability(PropertySolver):
                             np.ones(self.nelF * 8, dtype=np.uint8),))
             sF = np.squeeze(np.tile(self.f, (self.nelF * 3, 1)))
             shape = (4 * self.nels, 3)
-
         else:
             if direction == 'x':
                 iF = np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F')
@@ -222,17 +222,14 @@ class Permeability(PropertySolver):
                 self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
                 self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
                 self.uz[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
-
         else:
             if d == "x":
                 self.keff[0, 0] = np.sum(self.x_full[inds * 3 - 2])
                 self.keff[1, 0] = np.sum(self.x_full[inds * 3 - 3])
                 self.keff[2, 0] = np.sum(self.x_full[inds * 3 - 1])
-
                 if self.output_fields:
                     self.ux = self.reconstruct_velocity()
                     self.ux[:, :, :, [1, 2]] = - self.ux[:, :, :, [1, 2]]
-
             if d == "y":
                 self.keff[0, 1] = np.sum(self.x_full[inds * 3 - 2])
                 self.keff[1, 1] = np.sum(self.x_full[inds * 3 - 3])
@@ -240,7 +237,6 @@ class Permeability(PropertySolver):
                 if self.output_fields:
                     self.uy = self.reconstruct_velocity()
                     self.uy[:, :, :, 0] = - self.uy[:, :, :, 0]
-
             if d == "z":
                 self.keff[0, 2] = np.sum(self.x_full[inds * 3 - 2])
                 self.keff[1, 2] = np.sum(self.x_full[inds * 3 - 3])
@@ -250,17 +246,11 @@ class Permeability(PropertySolver):
                     self.uz[:, :, :, 0] = - self.uz[:, :, :, 0]
 
     def reconstruct_velocity(self):
-        u = np.zeros((3, self.v_fluid.shape[0]), dtype=float)
-        for i in range(self.v_fluid.shape[0]):
-            counter = 0
-            for j in range(8):
-                for k in range(3):
-                    u[k, i] += self.SN[k, counter] * self.x[self.el_dof_v[counter, i]] * self.only_fluid[counter, i]
-                    counter += 1
-
+        u = np.sum(self.SN[np.arange(3), 3 * np.arange(8)[:, np.newaxis] + np.arange(3), np.newaxis] * \
+                   self.x[self.el_dof_v[3 * np.arange(8)[:, np.newaxis] + np.arange(3)]] * \
+                   self.only_fluid[3 * np.arange(8)[:, np.newaxis] + np.arange(3)], axis=0)
         u_full = np.zeros((3, self.nels), dtype=float)
-        for k in range(3):
-            u_full[k, self.v_fluid - 1] = u[k]
+        u_full[:, self.v_fluid - 1] = u
         u_full = np.stack((np.reshape(u_full[1], (self.len_y, self.len_x, self.len_z), order='F'),
                            np.reshape(u_full[0], (self.len_y, self.len_x, self.len_z), order='F'),
                            np.reshape(u_full[2], (self.len_y, self.len_x, self.len_z), order='F')), axis=3)
@@ -344,16 +334,16 @@ class Permeability(PropertySolver):
         # Correction of the numbering of interface nodes and reduction of the vector of fluid elements
         nms = ns - 1
         dof_map[nms] += (dof_map[nms] > vel_nodes_n[-1]) * (vel_nodes_n[-1] - nodes_n)
-        v_fluid = np.zeros(fluid_el_n[-1], dtype=int)
-        np.add.at(v_fluid, (ns <= fluid_el_n[-1]) * ns + (ns > fluid_el_n[-1]) - 1, v_fluid_tmp[nms] * (ns <= fluid_el_n[-1]))
+        self.v_fluid = np.zeros(fluid_el_n[-1], dtype=int)
+        np.add.at(self.v_fluid, (ns <= fluid_el_n[-1]) * ns + (ns > fluid_el_n[-1]) - 1, v_fluid_tmp[nms] * (ns <= fluid_el_n[-1]))
 
         v_nodes_n = vel_nodes_n[-1]
         del vel_nodes_n, nms, ns, fluid_el_n, v_fluid_tmp
 
         # dofs variable tranforms into dofs, but this is n
-        dofs = np.zeros((8, v_fluid.shape[0]), dtype=np.int64)
-        dofs[0] = ((v_fluid - 1) % self.nel + (((v_fluid - 1) % self.nel) // self.len_y) +
-                   ((v_fluid - 1) // self.nel) * (self.len_x + 1) * (self.len_y + 1)) + 2
+        dofs = np.zeros((8, self.v_fluid.shape[0]), dtype=np.int64)
+        dofs[0] = ((self.v_fluid - 1) % self.nel + (((self.v_fluid - 1) % self.nel) // self.len_y) +
+                   ((self.v_fluid - 1) // self.nel) * (self.len_x + 1) * (self.len_y + 1)) + 2
         dofs[1] = dofs[0] + self.len_y + 1
         dofs[2] = dofs[1] - 1
         dofs[3] = dofs[2] - (self.len_y + 1)
@@ -363,28 +353,21 @@ class Permeability(PropertySolver):
         dofs[7] = dofs[6] - (self.len_y + 1)
 
         dofs = dof_map[dofs - 1]
-        el_dof_p = 3 * v_nodes_n + dofs - 1
 
-        el_dof_v = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[np.arange(8)], axis=2) *
-                               (np.expand_dims(dofs[np.arange(8)], axis=2) * 3 - 4 +
-                                np.tile(np.arange(1, 4), (v_fluid.shape[0], 1))), 2, 1).reshape(24, v_fluid.shape[0])
-        only_fluid = np.repeat(v_nodes_n >= dofs, 3, axis=0).astype(bool)
-
-        self.dofs = dofs
-        self.el_dof_v = el_dof_v
-        self.v_fluid = v_fluid
-        self.v_nodes_n = v_nodes_n
-        self.el_dof_v, self.el_dof_p, self.only_fluid = el_dof_v, el_dof_p, only_fluid
+        self.el_dof_p = (3 * v_nodes_n + dofs - 1).astype(np.uint32)
+        self.el_dof_v = np.swapaxes(np.expand_dims(v_nodes_n >= dofs[np.arange(8)], axis=2) *
+                                    (np.expand_dims(dofs[np.arange(8)], axis=2) * 3 - 4 +
+                                     np.tile(np.arange(1, 4), (self.v_fluid.shape[0], 1))), 2, 1)
+        self.el_dof_v = self.el_dof_v.reshape(24, self.v_fluid.shape[0]).astype(np.uint32)
+        self.only_fluid = np.repeat(v_nodes_n >= dofs, 3, axis=0).astype(bool)
 
         if self.preconditioner:
             self.M = np.zeros(self.reduce.shape[0])
             inds = np.arange(8)
             np.add.at(self.M, 3 * v_nodes_n + dofs[inds] - 1, -np.expand_dims(self.p[inds, inds], axis=1))
-            np.add.at(self.M, el_dof_v, np.einsum('i, jk -> jik', self.k[inds[:3], inds[:3]],
-                                                  v_nodes_n >= dofs[np.arange(8)]).reshape(24, v_fluid.shape[0]))
+            np.add.at(self.M, self.el_dof_v, np.einsum('i, jk -> jik', self.k[inds[:3], inds[:3]],
+                                                       v_nodes_n >= dofs[np.arange(8)]).reshape(24, v_fluid.shape[0]))
             self.M = diags(1./self.M, 0).tocsr()
-
-        return el_dof_v.astype(np.uint32), el_dof_p.astype(np.uint32), only_fluid
 
     def calculate_element_matrices(self):
         coordsElem = np.array([[0, 0, 0], [self.voxlength, 0, 0], [self.voxlength, self.voxlength, 0],
