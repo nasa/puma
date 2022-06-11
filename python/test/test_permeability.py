@@ -10,7 +10,7 @@ class TestPermeability(unittest.TestCase):
         cls.ws_an = puma.generate_cylinder_square_array(100, 1. - 2. * np.pi * (0.1 ** 2.))
         cls.ws_an.voxel_length = 1. / cls.ws_an.matrix.shape[0]
         cls.analytical_answer = np.array([[2.71223274e-02, 0., 0.], [0., 2.71223274e-02, 0.], [0., 0., 5.48134246e-02]])
-        
+
         # test reproducible in chpack
         img = np.zeros((20, 21, 16))
         x_ind = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19]
@@ -18,66 +18,90 @@ class TestPermeability(unittest.TestCase):
         z_ind = [5, 9, 11, 15, 4, 1, 2, 4, 10, 12, 9, 10, 13, 14, 9, 10, 5, 7, 13, 15, 2, 6, 9, 0, 2, 4, 3, 8, 10, 4, 12, 7, 10, 0, 2, 4, 15, 9, 10, 11, 14, 9, 14, 0, 3, 7, 8, 10, 11, 12, 14, 15, 2, 7, 10, 15, 2, 3, 4, 8, 11, 0, 6, 2, 7, 11, 13, 4, 11, 10, 12, 13, 14, 1, 2, 6, 6, 4, 5, 11, 14, 1, 11, 12, 6, 8, 10, 5, 6, 12, 8, 1, 3, 4, 6, 8, 10, 12, 14, 15, 5, 10, 13, 0, 7, 10, 2, 6, 8, 9, 10, 14, 11, 3, 4, 7, 15, 3, 4, 11, 1, 2, 5, 6, 0, 1, 7, 1, 12, 2, 3, 4, 8, 11, 0, 1, 5, 7, 11, 15, 5, 14, 5, 6, 7, 10, 12, 2, 3, 7, 11, 4, 7, 10, 4, 15, 3, 4, 5, 7, 11, 12, 15, 9, 6, 8, 12, 1, 2, 5, 7, 8, 8, 11, 9, 12, 2, 7, 11, 13, 9, 4, 12, 15, 1, 8, 15, 6, 13, 3, 7, 7, 4, 6, 8, 2, 8, 9, 2, 9, 12, 14, 1, 7, 8, 10, 0, 3, 12, 15, 0, 4, 11, 15, 3, 6, 8, 12, 1, 4, 5, 6, 1, 3, 4, 9, 13, 14, 0, 2, 5, 10, 4, 7, 8, 9, 13, 4, 15, 6, 8, 12, 7, 4, 5, 6, 11, 13, 15, 3, 11, 0, 3, 10, 14, 15, 0, 4, 9, 11, 12, 3, 1, 4, 6, 14, 15, 2, 12, 15, 6, 9, 12, 3, 9, 13, 2, 10, 11, 4, 7, 8, 12, 1, 2, 6, 8, 10, 14, 6, 8, 9, 1, 8, 2, 5, 14, 3, 5, 9, 11, 13, 0, 5, 10, 15, 0, 10, 7, 12, 13, 2, 3, 7, 8, 10, 13, 0, 7, 8, 11, 12, 1, 3, 5, 13, 15, 3, 2, 9, 13, 1, 4, 13, 1, 5, 6, 7, 10, 0, 7, 11, 13, 12, 0, 13, 15, 4, 6, 7, 4, 5, 8, 9, 10, 12, 8, 10, 14, 2, 3, 5, 7, 10, 12, 0, 3, 9, 14, 4, 10, 11, 14, 15, 4, 6, 0, 5, 8, 14, 2, 5, 8, 11, 2, 1, 3, 4, 7, 1, 12, 0, 4, 10, 2, 6, 12, 1, 2, 7, 12, 2, 14, 1, 5, 9, 10, 15, 5, 10, 12, 1, 8, 11, 14, 15, 0, 4, 6, 0, 4, 6, 10, 15, 5, 11, 0, 3, 8, 9, 3, 4, 6, 11, 6, 8, 12, 15, 1, 6, 3, 4, 6, 7, 5, 7, 8, 2, 7, 11, 15, 1, 1, 9, 11, 15, 8, 10, 8, 10, 2, 8, 14, 15, 7, 15, 0, 1, 2, 8, 9, 10, 0, 4, 6, 9, 13, 0, 6, 7, 14, 0, 12, 2, 5, 9, 11, 0, 9, 1, 2, 12, 0, 3, 5, 8, 13, 14, 1, 3, 7, 8, 8, 10, 11, 0, 6, 8, 14, 0, 1, 7, 14, 0, 2, 4, 11, 13, 14, 6, 8, 12, 15, 3, 5, 15, 5, 8, 10, 3, 5, 8, 15, 2, 3, 5, 10, 15, 3, 8, 0, 2, 4, 6, 8, 9, 13, 5, 14, 0, 5, 11, 5, 9, 15, 0, 1, 5, 6, 10, 13, 14, 15, 1, 4, 10, 1, 2, 9, 10, 14, 15, 0, 4, 7, 8, 13, 3, 5, 2, 4, 11, 14, 15, 10, 5, 11, 0, 2, 3, 2, 11, 12, 0, 3, 8, 7, 8, 15, 7, 8, 0, 2, 3, 4, 11, 14, 6, 9, 14, 3, 14, 3, 6, 7, 12, 3, 11, 14, 3, 7, 1, 2, 3, 10, 11, 14, 2, 4, 9, 6, 0, 3, 15, 10, 14, 3, 4, 5, 11, 0, 1, 5, 14, 1, 6, 6, 7, 9, 11, 13, 0, 4, 5, 1, 5, 12, 14, 5, 9, 13, 14, 3, 14, 3, 5, 10, 2, 7, 9, 13, 1, 8, 12, 5, 7, 1, 3, 6, 7, 12, 0, 4, 7, 11, 12, 14, 6, 0, 4, 5, 0, 4, 5, 13, 14, 15, 0, 10, 11, 12, 1, 2, 7, 9, 10, 13, 2, 3, 6, 12, 6, 7, 9, 12, 13, 3, 7, 8, 11, 0, 1, 6, 10, 11, 14, 2, 9, 12, 3, 7, 11, 5, 6, 13, 15, 0, 7, 1, 4, 6, 9, 1, 8, 9, 11, 2, 1, 3, 8, 14, 9, 14, 2, 6, 12, 9, 11, 6, 12, 13, 14, 0, 1, 2, 3, 6, 8, 11, 12, 15, 1, 6, 11, 12, 15, 1, 2, 6, 7, 2, 7, 12, 3, 4, 13, 1, 8, 9, 12, 15, 1, 10, 3, 6, 7, 8, 6, 9, 13, 14, 15, 1, 7, 13, 0, 2, 3, 7, 11, 14, 15, 0, 5, 8, 10, 13, 2, 1, 0, 13, 15, 2, 9, 14, 0, 2, 3, 6, 8, 11, 0, 2, 8, 14, 3, 5, 8, 9, 9, 14, 3, 7, 1, 4, 1, 6, 7, 10, 12, 3, 5, 7, 0, 1, 8, 9, 14, 15, 1, 5, 10, 15, 13, 3, 12, 15, 2, 2, 15, 6, 8, 14, 1, 7, 11, 2, 5, 13, 14, 6, 9, 10, 11, 0, 13, 3, 6, 7, 14, 10, 14, 1, 6, 10, 15, 1, 6, 9, 12, 13, 0, 3, 7, 9, 10, 12, 14, 0, 2, 6, 8, 10, 4, 10, 12, 3, 5, 6, 13, 0, 3, 4, 8, 15, 7, 15, 1, 11, 13, 4, 9, 0, 1, 8, 9, 11, 1, 8, 15, 12, 14, 15, 1, 8, 10, 15, 2, 3, 1, 3, 4, 8, 9, 13, 1, 6, 11, 12, 0, 1, 7, 8, 15, 8, 13, 3, 5, 14, 0, 3, 5, 15, 4, 6, 11, 14, 15, 8, 11, 6, 15, 1, 7, 12, 7, 8, 9, 10, 12, 13, 15, 0, 7, 1, 4, 5, 3, 5, 10, 12, 15, 1, 10, 5, 13, 4, 11, 14, 1, 13, 14, 1, 6, 7, 8, 11, 14, 0, 3, 11, 13, 14, 5, 9, 6, 0, 1, 8, 9, 12, 0, 4, 10, 8, 4, 8, 10, 12, 0, 4, 6, 7, 14, 2, 9, 13, 5, 6, 7, 9, 10, 12, 15, 1, 2, 8, 13, 2, 3, 4, 6, 7, 10, 14, 4, 6, 7, 9, 10, 12, 14, 15, 1, 2, 4, 7, 9, 14, 15, 3, 4, 8, 1, 6, 10, 13, 15, 0, 6, 9, 11, 13, 14, 1, 7, 11, 14, 3, 4, 7, 8, 12, 10, 11, 3, 6, 7, 9, 14, 6, 11, 0, 3, 14, 0, 3, 8, 10, 11, 15, 6, 14, 15, 1, 4, 6, 8, 12, 1, 6, 9, 1, 3, 13, 15, 0, 2, 9, 14, 1, 3, 0, 3, 10, 13, 4, 13, 14, 8, 9, 0, 2, 4, 6, 10, 12, 1, 2, 9, 13, 2, 6, 8, 12, 14, 15, 3, 11, 14, 1, 2, 3, 5, 6, 9, 10, 1, 4, 6, 8, 0, 3, 1, 2, 7, 1, 5, 7, 3, 5, 7, 15, 1, 6, 7, 0, 1, 7, 9, 13, 14, 0, 4, 5, 6, 11, 0, 1, 3, 4, 14, 3, 4, 10, 12, 14, 2, 8, 12, 7, 12, 13, 14, 15, 2, 7, 9, 10, 2, 13, 0, 2, 7, 15, 1, 6, 10, 15, 0, 6, 10, 14, 3, 14, 8, 1, 3, 4, 6, 10, 12, 0, 6, 11, 2, 4, 5, 7, 1, 4, 15, 0, 3, 4, 6, 9, 4, 6, 8, 9, 11, 13, 14, 2, 7, 8, 9, 10, 14, 0, 6, 8, 10, 14, 3, 10, 11, 7, 15, 0, 5, 7, 11, 0, 4, 10, 1, 5, 10, 12, 2, 11, 1, 5, 9, 0, 10, 11, 15, 3, 4, 6, 10, 11, 1, 3, 14, 3, 6, 7, 8, 2, 10, 2, 8, 14, 0, 3, 9, 1, 5, 6, 10, 12, 14, 15, 1, 2, 4, 8, 9, 13, 5, 6, 7, 9, 10, 13, 0, 2, 4, 7, 12, 15, 0, 1, 2, 5, 9, 2, 3, 5, 11, 12, 3, 5, 6, 9, 12, 15, 4, 7, 9, 10, 14, 1, 2, 3, 6, 9, 13, 1, 9, 11, 13, 3, 4, 13, 15]
         img[x_ind, y_ind, z_ind] = 1
         cls.ws_chpack = puma.Workspace.from_array(img)
-        cls.chpack_answer = [[4.9411414203460416e-14, 7.462712349605227e-16, -7.378822815421923e-16],
-                             [7.462712340730787e-16, 4.883088136351361e-14, 4.261275259422935e-16],
-                             [-7.378822797071263e-16, 4.261275259549431e-16, 4.80840762490999e-14]]
+        cls.ws_chpack.voxel_length = 1
+        cls.chpack_answer = [[4.9411414203460416e-2, 7.462712349605227e-4, -7.378822815421923e-4],
+                             [7.462712340730787e-4, 4.883088136351361e-2, 4.261275259422935e-4],
+                             [-7.378822797071263e-4, 4.261275259549431e-4, 4.80840762490999e-2]]
 
     def test_analytical_direct(self):
-        keff, _ = puma.compute_permeability(self.ws_an, (1, 1), solver_type='direct')
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_an, (1, 1), solver_type='direct')
         np.testing.assert_array_almost_equal(keff, self.analytical_answer, decimal=6)
+        self.check_velocity_fields(self.ws_an, keff, u_x, u_y, u_z)
 
     def test_analytical_minres_noprec(self):
-        keff, _ = puma.compute_permeability(self.ws_an, (1, 1), solver_type='minres', tol=1e-8, maxiter=10000, precondition=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_an, (1, 1), solver_type='minres', tol=1e-8, maxiter=10000, precondition=False)
         np.testing.assert_array_almost_equal(keff, self.analytical_answer, decimal=6)
+        self.check_velocity_fields(self.ws_an, keff, u_x, u_y, u_z)
 
     def test_analytical_minres_nomf_noprec(self):
-        keff, _ = puma.compute_permeability(self.ws_an, (1, 1), solver_type='minres', tol=1e-8, maxiter=10000, matrix_free=False, precondition=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_an, (1, 1), solver_type='minres', tol=1e-8, maxiter=10000, matrix_free=False, precondition=False)
         np.testing.assert_array_almost_equal(keff, self.analytical_answer, decimal=6)
+        self.check_velocity_fields(self.ws_an, keff, u_x, u_y, u_z)
 
     def test_analytical_cg(self):
-        keff, _ = puma.compute_permeability(self.ws_an, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_an, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000)
         np.testing.assert_array_almost_equal(keff, self.analytical_answer, decimal=6)
+        self.check_velocity_fields(self.ws_an, keff, u_x, u_y, u_z)
 
     def test_analytical_cg_nomf(self):
-        keff, _ = puma.compute_permeability(self.ws_an, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, matrix_free=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_an, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, matrix_free=False)
         np.testing.assert_array_almost_equal(keff, self.analytical_answer, decimal=6)
+        self.check_velocity_fields(self.ws_an, keff, u_x, u_y, u_z)
 
     def test_analytical_cg_noprec(self):
-        keff, _ = puma.compute_permeability(self.ws_an, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, precondition=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_an, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, precondition=False)
         np.testing.assert_array_almost_equal(keff, self.analytical_answer, decimal=6)
+        self.check_velocity_fields(self.ws_an, keff, u_x, u_y, u_z)
 
     def test_analytical_cg_nomf_noprec(self):
-        keff, _ = puma.compute_permeability(self.ws_an, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, matrix_free=False, precondition=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_an, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, matrix_free=False, precondition=False)
         np.testing.assert_array_almost_equal(keff, self.analytical_answer, decimal=6)
+        self.check_velocity_fields(self.ws_an, keff, u_x, u_y, u_z)
 
 
     def test_chpack_direct(self):
-        keff, _ = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='direct')
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='direct')
         np.testing.assert_array_almost_equal(keff, self.chpack_answer, decimal=6)
+        self.check_velocity_fields(self.ws_chpack, keff, u_x, u_y, u_z)
 
     def test_chpack_minres_noprec(self):
-        keff, _ = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='minres', tol=1e-8, maxiter=10000, precondition=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='minres', tol=1e-8, maxiter=10000, precondition=False)
         np.testing.assert_array_almost_equal(keff, self.chpack_answer, decimal=6)
+        self.check_velocity_fields(self.ws_chpack, keff, u_x, u_y, u_z)
 
     def test_chpack_minres_nomf_noprec(self):
-        keff, _ = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='minres', tol=1e-8, maxiter=10000, matrix_free=False, precondition=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='minres', tol=1e-8, maxiter=10000, matrix_free=False, precondition=False)
         np.testing.assert_array_almost_equal(keff, self.chpack_answer, decimal=6)
+        self.check_velocity_fields(self.ws_chpack, keff, u_x, u_y, u_z)
 
     def test_chpack_cg(self):
-        keff, _ = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000)
         np.testing.assert_array_almost_equal(keff, self.chpack_answer, decimal=6)
+        self.check_velocity_fields(self.ws_chpack, keff, u_x, u_y, u_z)
 
     def test_chpack_cg_nomf(self):
-        keff, _ = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, matrix_free=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, matrix_free=False)
         np.testing.assert_array_almost_equal(keff, self.chpack_answer, decimal=6)
+        self.check_velocity_fields(self.ws_chpack, keff, u_x, u_y, u_z)
 
     def test_chpack_cg_noprec(self):
-        keff, _ = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, precondition=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, precondition=False)
         np.testing.assert_array_almost_equal(keff, self.chpack_answer, decimal=6)
+        self.check_velocity_fields(self.ws_chpack, keff, u_x, u_y, u_z)
 
     def test_chpack_cg_nomf_noprec(self):
-        keff, _ = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, matrix_free=False, precondition=False)
+        keff, (u_x, u_y, u_z) = puma.compute_permeability(self.ws_chpack, (1, 1), solver_type='cg', tol=1e-7, maxiter=10000, matrix_free=False, precondition=False)
         np.testing.assert_array_almost_equal(keff, self.chpack_answer, decimal=6)
+        self.check_velocity_fields(self.ws_chpack, keff, u_x, u_y, u_z)
+
+    @staticmethod
+    def check_velocity_fields(ws, keff, u_x, u_y, u_z):
+        np.testing.assert_equal(u_x.shape[:3], ws.get_shape())
+        np.testing.assert_equal(u_y.shape[:3], ws.get_shape())
+        np.testing.assert_equal(u_z.shape[:3], ws.get_shape())
+        np.testing.assert_almost_equal(np.abs((np.sum(u_x, axis=(0, 1, 2)) * ws.voxel_length ** 2) / (ws.get_size())), np.abs(keff[:, 0]))
+        np.testing.assert_almost_equal(np.abs((np.sum(u_y, axis=(0, 1, 2)) * ws.voxel_length ** 2) / (ws.get_size())), np.abs(keff[:, 1]))
+        np.testing.assert_almost_equal(np.abs((np.sum(u_z, axis=(0, 1, 2)) * ws.voxel_length ** 2) / (ws.get_size())), np.abs(keff[:, 2]))
 
 if __name__ == '__main__':
     unittest.main()
