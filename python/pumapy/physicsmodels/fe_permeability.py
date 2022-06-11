@@ -3,7 +3,6 @@ The following FE numerical method and implementation are based on the following 
 
 Pedro C. F. Lopes, Rafael S. Vianna, Victor W. Sapucaia, Federico Semeraro, Ricardo Leiderman, Andre M. B. Pereira, 2022.
 Simulation Toolkit for Digital Material Characterization of Large Image-based Microstructures.
-(to appear)
 """
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.logger import print_warning
@@ -115,12 +114,14 @@ class Permeability(PropertySolver):
         self.mgdlF[np.arange(1, 24, 3)] = mConectP[velF, np.arange(8)[:, np.newaxis]] * 3 - 2
         self.mgdlF[np.arange(2, 24, 3)] = mConectP[velF, np.arange(8)[:, np.newaxis]] * 3 - 1
         self.mgdlF[24:] = 3 * self.nels + np.swapaxes(mConectP[velF], 1, 0) - 1
+        del mConectP, velF
 
         # creates indexing for matrix-free and M preconditioner
         self.generate_mf_inds_and_preconditioner()
         print("Done")
 
     def assemble_Amatrix(self):
+        print("Creating A matrix ... ", flush=True, end='')
         if not self.matrix_free or self.solver_type == 'direct':
             if self.solver_type == 'direct':
                 del self.el_dof_v, self.el_dof_p, self.only_fluid, self.v_fluid
@@ -140,7 +141,6 @@ class Permeability(PropertySolver):
             coeff = np.hstack((np.tile(k_f, self.nelF), np.tile(g_f, self.nelF),
                                np.tile(g_f, self.nelF), -np.tile(p_f, self.nelF)))
 
-            print("Assembling A matrix ... ", flush=True, end='')
             self.Amat = coo_matrix((coeff, (iA, jA))).tocsc()
             del coeff, iA, jA
 
@@ -161,8 +161,10 @@ class Permeability(PropertySolver):
                 np.add.at(y, el_dof_p, tmp)
                 return y
             self.Amat = LinearOperator(shape=(self.reduce.shape[0], self.reduce.shape[0]), matvec=matvec)
+        print("Done")
 
     def assemble_bvector(self, direction):
+        print("Creating b vector ... ", flush=True, end='')
         if direction == 'd':  # direct solver
             iF = np.hstack((np.reshape(self.mgdlF[1:24:3], self.nelF * 8, order='F'),
                             np.reshape(self.mgdlF[:24:3], self.nelF * 8, order='F'),
@@ -184,6 +186,7 @@ class Permeability(PropertySolver):
             shape = (4 * self.nels, 1)
 
         self.bvec = coo_matrix((sF, (iF, jF)), shape=shape).tocsc()[self.reduce]
+        print("Done")
 
     def solve(self):
         if self.solver_type != "direct":

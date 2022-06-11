@@ -2,7 +2,7 @@ from pumapy.physicsmodels.fe_permeability import Permeability
 
 
 def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, maxiter=10000, solver_type='minres',
-                         display_iter=True, matrix_free=True, precondition=False, output_fields=False):
+                         display_iter=True, matrix_free=True, precondition=False, output_fields=True):
     """ Compute the permeability using first-order Q1-Q1 Finite Element solver and periodic BC on the sides.
 
         Note: the iterative solvers have been observed to struggle converging for some cases. This is often
@@ -28,17 +28,22 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         :param precondition: solve system with Jacobi preconditioner (True) or without (False, default because
         it reduces memory, but more iterations. The default minres iterative solver does not support this kind of preconditioner)
         :type precondition: bool
-        :param output_fields: export velocity and pressure fields (True) or not (False, default)
+        :param output_fields: export velocity and pressure fields (True, default) or not (False, lower memory)
         :type output_fields: bool
-        :return: effective permeability (3x3 matrix) and, if output_fields=True, the velocity field for the corresponding direction
-        (arranged as tuple of numpy.ndarrays, i.e. (u_x, u_y, u_z). If output_fields=False, then (None, None, None) is output
+        :return: effective permeability (3x3 matrix) and, if output_fields=True, the normalized velocity field for the corresponding
+        direction (arranged as tuple of numpy.ndarrays, i.e. (u_x, u_y, u_z). If output_fields=False, then (None, None, None) is output
         :rtype: numpy.ndarray, tuple
 
         :Example:
         >>> import pumapy as puma
-        >>> ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=3, porosity=0.7, phi=90, theta=90, length=200)
-        >>> keff, (u_x, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x', output_fields=True)
-        >>> puma.render_orientation(u_x, scale_factor=5e11, solid_color=None)
+        >>> import pyvista as pv
+        >>> ws = puma.generate_random_fibers(shape=(50, 50, 50), radius=2, porosity=0.7, phi=90, theta=90, length=200)
+        >>> keff, (u_x, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x')
+        >>> p = pv.Plotter()
+        >>> puma.render_orientation(u_x, add_to_plot=p, scale_factor=2, plot_directly=False)
+        >>> ws.voxel_length = 1  # the voxel_length is converted to 1 for plotting the workspace together with the velocity
+        >>> puma.render_volume(ws, cutoff=(1, ws.max()), add_to_plot=p, plot_directly=False, cmap='jet')
+        >>> p.show()
     """
     solver = Permeability(workspace, solid_cutoff, direction, tol, maxiter, solver_type, display_iter,
                           matrix_free, precondition, output_fields)
