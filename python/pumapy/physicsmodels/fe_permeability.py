@@ -223,15 +223,15 @@ class Permeability(PropertySolver):
                 self.ux = np.zeros((self.len_x, self.len_y, self.len_z, 3))
                 self.uy = np.zeros((self.len_x, self.len_y, self.len_z, 3))
                 self.uz = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-                self.ux[:, :, :, 0] =   np.reshape(self.x_full[inds * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                self.ux[:, :, :, 1] = - np.reshape(self.x_full[inds * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                self.ux[:, :, :, 2] = - np.reshape(self.x_full[inds * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uy[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uy[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uy[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F')
-                self.uz[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F')
+                self.ux[:, :, :, 0] =   np.reshape(self.x_full[inds * 3 - 3, 1], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                self.ux[:, :, :, 1] = - np.reshape(self.x_full[inds * 3 - 2, 1], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                self.ux[:, :, :, 2] = - np.reshape(self.x_full[inds * 3 - 1, 1], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                self.uy[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 3, 0], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                self.uy[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 2, 0], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                self.uy[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 0], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 3, 2], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 2, 2], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                self.uz[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1, 2], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
                 self.ux = self.ux.swapaxes(0, 1)
                 self.uy = self.uy.swapaxes(0, 1)
                 self.uz = self.uz.swapaxes(0, 1)
@@ -253,27 +253,27 @@ class Permeability(PropertySolver):
                 if d == "x":
                     if not self.matrix_free:
                         self.ux = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-                        self.ux[:, :, :, 0] =   np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
-                        self.ux[:, :, :, 1] = - np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
-                        self.ux[:, :, :, 2] = - np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.ux[:, :, :, 0] =   np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                        self.ux[:, :, :, 1] = - np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                        self.ux[:, :, :, 2] = - np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
                     else:
                         self.ux = self.reconstruct_velocity()
                         self.ux[:, :, :, [1, 2]] = - self.ux[:, :, :, [1, 2]]
                 elif d == "y":
                     if not self.matrix_free:
                         self.uy = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-                        self.uy[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
-                        self.uy[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
-                        self.uy[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.uy[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                        self.uy[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                        self.uy[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
                     else:
                         self.uy = self.reconstruct_velocity()
                         self.uy[:, :, :, 0] = - self.uy[:, :, :, 0]
                 else:
                     if not self.matrix_free:
                         self.uz = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-                        self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
-                        self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
-                        self.uz[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+                        self.uz[:, :, :, 0] = - np.reshape(self.x_full[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                        self.uz[:, :, :, 1] =   np.reshape(self.x_full[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
+                        self.uz[:, :, :, 2] =   np.reshape(self.x_full[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F') * self.voxlength **2
                     else:
                         self.uz = self.reconstruct_velocity()
                         self.uz[:, :, :, 0] = - self.uz[:, :, :, 0]
@@ -287,7 +287,7 @@ class Permeability(PropertySolver):
         u_full = np.stack((np.reshape(u_full[1], (self.len_y, self.len_x, self.len_z), order='F'),
                            np.reshape(u_full[0], (self.len_y, self.len_x, self.len_z), order='F'),
                            np.reshape(u_full[2], (self.len_y, self.len_x, self.len_z), order='F')), axis=3)
-        return u_full
+        return u_full * self.voxlength **2
 
     def generate_mf_inds_and_preconditioner(self):
 
