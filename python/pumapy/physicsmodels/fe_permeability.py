@@ -4,10 +4,12 @@ The following FE numerical method and implementation are based on the following 
 Pedro C. F. Lopes, Rafael S. Vianna, Victor W. Sapucaia, Federico Semeraro, Ricardo Leiderman, Andre M. B. Pereira, 2022.
 Simulation Toolkit for Digital Material Characterization of Large Image-based Microstructures.
 """
+import pumapy.materialproperties.volumefraction
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.workspace import Workspace
 from pumapy.physicsmodels.linear_solvers import PropertySolver
+from pumapy.materialproperties.volumefraction import compute_volume_fraction
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags
 from scipy.sparse.linalg import LinearOperator
@@ -518,6 +520,9 @@ class Permeability(PropertySolver):
 
         if self.solver_type == 'direct':
             self.direction = 'd'
+
+        if compute_volume_fraction(self.ws, self.solid_cutoff) == 1:
+            raise Exception("Entire domain is solid - double check the provided cutoff")
 
         if not (isinstance(self.solid_cutoff, tuple) and len(self.solid_cutoff) == 2 and self.solid_cutoff[0] <= self.solid_cutoff[1]):
             raise Exception("solid_cutoff must be a tuple(int, int) indicating the solid ID range in the workspace.")
