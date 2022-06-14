@@ -521,8 +521,14 @@ class Permeability(PropertySolver):
         if self.solver_type == 'direct':
             self.direction = 'd'
 
+        if self.tolerance > 1e-8:
+            print_warning("The PuMA FE Permeability solver needs a smaller solver tolerance than many other PuMA solvers. A tolerance value of 1e-8 or lower is recommended")
+
         if compute_volume_fraction(self.ws, self.solid_cutoff) == 1:
             raise Exception("Entire domain is solid - double check the provided cutoff")
+
+        if compute_volume_fraction(self.ws, self.solid_cutoff) == 0:
+            raise Exception("Entire domain is empty - double check the provided cutoff")
 
         if not (isinstance(self.solid_cutoff, tuple) and len(self.solid_cutoff) == 2 and self.solid_cutoff[0] <= self.solid_cutoff[1]):
             raise Exception("solid_cutoff must be a tuple(int, int) indicating the solid ID range in the workspace.")
