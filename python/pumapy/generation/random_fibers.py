@@ -57,16 +57,21 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
         >>> import pumapy as puma
         >>> # specify porosity
         >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, phi=90, theta=90, length=200, allow_intersect=True, segmented=True)
-        >>> puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')
-        >>> puma.render_orientation(ws_fibers)
+        Fibers created...
+        >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
+        >>> # puma.render_orientation(ws_fibers)
+        >>>
         >>> # specify number of fibers
         >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, nfibers=100, phi=90, theta=90, length=200, allow_intersect=True, segmented=False)
-        >>> puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')
-        >>> puma.render_orientation(ws_fibers)
+        Fibers created...
+        >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
+        >>> # puma.render_orientation(ws_fibers)
+        >>>
         >>> # don't allow intersection between fibers
         >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, phi=90, theta=90, length=200, allow_intersect=False, segmented=True)
-        >>> puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')
-        >>> puma.render_orientation(ws_fibers)
+        Fibers created...
+        >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
+        >>> # puma.render_orientation(ws_fibers)
     """
 
     # error checks and warnings

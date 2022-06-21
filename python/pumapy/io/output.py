@@ -24,7 +24,9 @@ def export_vti(filename, dict_data, voxel_length=None):
         :Example:
         >>> import pumapy as puma
         >>> ws_vtk = puma.import_vti(puma.path_to_example_file("fibers_with_orientation.vti"))
+        Importing ...
         >>> puma.export_vti("fibers_with_orientation.vti", ws_vtk)
+        Exporting ...
     """
 
     # error path checks
@@ -102,7 +104,9 @@ def export_3Dtiff(filename, ws_or_nparray, to8bit=True):
         :Example:
         >>> import pumapy as puma
         >>> ws_tiff = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"), 1.3e-6, import_ws=True)
+        Importing ...
         >>> puma.export_3Dtiff("50_artfibers.tif", ws_tiff)
+        Exporting ...
     """
 
     # error checks
@@ -151,7 +155,9 @@ def export_bin(filename, ws):
         :Example:
         >>> import pumapy as puma
         >>> ws_binary = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
+        Importing ...
         >>> puma.export_bin("fibers_with_orientation.vti", ws_binary)
+        Exporting ...
     """
 
     # error checks
@@ -230,7 +236,9 @@ def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False
         :Example:
         >>> import pumapy as puma
         >>> ws_imported = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        Importing ...
         >>> puma.export_stl('200_fiberform', ws_imported, cutoff=(100, 255), flag_closed_edges=True)
+        Exporting ...
     """
 
     # error checks

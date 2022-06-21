@@ -84,15 +84,17 @@ def compute_orientation_st(ws, cutoff, sigma=1.4, rho=0.7, edt=False):
         >>> import pumapy as puma
         >>> import pyvista as pv
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
+        Importing ...
         >>> puma.compute_orientation_st(ws, cutoff=(90, 255), sigma=1.4, rho=0.7) # compute orientation
-        >>> p = pv.Plotter(shape=(1, 2))
-        >>> p.subplot(0, 0)
-        >>> p.add_text("Microstructure")
-        >>> puma.render_contour(ws, (90, 255), add_to_plot=p, plot_directly=False) # visualize the workspace
-        >>> p.subplot(0, 1)
-        >>> p.add_text("Detected fiber orientation")
-        >>> puma.render_orientation(ws, add_to_plot=p, plot_directly=False)
-        >>> p.show()
+        First gradient computation ...
+        >>> # p = pv.Plotter(shape=(1, 2))  # to visualize the orientation field
+        >>> # p.subplot(0, 0)
+        >>> # p.add_text("Microstructure")
+        >>> # puma.render_contour(ws, (90, 255), add_to_plot=p, plot_directly=False)
+        >>> # p.subplot(0, 1)
+        >>> # p.add_text("Detected fiber orientation")
+        >>> # puma.render_orientation(ws, add_to_plot=p, plot_directly=False)
+        >>> # p.show()  # to visualize it
     """
     solver = OrientationST(ws, sigma, rho, cutoff, edt)
 

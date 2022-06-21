@@ -99,9 +99,9 @@ class TestPermeability(unittest.TestCase):
         np.testing.assert_equal(u_x.shape[:3], ws.get_shape())
         np.testing.assert_equal(u_y.shape[:3], ws.get_shape())
         np.testing.assert_equal(u_z.shape[:3], ws.get_shape())
-        np.testing.assert_almost_equal(np.abs((np.sum(u_x, axis=(0, 1, 2)) * ws.voxel_length ** 2) / (ws.get_size())), np.abs(keff[:, 0]))
-        np.testing.assert_almost_equal(np.abs((np.sum(u_y, axis=(0, 1, 2)) * ws.voxel_length ** 2) / (ws.get_size())), np.abs(keff[:, 1]))
-        np.testing.assert_almost_equal(np.abs((np.sum(u_z, axis=(0, 1, 2)) * ws.voxel_length ** 2) / (ws.get_size())), np.abs(keff[:, 2]))
+        np.testing.assert_almost_equal(np.abs(np.sum(u_x, axis=(0, 1, 2)) / (ws.get_size())), np.abs(keff[:, 0]))
+        np.testing.assert_almost_equal(np.abs(np.sum(u_y, axis=(0, 1, 2)) / (ws.get_size())), np.abs(keff[:, 1]))
+        np.testing.assert_almost_equal(np.abs(np.sum(u_z, axis=(0, 1, 2)) / (ws.get_size())), np.abs(keff[:, 2]))
 
 if __name__ == '__main__':
     unittest.main()

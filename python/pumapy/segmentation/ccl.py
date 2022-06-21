@@ -23,10 +23,11 @@ def identify_porespace(workspace, solid_cutoff, connectivity=None):
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_sphere((100, 100, 100), (50, 50, 50), 40, segmented=False)
+        Generated in...
         >>> ws.binarize_range((1, 253))
-        >>> puma.render_volume(ws[:ws.matrix.shape[0] // 2], cutoff=(0, 255))
+        >>> # puma.render_volume(ws[:ws.matrix.shape[0] // 2], cutoff=(0, 255))  # to visualize workspace
         >>> pores = puma.identify_porespace(ws, (1, 1))
-        >>> puma.render_volume(pores[:pores.shape[0] // 2], cutoff=(0, pores.max()))
+        >>> # puma.render_volume(pores[:pores.shape[0] // 2], cutoff=(0, pores.max()))  # to visualize pores
     """
 
     # error check
@@ -72,11 +73,12 @@ def fill_closed_pores(workspace, solid_cutoff, fill_value, return_pores=False):
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_random_spheres((100, 100, 100), diameter=20, porosity=0.8, allow_intersect=True, segmented=False)
-        >>> puma.render_volume(ws[:ws.matrix.shape[0] // 2])
+        Approximately ... spheres to be generated...
+        >>> # puma.render_volume(ws[:ws.matrix.shape[0] // 2])  # to visualize workspace
         >>> ws.binarize_range((1, 250))
-        >>> puma.render_volume(ws[:ws.matrix.shape[0] // 2])
+        >>> # puma.render_volume(ws[:ws.matrix.shape[0] // 2])
         >>> filled_ws, pores = puma.fill_closed_pores(ws, (1, 1), fill_value=2, return_pores=True)
-        >>> puma.render_volume(pores, cutoff=(0, pores.max()), cmap='jet')
+        >>> # puma.render_volume(pores, cutoff=(0, pores.max()), cmap='jet')  # to visualize pores
     """
 
     pores = identify_porespace(workspace, solid_cutoff)
@@ -108,9 +110,11 @@ def remove_rbms(workspace, void_id, direction):
         :Example:
         >>> import pumapy as puma
         >>> workspace = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"))
-        >>> new_ws = puma.remove_rbms(workspace, void_cutoff=(0, 103), direction='y')
-        >>> puma.render_volume(workspace, (104, 255), solid_color=(1,1,1))
-        >>> puma.render_volume(new_ws, (1, new_ws.max()), solid_color=(1,1,1))
+        Importing ...
+        >>> workspace.binarize(103)
+        >>> new_ws = puma.remove_rbms(workspace, void_id=0, direction='y')
+        >>> # puma.render_volume(workspace, (1, 1), solid_color=(255, 255, 255))  # to visualize before and after
+        >>> # puma.render_volume(new_ws, (1, new_ws.max()), solid_color=(255, 255, 255))
     """
 
     solid = identify_porespace(workspace, (void_id, void_id), connectivity=1)

@@ -18,9 +18,8 @@ def compute_surface_area(workspace, cutoff, flag_gaussian=False):
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6) # import workspace
+        Importing ...
         >>> area, specific_area = puma.compute_surface_area(ws, cutoff=(90, 255)) # computing surface area
-        >>> print("Surface area: ", area)
-        >>> print("Specific surface area: ", specific_area)
     """
     check_ws_cutoff(workspace, cutoff)
 

@@ -170,7 +170,7 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
     # elif material_property == "radiation":
     #     pass
 
-    print(f"Approximate memory requirement for {material_property} simulation: {convert_bytes_size(int(round(total_bytes)))}")
+    print(f"Approximate memory requirement for simulation: {convert_bytes_size(int(round(total_bytes)))}")
     return total_bytes
 
 
@@ -185,9 +185,11 @@ def set_random_seed(seed):
         >>> import pumapy as puma
         >>> puma.set_random_seed(1)
         >>> ws = puma.generate_random_spheres((100, 100, 100), 20, 0.5, allow_intersect=True, segmented=False)
-        >>> puma.render_volume(ws)
+        Approximately ... spheres to be generated...
+        >>> # puma.render_volume(ws)  # to visualize it
         >>> puma.set_random_seed(1)  # need to call it again to get the same domain!
         >>> ws = puma.generate_random_spheres((100, 100, 100), 20, 0.5, allow_intersect=True, segmented=False)
-        >>> puma.render_volume(ws)
+        Approximately ... spheres to be generated...
+        >>> # puma.render_volume(ws)
     """
     np.random.seed(seed)

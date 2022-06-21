@@ -29,9 +29,10 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
         :rtype: ((float, float, float), float, float, numpy.ndarray)
         :Example:
         >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6) # import image
-        >>> n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0,89), 'x', side_bc='s', tolerance=1e-2, solver_type='cg')
-        >>> print('Effective tortuosity factors:', n_eff_x)
+        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        Importing ...
+        >>> n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0, 89), 'x', side_bc='s', tolerance=1e-2)
+        Approximate memory requirement for simulation...
     """
 
     cond_map = IsotropicConductivityMap()

@@ -31,16 +31,16 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         :param output_fields: export velocity and pressure fields (True, default) or not (False, lower memory)
         :type output_fields: bool
         :return: effective permeability (3x3 matrix) and, if output_fields=True, the normalized velocity field for the corresponding
-        direction (arranged as tuple of numpy.ndarrays, i.e. (u_x, u_y, u_z). If output_fields=False, then (None, None, None) is output
-        :rtype: numpy.ndarray, tuple
+        direction (arranged as tuple of numpy.ndarrays, i.e. (ux, uy, uz). If output_fields=False, then (None, None, None) is output
+        :rtype: numpy.ndarray, (numpy.ndarray, numpy.ndarray, numpy.ndarray)
 
         :Example:
         >>> import pumapy as puma
         >>> import pyvista as pv
         >>> ws = puma.generate_random_fibers(shape=(50, 50, 50), radius=2, porosity=0.7, phi=90, theta=90, length=200)
-        >>> keff, (u_x, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x')
+        >>> keff, (ux, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x')
         >>> p = pv.Plotter()
-        >>> puma.render_orientation(u_x, add_to_plot=p, scale_factor=2, plot_directly=False)
+        >>> puma.render_orientation(ux, add_to_plot=p, scale_factor=2, plot_directly=False)
         >>> ws.voxel_length = 1  # the voxel_length is converted to 1 for plotting the workspace together with the velocity
         >>> puma.render_volume(ws, cutoff=(1, ws.max()), add_to_plot=p, plot_directly=False, cmap='jet')
         >>> p.show()

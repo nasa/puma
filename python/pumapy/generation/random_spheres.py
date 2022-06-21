@@ -25,7 +25,8 @@ def generate_random_spheres(shape, diameter, porosity, allow_intersect=True, seg
         :Example:
         >>> import pumapy as puma
         >>> ws_generated = puma.generate_random_spheres(shape=(100,100,100), diameter=10, porosity=0.8, allow_intersect=True, segmented=True)
-        >>> puma.render_volume(ws_generated, cutoff=(1, ws_generated.max()), cmap='jet')
+        Approximately ... spheres to be generated...
+        >>> # puma.render_volume(ws_generated, cutoff=(1, ws_generated.max()), cmap='jet')  # to visualize it
     """
 
     generator = GeneratorSpheres(shape, diameter, porosity, allow_intersect, segmented)
