@@ -29,11 +29,7 @@ class PropertySolver:
         self.len_xyz = self.len_xy * self.len_z
 
         self.callback = None
-        if display_iter:
-            if self.solver_type == "minres":
-                self.callback = MinResSolverDisplay()
-            else:
-                self.callback = SolverDisplay()
+        self.display_iter = display_iter
 
     def solve(self):
         if self.solver_type not in self.allowed_solvers:
@@ -41,10 +37,17 @@ class PropertySolver:
             self.solver_type = self.allowed_solvers[0]
 
         print(f"Solving Ax=b using {self.solver_type} solver", end='')
+        if self.display_iter:
+            if self.solver_type == "minres":
+                self.callback = MinResSolverDisplay()
+            else:
+                self.callback = SolverDisplay()
 
         info = 0
         if (self.solver_type == 'direct') and self.solver_type in self.allowed_solvers:
             self.x = spsolve(self.Amat, self.bvec)
+            if not isinstance(self.x, np.ndarray):
+                self.x = self.x.toarray()
         else:  # in order to use UMFPACK in spsolve, bvec needs to be a sparse matrix
             if not isinstance(self.bvec, np.ndarray):
                 self.bvec = self.bvec.todense()

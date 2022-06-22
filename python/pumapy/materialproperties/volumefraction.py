@@ -2,22 +2,26 @@ import numpy as np
 from pumapy.utilities.generic_checks import check_ws_cutoff
 
 
-def compute_volume_fraction(workspace, cutoff):
+def compute_volume_fraction(workspace, cutoff, display=True):
     """ Compute the volume fraction
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
         :param cutoff: to binarize domain
         :type cutoff: (int, int)
+        :param print: display volume fraction
+        :type print: bool
         :return: volume fraction
         :rtype: float
 
         :Example:
         >>> import pumapy as puma
-        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
-        >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255)) # compute volume fraction
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        Importing ...
+        >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255))
+        Volume Fraction for cutoff (90, 255): ...
     """
-    volume_fraction = VolumeFraction(workspace, cutoff)
+    volume_fraction = VolumeFraction(workspace, cutoff, display)
 
     volume_fraction.error_check()
 
@@ -30,17 +34,19 @@ def compute_volume_fraction(workspace, cutoff):
 
 class VolumeFraction:
 
-    def __init__(self, workspace, cutoff):
+    def __init__(self, workspace, cutoff, display):
         self.workspace = workspace
         self.cutoff = cutoff
         self.vf = -1.
+        self.display = display
 
     def compute(self):
         mask = self.workspace.matrix >= self.cutoff[0]
         mask_high = self.workspace.matrix <= self.cutoff[1]
         mask = mask * mask_high
         self.vf = float(np.sum(mask)) / float(self.workspace.get_size())
-        print(f"Volume Fraction for cutoff {self.cutoff}: {self.vf}")
+        if self.display:
+            print(f"Volume Fraction for cutoff {self.cutoff}: {self.vf}")
 
     def error_check(self):
         check_ws_cutoff(self.workspace, self.cutoff)

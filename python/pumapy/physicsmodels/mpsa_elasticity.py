@@ -394,7 +394,7 @@ class Elasticity(PropertySolver):
                 self.Ceff = [self.Ceff[1], self.Ceff[2], self.Ceff[0], self.Ceff[4], self.Ceff[5], self.Ceff[3]]
 
             d = {'x': 'first', 'y': 'second', 'z': 'third'}
-            print(f'\nEffective elasticity tensor ({d[self.direction]} row): \n{self.Ceff}\n')
+            print(f'\nEffective elasticity tensor ({d[self.direction]} column): \n{self.Ceff}\n')
 
     def index_at(self, index, size):
         if self.side_bc == "p":

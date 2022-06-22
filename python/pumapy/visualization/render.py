@@ -48,6 +48,7 @@ def render_volume(workspace, cutoff=None, solid_color=None, style='surface', ori
         :Example:
         >>> import pumapy as puma
         >>> ws_volume = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        Importing ...
         >>> puma.render_volume(ws_volume)
     """
     r = Renderer(existing_plot=add_to_plot, filter_type="threshold", workspace=workspace, cutoff=cutoff,
@@ -97,6 +98,7 @@ def render_contour(workspace, cutoff, solid_color=(255, 255, 255), style='surfac
         :Example:
         >>> import pumapy as puma
         >>> ws_contour = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"))
+        Importing ...
         >>> puma.render_contour(ws_contour, (128,255))
     """
     r = Renderer(existing_plot=add_to_plot, filter_type="contour", workspace=workspace, cutoff=cutoff,
@@ -152,7 +154,9 @@ def render_orientation(workspace, scale_factor=1., solid_color=None, style='surf
         :Example:
         >>> import pumapy as puma
         >>> ws_orientation = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        Importing ...
         >>> puma.compute_orientation_st(ws_orientation, (90, 255))
+        First gradient computation ...
         >>> puma.render_orientation(ws_orientation)
     """
     r = Renderer(existing_plot=add_to_plot, filter_type="glyph", workspace=workspace, solid_color=solid_color, style=style,
@@ -214,6 +218,7 @@ def render_warp(workspace, scale_factor=1., color_by='magnitude', style='surface
         >>> bc.dirichlet[-1, :, :, 0] = 10   # displace x +ve face by 1 in x direction
         >>> bc.dirichlet[-1, :, :, 1:] = 0  # hold x +ve face in y and z directions
         >>> ws.orientation, _, _ = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='f', solver_type="direct")
+        Initializing and padding domains ...
         >>> puma.render_warp(ws, color_by='y', style='edges')
     """
     if not isinstance(workspace, Workspace):
@@ -271,6 +276,7 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
         :Example:
         >>> import pumapy as puma
         >>> ws_multiphase = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        Importing ...
         >>> puma.render_contour_multiphase(ws_multiphase, ((100, 150), (150, 255)))
     """
 

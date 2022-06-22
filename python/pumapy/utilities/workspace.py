@@ -80,7 +80,7 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws = puma.Workspace.from_shape((10, 11, 12))
-            >>> puma.render_volume(ws, style='edges')
+            >>> # puma.render_volume(ws, style='edges')  # to visualize it
         """
         return cls(shape=shape, vectors=orientation)
 
@@ -100,7 +100,7 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws = puma.Workspace.from_shape_value((20, 31, 212), 1)
-            >>> puma.render_volume(ws, style='edges')
+            >>> # puma.render_volume(ws, style='edges')  # to visualize it
         """
         return cls(shape=shape, value=value, vectors=orientation)
 
@@ -118,7 +118,7 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws = puma.Workspace.from_shape_vector((5, 6, 2), (0.4, 2, 5))
-            >>> puma.render_orientation(ws)
+            >>> # puma.render_orientation(ws)  # to visualize it
         """
         return cls(shape=shape, vectorvalue=vector, vectors=True)
 
@@ -138,7 +138,7 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws = puma.Workspace.from_shape_value_vector((5, 6, 2), 1, (0.4, 2, 5))
-            >>> puma.render_orientation(ws)
+            >>> # puma.render_orientation(ws)  # to visualize it
         """
         return cls(shape=shape, value=value, vectorvalue=vector, vectors=True)
 
@@ -155,7 +155,7 @@ class Workspace:
             >>> import pumapy as puma
             >>> array = np.random.randint(5, size=(10, 10, 10))
             >>> ws = puma.Workspace.from_array(array)
-            >>> puma.render_volume(ws, style='edges')
+            >>> # puma.render_volume(ws, style='edges')  # to visualize it
         """
         return cls(nparray=nparray, vectors=False)
 
@@ -171,7 +171,7 @@ class Workspace:
             >>> array = np.random.randint(5, size=(10, 10, 10))
             >>> ws = puma.Workspace.from_array(array)
             >>> ws.set_voxel_length(1)  # equivalent to ws.voxel_length = 1
-            >>> puma.render_volume(ws, style='edges')
+            >>> # puma.render_volume(ws, style='edges')  # to visualize it
         """
         if not isinstance(voxel_length, int) and not isinstance(voxel_length, float):
             raise Exception("Voxel_length needs to be an int or float, got " + str(type(voxel_length)))
@@ -190,7 +190,7 @@ class Workspace:
             >>> ws = puma.Workspace()
             >>> nparray = np.random.randint(5, size=(10, 10, 10))
             >>> ws.set_matrix(nparray)  # equivalent to ws.matrix = nparray.copy().astype(np.uint16)
-            >>> puma.render_volume(ws, style='edges')
+            >>> # puma.render_volume(ws, style='edges')  # to visualize it
         """
         if isinstance(nparray, np.ndarray):
             if nparray.ndim == 3:
@@ -211,7 +211,7 @@ class Workspace:
             >>> import pumapy as puma
             >>> ws = puma.Workspace()
             >>> ws.set_orientation(np.random.rand(10, 10, 10, 3))
-            >>> puma.render_orientation(ws, solid_color=None)
+            >>> # puma.render_orientation(ws, solid_color=None)  # to visualize it
         """
         if isinstance(nparray, np.ndarray):
             if nparray.ndim == 4 and nparray.shape[3] == 3:
@@ -335,7 +335,7 @@ class Workspace:
             >>> import pumapy as puma
             >>> ws = puma.Workspace()
             >>> ws.resize_new_matrix((10, 10, 10), value=3)
-            >>> puma.render_volume(ws, style='edges')
+            >>> # puma.render_volume(ws, style='edges')  # to visualize it
         """
         if isinstance(shape, tuple) and len(shape) == 3:
             if value is None:
@@ -357,7 +357,7 @@ class Workspace:
             >>> import pumapy as puma
             >>> ws = puma.Workspace()
             >>> ws.resize_new_orientation((10, 10, 10), orientation_value=(1., 0., 0.))
-            >>> puma.render_orientation(ws)
+            >>> # puma.render_orientation(ws)  # to visualize it
         """
         if isinstance(shape, tuple) and len(shape) == 3:
             if orientation_value is None:
@@ -379,7 +379,6 @@ class Workspace:
             >>> import pumapy as puma
             >>> ws = puma.Workspace.from_shape((10, 10, 10))
             >>> ws.create_orientation()
-            >>> print(ws.orientation.shape)
         """
         self.orientation = np.zeros(list(self.matrix.shape) + [3], dtype=float)
 
@@ -401,9 +400,10 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            Importing ...
             >>> ws2 = ws_fiberform.copy()
             >>> ws2.resize((100, 200, 200), segmented=False)
-            >>> puma.compare_slices(ws_fiberform, ws2)
+            >>> # puma.compare_slices(ws_fiberform, ws2)  # to visualize it
         """
         if isinstance(shape, tuple) and len(shape) == 3:
             if self.orientation.shape[:3] == self.matrix.shape:
@@ -436,9 +436,11 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            Importing ...
             >>> ws2 = ws_fiberform.copy()
             >>> ws2.rescale(0.5, segmented=False)
-            >>> puma.compare_slices(ws_fiberform, ws2)  # pay attention to the shape
+            Rescaled workspace size: (100, 100, 100)
+            >>> # puma.compare_slices(ws_fiberform, ws2)    # to visualize it, pay attention to the shape
         """
 
         unit_dim_check = None
@@ -479,9 +481,7 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws = puma.Workspace.from_shape_value((10, 10, 10), 5)
-            >>> print(ws.unique_values())
             >>> ws.set(matrix_value=4)
-            >>> print(ws.unique_values())
         """
         check = True
         if matrix_value is not None:
@@ -516,7 +516,7 @@ class Workspace:
             >>> ws = puma.Workspace.from_shape_value_vector((10, 10, 10), 1, (0.4, 2, 5))
             >>> mask = np.random.randint(255, size=(10, 10, 10)) > 100
             >>> ws.apply_mask(mask, apply_to_orientation=True)
-            >>> puma.render_volume(ws, style='edges')
+            >>> # puma.render_volume(ws, style='edges')  # to visualize it
         """
         if isinstance(mask, np.ndarray) and mask.dtype == 'bool':
             if mask.shape == self.matrix.shape:
@@ -540,10 +540,11 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            Importing ...
             >>> ws2 = ws_fiberform.copy()
             >>> ws2.set_material_id((0, 100), 0)    # NB the order of these operations is important!
             >>> ws2.set_material_id((100, 255), 1)  # this is why binarize and binarize_range should be preferred
-            >>> puma.compare_slices(ws_fiberform, ws2)
+            >>> # puma.compare_slices(ws_fiberform, ws2)  # to visualize it
         """
         if value < 0:
             raise Exception("Value ID can only be positive. Leaving matrix unchanged.")
@@ -566,9 +567,10 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            Importing ...
             >>> ws2 = ws_fiberform.copy()
             >>> ws2.binarize(100)
-            >>> puma.compare_slices(ws_fiberform, ws2)
+            >>> # puma.compare_slices(ws_fiberform, ws2)  # to visualize it
         """
         self.matrix = np.where(self.matrix < threshold, np.uint16(0), np.uint16(1))
 
@@ -586,9 +588,10 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            Importing ...
             >>> ws2 = ws_fiberform.copy()
             >>> ws2.binarize_range((100, 255))
-            >>> puma.compare_slices(ws_fiberform, ws2)
+            >>> # puma.compare_slices(ws_fiberform, ws2)  # to visualize it
         """
         self.matrix = np.where(np.logical_and(self.matrix >= ones_cutoff[0], self.matrix <= ones_cutoff[1]), np.uint16(1), np.uint16(0))
 
@@ -616,15 +619,16 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+            Importing ...
             >>> ws_copy = ws_fiberform.copy()
             >>> ws_copy.rotate(45, 'z', reshape=False, boundary_mode='reflect')
-            >>> puma.compare_slices(ws_fiberform, ws_copy)
+            >>> # puma.compare_slices(ws_fiberform, ws_copy)  # to visualize it
             >>> ws_copy = ws_fiberform.copy()
             >>> ws_copy.rotate(45, 'z', reshape=True, boundary_mode='constant')
-            >>> puma.compare_slices(ws_fiberform, ws_copy)
+            >>> # puma.compare_slices(ws_fiberform, ws_copy)  # to visualize it
             >>> ws_copy = ws_fiberform.copy()
             >>> ws_copy.rotate(45, 'z', reshape=True, boundary_mode='reflect')
-            >>> puma.compare_slices(ws_fiberform, ws_copy)
+            >>> # puma.compare_slices(ws_fiberform, ws_copy)  # to visualize it
         """
         if around_axis == 'x':
             axes = (1, 2)
@@ -668,7 +672,9 @@ class Workspace:
             :Example:
             >>> import pumapy as puma
             >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
-            >>> ws.porosity(cutoff=(0, 89)))
+            Importing ...
+            >>> ws.porosity(cutoff=(0, 89))
+            Volume Fraction for cutoff (0, 89): ...
         """
         return pumapy.compute_volume_fraction(self, cutoff)
 

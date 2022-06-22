@@ -40,7 +40,7 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', prescribed_
         >>> elast_map.add_isotropic_material((1, 1), 200, 0.3)
         >>> elast_map.add_isotropic_material((2, 2), 400, 0.1)
         >>> C, u, s, t = puma.compute_elasticity(ws, elast_map, direction='x', side_bc='f', solver_type="direct")
-        >>> print(C)
+        Initializing and padding domains ...
     """
     if isinstance(elast_map, ElasticityMap):
         solver = Elasticity(workspace, elast_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
@@ -94,7 +94,8 @@ def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', to
         >>> bc.dirichlet[-1, :, :, 0] = 1   # displace x +ve face by 1 in x direction
         >>> bc.dirichlet[-1, :, :, 1:] = 0  # hold x +ve face in y and z directions
         >>> u, s, t = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='f', solver_type="direct")
-        >>> puma.render_volume(u[:, :, :, 1], cmap='jet')  # displacement magnitude in y direction
+        Initializing and padding domains ...
+        >>> # puma.render_volume(u[:, :, :, 1], cmap='jet')  # visualize displacement magnitude in y direction
     """
     if isinstance(elast_map, ElasticityMap):
         solver = Elasticity(workspace, elast_map, None, side_bc, prescribed_bc, tolerance, maxiter,

@@ -18,13 +18,13 @@ def export_vti(filename, dict_data, voxel_length=None):
         :type dict_data: dict or Workspace or np.ndarray
         :param voxel_length: with voxel length to give to Numpy arrays (if any)
         :type voxel_length: float
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws_vtk = puma.import_vti(puma.path_to_example_file("fibers_with_orientation.vti"))
+        Importing ...
         >>> puma.export_vti("fibers_with_orientation.vti", ws_vtk)
+        Exporting ...
     """
 
     # error path checks
@@ -84,10 +84,9 @@ def export_vti(filename, dict_data, voxel_length=None):
     imageToVTK(filename, spacing=[voxel_length] * 3, cellData=dict_to_export)
 
     print("Done")
-    return True
 
 
-def export_3Dtiff(filename, ws_or_nparray, to8bit=False):
+def export_3Dtiff(filename, ws_or_nparray, to8bit=True):
     """ Export either a puma.Workspace or numpy array to 3Dtiff
 
         :param filename: filepath and name
@@ -96,13 +95,13 @@ def export_3Dtiff(filename, ws_or_nparray, to8bit=False):
         :type ws_or_nparray: Workspace or ndarray
         :param to8bit: if True, it converts the image to 8bit, otherwise 16bit is exported
         :type to8bit: bool
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws_tiff = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"), 1.3e-6, import_ws=True)
+        Importing ...
         >>> puma.export_3Dtiff("50_artfibers.tif", ws_tiff)
+        Exporting ...
     """
 
     # error checks
@@ -135,7 +134,6 @@ def export_3Dtiff(filename, ws_or_nparray, to8bit=False):
     else:
         imsave(filename, data.transpose((2, 1, 0)), check_contrast=False)
     print("Done")
-    return True
 
 
 def export_bin(filename, ws):
@@ -145,13 +143,13 @@ def export_bin(filename, ws):
         :type filename: string
         :param ws: to be exported
         :type: pumapy.Workspace
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws_binary = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
+        Importing ...
         >>> puma.export_bin("fibers_with_orientation.vti", ws_binary)
+        Exporting ...
     """
 
     # error checks
@@ -171,7 +169,6 @@ def export_bin(filename, ws):
     output.close()
     print("Done")
     io_logs(ws, filename, input=False)
-    return True
 
 
 def export_sparta_implicit_surfaces(filename, ws):
@@ -181,8 +178,6 @@ def export_sparta_implicit_surfaces(filename, ws):
         :type filename: string
         :param ws: to be exported
         :type ws: pumapy.Workspace
-        :return: True if successful, False otherwise.
-        :rtype: bool
     """
 
     # error checks
@@ -208,7 +203,6 @@ def export_sparta_implicit_surfaces(filename, ws):
 
     print("Done")
     io_logs(ws, filename, input=False)
-    return True
 
 
 def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False, binary=True):
@@ -224,13 +218,13 @@ def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False
         :type flag_closed_edges: bool
         :param flag_gaussian: apply Gaussian filter before creating surface
         :type flag_gaussian: bool
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws_imported = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        Importing ...
         >>> puma.export_stl('200_fiberform', ws_imported, cutoff=(100, 255), flag_closed_edges=True)
+        Exporting ...
     """
 
     # error checks
@@ -249,4 +243,3 @@ def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False
     mesh.save(filename, binary)
     print("Done")
     io_logs(ws, filename, input=False)
-    return True

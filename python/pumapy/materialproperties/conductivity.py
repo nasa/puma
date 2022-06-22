@@ -33,22 +33,25 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :Example:
         >>> import pumapy as puma
         >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        Importing .../200_fiberform.tif ... Done
         >>> ws_fiberform.rescale(0.5, segmented=False)
-        >>>
+        Rescaled workspace size: (100, 100, 100)
         >>> # Conductivity with Isotropic local phases
         >>> cond_map = puma.IsotropicConductivityMap()
         >>> cond_map.add_material((0, 89), 0.0257)
         >>> cond_map.add_material((90, 255), 12)
         >>> k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 's')
-        >>>
+        Approximate memory requirement for simulation...
         >>> # Conductivity with Anisotropic local phases
         >>> puma.compute_orientation_st(ws_fiberform, cutoff=(90, 255))
+        First gradient computation...
         >>> cond_map = puma.AnisotropicConductivityMap()
         >>> # conductivity of the void phase to be 0.0257 (air at STP)
         >>> cond_map.add_isotropic_material((0, 89), 0.0257)
         >>> # axial fiber conductivity of 12, radial fiber conductivity of 0.7
         >>> cond_map.add_material_to_orient((90, 255), 12., 0.7)
         >>> k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 's')
+        Approximate memory requirement for simulation...
     """
     if isinstance(cond_map, IsotropicConductivityMap):
         solver = IsotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
@@ -71,37 +74,39 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
                                     maxiter=10000, solver_type='bicgstab', display_iter=True, print_matrices=(0, 0, 0, 0, 0)):
     """ Compute the electrical conductivity
 
-    :param workspace: domain
-    :type workspace: pumapy.Workspace
-    :param cond_map: local constituents electrical conductivities
-    :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
-    :param direction: direction for solve ('x','y', or 'z')
-    :type direction: string
-    :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p') or dirichlet ('d')
-    :type side_bc: string
-    :param prescribed_bc: 3D array holding dirichlet BC
-    :type prescribed_bc: pumapy.ConductivityBC or None
-    :param tolerance: tolerance for iterative solver
-    :type tolerance: float
-    :param maxiter: maximum Iterations for solver
-    :type maxiter: int
-    :param solver_type: solver type, options: 'bicgstab' (default), 'cg', 'gmres', 'direct'
-    :type solver_type: string
-    :param display_iter: display iterations and residual
-    :type display_iter: bool
-    :param print_matrices: corresponding to E, A, b, T, q decimal places. If 0, they are not printed
-    :type print_matrices: (bool, bool, bool, bool, bool)
-    :return: electrical conductivity, potential field, flux
-    :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
+        :param workspace: domain
+        :type workspace: pumapy.Workspace
+        :param cond_map: local constituents electrical conductivities
+        :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
+        :param direction: direction for solve ('x','y', or 'z')
+        :type direction: string
+        :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p') or dirichlet ('d')
+        :type side_bc: string
+        :param prescribed_bc: 3D array holding dirichlet BC
+        :type prescribed_bc: pumapy.ConductivityBC or None
+        :param tolerance: tolerance for iterative solver
+        :type tolerance: float
+        :param maxiter: maximum Iterations for solver
+        :type maxiter: int
+        :param solver_type: solver type, options: 'bicgstab' (default), 'cg', 'gmres', 'direct'
+        :type solver_type: string
+        :param display_iter: display iterations and residual
+        :type display_iter: bool
+        :param print_matrices: corresponding to E, A, b, T, q decimal places. If 0, they are not printed
+        :type print_matrices: (bool, bool, bool, bool, bool)
+        :return: electrical conductivity, potential field, flux
+        :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
 
-    :Example:
-    >>> import pumapy as puma
-    >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-    >>> ws_fiberform.matrix = ws_fiberform.matrix[50:150, 50:150, 50:150]
-    >>> cond_map = puma.IsotropicConductivityMap()
-    >>> cond_map.add_material((0, 89), 0.0257)
-    >>> cond_map.add_material((90, 255), 12)
-    >>> k_eff_x, P_x, q_x = puma.compute_electrical_conductivity(ws_fiberform, cond_map, 'x', 's', tolerance=1e-2, solver_type='cg')
+        :Example:
+        >>> import pumapy as puma
+        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        Importing .../200_fiberform.tif ... Done
+        >>> ws_fiberform.matrix = ws_fiberform.matrix[50:150, 50:150, 50:150]
+        >>> cond_map = puma.IsotropicConductivityMap()
+        >>> cond_map.add_material((0, 89), 0.0257)
+        >>> cond_map.add_material((90, 255), 12)
+        >>> k_eff_x, P_x, q_x = puma.compute_electrical_conductivity(ws_fiberform, cond_map, 'x', 's', tolerance=1e-2, solver_type='cg')
+        Approximate memory requirement for simulation...
     """
     return compute_thermal_conductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
                                         solver_type, display_iter, print_matrices)

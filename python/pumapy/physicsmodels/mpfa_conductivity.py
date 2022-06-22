@@ -261,7 +261,7 @@ class AnisotropicConductivity(Conductivity):
             self.keff = [self.keff[2], self.keff[1], self.keff[0]]
 
         d = {'x': 'first', 'y': 'second', 'z': 'third'}
-        print(f'\nEffective conductivity tensor ({d[self.direction]} row): \n{self.keff}\n')
+        print(f'\nEffective conductivity tensor ({d[self.direction]} column): \n{self.keff}\n')
 
     def __compute_Kmat(self, i, i_cv):
         # reset layer of Cmat

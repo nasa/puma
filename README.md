@@ -181,10 +181,11 @@ Maintainer: Federico Semeraro
 [federico.semeraro@nasa.gov](mailto:federico.semeraro@nasa.gov)
 
 Contributors:
-Francesco Panerai,
 John M. Thornton,
+Francesco Panerai,
 Arnaud Borner,
 Jeremie B. Meurisse,
+Sergio Fraile Izquierdo,
 Nagi N. Mansour
 
 ## Legal / License

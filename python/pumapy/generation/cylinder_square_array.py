@@ -21,7 +21,8 @@ def generate_cylinder_square_array(size, porosity, segmented=True):
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_cylinder_square_array(100, 0.8, segmented=True)
-        >>> puma.render_volume(ws)
+        Generated in: ...
+        >>> # puma.render_volume(ws)  # to visualize it
     """
     generator = GeneratorSquareArray(size, porosity)
 

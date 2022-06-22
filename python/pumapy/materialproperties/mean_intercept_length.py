@@ -16,8 +16,8 @@ def compute_mean_intercept_length(workspace, void_cutoff):
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        Importing ...
         >>> mil = puma.compute_mean_intercept_length(ws, (0, 89))
-        >>> print(mil)
     """
 
     check_ws_cutoff(workspace, void_cutoff)

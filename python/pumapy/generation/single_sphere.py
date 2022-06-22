@@ -22,7 +22,8 @@ def generate_sphere(shape, center, diameter, segmented=True):
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_sphere((100, 100, 100), (50, 50, 50), 80)
-        >>> puma.render_volume(ws.matrix[:ws.matrix.shape[0]//2])
+        Generated in...
+        >>> # puma.render_volume(ws.matrix[:ws.matrix.shape[0]//2])  # to visualize it
     """
 
     generator = GeneratorSphere(shape, center, diameter)

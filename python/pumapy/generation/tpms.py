@@ -27,11 +27,14 @@ def generate_tpms(shape, w, q, equation=0, segmented=True):
         >>> w = 0.08  # value of w in the equations above
         >>> q = 0.2  # value of q in the equations above
         >>> ws_eq0 = puma.generate_tpms(shape, w, q, equation=0, segmented=False)
+        Generating TPMS ...
         >>> ws_eq1 = puma.generate_tpms(shape, w, q, equation=1, segmented=False)
+        Generating TPMS ...
         >>> ws_eq2 = puma.generate_tpms(shape, w, q, equation=2, segmented=False)
-        >>> puma.render_contour(ws_eq0, cutoff=(128, 255)) #visualize the workspace
-        >>> puma.render_contour(ws_eq1, cutoff=(128, 255))
-        >>> puma.render_contour(ws_eq2, cutoff=(128, 255))
+        Generating TPMS ...
+        >>> # puma.render_contour(ws_eq0, cutoff=(128, 255))  # to visualize them
+        >>> # puma.render_contour(ws_eq1, cutoff=(128, 255))
+        >>> # puma.render_contour(ws_eq2, cutoff=(128, 255))
     """
 
     if isinstance(w, tuple):
