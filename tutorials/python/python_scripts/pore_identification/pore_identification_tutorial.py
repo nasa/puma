@@ -19,8 +19,7 @@ ws = puma.generate_random_spheres((200, 200, 200), diameter=20, porosity=0.5, al
 # void is 0, solid is 255, but the material does not jump from 0-255, it gradually does so
 # we therefore use this gradient to select the shell of each sphere
 ws.binarize_range((1, 254))
-puma.render_contour(ws, cutoff=(1, 1), notebook=False)
-
+puma.render_volume(ws, cutoff=(1, 1), solid_color=(255,255,255), notebook=True)
 
 # Now we can run the pore filling algorithm, which runs a connected component analysis. The fill_closed_pores function
 # needs to be given the solid range (in this case only 1 since we have already binarized the workspace) and the ID

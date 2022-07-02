@@ -28,7 +28,7 @@ Z = 10
 ws = puma.Workspace.from_shape_value((X, Y, Z), 1)
 ws.voxel_length = 1
 
-puma.render_volume(ws, cutoff=(0, 255), solid_color=(1,1,1), style='edges', notebook=False)
+puma.render_volume(ws, cutoff=(0, 255), solid_color=(255,255,255), style='edges', notebook=False)
 
 # We then run set its elasticity as:
 elast_map = puma.ElasticityMap()
@@ -36,6 +36,7 @@ elast_map.add_isotropic_material((1, 1), 200, 0.3)
 
 # Since we want to set a specific displacement, we need to have more control on the type of boundary conditions we set.
 # This can be done by creating an ElasticityBC object as:
+
 bc = puma.ElasticityBC(ws)
 bc.dirichlet[:, 0] = 0  # dirichlet displacement to zero on the y -ve face (i.e. hold in place)
 bc.dirichlet[:, -1, :, :2] = 0  # dirichlet y and z displacements on y +ve face (i.e. free slip in x)

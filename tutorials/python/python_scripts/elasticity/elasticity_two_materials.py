@@ -27,7 +27,8 @@ ws = puma.Workspace.from_shape_value((X, Y, Z), 1)
 ws[int(X / 2):] = 2
 # ws.show_matrix()
 
-puma.render_volume(ws, notebook=False, style='edges', cmap='jet')
+puma.render_volume(ws, solid_color=(255,255,255), notebook=False, style='edges', cmap='jet')
+
 
 
 # We can now assign the elasticity of the two materials and compute the resulting overall elasticity of the
@@ -42,7 +43,6 @@ elast_map.add_isotropic_material((2, 2), 400, 0.1)
 #  specified by holding the last slice of voxels in place with dirichlet boundary conditions. The side boundary
 #  conditions can be set as either 'p'eriodic, 's'ymmetric or 'f'ree. In this case we set them as free with 'f'.
 C, u, s, t = puma.compute_elasticity(ws, elast_map, direction='x', side_bc='f', solver_type="direct")
-print(C)
 
 # Now we can visualize the displacement and stress fields as:
 results = puma.Workspace()
@@ -75,6 +75,7 @@ p.add_text("Colored by tau_yz")
 results.matrix = t[:, :Y//2, :, 2]
 puma.render_warp(results, color_by='matrix', scale_factor=scale_factor, style='edges', notebook=False, add_to_plot=p, plot_directly=False)
 p.show()
+
 
 
 # Finally, we can export all of this data (domain, displacement, direct stress, shear stress) in a single .vti file as:

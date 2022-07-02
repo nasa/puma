@@ -220,9 +220,9 @@ n_eff_y, Deff_y, poro, C_y = puma.compute_continuum_tortuosity(ws_cropped, (0,0)
 n_eff_z, Deff_z, poro, C_z = puma.compute_continuum_tortuosity(ws_cropped, (0,0), 'z', side_bc='s', tolerance=1e-3, solver_type='cg')
 
 print("Effective tortuosity factors:")
-print(n_eff_x)
-print(n_eff_y)
-print(n_eff_z)
+print("[", n_eff_x[0], n_eff_y[0], n_eff_z[0], "]")
+print("[", n_eff_x[1], n_eff_y[1], n_eff_z[1], "]")
+print("[", n_eff_x[2], n_eff_y[2], n_eff_z[2], "]")
 
 print("Porosity of the material:", poro)
 
@@ -262,9 +262,9 @@ k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_cropped,cond_map, 'y', 
 k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_cropped,cond_map, 'z', 's', tolerance=1e-3, solver_type='bicgstab')
 
 print("Effective thermal conductivity tensor:")
-print(k_eff_x)
-print(k_eff_y)
-print(k_eff_z)
+print("[", k_eff_x[0], k_eff_y[0], k_eff_z[0], "]")
+print("[", k_eff_x[1], k_eff_y[1], k_eff_z[1], "]")
+print("[", k_eff_x[2], k_eff_y[2], k_eff_z[2], "]")
 
 # Visualizing the temperature field for the simulation along the y-axis: 
 puma.render_volume(T_y, solid_color=None, notebook=False, cmap='jet')

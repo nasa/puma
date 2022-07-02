@@ -68,7 +68,7 @@ p.add_text("Surface")
 puma.render_contour(ws_generated, cutoff=(1, 1), notebook=False, add_to_plot=p, plot_directly=False)
 p.subplot(0, 1)
 p.add_text("Voxels")
-puma.render_volume(ws_generated, cutoff=(1, 1), notebook=False, add_to_plot=p, plot_directly=False)
+puma.render_volume(ws_generated, cutoff=(1, 1), notebook=False, solid_color=(255, 255, 255), add_to_plot=p, plot_directly=False)
 p.show()
 
 p = pv.Plotter(shape=(1, 2), notebook=False)
@@ -77,7 +77,7 @@ p.add_text("Surface")
 puma.render_contour(ws_imported, cutoff=(1, 1), notebook=False, add_to_plot=p, plot_directly=False)
 p.subplot(0, 1)
 p.add_text("Voxels")
-puma.render_volume(ws_imported, cutoff=(1, 1), notebook=False, add_to_plot=p, plot_directly=False)
+puma.render_volume(ws_imported, cutoff=(1, 1), notebook=False, solid_color=(255, 255, 255), add_to_plot=p, plot_directly=False)
 p.show()
 
 # Note that the contour renders for the segmented images are significantly less smooth than for the non-segmented

@@ -50,7 +50,7 @@ u, s, t = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='f', solver_ty
 results = puma.Workspace()
 u[ws.matrix == 0] = np.NAN  # set air displacement to NAN to avoid plotting it
 results.orientation = u[:, :, :Z//2]
-scale_factor = 10
+scale_factor = notebook=False
 
 p = pv.Plotter(shape=(2, 3))
 p.subplot(0, 0)
