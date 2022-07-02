@@ -4,6 +4,8 @@
 cmake-build-release
 cmake-build-debug
 logs
+out
+build
 install/bin
 install/include
 install/lib
