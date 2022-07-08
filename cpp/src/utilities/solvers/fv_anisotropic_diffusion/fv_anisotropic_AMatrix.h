@@ -13,6 +13,7 @@ class FV_anisotropic_AMatrix : public AMatrix
 public:
     FV_anisotropic_AMatrix(puma::Matrix<std::vector<double>> *E_Matrix, puma::Matrix<std::vector<double>> *flux_Matrix, std::vector<long> startend, std::string sideBC, int numThreads);
     bool A_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) override;
+    bool Minv_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r){return true;};
     bool computeQuadrantFluxes(puma::Matrix<double> *x);
 
 private:
