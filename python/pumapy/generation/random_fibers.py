@@ -74,6 +74,29 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
         >>> # puma.render_orientation(ws_fibers)
     """
 
+    print_warning("Depreciated API for fiber generation. New API has function calls for isotropic, transverse isotropic, and 1D fibers rather than specifying phi and theta. This function call will be removed in a future version")
+
+    if phi == 90 and theta == 90:
+        print_warning("based on phi and theta input, generating isotropic fibers")
+        angle_type = 0
+        variation = 0
+        direction = 'x'
+    elif phi == 90 and theta != 0:
+        print_warning("based on phi and theta input, generating transverse isotropic fibers in XY plane, with variation of " + str(theta) + "degrees")
+        angle_type = 1
+        variation = theta
+        direction = 'z'
+    elif phi == 90 and theta == 0:
+        print_warning("based on phi and theta input, generating 1d fibers in the z direction")
+        angle_type = 2
+        variation = 0
+        direction = 'z'
+    else:
+        print_warning("non-standard values of phi and theta. Defaulting to isotropic fibers. Use new fiber generation API")
+        angle_type = 0
+        variation = 0
+        direction = 'x'
+
     # error checks and warnings
     if max_iter < 3:
         raise Exception("Iterations must be >= 3")
@@ -103,11 +126,11 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
         if allow_intersect:
             img, _ = _generate_fibers(shape=shape, radius=radius, nfibers=nfibers, n_fibers_total=nfibers,
                                       fiber_count=fiber_count, ids_orient_dict=ids_orient_dict,
-                                      allow_intersect=allow_intersect, phi=phi, theta=theta, length=length)
+                                      allow_intersect=allow_intersect, angle_type=angle_type, variation=variation, direction=direction, length=length)
         else:
             _generate_fibers(shape=shape, radius=radius, nfibers=nfibers, n_fibers_total=nfibers,
                              fiber_count=fiber_count, ids_orient_dict=ids_orient_dict,
-                             allow_intersect=allow_intersect, phi=phi, theta=theta, length=length, existing_img=img)
+                             allow_intersect=allow_intersect, angle_type=angle_type, variation=variation, direction=direction, length=length, existing_img=img)
 
     else:  # porosity provided
         vol_total = float(np.prod(shape))
@@ -133,7 +156,7 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
             if allow_intersect:
                 new_fibers, mask = _generate_fibers(shape, radius, nfibers=n_fibers, n_fibers_total=int(round(n_fibers_total)),
                                                     fiber_count=fiber_count, ids_orient_dict=ids_orient_dict, allow_intersect=allow_intersect,
-                                                    phi=phi, theta=theta, length=length)
+                                                    angle_type=angle_type, variation=variation, direction=direction, length=length)
                 new_fibers = new_fibers[mask]
                 img[mask] = new_fibers
             else:
@@ -141,7 +164,7 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
                                  n_fibers_total=int(round(n_fibers_total)),
                                  fiber_count=fiber_count, ids_orient_dict=ids_orient_dict,
                                  allow_intersect=allow_intersect,
-                                 phi=phi, theta=theta, length=length, existing_img=img)
+                                 angle_type=angle_type, variation=variation, direction=direction, length=length, existing_img=img)
 
             fiber_count = np.unique(img).shape[0]
 
@@ -174,7 +197,7 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
 
 
 def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_orient_dict, allow_intersect,
-                     phi, theta, length=None, existing_img=None):
+                     angle_type, variation, direction, length=None, existing_img=None):
     """ Generates random fibers given nfibers"""
 
     # error checks
@@ -189,10 +212,12 @@ def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_or
         length = 2 * H
     R = min(int(length / 2), 2 * H)
 
-    if (phi > 90) or (phi < 0):
-        raise Exception('phi_max must be between 0 and 90')
-    if (theta > 90) or (theta < 0):
-        raise Exception('theta_max must be between 0 and 90')
+    if (angle_type < 0) or (angle_type > 2):
+        raise Exception('angle type must be 0 (isotropic) , 1 (transverse isotropic), or 2 (1D fibers)')
+    if (variation > 90) or (variation < 0):
+        raise Exception('angle variation for transverse isotropic fibers must be between 0 and 90')
+    if not ( direction == 'x' or direction == 'y' or direction == 'z'):
+        raise Exception('direction must be either x, y, or z')
 
     n = 0  # current iteration number of fibers
     L = min(H, R)
@@ -214,11 +239,49 @@ def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_or
 
         x = np.random.rand(3) * (shape + 2 * L)
 
-        phi_rand = (np.pi / 2 - np.pi * np.random.rand()) * phi / 90
-        theta_rand = (np.pi / 2 - np.pi * np.random.rand()) * theta / 90
-        unit_vector = np.array([np.cos(phi_rand) * np.cos(theta_rand),
-                                np.cos(phi_rand) * np.sin(theta_rand),
-                                np.sin(phi_rand)])
+        # phi_rand = (np.pi / 2 - np.pi * np.random.rand()) * phi / 90
+        # theta_rand = (np.pi / 2 - np.pi * np.random.rand()) * theta / 90
+        # unit_vector = np.array([np.cos(phi_rand) * np.cos(theta_rand),
+        #                         np.cos(phi_rand) * np.sin(theta_rand),
+        #                         np.sin(phi_rand)])
+
+        if angle_type == 0: # isotropic
+            theta_rand = np.random.rand() * 2 * np.pi
+            phi_rand = np.arccos(1. - 2. * np.random.rand())
+            unit_vector = np.array([np.sin(phi_rand) * np.cos(theta_rand),
+                                    np.sin(phi_rand) * np.sin(theta_rand),
+                                    np.cos(phi_rand)])
+        elif angle_type == 1: # transverse isotropic
+            theta_rand = np.random.rand() * 2 * np.pi
+            phi_rand = 0
+
+            if variation <= 0.5:
+                phi_rand = np.pi / 2.
+            else:
+                phi_rand = np.arccos(1. - 2. * np.random.rand())
+                while np.abs( np.pi / 2. - phi_rand ) > variation * np.pi / 180. :
+                    phi_rand = np.arccos(1. - 2. * np.random.rand())
+
+            temp_vector = np.array([np.sin(phi_rand) * np.cos(theta_rand),
+                                    np.sin(phi_rand) * np.sin(theta_rand),
+                                    np.cos(phi_rand)])
+
+            if direction == 'x':
+                unit_vector = np.array([temp_vector[2], temp_vector[1], temp_vector[0]])
+            elif direction == 'y':
+                unit_vector = np.array([temp_vector[0], temp_vector[2], temp_vector[1]])
+            elif direction == 'z':
+                unit_vector = np.array([temp_vector[0], temp_vector[1], temp_vector[2]])
+
+        elif angle_type == 2: # 1D
+            if direction == 'x':
+                unit_vector = np.array([1, 0, 0])
+            elif direction == 'y':
+                unit_vector = np.array([0, 1, 0])
+            elif direction == 'z':
+                unit_vector = np.array([0, 0, 1])
+
+
         x0 = R * unit_vector
         [x0, x1] = [x + x0, x - x0]
 
