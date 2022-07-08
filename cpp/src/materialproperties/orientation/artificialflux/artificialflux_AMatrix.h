@@ -17,6 +17,7 @@ class ArtificialFlux_AMatrix : public AMatrix
 public:
     ArtificialFlux_AMatrix(puma::MatVec3<double> *q, puma::Matrix<double> *kMat, std::vector<FV_BoundaryCondition*> *bcs, int numThreads);
     bool A_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) override;
+    bool Minv_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r){return true;};
     puma::Vec3<double> computeFluxes(puma::Matrix<double> *x, puma::MatVec3<double> *q, char dir );
 
 private:

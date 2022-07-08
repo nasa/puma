@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "openmp-use-default-none"
 #include "fv_AMatrix.h"
 
 
@@ -16,6 +18,7 @@ bool FV_AMatrix::setup_KMinMax() {
     kX.resize( X+1, Y,   Z   );
     kY.resize( X,   Y+1, Z   );
     kZ.resize( X,   Y,   Z+1 );
+    Minv.resize(X,   Y,   Z);
 
     setup_KMM_Interior();
     setup_KMM_Boundaries();
@@ -36,7 +39,22 @@ bool FV_AMatrix::setup_KMinMax() {
         }
     }
 
+    setup_Minv();
+
     return true;
+}
+
+bool FV_AMatrix::setup_Minv(){
+    omp_set_num_threads(numThreads);
+#pragma omp parallel for
+    for(long i=0;i<X;i++){
+        for(long j=0;j<Y;j++){
+            for(long k=0;k<Z;k++){
+                Minv(i,j,k) =  1 / ( - kX(i+1,j,k) - kX(i,j,k) - kY(i,j+1,k) - kY(i,j,k) - kZ(i,j,k+1) - kZ(i,j,k) );
+                if(isinf(Minv(i,j,k))) Minv(i,j,k) = 0;
+            }
+        }
+    }
 }
 
 bool FV_AMatrix::A_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) {
@@ -47,6 +65,15 @@ bool FV_AMatrix::A_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) {
     return true;
 }
 
+bool FV_AMatrix::Minv_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r){
+    omp_set_num_threads(numThreads);
+#pragma omp parallel for
+    for(long i=0;i<r->size();i++) {
+        r->at(i) = Minv.at(i) * x->at(i);
+    }
+
+    return true;
+}
 
 bool FV_AMatrix::setup_KMM_Interior() {
     //setting up kX interior
@@ -87,6 +114,7 @@ bool FV_AMatrix::setup_KMM_Interior() {
 
     return true;
 }
+
 
 bool FV_AMatrix::setup_KMM_Boundaries() {
 
@@ -412,3 +440,5 @@ puma::Vec3<double> FV_AMatrix::computeFluxes(puma::Matrix<double> *x, char dir )
 
 
 
+
+#pragma clang diagnostic pop

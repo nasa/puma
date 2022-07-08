@@ -241,7 +241,7 @@ bool FV_Diffusion::runIterativeSolver(FV_AMatrix *A) {
              solverType.compare("conjugate_gradient") == 0 || solverType.compare("Conjugate_Gradient") == 0 ||
              solverType.compare("Conjugate_gradient") == 0 || solverType.compare("conjugate_Gradient") == 0 ||
              solverType.compare("cg") == 0) {
-        IterativeSolver::ConjugateGradient(A,T,&b,solverTol,solverMaxIt,print,printer, numThreads);
+        IterativeSolver::ConjugateGradient_Jacobian(A,T,&b,solverTol,solverMaxIt,print,printer, numThreads);
     }
 
     return true;

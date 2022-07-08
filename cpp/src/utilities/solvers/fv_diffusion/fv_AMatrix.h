@@ -17,6 +17,7 @@ class FV_AMatrix : public AMatrix
 public:
     FV_AMatrix(puma::Matrix<double> *kMat, std::vector<FV_BoundaryCondition*> *bcs, int numThreads);
     bool A_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) override;
+    bool Minv_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) override;
     puma::Vec3<double> computeFluxes(puma::Matrix<double> *x, char dir );
 
 private:
@@ -25,12 +26,14 @@ private:
     puma::Matrix<double> kX;
     puma::Matrix<double> kY;
     puma::Matrix<double> kZ;
+    puma::Matrix<double> Minv;
     int numThreads;
     int X,Y,Z;
 
     bool setup_KMinMax();
     bool setup_KMM_Interior();
     bool setup_KMM_Boundaries();
+    bool setup_Minv();
 
     void computeInteriorResidual(puma::Matrix<double> *x, puma::Matrix<double> *r);
     void computeBoundaryResidual(puma::Matrix<double> *x, puma::Matrix<double> *r);

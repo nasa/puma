@@ -16,6 +16,8 @@ public:
      * \return
      */
     virtual bool A_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) = 0;
+    virtual bool Minv_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) = 0;
+
 };
 
 #endif // AMATRIX_H
