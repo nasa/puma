@@ -14,7 +14,7 @@ import sys
 
 
 
-def generate_random_fibers_isotropic(shape, radius, nfibers=None, porosity=None, length=None, max_iter=3,
+def generate_random_fibers_isotropic(shape, radius, nfibers=None, porosity=None, length=None, max_iter=5,
                            allow_intersect=True, segmented=True):
     """ Generates random isotropic fibers from number of fibers or porosity
 
@@ -73,7 +73,7 @@ def generate_random_fibers_isotropic(shape, radius, nfibers=None, porosity=None,
     return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
                                   allow_intersect, segmented)
 
-def generate_random_fibers_transverseisotropic(shape, radius, nfibers=None, porosity=None, direction='z', variation=0, length=None, max_iter=3,
+def generate_random_fibers_transverseisotropic(shape, radius, nfibers=None, porosity=None, direction='z', variation=0, length=None, max_iter=5,
                            allow_intersect=True, segmented=True):
     """ Generates random transverse isotropic fibers from number of fibers or porosity
 
@@ -134,7 +134,7 @@ def generate_random_fibers_transverseisotropic(shape, radius, nfibers=None, poro
     return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
                                   allow_intersect, segmented)
 
-def generate_random_fibers_1D(shape, radius, nfibers=None, porosity=None, direction='z', length=None, max_iter=3,
+def generate_random_fibers_1D(shape, radius, nfibers=None, porosity=None, direction='z', length=None, max_iter=5,
                            allow_intersect=True, segmented=True):
     """ Generates random 1D fibers from number of fibers or porosity
 
@@ -194,7 +194,7 @@ def generate_random_fibers_1D(shape, radius, nfibers=None, porosity=None, direct
                                   allow_intersect, segmented)
 
 
-def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., theta=90., length=None, max_iter=3,
+def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., theta=90., length=None, max_iter=5,
                            allow_intersect=True, segmented=True):
     """ Generates random fibers from number of fibers or porosity
 
