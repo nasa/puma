@@ -70,7 +70,7 @@ def generate_random_fibers_isotropic(shape, radius, nfibers=None, porosity=None,
     variation = 0 # arbitrary
     direction = 'x' # arbitrary
 
-    generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
+    return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
                                   allow_intersect, segmented)
 
 def generate_random_fibers_transverseisotropic(shape, radius, nfibers=None, porosity=None, direction='z', variation=0, length=None, max_iter=3,
@@ -131,7 +131,7 @@ def generate_random_fibers_transverseisotropic(shape, radius, nfibers=None, poro
         >>> # puma.render_orientation(ws_fibers)
     """
     angle_type = 1 # transverse isotropic
-    generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
+    return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
                                   allow_intersect, segmented)
 
 def generate_random_fibers_1D(shape, radius, nfibers=None, porosity=None, direction='z', length=None, max_iter=3,
@@ -190,7 +190,7 @@ def generate_random_fibers_1D(shape, radius, nfibers=None, porosity=None, direct
     """
     angle_type = 2 # transverse isotropic
     variation = 0 # arbitrary
-    generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
+    return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
                                   allow_intersect, segmented)
 
 
@@ -278,7 +278,7 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
         variation = 0
         direction = 'x'
 
-    generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
+    return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
                            allow_intersect, segmented)
 
 
@@ -299,7 +299,9 @@ def generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, 
     ws.log.log_value("Domain Shape: ", shape)
     ws.log.log_value("Fiber radius: ", radius)
     ws.log.log_line(f"Porosity: {porosity}" if nfibers is None else f"Number of fibers: {nfibers}")
-    ws.log.log_line(f"Phi and theta angle variations: ({phi}, {theta})")
+    ws.log.log_line(f"Angle Type: ({angle_type})")
+    ws.log.log_line(f"Angle Variation: ({variation})")
+    ws.log.log_line(f"Direction: ({direction})")
     ws.log.log_line(f"Fiber length: {length}")
     ws.log.log_line(f"Allow intersections: {allow_intersect}")
     ws.log.write_log()
@@ -420,6 +422,7 @@ def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_or
     attempt_num = 0
 
     while n < nfibers:
+
         if attempt_num > max_attempts:
             raise Exception(f"While loop did not converge after {max_attempts} iterations.")
         else:
