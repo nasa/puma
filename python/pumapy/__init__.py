@@ -70,7 +70,8 @@ from pumapy.generation.tpms import generate_tpms
 from pumapy.generation.random_spheres import generate_random_spheres
 from pumapy.generation.single_sphere import generate_sphere
 from pumapy.generation.cylinder_square_array import generate_cylinder_square_array
-from pumapy.generation.random_fibers import generate_random_fibers
+from pumapy.generation.random_fibers import (generate_random_fibers, generate_random_fibers_isotropic,
+                                             generate_random_fibers_transverseisotropic, generate_random_fibers_1D)
 try:
     from pumapy.generation.weave_3mdcp.weave_3mdcp import generate_3mdcp
 except ImportError:  # import it only if installed
