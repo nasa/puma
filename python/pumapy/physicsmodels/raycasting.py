@@ -32,21 +32,14 @@ class RayCasting:
         # x_distance=13, y_distance=14, z_distance=15
         self.spherical_walkers = np.zeros((self.particles_number, 16))
 
-        # top and bottom particles in sphere
-        self.spherical_walkers[[0, -1], 0] = np.sin([0, np.pi]) * np.cos([0, 2. * np.pi])  # dir_x
-        self.spherical_walkers[[0, -1], 1] = np.sin([0, np.pi]) * np.sin([0, 2. * np.pi])  # dir_y
-        self.spherical_walkers[[0, -1], 2] = np.cos([0, np.pi])  # dir_z
-
-        # uniformly sampling a sphere by angles theta (arc from 0-180) and phi (circumference)
-        arc_particles = int(180 / self.degree_accuracy) - 1
-        arcs = int(360 / self.degree_accuracy)
-        theta = np.linspace(self.degree_accuracy, 180 - self.degree_accuracy, arc_particles)
-        theta = np.tile(theta, arcs)
-        phi = np.linspace(0, 360 - self.degree_accuracy, arcs)
-        phi = np.repeat(phi, arc_particles)
-        self.spherical_walkers[1:-1, 0] = np.sin(theta * (np.pi/180.)) * np.cos(phi * (np.pi/180.))  # dir_x
-        self.spherical_walkers[1:-1, 1] = np.sin(theta * (np.pi/180.)) * np.sin(phi * (np.pi/180.))  # dir_y
-        self.spherical_walkers[1:-1, 2] = np.cos(theta * (np.pi/180.))  # dir_z
+        # distribution method taken from http://extremelearning.com.au/evenly-distributing-points-on-a-sphere/
+        i = np.arange(0, self.particles_number, dtype=float) + 0.5
+        phi = np.arccos(1 - 2 * i / self.particles_number)
+        goldenRatio = (1 + 5 ** 0.5) / 2
+        theta = 2 * np.pi * i / goldenRatio
+        self.spherical_walkers[:, 0] = np.cos(theta) * np.sin(phi) # dir_x
+        self.spherical_walkers[:, 1] = np.sin(theta) * np.sin(phi)  # dir_y
+        self.spherical_walkers[:, 2] = np.cos(phi)  # dir_z
 
         # give particles IDs
         self.spherical_walkers[:, 12] = np.arange(self.particles_number)

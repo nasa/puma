@@ -36,7 +36,7 @@ def compute_radiation(workspace, solid_cutoff, sources_number, degree_accuracy, 
         >>> import pumapy as puma
         >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
         Importing ...
-        >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (104, 255), 100, 15)
+        >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (90, 255), 100, 15)
          Number of particles in Ray Tracing simulation...
     """
     solver = Radiation(workspace, solid_cutoff, sources_number, degree_accuracy, void_phase, boundary_behavior, bin_density,
