@@ -7,16 +7,15 @@ from pumapy.utilities.workspace import Workspace
 
 
 class RayCasting:
-    def __init__(self, workspace, degree_accuracy, source_locations, valid_phase, boundary_behavior=0,
+    def __init__(self, workspace, particles_number, source_locations, valid_phase, boundary_behavior=0,
                  exportparticles_filepathname=''):
         self.ws = workspace
-        self.degree_accuracy = degree_accuracy
         self.source_locations = source_locations
         self.valid_phase = valid_phase
         self.boundary_behavior = boundary_behavior  # 0=kill particles, 1=periodic BC
         self.exportparticles_filepathname = exportparticles_filepathname
 
-        self.particles_number = int((180. / self.degree_accuracy - 1) * (360. / self.degree_accuracy) + 2)
+        self.particles_number = particles_number
         print("Number of particles in Ray Tracing simulation: {}".format(self.particles_number))
 
         self.rays_distances = None
@@ -174,8 +173,8 @@ class RayCasting:
             self.Y = self.ws.matrix.shape[1]
             self.Z = self.ws.matrix.shape[2]
 
-        if 180 % self.degree_accuracy != 0:
-            raise Exception("Ray separation can only be an exact divider of 180°")
+        if self.particles_number <= 0:
+            raise Exception("Particles number must be greater than zero")
 
         if not isinstance(self.source_locations, np.ndarray) or self.source_locations.shape[1] != 3:
             raise Exception("Source locations has to be a Numpy array of shape (NumberOfSource, 3).")
