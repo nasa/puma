@@ -63,8 +63,8 @@ def import_bin(filename):
 
         :param filename: filepath and name
         :type filename: string
-        :return: True if successful, False otherwise.
-        :rtype: bool
+        :return: domain
+        :rtype: pumapy.Workspace
 
         :Example:
         >>> import pumapy as puma

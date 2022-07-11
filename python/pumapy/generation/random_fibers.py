@@ -13,9 +13,8 @@ from pumapy.filters.filters import filter_gaussian
 import sys
 
 
-
 def generate_random_fibers_isotropic(shape, radius, nfibers=None, porosity=None, length=None, max_iter=5,
-                           allow_intersect=True, segmented=True):
+                                     allow_intersect=True, segmented=True):
     """ Generates random isotropic fibers from number of fibers or porosity
 
         :param shape: the shape of the workspace to generate in (Nx, Ny, Nz) where N is the number of voxels.
@@ -71,10 +70,10 @@ def generate_random_fibers_isotropic(shape, radius, nfibers=None, porosity=None,
     direction = 'x' # arbitrary
 
     return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
-                                  allow_intersect, segmented)
+                                         allow_intersect, segmented)
 
 def generate_random_fibers_transverseisotropic(shape, radius, nfibers=None, porosity=None, direction='z', variation=0, length=None, max_iter=5,
-                           allow_intersect=True, segmented=True):
+                                               allow_intersect=True, segmented=True):
     """ Generates random transverse isotropic fibers from number of fibers or porosity
 
         :param shape: the shape of the workspace to generate in (Nx, Ny, Nz) where N is the number of voxels.
@@ -125,17 +124,17 @@ def generate_random_fibers_transverseisotropic(shape, radius, nfibers=None, poro
         >>> # puma.render_orientation(ws_fibers)
         >>>
         >>> # don't allow intersection between fibers
-        >>> ws_fibers = puma.generate_random_transverseisotropic(shape=(100, 100, 100), radius=4, porosity=0.9, direction='z', variation=30 length=200, allow_intersect=False, segmented=True)
+        >>> ws_fibers = puma.generate_random_fibers_transverseisotropic(shape=(100, 100, 100), radius=4, porosity=0.9, direction='z', variation=30, length=200, allow_intersect=False, segmented=True)
         Fibers created...
         >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
         >>> # puma.render_orientation(ws_fibers)
     """
     angle_type = 1 # transverse isotropic
     return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
-                                  allow_intersect, segmented)
+                                         allow_intersect, segmented)
 
 def generate_random_fibers_1D(shape, radius, nfibers=None, porosity=None, direction='z', length=None, max_iter=5,
-                           allow_intersect=True, segmented=True):
+                              allow_intersect=True, segmented=True):
     """ Generates random 1D fibers from number of fibers or porosity
 
         :param shape: the shape of the workspace to generate in (Nx, Ny, Nz) where N is the number of voxels.
@@ -191,7 +190,7 @@ def generate_random_fibers_1D(shape, radius, nfibers=None, porosity=None, direct
     angle_type = 2 # transverse isotropic
     variation = 0 # arbitrary
     return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
-                                  allow_intersect, segmented)
+                                         allow_intersect, segmented)
 
 
 def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., theta=90., length=None, max_iter=5,
@@ -255,7 +254,7 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
         >>> # puma.render_orientation(ws_fibers)
     """
 
-    print_warning("Depreciated API for fiber generation. New API has function calls for isotropic, transverse isotropic, and 1D fibers rather than specifying phi and theta. This function call will be removed in a future version")
+    print_warning("Deprecated API for fiber generation. New API has function calls for isotropic, transverse isotropic, and 1D fibers rather than specifying phi and theta. This function call will be removed in a future version")
 
     if phi == 90 and theta == 90:
         print_warning("based on phi and theta input, generating isotropic fibers")
@@ -279,12 +278,11 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
         direction = 'x'
 
     return generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
-                           allow_intersect, segmented)
-
+                                         allow_intersect, segmented)
 
 
 def generate_random_fibers_helper(shape, radius, nfibers, porosity, angle_type, variation, direction, length, max_iter,
-                           allow_intersect=True, segmented=True):
+                                  allow_intersect=True, segmented=True):
     # error checks and warnings
     if max_iter < 3:
         raise Exception("Iterations must be >= 3")
@@ -430,12 +428,6 @@ def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_or
 
         x = np.random.rand(3) * (shape + 2 * L)
 
-        # phi_rand = (np.pi / 2 - np.pi * np.random.rand()) * phi / 90
-        # theta_rand = (np.pi / 2 - np.pi * np.random.rand()) * theta / 90
-        # unit_vector = np.array([np.cos(phi_rand) * np.cos(theta_rand),
-        #                         np.cos(phi_rand) * np.sin(theta_rand),
-        #                         np.sin(phi_rand)])
-
         if angle_type == 0: # isotropic
             theta_rand = np.random.rand() * 2 * np.pi
             phi_rand = np.arccos(1. - 2. * np.random.rand())
@@ -444,7 +436,6 @@ def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_or
                                     np.cos(phi_rand)])
         elif angle_type == 1: # transverse isotropic
             theta_rand = np.random.rand() * 2 * np.pi
-            phi_rand = 0
 
             if variation <= 0.5:
                 phi_rand = np.pi / 2.
@@ -461,7 +452,7 @@ def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_or
                 unit_vector = np.array([temp_vector[2], temp_vector[1], temp_vector[0]])
             elif direction == 'y':
                 unit_vector = np.array([temp_vector[0], temp_vector[2], temp_vector[1]])
-            elif direction == 'z':
+            else:
                 unit_vector = np.array([temp_vector[0], temp_vector[1], temp_vector[2]])
 
         elif angle_type == 2: # 1D
@@ -469,9 +460,8 @@ def _generate_fibers(shape, radius, nfibers, n_fibers_total, fiber_count, ids_or
                 unit_vector = np.array([1, 0, 0])
             elif direction == 'y':
                 unit_vector = np.array([0, 1, 0])
-            elif direction == 'z':
+            else:
                 unit_vector = np.array([0, 0, 1])
-
 
         x0 = R * unit_vector
         [x0, x1] = [x + x0, x - x0]
