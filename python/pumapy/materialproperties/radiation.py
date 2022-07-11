@@ -6,7 +6,7 @@ from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
 
 
-def compute_radiation(workspace, solid_cutoff, sources_number, degree_accuracy, void_phase=0, boundary_behavior=1,
+def compute_radiation(workspace, solid_cutoff, sources_number, particles_number, void_phase=0, boundary_behavior=1,
                       bin_density=10000, exportparticles_filepathname='', export_pathname=None):
     """ Compute the radiative thermal conductivity through ray tracing
         (N.B. 0 material ID in workspace refers to gas phases unless otherwise specified)
@@ -17,8 +17,8 @@ def compute_radiation(workspace, solid_cutoff, sources_number, degree_accuracy, 
         :type solid_cutoff: (int, int)
         :param sources_number: number of light sources spread randomly in the void space (i.e. 0)
         :type sources_number: int
-        :param degree_accuracy: angle difference between rays emitted in degrees (has to be an exact divider of 180°)
-        :type degree_accuracy: int
+        :param particles_number: number of particles emitted at each source point
+        :type particles_number: int
         :param void_phase: ID of the void phase, defaulted as 0
         :type void_phase: int
         :param boundary_behavior: how to treat particles exiting the domain: 0=kill, 1=periodic (default)
@@ -36,10 +36,10 @@ def compute_radiation(workspace, solid_cutoff, sources_number, degree_accuracy, 
         >>> import pumapy as puma
         >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
         Importing ...
-        >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (104, 255), 100, 15)
+        >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (90, 255), 100, 500)
          Number of particles in Ray Tracing simulation...
     """
-    solver = Radiation(workspace, solid_cutoff, sources_number, degree_accuracy, void_phase, boundary_behavior, bin_density,
+    solver = Radiation(workspace, solid_cutoff, sources_number, particles_number, void_phase, boundary_behavior, bin_density,
                        exportparticles_filepathname, export_pathname)
 
     solver.error_check()
@@ -52,12 +52,12 @@ def compute_radiation(workspace, solid_cutoff, sources_number, degree_accuracy, 
 
 class Radiation:
 
-    def __init__(self, workspace, cutoff, sources_number, degree_accuracy, void_phase, boundary_behavior, bin_density,
+    def __init__(self, workspace, cutoff, sources_number, particles_number, void_phase, boundary_behavior, bin_density,
                  rayexport_filepathname, export_plot):
         self.workspace = workspace
         self.cutoff = cutoff
         self.sources_number = sources_number
-        self.degree_accuracy = degree_accuracy
+        self.particles_number = particles_number
         self.void_phase = void_phase
         self.boundary_behavior = boundary_behavior
         self.bin_density = bin_density
@@ -71,7 +71,7 @@ class Radiation:
 
     def compute(self):
 
-        simulation = RayCasting(self.workspace, self.degree_accuracy, self.generate_sources(), self.void_phase,
+        simulation = RayCasting(self.workspace, self.particles_number, self.generate_sources(), self.void_phase,
                                 self.boundary_behavior, self.rayexport_filepathname)
 
         simulation.error_check()
@@ -82,7 +82,7 @@ class Radiation:
             np.save(self.export_pathname, simulation.rays_distances)
 
         self.beta, self.beta_std = compute_extinction_coefficients(self.workspace, simulation.rays_distances,
-                                                                   self.sources_number, self.degree_accuracy,
+                                                                   self.sources_number, self.particles_number,
                                                                    self.bin_density, self.export_pathname)
         return simulation.rays_distances
 
@@ -113,7 +113,7 @@ class Radiation:
         self.workspace.log.log_section("Computing Radiation")
         self.workspace.log.log_line("Domain Size: " + str(self.workspace.get_shape()))
         self.workspace.log.log_line("Sources: " + str(self.sources_number))
-        self.workspace.log.log_line("Degree accuracy: " + str(self.degree_accuracy))
+        self.workspace.log.log_line("Number of emitted particles: " + str(self.particles_number))
         self.workspace.log.write_log()
 
     def log_output(self):
@@ -125,7 +125,7 @@ class Radiation:
         self.workspace.log.write_log()
 
 
-def compute_extinction_coefficients(ws, rays_distances, sources_number, degree_accuracy,
+def compute_extinction_coefficients(ws, rays_distances, sources_number, particles_number,
                                     bin_density=10000, export_pathname=None):
     """ Compute the extinction coefficient based on the ray casting radiation simulation
     (this is normally a step inside the compute_radiation function)
@@ -190,8 +190,8 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, degree_a
             ax[dim].set_title("beta: {:.1f} +/- {:.1f}".format(beta_out[dim], beta_std_out[dim]))
 
     if export_pathname is not None:
-        fig.suptitle("Radiation simulation with {} sources and {}° between rays"
-                     .format(sources_number, degree_accuracy))
+        fig.suptitle("Radiation simulation with {} sources and {} rays"
+                     .format(sources_number, particles_number))
         fig.savefig(export_pathname)
     print("Done")
 

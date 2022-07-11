@@ -7,16 +7,15 @@ from pumapy.utilities.workspace import Workspace
 
 
 class RayCasting:
-    def __init__(self, workspace, degree_accuracy, source_locations, valid_phase, boundary_behavior=0,
+    def __init__(self, workspace, particles_number, source_locations, valid_phase, boundary_behavior=0,
                  exportparticles_filepathname=''):
         self.ws = workspace
-        self.degree_accuracy = degree_accuracy
         self.source_locations = source_locations
         self.valid_phase = valid_phase
         self.boundary_behavior = boundary_behavior  # 0=kill particles, 1=periodic BC
         self.exportparticles_filepathname = exportparticles_filepathname
 
-        self.particles_number = int((180. / self.degree_accuracy - 1) * (360. / self.degree_accuracy) + 2)
+        self.particles_number = particles_number
         print("Number of particles in Ray Tracing simulation: {}".format(self.particles_number))
 
         self.rays_distances = None
@@ -32,21 +31,14 @@ class RayCasting:
         # x_distance=13, y_distance=14, z_distance=15
         self.spherical_walkers = np.zeros((self.particles_number, 16))
 
-        # top and bottom particles in sphere
-        self.spherical_walkers[[0, -1], 0] = np.sin([0, np.pi]) * np.cos([0, 2. * np.pi])  # dir_x
-        self.spherical_walkers[[0, -1], 1] = np.sin([0, np.pi]) * np.sin([0, 2. * np.pi])  # dir_y
-        self.spherical_walkers[[0, -1], 2] = np.cos([0, np.pi])  # dir_z
-
-        # uniformly sampling a sphere by angles theta (arc from 0-180) and phi (circumference)
-        arc_particles = int(180 / self.degree_accuracy) - 1
-        arcs = int(360 / self.degree_accuracy)
-        theta = np.linspace(self.degree_accuracy, 180 - self.degree_accuracy, arc_particles)
-        theta = np.tile(theta, arcs)
-        phi = np.linspace(0, 360 - self.degree_accuracy, arcs)
-        phi = np.repeat(phi, arc_particles)
-        self.spherical_walkers[1:-1, 0] = np.sin(theta * (np.pi/180.)) * np.cos(phi * (np.pi/180.))  # dir_x
-        self.spherical_walkers[1:-1, 1] = np.sin(theta * (np.pi/180.)) * np.sin(phi * (np.pi/180.))  # dir_y
-        self.spherical_walkers[1:-1, 2] = np.cos(theta * (np.pi/180.))  # dir_z
+        # distribution method taken from http://extremelearning.com.au/evenly-distributing-points-on-a-sphere/
+        i = np.arange(0, self.particles_number, dtype=float) + 0.5
+        phi = np.arccos(1 - 2 * i / self.particles_number)
+        goldenRatio = (1 + 5 ** 0.5) / 2
+        theta = 2 * np.pi * i / goldenRatio
+        self.spherical_walkers[:, 0] = np.cos(theta) * np.sin(phi) # dir_x
+        self.spherical_walkers[:, 1] = np.sin(theta) * np.sin(phi)  # dir_y
+        self.spherical_walkers[:, 2] = np.cos(phi)  # dir_z
 
         # give particles IDs
         self.spherical_walkers[:, 12] = np.arange(self.particles_number)
@@ -115,7 +107,7 @@ class RayCasting:
                 self.spherical_walkers[mask2, 10] = 2
 
             # check material of next voxels
-            mask2 = (~mask2) & (valid_mask)
+            mask2 = (~mask2) & valid_mask
             self.spherical_walkers[mask2, 10] = self.ws[self.spherical_walkers[mask2, 3].astype(int),
                                                         self.spherical_walkers[mask2, 4].astype(int),
                                                         self.spherical_walkers[mask2, 5].astype(int)] != self.valid_phase
@@ -141,26 +133,26 @@ class RayCasting:
 
         for i in range(3):
             # Step 1: Setting nX, nY, and nZ to be the next interfaces reached for each direction
-            n[(self.spherical_walkers[:, i] > 0) & (valid_mask), i] += 1
+            n[(self.spherical_walkers[:, i] > 0) & valid_mask, i] += 1
 
             # Step 2: Setting tX, tY, and tZ to be the time to reach the next interface in each direction
-            mask = (self.spherical_walkers[:, i] != 0) & (valid_mask)
+            mask = (self.spherical_walkers[:, i] != 0) & valid_mask
             t[mask, i] = (n[mask, i] - self.spherical_walkers[mask, 6 + i]) / self.spherical_walkers[mask, i]
 
         # Step 3: Setting the next position of the spherical_walker based on the nearest interface
-        mask = ((t[:, 0] <= t[:, 1]) & (t[:, 0] <= t[:, 2])) & (valid_mask)
+        mask = ((t[:, 0] <= t[:, 1]) & (t[:, 0] <= t[:, 2])) & valid_mask
         self.spherical_walkers[mask, 6:10] = np.column_stack((n[mask, 0],
                                                               self.spherical_walkers[mask, 7] + self.spherical_walkers[mask, 1] * t[mask, 0],
                                                               self.spherical_walkers[mask, 8] + self.spherical_walkers[mask, 2] * t[mask, 0],
                                                               np.zeros((np.sum(mask), 1))))
 
-        mask2 = ((t[:, 1] <= t[:, 2]) & (t[:, 1] <= t[:, 0])) & (valid_mask)
+        mask2 = ((t[:, 1] <= t[:, 2]) & (t[:, 1] <= t[:, 0])) & valid_mask
         self.spherical_walkers[mask2, 6:10] = np.column_stack((self.spherical_walkers[mask2, 6] + self.spherical_walkers[mask2, 0] * t[mask2, 1],
                                                                n[mask2, 1],
                                                                self.spherical_walkers[mask2, 8] + self.spherical_walkers[mask2, 2] * t[mask2, 1],
                                                                np.ones((np.sum(mask2), 1))))
 
-        mask = ((~mask) & (~mask2)) & (valid_mask)
+        mask = ((~mask) & (~mask2)) & valid_mask
         self.spherical_walkers[mask, 6:10] = np.column_stack((self.spherical_walkers[mask, 6] + self.spherical_walkers[mask, 0] * t[mask, 2],
                                                               self.spherical_walkers[mask, 7] + self.spherical_walkers[mask, 1] * t[mask, 2],
                                                               n[mask, 2],
@@ -168,9 +160,9 @@ class RayCasting:
 
         # update voxel indices
         for i in range(3):
-            mask = ((self.spherical_walkers[:, 9] == np.arange(3)[i]) & (self.spherical_walkers[:, i] > 0)) & (valid_mask)
+            mask = ((self.spherical_walkers[:, 9] == np.arange(3)[i]) & (self.spherical_walkers[:, i] > 0)) & valid_mask
             self.spherical_walkers[mask, 3 + i] += 1
-            mask = ((self.spherical_walkers[:, 9] == np.arange(3)[i]) & (self.spherical_walkers[:, i] <= 0)) & (valid_mask)
+            mask = ((self.spherical_walkers[:, 9] == np.arange(3)[i]) & (self.spherical_walkers[:, i] <= 0)) & valid_mask
             self.spherical_walkers[mask, 3 + i] -= 1
 
     def error_check(self):
@@ -181,8 +173,8 @@ class RayCasting:
             self.Y = self.ws.matrix.shape[1]
             self.Z = self.ws.matrix.shape[2]
 
-        if 180 % self.degree_accuracy != 0:
-            raise Exception("Ray separation can only be an exact divider of 180°")
+        if self.particles_number <= 0:
+            raise Exception("Particles number must be greater than zero")
 
         if not isinstance(self.source_locations, np.ndarray) or self.source_locations.shape[1] != 3:
             raise Exception("Source locations has to be a Numpy array of shape (NumberOfSource, 3).")
