@@ -16,11 +16,20 @@ sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../python'))
 sys.path.insert(0, os.path.abspath('../../cpp'))
 
+# updating tutorial list nblinks
+import glob
+filepathnames = glob.glob("../../tutorials/python/jupyter_notebooks/*.ipynb")
+os.system("mkdir -p python_tutorials")
+for filepathname in filepathnames:
+    filename = os.path.split(filepathname)[1]
+    with open(f'python_tutorials/{filename[:-5]}nblink', 'w') as f:
+        f.write('{\n"path": "../../../tutorials/python/jupyter_notebooks/' + filename + '"\n}')
+
 # compile .so for cython files
 os.system("cd ../.. && python setup.py build_ext --inplace")
 
 # run api-doc in terminal
-os.system("sphinx-apidoc -fMT ../../python/pumapy -o files --templatedir=template")
+os.system("sphinx-apidoc -fMT ../../python/pumapy -o python_api --templatedir=template")
 
 
 # -- Project information -----------------------------------------------------
@@ -78,7 +87,7 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'files/pumapy.rst', '**.ipynb_checkpoints']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'python_api/pumapy.rst', '**.ipynb_checkpoints']
 
 from unittest import mock
 MOCK_MODULES = ['TexGen.Core', 'dolfin', 'matplotlib', 'pyvista', 'pyevtk', 'pyevtk.hl']

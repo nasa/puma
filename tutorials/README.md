@@ -68,15 +68,19 @@ A starting code snippet already linked to PuMA can be seen in the puma/tutorials
 This includes a CMakeLists, a bash script, and a .cpp file, which are the only files needed to compile a project 
 linked to the PuMA API. 
 
-Finally, we also included a set of tutorials scripts for the C++ library, which are stored inside puma/tutorials/cpp/examples.
+Finally, we also included a set of tutorials scripts for the C++ library, which can only be run locally and 
+are stored inside puma/tutorials/cpp/examples.
 Each of the puma tutorials is run in a similar way: open a terminal, activate the puma conda environment, navigate 
 to the puma/tutorials/cpp folder, run the make_run_example.sh script. 
 As an example, the following will run the import_export tutorial: 
 
     conda activate puma
-    cd puma/tutorials/cpp
-    ./make_run_example import_export
-    
+    cd tutorials/cpp
+    ./make_run_example.sh import_export
+
+Note that the name of the file after make_run_example.sh should not include the .cpp extension and has to match one of 
+the files inside the puma/tutorials/cpp/examples folder.
+
 
 ----------------- Disclaimer: -----------------
 

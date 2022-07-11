@@ -62,5 +62,5 @@ gui/build/*
 # doc
 doc/source/cpp_api/
 doc/source/doxyoutput/
-doc/source/files/
-doc/source/tutorial/
+doc/source/python_api/
+doc/source/python_tutorials/
