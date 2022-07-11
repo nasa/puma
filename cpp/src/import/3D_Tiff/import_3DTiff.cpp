@@ -36,5 +36,7 @@ std::string puma::path_to_example_file(std::string example_filename){
     command += "\"))'";
 
     std::string out = exec(command.c_str());
+
+    out = puma::PString::trim(out);
     return out;
 }

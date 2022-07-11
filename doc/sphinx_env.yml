@@ -18,5 +18,6 @@ dependencies:
   - scipy
   - scikit-image
   - numpy
+  - pandoc
   - pip:
     - exhale ==0.2.3

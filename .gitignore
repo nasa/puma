@@ -4,6 +4,8 @@
 cmake-build-release
 cmake-build-debug
 logs
+out
+build
 install/bin
 install/include
 install/lib
@@ -37,7 +39,6 @@ release/*
 # python and cython
 __pycache__
 dist
-build
 *.so
 pumapy.egg-info
 .eggs
@@ -61,5 +62,5 @@ gui/build/*
 # doc
 doc/source/cpp_api/
 doc/source/doxyoutput/
-doc/source/files/
-doc/source/tutorial/
+doc/source/python_api/
+doc/source/python_tutorials/

@@ -10,17 +10,9 @@ PuMA Documentation
 .. toctree::
    :maxdepth: 1
    :glob:
-   :caption: Tutorial:
-
-   readme_tutorial
-   puma_tutorial
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
    :caption: Python API:
 
-   files/*
+   python_api/*
 
 .. toctree::
    :maxdepth: 2
@@ -29,3 +21,11 @@ PuMA Documentation
 
    cpp_api/namespace_puma.rst
    cpp_api/namespace_IterativeSolver.rst
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+   :caption: Tutorial:
+
+   readme_tutorial
+   python_tutorials/*
