@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 project(example)
 
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+set(CMAKE_INSTALL_RPATH "${CONDA_PREFIX}/lib")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 set(CMAKE_MACOSX_RPATH TRUE)
 
@@ -15,8 +16,6 @@ elseif(UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp --std=c++0x")
 endif()
 
-set(CMAKE_INSTALL_RPATH "${CONDA_PREFIX}/lib")
-
 include_directories(${CONDA_PREFIX}/include)
 include_directories(${CONDA_PREFIX}/include/eigen3/Eigen)
 
@@ -25,6 +24,6 @@ if(APPLE)
     SET(DEP_LIBS "${DEP_LIBS} -lomp")
 endif()
 
-add_executable(filter filter.cpp)
-target_link_libraries(filter ${DEP_LIBS})
-install(TARGETS filter DESTINATION .)
+add_executable(${FILENAME} examples/${FILENAME}.cpp)
+target_link_libraries(${FILENAME} ${DEP_LIBS})
+install(TARGETS ${FILENAME} DESTINATION .)

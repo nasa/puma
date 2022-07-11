@@ -39,7 +39,6 @@ release/*
 # python and cython
 __pycache__
 dist
-build
 *.so
 pumapy.egg-info
 .eggs
