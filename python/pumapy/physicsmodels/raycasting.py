@@ -107,7 +107,7 @@ class RayCasting:
                 self.spherical_walkers[mask2, 10] = 2
 
             # check material of next voxels
-            mask2 = (~mask2) & (valid_mask)
+            mask2 = (~mask2) & valid_mask
             self.spherical_walkers[mask2, 10] = self.ws[self.spherical_walkers[mask2, 3].astype(int),
                                                         self.spherical_walkers[mask2, 4].astype(int),
                                                         self.spherical_walkers[mask2, 5].astype(int)] != self.valid_phase
@@ -133,26 +133,26 @@ class RayCasting:
 
         for i in range(3):
             # Step 1: Setting nX, nY, and nZ to be the next interfaces reached for each direction
-            n[(self.spherical_walkers[:, i] > 0) & (valid_mask), i] += 1
+            n[(self.spherical_walkers[:, i] > 0) & valid_mask, i] += 1
 
             # Step 2: Setting tX, tY, and tZ to be the time to reach the next interface in each direction
-            mask = (self.spherical_walkers[:, i] != 0) & (valid_mask)
+            mask = (self.spherical_walkers[:, i] != 0) & valid_mask
             t[mask, i] = (n[mask, i] - self.spherical_walkers[mask, 6 + i]) / self.spherical_walkers[mask, i]
 
         # Step 3: Setting the next position of the spherical_walker based on the nearest interface
-        mask = ((t[:, 0] <= t[:, 1]) & (t[:, 0] <= t[:, 2])) & (valid_mask)
+        mask = ((t[:, 0] <= t[:, 1]) & (t[:, 0] <= t[:, 2])) & valid_mask
         self.spherical_walkers[mask, 6:10] = np.column_stack((n[mask, 0],
                                                               self.spherical_walkers[mask, 7] + self.spherical_walkers[mask, 1] * t[mask, 0],
                                                               self.spherical_walkers[mask, 8] + self.spherical_walkers[mask, 2] * t[mask, 0],
                                                               np.zeros((np.sum(mask), 1))))
 
-        mask2 = ((t[:, 1] <= t[:, 2]) & (t[:, 1] <= t[:, 0])) & (valid_mask)
+        mask2 = ((t[:, 1] <= t[:, 2]) & (t[:, 1] <= t[:, 0])) & valid_mask
         self.spherical_walkers[mask2, 6:10] = np.column_stack((self.spherical_walkers[mask2, 6] + self.spherical_walkers[mask2, 0] * t[mask2, 1],
                                                                n[mask2, 1],
                                                                self.spherical_walkers[mask2, 8] + self.spherical_walkers[mask2, 2] * t[mask2, 1],
                                                                np.ones((np.sum(mask2), 1))))
 
-        mask = ((~mask) & (~mask2)) & (valid_mask)
+        mask = ((~mask) & (~mask2)) & valid_mask
         self.spherical_walkers[mask, 6:10] = np.column_stack((self.spherical_walkers[mask, 6] + self.spherical_walkers[mask, 0] * t[mask, 2],
                                                               self.spherical_walkers[mask, 7] + self.spherical_walkers[mask, 1] * t[mask, 2],
                                                               n[mask, 2],
@@ -160,9 +160,9 @@ class RayCasting:
 
         # update voxel indices
         for i in range(3):
-            mask = ((self.spherical_walkers[:, 9] == np.arange(3)[i]) & (self.spherical_walkers[:, i] > 0)) & (valid_mask)
+            mask = ((self.spherical_walkers[:, 9] == np.arange(3)[i]) & (self.spherical_walkers[:, i] > 0)) & valid_mask
             self.spherical_walkers[mask, 3 + i] += 1
-            mask = ((self.spherical_walkers[:, 9] == np.arange(3)[i]) & (self.spherical_walkers[:, i] <= 0)) & (valid_mask)
+            mask = ((self.spherical_walkers[:, 9] == np.arange(3)[i]) & (self.spherical_walkers[:, i] <= 0)) & valid_mask
             self.spherical_walkers[mask, 3 + i] -= 1
 
     def error_check(self):
