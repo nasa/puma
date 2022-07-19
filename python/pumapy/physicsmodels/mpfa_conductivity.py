@@ -35,7 +35,7 @@ class AnisotropicConductivity(Conductivity):
         self.print_matrices = print_matrices
         self.mat_cond = dict()
         self.need_to_orient = False  # changes if conductivities (k_axial, k_radial) detected
-        self.orient_pad = None
+        self.dir_vox, self.ws_pad, self.orient_pad = None, None, None
 
     def compute(self):
         t = Timer()
@@ -87,7 +87,7 @@ class AnisotropicConductivity(Conductivity):
         # Segmenting padded domain
         for i in range(self.cond_map.get_size()):
             low, high, _ = self.cond_map.get_material(i)
-            self.ws_pad[(self.ws_pad >= low) & (self.ws_pad <= high)] = i
+            self.ws_pad[(self.ws_pad >= low) & (self.ws_pad <= high)] = low
 
         # Placing True on dirichlet boundaries to skip them
         self.dir_vox = np.zeros(shape, dtype=np.uint8)
@@ -426,7 +426,7 @@ class AnisotropicConductivity(Conductivity):
         ws_tmp_tocheck = self.ws.matrix.copy()
         for i in range(self.cond_map.get_size()):
             low, high, k = self.cond_map.get_material(i)
-            self.mat_cond[i] = k
+            self.mat_cond[low] = k
 
             if len(k) == 2:
                 self.need_to_orient = True
@@ -436,7 +436,7 @@ class AnisotropicConductivity(Conductivity):
                     raise Exception("The Workspace needs an orientation in order to align the conductivities.")
 
             # segmenting tmp domain to check if all values covered by mat_cond
-            ws_tmp_tocheck[(self.ws.matrix >= low) & (self.ws.matrix <= high)] = i
+            ws_tmp_tocheck[(self.ws.matrix >= low) & (self.ws.matrix <= high)] = low
 
         unique_matrixvalues = np.unique(ws_tmp_tocheck)
         if (unique_matrixvalues.size != self.cond_map.get_size() or
