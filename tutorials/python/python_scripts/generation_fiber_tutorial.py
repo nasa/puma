@@ -37,9 +37,9 @@ ws_fibers_1D = puma.generate_random_fibers_1D(size, radius, nFibers, porosity, d
 # void space and a grayscale value of 1 is assigned to the material.
 # Next we will visualize the domain: 
 
-puma.render_volume(ws_fibers_isotropic, cutoff=(1, ws_fibers_isotropic.max()), solid_color=None, cmap='jet', notebook=True)
-puma.render_volume(ws_fibers_trans_iso, cutoff=(1, ws_fibers_trans_iso.max()), solid_color=None, cmap='jet', notebook=True)
-puma.render_volume(ws_fibers_1D, cutoff=(1, ws_fibers_1D.max()), solid_color=None, cmap='jet', notebook=True)
+puma.render_volume(ws_fibers_isotropic, cutoff=(1, ws_fibers_isotropic.max()), solid_color=None, cmap='jet', notebook=False)
+puma.render_volume(ws_fibers_trans_iso, cutoff=(1, ws_fibers_trans_iso.max()), solid_color=None, cmap='jet', notebook=False)
+puma.render_volume(ws_fibers_1D, cutoff=(1, ws_fibers_1D.max()), solid_color=None, cmap='jet', notebook=False)
 
 
 # If you would like to visualize the grayscale values of the individual slices, this can be done with the plot_slices function
