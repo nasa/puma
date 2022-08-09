@@ -19,11 +19,6 @@ if [ "$(uname)" != "Darwin" ]; then
 		echo -e "\n*** If a message 'The environment is inconsistent' is shown, let the conda solver resolve it ***\n"
 	    conda install -y conda-forge::mesa-libgl-cos6-x86_64==11.0.7
 	fi
-	FILE="$CONDA_PREFIX"/x86_64-conda-linux-gnu/sysroot/usr/lib64/libGL.so.1
-	if [ -f "$FILE" ]; then
-	    cp -r "$CONDA_PREFIX"/x86_64-conda-linux-gnu/sysroot/usr/lib64 "$CONDA_PREFIX"/x86_64-conda_cos6-linux-gnu/sysroot/usr
-	    cp "$CONDA_PREFIX"/x86_64-conda_cos6-linux-gnu/sysroot/usr/lib64/libGL.so.1 "$CONDA_PREFIX"/x86_64-conda_cos6-linux-gnu/sysroot/usr/lib64/libGL.so
-	fi
 fi
 
 cd ../gui/build
