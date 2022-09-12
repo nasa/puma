@@ -1,0 +1,18 @@
+image: python:latest
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - python -m pip install --upgrade pip
+  - python -m pip install pytest
+  - python -m  pip install -e .  # install pumapy
+  - cd python/test
+
+test:
+  script:
+    - pytest
