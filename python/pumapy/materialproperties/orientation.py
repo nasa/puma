@@ -71,9 +71,9 @@ def compute_orientation_st(ws, cutoff, sigma=1.4, rho=0.7, edt=False):
         :type ws: pumapy.Workspace
         :param cutoff: which grayscales to consider
         :type cutoff: (int, int)
-        :param sigma: kernel size parameter for Gaussian derivatives (should be smaller than rho)
+        :param sigma: kernel size parameter for Gaussian derivatives (should be lower than rho)
         :type sigma: float
-        :param rho: kernel size parameter for Gaussian filter (should be bigger than sigma)
+        :param rho: kernel size parameter for Gaussian filter of derivatives of grayscales (should be higher than sigma)
         :type rho: float
         :param edt: indicating if we need to apply Euclidean Distance Transform before computing ST
         :type edt: bool
@@ -83,9 +83,9 @@ def compute_orientation_st(ws, cutoff, sigma=1.4, rho=0.7, edt=False):
         :Example:
         >>> import pumapy as puma
         >>> import pyvista as pv
-        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)  # import example file
         Importing ...
-        >>> puma.compute_orientation_st(ws, cutoff=(90, 255), sigma=1.4, rho=0.7) # compute orientation
+        >>> puma.compute_orientation_st(ws, cutoff=(90, 255), sigma=0.7, rho=1.4)  # compute orientation
         First gradient computation ...
         >>> # p = pv.Plotter(shape=(1, 2))  # to visualize the orientation field
         >>> # p.subplot(0, 0)
