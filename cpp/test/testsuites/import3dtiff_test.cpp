@@ -141,7 +141,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -155,7 +155,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -181,7 +181,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -207,7 +207,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -233,7 +233,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -375,7 +375,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -389,7 +389,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -415,7 +415,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -441,7 +441,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 
@@ -467,7 +467,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.811828,(double)grayWS.average(), &result)) {
+        if(!assertEquals((double)68.4396,(double)grayWS.average(), &result)) {
             return result;
         }
 

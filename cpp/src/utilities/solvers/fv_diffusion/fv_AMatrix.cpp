@@ -1,6 +1,7 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "openmp-use-default-none"
 #include "fv_AMatrix.h"
+#include <math.h>
 
 
 FV_AMatrix::FV_AMatrix(puma::Matrix<double> *kMat, std::vector<FV_BoundaryCondition*> *bcs, int numThreads) {
