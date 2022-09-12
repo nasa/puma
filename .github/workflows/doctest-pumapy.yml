@@ -1,4 +1,4 @@
-name: Test pumapy
+name: Doc-Test pumapy
 
 on:
   push:
