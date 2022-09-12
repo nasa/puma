@@ -26,4 +26,4 @@ test:
     - pytest test_segmentation.py
     - pytest test_texgen_weave.py
     - pytest test_workspace.py
-    # - pytest test_visualization.py
+    # - pytest test_visualization.py  # failing due to vtk from pip
