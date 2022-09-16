@@ -6,21 +6,19 @@ from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
 
 
-def compute_radiation(workspace, solid_cutoff, sources_number, particles_number, void_phase=0, boundary_behavior=1,
+def compute_radiation(workspace, void_cutoff, sources_number, particles_number, boundary_behavior=1,
                       bin_density=10000, exportparticles_filepathname='', export_pathname=None):
     """ Compute the radiative thermal conductivity through ray tracing
         (N.B. 0 material ID in workspace refers to gas phases unless otherwise specified)
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
-        :param solid_cutoff: specify the solid phase
-        :type solid_cutoff: (int, int)
+        :param void_cutoff: specify the void phase
+        :type void_cutoff: (int, int)
         :param sources_number: number of light sources spread randomly in the void space (i.e. 0)
         :type sources_number: int
         :param particles_number: number of particles emitted at each source point
         :type particles_number: int
-        :param void_phase: ID of the void phase, defaulted as 0
-        :type void_phase: int
         :param boundary_behavior: how to treat particles exiting the domain: 0=kill, 1=periodic (default)
         :type boundary_behavior: int
         :param bin_density: number of bins used to create histogram of ray distances
@@ -39,7 +37,7 @@ def compute_radiation(workspace, solid_cutoff, sources_number, particles_number,
         >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (90, 255), 100, 500)
          Number of particles in Ray Tracing simulation...
     """
-    solver = Radiation(workspace, solid_cutoff, sources_number, particles_number, void_phase, boundary_behavior, bin_density,
+    solver = Radiation(workspace, void_cutoff, sources_number, particles_number, boundary_behavior, bin_density,
                        exportparticles_filepathname, export_pathname)
 
     solver.error_check()
@@ -52,13 +50,13 @@ def compute_radiation(workspace, solid_cutoff, sources_number, particles_number,
 
 class Radiation:
 
-    def __init__(self, workspace, cutoff, sources_number, particles_number, void_phase, boundary_behavior, bin_density,
+    def __init__(self, workspace, void_cutoff, sources_number, particles_number, boundary_behavior, bin_density,
                  rayexport_filepathname, export_plot):
         self.workspace = workspace
-        self.cutoff = cutoff
+        self.matrix = np.copy(workspace.matrix)
+        self.void_cutoff = void_cutoff
         self.sources_number = sources_number
         self.particles_number = particles_number
-        self.void_phase = void_phase
         self.boundary_behavior = boundary_behavior
         self.bin_density = bin_density
         self.rayexport_filepathname = rayexport_filepathname
@@ -71,7 +69,7 @@ class Radiation:
 
     def compute(self):
 
-        simulation = RayCasting(self.workspace, self.particles_number, self.generate_sources(), self.void_phase,
+        simulation = RayCasting(self.matrix, self.particles_number, self.generate_sources(), 0,
                                 self.boundary_behavior, self.rayexport_filepathname)
 
         simulation.error_check()
@@ -88,8 +86,8 @@ class Radiation:
 
     def generate_sources(self):
         # randomly choosing the source locations
-        void_voxels_number = np.count_nonzero(self.workspace.matrix == self.void_phase)
-        source_locations = np.array(np.where(self.workspace.matrix == self.void_phase)).transpose()
+        void_voxels_number = np.count_nonzero(self.workspace.matrix == 0)
+        source_locations = np.array(np.where(self.workspace.matrix == 0)).transpose()
         if void_voxels_number <= self.sources_number:
             print_warning("Too many sources, limiting it to the number of void voxels: {}".format(void_voxels_number))
         else:
@@ -104,10 +102,18 @@ class Radiation:
             self.X = self.workspace.matrix.shape[0]
             self.Y = self.workspace.matrix.shape[1]
             self.Z = self.workspace.matrix.shape[2]
-            self.workspace.binarize_range(self.cutoff)
 
-        if np.count_nonzero(self.workspace.matrix == self.void_phase) == 0:
-            raise Exception("No valid voxels detected (i.e. ID={}), cannot run radiation ray tracing.".format(self.void_phase))
+            self.matrix[self.matrix < self.void_cutoff[0]] = 1e4
+            self.matrix[self.matrix <= self.void_cutoff[1]] = 0
+            self.matrix[self.matrix > self.void_cutoff[1]] = 1
+
+
+        if np.count_nonzero(self.workspace.matrix == 0) == 0:
+            raise Exception("All voxels are solid, cannot run radiation ray tracing.")
+
+        if np.count_nonzero(self.workspace.matrix == 0) == 0:
+            raise Exception("All voxels are void, cannot run radiation ray tracing.")
+
 
     def log_input(self):
         self.workspace.log.log_section("Computing Radiation")
@@ -146,8 +152,6 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, particle
     :rtype: (float, float)
     """
 
-    print("Isotropic", rays_distances.shape)
-
     print("\nComputing extinction coefficients ... ", end='')
 
     # splitting use the ray distances into bins (max ray distance in RayCasting is 2x the max cube diagonal)
@@ -168,9 +172,6 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, particle
         # probability density function of a ray travelling a certain distance
         pdf, _ = np.histogram(rays_distances[:, dim], bins=bins)
         pdf = pdf.astype(float) / np.sum(pdf)
-
-        print("mean:", np.mean(rays_distances))
-        print("Shape: ", rays_distances.shape)
 
         # integrating the pdf into a cdf
         cdf = np.cumsum(pdf)
