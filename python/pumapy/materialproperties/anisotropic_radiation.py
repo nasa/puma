@@ -27,7 +27,7 @@ def compute_radiation_anisotropic(workspace, void_cutoff, sources_number, bin_de
 
         :Example:
         >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 0.65e-6)
         Importing ...
         >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (0, 89), 10000, 'z')
          Number of particles in Ray Tracing simulation...
