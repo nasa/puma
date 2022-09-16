@@ -1,32 +1,25 @@
+import pumapy
 from pumapy.physicsmodels.raycasting import RayCasting
 from scipy.optimize import curve_fit
 from matplotlib import pyplot as plt
 import numpy as np
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
+from pumapy.materialproperties.volumefraction import compute_volume_fraction
 
 
-def compute_radiation(workspace, solid_cutoff, sources_number, particles_number, void_phase=0, boundary_behavior=1,
-                      bin_density=10000, exportparticles_filepathname='', export_pathname=None):
+def compute_radiation_anisotropic(workspace, void_cutoff, sources_number, bin_density=10000, export_pathname=None):
     """ Compute the radiative thermal conductivity through ray tracing
         (N.B. 0 material ID in workspace refers to gas phases unless otherwise specified)
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
-        :param solid_cutoff: specify the solid phase
-        :type solid_cutoff: (int, int)
+        :param void_cutoff: specify the void phase
+        :type void_cutoff: (int, int)
         :param sources_number: number of light sources spread randomly in the void space (i.e. 0)
         :type sources_number: int
-        :param particles_number: number of particles emitted at each source point
-        :type particles_number: int
-        :param void_phase: ID of the void phase, defaulted as 0
-        :type void_phase: int
-        :param boundary_behavior: how to treat particles exiting the domain: 0=kill, 1=periodic (default)
-        :type boundary_behavior: int
         :param bin_density: number of bins used to create histogram of ray distances
         :type bin_density: int
-        :param exportparticles_filepathname: path and name of the particle files exported as VTK points
-        :type exportparticles_filepathname: string
         :param export_pathname: path to save curve plot of ray distance distribution
         :type export_pathname: str
         :return: extinction coefficient (beta), its standard deviation and of ray distances
@@ -36,66 +29,90 @@ def compute_radiation(workspace, solid_cutoff, sources_number, particles_number,
         >>> import pumapy as puma
         >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
         Importing ...
-        >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (90, 255), 100, 500)
+        >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (0, 89), 10000, 'z')
          Number of particles in Ray Tracing simulation...
     """
-    solver = Radiation(workspace, solid_cutoff, sources_number, particles_number, void_phase, boundary_behavior, bin_density,
-                       exportparticles_filepathname, export_pathname)
 
+    beta = np.zeros((3))
+    beta_std = np.zeros((3))
+    rays_distances = np.zeros((sources_number, 3))
+
+    solver = Anisotropic_Radiation(workspace, void_cutoff, sources_number, 'x', bin_density, export_pathname)
     solver.error_check()
-
     solver.log_input()
-    rays_distances = solver.compute()
+    rays_distances[:,0] = solver.compute()
     solver.log_output()
-    return solver.beta, solver.beta_std, rays_distances
+
+    solver = Anisotropic_Radiation(workspace, void_cutoff, sources_number, 'y', bin_density, export_pathname)
+    solver.error_check()
+    solver.log_input()
+    rays_distances[:,1] = solver.compute()
+    solver.log_output()
+
+    solver = Anisotropic_Radiation(workspace, void_cutoff, sources_number, 'z', bin_density, export_pathname)
+    solver.error_check()
+    solver.log_input()
+    rays_distances[:,2] = solver.compute()
+    solver.log_output()
+
+    beta, beta_std = compute_extinction_coefficients_anisotropic(workspace, rays_distances, sources_number, bin_density, export_pathname)
+
+    return beta, beta_std, rays_distances
 
 
-class Radiation:
+class Anisotropic_Radiation:
 
-    def __init__(self, workspace, cutoff, sources_number, particles_number, void_phase, boundary_behavior, bin_density,
-                 rayexport_filepathname, export_plot):
+    def __init__(self, workspace, void_cutoff, sources_number, direction, bin_density, export_plot):
         self.workspace = workspace
-        self.cutoff = cutoff
+        self.matrix = np.copy(self.workspace.matrix)
+        self.matrix[self.matrix < void_cutoff[0]] = 1e4
+        self.matrix[self.matrix <= void_cutoff[1]] = 0
+        self.matrix[self.matrix > void_cutoff[1]] = 1
+        self.indices_matrix = None
+        self.boundary_indices = None
+
+        self.void_cutoff = void_cutoff
         self.sources_number = sources_number
-        self.particles_number = particles_number
-        self.void_phase = void_phase
-        self.boundary_behavior = boundary_behavior
         self.bin_density = bin_density
-        self.rayexport_filepathname = rayexport_filepathname
+        self.direction = direction
         self.export_pathname = export_plot
         self.X = None
         self.Y = None
         self.Z = None
         self.beta = [None, None, None]
         self.beta_std = [None, None, None]
+        self.ray_distances = np.zeros(sources_number)
+        self.ray_indices = None
 
     def compute(self):
 
-        simulation = RayCasting(self.workspace, self.particles_number, self.generate_sources(), self.void_phase,
-                                self.boundary_behavior, self.rayexport_filepathname)
+        if self.direction == 'x':
+            self.matrix = np.swapaxes(self.matrix, 0, 2)
+        elif self.direction == 'y':
+            self.matrix = np.swapaxes(self.matrix, 1, 2)
 
-        simulation.error_check()
+        self.boundary_indices = np.array(np.where(self.matrix[:,:,0] == 0))
+        self.indices_matrix = np.array(np.where(self.matrix == 0))
 
-        simulation.generate_spherical_walkers()
-        simulation.expand_sources()
-        if self.export_pathname is not None:
-            np.save(self.export_pathname, simulation.rays_distances)
+        self.ray_indices = np.random.randint(self.indices_matrix.shape[1], size=self.sources_number)
 
-        self.beta, self.beta_std = compute_extinction_coefficients(self.workspace, simulation.rays_distances,
-                                                                   self.sources_number, self.particles_number,
-                                                                   self.bin_density, self.export_pathname)
-        return simulation.rays_distances
+        for i in range(self.sources_number):
+            start_pos = self.indices_matrix[:, self.ray_indices[i]]
+            array_1d = self.matrix[start_pos[0], start_pos[1], start_pos[2]:]
+            length = np.argmax(array_1d > 0)
 
-    def generate_sources(self):
-        # randomly choosing the source locations
-        void_voxels_number = np.count_nonzero(self.workspace.matrix == self.void_phase)
-        source_locations = np.array(np.where(self.workspace.matrix == self.void_phase)).transpose()
-        if void_voxels_number <= self.sources_number:
-            print_warning("Too many sources, limiting it to the number of void voxels: {}".format(void_voxels_number))
-        else:
-            choices = np.random.choice(source_locations.shape[0], size=self.sources_number, replace=False)
-            source_locations = source_locations[choices]
-        return source_locations
+            self.ray_distances[i] += length
+
+            while(length == 0):
+                self.ray_distances[i] += array_1d.shape[0]
+                ray_index = np.random.randint(self.boundary_indices.shape[1])
+                start_pos = self.boundary_indices[:, ray_index]
+                array_1d = self.matrix[start_pos[0], start_pos[1], :]
+                length = np.argmax(array_1d > 0)
+                self.ray_distances[i] += length
+
+        return self.ray_distances
+
 
     def error_check(self):
         if not isinstance(self.workspace, Workspace):
@@ -104,16 +121,17 @@ class Radiation:
             self.X = self.workspace.matrix.shape[0]
             self.Y = self.workspace.matrix.shape[1]
             self.Z = self.workspace.matrix.shape[2]
-            self.workspace.binarize_range(self.cutoff)
 
-        if np.count_nonzero(self.workspace.matrix == self.void_phase) == 0:
-            raise Exception("No valid voxels detected (i.e. ID={}), cannot run radiation ray tracing.".format(self.void_phase))
+        if np.count_nonzero(self.workspace.matrix == 0) == 0:
+            raise Exception("All voxels are solid, cannot run radiation ray tracing.")
+
+        if np.count_nonzero(self.workspace.matrix == 0) == 0:
+            raise Exception("All voxels are void, cannot run radiation ray tracing.")
 
     def log_input(self):
         self.workspace.log.log_section("Computing Radiation")
         self.workspace.log.log_line("Domain Size: " + str(self.workspace.get_shape()))
         self.workspace.log.log_line("Sources: " + str(self.sources_number))
-        self.workspace.log.log_line("Number of emitted particles: " + str(self.particles_number))
         self.workspace.log.write_log()
 
     def log_output(self):
@@ -125,8 +143,7 @@ class Radiation:
         self.workspace.log.write_log()
 
 
-def compute_extinction_coefficients(ws, rays_distances, sources_number, particles_number,
-                                    bin_density=10000, export_pathname=None):
+def compute_extinction_coefficients_anisotropic(ws, rays_distances, sources_number, bin_density=10000, export_pathname=None):
     """ Compute the extinction coefficient based on the ray casting radiation simulation
     (this is normally a step inside the compute_radiation function)
 
@@ -136,8 +153,6 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, particle
     :type rays_distances: np.ndarray
     :param sources_number: number of light sources spread randomly in the void space (i.e. 0)
     :type sources_number: int
-    :param degree_accuracy: angle difference between rays emitted in degrees (has to be an exact divider of 180°)
-    :type degree_accuracy: int
     :param bin_density: number of bins used to create histogram of ray distances
     :type bin_density: int
     :param export_pathname: path to save curve plot of ray distance distribution
@@ -146,7 +161,7 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, particle
     :rtype: (float, float)
     """
 
-    print("Isotropic", rays_distances.shape)
+    print("Anisotropic", rays_distances.shape)
 
     print("\nComputing extinction coefficients ... ", end='')
 
@@ -168,9 +183,6 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, particle
         # probability density function of a ray travelling a certain distance
         pdf, _ = np.histogram(rays_distances[:, dim], bins=bins)
         pdf = pdf.astype(float) / np.sum(pdf)
-
-        print("mean:", np.mean(rays_distances))
-        print("Shape: ", rays_distances.shape)
 
         # integrating the pdf into a cdf
         cdf = np.cumsum(pdf)
@@ -196,8 +208,8 @@ def compute_extinction_coefficients(ws, rays_distances, sources_number, particle
             ax[dim].set_title("beta: {:.1f} +/- {:.1f}".format(beta_out[dim], beta_std_out[dim]))
 
     if export_pathname is not None:
-        fig.suptitle("Radiation simulation with {} sources and {} rays"
-                     .format(sources_number, particles_number))
+        fig.suptitle("Radiation simulation with {} sources"
+                     .format(sources_number))
         fig.savefig(export_pathname)
     print("Done")
 

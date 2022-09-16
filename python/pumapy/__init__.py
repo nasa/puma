@@ -59,6 +59,7 @@ from pumapy.materialproperties.conductivity import compute_thermal_conductivity,
 from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
 from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis, get_E_nu_from_elasticity
 from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
+from pumapy.materialproperties.anisotropic_radiation import compute_radiation_anisotropic, compute_extinction_coefficients_anisotropic
 from pumapy.materialproperties.permeability import compute_permeability
 
 # filtering
