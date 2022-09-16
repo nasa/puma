@@ -125,7 +125,7 @@ class Anisotropic_Radiation:
         if np.count_nonzero(self.workspace.matrix == 0) == 0:
             raise Exception("All voxels are solid, cannot run radiation ray tracing.")
 
-        if np.count_nonzero(self.workspace.matrix == 0) == 0:
+        if np.count_nonzero(self.workspace.matrix == 1) == 0:
             raise Exception("All voxels are void, cannot run radiation ray tracing.")
 
     def log_input(self):
@@ -161,7 +161,6 @@ def compute_extinction_coefficients_anisotropic(ws, rays_distances, sources_numb
     :rtype: (float, float)
     """
 
-    print("Anisotropic", rays_distances.shape)
 
     print("\nComputing extinction coefficients ... ", end='')
 
@@ -182,6 +181,7 @@ def compute_extinction_coefficients_anisotropic(ws, rays_distances, sources_numb
 
         # probability density function of a ray travelling a certain distance
         pdf, _ = np.histogram(rays_distances[:, dim], bins=bins)
+
         pdf = pdf.astype(float) / np.sum(pdf)
 
         # integrating the pdf into a cdf

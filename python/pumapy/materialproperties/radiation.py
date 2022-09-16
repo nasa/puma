@@ -111,7 +111,7 @@ class Radiation:
         if np.count_nonzero(self.workspace.matrix == 0) == 0:
             raise Exception("All voxels are solid, cannot run radiation ray tracing.")
 
-        if np.count_nonzero(self.workspace.matrix == 0) == 0:
+        if np.count_nonzero(self.workspace.matrix == 1) == 0:
             raise Exception("All voxels are void, cannot run radiation ray tracing.")
 
 
