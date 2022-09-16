@@ -7,9 +7,9 @@ from pumapy.utilities.workspace import Workspace
 
 
 class RayCasting:
-    def __init__(self, workspace, particles_number, source_locations, valid_phase, boundary_behavior=0,
+    def __init__(self, matrix, particles_number, source_locations, valid_phase, boundary_behavior=0,
                  exportparticles_filepathname=''):
-        self.ws = workspace
+        self.matrix = matrix
         self.source_locations = source_locations
         self.valid_phase = valid_phase
         self.boundary_behavior = boundary_behavior  # 0=kill particles, 1=periodic BC
@@ -108,7 +108,7 @@ class RayCasting:
 
             # check material of next voxels
             mask2 = (~mask2) & valid_mask
-            self.spherical_walkers[mask2, 10] = self.ws[self.spherical_walkers[mask2, 3].astype(int),
+            self.spherical_walkers[mask2, 10] = self.matrix[self.spherical_walkers[mask2, 3].astype(int),
                                                         self.spherical_walkers[mask2, 4].astype(int),
                                                         self.spherical_walkers[mask2, 5].astype(int)] != self.valid_phase
 
@@ -166,12 +166,12 @@ class RayCasting:
             self.spherical_walkers[mask, 3 + i] -= 1
 
     def error_check(self):
-        if not isinstance(self.ws, Workspace):
-            raise Exception("Workspace must be a puma.Workspace.")
+        if not isinstance(self.matrix, np.ndarray):
+            raise Exception("Matrix must be a np.ndarray.")
         else:
-            self.X = self.ws.matrix.shape[0]
-            self.Y = self.ws.matrix.shape[1]
-            self.Z = self.ws.matrix.shape[2]
+            self.X = self.matrix.shape[0]
+            self.Y = self.matrix.shape[1]
+            self.Z = self.matrix.shape[2]
 
         if self.particles_number <= 0:
             raise Exception("Particles number must be greater than zero")
@@ -184,5 +184,5 @@ class RayCasting:
             if not os.path.exists(os.path.split(self.exportparticles_filepathname)[0]):
                 raise Exception("Directory " + os.path.split(self.exportparticles_filepathname)[0] + " not found.")
 
-        if np.count_nonzero(self.ws.matrix == self.valid_phase) == 0:
+        if np.count_nonzero(self.matrix == self.valid_phase) == 0:
             raise Exception("No valid voxels detected (i.e. ID={}), cannot run radiation ray tracing.".format(self.valid_phase))
