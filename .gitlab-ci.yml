@@ -24,6 +24,6 @@ test:
     - pytest test_permeability.py
     - pytest test_radiation_raycast.py
     - pytest test_segmentation.py
-    - pytest test_texgen_weave.py
+    # - pytest test_texgen_weave.py  # no texgen when using pip install
     - pytest test_workspace.py
     # - pytest test_visualization.py  # failing due to vtk from pip
