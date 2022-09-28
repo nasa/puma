@@ -52,6 +52,13 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
     solver.log_output()
 
     porosity = compute_volume_fraction(workspace, cutoff)
-    eta = [porosity / solver.keff[0], porosity / solver.keff[1], porosity / solver.keff[2]]
+    eta = [divide_zero(porosity,solver.keff[0]), divide_zero(porosity, solver.keff[1]), divide_zero(porosity , solver.keff[2])]
 
     return eta, solver.keff, porosity, solver.T
+
+
+def divide_zero(x,y):
+    try:
+        return x/y
+    except ZeroDivisionError:
+        return 0
