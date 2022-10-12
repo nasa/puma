@@ -159,7 +159,7 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
         n_dofs = n_elems * 4 * perm_fluid_vf
         n_nodes = (len_x + 1) * (len_y + 1) * (len_z + 1)
 
-        if perm_mf == False or solver_type=='direct':
+        if perm_mf == False or solver_type == 'direct':
             total_bytes += (16 * n_elems + 64 * n_nodes + 2 * 64 * n_dofs + 18 * 64 * n_elems) / 8
         else:  # sparse assembly
             total_bytes += (16 * n_elems + 64 * n_nodes + 5 * 64 * n_dofs) / 8

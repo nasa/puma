@@ -62,30 +62,3 @@ class Isotropic_periodicBC:
         if k == self.len_z:
             k = 0
         return self.len_xy * k + self.len_x * j + i
-
-
-class ElasticityBC:
-    def __init__(self, workspace):
-        """ Elasticity prescribed boundary conditions class.
-            N.B. links attribute takes precedence over dirichlet if a voxel prescribed for both attributes
-
-            :param workspace: domain
-            :type workspace: Workspace
-
-            Attributes:
-                dirichlet np.ndarray of size (X, Y, Z, 3), it describes voxels and DOFs to keep fixed to a certain
-                          displacement. If unset, value is np.Inf, otherwise a float
-                links:    np.ndarray of size (X, Y, Z, 3, 4), it describes voxels to link to each other,
-                          provided as coordinates to link  e.g. bc.links[2, 4, 5, 2] = [0, 0, 0, 0] links the
-                          z-component of voxel in position (2, 4, 5) to the x-component of voxel in position (0, 0, 0)
-                indices   np.ndarray of size (X, Y, Z, 3, 4) containing the indices of the domain
-        """
-        self.dirichlet = np.full((workspace.len_x(), workspace.len_y(), workspace.len_z(), 3), np.Inf, dtype=float)
-        self.links = np.full((workspace.len_x(), workspace.len_y(), workspace.len_z(), 3, 4), -1, dtype=int)
-        self.indices = np.indices((workspace.len_x(), workspace.len_y(), workspace.len_z(), 3)).transpose((1, 2, 3, 4, 0))
-
-    def show_dirichlet(self):
-        Workspace.show_orientation(self.dirichlet)
-
-    def show_links(self):
-        Workspace.show_orientation(self.links)

@@ -38,7 +38,7 @@ __version__ = "3.2.0"
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
 from pumapy.physicsmodels.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
-from pumapy.physicsmodels.boundary_conditions import ConductivityBC, ElasticityBC
+from pumapy.physicsmodels.boundary_conditions import ConductivityBC
 from pumapy.utilities.example_files import path_to_example_file, list_example_files
 from pumapy.utilities.generic_checks import estimate_max_memory, set_random_seed
 
@@ -57,7 +57,7 @@ from pumapy.materialproperties.mean_intercept_length import compute_mean_interce
 from pumapy.materialproperties.orientation import compute_orientation_st, compute_angular_differences
 from pumapy.materialproperties.conductivity import compute_thermal_conductivity, compute_electrical_conductivity
 from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
-from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis, get_E_nu_from_elasticity
+from pumapy.materialproperties.elasticity import compute_elasticity, get_E_nu_from_elasticity
 from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
 from pumapy.materialproperties.anisotropic_radiation import compute_radiation_anisotropic, compute_extinction_coefficients_anisotropic
 from pumapy.materialproperties.permeability import compute_permeability

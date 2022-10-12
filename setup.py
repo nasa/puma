@@ -1,5 +1,6 @@
 from setuptools import setup, Command, find_packages
 from distutils.extension import Extension
+import numpy as np
 import os
 import re
 import ast
@@ -77,4 +78,5 @@ setup(
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Physics',
     ],
+    include_dirs=[np.get_include()]
 )
