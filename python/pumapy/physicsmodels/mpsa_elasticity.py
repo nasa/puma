@@ -325,16 +325,16 @@ class Elasticity(PropertySolver):
             # local_b
             V_b[counter_b:counter_b + b_layer_n] = \
                 -div_Ed(self.Ed[0, :-1, :-1, :, 0], self.Ed[1, :-1, :-1, :, 0],
-                                      self.Ed[0, 1:, :-1, :, 0], self.Ed[1, 1:, :-1, :, 0],
-                                      self.Ed[0, :-1, 1:, :, 0], self.Ed[1, :-1, 1:, :, 0],
-                                      self.Ed[0, 1:, 1:, :, 0], self.Ed[1, 1:, 1:, :, 0]).transpose((1, 2, 0)).ravel()
+                        self.Ed[0, 1:, :-1, :, 0], self.Ed[1, 1:, :-1, :, 0],
+                        self.Ed[0, :-1, 1:, :, 0], self.Ed[1, :-1, 1:, :, 0],
+                        self.Ed[0, 1:, 1:, :, 0], self.Ed[1, 1:, 1:, :, 0]).transpose((1, 2, 0)).ravel()
 
             # local_A
             V_A[counter_A:counter_A + A_layer_n] = \
                 div_Eu(self.Eu[0, :-1, :-1], self.Eu[1, :-1, :-1],
-                                     self.Eu[0, 1:, :-1], self.Eu[1, 1:, :-1],
-                                     self.Eu[0, :-1, 1:], self.Eu[1, :-1, 1:],
-                                     self.Eu[0, 1:, 1:], self.Eu[1, 1:, 1:]).transpose((2, 3, 0, 1)).ravel()
+                       self.Eu[0, 1:, :-1], self.Eu[1, 1:, :-1],
+                       self.Eu[0, :-1, 1:], self.Eu[1, :-1, 1:],
+                       self.Eu[0, 1:, 1:], self.Eu[1, 1:, 1:]).transpose((2, 3, 0, 1)).ravel()
 
             create_Ab_indices_cy(I_A, J_A, I_b, counter_A, counter_b, i_cv,
                                  self.len_x, self.len_y, self.len_z, self.len_xyz, self.side_bc)
@@ -408,7 +408,7 @@ class Elasticity(PropertySolver):
             create_u_ivs_cy(self.u, uf, i_cv, self.len_x, self.len_y, self.len_z, self.len_xyz, self.side_bc,
                             u_sw, u_se, u_nw, u_ne, u_tsw, u_tse, u_tnw, u_tne)
 
-            # Computing: stresses = Eu @ u + End
+            # Computing: stresses = Eu @ u + Ed
             s_sw  = np.einsum('ijko,jko->ijk', self.Eu[0, :-1, :-1, self.inds_sw],  u_sw)  + self.Ed[0, :-1, :-1, self.inds_sw, 0]
             s_se  = np.einsum('ijko,jko->ijk', self.Eu[1, :-1, :-1, self.inds_se],  u_se)  + self.Ed[1, :-1, :-1, self.inds_se, 0]
             s_nw  = np.einsum('ijko,jko->ijk', self.Eu[0, 1:, :-1,  self.inds_nw],  u_nw)  + self.Ed[0, 1:, :-1,  self.inds_nw, 0]
