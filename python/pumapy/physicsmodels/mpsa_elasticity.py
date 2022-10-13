@@ -12,7 +12,7 @@ import sys
 class Elasticity(PropertySolver):
 
     def __init__(self, workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter):
-        allowed_solvers = ['direct', 'gmres', 'cg', 'bicgstab']
+        allowed_solvers = ['direct', 'gmres', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
         self.del_matrices = False  # need this to recover x from reduced system
 
@@ -102,10 +102,7 @@ class Elasticity(PropertySolver):
                     C = R.T @ C @ R
                     self.mat_elast[key] = C[np.triu_indices(6)]
 
-        self.ws.matrix = self.ws.matrix.transpose(reorder)
-
-        if self.need_to_orient:
-            self.orient = self.ws.orientation.transpose(reorder + [3])[:, :, :, reorder]
+            self.ws.matrix = self.ws.matrix.transpose(reorder)
 
         self.len_x, self.len_y, self.len_z = shape
         self.len_xy = self.len_x * self.len_y
@@ -116,7 +113,7 @@ class Elasticity(PropertySolver):
         self.ws_pad[1:-1, 1:-1, 1:-1] = self.ws.matrix
 
         if self.need_to_orient:
-            self.orient_pad = np.zeros(shape + [3], dtype=float)
+            self.orient_pad = np.zeros((np.array(shape) + 2).tolist() + [3], dtype=float)
             self.orient_pad[1:-1, 1:-1, 1:-1, :] = self.ws.orientation.transpose(reorder + [3])[:, :, :, reorder]
 
         pad_domain_cy(self.ws_pad, self.orient_pad, self.need_to_orient, self.len_x, self.len_y, self.len_z, self.side_bc)
@@ -183,6 +180,8 @@ class Elasticity(PropertySolver):
 
         # Initialize matrix slice of elasticities (per CV)
         self.Cmat = np.zeros((2, self.len_y + 2, self.len_z + 2, 21), dtype=float)  # Cmat[0, :-1, :-1, :12] = Dd
+        self.compute_Cmat(0, 0)
+        self.compute_Cmat(1, 1)
 
         # Initialize MPSA variables (variables per IV)
         self.c = np.zeros((168, self.len_y + 1, self.len_z + 1), dtype=float)
@@ -193,8 +192,6 @@ class Elasticity(PropertySolver):
         self.solid = np.ones((8, self.len_y + 1, self.len_z + 1), dtype=bool)
 
         # compute first layer of transmissibility
-        self.compute_Cmat(0, 0)
-        self.compute_Cmat(1, 1)
         self.compute_transmissibility(0, 0)
         self.Cmat[0] = self.Cmat[1]
 
@@ -384,7 +381,7 @@ class Elasticity(PropertySolver):
 
         # reduced system
         del self.Amat, self.bvec
-        self.u = np.zeros((self.len_xyz * 3))
+        self.u = np.zeros(self.len_xyz * 3)
         self.u[self.I] = self.x
         del self.x, self.I
         self.u = self.u.reshape([self.len_x, self.len_y, self.len_z, 3], order='F')
@@ -538,11 +535,11 @@ class Elasticity(PropertySolver):
 
         # direction checks
         if self.direction is not None:
-            if self.direction.lower() in ['x', 'y', 'z', 'yz', 'xz', 'xy', 'all']:
+            if self.direction.lower() in ['x', 'y', 'z', 'yz', 'xz', 'xy']:
                 self.direction = self.direction.lower()
             else:
                 raise Exception(
-                    "Invalid simulation direction, it can only be 'x', 'y', 'z', 'yz', 'xz', 'xy' or 'all'.")
+                    "Invalid simulation direction, it can only be 'x', 'y', 'z', 'yz', 'xz', 'xy'.")
 
         # side_bc checks
         if self.side_bc.lower() == "periodic" or self.side_bc == "p":

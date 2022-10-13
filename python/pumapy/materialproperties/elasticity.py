@@ -22,7 +22,7 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
         :type: tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'bicgstab', 'cg', 'gmres' (default), 'direct'
+        :param solver_type: solver type, options: 'gmres' (default), 'bicgstab', 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
