@@ -118,6 +118,58 @@ class ElasticityMap(MaterialPropertyMap):
                       2 * mu,              0.,     0.,
                       2 * mu,              0.,
                       2 * mu)
+
+        elasticity = self.error_check(cutoff, elasticity)
+        if isinstance(elasticity, bool):
+            return
+        self._append_inputs(cutoff, elasticity)
+
+    def add_orthotropic_material(self, cutoff, E_x, E_y, E_z, nu_yz, nu_xz, nu_xy, G_yz, G_xz, G_xy):
+        nu_yx = (nu_xy * E_y) / E_x
+        nu_zx = (nu_xz * E_z) / E_x
+        nu_zy = (nu_yz * E_z) / E_y
+
+        den = (1 - nu_xy * nu_yx - nu_yz * nu_zy - nu_xz * nu_zx - 2 * nu_xy * nu_yz * nu_zx) / (E_x * E_y * E_z)
+
+        elasticity = ((1 - nu_yz * nu_zy) / (E_y * E_z * den), (nu_yx + nu_zx * nu_yz) / (E_y * E_z * den), (nu_zx + nu_yx * nu_zy) / (E_y * E_z * den), 0, 0, 0,
+                      (1 - nu_zx * nu_xz) / (E_z * E_x * den), (nu_zy + nu_zx * nu_xy) / (E_z * E_x * den), 0, 0, 0,
+                      (1 - nu_xy * nu_yx) / (E_x * E_y * den), 0, 0, 0,
+                      2 * G_yz, 0, 0,
+                      2 * G_xz, 0,
+                      2 * G_xy)
+
+        elasticity = self.error_check(cutoff, elasticity)
+        if isinstance(elasticity, bool):
+            return
+        self._append_inputs(cutoff, elasticity)
+
+    def add_transverse_isotropic_material(self, cutoff, E_a, E_t, nu_a, nu_t, G_a):
+        E_x = E_a
+        E_y = E_t
+        E_z = E_t
+        nu_xy = nu_a
+        nu_xz = nu_a
+        nu_yz = nu_t
+
+        nu_yx = (nu_xy * E_y) / E_x
+        nu_zx = (nu_xz * E_z) / E_x
+        nu_zy = (nu_yz * E_z) / E_y
+
+        den = (1 - nu_xy * nu_yx - nu_yz * nu_zy - nu_xz * nu_zx - 2 * nu_xy * nu_yz * nu_zx) / (E_x * E_y * E_z)
+
+        c11 = (1 - nu_yz * nu_zy) / (E_y * E_z * den)
+        c12 = (nu_yx + nu_zx * nu_yz) / (E_y * E_z * den)
+        c22 = (1 - nu_zx * nu_xz) / (E_z * E_x * den)
+        c23 = (nu_zy + nu_zx * nu_xy) / (E_z * E_x * den)
+        c66 = G_a
+
+        elasticity = (c11, c12, c12, 0, 0, 0,
+                      c22, c23, 0, 0, 0,
+                      c22, 0, 0, 0,
+                      (c22 - c23) / 2, 0, 0,
+                      c66, 0,
+                      c66)
+
         elasticity = self.error_check(cutoff, elasticity)
         if isinstance(elasticity, bool):
             return

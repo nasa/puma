@@ -22,7 +22,7 @@ def index_at_s_pad(index, size):
     return index
 
 
-def pad_domain_cy(unsigned short [:,:,:] ws_pad, double [:,:,:,:] orient_pad, unsigned short need_to_orient, int len_x, int len_y, int len_z, str side_bc):
+def pad_domain_cy(signed short [:,:,:] ws_pad, double [:,:,:,:] orient_pad, unsigned short need_to_orient, int len_x, int len_y, int len_z, str side_bc):
 
     cdef int i, j, k
 
@@ -31,7 +31,6 @@ def pad_domain_cy(unsigned short [:,:,:] ws_pad, double [:,:,:,:] orient_pad, un
     else:
         index_at_pad = index_at_s_pad
 
-    # if side_bc == 'p':
     for i in range(len_x + 2):
         for j in range(len_y + 2):
             for k in range(len_z + 2):
@@ -40,13 +39,151 @@ def pad_domain_cy(unsigned short [:,:,:] ws_pad, double [:,:,:,:] orient_pad, un
                                              index_at_pad(j, len_y + 1),
                                              index_at_pad(k, len_z + 1)]
     if need_to_orient:
-        for i in range(len_x + 2):
-            for j in range(len_y + 2):
-                for k in range(len_z + 2):
-                    if i == 0 or i == len_x + 1 or j == 0 or j == len_y + 1 or k == 0 or k == len_z + 1:
-                        orient_pad[i, j, k] = orient_pad[index_at_pad(i, len_x + 1),
-                                                         index_at_pad(j, len_y + 1),
-                                                         index_at_pad(k, len_z + 1)]
+        if side_bc == 'p':
+            for i in range(len_x + 2):
+                for j in range(len_y + 2):
+                    for k in range(len_z + 2):
+                        if i == 0 or i == len_x + 1 or j == 0 or j == len_y + 1 or k == 0 or k == len_z + 1:
+                            orient_pad[i, j, k] = orient_pad[index_at_pad(i, len_x + 1),
+                                                             index_at_pad(j, len_y + 1),
+                                                             index_at_pad(k, len_z + 1)]
+        else:
+            for i in range(len_x + 2):
+                for j in range(len_y + 2):
+                    for k in range(len_z + 2):
+                        if i == 0 or i == len_x + 1 or j == 0 or j == len_y + 1 or k == 0 or k == len_z + 1:
+                            orient_pad[i, j, k] = orient_pad[index_at_pad(i, len_x + 1),
+                                                             index_at_pad(j, len_y + 1),
+                                                             index_at_pad(k, len_z + 1)]
+                            if i == 0 or i == len_x + 1:
+                                orient_pad[i, j, k, 0] -= orient_pad[i, j, k, 0]
+                            elif j == 0 or j == len_y + 1:
+                                orient_pad[i, j, k, 1] -= orient_pad[i, j, k, 1]
+                            else:
+                                orient_pad[i, j, k, 2] -= orient_pad[i, j, k, 2]
+
+
+def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarray not_dir_z, np.ndarray Dd,
+                         np.ndarray dirichlet_bc_xfaces, np.ndarray dirichlet_bc_yfaces, np.ndarray dirichlet_bc_zfaces,
+                         int len_x, int len_y, int len_z, int i_iv):
+    cdef int j_iv, k_iv, k2, k2_v, j2, j2_v, i2, i2_v, i_cv, counter_not_dir
+
+    for j_iv in range(len_y + 1):
+        for k_iv in range(len_z + 1):
+
+            # gather IV properties cell by cell
+            counter_not_dir = 0
+            for k2, k2_v in enumerate([-1, 0]):
+                k_cv = k_iv + k2_v
+                for j2, j2_v in enumerate([-1, 0]):
+                    j_cv = j_iv + j2_v
+                    for i2, i2_v in enumerate([-1, 0]):
+                        i_cv = i_iv + i2_v
+
+                        if i_cv == -1:
+                            if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv, 0]):
+                                not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv, 1]):
+                                not_dir_x[counter_not_dir + 8, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv, 2]):
+                                not_dir_x[counter_not_dir + 16, j_iv, k_iv] = 0
+                        if i_cv == len_x:
+                            if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv, 0]):
+                                not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv, 1]):
+                                not_dir_x[counter_not_dir + 8, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv, 2]):
+                                not_dir_x[counter_not_dir + 16, j_iv, k_iv] = 0
+
+                        if j_cv == -1:
+                            if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv, 0]):
+                                not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv, 1]):
+                                not_dir_y[counter_not_dir + 8, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv, 2]):
+                                not_dir_y[counter_not_dir + 16, j_iv, k_iv] = 0
+                        if j_cv == len_y:
+                            if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv, 0]):
+                                not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv, 1]):
+                                not_dir_y[counter_not_dir + 8, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv, 2]):
+                                not_dir_y[counter_not_dir + 16, j_iv, k_iv] = 0
+
+                        if k_cv == -1:
+                            if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv, 0]):
+                                not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv, 1]):
+                                not_dir_z[counter_not_dir + 8, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv, 2]):
+                                not_dir_z[counter_not_dir + 16, j_iv, k_iv] = 0
+                        if k_cv == len_z:
+                            if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv, 0]):
+                                not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv, 1]):
+                                not_dir_z[counter_not_dir + 8, j_iv, k_iv] = 0
+                            if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv, 2]):
+                                not_dir_z[counter_not_dir + 16, j_iv, k_iv] = 0
+
+                        counter_not_dir += 1
+
+            if j_iv == 0:
+                if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv, 0]):
+                    Dd[[12, 15, 18, 21], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv, 0]
+                if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv, 1]):
+                    Dd[[13, 16, 19, 22], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv, 1]
+                if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv, 2]):
+                    Dd[[14, 17, 20, 23], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv, 2]
+
+            if j_iv == len_y:
+                if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv, 0]):
+                    Dd[[12, 15, 18, 21], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv, 0]
+                if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv, 1]):
+                    Dd[[13, 16, 19, 22], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv, 1]
+                if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv, 2]):
+                    Dd[[14, 17, 20, 23], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv, 2]
+
+            if k_iv == 0:
+                if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv, 0]):
+                    Dd[[24, 27, 30, 33], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv, 0]
+                if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv, 1]):
+                    Dd[[25, 28, 31, 34], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv, 1]
+                if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv, 2]):
+                    Dd[[26, 29, 32, 35], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv, 2]
+
+            elif k_iv == len_z:
+                if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv, 0]):
+                    Dd[[24, 27, 30, 33], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv, 0]
+                if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv, 1]):
+                    Dd[[25, 28, 31, 34], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv, 1]
+                if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv, 2]):
+                    Dd[[26, 29, 32, 35], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv, 2]
+
+    if i_iv == 0:
+        mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :, 0])
+        Dd[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir, 0]
+        Dd[[3, 6, 9]] = Dd[0]
+
+        mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :, 1])
+        Dd[1, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir, 1]
+        Dd[[4, 7, 10]] = Dd[1]
+
+        mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :, 2])
+        Dd[2, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir, 2]
+        Dd[[5, 8, 11]] = Dd[2]
+
+    elif i_iv == len_x:
+        mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :, 0])
+        Dd[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir, 0]
+        Dd[[3, 6, 9]] = Dd[0]
+
+        mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :, 1])
+        Dd[1, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir, 1]
+        Dd[[4, 7, 10]] = Dd[1]
+
+        mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :, 2])
+        Dd[2, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir, 2]
+        Dd[[5, 8, 11]] = Dd[2]
 
 
 def index_at_p(int index, int size):

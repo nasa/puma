@@ -1,7 +1,8 @@
-from pumapy.physicsmodels.elasticity_utils import pad_domain_cy, create_Ab_indices_cy, create_u_ivs_cy
+from pumapy.physicsmodels.elasticity_utils import pad_domain_cy, create_Ab_indices_cy, create_u_ivs_cy, assign_prescribed_bc_cy
 from pumapy.physicsmodels.mpxa_matrices import (fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_d1, create_d2,
                                                 div_Eu, div_Ed, create_mpsa_indices)
 from pumapy.physicsmodels.linear_solvers import PropertySolver
+from pumapy.physicsmodels.boundary_conditions import ElasticityBC
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags
@@ -11,7 +12,7 @@ import sys
 
 class Elasticity(PropertySolver):
 
-    def __init__(self, workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter):
+    def __init__(self, workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter, dirichlet_bc=None):
         allowed_solvers = ['direct', 'gmres', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
         self.del_matrices = False  # need this to recover x from reduced system
@@ -21,6 +22,8 @@ class Elasticity(PropertySolver):
         self.direction = direction
         self.side_bc = side_bc
         self.solver_type = solver_type
+
+        self.dirichlet_bc = dirichlet_bc
 
         self.need_to_orient = False  # changes if (E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12) detected
         self.u = None
@@ -53,7 +56,8 @@ class Elasticity(PropertySolver):
         super().solve()
         print("Time to solve: ", t.elapsed())
         self.compute_stresses()
-        self.compute_effective_coefficient()
+        if self.direction != '':
+            self.compute_effective_coefficient()
         self.solve_time = t.elapsed()
 
     def initialize(self):
@@ -108,8 +112,13 @@ class Elasticity(PropertySolver):
         self.len_xy = self.len_x * self.len_y
         self.len_xyz = self.len_x * self.len_y * self.len_z
 
+        # Segmenting domain according to elast_map
+        for i in range(self.elast_map.get_size()):
+            low, high, _ = self.elast_map.get_material(i)
+            self.ws[np.logical_and(self.ws.matrix >= low, self.ws.matrix <= high)] = low
+
         # Padding domain, imposing symmetric or periodic BC on faces
-        self.ws_pad = np.zeros(np.array(shape) + 2, dtype=np.uint16)
+        self.ws_pad = np.zeros(np.array(shape) + 2, dtype=np.int16)
         self.ws_pad[1:-1, 1:-1, 1:-1] = self.ws.matrix
 
         if self.need_to_orient:
@@ -118,15 +127,10 @@ class Elasticity(PropertySolver):
 
         pad_domain_cy(self.ws_pad, self.orient_pad, self.need_to_orient, self.len_x, self.len_y, self.len_z, self.side_bc)
 
-        # Segmenting padded domain
-        for i in range(self.elast_map.get_size()):
-            low, high, _ = self.elast_map.get_material(i)
-            self.ws[np.logical_and(self.ws.matrix >= low, self.ws.matrix <= high)] = low
-
         if self.solver_type != 'direct' and self.solver_type != 'spsolve':
             self.initial_guess = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
-            for i in range(self.len_x - 1):
-                self.initial_guess[i, :, :, 0] = i / (self.len_x - 2.)
+            for i in range(self.len_x):
+                self.initial_guess[i, :, :, 0] = i / (self.len_x - 1)
             self.initial_guess = self.initial_guess.flatten('F')
 
     def compute_Cmat(self, i, i_cv):
@@ -178,20 +182,27 @@ class Elasticity(PropertySolver):
 
     def initialize_mpsa(self):
 
-        # Initialize matrix slice of elasticities (per CV)
-        self.Cmat = np.zeros((2, self.len_y + 2, self.len_z + 2, 21), dtype=float)  # Cmat[0, :-1, :-1, :12] = Dd
+        # Initialize matrix slice of elasticities
+        self.Cmat = np.zeros((2, self.len_y + 2, self.len_z + 2, 21), dtype=float)  # per CV
         self.compute_Cmat(0, 0)
         self.compute_Cmat(1, 1)
 
         # Initialize MPSA variables (variables per IV)
+        self.Eu = np.zeros((2, self.len_y + 1, self.len_z + 1, 36, 24), dtype=float)
+        self.Ed = np.zeros((2, self.len_y + 1, self.len_z + 1, 36, 1), dtype=float)
+        self.mpsa36x36 = np.zeros((self.len_y + 1, self.len_z + 1, 36, 36), dtype=float)
         self.c = np.zeros((168, self.len_y + 1, self.len_z + 1), dtype=float)
-        self.Eu = np.zeros((2, self.len_y + 1, self.len_z + 1, 36, 24), dtype=float)  # D
-        self.Ed = np.zeros((2, self.len_y + 1, self.len_z + 1, 36,  1), dtype=float)  # d1, d2
-        self.mpsa36x36 = np.zeros((self.len_y + 1, self.len_z + 1, 36, 36), dtype=float)  # C, Cinv, A, B
-        self.mpsa36bool = np.ones((36, self.len_y + 1, self.len_z + 1), dtype=bool)  # not_dir_xy, solid_full
-        self.solid = np.ones((8, self.len_y + 1, self.len_z + 1), dtype=bool)
+        self.Dd = np.zeros((36, self.len_y + 1, self.len_z + 1), dtype=float)
+        self.not_dir_x = np.ones((24, self.len_y + 1, self.len_z + 1), dtype=np.int8)
+        self.not_dir_y = np.ones((24, self.len_y + 1, self.len_z + 1), dtype=np.int8)
+        self.not_dir_z = np.ones((24, self.len_y + 1, self.len_z + 1), dtype=np.int8)
 
-        # compute first layer of transmissibility
+        # index arrays
+        self.c_i_inds = np.tile(np.tile([0, 1], 2), 2)
+        self.c_j_inds = np.tile(np.repeat([0, 1], 2), 2)
+        self.c_k_inds = np.repeat([0, 1], 4)
+
+        # Computing first layer of E
         self.compute_transmissibility(0, 0)
         self.Cmat[0] = self.Cmat[1]
 
@@ -206,72 +217,70 @@ class Elasticity(PropertySolver):
                 ks = k_iv + self.c_k_inds
                 self.c[:, j_iv, k_iv] = self.Cmat[self.c_i_inds, js, ks].ravel()
 
-        self.solid[:] = np.any(self.c.reshape((21, 8, self.c.shape[1], self.c.shape[2]), order='F') > 0, axis=0)
-
-        gas_inds = np.array(np.where(self.solid != 1))
-
-        self.Cmat[0, :-1, :-1, :12].fill(0)  # Dd
-        self.mpsa36bool[:24].fill(1)  # not_dir_xy
-
-        # boundary conditions
-        if self.direction in ["x", "y", "z"]:
-            if i_iv == 0:
-                self.mpsa36bool[[0, 2, 4, 6]] = 0
-            elif i_iv == self.len_x:
-                self.mpsa36bool[[1, 3, 5, 7]] = 0
-                self.Cmat[0, :, :, [0, 1, 2, 3]] = 1  # Dd[[0, 3, 6, 9]] = 1
-
-            # if dirichlet and gas, then treat it as only neumann
-            self.mpsa36bool[gas_inds[0], gas_inds[1], gas_inds[2]] = 1
+        # Dd arranged as:
+        # Pe: 0,1,2     Ne: 3,4,5     Te: 6,7,8     TNe: 9,10,11
+        # Pn: 12,13,14  En: 15,16,17  Tn: 18,19,20  TEn: 21,22,23
+        # Pt: 24,25,26  Et: 27,28,29  Nt: 30,31,32  NEt: 33,34,35
+        # not_dir_xyz arranged as:
+        # P: 0,8,16    E: 1,9,17    N: 2,10,18   NE: 3,11,19
+        # T: 4,12,20  TE: 5,13,21  TN: 6,14,22  TNE: 7,15,23
+        self.not_dir_x.fill(1)
+        self.not_dir_y.fill(1)
+        self.not_dir_z.fill(1)
+        self.Dd.fill(0)
+        if self.direction == '':
+            assign_prescribed_bc_cy(self.not_dir_x, self.not_dir_y, self.not_dir_z, self.Dd,
+                                    self.dirichlet_bc.xfaces, self.dirichlet_bc.yfaces, self.dirichlet_bc.zfaces,
+                                    self.len_x, self.len_y, self.len_z, i_iv)
         else:
-            if i_iv == 0:
-                self.mpsa36bool[[8, 10, 12, 14]] = 0  # not_dir_x[[0 + 8, 2 + 8, 4 + 8, 6 + 8]] = 0
-
-            if i_iv == self.len_x:
-                self.mpsa36bool[[9, 11, 13, 15]] = 0
-                self.Cmat[0, :, :, [4, 5, 6, 7]] = 1  # Dd[[1, 4, 7, 10]] = 1
-
-            self.mpsa36bool[[16, 17, 20, 21], 0] = 0  # not_dir_y[[0, 1, 4, 5], 0] = 0
-            self.mpsa36bool[[18, 19, 22, 23], self.len_y] = 0  # not_dir_y
-            self.Cmat[0, self.len_y, :, [8, 9, 10, 11]] = 1  # Dd[[12, 15, 18, 21], self.len_y]
-
-            self.mpsa36bool[gas_inds[0] + 8, gas_inds[1], gas_inds[2]] = 1
-            self.mpsa36bool[gas_inds[0] + 16, gas_inds[1], gas_inds[2]] = 1
+            if self.direction in ["x", "y", "z"]:
+                if i_iv == 0:
+                    self.not_dir_x[[0, 2, 4, 6]] = 0
+                elif i_iv == self.len_x:
+                    self.not_dir_x[[1, 3, 5, 7]] = 0
+                    self.Dd[[0, 3, 6, 9]] = 1
+            else:  # yz, xz, xy
+                if i_iv == 0:
+                    self.not_dir_x[[0 + 8, 2 + 8, 4 + 8, 6 + 8]] = 0
+                if i_iv == self.len_x:
+                    self.not_dir_x[[1 + 8, 3 + 8, 5 + 8, 7 + 8]] = 0
+                    self.Dd[[1, 4, 7, 10]] = 1
+                self.not_dir_y[[0, 1, 4, 5], 0] = 0
+                self.not_dir_y[[2, 3, 6, 7], self.len_y] = 0
+                self.Dd[[12, 15, 18, 21], self.len_y] = 1
 
         self.Eu[i].fill(0)
         self.Ed[i].fill(0)
         self.mpsa36x36.fill(0)
 
         # mpsa36x36 = C
-        self.mpsa36x36[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.c, self.mpsa36bool[:16], self.mpsa36bool[16:24], self.solid.astype(np.int8))
-
-        # avoid singularity in C
-        zero_rows = np.where(self.mpsa36x36.diagonal(axis1=2, axis2=3) == 0)
-        self.mpsa36x36[zero_rows[0], zero_rows[1], zero_rows[2]] = 0.
-        self.mpsa36x36[zero_rows[0], zero_rows[1], zero_rows[2], zero_rows[2]] = 1.
+        self.mpsa36x36[:, :, self.Cind[0], self.Cind[1]] = fill_Cmpsa(self.c, self.not_dir_x, self.not_dir_y, self.not_dir_z)
 
         # mpsa36x36 = Cinv
-        self.mpsa36x36[:] = np.linalg.inv(self.mpsa36x36)
+        try:
+            self.mpsa36x36[:] = np.linalg.inv(self.mpsa36x36)
+        except np.linalg.LinAlgError:
+            raise Exception("Singular MPSA matrix: remember that air cannot be exactly 0 (set it to a low value e.g. 1e-5).")
 
         # Eu = D
-        self.Eu[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.c, self.solid.astype(np.int8))
+        self.Eu[i, :, :, self.Dind[0], self.Dind[1]] = fill_Dmpsa(self.c)
 
         # Eu = Cinv * D
         self.Eu[i] = self.mpsa36x36 @ self.Eu[i]
 
         # Ed = Cinv * d1
-        self.Ed[i] = self.mpsa36x36 @ create_d1(self.c, self.Cmat[0, :-1, :-1, :12], self.solid.astype(np.int8))
+        self.Ed[i] = self.mpsa36x36 @ create_d1(self.c, self.Dd)
 
         # mpsa36x36 = A
         self.mpsa36x36.fill(0)
-        self.mpsa36x36[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.c, self.mpsa36bool[:16], self.mpsa36bool[16:24])
+        self.mpsa36x36[:, :, self.Aind[0], self.Aind[1]] = fill_Ampsa(self.c, self.not_dir_x, self.not_dir_y, self.not_dir_z)
 
         # Eu = A * Eu = A * (Cinv * D)
         self.Eu[i] = self.mpsa36x36 @ self.Eu[i]
 
         # Ed = A * Ed = A * (Cinv * d1)
         self.Ed[i] = self.mpsa36x36 @ self.Ed[i]
-        self.Ed[i] += create_d2(self.c, self.Cmat[0, :-1, :-1, :12])
+        self.Ed[i] += create_d2(self.c, self.Dd)
 
         # mpsa36x36 = B
         self.mpsa36x36[:, :, :, :24].fill(0)
@@ -279,24 +288,6 @@ class Elasticity(PropertySolver):
 
         # Eu = Eu + B = A * (Cinv * D) + B
         self.Eu[i] += self.mpsa36x36[:, :, :, :24]
-
-        # removing air contribution
-        self.mpsa36bool[:3]    = self.solid[0] * self.solid[1]
-        self.mpsa36bool[3:6]   = self.solid[2] * self.solid[3]
-        self.mpsa36bool[6:9]   = self.solid[4] * self.solid[5]
-        self.mpsa36bool[9:12]  = self.solid[6] * self.solid[7]
-        self.mpsa36bool[12:15] = self.solid[0] * self.solid[2]
-        self.mpsa36bool[15:18] = self.solid[1] * self.solid[3]
-        self.mpsa36bool[18:21] = self.solid[4] * self.solid[6]
-        self.mpsa36bool[21:24] = self.solid[5] * self.solid[7]
-        self.mpsa36bool[24:27] = self.solid[0] * self.solid[4]
-        self.mpsa36bool[27:30] = self.solid[1] * self.solid[5]
-        self.mpsa36bool[30:33] = self.solid[2] * self.solid[6]
-        self.mpsa36bool[33:]   = self.solid[3] * self.solid[7]
-        self.Eu[i] = np.einsum('koij,iko->koij', self.Eu[i], self.mpsa36bool)
-
-        all_notdir_inds = np.where(np.all(self.Cmat[0, :-1, :-1, :12] == 0, axis=2))
-        self.Ed[i, all_notdir_inds[0], all_notdir_inds[1]] = 0  # if np.all(Dd == 0) --> Ed = 0
 
     def assemble_matrices(self):
         print("Creating system:")
@@ -345,7 +336,7 @@ class Elasticity(PropertySolver):
             self.Cmat[0] = self.Cmat[1]
 
         # delete mpsa variables
-        del self.Cmat, self.Eu, self.Ed, self.c, self.mpsa36x36, self.mpsa36bool, self.solid
+        del self.Cmat, self.Eu, self.Ed, self.mpsa36x36, self.c, self.Dd, self.not_dir_x, self.not_dir_y, self.not_dir_z
 
         print("\nAssembling sparse matrices ... ", end='')
         nonzero_V = V_A != 0
@@ -366,25 +357,14 @@ class Elasticity(PropertySolver):
             self.M = diags(1. / diag, 0).tocsr()
         del diag
 
-        # reduce system
-        self.I = np.where(np.abs(self.Amat).sum(1) > 0)[0].flatten()
-        self.Amat = self.Amat[self.I][:, self.I]
-        self.bvec = self.bvec[self.I]
-        if self.solver_type != 'direct' and self.initial_guess is not None:
-            self.initial_guess = self.initial_guess[self.I]
-            if self.M is not None:
-                self.M = self.M[self.I][:, self.I]
-
         print("Done")
 
     def compute_stresses(self):
 
         # reduced system
         del self.Amat, self.bvec
-        self.u = np.zeros(self.len_xyz * 3)
-        self.u[self.I] = self.x
-        del self.x, self.I
-        self.u = self.u.reshape([self.len_x, self.len_y, self.len_z, 3], order='F')
+        self.u = self.x.reshape([self.len_x, self.len_y, self.len_z, 3], order='F')
+        del self.x
 
         # Initialize required data structures
         self.s = np.zeros((self.len_x, self.len_y, self.len_z, 3))
@@ -405,7 +385,7 @@ class Elasticity(PropertySolver):
             create_u_ivs_cy(self.u, uf, i_cv, self.len_x, self.len_y, self.len_z, self.len_xyz, self.side_bc,
                             u_sw, u_se, u_nw, u_ne, u_tsw, u_tse, u_tnw, u_tne)
 
-            # Computing: stresses = Eu @ u + Ed
+            # Computing: stresses = Eu @ u + End
             s_sw  = np.einsum('ijko,jko->ijk', self.Eu[0, :-1, :-1, self.inds_sw],  u_sw)  + self.Ed[0, :-1, :-1, self.inds_sw, 0]
             s_se  = np.einsum('ijko,jko->ijk', self.Eu[1, :-1, :-1, self.inds_se],  u_se)  + self.Ed[1, :-1, :-1, self.inds_se, 0]
             s_nw  = np.einsum('ijko,jko->ijk', self.Eu[0, 1:, :-1,  self.inds_nw],  u_nw)  + self.Ed[0, 1:, :-1,  self.inds_nw, 0]
@@ -442,7 +422,7 @@ class Elasticity(PropertySolver):
             self.Cmat[0] = self.Cmat[1]
 
         # delete mpsa variables
-        del self.Cmat, self.Eu, self.Ed, self.c, self.mpsa36x36, self.mpsa36bool, self.solid
+        del self.Cmat, self.Eu, self.Ed, self.mpsa36x36, self.c, self.Dd, self.not_dir_x, self.not_dir_y, self.not_dir_z
 
         self.s /= 8 * self.ws.voxel_length
         self.t /= 16 * self.ws.voxel_length
@@ -526,20 +506,19 @@ class Elasticity(PropertySolver):
             ws_tmp_tocheck[np.logical_and(self.ws.matrix >= low, self.ws.matrix <= high)] = low
 
         unique_matrixvalues = np.unique(ws_tmp_tocheck)
-        if 0 in unique_matrixvalues and 0 not in self.mat_elast.keys():
-            self.elast_map.add_isotropic_material((0, 0), 0., 0.)
-            _, _, self.mat_elast[0] = self.elast_map.get_material(self.elast_map.get_size() - 1)
         if (unique_matrixvalues.size != len(self.mat_elast.keys()) or
                 np.all(np.sort(list(self.mat_elast.keys())).astype(np.uint16) != unique_matrixvalues)):
-            raise Exception("All values in workspace must be included in ElasticityMap.")
+            raise Exception("All values in workspace must match the IDs in ElasticityMap.")
 
         # direction checks
-        if self.direction is not None:
+        if self.direction != '':
             if self.direction.lower() in ['x', 'y', 'z', 'yz', 'xz', 'xy']:
                 self.direction = self.direction.lower()
             else:
-                raise Exception(
-                    "Invalid simulation direction, it can only be 'x', 'y', 'z', 'yz', 'xz', 'xy'.")
+                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z', 'yz', 'xz', 'xy'.")
+        else:
+            if not isinstance(self.dirichlet_bc, ElasticityBC):
+                raise Exception("For compute_stress_analysis function, dirichlet_bc needs to be a puma.ElasticityBC object.")
 
         # side_bc checks
         if self.side_bc.lower() == "periodic" or self.side_bc == "p":
