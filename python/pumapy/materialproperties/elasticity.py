@@ -134,15 +134,15 @@ def get_E_nu_from_elasticity(C):
 
 def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0., show_cbar=True, show_edges=False,
                            xy_view=False, rm_id=None):
-    """ Warp the workspace according to the displacement field output by the compute_elasticity function,
+    """ Warp the workspace according to the displacement field output by the elasticity functions,
         and color by displacement and stress components
         :param workspace: domain
         :type workspace: pumapy.Workspace
-        :param u: displacement field as output by the compute_elasticity function
+        :param u: displacement field
         :type u: numpy.ndarray
-        :param s: direct stress field as output by the compute_elasticity function
+        :param s: direct stress field
         :type s: numpy.ndarray
-        :param t: shear stress field as output by the compute_elasticity function
+        :param t: shear stress field
         :type t: numpy.ndarray
         :param scale_factor: scaling factor for warp
         :type scale_factor: float
@@ -180,15 +180,15 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
         tmp[:, i] = orientation[:, :, :, i].ravel(order='F')
 
     grid['vectors'] = tmp
-    grid['ux'] = u[:, :, :, 0].copy().astype(float).ravel(order='F')
-    grid['uy'] = u[:, :, :, 1].copy().astype(float).ravel(order='F')
-    grid['uz'] = u[:, :, :, 2].copy().astype(float).ravel(order='F')
-    grid['sx'] = s[:, :, :, 0].copy().astype(float).ravel(order='F')
-    grid['sy'] = s[:, :, :, 1].copy().astype(float).ravel(order='F')
-    grid['sz'] = s[:, :, :, 2].copy().astype(float).ravel(order='F')
-    grid['tyz'] = t[:, :, :, 0].copy().astype(float).ravel(order='F')
-    grid['txz'] = t[:, :, :, 1].copy().astype(float).ravel(order='F')
-    grid['txy'] = t[:, :, :, 2].copy().astype(float).ravel(order='F')
+    grid['ux'] = u[:, :, :, 0].ravel(order='F')
+    grid['uy'] = u[:, :, :, 1].ravel(order='F')
+    grid['uz'] = u[:, :, :, 2].ravel(order='F')
+    grid['sx'] = s[:, :, :, 0].ravel(order='F')
+    grid['sy'] = s[:, :, :, 1].ravel(order='F')
+    grid['sz'] = s[:, :, :, 2].ravel(order='F')
+    grid['tyz'] = t[:, :, :, 0].ravel(order='F')
+    grid['txz'] = t[:, :, :, 1].ravel(order='F')
+    grid['txy'] = t[:, :, :, 2].ravel(order='F')
 
     f = grid.warp_by_vector('vectors', factor=scale_factor)
 
@@ -211,6 +211,77 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
                 grid2["values"] = ws.flatten(order="F")
                 f2 = grid2.threshold((0, ws.max()))
                 p.add_mesh(f2, opacity=show_original, cmap='jet')
+
+            p.show_bounds(grid='front', location='outer', all_edges=True, color=(0, 0, 0))
+            p.background_color = (1, 1, 1)
+            p.add_axes(line_width=5, color=(0, 0, 0))
+
+            if xy_view:
+                p.view_xy()
+    p.show()
+
+
+def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
+                           xy_view=False, rm_id=None):
+    """ Plot the workspace according to the displacement and stress fields output by the elasticity functions
+        :param workspace: domain
+        :type workspace: pumapy.Workspace
+        :param u: displacement field
+        :type u: numpy.ndarray
+        :param s: direct stress field
+        :type s: numpy.ndarray
+        :param t: shear stress field
+        :type t: numpy.ndarray
+        :param show_cbar: show colorbar in each plot
+        :type show_cbar: bool
+        :param show_edges: show edges in mesh
+        :type show_edges: bool
+        :param xy_view: show plot aligned with xy plane
+        :type xy_view: bool
+        :param rm_id: remove a phase of the material from thresholded mesh
+        :type rm_id: float or None
+    """
+
+    if isinstance(workspace, Workspace):
+        ws = workspace.matrix.copy().astype(float)
+    else:
+        ws = workspace.copy().astype(float)
+
+    u_cp = u.copy()
+    s_cp = s.copy()
+    t_cp = t.copy()
+    if rm_id is not None:
+        gas_mask = ws == rm_id
+        u_cp[gas_mask] = np.NAN
+        s_cp[gas_mask] = np.NAN
+        t_cp[gas_mask] = np.NAN
+
+    grid = pv.UniformGrid()
+    grid.dimensions = np.array(ws.shape) + 1
+    grid['ux'] = u_cp[:, :, :, 0].ravel(order='F')
+    grid['uy'] = u_cp[:, :, :, 1].ravel(order='F')
+    grid['uz'] = u_cp[:, :, :, 2].ravel(order='F')
+    grid['sx'] = s_cp[:, :, :, 0].ravel(order='F')
+    grid['sy'] = s_cp[:, :, :, 1].ravel(order='F')
+    grid['sz'] = s_cp[:, :, :, 2].ravel(order='F')
+    grid['tyz'] = t_cp[:, :, :, 0].ravel(order='F')
+    grid['txz'] = t_cp[:, :, :, 1].ravel(order='F')
+    grid['txy'] = t_cp[:, :, :, 2].ravel(order='F')
+
+    p = pv.Plotter(shape=(3, 3))
+
+    plots = [['ux', 'uy', 'uz'], ['sx', 'sy', 'sz'], ['tyz', 'txz', 'txy']]
+    for i in range(3):
+        for j in range(3):
+            p.subplot(i, j)
+
+            f = grid.threshold(scalars=plots[i][j])
+
+            p.add_mesh(f.copy(), scalars=plots[i][j], interpolate_before_map=False, show_edges=show_edges,
+                       cmap='jet', show_scalar_bar=False, opacity=1)
+
+            if show_cbar:
+                p.add_scalar_bar(plots[i][j], interactive=False, vertical=True, color=(0, 0, 0), height=0.8)
 
             p.show_bounds(grid='front', location='outer', all_edges=True, color=(0, 0, 0))
             p.background_color = (1, 1, 1)
