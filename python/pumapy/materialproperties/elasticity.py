@@ -124,16 +124,16 @@ def get_E_nu_from_elasticity(C):
     G23 = 1. / compliance[3, 3]
     G13 = 1. / compliance[4, 4]
     G12 = 1. / compliance[5, 5]
-    nu23 = - E2 / compliance[2, 1]
-    nu13 = - E1 / compliance[2, 0]
-    nu12 = - E1 / compliance[1, 0]
+    nu23 = - E2 * compliance[2, 1]
+    nu13 = - E1 * compliance[2, 0]
+    nu12 = - E1 * compliance[1, 0]
     coeffs = [E1, E2, E3, G23, G13, G12, nu23, nu13, nu12]
     [print(i, j) for i, j in zip(["E1", "E2", "E3", "G23", "G13", "G12", "nu23", "nu13", "nu12"], coeffs)]
     return coeffs
 
 
 def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0., show_cbar=True, show_edges=False,
-                           xy_view=False, rm_id=None):
+                           xy_view=False, rm_id=None, show_axes=True):
     """ Warp the workspace according to the displacement field output by the elasticity functions,
         and color by displacement and stress components
         :param workspace: domain
@@ -156,6 +156,8 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
         :type xy_view: bool
         :param rm_id: remove a phase of the material from warped mesh (only works for 2D slice)
         :type rm_id: float or None
+        :param show_axes: show the axes and side dimensions
+        :type show_axes: float
     """
 
     if isinstance(workspace, Workspace):
@@ -212,7 +214,8 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
                 f2 = grid2.threshold((0, ws.max()))
                 p.add_mesh(f2, opacity=show_original, cmap='jet')
 
-            p.show_bounds(grid='front', location='outer', all_edges=True, color=(0, 0, 0))
+            if show_axes:
+                p.show_bounds(grid='front', location='outer', all_edges=True, color=(0, 0, 0))
             p.background_color = (1, 1, 1)
             p.add_axes(line_width=5, color=(0, 0, 0))
 

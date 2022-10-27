@@ -130,7 +130,7 @@ class Elasticity(PropertySolver):
         if self.solver_type != 'direct' and self.solver_type != 'spsolve':
             self.initial_guess = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
             for i in range(self.len_x):
-                self.initial_guess[i, :, :, 0] = i / (self.len_x - 1)
+                self.initial_guess[i, :, :, 0] = i / max((self.len_x - 1), 1)
             self.initial_guess = self.initial_guess.flatten('F')
 
     def compute_Cmat(self, i, i_cv):
