@@ -121,17 +121,12 @@ class ElasticityFE(PropertySolver):
         y = np.zeros(self.nDOFs, dtype=float)
 
         if self.matrix_free and self.solver_type != 'direct':
-
             def matvec(x):
-
                 y.fill(0)
-                for e in range(self.nElems):
-                    for i in range(24):
-                        y[self.pElemDOFNum[i, e]] += (self.m_K[i, :, self.elemMatMap[e]] * x[self.pElemDOFNum[:, e]]).sum()
-
+                np.add.at(y, self.pElemDOFNum, np.einsum("ijk, jk -> ik", self.m_K[:, :, self.elemMatMap], x[self.pElemDOFNum]))
                 return y
-
             self.Amat = LinearOperator(shape=(self.nDOFs, self.nDOFs), matvec=matvec)
+
         else:
             I, J, V = [], [], []
             for e in range(self.nElems):
@@ -140,7 +135,6 @@ class ElasticityFE(PropertySolver):
                         I.append(self.pElemDOFNum[i, e])
                         J.append(self.pElemDOFNum[j, e])
                         V.append(self.m_K[i, j, self.elemMatMap[e]])
-
             self.Amat = coo_matrix((V, (I, J))).tocsc()
 
     def compute_effective_coefficient(self):
