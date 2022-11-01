@@ -4,7 +4,6 @@ The following FE numerical method and implementation are based on the following 
 Pedro C. F. Lopes, Rafael S. Vianna, Victor W. Sapucaia, Federico Semeraro, Ricardo Leiderman, Andre M. B. Pereira, 2022.
 Simulation Toolkit for Digital Material Characterization of Large Image-based Microstructures.
 """
-import pumapy.materialproperties.volumefraction
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.workspace import Workspace
