@@ -57,7 +57,7 @@ class ElasticityFE(PropertySolver):
         self.nElems = self.len_x * self.len_y * self.len_z
         self.nDOFs = self.nElems * 3
         self.elemMatMap = np.zeros(self.len_x * self.len_y * self.len_z, dtype=int)
-        self.pElemDOFNum = np.zeros((24, self.nElems), dtype=int)
+        self.pElemDOFNum = np.zeros((24, self.nElems), dtype=np.uint32)
         nElemS = self.len_x * self.len_y
         nNodeS = (self.len_x + 1) * (self.len_y + 1)
         DOFMap = np.zeros((self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1), dtype=int)
@@ -73,7 +73,7 @@ class ElasticityFE(PropertySolver):
         for n in range(nNodeS * (self.len_z + 1)):
             i = n % nNodeS
             DOFMap[n] = (i - (i // (self.len_y + 1)) - self.len_y * ((i % (self.len_y + 1)) // self.len_y)) \
-                            % nElemS + ((n // nNodeS) % self.len_z) * nElemS + 1
+                        % nElemS + ((n // nNodeS) % self.len_z) * nElemS + 1
 
         for e in range(self.nElems):
             N1 = 2 + e % nElemS + (e % nElemS) // self.len_y + e // nElemS * nNodeS - 1
@@ -155,6 +155,20 @@ class ElasticityFE(PropertySolver):
         elif self.axis == 5:
             t[[8, 11, 20, 23]] = 1
 
+        self.u = self.x.reshape([self.len_x, self.len_y, self.len_z, 3])
+
+        self.s = np.zeros((self.nElems, 3), dtype=float)
+        self.t = np.zeros((self.nElems, 3), dtype=float)
+        for e in range(self.nElems):
+            self.s[e, 0] += (self.m_B[0, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            self.s[e, 1] += (self.m_B[1, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            self.s[e, 2] += (self.m_B[2, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            self.t[e, 0] += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            self.t[e, 1] += (self.m_B[4, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            self.t[e, 2] += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+        self.s = self.s.reshape([self.len_x, self.len_y, self.len_z, 3])
+        self.t = self.t.reshape([self.len_x, self.len_y, self.len_z, 3])
+
         SX = 0; SY = 0; SZ = 0; SXY = 0; SXZ = 0; SYZ = 0
         for e in range(self.nElems):
             SX  += (self.m_B[0, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
@@ -181,16 +195,24 @@ class ElasticityFE(PropertySolver):
         self.m_K = np.zeros((24, 24, nMat), dtype=float)
         self.m_B = np.zeros((6, 24, nMat), dtype=float)
 
+        B_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5],
+                  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23]]
+        dNdx_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1],
+                     [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7]]
+
+        # Gauss Points
+        gp = [-1. / np.sqrt(3), 1. / np.sqrt(3)]
+
+        # Element coords
+        x = np.array([0., 1., 1., 0., 0., 1., 1., 0.])
+        y = np.array([0., 0., 1., 1., 0., 0., 1., 1.])
+        z = np.array([0., 0., 0., 0., 1., 1., 1., 1.])
+
         i_mat = 0
         for j_mat in range(0, 256):
 
             if j_mat not in self.mat_elast.keys():
                 continue
-
-            # Element coords
-            x = np.array([0., 1., 1., 0., 0., 1., 1., 0.])
-            y = np.array([0., 0., 1., 1., 0., 0., 1., 1.])
-            z = np.array([0., 0., 0., 0., 1., 1., 1., 1.])
 
             # Constitutive matrix
             C.fill(0)
@@ -202,8 +224,6 @@ class ElasticityFE(PropertySolver):
                                 [cs[4], cs[9], cs[13], cs[16], cs[18]/2., cs[19]],
                                 [cs[5], cs[10], cs[14], cs[17], cs[19], cs[20]/2.]])
 
-            # Gauss Points and Weights
-            gp = [-1. / np.sqrt(3), 1. / np.sqrt(3)]
             k.fill(0)
             BC.fill(0)
             B.fill(0)
@@ -246,78 +266,9 @@ class ElasticityFE(PropertySolver):
                                        [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]])
                         J = dN @ X.T
                         dNdx = np.linalg.inv(J) @ dN
-                        B[0, 0]  = dNdx[0, 0]
-                        B[1, 1]  = dNdx[1, 0]
-                        B[2, 2]  = dNdx[2, 0]
-                        B[0, 3]  = dNdx[0, 1]
-                        B[1, 4]  = dNdx[1, 1]
-                        B[2, 5]  = dNdx[2, 1]
-                        B[0, 6]  = dNdx[0, 2]
-                        B[1, 7]  = dNdx[1, 2]
-                        B[2, 8]  = dNdx[2, 2]
-                        B[0, 9] = dNdx[0, 3]
-                        B[1, 10] = dNdx[1, 3]
-                        B[2, 11] = dNdx[2, 3]
-                        B[0, 12] = dNdx[0, 4]
-                        B[1, 13] = dNdx[1, 4]
-                        B[2, 14] = dNdx[2, 4]
-                        B[0, 15] = dNdx[0, 5]
-                        B[1, 16] = dNdx[1, 5]
-                        B[2, 17] = dNdx[2, 5]
-                        B[0, 18] = dNdx[0, 6]
-                        B[1, 19] = dNdx[1, 6]
-                        B[2, 20] = dNdx[2, 6]
-                        B[0, 21] = dNdx[0, 7]
-                        B[1, 22] = dNdx[1, 7]
-                        B[2, 23] = dNdx[2, 7]
-                        B[3, 0]  = dNdx[1, 0]
-                        B[4, 0]  = dNdx[2, 0]
-                        B[5, 1]  = dNdx[2, 0]
-                        B[3, 1]  = dNdx[0, 0]
-                        B[4, 2]  = dNdx[0, 0]
-                        B[5, 2]  = dNdx[1, 0]
-                        B[3, 3]  = dNdx[1, 1]
-                        B[4, 3]  = dNdx[2, 1]
-                        B[5, 4]  = dNdx[2, 1]
-                        B[3, 4]  = dNdx[0, 1]
-                        B[4, 5]  = dNdx[0, 1]
-                        B[5, 5]  = dNdx[1, 1]
-                        B[3, 6]  = dNdx[1, 2]
-                        B[4, 6]  = dNdx[2, 2]
-                        B[5, 7]  = dNdx[2, 2]
-                        B[3, 7]  = dNdx[0, 2]
-                        B[4, 8]  = dNdx[0, 2]
-                        B[5, 8]  = dNdx[1, 2]
-                        B[3, 9] = dNdx[1, 3]
-                        B[4, 9] = dNdx[2, 3]
-                        B[5, 10] = dNdx[2, 3]
-                        B[3, 10] = dNdx[0, 3]
-                        B[4, 11] = dNdx[0, 3]
-                        B[5, 11] = dNdx[1, 3]
-                        B[3, 12] = dNdx[1, 4]
-                        B[4, 12] = dNdx[2, 4]
-                        B[5, 13] = dNdx[2, 4]
-                        B[3, 13] = dNdx[0, 4]
-                        B[4, 14] = dNdx[0, 4]
-                        B[5, 14] = dNdx[1, 4]
-                        B[3, 15] = dNdx[1, 5]
-                        B[4, 15] = dNdx[2, 5]
-                        B[5, 16] = dNdx[2, 5]
-                        B[3, 16] = dNdx[0, 5]
-                        B[4, 17] = dNdx[0, 5]
-                        B[5, 17] = dNdx[1, 5]
-                        B[3, 18] = dNdx[1, 6]
-                        B[4, 18] = dNdx[2, 6]
-                        B[5, 19] = dNdx[2, 6]
-                        B[3, 19] = dNdx[0, 6]
-                        B[4, 20] = dNdx[0, 6]
-                        B[5, 20] = dNdx[1, 6]
-                        B[3, 21] = dNdx[1, 7]
-                        B[4, 21] = dNdx[2, 7]
-                        B[5, 22] = dNdx[2, 7]
-                        B[3, 22] = dNdx[0, 7]
-                        B[4, 23] = dNdx[0, 7]
-                        B[5, 23] = dNdx[1, 7]
+
+                        for ind in range(len(B_inds[0])):
+                            B[B_inds[0][ind], B_inds[1][ind]] = dNdx[dNdx_inds[0][ind], dNdx_inds[1][ind]]
 
                         detJ = np.linalg.det(J)
                         k  += (B.T @ C @ B) * detJ

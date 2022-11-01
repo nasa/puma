@@ -295,7 +295,7 @@ def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
                 p.add_scalar_bar(plots[i][j], interactive=False, vertical=True, color=(0, 0, 0), height=0.8)
 
             p.show_bounds(grid='front', location='outer', all_edges=True, color=(0, 0, 0))
-            p.background_color = (1, 1, 1)
+            p.background_color = (255, 255, 255)
             p.add_axes(line_width=5, color=(0, 0, 0))
 
             if xy_view:
