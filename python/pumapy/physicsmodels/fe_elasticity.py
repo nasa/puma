@@ -70,13 +70,13 @@ class ElasticityFE(PropertySolver):
                 for j in range(1, cols + 1):
                     self.elemMatMap[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y -1] = self.ws[j -1, i -1, k -1]
 
-        for n in range(1, (nNodeS * (self.len_z + 1)) + 1):
-            i = (n - 1) % nNodeS
-            DOFMap[n - 1] = (i - (i // (self.len_y + 1)) - self.len_y * ((i % (self.len_y + 1)) // self.len_y)) \
-                            % nElemS + (((n - 1) // nNodeS) % self.len_z) * nElemS + 1
+        for n in range(nNodeS * (self.len_z + 1)):
+            i = n % nNodeS
+            DOFMap[n] = (i - (i // (self.len_y + 1)) - self.len_y * ((i % (self.len_y + 1)) // self.len_y)) \
+                            % nElemS + ((n // nNodeS) % self.len_z) * nElemS + 1
 
-        for e in range(1, self.nElems + 1):
-            N1 = 2 + (e - 1)%nElemS + ((e - 1) % nElemS)//self.len_y + (e - 1)//nElemS * nNodeS - 1
+        for e in range(self.nElems):
+            N1 = 2 + e % nElemS + (e % nElemS) // self.len_y + e // nElemS * nNodeS - 1
             N3 = N1 + self.len_y
             N2 = N3 + 1
             N4 = N1 - 1
@@ -84,38 +84,37 @@ class ElasticityFE(PropertySolver):
             N6 = N2 + nNodeS
             N7 = N3 + nNodeS
             N8 = N4 + nNodeS
-            self.pElemDOFNum[1 - 1, e - 1] = DOFMap[N1] * 3 - 2
-            self.pElemDOFNum[2 - 1, e - 1] = DOFMap[N1] * 3 - 1
-            self.pElemDOFNum[3 - 1, e - 1] = DOFMap[N1] * 3
-            self.pElemDOFNum[4 - 1, e - 1] = DOFMap[N2] * 3 - 2
-            self.pElemDOFNum[5 - 1, e - 1] = DOFMap[N2] * 3 - 1
-            self.pElemDOFNum[6 - 1, e - 1] = DOFMap[N2] * 3
-            self.pElemDOFNum[7 - 1, e - 1] = DOFMap[N3] * 3 - 2
-            self.pElemDOFNum[8 - 1, e - 1] = DOFMap[N3] * 3 - 1
-            self.pElemDOFNum[9 - 1, e - 1] = DOFMap[N3] * 3
-            self.pElemDOFNum[10 - 1, e - 1] = DOFMap[N4] * 3 - 2
-            self.pElemDOFNum[11 - 1, e - 1] = DOFMap[N4] * 3 - 1
-            self.pElemDOFNum[12 - 1, e - 1] = DOFMap[N4] * 3
-            self.pElemDOFNum[13 - 1, e - 1] = DOFMap[N5] * 3 - 2
-            self.pElemDOFNum[14 - 1, e - 1] = DOFMap[N5] * 3 - 1
-            self.pElemDOFNum[15 - 1, e - 1] = DOFMap[N5] * 3
-            self.pElemDOFNum[16 - 1, e - 1] = DOFMap[N6] * 3 - 2
-            self.pElemDOFNum[17 - 1, e - 1] = DOFMap[N6] * 3 - 1
-            self.pElemDOFNum[18 - 1, e - 1] = DOFMap[N6] * 3
-            self.pElemDOFNum[19 - 1, e - 1] = DOFMap[N7] * 3 - 2
-            self.pElemDOFNum[20 - 1, e - 1] = DOFMap[N7] * 3 - 1
-            self.pElemDOFNum[21 - 1, e - 1] = DOFMap[N7] * 3
-            self.pElemDOFNum[22 - 1, e - 1] = DOFMap[N8] * 3 - 2
-            self.pElemDOFNum[23 - 1, e - 1] = DOFMap[N8] * 3 - 1
-            self.pElemDOFNum[24 - 1, e - 1] = DOFMap[N8] * 3
+            self.pElemDOFNum[0, e] = DOFMap[N1] * 3 - 3
+            self.pElemDOFNum[1, e] = DOFMap[N1] * 3 - 2
+            self.pElemDOFNum[2, e] = DOFMap[N1] * 3 - 1
+            self.pElemDOFNum[3, e] = DOFMap[N2] * 3 - 3
+            self.pElemDOFNum[4, e] = DOFMap[N2] * 3 - 2
+            self.pElemDOFNum[5, e] = DOFMap[N2] * 3 - 1
+            self.pElemDOFNum[6, e] = DOFMap[N3] * 3 - 3
+            self.pElemDOFNum[7, e] = DOFMap[N3] * 3 - 2
+            self.pElemDOFNum[8, e] = DOFMap[N3] * 3 - 1
+            self.pElemDOFNum[9, e] = DOFMap[N4] * 3 - 3
+            self.pElemDOFNum[10, e] = DOFMap[N4] * 3 - 2
+            self.pElemDOFNum[11, e] = DOFMap[N4] * 3 - 1
+            self.pElemDOFNum[12, e] = DOFMap[N5] * 3 - 3
+            self.pElemDOFNum[13, e] = DOFMap[N5] * 3 - 2
+            self.pElemDOFNum[14, e] = DOFMap[N5] * 3 - 1
+            self.pElemDOFNum[15, e] = DOFMap[N6] * 3 - 3
+            self.pElemDOFNum[16, e] = DOFMap[N6] * 3 - 2
+            self.pElemDOFNum[17, e] = DOFMap[N6] * 3 - 1
+            self.pElemDOFNum[18, e] = DOFMap[N7] * 3 - 3
+            self.pElemDOFNum[19, e] = DOFMap[N7] * 3 - 2
+            self.pElemDOFNum[20, e] = DOFMap[N7] * 3 - 1
+            self.pElemDOFNum[21, e] = DOFMap[N8] * 3 - 3
+            self.pElemDOFNum[22, e] = DOFMap[N8] * 3 - 2
+            self.pElemDOFNum[23, e] = DOFMap[N8] * 3 - 1
 
     def compute_rhs(self):
         print("Computing RHS")
         self.bvec = np.zeros(self.nDOFs, dtype=float)
 
-        for e in range(1, self.nElems + 1):
-            for i in range(24):
-                self.bvec[self.pElemDOFNum[i, e -1] -1] += self.m_B[self.axis, i, self.elemMatMap[e -1]]
+        for e in range(self.nElems):
+            np.add.at(self.bvec, self.pElemDOFNum[:, e], self.m_B[self.axis, :, self.elemMatMap[e]])
 
     def assemble_Amatrix(self):
         print("Assembling system")
@@ -125,21 +124,22 @@ class ElasticityFE(PropertySolver):
 
             def matvec(x):
 
-                for e in range(1, self.nElems + 1):
+                y.fill(0)
+                for e in range(self.nElems):
                     for i in range(24):
-                        y[self.pElemDOFNum[i, e - 1] -1] += (self.m_K[i, :, self.elemMatMap[e -1]] * x[self.pElemDOFNum[:, e -1] -1]).sum()
+                        y[self.pElemDOFNum[i, e]] += (self.m_K[i, :, self.elemMatMap[e]] * x[self.pElemDOFNum[:, e]]).sum()
 
                 return y
 
             self.Amat = LinearOperator(shape=(self.nDOFs, self.nDOFs), matvec=matvec)
         else:
             I, J, V = [], [], []
-            for e in range(1, self.nElems + 1):
+            for e in range(self.nElems):
                 for i in range(24):
                     for j in range(24):
-                        I.append(self.pElemDOFNum[i, e -1] -1)
-                        J.append(self.pElemDOFNum[j, e -1] -1)
-                        V.append(self.m_K[i, j, self.elemMatMap[e -1]])
+                        I.append(self.pElemDOFNum[i, e])
+                        J.append(self.pElemDOFNum[j, e])
+                        V.append(self.m_K[i, j, self.elemMatMap[e]])
 
             self.Amat = coo_matrix((V, (I, J))).tocsc()
 
@@ -148,25 +148,34 @@ class ElasticityFE(PropertySolver):
         self.Ceff = np.zeros((6, 6), dtype=float)
 
         t = np.zeros(24, dtype=float)
-        if   self.axis == 0: t[4 -1] = 1; t[7 -1] = 1; t[16 -1] = 1; t[19 -1] = 1
-        elif self.axis == 1: t[8 -1] = 1; t[11 -1] = 1; t[20 -1] = 1; t[23 -1] = 1
-        elif self.axis == 2: t[15 -1] = 1; t[18 -1] = 1; t[21 -1] = 1; t[24 -1] = 1
-        elif self.axis == 3: t[7 -1] = 1; t[10 -1] = 1; t[19 -1] = 1; t[22 -1] = 1
-        elif self.axis == 4: t[13 -1] = 1; t[16 -1] = 1; t[19 -1] = 1; t[22 -1] = 1
-        elif self.axis == 5: t[9 -1] = 1; t[12 -1] = 1; t[21 -1] = 1; t[24 -1] = 1
+        if self.axis == 0:
+            t[[3, 6, 15, 18]] = 1
+        elif self.axis == 1:
+            t[[7, 10, 19, 22]] = 1
+        elif self.axis == 2:
+            t[[14, 17, 20, 23]] = 1
+        elif self.axis == 3:
+            t[[6, 9, 18, 21]] = 1
+        elif self.axis == 4:
+            t[[12, 15, 18, 21]] = 1
+        elif self.axis == 5:
+            t[[8, 11, 20, 23]] = 1
 
         SX = 0; SY = 0; SZ = 0; SXY = 0; SXZ = 0; SYZ = 0
-        for e in range(1, self.nElems + 1):
-            for i in range(24):
-                SX  += self.m_B[1 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
-                SY  += self.m_B[2 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
-                SZ  += self.m_B[3 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
-                SXY += self.m_B[4 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
-                SXZ += self.m_B[5 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
-                SYZ += self.m_B[6 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
+        for e in range(self.nElems):
+            SX  += (self.m_B[0, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            SY  += (self.m_B[1, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            SZ  += (self.m_B[2, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            SXY += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            SXZ += (self.m_B[4, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            SYZ += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
 
-        self.Ceff[self.axis, 0] = SX / self.nElems;  self.Ceff[self.axis, 1] = SY / self.nElems;  self.Ceff[self.axis, 2] = SZ / self.nElems
-        self.Ceff[self.axis, 3] = SXY / self.nElems; self.Ceff[self.axis, 4] = SXZ / self.nElems; self.Ceff[self.axis, 5] = SYZ / self.nElems
+        self.Ceff[self.axis, 0] = SX / self.nElems
+        self.Ceff[self.axis, 1] = SY / self.nElems
+        self.Ceff[self.axis, 2] = SZ / self.nElems
+        self.Ceff[self.axis, 3] = SXY / self.nElems
+        self.Ceff[self.axis, 4] = SXZ / self.nElems
+        self.Ceff[self.axis, 5] = SYZ / self.nElems
 
     def element_stiffness_matrices(self):
         k = np.zeros((24, 24), dtype=float)
@@ -214,41 +223,107 @@ class ElasticityFE(PropertySolver):
                         X = np.array([x.T, y.T, z.T])
 
                         # Compute B matrix and Jacobian
-                        dN1dr = -(1 - s) * (1 - t) * .125; dN2dr =  (1 - s) * (1 - t) * .125; dN3dr =  (1 + s) * (1 - t) * .125; dN4dr = -(1 + s) * (1 - t) * .125
-                        dN5dr = -(1 - s) * (1 + t) * .125; dN6dr =  (1 - s) * (1 + t) * .125; dN7dr =  (1 + s) * (1 + t) * .125; dN8dr = -(1 + s) * (1 + t) * .125
-                        dN1ds = -(1 - r) * (1 - t) * .125; dN2ds = -(1 + r) * (1 - t) * .125; dN3ds =  (1 + r) * (1 - t) * .125; dN4ds =  (1 - r) * (1 - t) * .125
-                        dN5ds = -(1 - r) * (1 + t) * .125; dN6ds = -(1 + r) * (1 + t) * .125; dN7ds =  (1 + r) * (1 + t) * .125; dN8ds =  (1 - r) * (1 + t) * .125
-                        dN1dt = -(1 - r) * (1 - s) * .125; dN2dt = -(1 + r) * (1 - s) * .125; dN3dt = -(1 + r) * (1 + s) * .125; dN4dt = -(1 - r) * (1 + s) * .125
-                        dN5dt =  (1 - r) * (1 - s) * .125; dN6dt =  (1 + r) * (1 - s) * .125; dN7dt =  (1 + r) * (1 + s) * .125; dN8dt =  (1 - r) * (1 + s) * .125
+                        dN1dr = -(1 - s) * (1 - t) * .125
+                        dN2dr =  (1 - s) * (1 - t) * .125
+                        dN3dr =  (1 + s) * (1 - t) * .125
+                        dN4dr = -(1 + s) * (1 - t) * .125
+                        dN5dr = -(1 - s) * (1 + t) * .125
+                        dN6dr =  (1 - s) * (1 + t) * .125
+                        dN7dr =  (1 + s) * (1 + t) * .125
+                        dN8dr = -(1 + s) * (1 + t) * .125
+                        dN1ds = -(1 - r) * (1 - t) * .125
+                        dN2ds = -(1 + r) * (1 - t) * .125
+                        dN3ds =  (1 + r) * (1 - t) * .125
+                        dN4ds =  (1 - r) * (1 - t) * .125
+                        dN5ds = -(1 - r) * (1 + t) * .125
+                        dN6ds = -(1 + r) * (1 + t) * .125
+                        dN7ds =  (1 + r) * (1 + t) * .125
+                        dN8ds =  (1 - r) * (1 + t) * .125
+                        dN1dt = -(1 - r) * (1 - s) * .125
+                        dN2dt = -(1 + r) * (1 - s) * .125
+                        dN3dt = -(1 + r) * (1 + s) * .125
+                        dN4dt = -(1 - r) * (1 + s) * .125
+                        dN5dt =  (1 - r) * (1 - s) * .125
+                        dN6dt =  (1 + r) * (1 - s) * .125
+                        dN7dt =  (1 + r) * (1 + s) * .125
+                        dN8dt =  (1 - r) * (1 + s) * .125
                         dN = np.array([[dN1dr, dN2dr, dN3dr, dN4dr, dN5dr, dN6dr, dN7dr, dN8dr],
                                        [dN1ds, dN2ds, dN3ds, dN4ds, dN5ds, dN6ds, dN7ds, dN8ds],
                                        [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]])
                         J = dN @ X.T
                         dNdx = np.linalg.inv(J) @ dN
-                        B[1 -1, 1 -1]  = dNdx[1 -1, 1 -1];  B[2 -1, 2 -1]  = dNdx[2 -1, 1 -1];  B[3 -1, 3 -1]  = dNdx[3 -1, 1 -1]
-                        B[1 -1, 4 -1]  = dNdx[1 -1, 2 -1];  B[2 -1, 5 -1]  = dNdx[2 -1, 2 -1];  B[3 -1, 6 -1]  = dNdx[3 -1, 2 -1]
-                        B[1 -1, 7 -1]  = dNdx[1 -1, 3 -1];  B[2 -1, 8 -1]  = dNdx[2 -1, 3 -1];  B[3 -1, 9 -1]  = dNdx[3 -1, 3 -1]
-                        B[1 -1, 10 -1] = dNdx[1 -1, 4 -1];  B[2 -1, 11 -1] = dNdx[2 -1, 4 -1];  B[3 -1, 12 -1] = dNdx[3 -1, 4 -1]
-                        B[1 -1, 13 -1] = dNdx[1 -1, 5 -1];  B[2 -1, 14 -1] = dNdx[2 -1, 5 -1];  B[3 -1, 15 -1] = dNdx[3 -1, 5 -1]
-                        B[1 -1, 16 -1] = dNdx[1 -1, 6 -1];  B[2 -1, 17 -1] = dNdx[2 -1, 6 -1];  B[3 -1, 18 -1] = dNdx[3 -1, 6 -1]
-                        B[1 -1, 19 -1] = dNdx[1 -1, 7 -1];  B[2 -1, 20 -1] = dNdx[2 -1, 7 -1];  B[3 -1, 21 -1] = dNdx[3 -1, 7 -1]
-                        B[1 -1, 22 -1] = dNdx[1 -1, 8 -1];  B[2 -1, 23 -1] = dNdx[2 -1, 8 -1];  B[3 -1, 24 -1] = dNdx[3 -1, 8 -1]
-                        B[4 -1, 1 -1]  = dNdx[2 -1, 1 -1];  B[5 -1, 1 -1]  = dNdx[3 -1, 1 -1];  B[6 -1, 2 -1]  = dNdx[3 -1, 1 -1]
-                        B[4 -1, 2 -1]  = dNdx[1 -1, 1 -1];  B[5 -1, 3 -1]  = dNdx[1 -1, 1 -1];  B[6 -1, 3 -1]  = dNdx[2 -1, 1 -1]
-                        B[4 -1, 4 -1]  = dNdx[2 -1, 2 -1];  B[5 -1, 4 -1]  = dNdx[3 -1, 2 -1];  B[6 -1, 5 -1]  = dNdx[3 -1, 2 -1]
-                        B[4 -1, 5 -1]  = dNdx[1 -1, 2 -1];  B[5 -1, 6 -1]  = dNdx[1 -1, 2 -1];  B[6 -1, 6 -1]  = dNdx[2 -1, 2 -1]
-                        B[4 -1, 7 -1]  = dNdx[2 -1, 3 -1];  B[5 -1, 7 -1]  = dNdx[3 -1, 3 -1];  B[6 -1, 8 -1]  = dNdx[3 -1, 3 -1]
-                        B[4 -1, 8 -1]  = dNdx[1 -1, 3 -1];  B[5 -1, 9 -1]  = dNdx[1 -1, 3 -1];  B[6 -1, 9 -1]  = dNdx[2 -1, 3 -1]
-                        B[4 -1, 10 -1] = dNdx[2 -1, 4 -1];  B[5 -1, 10 -1] = dNdx[3 -1, 4 -1];  B[6 -1, 11 -1] = dNdx[3 -1, 4 -1]
-                        B[4 -1, 11 -1] = dNdx[1 -1, 4 -1];  B[5 -1, 12 -1] = dNdx[1 -1, 4 -1];  B[6 -1, 12 -1] = dNdx[2 -1, 4 -1]
-                        B[4 -1, 13 -1] = dNdx[2 -1, 5 -1];  B[5 -1, 13 -1] = dNdx[3 -1, 5 -1];  B[6 -1, 14 -1] = dNdx[3 -1, 5 -1]
-                        B[4 -1, 14 -1] = dNdx[1 -1, 5 -1];  B[5 -1, 15 -1] = dNdx[1 -1, 5 -1];  B[6 -1, 15 -1] = dNdx[2 -1, 5 -1]
-                        B[4 -1, 16 -1] = dNdx[2 -1, 6 -1];  B[5 -1, 16 -1] = dNdx[3 -1, 6 -1];  B[6 -1, 17 -1] = dNdx[3 -1, 6 -1]
-                        B[4 -1, 17 -1] = dNdx[1 -1, 6 -1];  B[5 -1, 18 -1] = dNdx[1 -1, 6 -1];  B[6 -1, 18 -1] = dNdx[2 -1, 6 -1]
-                        B[4 -1, 19 -1] = dNdx[2 -1, 7 -1];  B[5 -1, 19 -1] = dNdx[3 -1, 7 -1];  B[6 -1, 20 -1] = dNdx[3 -1, 7 -1]
-                        B[4 -1, 20 -1] = dNdx[1 -1, 7 -1];  B[5 -1, 21 -1] = dNdx[1 -1, 7 -1];  B[6 -1, 21 -1] = dNdx[2 -1, 7 -1]
-                        B[4 -1, 22 -1] = dNdx[2 -1, 8 -1];  B[5 -1, 22 -1] = dNdx[3 -1, 8 -1];  B[6 -1, 23 -1] = dNdx[3 -1, 8 -1]
-                        B[4 -1, 23 -1] = dNdx[1 -1, 8 -1];  B[5 -1, 24 -1] = dNdx[1 -1, 8 -1];  B[6 -1, 24 -1] = dNdx[2 -1, 8 -1]
+                        B[0, 0]  = dNdx[0, 0]
+                        B[1, 1]  = dNdx[1, 0]
+                        B[2, 2]  = dNdx[2, 0]
+                        B[0, 3]  = dNdx[0, 1]
+                        B[1, 4]  = dNdx[1, 1]
+                        B[2, 5]  = dNdx[2, 1]
+                        B[0, 6]  = dNdx[0, 2]
+                        B[1, 7]  = dNdx[1, 2]
+                        B[2, 8]  = dNdx[2, 2]
+                        B[0, 9] = dNdx[0, 3]
+                        B[1, 10] = dNdx[1, 3]
+                        B[2, 11] = dNdx[2, 3]
+                        B[0, 12] = dNdx[0, 4]
+                        B[1, 13] = dNdx[1, 4]
+                        B[2, 14] = dNdx[2, 4]
+                        B[0, 15] = dNdx[0, 5]
+                        B[1, 16] = dNdx[1, 5]
+                        B[2, 17] = dNdx[2, 5]
+                        B[0, 18] = dNdx[0, 6]
+                        B[1, 19] = dNdx[1, 6]
+                        B[2, 20] = dNdx[2, 6]
+                        B[0, 21] = dNdx[0, 7]
+                        B[1, 22] = dNdx[1, 7]
+                        B[2, 23] = dNdx[2, 7]
+                        B[3, 0]  = dNdx[1, 0]
+                        B[4, 0]  = dNdx[2, 0]
+                        B[5, 1]  = dNdx[2, 0]
+                        B[3, 1]  = dNdx[0, 0]
+                        B[4, 2]  = dNdx[0, 0]
+                        B[5, 2]  = dNdx[1, 0]
+                        B[3, 3]  = dNdx[1, 1]
+                        B[4, 3]  = dNdx[2, 1]
+                        B[5, 4]  = dNdx[2, 1]
+                        B[3, 4]  = dNdx[0, 1]
+                        B[4, 5]  = dNdx[0, 1]
+                        B[5, 5]  = dNdx[1, 1]
+                        B[3, 6]  = dNdx[1, 2]
+                        B[4, 6]  = dNdx[2, 2]
+                        B[5, 7]  = dNdx[2, 2]
+                        B[3, 7]  = dNdx[0, 2]
+                        B[4, 8]  = dNdx[0, 2]
+                        B[5, 8]  = dNdx[1, 2]
+                        B[3, 9] = dNdx[1, 3]
+                        B[4, 9] = dNdx[2, 3]
+                        B[5, 10] = dNdx[2, 3]
+                        B[3, 10] = dNdx[0, 3]
+                        B[4, 11] = dNdx[0, 3]
+                        B[5, 11] = dNdx[1, 3]
+                        B[3, 12] = dNdx[1, 4]
+                        B[4, 12] = dNdx[2, 4]
+                        B[5, 13] = dNdx[2, 4]
+                        B[3, 13] = dNdx[0, 4]
+                        B[4, 14] = dNdx[0, 4]
+                        B[5, 14] = dNdx[1, 4]
+                        B[3, 15] = dNdx[1, 5]
+                        B[4, 15] = dNdx[2, 5]
+                        B[5, 16] = dNdx[2, 5]
+                        B[3, 16] = dNdx[0, 5]
+                        B[4, 17] = dNdx[0, 5]
+                        B[5, 17] = dNdx[1, 5]
+                        B[3, 18] = dNdx[1, 6]
+                        B[4, 18] = dNdx[2, 6]
+                        B[5, 19] = dNdx[2, 6]
+                        B[3, 19] = dNdx[0, 6]
+                        B[4, 20] = dNdx[0, 6]
+                        B[5, 20] = dNdx[1, 6]
+                        B[3, 21] = dNdx[1, 7]
+                        B[4, 21] = dNdx[2, 7]
+                        B[5, 22] = dNdx[2, 7]
+                        B[3, 22] = dNdx[0, 7]
+                        B[4, 23] = dNdx[0, 7]
+                        B[5, 23] = dNdx[1, 7]
 
                         detJ = np.linalg.det(J)
                         k  += (B.T @ C @ B) * detJ
