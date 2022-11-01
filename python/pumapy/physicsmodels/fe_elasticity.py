@@ -11,20 +11,33 @@ import numpy as np
 
 class ElasticityFE(PropertySolver):
 
-    def __init__(self, workspace, elast_map, direction, tolerance, maxiter, solver_type, display_iter):
-        #matrix_free, preconditioner, output_fields):
+    def __init__(self, workspace, elast_map, direction, tolerance, maxiter, solver_type, display_iter, matrix_free):
+        #preconditioner, output_fields):
 
         allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab', 'gmres']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
         self.elast_map = elast_map
         self.ws = workspace.copy()
-
+        self.matrix_free = matrix_free
         self.direction = direction
         self.solver_type = solver_type
         self.voxlength = self.ws.voxel_length
         self.len_x, self.len_y, self.len_z = self.ws.matrix.shape
         self.mat_elast = dict()
+
+        if self.direction == 'x':
+            self.axis = 0
+        elif self.direction == 'y':
+            self.axis = 1
+        elif self.direction == 'z':
+            self.axis = 2
+        elif self.direction == 'xy':
+            self.axis = 3
+        elif self.direction == 'xz':
+            self.axis = 4
+        else:
+            self.axis = 5
 
         self.Ceff = None
         self.u = None
@@ -40,8 +53,14 @@ class ElasticityFE(PropertySolver):
         self.compute_effective_coefficient()
 
     def initialize(self):
-        print("Initializing")
+        print("Initializing index matrices")
+        self.nElems = self.len_x * self.len_y * self.len_z
+        self.nDOFs = self.nElems * 3
         self.elemMatMap = np.zeros(self.len_x * self.len_y * self.len_z, dtype=int)
+        self.pElemDOFNum = np.zeros((24, self.nElems), dtype=int)
+        nElemS = self.len_x * self.len_y
+        nNodeS = (self.len_x + 1) * (self.len_y + 1)
+        DOFMap = np.zeros((self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1), dtype=int)
 
         rows = self.len_y
         cols = self.len_x
@@ -51,102 +70,82 @@ class ElasticityFE(PropertySolver):
                 for j in range(1, cols + 1):
                     self.elemMatMap[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y -1] = self.ws[j -1, i -1, k -1]
 
-        self.nElems = self.len_x * self.len_y * self.len_z
-        self.nDOFs = self.nElems * 3
-        self.nElemS = self.len_x * self.len_y
-        self.nNodeS = (self.len_x + 1) * (self.len_y + 1)
-        self.DOFMap = np.zeros((self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1), dtype=int)
+        for n in range(1, (nNodeS * (self.len_z + 1)) + 1):
+            i = (n - 1) % nNodeS
+            DOFMap[n - 1] = (i - (i // (self.len_y + 1)) - self.len_y * ((i % (self.len_y + 1)) // self.len_y)) \
+                            % nElemS + (((n - 1) // nNodeS) % self.len_z) * nElemS + 1
 
-        for n in range(1, (self.nNodeS * (self.len_z + 1)) + 1):
-            i = (n - 1) % self.nNodeS
-            self.DOFMap[n - 1] = (i - (i // (self.len_y + 1)) - self.len_y * ((i % (self.len_y + 1)) // self.len_y)) \
-                                 % self.nElemS + (((n - 1) // self.nNodeS) % self.len_z) * self.nElemS + 1
-
-        if self.direction == 'x':
-            self.axis = 0
-        elif self.direction == 'y':
-            self.axis = 1
-        elif self.direction == 'z':
-            self.axis = 2
-        elif self.direction == 'xy':
-            self.axis = 3
-        elif self.direction == 'xz':
-            self.axis = 4
-        else:
-            self.axis = 5
+        for e in range(1, self.nElems + 1):
+            N1 = 2 + (e - 1)%nElemS + ((e - 1) % nElemS)//self.len_y + (e - 1)//nElemS * nNodeS - 1
+            N3 = N1 + self.len_y
+            N2 = N3 + 1
+            N4 = N1 - 1
+            N5 = N1 + nNodeS
+            N6 = N2 + nNodeS
+            N7 = N3 + nNodeS
+            N8 = N4 + nNodeS
+            self.pElemDOFNum[1 - 1, e - 1] = DOFMap[N1] * 3 - 2
+            self.pElemDOFNum[2 - 1, e - 1] = DOFMap[N1] * 3 - 1
+            self.pElemDOFNum[3 - 1, e - 1] = DOFMap[N1] * 3
+            self.pElemDOFNum[4 - 1, e - 1] = DOFMap[N2] * 3 - 2
+            self.pElemDOFNum[5 - 1, e - 1] = DOFMap[N2] * 3 - 1
+            self.pElemDOFNum[6 - 1, e - 1] = DOFMap[N2] * 3
+            self.pElemDOFNum[7 - 1, e - 1] = DOFMap[N3] * 3 - 2
+            self.pElemDOFNum[8 - 1, e - 1] = DOFMap[N3] * 3 - 1
+            self.pElemDOFNum[9 - 1, e - 1] = DOFMap[N3] * 3
+            self.pElemDOFNum[10 - 1, e - 1] = DOFMap[N4] * 3 - 2
+            self.pElemDOFNum[11 - 1, e - 1] = DOFMap[N4] * 3 - 1
+            self.pElemDOFNum[12 - 1, e - 1] = DOFMap[N4] * 3
+            self.pElemDOFNum[13 - 1, e - 1] = DOFMap[N5] * 3 - 2
+            self.pElemDOFNum[14 - 1, e - 1] = DOFMap[N5] * 3 - 1
+            self.pElemDOFNum[15 - 1, e - 1] = DOFMap[N5] * 3
+            self.pElemDOFNum[16 - 1, e - 1] = DOFMap[N6] * 3 - 2
+            self.pElemDOFNum[17 - 1, e - 1] = DOFMap[N6] * 3 - 1
+            self.pElemDOFNum[18 - 1, e - 1] = DOFMap[N6] * 3
+            self.pElemDOFNum[19 - 1, e - 1] = DOFMap[N7] * 3 - 2
+            self.pElemDOFNum[20 - 1, e - 1] = DOFMap[N7] * 3 - 1
+            self.pElemDOFNum[21 - 1, e - 1] = DOFMap[N7] * 3
+            self.pElemDOFNum[22 - 1, e - 1] = DOFMap[N8] * 3 - 2
+            self.pElemDOFNum[23 - 1, e - 1] = DOFMap[N8] * 3 - 1
+            self.pElemDOFNum[24 - 1, e - 1] = DOFMap[N8] * 3
 
     def compute_rhs(self):
         print("Computing RHS")
         self.bvec = np.zeros(self.nDOFs, dtype=float)
-        pElemDOFNum = np.zeros(24, dtype=int)
 
         for e in range(1, self.nElems + 1):
-            N1 = 2 + (e - 1) % self.nElemS + ((e - 1) % self.nElemS) // self.len_y + (e - 1) // self.nElemS * self.nNodeS
-            N3 = N1 + self.len_y; N2 = N3 + 1; N4 = N1 - 1
-            N5 = N1 + self.nNodeS; N6 = N2 + self.nNodeS; N7 = N3 + self.nNodeS; N8 = N4 + self.nNodeS
-            pElemDOFNum[1 -1]  = self.DOFMap[N1 -1] * 3 - 2; pElemDOFNum[2 -1]  = self.DOFMap[N1 -1] * 3 - 1; pElemDOFNum[3 -1]  = self.DOFMap[N1 -1] * 3
-            pElemDOFNum[4 -1]  = self.DOFMap[N2 -1] * 3 - 2; pElemDOFNum[5 -1]  = self.DOFMap[N2 -1] * 3 - 1; pElemDOFNum[6 -1]  = self.DOFMap[N2 -1] * 3
-            pElemDOFNum[7 -1]  = self.DOFMap[N3 -1] * 3 - 2; pElemDOFNum[8 -1]  = self.DOFMap[N3 -1] * 3 - 1; pElemDOFNum[9 -1]  = self.DOFMap[N3 -1] * 3
-            pElemDOFNum[10 -1] = self.DOFMap[N4 -1] * 3 - 2; pElemDOFNum[11 -1] = self.DOFMap[N4 -1] * 3 - 1; pElemDOFNum[12 -1] = self.DOFMap[N4 -1] * 3
-            pElemDOFNum[13 -1] = self.DOFMap[N5 -1] * 3 - 2; pElemDOFNum[14 -1] = self.DOFMap[N5 -1] * 3 - 1; pElemDOFNum[15 -1] = self.DOFMap[N5 -1] * 3
-            pElemDOFNum[16 -1] = self.DOFMap[N6 -1] * 3 - 2; pElemDOFNum[17 -1] = self.DOFMap[N6 -1] * 3 - 1; pElemDOFNum[18 -1] = self.DOFMap[N6 -1] * 3
-            pElemDOFNum[19 -1] = self.DOFMap[N7 -1] * 3 - 2; pElemDOFNum[20 -1] = self.DOFMap[N7 -1] * 3 - 1; pElemDOFNum[21 -1] = self.DOFMap[N7 -1] * 3
-            pElemDOFNum[22 -1] = self.DOFMap[N8 -1] * 3 - 2; pElemDOFNum[23 -1] = self.DOFMap[N8 -1] * 3 - 1; pElemDOFNum[24 -1] = self.DOFMap[N8 -1] * 3
             for i in range(24):
-                self.bvec[pElemDOFNum[i] -1] += self.m_B[self.axis, i, self.elemMatMap[e -1] -1]
+                self.bvec[self.pElemDOFNum[i, e -1] -1] += self.m_B[self.axis, i, self.elemMatMap[e -1]]
 
     def assemble_Amatrix(self):
         print("Assembling system")
         y = np.zeros(self.nDOFs, dtype=float)
-        pElemDOFNum = np.zeros(24, dtype=int)
 
-        def matvec(x):
+        if self.matrix_free and self.solver_type != 'direct':
+
+            def matvec(x):
+
+                for e in range(1, self.nElems + 1):
+                    for i in range(24):
+                        y[self.pElemDOFNum[i, e - 1] -1] += (self.m_K[i, :, self.elemMatMap[e -1]] * x[self.pElemDOFNum[:, e -1] -1]).sum()
+
+                return y
+
+            self.Amat = LinearOperator(shape=(self.nDOFs, self.nDOFs), matvec=matvec)
+        else:
+            I, J, V = [], [], []
             for e in range(1, self.nElems + 1):
-                N1 = 2 + (e - 1) % self.nElemS + ((e - 1) % self.nElemS) // self.len_y + (e - 1) // self.nElemS * self.nNodeS - 1
-                N3 = N1 + self.len_y
-                N2 = N3 + 1
-                N4 = N1 - 1
-                N5 = N1 + self.nNodeS
-                N6 = N2 + self.nNodeS
-                N7 = N3 + self.nNodeS
-                N8 = N4 + self.nNodeS
-                pElemDOFNum[1 -1]  = self.DOFMap[N1] * 3 - 2
-                pElemDOFNum[2 -1]  = self.DOFMap[N1] * 3 - 1
-                pElemDOFNum[3 -1]  = self.DOFMap[N1] * 3
-                pElemDOFNum[4 -1]  = self.DOFMap[N2] * 3 - 2
-                pElemDOFNum[5 -1]  = self.DOFMap[N2] * 3 - 1
-                pElemDOFNum[6 -1]  = self.DOFMap[N2] * 3
-                pElemDOFNum[7 -1]  = self.DOFMap[N3] * 3 - 2
-                pElemDOFNum[8 -1]  = self.DOFMap[N3] * 3 - 1
-                pElemDOFNum[9 -1]  = self.DOFMap[N3] * 3
-                pElemDOFNum[10 -1] = self.DOFMap[N4] * 3 - 2
-                pElemDOFNum[11 -1] = self.DOFMap[N4] * 3 - 1
-                pElemDOFNum[12 -1] = self.DOFMap[N4] * 3
-                pElemDOFNum[13 -1] = self.DOFMap[N5] * 3 - 2
-                pElemDOFNum[14 -1] = self.DOFMap[N5] * 3 - 1
-                pElemDOFNum[15 -1] = self.DOFMap[N5] * 3
-                pElemDOFNum[16 -1] = self.DOFMap[N6] * 3 - 2
-                pElemDOFNum[17 -1] = self.DOFMap[N6] * 3 - 1
-                pElemDOFNum[18 -1] = self.DOFMap[N6] * 3
-                pElemDOFNum[19 -1] = self.DOFMap[N7] * 3 - 2
-                pElemDOFNum[20 -1] = self.DOFMap[N7] * 3 - 1
-                pElemDOFNum[21 -1] = self.DOFMap[N7] * 3
-                pElemDOFNum[22 -1] = self.DOFMap[N8] * 3 - 2
-                pElemDOFNum[23 -1] = self.DOFMap[N8] * 3 - 1
-                pElemDOFNum[24 -1] = self.DOFMap[N8] * 3
                 for i in range(24):
-                    q_temp = 0
                     for j in range(24):
-                        q_temp += self.m_K[i, j, self.elemMatMap[e -1] -1] * x[pElemDOFNum[j] -1]
-                    y[pElemDOFNum[i] -1] += q_temp
-            return y
+                        I.append(self.pElemDOFNum[i, e -1] -1)
+                        J.append(self.pElemDOFNum[j, e -1] -1)
+                        V.append(self.m_K[i, j, self.elemMatMap[e -1]])
 
-        self.Amat = LinearOperator(shape=(self.nDOFs, self.nDOFs), matvec=matvec)
+            self.Amat = coo_matrix((V, (I, J))).tocsc()
 
     def compute_effective_coefficient(self):
         print("Computing effective elasticity")
         self.Ceff = np.zeros((6, 6), dtype=float)
-        pElemDOFNum = np.zeros(24, dtype=int)
 
         t = np.zeros(24, dtype=float)
         if   self.axis == 0: t[4 -1] = 1; t[7 -1] = 1; t[16 -1] = 1; t[19 -1] = 1
@@ -157,26 +156,14 @@ class ElasticityFE(PropertySolver):
         elif self.axis == 5: t[9 -1] = 1; t[12 -1] = 1; t[21 -1] = 1; t[24 -1] = 1
 
         SX = 0; SY = 0; SZ = 0; SXY = 0; SXZ = 0; SYZ = 0
-
         for e in range(1, self.nElems + 1):
-            N1 = 2 + (e - 1) % self.nElemS + ((e - 1) % self.nElemS) // self.len_y + (e - 1) // self.nElemS * self.nNodeS
-            N3 = N1 + self.len_y; N2 = N3 + 1; N4 = N1 - 1
-            N5 = N1 + self.nNodeS; N6 = N2 + self.nNodeS; N7 = N3 + self.nNodeS; N8 = N4 + self.nNodeS
-            pElemDOFNum[1 -1]  = self.DOFMap[N1 -1] * 3 - 2; pElemDOFNum[2 -1]  = self.DOFMap[N1 -1] * 3 - 1; pElemDOFNum[3 -1]  = self.DOFMap[N1 -1] * 3
-            pElemDOFNum[4 -1]  = self.DOFMap[N2 -1] * 3 - 2; pElemDOFNum[5 -1]  = self.DOFMap[N2 -1] * 3 - 1; pElemDOFNum[6 -1]  = self.DOFMap[N2 -1] * 3
-            pElemDOFNum[7 -1]  = self.DOFMap[N3 -1] * 3 - 2; pElemDOFNum[8 -1]  = self.DOFMap[N3 -1] * 3 - 1; pElemDOFNum[9 -1]  = self.DOFMap[N3 -1] * 3
-            pElemDOFNum[10 -1] = self.DOFMap[N4 -1] * 3 - 2; pElemDOFNum[11 -1] = self.DOFMap[N4 -1] * 3 - 1; pElemDOFNum[12 -1] = self.DOFMap[N4 -1] * 3
-            pElemDOFNum[13 -1] = self.DOFMap[N5 -1] * 3 - 2; pElemDOFNum[14 -1] = self.DOFMap[N5 -1] * 3 - 1; pElemDOFNum[15 -1] = self.DOFMap[N5 -1] * 3
-            pElemDOFNum[16 -1] = self.DOFMap[N6 -1] * 3 - 2; pElemDOFNum[17 -1] = self.DOFMap[N6 -1] * 3 - 1; pElemDOFNum[18 -1] = self.DOFMap[N6 -1] * 3
-            pElemDOFNum[19 -1] = self.DOFMap[N7 -1] * 3 - 2; pElemDOFNum[20 -1] = self.DOFMap[N7 -1] * 3 - 1; pElemDOFNum[21 -1] = self.DOFMap[N7 -1] * 3
-            pElemDOFNum[22 -1] = self.DOFMap[N8 -1] * 3 - 2; pElemDOFNum[23 -1] = self.DOFMap[N8 -1] * 3 - 1; pElemDOFNum[24 -1] = self.DOFMap[N8 -1] * 3
             for i in range(24):
-                SX  += self.m_B[1 -1, i, self.elemMatMap[e -1] -1] * (t[i] - self.x[pElemDOFNum[i] -1])
-                SY  += self.m_B[2 -1, i, self.elemMatMap[e -1] -1] * (t[i] - self.x[pElemDOFNum[i] -1])
-                SZ  += self.m_B[3 -1, i, self.elemMatMap[e -1] -1] * (t[i] - self.x[pElemDOFNum[i] -1])
-                SXY += self.m_B[4 -1, i, self.elemMatMap[e -1] -1] * (t[i] - self.x[pElemDOFNum[i] -1])
-                SXZ += self.m_B[5 -1, i, self.elemMatMap[e -1] -1] * (t[i] - self.x[pElemDOFNum[i] -1])
-                SYZ += self.m_B[6 -1, i, self.elemMatMap[e -1] -1] * (t[i] - self.x[pElemDOFNum[i] -1])
+                SX  += self.m_B[1 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
+                SY  += self.m_B[2 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
+                SZ  += self.m_B[3 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
+                SXY += self.m_B[4 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
+                SXZ += self.m_B[5 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
+                SYZ += self.m_B[6 -1, i, self.elemMatMap[e -1]] * (t[i] - self.x[self.pElemDOFNum[i, e -1] -1])
 
         self.Ceff[self.axis, 0] = SX / self.nElems;  self.Ceff[self.axis, 1] = SY / self.nElems;  self.Ceff[self.axis, 2] = SZ / self.nElems
         self.Ceff[self.axis, 3] = SXY / self.nElems; self.Ceff[self.axis, 4] = SXZ / self.nElems; self.Ceff[self.axis, 5] = SYZ / self.nElems
@@ -211,15 +198,6 @@ class ElasticityFE(PropertySolver):
                                 [cs[3], cs[8], cs[12], cs[15]/2., cs[16], cs[17]],
                                 [cs[4], cs[9], cs[13], cs[16], cs[18]/2., cs[19]],
                                 [cs[5], cs[10], cs[14], cs[17], cs[19], cs[20]/2.]])
-            # elemProps = self.mat_elast[j_mat]
-            # E = elemProps[0]
-            # p = elemProps[1]
-            # E = E / ((1. + p) * (1. - 2 * p))
-            # C[1 -1, 1 -1] = 1 - p;            C[1 -1, 2 -1] = p;                C[1 -1, 3 -1] = p
-            # C[2 -1, 1 -1] = p;                C[2 -1, 2 -1] = 1 - p;            C[2 -1, 3 -1] = p
-            # C[3 -1, 1 -1] = p;                C[3 -1, 2 -1] = p;                C[3 -1, 3 -1] = 1 - p
-            # C[4 -1, 4 -1] = (1 - 2 * p) / 2;  C[5 -1, 5 -1] = (1 - 2 * p) / 2;  C[6 -1, 6 -1] = (1 - 2 * p) / 2
-            # C *= E
 
             # Gauss Points and Weights
             gp = [-1. / np.sqrt(3), 1. / np.sqrt(3)]
