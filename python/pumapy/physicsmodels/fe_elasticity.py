@@ -12,7 +12,6 @@ import numpy as np
 class ElasticityFE(PropertySolver):
 
     def __init__(self, workspace, elast_map, direction, tolerance, maxiter, solver_type, display_iter, matrix_free):
-        #preconditioner, output_fields):
 
         allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab', 'gmres']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
@@ -57,12 +56,12 @@ class ElasticityFE(PropertySolver):
         print("Initializing index matrices")
         self.nElems = self.len_x * self.len_y * self.len_z
         self.nDOFs = self.nElems * 3
-        self.elemMatMap = np.zeros(self.nElems, dtype=int)
         self.pElemDOFNum = np.zeros((24, self.nElems), dtype=np.uint32)
         self.nElemS = self.len_x * self.len_y
         nNodeS = (self.len_x + 1) * (self.len_y + 1)
         DOFMap = np.zeros((self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1), dtype=int)
 
+        self.elemMatMap = np.zeros(self.nElems, dtype=int)
         rows = self.len_y
         cols = self.len_x
         slices = self.len_z
@@ -77,9 +76,8 @@ class ElasticityFE(PropertySolver):
                 for i in range(1, rows + 1):
                     for j in range(1, cols + 1):
                         self.elemMatMap_orient[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1] = self.ws.orientation[j - 1, i - 1, k - 1]
-            self.element_stiffness_matrices_anisotropic()
-        else:
-            self.element_stiffness_matrices_isotropic()
+
+        self.create_element_stiffness_matrices()
 
         for n in range(nNodeS * (self.len_z + 1)):
             i = n % nNodeS
@@ -126,13 +124,21 @@ class ElasticityFE(PropertySolver):
 
         bound = [3, 6, 15, 18]
 
-        for dz in range(1, self.len_z + 1):
-            for r in range(1, self.len_y + 1):
-                e = r + (self.len_x - 1) * self.len_y + (dz - 1) * self.nElemS
-                for i in range(24):
-                    for j in bound:
-                        self.bvec[self.pElemDOFNum[i, e -1]] -= (self.m_K[i, j, self.elemMatMap[e -1]]) * self.len_x
-
+        if self.direction in ['x', 'y', 'z']:
+            if self.need_to_orient:
+                for dz in range(1, self.len_z + 1):
+                    for r in range(1, self.len_y + 1):
+                        e = r + (self.len_x - 1) * self.len_y + (dz - 1) * self.nElemS - 1
+                        for i in range(24):
+                            self.bvec[self.pElemDOFNum[i, e]] -= ((self.m_K[i, bound, e]) * self.len_x).sum()
+            else:
+                for dz in range(1, self.len_z + 1):
+                    for r in range(1, self.len_y + 1):
+                        e = r + (self.len_x - 1) * self.len_y + (dz - 1) * self.nElemS - 1
+                        for i in range(24):
+                            self.bvec[self.pElemDOFNum[i, e]] -= ((self.m_K[i, bound, self.elemMatMap[e]]) * self.len_x).sum()
+        else:
+            pass
 
         # if not self.need_to_orient:
         #     for e in range(self.nElems):
@@ -145,121 +151,121 @@ class ElasticityFE(PropertySolver):
         print("Assembling system")
         y = np.zeros(self.nDOFs, dtype=float)
 
-        if self.matrix_free and self.solver_type != 'direct':
+        if self.matrix_free and self.solver_type != 'direct' and not self.need_to_orient:  # overload matvex to Amat=LinearOperator
             def matvec(x):
                 y.fill(0)
                 np.add.at(y, self.pElemDOFNum, np.einsum("ijk, jk -> ik", self.m_K[:, :, self.elemMatMap], x[self.pElemDOFNum]))
                 return y
             self.Amat = LinearOperator(shape=(self.nDOFs, self.nDOFs), matvec=matvec)
 
-        else:
+        else:  # actually assemble sparse matrix
             I, J, V = [], [], []
-            if not self.need_to_orient:
-                for e in range(self.nElems):
-                    for i in range(24):
-                        for j in range(24):
-                            I.append(self.pElemDOFNum[i, e])
-                            J.append(self.pElemDOFNum[j, e])
-                            V.append(self.m_K[i, j, self.elemMatMap[e]])
-            else:
+            if self.need_to_orient:
                 for e in range(self.nElems):
                     for i in range(24):
                         for j in range(24):
                             I.append(self.pElemDOFNum[i, e])
                             J.append(self.pElemDOFNum[j, e])
                             V.append(self.m_K[i, j, e])
-
+            else:
+                for e in range(self.nElems):
+                    for i in range(24):
+                        for j in range(24):
+                            I.append(self.pElemDOFNum[i, e])
+                            J.append(self.pElemDOFNum[j, e])
+                            V.append(self.m_K[i, j, self.elemMatMap[e]])
+            del self.m_K
             self.Amat = coo_matrix((V, (I, J))).tocsc()
 
     def compute_effective_coefficient(self):
         print("Computing effective elasticity")
 
-        t = np.zeros(24, dtype=float)
-        if self.axis == 0:
-            t[[3, 6, 15, 18]] = 1
-        elif self.axis == 1:
-            t[[7, 10, 19, 22]] = 1
-        elif self.axis == 2:
-            t[[14, 17, 20, 23]] = 1
-        elif self.axis == 3:
-            t[[6, 9, 18, 21]] = 1
-        elif self.axis == 4:
-            t[[12, 15, 18, 21]] = 1
-        elif self.axis == 5:
-            t[[8, 11, 20, 23]] = 1
-
-        # self.u = self.x.reshape([self.len_x, self.len_y, self.len_z, 3])
-        inds = np.arange(1, self.nElems + 1)
         self.u = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        self.u[:, :, :, 0] = np.reshape(self.x[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u[:, :, :, 1] = np.reshape(self.x[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
-        self.u[:, :, :, 2] = np.reshape(self.x[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
+        rows = self.len_y
+        cols = self.len_x
+        slices = self.len_z
+        for k in range(1, slices + 1):
+            for i in range(1, rows + 1):
+                for j in range(1, cols + 1):
+                    self.u[j - 1, i - 1, k - 1, 0] = self.x[(i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1) * 3 - 3]
+                    self.u[j - 1, i - 1, k - 1, 1] = self.x[(i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1) * 3 - 2]
+                    self.u[j - 1, i - 1, k - 1, 2] = self.x[(i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1) * 3 - 1]
 
-        self.s = np.zeros((self.nElems, 3), dtype=float)
-        self.t = np.zeros((self.nElems, 3), dtype=float)
+        s_f = np.zeros((self.nElems, 3), dtype=float)
+        t_f = np.zeros((self.nElems, 3), dtype=float)
         bound = [3, 6, 15, 18]
         aux = 0
-        if not self.need_to_orient:
+        if self.need_to_orient:
             for _ in range(self.len_z):
                 for eb in range(self.nElemS - self.len_y + aux, self.nElemS + aux):
                     for j in bound:
-                        self.s[eb, 0] += (self.m_B[0, j, self.elemMatMap[eb]] * self.len_x)
-                        self.s[eb, 1] += (self.m_B[1, j, self.elemMatMap[eb]] * self.len_x)
-                        self.s[eb, 2] += (self.m_B[2, j, self.elemMatMap[eb]] * self.len_x)
-                        self.t[eb, 2] += (self.m_B[3, j, self.elemMatMap[eb]] * self.len_x)
-                        self.t[eb, 1] += (self.m_B[4, j, self.elemMatMap[eb]] * self.len_x)
-                        self.t[eb, 0] += (self.m_B[5, j, self.elemMatMap[eb]] * self.len_x)
+                        s_f[eb, 0] += (self.m_B[0, j, eb] * self.len_x)
+                        s_f[eb, 1] += (self.m_B[1, j, eb] * self.len_x)
+                        s_f[eb, 2] += (self.m_B[2, j, eb] * self.len_x)
+                        t_f[eb, 2] += (self.m_B[3, j, eb] * self.len_x)
+                        t_f[eb, 1] += (self.m_B[4, j, eb] * self.len_x)
+                        t_f[eb, 0] += (self.m_B[5, j, eb] * self.len_x)
                 aux += self.nElemS
             for e in range(self.nElems):
-                self.s[e, 0] += (self.m_B[0, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.s[e, 1] += (self.m_B[1, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.s[e, 2] += (self.m_B[2, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.t[e, 2] += (self.m_B[3, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.t[e, 1] += (self.m_B[4, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.t[e, 0] += (self.m_B[5, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                s_f[e, 0] += (self.m_B[0, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                s_f[e, 1] += (self.m_B[1, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                s_f[e, 2] += (self.m_B[2, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                t_f[e, 2] += (self.m_B[3, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                t_f[e, 1] += (self.m_B[4, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                t_f[e, 0] += (self.m_B[5, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
         else:
             for _ in range(self.len_z):
                 for eb in range(self.nElemS - self.len_y + aux, self.nElemS + aux):
                     for j in bound:
-                        self.s[eb, 0] += (self.m_B[0, j, eb] * self.len_x)
-                        self.s[eb, 1] += (self.m_B[1, j, eb] * self.len_x)
-                        self.s[eb, 2] += (self.m_B[2, j, eb] * self.len_x)
-                        self.t[eb, 2] += (self.m_B[3, j, eb] * self.len_x)
-                        self.t[eb, 1] += (self.m_B[4, j, eb] * self.len_x)
-                        self.t[eb, 0] += (self.m_B[5, j, eb] * self.len_x)
+                        s_f[eb, 0] += (self.m_B[0, j, self.elemMatMap[eb]] * self.len_x)
+                        s_f[eb, 1] += (self.m_B[1, j, self.elemMatMap[eb]] * self.len_x)
+                        s_f[eb, 2] += (self.m_B[2, j, self.elemMatMap[eb]] * self.len_x)
+                        t_f[eb, 2] += (self.m_B[3, j, self.elemMatMap[eb]] * self.len_x)
+                        t_f[eb, 1] += (self.m_B[4, j, self.elemMatMap[eb]] * self.len_x)
+                        t_f[eb, 0] += (self.m_B[5, j, self.elemMatMap[eb]] * self.len_x)
                 aux += self.nElemS
             for e in range(self.nElems):
-                self.s[e, 0] += (self.m_B[0, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.s[e, 1] += (self.m_B[1, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.s[e, 2] += (self.m_B[2, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.t[e, 2] += (self.m_B[3, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.t[e, 1] += (self.m_B[4, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
-                self.t[e, 0] += (self.m_B[5, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                s_f[e, 0] += (self.m_B[0, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                s_f[e, 1] += (self.m_B[1, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                s_f[e, 2] += (self.m_B[2, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                t_f[e, 2] += (self.m_B[3, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                t_f[e, 1] += (self.m_B[4, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                t_f[e, 0] += (self.m_B[5, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
 
-        self.s = np.stack([np.reshape(self.s[:, 0], (self.len_x, self.len_y, self.len_z), order='F'),
-                           np.reshape(self.s[:, 1], (self.len_x, self.len_y, self.len_z), order='F'),
-                           np.reshape(self.s[:, 2], (self.len_x, self.len_y, self.len_z), order='F')], axis=-1)
-        self.t = np.stack([np.reshape(self.t[:, 0], (self.len_x, self.len_y, self.len_z), order='F'),
-                           np.reshape(self.t[:, 1], (self.len_x, self.len_y, self.len_z), order='F'),
-                           np.reshape(self.t[:, 2], (self.len_x, self.len_y, self.len_z), order='F')], axis=-1)
+        self.s = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+        self.t = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+        rows = self.len_y
+        cols = self.len_x
+        slices = self.len_z
+        for k in range(1, slices + 1):
+            for i in range(1, rows + 1):
+                for j in range(1, cols + 1):
+                    self.s[j - 1, i - 1, k - 1, 0] = s_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 0]
+                    self.s[j - 1, i - 1, k - 1, 1] = s_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 1]
+                    self.s[j - 1, i - 1, k - 1, 2] = s_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 2]
+                    self.t[j - 1, i - 1, k - 1, 0] = t_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 0]
+                    self.t[j - 1, i - 1, k - 1, 1] = t_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 1]
+                    self.t[j - 1, i - 1, k - 1, 2] = t_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 2]
 
         self.Ceff = [self.s[:, :, :, 0].sum() / self.nElems, self.s[:, :, :, 1].sum() / self.nElems, self.s[:, :, :, 2].sum() / self.nElems,
                      self.t[:, :, :, 0].sum() / self.nElems, self.t[:, :, :, 1].sum() / self.nElems, self.t[:, :, :, 2].sum() / self.nElems]
 
-    def element_stiffness_matrices_isotropic(self):
+    def create_element_stiffness_matrices(self):
+
+        if self.need_to_orient:
+            self.m_K = np.zeros((24, 24, self.nElems), dtype=float)
+            self.m_B = np.zeros((6, 24, self.nElems), dtype=float)
+        else:
+            nMat = len(self.mat_elast)
+            self.m_K = np.zeros((24, 24, nMat), dtype=float)
+            self.m_B = np.zeros((6, 24, nMat), dtype=float)
+
         k = np.zeros((24, 24), dtype=float)
         BC = np.zeros((6, 24), dtype=float)
         B = np.zeros((6, 24), dtype=float)
         C = np.zeros((6, 6), dtype=float)
-
-        nMat = len(self.mat_elast)
-        self.m_K = np.zeros((24, 24, nMat), dtype=float)
-        self.m_B = np.zeros((6, 24, nMat), dtype=float)
-
-        B_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5],
-                  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23]]
-        dNdx_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1],
-                     [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7]]
+        B_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23]]
+        dNdx_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1], [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7]]
 
         # Gauss Points
         gp = [-1. / np.sqrt(3), 1. / np.sqrt(3)]
@@ -269,198 +275,128 @@ class ElasticityFE(PropertySolver):
         y = np.array([0., 0., 1., 1., 0., 0., 1., 1.])
         z = np.array([0., 0., 0., 0., 1., 1., 1., 1.])
 
-        i_mat = 0
-        for j_mat in range(0, 256):
+        if self.need_to_orient:
+            Kiso_prev = dict()
+            for e in range(self.nElems):
+                cs = self.mat_elast[self.elemMatMap[e]]
 
-            if j_mat not in self.mat_elast.keys():
-                continue
+                if len(cs) == 21:
+                    if self.elemMatMap[e] in Kiso_prev.keys():
+                        self.m_K[:, :, e], self.m_B[:, :, e] = Kiso_prev[self.elemMatMap[e]]
+                        continue
+                    C[:] = self.create_C(cs)
+                else:
+                    C[:] = self.orient_C(cs, e)
 
-            # Constitutive matrix
-            C.fill(0)
-            cs = self.mat_elast[j_mat]
-            C[:, :] = np.array([[cs[0], cs[1], cs[2], cs[3], cs[4], cs[5]],
-                                [cs[1], cs[6], cs[7], cs[8], cs[9], cs[10]],
-                                [cs[2], cs[7], cs[11], cs[12], cs[13], cs[14]],
-                                [cs[3], cs[8], cs[12], cs[15]/2., cs[16], cs[17]],
-                                [cs[4], cs[9], cs[13], cs[16], cs[18]/2., cs[19]],
-                                [cs[5], cs[10], cs[14], cs[17], cs[19], cs[20]/2.]])
+                self.compute_element_stiffness(C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, e)
 
-            k.fill(0)
-            BC.fill(0)
-            B.fill(0)
-            for i in range(2):
-                r = gp[i]
-                for j in range(2):
-                    s = gp[j]
-                    for l in range(2):
-                        t = gp[l]
+                # store previously computed k,BC for isotropic phases
+                if len(cs) == 21:
+                    Kiso_prev[self.elemMatMap[e]] = self.m_K[:, :, e], self.m_B[:, :, e]
 
-                        X = np.array([x.T, y.T, z.T])
+        else:
+            i_mat = 0
+            for j_mat in range(0, 256):
 
-                        # Compute B matrix and Jacobian
-                        dN1dr = -(1 - s) * (1 - t) * .125
-                        dN2dr =  (1 - s) * (1 - t) * .125
-                        dN3dr =  (1 + s) * (1 - t) * .125
-                        dN4dr = -(1 + s) * (1 - t) * .125
-                        dN5dr = -(1 - s) * (1 + t) * .125
-                        dN6dr =  (1 - s) * (1 + t) * .125
-                        dN7dr =  (1 + s) * (1 + t) * .125
-                        dN8dr = -(1 + s) * (1 + t) * .125
-                        dN1ds = -(1 - r) * (1 - t) * .125
-                        dN2ds = -(1 + r) * (1 - t) * .125
-                        dN3ds =  (1 + r) * (1 - t) * .125
-                        dN4ds =  (1 - r) * (1 - t) * .125
-                        dN5ds = -(1 - r) * (1 + t) * .125
-                        dN6ds = -(1 + r) * (1 + t) * .125
-                        dN7ds =  (1 + r) * (1 + t) * .125
-                        dN8ds =  (1 - r) * (1 + t) * .125
-                        dN1dt = -(1 - r) * (1 - s) * .125
-                        dN2dt = -(1 + r) * (1 - s) * .125
-                        dN3dt = -(1 + r) * (1 + s) * .125
-                        dN4dt = -(1 - r) * (1 + s) * .125
-                        dN5dt =  (1 - r) * (1 - s) * .125
-                        dN6dt =  (1 + r) * (1 - s) * .125
-                        dN7dt =  (1 + r) * (1 + s) * .125
-                        dN8dt =  (1 - r) * (1 + s) * .125
-                        dN = np.array([[dN1dr, dN2dr, dN3dr, dN4dr, dN5dr, dN6dr, dN7dr, dN8dr],
-                                       [dN1ds, dN2ds, dN3ds, dN4ds, dN5ds, dN6ds, dN7ds, dN8ds],
-                                       [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]])
-                        J = dN @ X.T
-                        dNdx = np.linalg.inv(J) @ dN
+                if j_mat not in self.mat_elast.keys():
+                    continue
 
-                        for ind in range(len(B_inds[0])):
-                            B[B_inds[0][ind], B_inds[1][ind]] = dNdx[dNdx_inds[0][ind], dNdx_inds[1][ind]]
+                C[:] = self.create_C(self.mat_elast[j_mat])
+                self.compute_element_stiffness(C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, i_mat)
+                i_mat += 1
 
-                        detJ = np.linalg.det(J)
-                        k  += (B.T @ C @ B) * detJ
-                        BC += (C @ B) * detJ
+    def create_C(self, cs):
+        return np.array([[cs[0], cs[1], cs[2], cs[3], cs[4], cs[5]],
+                         [cs[1], cs[6], cs[7], cs[8], cs[9], cs[10]],
+                         [cs[2], cs[7], cs[11], cs[12], cs[13], cs[14]],
+                         [cs[3], cs[8], cs[12], cs[15] / 2., cs[16], cs[17]],
+                         [cs[4], cs[9], cs[13], cs[16], cs[18] / 2., cs[19]],
+                         [cs[5], cs[10], cs[14], cs[17], cs[19], cs[20] / 2.]])
 
-            self.m_K[:, :, i_mat], self.m_B[:, :, i_mat] = k, BC
-            i_mat += 1
+    def orient_C(self, cs, e):
+        E1, E2, v12, v23, G12 = cs
+        v21 = v12 * E2 / E1
+        delta = 1 - 2 * v12 * v21 - v23 * v23 - 2 * v21 * v12 * v23
+        C_init = np.array(
+            [[((1 - v23 * v23) * E1) / delta, (v21 * (1 + v23) * E1) / delta, (v21 * (1 + v23) * E1) / delta, 0, 0, 0],
+             [(v21 * (1 + v23) * E1) / delta, ((1 - v12 * v21) * E2) / delta, ((v23 + v21 * v12) * E2) / delta, 0, 0, 0],
+             [(v21 * (1 + v23) * E1) / delta, ((v23 + v21 * v12) * E2) / delta, ((1 - v21 * v12) * E2) / delta, 0, 0, 0],
+             [0, 0, 0, ((1 - v23 - 2 * v21 * v12) * E2) / delta, 0, 0],
+             [0, 0, 0, 0, 2 * G12, 0],
+             [0, 0, 0, 0, 0, 2 * G12]])
 
-    def element_stiffness_matrices_anisotropic(self):
-        k = np.zeros((24, 24), dtype=float)
-        BC = np.zeros((6, 24), dtype=float)
-        B = np.zeros((6, 24), dtype=float)
-        C = np.zeros((6, 6), dtype=float)
+        # Rotation matrix
+        theta = np.arctan2(self.elemMatMap_orient[e, 1], self.elemMatMap_orient[e, 0])
+        a21 = -np.sin(theta)
+        a22 = np.cos(theta)
+        beta = np.arcsin(self.elemMatMap_orient[e, 2])
+        a13 = np.sin(beta)
+        a33 = np.cos(beta)
+        a11 = a22 * a33
+        a12 = - a21 * a33
+        a31 = - a22 * a13
+        a32 = a21 * a13
+        a23 = 0
+        R = np.array([[a11 ** 2, a12 ** 2, a13 ** 2, a12 * a13, a11 * a13, a11 * a12],
+                      [a21 ** 2, a22 ** 2, a23, a23, a23, a21 * a22],
+                      [a31 ** 2, a32 ** 2, a33 ** 2, a32 * a33, a33 * a31, a31 * a32],
+                      [2 * a21 * a31, 2 * a32 * a22, a23, a22 * a33, a21 * a33, a21 * a32 + a22 * a31],
+                      [2 * a11 * a31, 2 * a12 * a32, 2 * a13 * a33, a32 * a13 + a33 * a12, a11 * a33 + a13 * a31, a31 * a12 + a32 * a11],
+                      [2 * a11 * a21, 2 * a12 * a22, a23, a13 * a22, a13 * a21, a11 * a22 + a12 * a21]])
+        return R.T @ C_init @ R.T
 
-        self.m_K = np.zeros((24, 24, self.nElems), dtype=float)
-        self.m_B = np.zeros((6, 24, self.nElems), dtype=float)
+    def compute_element_stiffness(self, C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, KBind):
+        k.fill(0)
+        BC.fill(0)
+        B.fill(0)
+        for i in range(2):
+            r = gp[i]
+            for j in range(2):
+                s = gp[j]
+                for l in range(2):
+                    t = gp[l]
 
-        B_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5,
-                   3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5],
-                  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6,
-                   7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23]]
-        dNdx_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1,
-                      2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1],
-                     [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
-                      2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7]]
+                    X = np.array([x.T, y.T, z.T])
 
-        # Gauss Points
-        gp = [-1. / np.sqrt(3), 1. / np.sqrt(3)]
+                    # Compute B matrix and Jacobian
+                    dN1dr = -(1 - s) * (1 - t) * .125
+                    dN2dr = (1 - s) * (1 - t) * .125
+                    dN3dr = (1 + s) * (1 - t) * .125
+                    dN4dr = -(1 + s) * (1 - t) * .125
+                    dN5dr = -(1 - s) * (1 + t) * .125
+                    dN6dr = (1 - s) * (1 + t) * .125
+                    dN7dr = (1 + s) * (1 + t) * .125
+                    dN8dr = -(1 + s) * (1 + t) * .125
+                    dN1ds = -(1 - r) * (1 - t) * .125
+                    dN2ds = -(1 + r) * (1 - t) * .125
+                    dN3ds = (1 + r) * (1 - t) * .125
+                    dN4ds = (1 - r) * (1 - t) * .125
+                    dN5ds = -(1 - r) * (1 + t) * .125
+                    dN6ds = -(1 + r) * (1 + t) * .125
+                    dN7ds = (1 + r) * (1 + t) * .125
+                    dN8ds = (1 - r) * (1 + t) * .125
+                    dN1dt = -(1 - r) * (1 - s) * .125
+                    dN2dt = -(1 + r) * (1 - s) * .125
+                    dN3dt = -(1 + r) * (1 + s) * .125
+                    dN4dt = -(1 - r) * (1 + s) * .125
+                    dN5dt = (1 - r) * (1 - s) * .125
+                    dN6dt = (1 + r) * (1 - s) * .125
+                    dN7dt = (1 + r) * (1 + s) * .125
+                    dN8dt = (1 - r) * (1 + s) * .125
+                    dN = np.array([[dN1dr, dN2dr, dN3dr, dN4dr, dN5dr, dN6dr, dN7dr, dN8dr],
+                                   [dN1ds, dN2ds, dN3ds, dN4ds, dN5ds, dN6ds, dN7ds, dN8ds],
+                                   [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]])
+                    J = dN @ X.T
+                    dNdx = np.linalg.inv(J) @ dN
 
-        # Element coords
-        x = np.array([0., 1., 1., 0., 0., 1., 1., 0.])
-        y = np.array([0., 0., 1., 1., 0., 0., 1., 1.])
-        z = np.array([0., 0., 0., 0., 1., 1., 1., 1.])
+                    for ind in range(len(B_inds[0])):
+                        B[B_inds[0][ind], B_inds[1][ind]] = dNdx[dNdx_inds[0][ind], dNdx_inds[1][ind]]
 
-        i_mat = 0
-        for e in range(self.nElems):
+                    detJ = np.linalg.det(J)
+                    k += (B.T @ C @ B) * detJ
+                    BC += (C @ B) * detJ
 
-            # Constitutive matrix
-            C.fill(0)
-            cs = self.mat_elast[self.elemMatMap[e]]
-
-            if len(cs) == 21:
-                C[:, :] = np.array([[cs[0], cs[1], cs[2], cs[3], cs[4], cs[5]],
-                                    [cs[1], cs[6], cs[7], cs[8], cs[9], cs[10]],
-                                    [cs[2], cs[7], cs[11], cs[12], cs[13], cs[14]],
-                                    [cs[3], cs[8], cs[12], cs[15]/2., cs[16], cs[17]],
-                                    [cs[4], cs[9], cs[13], cs[16], cs[18]/2., cs[19]],
-                                    [cs[5], cs[10], cs[14], cs[17], cs[19], cs[20]/2.]])
-            else:
-                E1, E2, v12, v23, G12 = cs
-                v21 = v12 * E2 / E1
-                delta = 1 - 2 * v12 * v21 - v23 * v23 - 2 * v21 * v12 * v23
-                C_init = np.array([[((1 - v23 * v23) * E1) / delta, (v21 * (1 + v23) * E1) / delta, (v21 * (1 + v23) * E1) / delta, 0, 0, 0],
-                                   [(v21 * (1 + v23) * E1) / delta, ((1 - v12 * v21) * E2) / delta, ((v23 + v21 * v12) * E2) / delta, 0, 0, 0],
-                                   [(v21 * (1 + v23) * E1) / delta, ((v23 + v21 * v12) * E2) / delta, ((1 - v21 * v12) * E2) / delta, 0, 0, 0],
-                                   [0, 0, 0, ((1 - v23 - 2 * v21 * v12) * E2) / delta, 0, 0],
-                                   [0, 0, 0, 0, 2 * G12, 0],
-                                   [0, 0, 0, 0, 0, 2 * G12]])
-
-                # Rotation matrix
-                theta = np.arctan2(self.elemMatMap_orient[e, 1], self.elemMatMap_orient[e, 0])
-                a21 = -np.sin(theta)
-                a22 = np.cos(theta)
-                beta = np.arcsin(self.elemMatMap_orient[e, 2])
-                a13 = np.sin(beta)
-                a33 = np.cos(beta)
-                a11 = a22 * a33
-                a12 = - a21 * a33
-                a31 = - a22 * a13
-                a32 = a21 * a13
-                a23 = 0
-                R = np.array([[a11 ** 2, a12 ** 2, a13 ** 2, a12 * a13, a11 * a13, a11 * a12],
-                              [a21 ** 2, a22 ** 2, a23, a23, a23, a21 * a22],
-                              [a31 ** 2, a32 ** 2, a33 ** 2, a32 * a33, a33 * a31, a31 * a32],
-                              [2 * a21 * a31, 2 * a32 * a22, a23, a22 * a33, a21 * a33, a21 * a32 + a22 * a31],
-                              [2 * a11 * a31, 2 * a12 * a32, 2 * a13 * a33, a32 * a13 + a33 * a12, a11 * a33 + a13 * a31, a31 * a12 + a32 * a11],
-                              [2 * a11 * a21, 2 * a12 * a22, a23, a13 * a22, a13 * a21, a11 * a22 + a12 * a21]])
-                C = R.T @ C_init @ R.T
-
-            k.fill(0)
-            BC.fill(0)
-            B.fill(0)
-            for i in range(2):
-                r = gp[i]
-                for j in range(2):
-                    s = gp[j]
-                    for l in range(2):
-                        t = gp[l]
-
-                        X = np.array([x.T, y.T, z.T])
-
-                        # Compute B matrix and Jacobian
-                        dN1dr = -(1 - s) * (1 - t) * .125
-                        dN2dr =  (1 - s) * (1 - t) * .125
-                        dN3dr =  (1 + s) * (1 - t) * .125
-                        dN4dr = -(1 + s) * (1 - t) * .125
-                        dN5dr = -(1 - s) * (1 + t) * .125
-                        dN6dr =  (1 - s) * (1 + t) * .125
-                        dN7dr =  (1 + s) * (1 + t) * .125
-                        dN8dr = -(1 + s) * (1 + t) * .125
-                        dN1ds = -(1 - r) * (1 - t) * .125
-                        dN2ds = -(1 + r) * (1 - t) * .125
-                        dN3ds =  (1 + r) * (1 - t) * .125
-                        dN4ds =  (1 - r) * (1 - t) * .125
-                        dN5ds = -(1 - r) * (1 + t) * .125
-                        dN6ds = -(1 + r) * (1 + t) * .125
-                        dN7ds =  (1 + r) * (1 + t) * .125
-                        dN8ds =  (1 - r) * (1 + t) * .125
-                        dN1dt = -(1 - r) * (1 - s) * .125
-                        dN2dt = -(1 + r) * (1 - s) * .125
-                        dN3dt = -(1 + r) * (1 + s) * .125
-                        dN4dt = -(1 - r) * (1 + s) * .125
-                        dN5dt =  (1 - r) * (1 - s) * .125
-                        dN6dt =  (1 + r) * (1 - s) * .125
-                        dN7dt =  (1 + r) * (1 + s) * .125
-                        dN8dt =  (1 - r) * (1 + s) * .125
-                        dN = np.array([[dN1dr, dN2dr, dN3dr, dN4dr, dN5dr, dN6dr, dN7dr, dN8dr],
-                                       [dN1ds, dN2ds, dN3ds, dN4ds, dN5ds, dN6ds, dN7ds, dN8ds],
-                                       [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]])
-                        J = dN @ X.T
-                        dNdx = np.linalg.inv(J) @ dN
-
-                        for ind in range(len(B_inds[0])):
-                            B[B_inds[0][ind], B_inds[1][ind]] = dNdx[dNdx_inds[0][ind], dNdx_inds[1][ind]]
-
-                        detJ = np.linalg.det(J)
-                        k  += (B.T @ C @ B) * detJ
-                        BC += (C @ B) * detJ
-
-            self.m_K[:, :, e], self.m_B[:, :, e] = k, BC
-            i_mat += 1
+                    self.m_K[:, :, KBind], self.m_B[:, :, KBind] = k, BC
 
     def error_check(self):
         # elast_map checks
