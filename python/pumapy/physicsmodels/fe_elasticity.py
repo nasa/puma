@@ -62,22 +62,23 @@ class ElasticityFE(PropertySolver):
         DOFMap = np.zeros((self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1), dtype=int)
 
         self.elemMatMap = np.zeros(self.nElems, dtype=int)
-        rows = self.len_y
-        cols = self.len_x
-        slices = self.len_z
-        for k in range(1, slices + 1):
-            for i in range(1, rows + 1):
-                for j in range(1, cols + 1):
-                    self.elemMatMap[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y -1] = self.ws[j -1, i -1, k -1]
+        for k in range(self.len_z):
+            for i in range(self.len_y):
+                for j in range(self.len_x):
+                    self.elemMatMap[i + j * self.len_y + k * self.len_x * self.len_y] = self.ws[j, i, k]
 
         if self.need_to_orient:
             self.elemMatMap_orient = np.zeros((self.nElems, 3), dtype=int)
-            for k in range(1, slices + 1):
-                for i in range(1, rows + 1):
-                    for j in range(1, cols + 1):
-                        self.elemMatMap_orient[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1] = self.ws.orientation[j - 1, i - 1, k - 1]
+            for k in range(self.len_z):
+                for i in range(self.len_y):
+                    for j in range(self.len_x):
+                        self.elemMatMap_orient[i + j * self.len_y + k * self.len_x * self.len_y] = self.ws.orientation[j, i, k]
 
-        self.create_element_stiffness_matrices()
+        # compute self.m_K
+        self.create_element_stiffness_matrices(computeK=True)
+
+        if self.need_to_orient:
+            del self.elemMatMap, self.elemMatMap_orient
 
         for n in range(nNodeS * (self.len_z + 1)):
             i = n % nNodeS
@@ -151,45 +152,54 @@ class ElasticityFE(PropertySolver):
         print("Assembling system")
         y = np.zeros(self.nDOFs, dtype=float)
 
-        if self.matrix_free and self.solver_type != 'direct' and not self.need_to_orient:  # overload matvex to Amat=LinearOperator
-            def matvec(x):
+        if self.matrix_free and self.solver_type != 'direct' and not self.need_to_orient:
+            def matvec(x):  # overload matvec for Amat=LinearOperator - only for isotropic phases
                 y.fill(0)
                 np.add.at(y, self.pElemDOFNum, np.einsum("ijk, jk -> ik", self.m_K[:, :, self.elemMatMap], x[self.pElemDOFNum]))
                 return y
             self.Amat = LinearOperator(shape=(self.nDOFs, self.nDOFs), matvec=matvec)
 
         else:  # actually assemble sparse matrix
-            I, J, V = [], [], []
+            range24 = np.arange(24)
+            m_K_inds = (np.tile(range24, 24), np.repeat(range24, 24))
+            I, J = np.zeros((2, self.nElems * 576), dtype=np.uint32)
+            V = np.zeros(self.nElems * 576, dtype=float)
             if self.need_to_orient:
+                counter = 0
                 for e in range(self.nElems):
                     for i in range(24):
                         for j in range(24):
-                            I.append(self.pElemDOFNum[i, e])
-                            J.append(self.pElemDOFNum[j, e])
-                            V.append(self.m_K[i, j, e])
+                            I[counter:counter + 576] = np.repeat(self.pElemDOFNum[range24, e], 24)
+                            J[counter:counter + 576] = np.tile(self.pElemDOFNum[range24, e], 24)
+                            V[counter:counter + 576] = self.m_K[m_K_inds[0], m_K_inds[1], e]
+                            counter += 1
             else:
+                counter = 0
                 for e in range(self.nElems):
-                    for i in range(24):
-                        for j in range(24):
-                            I.append(self.pElemDOFNum[i, e])
-                            J.append(self.pElemDOFNum[j, e])
-                            V.append(self.m_K[i, j, self.elemMatMap[e]])
+                    I[counter:counter + 576] = np.repeat(self.pElemDOFNum[range24, e], 24)
+                    J[counter:counter + 576] = np.tile(self.pElemDOFNum[range24, e], 24)
+                    V[counter:counter + 576] = self.m_K[m_K_inds[0], m_K_inds[1], self.elemMatMap[e]]
+                    counter += 576
+
             del self.m_K
             self.Amat = coo_matrix((V, (I, J))).tocsc()
 
     def compute_effective_coefficient(self):
         print("Computing effective elasticity")
 
+        if self.matrix_free and self.solver_type != 'direct' and not self.need_to_orient:
+            del self.m_K
+
+        # compute self.m_B
+        self.create_element_stiffness_matrices(computeK=False)
+
         self.u = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        rows = self.len_y
-        cols = self.len_x
-        slices = self.len_z
-        for k in range(1, slices + 1):
-            for i in range(1, rows + 1):
-                for j in range(1, cols + 1):
-                    self.u[j - 1, i - 1, k - 1, 0] = self.x[(i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1) * 3 - 3]
-                    self.u[j - 1, i - 1, k - 1, 1] = self.x[(i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1) * 3 - 2]
-                    self.u[j - 1, i - 1, k - 1, 2] = self.x[(i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1) * 3 - 1]
+        for k in range(self.len_z):
+            for i in range(self.len_y):
+                for j in range(self.len_x):
+                    self.u[j, i, k, 0] = self.x[(i + j * self.len_y + k * self.len_x * self.len_y) * 3 - 3]
+                    self.u[j, i, k, 1] = self.x[(i + j * self.len_y + k * self.len_x * self.len_y) * 3 - 2]
+                    self.u[j, i, k, 2] = self.x[(i + j * self.len_y + k * self.len_x * self.len_y) * 3 - 1]
 
         s_f = np.zeros((self.nElems, 3), dtype=float)
         t_f = np.zeros((self.nElems, 3), dtype=float)
@@ -234,31 +244,32 @@ class ElasticityFE(PropertySolver):
 
         self.s = np.zeros((self.len_x, self.len_y, self.len_z, 3))
         self.t = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        rows = self.len_y
-        cols = self.len_x
-        slices = self.len_z
-        for k in range(1, slices + 1):
-            for i in range(1, rows + 1):
-                for j in range(1, cols + 1):
-                    self.s[j - 1, i - 1, k - 1, 0] = s_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 0]
-                    self.s[j - 1, i - 1, k - 1, 1] = s_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 1]
-                    self.s[j - 1, i - 1, k - 1, 2] = s_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 2]
-                    self.t[j - 1, i - 1, k - 1, 0] = t_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 0]
-                    self.t[j - 1, i - 1, k - 1, 1] = t_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 1]
-                    self.t[j - 1, i - 1, k - 1, 2] = t_f[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y - 1, 2]
+        for k in range(self.len_z):
+            for i in range(self.len_y):
+                for j in range(self.len_x):
+                    self.s[j, i, k, 0] = s_f[i + j * self.len_y + k * self.len_x * self.len_y, 0]
+                    self.s[j, i, k, 1] = s_f[i + j * self.len_y + k * self.len_x * self.len_y, 1]
+                    self.s[j, i, k, 2] = s_f[i + j * self.len_y + k * self.len_x * self.len_y, 2]
+                    self.t[j, i, k, 0] = t_f[i + j * self.len_y + k * self.len_x * self.len_y, 0]
+                    self.t[j, i, k, 1] = t_f[i + j * self.len_y + k * self.len_x * self.len_y, 1]
+                    self.t[j, i, k, 2] = t_f[i + j * self.len_y + k * self.len_x * self.len_y, 2]
 
         self.Ceff = [self.s[:, :, :, 0].sum() / self.nElems, self.s[:, :, :, 1].sum() / self.nElems, self.s[:, :, :, 2].sum() / self.nElems,
                      self.t[:, :, :, 0].sum() / self.nElems, self.t[:, :, :, 1].sum() / self.nElems, self.t[:, :, :, 2].sum() / self.nElems]
 
-    def create_element_stiffness_matrices(self):
+    def create_element_stiffness_matrices(self, computeK):
 
         if self.need_to_orient:
-            self.m_K = np.zeros((24, 24, self.nElems), dtype=float)
-            self.m_B = np.zeros((6, 24, self.nElems), dtype=float)
+            if computeK:
+                self.m_K = np.zeros((24, 24, self.nElems), dtype=float)
+            else:
+                self.m_B = np.zeros((6, 24, self.nElems), dtype=float)
         else:
             nMat = len(self.mat_elast)
-            self.m_K = np.zeros((24, 24, nMat), dtype=float)
-            self.m_B = np.zeros((6, 24, nMat), dtype=float)
+            if computeK:
+                self.m_K = np.zeros((24, 24, nMat), dtype=float)
+            else:
+                self.m_B = np.zeros((6, 24, nMat), dtype=float)
 
         k = np.zeros((24, 24), dtype=float)
         BC = np.zeros((6, 24), dtype=float)
@@ -276,24 +287,28 @@ class ElasticityFE(PropertySolver):
         z = np.array([0., 0., 0., 0., 1., 1., 1., 1.])
 
         if self.need_to_orient:
-            Kiso_prev = dict()
+            KBiso_prev = dict()
             for e in range(self.nElems):
                 cs = self.mat_elast[self.elemMatMap[e]]
 
                 if len(cs) == 21:
-                    if self.elemMatMap[e] in Kiso_prev.keys():
-                        self.m_K[:, :, e], self.m_B[:, :, e] = Kiso_prev[self.elemMatMap[e]]
+                    if self.elemMatMap[e] in KBiso_prev.keys():
+                        if computeK:
+                            self.m_K[:, :, e] = KBiso_prev[self.elemMatMap[e]]
+                        else:
+                            self.m_B[:, :, e] = KBiso_prev[self.elemMatMap[e]]
                         continue
                     C[:] = self.create_C(cs)
                 else:
                     C[:] = self.orient_C(cs, e)
 
-                self.compute_element_stiffness(C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, e)
+                self.compute_element_stiffness(C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, e, computeK)
 
-                # store previously computed k,BC for isotropic phases
-                if len(cs) == 21:
-                    Kiso_prev[self.elemMatMap[e]] = self.m_K[:, :, e], self.m_B[:, :, e]
-
+                if len(cs) == 21:  # store previously computed k,BC for isotropic phases
+                    if computeK:
+                        KBiso_prev[self.elemMatMap[e]] = self.m_K[:, :, e]
+                    else:
+                        KBiso_prev[self.elemMatMap[e]] = self.m_B[:, :, e]
         else:
             i_mat = 0
             for j_mat in range(0, 256):
@@ -302,7 +317,7 @@ class ElasticityFE(PropertySolver):
                     continue
 
                 C[:] = self.create_C(self.mat_elast[j_mat])
-                self.compute_element_stiffness(C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, i_mat)
+                self.compute_element_stiffness(C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, i_mat, computeK)
                 i_mat += 1
 
     def create_C(self, cs):
@@ -345,9 +360,11 @@ class ElasticityFE(PropertySolver):
                       [2 * a11 * a21, 2 * a12 * a22, a23, a13 * a22, a13 * a21, a11 * a22 + a12 * a21]])
         return R.T @ C_init @ R.T
 
-    def compute_element_stiffness(self, C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, KBind):
-        k.fill(0)
-        BC.fill(0)
+    def compute_element_stiffness(self, C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, KBind, computeK):
+        if computeK:
+            k.fill(0)
+        else:
+            BC.fill(0)
         B.fill(0)
         for i in range(2):
             r = gp[i]
@@ -393,10 +410,15 @@ class ElasticityFE(PropertySolver):
                         B[B_inds[0][ind], B_inds[1][ind]] = dNdx[dNdx_inds[0][ind], dNdx_inds[1][ind]]
 
                     detJ = np.linalg.det(J)
-                    k += (B.T @ C @ B) * detJ
-                    BC += (C @ B) * detJ
+                    if computeK:
+                        k += (B.T @ C @ B) * detJ
+                    else:
+                        BC += (C @ B) * detJ
 
-                    self.m_K[:, :, KBind], self.m_B[:, :, KBind] = k, BC
+        if computeK:
+            self.m_K[:, :, KBind] = k
+        else:
+            self.m_B[:, :, KBind] = BC
 
     def error_check(self):
         # elast_map checks
