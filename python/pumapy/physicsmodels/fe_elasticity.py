@@ -59,7 +59,7 @@ class ElasticityFE(PropertySolver):
         self.nDOFs = self.nElems * 3
         self.elemMatMap = np.zeros(self.nElems, dtype=int)
         self.pElemDOFNum = np.zeros((24, self.nElems), dtype=np.uint32)
-        nElemS = self.len_x * self.len_y
+        self.nElemS = self.len_x * self.len_y
         nNodeS = (self.len_x + 1) * (self.len_y + 1)
         DOFMap = np.zeros((self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1), dtype=int)
 
@@ -84,10 +84,10 @@ class ElasticityFE(PropertySolver):
         for n in range(nNodeS * (self.len_z + 1)):
             i = n % nNodeS
             DOFMap[n] = (i - (i // (self.len_y + 1)) - self.len_y * ((i % (self.len_y + 1)) // self.len_y)) \
-                        % nElemS + ((n // nNodeS) % self.len_z) * nElemS + 1
+                        % self.nElemS + ((n // nNodeS) % self.len_z) * self.nElemS + 1
 
         for e in range(self.nElems):
-            N1 = 2 + e % nElemS + (e % nElemS) // self.len_y + e // nElemS * nNodeS - 1
+            N1 = 2 + e % self.nElemS + (e % self.nElemS) // self.len_y + e // self.nElemS * nNodeS - 1
             N3 = N1 + self.len_y
             N2 = N3 + 1
             N4 = N1 - 1
@@ -124,12 +124,22 @@ class ElasticityFE(PropertySolver):
         print("Computing RHS")
         self.bvec = np.zeros(self.nDOFs, dtype=float)
 
-        if not self.need_to_orient:
-            for e in range(self.nElems):
-                np.add.at(self.bvec, self.pElemDOFNum[:, e], self.m_B[self.axis, :, self.elemMatMap[e]])
-        else:
-            for e in range(self.nElems):
-                np.add.at(self.bvec, self.pElemDOFNum[:, e], self.m_B[self.axis, :, e])
+        bound = [3, 6, 15, 18]
+
+        for dz in range(1, self.len_z + 1):
+            for r in range(1, self.len_y + 1):
+                e = r + (self.len_x - 1) * self.len_y + (dz - 1) * self.nElemS
+                for i in range(24):
+                    for j in bound:
+                        self.bvec[self.pElemDOFNum[i, e -1]] -= (self.m_K[i, j, self.elemMatMap[e -1]]) * self.len_x
+
+
+        # if not self.need_to_orient:
+        #     for e in range(self.nElems):
+        #         np.add.at(self.bvec, self.pElemDOFNum[:, e], self.m_B[self.axis, :, self.elemMatMap[e]])
+        # else:
+        #     for e in range(self.nElems):
+        #         np.add.at(self.bvec, self.pElemDOFNum[:, e], self.m_B[self.axis, :, e])
 
     def assemble_Amatrix(self):
         print("Assembling system")
@@ -187,22 +197,45 @@ class ElasticityFE(PropertySolver):
 
         self.s = np.zeros((self.nElems, 3), dtype=float)
         self.t = np.zeros((self.nElems, 3), dtype=float)
+        bound = [3, 6, 15, 18]
+        aux = 0
         if not self.need_to_orient:
+            for _ in range(self.len_z):
+                for eb in range(self.nElemS - self.len_y + aux, self.nElemS + aux):
+                    for j in bound:
+                        self.s[eb, 0] += (self.m_B[0, j, self.elemMatMap[eb]] * self.len_x)
+                        self.s[eb, 1] += (self.m_B[1, j, self.elemMatMap[eb]] * self.len_x)
+                        self.s[eb, 2] += (self.m_B[2, j, self.elemMatMap[eb]] * self.len_x)
+                        self.t[eb, 2] += (self.m_B[3, j, self.elemMatMap[eb]] * self.len_x)
+                        self.t[eb, 1] += (self.m_B[4, j, self.elemMatMap[eb]] * self.len_x)
+                        self.t[eb, 0] += (self.m_B[5, j, self.elemMatMap[eb]] * self.len_x)
+                aux += self.nElemS
             for e in range(self.nElems):
-                self.s[e, 0] += (self.m_B[0, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.s[e, 1] += (self.m_B[1, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.s[e, 2] += (self.m_B[2, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.t[e, 2] += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.t[e, 1] += (self.m_B[4, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.t[e, 0] += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+                self.s[e, 0] += (self.m_B[0, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.s[e, 1] += (self.m_B[1, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.s[e, 2] += (self.m_B[2, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.t[e, 2] += (self.m_B[3, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.t[e, 1] += (self.m_B[4, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.t[e, 0] += (self.m_B[5, :, self.elemMatMap[e]] * self.x[self.pElemDOFNum[:, e]]).sum()
         else:
+            for _ in range(self.len_z):
+                for eb in range(self.nElemS - self.len_y + aux, self.nElemS + aux):
+                    for j in bound:
+                        self.s[eb, 0] += (self.m_B[0, j, eb] * self.len_x)
+                        self.s[eb, 1] += (self.m_B[1, j, eb] * self.len_x)
+                        self.s[eb, 2] += (self.m_B[2, j, eb] * self.len_x)
+                        self.t[eb, 2] += (self.m_B[3, j, eb] * self.len_x)
+                        self.t[eb, 1] += (self.m_B[4, j, eb] * self.len_x)
+                        self.t[eb, 0] += (self.m_B[5, j, eb] * self.len_x)
+                aux += self.nElemS
             for e in range(self.nElems):
-                self.s[e, 0] += (self.m_B[0, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.s[e, 1] += (self.m_B[1, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.s[e, 2] += (self.m_B[2, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.t[e, 2] += (self.m_B[3, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.t[e, 1] += (self.m_B[4, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                self.t[e, 0] += (self.m_B[5, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+                self.s[e, 0] += (self.m_B[0, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.s[e, 1] += (self.m_B[1, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.s[e, 2] += (self.m_B[2, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.t[e, 2] += (self.m_B[3, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.t[e, 1] += (self.m_B[4, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+                self.t[e, 0] += (self.m_B[5, :, e] * self.x[self.pElemDOFNum[:, e]]).sum()
+
         self.s = np.stack([np.reshape(self.s[:, 0], (self.len_x, self.len_y, self.len_z), order='F'),
                            np.reshape(self.s[:, 1], (self.len_x, self.len_y, self.len_z), order='F'),
                            np.reshape(self.s[:, 2], (self.len_x, self.len_y, self.len_z), order='F')], axis=-1)
