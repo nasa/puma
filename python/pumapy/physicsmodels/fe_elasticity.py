@@ -26,6 +26,8 @@ class ElasticityFE(PropertySolver):
         self.len_x, self.len_y, self.len_z = self.ws.matrix.shape
         self.mat_elast = dict()
 
+        self.need_to_orient = False  # changes if (E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12) detected
+
         if self.direction == 'x':
             self.axis = 0
         elif self.direction == 'y':
@@ -46,7 +48,6 @@ class ElasticityFE(PropertySolver):
 
     def compute(self):
         self.initialize()
-        self.element_stiffness_matrices()
         self.compute_rhs()
         self.assemble_Amatrix()
         super().solve()
@@ -56,7 +57,7 @@ class ElasticityFE(PropertySolver):
         print("Initializing index matrices")
         self.nElems = self.len_x * self.len_y * self.len_z
         self.nDOFs = self.nElems * 3
-        self.elemMatMap = np.zeros(self.len_x * self.len_y * self.len_z, dtype=int)
+        self.elemMatMap = np.zeros(self.nElems, dtype=int)
         self.pElemDOFNum = np.zeros((24, self.nElems), dtype=np.uint32)
         nElemS = self.len_x * self.len_y
         nNodeS = (self.len_x + 1) * (self.len_y + 1)
@@ -69,6 +70,8 @@ class ElasticityFE(PropertySolver):
             for i in range(1, rows + 1):
                 for j in range(1, cols + 1):
                     self.elemMatMap[i + (j - 1) * self.len_y + (k - 1) * self.len_x * self.len_y -1] = self.ws[j -1, i -1, k -1]
+
+        self.element_stiffness_matrices_isotropic()
 
         for n in range(nNodeS * (self.len_z + 1)):
             i = n % nNodeS
@@ -135,6 +138,7 @@ class ElasticityFE(PropertySolver):
                         I.append(self.pElemDOFNum[i, e])
                         J.append(self.pElemDOFNum[j, e])
                         V.append(self.m_K[i, j, self.elemMatMap[e]])
+
             self.Amat = coo_matrix((V, (I, J))).tocsc()
 
     def compute_effective_coefficient(self):
@@ -154,7 +158,12 @@ class ElasticityFE(PropertySolver):
         elif self.axis == 5:
             t[[8, 11, 20, 23]] = 1
 
-        self.u = self.x.reshape([self.len_x, self.len_y, self.len_z, 3])
+        # self.u = self.x.reshape([self.len_x, self.len_y, self.len_z, 3])
+        inds = np.arange(1, self.nElems + 1)
+        self.u = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+        self.u[:, :, :, 0] = np.reshape(self.x[inds * 3 - 3], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u[:, :, :, 1] = np.reshape(self.x[inds * 3 - 2], (self.len_x, self.len_y, self.len_z), order='F')
+        self.u[:, :, :, 2] = np.reshape(self.x[inds * 3 - 1], (self.len_x, self.len_y, self.len_z), order='F')
 
         self.s = np.zeros((self.nElems, 3), dtype=float)
         self.t = np.zeros((self.nElems, 3), dtype=float)
@@ -165,13 +174,17 @@ class ElasticityFE(PropertySolver):
             self.t[e, 2] += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
             self.t[e, 1] += (self.m_B[4, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
             self.t[e, 0] += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-        self.s = self.s.reshape([self.len_x, self.len_y, self.len_z, 3])
-        self.t = self.t.reshape([self.len_x, self.len_y, self.len_z, 3])
+        self.s = np.stack([np.reshape(self.s[:, 0], (self.len_x, self.len_y, self.len_z), order='F'),
+                           np.reshape(self.s[:, 1], (self.len_x, self.len_y, self.len_z), order='F'),
+                           np.reshape(self.s[:, 2], (self.len_x, self.len_y, self.len_z), order='F')], axis=-1)
+        self.t = np.stack([np.reshape(self.t[:, 0], (self.len_x, self.len_y, self.len_z), order='F'),
+                           np.reshape(self.t[:, 1], (self.len_x, self.len_y, self.len_z), order='F'),
+                           np.reshape(self.t[:, 2], (self.len_x, self.len_y, self.len_z), order='F')], axis=-1)
 
         self.Ceff = [self.s[:, :, :, 0].sum() / self.nElems, self.s[:, :, :, 1].sum() / self.nElems, self.s[:, :, :, 2].sum() / self.nElems,
                      self.t[:, :, :, 0].sum() / self.nElems, self.t[:, :, :, 1].sum() / self.nElems, self.t[:, :, :, 2].sum() / self.nElems]
 
-    def element_stiffness_matrices(self):
+    def element_stiffness_matrices_isotropic(self):
         k = np.zeros((24, 24), dtype=float)
         BC = np.zeros((6, 24), dtype=float)
         B = np.zeros((6, 24), dtype=float)

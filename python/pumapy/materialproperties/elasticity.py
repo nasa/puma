@@ -58,6 +58,9 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
     solver.log_input()
     solver.compute()
     solver.log_output()
+
+    d = {'x': 'first', 'y': 'second', 'z': 'third', 'yz': 'fourth', 'xz': 'fifth', 'xy': 'sixth'}
+    print(f'\nEffective elasticity tensor ({d[solver.direction]} column): \n{solver.Ceff}\n')
     return solver.Ceff, solver.u, solver.s, solver.t
 
 

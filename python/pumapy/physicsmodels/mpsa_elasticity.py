@@ -466,9 +466,6 @@ class Elasticity(PropertySolver):
             self.Ceff = [self.Ceff[0], self.Ceff[2], self.Ceff[1],
                          self.Ceff[3], self.Ceff[5], self.Ceff[4]]
 
-        d = {'x': 'first', 'y': 'second', 'z': 'third', 'yz': 'fourth', 'xz': 'fifth', 'xy': 'sixth'}
-        print(f'\nEffective elasticity tensor ({d[self.direction]} column): \n{self.Ceff}\n')
-
     def log_input(self):
         self.ws.log.log_section("Computing Elasticity")
         self.ws.log.log_line("Simulation direction: " + str(self.direction))
