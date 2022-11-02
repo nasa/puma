@@ -139,7 +139,6 @@ class ElasticityFE(PropertySolver):
 
     def compute_effective_coefficient(self):
         print("Computing effective elasticity")
-        self.Ceff = np.zeros((6, 6), dtype=float)
 
         t = np.zeros(24, dtype=float)
         if self.axis == 0:
@@ -163,27 +162,14 @@ class ElasticityFE(PropertySolver):
             self.s[e, 0] += (self.m_B[0, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
             self.s[e, 1] += (self.m_B[1, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
             self.s[e, 2] += (self.m_B[2, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-            self.t[e, 0] += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            self.t[e, 2] += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
             self.t[e, 1] += (self.m_B[4, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-            self.t[e, 2] += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+            self.t[e, 0] += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
         self.s = self.s.reshape([self.len_x, self.len_y, self.len_z, 3])
         self.t = self.t.reshape([self.len_x, self.len_y, self.len_z, 3])
 
-        SX = 0; SY = 0; SZ = 0; SXY = 0; SXZ = 0; SYZ = 0
-        for e in range(self.nElems):
-            SX  += (self.m_B[0, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-            SY  += (self.m_B[1, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-            SZ  += (self.m_B[2, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-            SXY += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-            SXZ += (self.m_B[4, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-            SYZ += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-
-        self.Ceff[self.axis, 0] = SX / self.nElems
-        self.Ceff[self.axis, 1] = SY / self.nElems
-        self.Ceff[self.axis, 2] = SZ / self.nElems
-        self.Ceff[self.axis, 3] = SXY / self.nElems
-        self.Ceff[self.axis, 4] = SXZ / self.nElems
-        self.Ceff[self.axis, 5] = SYZ / self.nElems
+        self.Ceff = [self.s[:, :, :, 0].sum() / self.nElems, self.s[:, :, :, 1].sum() / self.nElems, self.s[:, :, :, 2].sum() / self.nElems,
+                     self.t[:, :, :, 0].sum() / self.nElems, self.t[:, :, :, 1].sum() / self.nElems, self.t[:, :, :, 2].sum() / self.nElems]
 
     def element_stiffness_matrices(self):
         k = np.zeros((24, 24), dtype=float)
