@@ -1,16 +1,12 @@
 import pumapy
-from pumapy.physicsmodels.raycasting import RayCasting
 from scipy.optimize import curve_fit
 from matplotlib import pyplot as plt
 import numpy as np
 from pumapy.utilities.workspace import Workspace
-from pumapy.utilities.logger import print_warning
-from pumapy.materialproperties.volumefraction import compute_volume_fraction
 
 
 def compute_radiation_anisotropic(workspace, void_cutoff, sources_number, bin_density=10000, export_pathname=None):
-    """ Compute the radiative thermal conductivity through ray tracing
-        (N.B. 0 material ID in workspace refers to gas phases unless otherwise specified)
+    """ Compute the anisotropic radiative thermal conductivity through ray tracing
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
@@ -25,31 +21,23 @@ def compute_radiation_anisotropic(workspace, void_cutoff, sources_number, bin_de
         :return: extinction coefficient (beta), its standard deviation and of ray distances
         :rtype: (float, float, np.ndarray)
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 0.65e-6)
-        Importing ...
-        >>> beta, beta_std, rays_distances = puma.compute_radiation(ws_fiberform, (0, 89), 10000, 'z')
-         Number of particles in Ray Tracing simulation...
     """
 
-    beta = np.zeros((3))
-    beta_std = np.zeros((3))
     rays_distances = np.zeros((sources_number, 3))
 
-    solver = Anisotropic_Radiation(workspace, void_cutoff, sources_number, 'x', bin_density, export_pathname)
+    solver = AnisotropicRadiation(workspace, void_cutoff, sources_number, 'x', bin_density, export_pathname)
     solver.error_check()
     solver.log_input()
     rays_distances[:,0] = solver.compute()
     solver.log_output()
 
-    solver = Anisotropic_Radiation(workspace, void_cutoff, sources_number, 'y', bin_density, export_pathname)
+    solver = AnisotropicRadiation(workspace, void_cutoff, sources_number, 'y', bin_density, export_pathname)
     solver.error_check()
     solver.log_input()
     rays_distances[:,1] = solver.compute()
     solver.log_output()
 
-    solver = Anisotropic_Radiation(workspace, void_cutoff, sources_number, 'z', bin_density, export_pathname)
+    solver = AnisotropicRadiation(workspace, void_cutoff, sources_number, 'z', bin_density, export_pathname)
     solver.error_check()
     solver.log_input()
     rays_distances[:,2] = solver.compute()
@@ -60,7 +48,7 @@ def compute_radiation_anisotropic(workspace, void_cutoff, sources_number, bin_de
     return beta, beta_std, rays_distances
 
 
-class Anisotropic_Radiation:
+class AnisotropicRadiation:
 
     def __init__(self, workspace, void_cutoff, sources_number, direction, bin_density, export_plot):
         self.workspace = workspace
@@ -103,7 +91,7 @@ class Anisotropic_Radiation:
 
             self.ray_distances[i] += length
 
-            while(length == 0):
+            while length == 0:
                 self.ray_distances[i] += array_1d.shape[0]
                 ray_index = np.random.randint(self.boundary_indices.shape[1])
                 start_pos = self.boundary_indices[:, ray_index]
@@ -160,7 +148,6 @@ def compute_extinction_coefficients_anisotropic(ws, rays_distances, sources_numb
     :return: extinction coefficient (beta), its standard deviation
     :rtype: (float, float)
     """
-
 
     print("\nComputing extinction coefficients ... ", end='')
 

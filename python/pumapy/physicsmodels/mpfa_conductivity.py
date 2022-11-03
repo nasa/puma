@@ -39,8 +39,8 @@ class AnisotropicConductivity(Conductivity):
 
     def compute(self):
         t = Timer()
+        estimate_max_memory("anisotropic_conductivity", self.ws.shape, self.solver_type, self.need_to_orient)
         self.initialize()
-        estimate_max_memory("anisotropic_conductivity", self.ws_pad[1:-1, 1:-1, 1:-1].shape, self.solver_type, self.need_to_orient)
         self.assemble_Amatrix()
         self.assemble_bvector()
         print("Time to assemble matrices: ", t.elapsed()); t.reset()

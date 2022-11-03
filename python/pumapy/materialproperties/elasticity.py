@@ -1,4 +1,5 @@
 from pumapy.physicsmodels.mpsa_elasticity import Elasticity
+from pumapy.physicsmodels.fe_elasticity import ElasticityFE
 from pumapy.physicsmodels.property_maps import ElasticityMap
 from pumapy.utilities.workspace import Workspace
 from pumapy.segmentation.ccl import identify_porespace
@@ -7,7 +8,8 @@ import pyvista as pv
 
 
 def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1e-5,
-                       maxiter=100000, solver_type='bicgstab', display_iter=True):
+                       maxiter=100000, solver_type='bicgstab', display_iter=True,
+                       method="fv", matrix_free=True):
     """ Compute the effective elasticity coefficient
 
         :param workspace: domain
@@ -44,12 +46,21 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
     if not isinstance(elast_map, ElasticityMap):
         raise Exception("elast_map has to be an ElasticityMap")
 
-    solver = Elasticity(workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter)
+    if method == "fv":
+        solver = Elasticity(workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter)
+    elif method == "fe":
+        solver = ElasticityFE(workspace, elast_map, direction, tolerance, maxiter, solver_type, display_iter, matrix_free)
+    else:
+        raise Exception("method can only be set as 'fv' (i.e. MPSA finite volume) or 'fe' (i.e. Q1-Q1 EBE finite element)")
+
     solver.error_check()
 
     solver.log_input()
     solver.compute()
     solver.log_output()
+
+    d = {'x': 'first', 'y': 'second', 'z': 'third', 'yz': 'fourth', 'xz': 'fifth', 'xy': 'sixth'}
+    print(f'\nEffective elasticity tensor ({d[solver.direction]} column): \n{solver.Ceff}\n')
     return solver.Ceff, solver.u, solver.s, solver.t
 
 
@@ -216,7 +227,7 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
 
             if show_axes:
                 p.show_bounds(grid='front', location='outer', all_edges=True, color=(0, 0, 0))
-            p.background_color = (1, 1, 1)
+            p.background_color = (255, 255, 255)
             p.add_axes(line_width=5, color=(0, 0, 0))
 
             if xy_view:
@@ -287,7 +298,7 @@ def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
                 p.add_scalar_bar(plots[i][j], interactive=False, vertical=True, color=(0, 0, 0), height=0.8)
 
             p.show_bounds(grid='front', location='outer', all_edges=True, color=(0, 0, 0))
-            p.background_color = (1, 1, 1)
+            p.background_color = (255, 255, 255)
             p.add_axes(line_width=5, color=(0, 0, 0))
 
             if xy_view:

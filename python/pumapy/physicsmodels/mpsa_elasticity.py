@@ -49,8 +49,8 @@ class Elasticity(PropertySolver):
 
     def compute(self):
         t = Timer()
-        self.initialize()
         estimate_max_memory("elasticity", self.ws.matrix.shape, self.solver_type, self.need_to_orient)
+        self.initialize()
         self.assemble_matrices()
         print("Time to assemble matrices: ", t.elapsed()); t.reset()
         super().solve()
@@ -465,9 +465,6 @@ class Elasticity(PropertySolver):
             self.t = self.t.transpose(0, 2, 1, 3)[:, :, :, [0, 2, 1]]
             self.Ceff = [self.Ceff[0], self.Ceff[2], self.Ceff[1],
                          self.Ceff[3], self.Ceff[5], self.Ceff[4]]
-
-        d = {'x': 'first', 'y': 'second', 'z': 'third', 'yz': 'fourth', 'xz': 'fifth', 'xy': 'sixth'}
-        print(f'\nEffective elasticity tensor ({d[self.direction]} column): \n{self.Ceff}\n')
 
     def log_input(self):
         self.ws.log.log_section("Computing Elasticity")
