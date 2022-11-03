@@ -10,7 +10,7 @@ class ElasticityFE(PropertySolver):
 
     def __init__(self, workspace, elast_map, direction, tolerance, maxiter, solver_type, display_iter, matrix_free):
 
-        allowed_solvers = ['minres', 'direct', 'cg', 'bicgstab', 'gmres']
+        allowed_solvers = ['minres', 'direct', 'bicgstab', 'gmres']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
         self.elast_map = elast_map
@@ -79,9 +79,6 @@ class ElasticityFE(PropertySolver):
 
         # compute self.m_K and self.m_B
         self.create_element_stiffness_matrices(onlyB=False)
-
-        if self.need_to_orient:
-            del self.elemMatMap, self.elemMatMap_orient
 
         for n in range(nNodeS * (self.len_z + 1)):
             i = n % nNodeS
@@ -167,6 +164,7 @@ class ElasticityFE(PropertySolver):
                     counter += 576
             del self.m_K
             self.Amat = coo_matrix((V, (I, J))).tocsc()
+
         print("Done")
 
     def compute_effective_coefficient(self):
