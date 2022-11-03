@@ -14,14 +14,11 @@ class ElasticityFE(PropertySolver):
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
         self.elast_map = elast_map
-        self.ws = workspace.copy()
         self.matrix_free = matrix_free
         self.direction = direction
-        self.solver_type = solver_type
         self.voxlength = self.ws.voxel_length
         self.len_x, self.len_y, self.len_z = self.ws.matrix.shape
         self.mat_elast = dict()
-
         self.need_to_orient = False  # changes if (E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12) detected
 
         if self.direction == 'x':
@@ -44,8 +41,7 @@ class ElasticityFE(PropertySolver):
 
     def compute(self):
         t = Timer()
-        estimate_max_memory("elasticity_fe", self.ws.matrix.shape, self.solver_type, self.need_to_orient,
-                            mf=self.matrix_free)
+        estimate_max_memory("elasticity_fe", self.ws.matrix.shape, self.solver_type, self.need_to_orient, mf=self.matrix_free)
         self.initialize()
         self.compute_rhs()
         self.assemble_Amatrix()
@@ -63,6 +59,11 @@ class ElasticityFE(PropertySolver):
         self.nElemS = self.len_x * self.len_y
         nNodeS = (self.len_x + 1) * (self.len_y + 1)
         DOFMap = np.zeros((self.len_x + 1) * (self.len_y + 1) * (self.len_z + 1), dtype=int)
+
+        # Segmenting domain according to elast_map
+        for i in range(self.elast_map.get_size()):
+            low, high, _ = self.elast_map.get_material(i)
+            self.ws[np.logical_and(self.ws.matrix >= low, self.ws.matrix <= high)] = low
 
         self.elemMatMap = np.zeros(self.nElems, dtype=int)
         for k in range(self.len_z):
