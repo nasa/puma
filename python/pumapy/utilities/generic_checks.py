@@ -60,7 +60,7 @@ def check_ws_cutoff(workspace, cutoff):
 
 
 def estimate_max_memory(material_property, workspace_shape, solver_type='iterative', need_to_orient=False,
-                        perm_mf=True, perm_fluid_vf=1.):
+                        mf=True, perm_fluid_vf=1.):
     """ Compute an estimate of the extra maximum memory required to run a specified material property on a domain
 
         :param material_property: property to estimate, options:
@@ -72,14 +72,15 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
         :type solver_type: string
         :param need_to_orient: domain with orientation (needed for anisotropic conductivity and elasticity)
         :type need_to_orient: bool
-        :param matrix_free: using matrix-free construction of the system (needed for permeability)
-        :type matrix_free: bool
+        :param mf: using matrix-free construction of the system (needed for FE methods)
+        :type mf: bool
         :return: number of Bytes
         :rtype: int
     """
 
     # missing properties: 'orientation', 'radiation'
-    mat_properties = ['anisotropic_conductivity', 'isotropic_conductivity', 'tortuosity', 'elasticity', 'permeability']
+    mat_properties = ['anisotropic_conductivity', 'isotropic_conductivity', 'tortuosity', 'elasticity', 'elasticity_fe',
+                      'permeability']
 
     if material_property not in mat_properties:
         raise Exception(f"material_property input can only be one of the following types: {mat_properties}")
@@ -159,9 +160,20 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
         n_dofs = n_elems * 4 * perm_fluid_vf
         n_nodes = (len_x + 1) * (len_y + 1) * (len_z + 1)
 
-        if perm_mf == False or solver_type == 'direct':
+        if mf == False or solver_type == 'direct':
             total_bytes += (16 * n_elems + 64 * n_nodes + 2 * 64 * n_dofs + 18 * 64 * n_elems) / 8
-        else:  # sparse assembly
+        else:
+            total_bytes += (16 * n_elems + 64 * n_nodes + 5 * 64 * n_dofs) / 8
+
+    elif material_property == "elasticity_fe":
+
+        n_elems = len_x * len_y * len_z
+        n_dofs = n_elems * 3
+        n_nodes = (len_x + 1) * (len_y + 1) * (len_z + 1)
+
+        if mf == False or solver_type == 'direct' or need_to_orient:
+            total_bytes += (16 * n_elems + 64 * n_nodes + 2 * 64 * n_dofs + 18 * 64 * n_elems) / 8
+        else:
             total_bytes += (16 * n_elems + 64 * n_nodes + 5 * 64 * n_dofs) / 8
 
     # elif material_property == "orientation":

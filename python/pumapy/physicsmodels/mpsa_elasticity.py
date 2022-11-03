@@ -49,8 +49,8 @@ class Elasticity(PropertySolver):
 
     def compute(self):
         t = Timer()
-        self.initialize()
         estimate_max_memory("elasticity", self.ws.matrix.shape, self.solver_type, self.need_to_orient)
+        self.initialize()
         self.assemble_matrices()
         print("Time to assemble matrices: ", t.elapsed()); t.reset()
         super().solve()

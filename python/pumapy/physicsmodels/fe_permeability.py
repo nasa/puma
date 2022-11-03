@@ -64,7 +64,7 @@ class Permeability(PropertySolver):
     def compute(self):
         t = Timer()
         estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type,
-                            perm_mf=self.matrix_free, perm_fluid_vf=self.ws.porosity((0, 0)))
+                            mf=self.matrix_free, perm_fluid_vf=self.ws.porosity((0, 0)))
         self.calculate_element_matrices()
         self.initialize()
         self.assemble_Amatrix()
