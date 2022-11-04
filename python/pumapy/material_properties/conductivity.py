@@ -19,10 +19,10 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
         :param direction: direction for solve ('x','y', or 'z')
         :type direction: string
-        :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p') or dirichlet ('d')
+        :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
         :type side_bc: string
         :param prescribed_bc: 3D array holding dirichlet BC.
-        :type prescribed_bc: pumapy.ConductivityBC or None
+        :type prescribed_bc: pumapy.IsotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
@@ -96,10 +96,10 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
         :param direction: direction for solve ('x','y', or 'z')
         :type direction: string
-        :param side_bc: side boundary conditions can be symmetric ('s'), periodic ('p') or dirichlet ('d')
+        :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
         :type side_bc: string
         :param prescribed_bc: 3D array holding dirichlet BC
-        :type prescribed_bc: pumapy.ConductivityBC or None
+        :type prescribed_bc: pumapy.IsotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
         :param maxiter: maximum Iterations for solver

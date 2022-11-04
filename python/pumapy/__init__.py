@@ -38,7 +38,7 @@ __version__ = "3.2.0"
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
 from pumapy.physics_models.utils.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
-from pumapy.physics_models.utils.boundary_conditions import ConductivityBC, ElasticityBC
+from pumapy.physics_models.utils.boundary_conditions import IsotropicConductivityBC, ElasticityBC
 from pumapy.utilities.example_files import path_to_example_file, list_example_files
 from pumapy.utilities.generic_checks import estimate_max_memory, set_random_seed
 

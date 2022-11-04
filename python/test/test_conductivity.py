@@ -136,11 +136,11 @@ class TestIsotropicTC(unittest.TestCase):
         cond_map = puma.IsotropicConductivityMap()
         cond_map.add_material((0, 128), 0.0257)
         cond_map.add_material((129, 255), 10)
-        keff, _, _ = puma.compute_thermal_conductivity(ws, cond_map, 'x', 's', tolerance=1e-5)
+        keff, _, _ = puma.compute_thermal_conductivity(ws, cond_map, 'x', 's', tolerance=1e-5, matrix_free=False)
         np.testing.assert_array_almost_equal(keff, [0.08925413601635017, 0.0007061955182692809, 0.0034755766404363747], decimal=4)
-        keff, _, _ = puma.compute_thermal_conductivity(ws, cond_map, 'y', 's', tolerance=1e-5)
+        keff, _, _ = puma.compute_thermal_conductivity(ws, cond_map, 'y', 's', tolerance=1e-5, matrix_free=False)
         np.testing.assert_array_almost_equal(keff, [0.0001529471806702979, 0.1507727041868121, 0.0011563593733770895], decimal=4)
-        keff, _, _ = puma.compute_thermal_conductivity(ws, cond_map, 'z', 's', tolerance=1e-5)
+        keff, _, _ = puma.compute_thermal_conductivity(ws, cond_map, 'z', 's', tolerance=1e-5, matrix_free=False)
         np.testing.assert_array_almost_equal(keff, [0.0009825604753153855, -0.006340682953106483, 0.07495772275364905], decimal=4)
 
 

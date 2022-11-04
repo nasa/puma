@@ -3,23 +3,45 @@ import sys
 
 DTYPE = np.float
 
-def indexAt_3D(i, j, k, len_x, len_y, len_z):
+
+def index_at_p(int i, int j, int k, int len_x, int len_y, int len_z):
+    if i == -1:
+        i = len_x - 1
+    elif i == len_x:
+        i = 0
+    if j == -1:
+        j = len_y - 1
+    elif j == len_y:
+        j = 0
+    if k == -1:
+        k = len_z - 1
+    elif k == len_z:
+        k = 0
+    return len_x * len_y * k + len_x * j + i
+
+
+def index_at_s(int i, int j, int k, int len_x, int len_y, int len_z):
     if i == -1:
         i = 0
-    if i == len_x:
+    elif i == len_x:
         i = len_x - 1
     if j == -1:
         j = 0
-    if j == len_y:
+    elif j == len_y:
         j = len_y - 1
     if k == -1:
         k = 0
-    if k == len_z:
+    elif k == len_z:
         k = len_z - 1
     return len_x * len_y * k + len_x * j + i
 
 
-def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, double [:, :, :] prescribed_bc):
+def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
+
+    if side_bc == 'p':
+        index_at = index_at_p
+    else:
+        index_at = index_at_s
 
     cdef int i, j, k
     cdef int index, ixm, ixp, iym, iyp, izm, izp
@@ -62,12 +84,12 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
                         data[count] = 1
                         count += 1
                 else:
-                    ixm = indexAt_3D(i - 1, j, k, l_x, l_y, l_z)
-                    ixp = indexAt_3D(i + 1, j, k, l_x, l_y, l_z)
-                    iym = indexAt_3D(i, j - 1, k, l_x, l_y, l_z)
-                    iyp = indexAt_3D(i, j + 1, k, l_x, l_y, l_z)
-                    izm = indexAt_3D(i, j, k - 1, l_x, l_y, l_z)
-                    izp = indexAt_3D(i, j, k + 1, l_x, l_y, l_z)
+                    ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+                    ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+                    iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+                    iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+                    izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+                    izp = index_at(i, j, k + 1, l_x, l_y, l_z)
 
                     data[count] = - _kf[ixm] * _kf[index] / (_kf[ixm] + _kf[index]) - _kf[ixp] * _kf[index] / (_kf[ixp] + _kf[index]) \
                                   - _kf[iym] * _kf[index] / (_kf[iym] + _kf[index]) - _kf[iyp] * _kf[index] / (_kf[iyp] + _kf[index]) \
@@ -110,12 +132,12 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
                         data[count] = 1
                         count += 1
                 else:
-                    ixm = indexAt_3D(i - 1, j, k, l_x, l_y, l_z)
-                    ixp = indexAt_3D(i + 1, j, k, l_x, l_y, l_z)
-                    iym = indexAt_3D(i, j - 1, k, l_x, l_y, l_z)
-                    iyp = indexAt_3D(i, j + 1, k, l_x, l_y, l_z)
-                    izm = indexAt_3D(i, j, k - 1, l_x, l_y, l_z)
-                    izp = indexAt_3D(i, j, k + 1, l_x, l_y, l_z)
+                    ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+                    ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+                    iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+                    iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+                    izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+                    izp = index_at(i, j, k + 1, l_x, l_y, l_z)
 
                     data[count] = - _kf[ixm] * _kf[index] / (_kf[ixm] + _kf[index]) - _kf[ixp] * _kf[index] / (_kf[ixp] + _kf[index]) \
                                   - _kf[iym] * _kf[index] / (_kf[iym] + _kf[index]) - _kf[iyp] * _kf[index] / (_kf[iyp] + _kf[index]) \
@@ -210,7 +232,12 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
     return _row, _col, _data
 
 
-def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short bc_check, double [:, :, :] prescribed_bc):
+def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
+
+    if side_bc == 'p':
+        index_at = index_at_p
+    else:
+        index_at = index_at_s
     
     cdef int l_xy = l_x * l_y
     cdef int i, j, k
@@ -231,12 +258,12 @@ def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l
                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
                     y[index] += x[index]
                 else:
-                    ixm = indexAt_3D(i - 1, j, k, l_x, l_y, l_z)
-                    ixp = indexAt_3D(i + 1, j, k, l_x, l_y, l_z)
-                    iym = indexAt_3D(i, j - 1, k, l_x, l_y, l_z)
-                    iyp = indexAt_3D(i, j + 1, k, l_x, l_y, l_z)
-                    izm = indexAt_3D(i, j, k - 1, l_x, l_y, l_z)
-                    izp = indexAt_3D(i, j, k + 1, l_x, l_y, l_z)
+                    ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+                    ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+                    iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+                    iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+                    izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+                    izp = index_at(i, j, k + 1, l_x, l_y, l_z)
                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
@@ -254,12 +281,12 @@ def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l
                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
                     y[index] += x[index]
                 else:
-                    ixm = indexAt_3D(i - 1, j, k, l_x, l_y, l_z)
-                    ixp = indexAt_3D(i + 1, j, k, l_x, l_y, l_z)
-                    iym = indexAt_3D(i, j - 1, k, l_x, l_y, l_z)
-                    iyp = indexAt_3D(i, j + 1, k, l_x, l_y, l_z)
-                    izm = indexAt_3D(i, j, k - 1, l_x, l_y, l_z)
-                    izp = indexAt_3D(i, j, k + 1, l_x, l_y, l_z)
+                    ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+                    ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+                    iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+                    iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+                    izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+                    izp = index_at(i, j, k + 1, l_x, l_y, l_z)
                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
