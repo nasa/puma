@@ -210,6 +210,90 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
     return _row, _col, _data
 
 
+def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short bc_check, double [:, :, :] prescribed_bc):
+    
+    cdef int l_xy = l_x * l_y
+    cdef int i, j, k
+    cdef int index, ixm, ixp, iym, iyp, izm, izp
+    
+    cdef unsigned long long count = 0
+    for i in [0, l_x - 1]:
+        for j in range(l_y):
+            for k in range(l_z):
+                index = l_xy * k + l_x * j + i
+                y[index] += x[index]
+                count += 1
+
+    for i in range(1, l_x - 1):
+        for j in [0, l_y - 1]:
+            for k in range(l_z):
+                index = l_xy * k + l_x * j + i
+                if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
+                    y[index] += x[index]
+                else:
+                    ixm = indexAt_3D(i - 1, j, k, l_x, l_y, l_z)
+                    ixp = indexAt_3D(i + 1, j, k, l_x, l_y, l_z)
+                    iym = indexAt_3D(i, j - 1, k, l_x, l_y, l_z)
+                    iyp = indexAt_3D(i, j + 1, k, l_x, l_y, l_z)
+                    izm = indexAt_3D(i, j, k - 1, l_x, l_y, l_z)
+                    izp = indexAt_3D(i, j, k + 1, l_x, l_y, l_z)
+                    y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
+                                 - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
+                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
+                    y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
+                    y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
+                    y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
+                    y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
+                    y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
+                    y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
+
+    for i in range(1, l_x - 1):
+        for j in range(1, l_y - 1):
+            for k in [0, l_z - 1]:
+                index = l_xy * k + l_x * j + i
+                if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
+                    y[index] += x[index]
+                else:
+                    ixm = indexAt_3D(i - 1, j, k, l_x, l_y, l_z)
+                    ixp = indexAt_3D(i + 1, j, k, l_x, l_y, l_z)
+                    iym = indexAt_3D(i, j - 1, k, l_x, l_y, l_z)
+                    iyp = indexAt_3D(i, j + 1, k, l_x, l_y, l_z)
+                    izm = indexAt_3D(i, j, k - 1, l_x, l_y, l_z)
+                    izp = indexAt_3D(i, j, k + 1, l_x, l_y, l_z)
+                    y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
+                                 - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
+                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
+                    y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
+                    y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
+                    y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
+                    y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
+                    y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
+                    y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
+
+    for i in range(1, l_x - 1):
+        for j in range(1, l_y - 1):
+            for k in range(1, l_z - 1):
+                index = l_xy * k + l_x * j + i
+                if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
+                    y[index] += x[index]
+                else:
+                    ixm = l_xy * k + l_x * j + (i - 1)
+                    ixp = l_xy * k + l_x * j + (i + 1)
+                    iym = l_xy * k + l_x * (j - 1) + i
+                    iyp = l_xy * k + l_x * (j + 1) + i
+                    izm = l_xy * (k - 1) + l_x * j + i
+                    izp = l_xy * (k + 1) + l_x * j + i
+                    y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
+                                 - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
+                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
+                    y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
+                    y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
+                    y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
+                    y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
+                    y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
+                    y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
+
+
 def compute_flux(double[:,:,:] T, double[:,:,:] cond, l_x, l_y, l_z):
 
     cdef int len_x = l_x

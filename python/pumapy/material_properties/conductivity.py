@@ -63,7 +63,7 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
     if method == "fv":
         if isinstance(cond_map, IsotropicConductivityMap):
             solver = IsotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
-                                           solver_type, display_iter)
+                                           solver_type, display_iter, matrix_free)
         elif isinstance(cond_map, AnisotropicConductivityMap):
             solver = AnisotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
                                              solver_type, display_iter, print_matrices)

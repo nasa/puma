@@ -65,6 +65,16 @@ class ElasticityFE(PropertySolver):
             low, high, _ = self.elast_map.get_material(i)
             self.ws[np.logical_and(self.ws.matrix >= low, self.ws.matrix <= high)] = low
 
+        # remap segmented domain and property map to start from 0
+        if not self.need_to_orient:
+            keys, props = self.mat_elast.keys(), self.mat_elast.values()
+            del self.mat_elast; self.mat_elast = dict()
+            counter = 0
+            for key, prop in sorted(zip(keys, props)):
+                self.mat_elast[counter] = prop
+                self.ws.matrix[self.ws.matrix == key] = counter
+                counter += 1
+
         self.elemMatMap = np.zeros(self.nElems, dtype=int)
         for k in range(self.len_z):
             for i in range(self.len_y):

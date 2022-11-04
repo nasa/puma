@@ -42,8 +42,8 @@ class Conductivity(PropertySolver):
         # ws checks
         if not isinstance(self.ws, Workspace):
             raise Exception("Workspace must be a puma.Workspace.")
-        if self.ws.len_x() < 3 or self.ws.len_y() < 3 or self.ws.len_z() < 3:
-            raise Exception("Workspace must be at least 3x3x3 for Conductivity solver.")
+        # if self.ws.len_x() < 3 or self.ws.len_y() < 3 or self.ws.len_z() < 3:
+        #     raise Exception("Workspace must be at least 3x3x3 for Conductivity solver.")
 
         # direction checks
         if self.direction == "x" or self.direction == "X":

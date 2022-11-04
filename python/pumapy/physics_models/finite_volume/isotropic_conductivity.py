@@ -2,20 +2,23 @@ from pumapy.utilities.logger import print_warning
 from pumapy.utilities.timer import Timer
 from pumapy.physics_models.utils.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
 from pumapy.physics_models.finite_volume.conductivity_parent import Conductivity
-from pumapy.physics_models.finite_volume.isotropic_conductivity_utils import setup_matrices_cy, compute_flux
+from pumapy.physics_models.finite_volume.isotropic_conductivity_utils import setup_matrices_cy, compute_flux, matvec_cy
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags
+from scipy.sparse.linalg import LinearOperator
 import numpy as np
 
 
 class IsotropicConductivity(Conductivity):
 
     def __init__(self, workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
-                 display_iter):
+                 display_iter, matrix_free):
         super().__init__(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
                          display_iter)
         self._bc_func = None
         self.cond = np.zeros([1, 1, 1])
+
+        self.matrix_free = matrix_free
 
         if self.direction == 'x':
             self._matrix = workspace.matrix
@@ -102,19 +105,29 @@ class IsotropicConductivity(Conductivity):
         print("Done")
 
     def assemble_Amatrix(self):
-        self._row, self._col, self._data = setup_matrices_cy(self.cond.flatten('F'), self.len_x, self.len_y, self.len_z,
-                                                             self.bc_check, self.prescribed_bc)
-        del self.prescribed_bc
-        self.Amat = coo_matrix((self._data, (self._row, self._col)), shape=(self.len_xyz, self.len_xyz)).tocsr()
-        del self._data, self._row, self._col
-        print("Done")
 
-        print("Setting up preconditioner ...", end ='')
-        diag = self.Amat.diagonal()
-        diag[diag==0] = 1
-        diag[:] = 1./diag[:]
-        self.M = diags(diag, 0).tocsr()
-        print("Done")
+        if not self.matrix_free:
+            self._row, self._col, self._data = setup_matrices_cy(self.cond.flatten('F'), self.len_x, self.len_y, self.len_z,
+                                                                 self.bc_check, self.prescribed_bc)
+            del self.prescribed_bc
+            self.Amat = coo_matrix((self._data, (self._row, self._col)), shape=(self.len_xyz, self.len_xyz)).tocsr()
+            del self._data, self._row, self._col
+            print("Done")
+
+            print("Setting up preconditioner ...", end ='')
+            diag = self.Amat.diagonal()
+            diag[diag==0] = 1
+            diag[:] = 1./diag[:]
+            self.M = diags(diag, 0).tocsr()
+            print("Done")
+        else:
+            y = np.zeros(self.len_xyz, dtype=float)
+            kf = self.cond.flatten('F')
+            def matvec(x):  # overload matvec for Amat=LinearOperator
+                y.fill(0)
+                matvec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.bc_check, self.prescribed_bc)
+                return y
+            self.Amat = LinearOperator(shape=(self.len_xyz, self.len_xyz), matvec=matvec)
 
     def compute_effective_coefficient(self):
         # reshaping solution
