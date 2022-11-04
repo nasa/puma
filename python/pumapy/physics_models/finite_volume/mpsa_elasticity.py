@@ -1,8 +1,8 @@
-from pumapy.physicsmodels.elasticity_utils import pad_domain_cy, create_Ab_indices_cy, create_u_ivs_cy, assign_prescribed_bc_cy
-from pumapy.physicsmodels.mpxa_matrices import (fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_d1, create_d2,
-                                                div_Eu, div_Ed, create_mpsa_indices)
-from pumapy.physicsmodels.linear_solvers import PropertySolver
-from pumapy.physicsmodels.boundary_conditions import ElasticityBC
+from pumapy.physics_models.finite_volume.elasticity_utils import pad_domain_cy, create_Ab_indices_cy, create_u_ivs_cy, assign_prescribed_bc_cy
+from pumapy.physics_models.finite_volume.mpxa_matrices import (fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_d1, create_d2,
+                                                               div_Eu, div_Ed, create_mpsa_indices)
+from pumapy.physics_models.utils.linear_solvers import PropertySolver
+from pumapy.physics_models.utils.boundary_conditions import ElasticityBC
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags

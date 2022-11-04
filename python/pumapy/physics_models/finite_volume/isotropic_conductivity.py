@@ -1,8 +1,8 @@
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.timer import Timer
-from pumapy.physicsmodels.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
-from pumapy.physicsmodels.conductivity_parent import Conductivity
-from pumapy.physicsmodels.isotropic_conductivity_utils import setup_matrices_cy, compute_flux
+from pumapy.physics_models.utils.boundary_conditions import Isotropic_periodicBC, Isotropic_symmetricBC
+from pumapy.physics_models.finite_volume.conductivity_parent import Conductivity
+from pumapy.physics_models.finite_volume.isotropic_conductivity_utils import setup_matrices_cy, compute_flux
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags
 import numpy as np
@@ -141,9 +141,6 @@ class IsotropicConductivity(Conductivity):
         self.keff[0] = flux_x * (self.len_x - 1)
         self.keff[1] = flux_y * (self.len_y - 1)
         self.keff[2] = flux_z * (self.len_z - 1)
-
-        d = {'x': 'first', 'y': 'second', 'z': 'third'}
-        print(f'\nEffective tensor ({d[self.direction]} column): \n{self.keff}\n')
 
         # making the flux have the correct spacial units
         self.q /= self.ws.voxel_length

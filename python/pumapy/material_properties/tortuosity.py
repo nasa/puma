@@ -1,6 +1,6 @@
-from pumapy.materialproperties.volumefraction import compute_volume_fraction
-from pumapy.physicsmodels.property_maps import IsotropicConductivityMap
-from pumapy.physicsmodels.isotropic_conductivity import IsotropicConductivity
+from pumapy.material_properties.volume_fraction import compute_volume_fraction
+from pumapy.physics_models.utils.property_maps import IsotropicConductivityMap
+from pumapy.physics_models.finite_volume.isotropic_conductivity import IsotropicConductivity
 
 
 def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', prescribed_bc=None,

@@ -16,10 +16,10 @@ Please cite using this BibTex:
   publisher={Elsevier}
 }
 """
-from pumapy.physicsmodels.anisotropic_conductivity_utils import (pad_domain, add_nondiag, divP,
-                                                                 fill_flux, flatten_Kmat)
-from pumapy.physicsmodels.mpxa_matrices import fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_mpfa_indices
-from pumapy.physicsmodels.conductivity_parent import Conductivity
+from pumapy.physics_models.finite_volume.anisotropic_conductivity_utils import (pad_domain, add_nondiag, divP,
+                                                                                fill_flux, flatten_Kmat)
+from pumapy.physics_models.finite_volume.mpxa_matrices import fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_mpfa_indices
+from pumapy.physics_models.finite_volume.conductivity_parent import Conductivity
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags
@@ -39,7 +39,7 @@ class AnisotropicConductivity(Conductivity):
 
     def compute(self):
         t = Timer()
-        estimate_max_memory("anisotropic_conductivity", self.ws.shape, self.solver_type, self.need_to_orient)
+        estimate_max_memory("anisotropic_conductivity", self.ws.matrix.shape, self.solver_type, self.need_to_orient)
         self.initialize()
         self.assemble_Amatrix()
         self.assemble_bvector()
@@ -259,9 +259,6 @@ class AnisotropicConductivity(Conductivity):
             self.T = self.T.transpose(2, 1, 0)
             self.q = self.q.transpose(2, 1, 0, 3)[:, :, :, [2, 1, 0]]
             self.keff = [self.keff[2], self.keff[1], self.keff[0]]
-
-        d = {'x': 'first', 'y': 'second', 'z': 'third'}
-        print(f'\nEffective conductivity tensor ({d[self.direction]} column): \n{self.keff}\n')
 
     def __compute_Kmat(self, i, i_cv):
         # reset layer of Cmat

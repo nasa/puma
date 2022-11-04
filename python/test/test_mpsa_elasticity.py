@@ -1,9 +1,6 @@
 import unittest
 import numpy as np
 import pumapy as puma
-from pumapy.physicsmodels.mpsa_elasticity import Elasticity
-import scipy.sparse
-import os
 
 
 class TestElasticity(unittest.TestCase):

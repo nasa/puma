@@ -7,8 +7,8 @@ Simulation Toolkit for Digital Material Characterization of Large Image-based Mi
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.workspace import Workspace
-from pumapy.physicsmodels.linear_solvers import PropertySolver
-from pumapy.materialproperties.volumefraction import compute_volume_fraction
+from pumapy.physics_models.utils.linear_solvers import PropertySolver
+from pumapy.material_properties.volume_fraction import compute_volume_fraction
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags
 from scipy.sparse.linalg import LinearOperator
@@ -65,7 +65,7 @@ class Permeability(PropertySolver):
         t = Timer()
         estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type,
                             mf=self.matrix_free, perm_fluid_vf=self.ws.porosity((0, 0)))
-        self.calculate_element_matrices()
+        self.create_element_matrices()
         self.initialize()
         self.assemble_Amatrix()
         print(f"Time to setup system: {t.elapsed()}"); t.reset()
@@ -404,7 +404,7 @@ class Permeability(PropertySolver):
                                                        v_nodes_n >= dofs[np.arange(8)]).reshape(24, self.v_fluid.shape[0]))
             self.M = diags(1./self.M, 0).tocsr()
 
-    def calculate_element_matrices(self):
+    def create_element_matrices(self):
         delta = 1.
         coordsElem = np.array([[0, 0, 0], [delta, 0, 0], [delta, delta, 0],
                                [0, delta, 0], [0, 0, delta], [delta, 0, delta],

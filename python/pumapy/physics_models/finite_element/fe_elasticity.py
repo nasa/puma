@@ -1,5 +1,5 @@
 from pumapy.utilities.timer import Timer
-from pumapy.physicsmodels.linear_solvers import PropertySolver
+from pumapy.physics_models.utils.linear_solvers import PropertySolver
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import LinearOperator
@@ -79,7 +79,7 @@ class ElasticityFE(PropertySolver):
                         self.elemMatMap_orient[i + j * self.len_y + k * self.len_x * self.len_y] = self.ws.orientation[j, i, k]
 
         # compute self.m_K and self.m_B
-        self.create_element_stiffness_matrices(onlyB=False)
+        self.create_element_matrices(onlyB=False)
 
         for n in range(nNodeS * (self.len_z + 1)):
             i = n % nNodeS
@@ -175,9 +175,9 @@ class ElasticityFE(PropertySolver):
             del self.m_K
 
         # compute self.m_B
-        self.create_element_stiffness_matrices(onlyB=True)
+        self.create_element_matrices(onlyB=True)
 
-        self.u = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+        self.u = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
         for k in range(self.len_z):
             for i in range(self.len_y):
                 for j in range(self.len_x):
@@ -218,8 +218,8 @@ class ElasticityFE(PropertySolver):
                 t_f[e, 1] += (self.m_B[4, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
                 t_f[e, 0] += (self.m_B[5, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
 
-        self.s = np.zeros((self.len_x, self.len_y, self.len_z, 3))
-        self.t = np.zeros((self.len_x, self.len_y, self.len_z, 3))
+        self.s = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
+        self.t = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
         for k in range(self.len_z):
             for i in range(self.len_y):
                 for j in range(self.len_x):
@@ -234,7 +234,7 @@ class ElasticityFE(PropertySolver):
                      self.t[:, :, :, 0].sum() / self.nElems, self.t[:, :, :, 1].sum() / self.nElems, self.t[:, :, :, 2].sum() / self.nElems]
         print("Done")
 
-    def create_element_stiffness_matrices(self, onlyB):
+    def create_element_matrices(self, onlyB):
 
         if self.need_to_orient:
             if not onlyB:
@@ -250,16 +250,6 @@ class ElasticityFE(PropertySolver):
         BC = np.zeros((6, 24), dtype=float)
         B = np.zeros((6, 24), dtype=float)
         C = np.zeros((6, 6), dtype=float)
-        B_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5, 3, 4, 5], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23]]
-        dNdx_inds = [[0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0, 1], [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7]]
-
-        # Gauss Points
-        gp = [-1. / np.sqrt(3), 1. / np.sqrt(3)]
-
-        # Element coords
-        x = np.array([0., 1., 1., 0., 0., 1., 1., 0.])
-        y = np.array([0., 0., 1., 1., 0., 0., 1., 1.])
-        z = np.array([0., 0., 0., 0., 1., 1., 1., 1.])
 
         if self.need_to_orient:
             KBiso_prev = dict()
@@ -277,7 +267,7 @@ class ElasticityFE(PropertySolver):
                 else:
                     C[:] = self.orient_C(cs, e)
 
-                self.compute_element_stiffness(C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, e, onlyB)
+                self.compute_element_stiffness(C, k, BC, B, e, onlyB)
 
                 if len(cs) == 21:  # store previously computed k,BC for isotropic phases
                     if onlyB:
@@ -292,7 +282,7 @@ class ElasticityFE(PropertySolver):
                     continue
 
                 C[:] = self.create_C(self.mat_elast[j_mat])
-                self.compute_element_stiffness(C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, i_mat, onlyB)
+                self.compute_element_stiffness(C, k, BC, B, i_mat, onlyB)
                 i_mat += 1
 
     def create_C(self, cs):
@@ -332,64 +322,30 @@ class ElasticityFE(PropertySolver):
                       [2 * a21 * a31, 2 * a32 * a22, a23, a22 * a33, a21 * a33, a21 * a32 + a22 * a31],
                       [2 * a11 * a31, 2 * a12 * a32, 2 * a13 * a33, a32 * a13 + a33 * a12, a11 * a33 + a13 * a31, a31 * a12 + a32 * a11],
                       [2 * a11 * a21, 2 * a12 * a22, a23, a13 * a22, a13 * a21, a11 * a22 + a12 * a21]])
-        return R.T @ C_init @ R.T
+        return R.T @ C_init @ R
 
-    def compute_element_stiffness(self, C, k, BC, B, gp, x, y, z, B_inds, dNdx_inds, KBind, onlyB):
+    def compute_element_stiffness(self, C, k, BC, B, ind, onlyB):
         if not onlyB:
             k.fill(0)
         BC.fill(0)
-        B.fill(0)
-        for i in range(2):
-            r = gp[i]
-            for j in range(2):
-                s = gp[j]
-                for l in range(2):
-                    t = gp[l]
 
-                    X = np.array([x.T, y.T, z.T])
-
-                    # Compute B matrix and Jacobian
-                    dN1dr = -(1 - s) * (1 - t) * .125
-                    dN2dr = (1 - s) * (1 - t) * .125
-                    dN3dr = (1 + s) * (1 - t) * .125
-                    dN4dr = -(1 + s) * (1 - t) * .125
-                    dN5dr = -(1 - s) * (1 + t) * .125
-                    dN6dr = (1 - s) * (1 + t) * .125
-                    dN7dr = (1 + s) * (1 + t) * .125
-                    dN8dr = -(1 + s) * (1 + t) * .125
-                    dN1ds = -(1 - r) * (1 - t) * .125
-                    dN2ds = -(1 + r) * (1 - t) * .125
-                    dN3ds = (1 + r) * (1 - t) * .125
-                    dN4ds = (1 - r) * (1 - t) * .125
-                    dN5ds = -(1 - r) * (1 + t) * .125
-                    dN6ds = -(1 + r) * (1 + t) * .125
-                    dN7ds = (1 + r) * (1 + t) * .125
-                    dN8ds = (1 - r) * (1 + t) * .125
-                    dN1dt = -(1 - r) * (1 - s) * .125
-                    dN2dt = -(1 + r) * (1 - s) * .125
-                    dN3dt = -(1 + r) * (1 + s) * .125
-                    dN4dt = -(1 - r) * (1 + s) * .125
-                    dN5dt = (1 - r) * (1 - s) * .125
-                    dN6dt = (1 + r) * (1 - s) * .125
-                    dN7dt = (1 + r) * (1 + s) * .125
-                    dN8dt = (1 - r) * (1 + s) * .125
-                    dN = np.array([[dN1dr, dN2dr, dN3dr, dN4dr, dN5dr, dN6dr, dN7dr, dN8dr],
-                                   [dN1ds, dN2ds, dN3ds, dN4ds, dN5ds, dN6ds, dN7ds, dN8ds],
-                                   [dN1dt, dN2dt, dN3dt, dN4dt, dN5dt, dN6dt, dN7dt, dN8dt]])
-                    J = dN @ X.T
-                    dNdx = np.linalg.inv(J) @ dN
-
-                    for ind in range(len(B_inds[0])):
-                        B[B_inds[0][ind], B_inds[1][ind]] = dNdx[dNdx_inds[0][ind], dNdx_inds[1][ind]]
-
-                    detJ = np.linalg.det(J)
+        gauss_points = [0.21132486540518708, 0.78867513459481290]
+        for zp in gauss_points:
+            for yp in gauss_points:
+                for xp in gauss_points:
+                    B[:] = np.array([[(-1+yp)*(1-zp), 0, 0, (1-yp)*(1-zp), 0, 0, yp*(1-zp), 0, 0, -yp*(1-zp), 0, 0, (-1+yp)*zp, 0, 0, (1-yp)*zp, 0, 0, yp*zp, 0, 0, -yp*zp, 0, 0],
+                                     [0, (-1+xp)*(1-zp), 0, 0, -xp*(1-zp), 0, 0, xp*(1-zp), 0, 0, (1-xp)*(1-zp), 0, 0, (-1+xp)*zp, 0, 0, -xp*zp, 0, 0, xp*zp, 0, 0, (1-xp)*zp, 0],
+                                     [0, 0, (-1+xp)*(1-yp), 0, 0, -xp*(1-yp), 0, 0, -xp*yp, 0, 0, (-1+xp)*yp, 0, 0, (1-xp)*(1-yp), 0, 0, xp*(1-yp), 0, 0, xp*yp, 0, 0, (1-xp)*yp],
+                                     [(-1+xp)*(1-zp), (-1+yp)*(1-zp), 0, -xp*(1-zp), (1-yp)*(1-zp), 0, xp*(1-zp), yp*(1-zp), 0, (1-xp)*(1-zp), -yp*(1-zp), 0, (-1+xp)*zp, (-1+yp)*zp, 0, -xp*zp, (1-yp)*zp, 0, xp*zp, yp*zp, 0, (1-xp)*zp, -yp*zp, 0],
+                                     [(-1+xp)*(1-yp), 0, (-1+yp)*(1-zp), -xp*(1-yp), 0, (1-yp)*(1-zp), -xp*yp, 0, yp*(1-zp), (-1+xp)*yp, 0, -yp*(1-zp), (1-xp)*(1-yp), 0, (-1+yp)*zp, xp*(1-yp), 0, (1-yp)*zp, xp*yp, 0, yp*zp, (1-xp)*yp, 0, -yp*zp],
+                                     [0, (-1+xp)*(1-yp), (-1+xp)*(1-zp), 0, -xp*(1-yp), -xp*(1-zp), 0, -xp*yp, xp*(1-zp), 0, (-1+xp)*yp, (1-xp)*(1-zp), 0, (1-xp)*(1-yp), (-1+xp)*zp, 0, xp*(1-yp), -xp*zp, 0, xp*yp, xp*zp, 0, (1-xp)*yp, (1-xp)*zp]])
                     if not onlyB:
-                        k += (B.T @ C @ B) * detJ
-                    BC += (C @ B) * detJ
+                        k += B.T @ C @ B
+                    BC += C @ B
 
         if not onlyB:
-            self.m_K[:, :, KBind] = k
-        self.m_B[:, :, KBind] = BC
+            self.m_K[:, :, ind] = k * 0.125
+        self.m_B[:, :, ind] = BC * 0.125
 
     def log_input(self):
         self.ws.log.log_section("Computing Elasticity")

@@ -1,6 +1,6 @@
 from pumapy.utilities.workspace import Workspace
-from pumapy.physicsmodels.boundary_conditions import ConductivityBC
-from pumapy.physicsmodels.linear_solvers import PropertySolver
+from pumapy.physics_models.utils.boundary_conditions import ConductivityBC
+from pumapy.physics_models.utils.linear_solvers import PropertySolver
 import numpy as np
 
 
@@ -26,8 +26,7 @@ class Conductivity(PropertySolver):
         self.ws.log.log_line("Conductivity Map: ")
         for i in range(self.cond_map.get_size()):
             low, high, cond = self.cond_map.get_material(i)
-            self.ws.log.log_line(
-                "  - Material " + str(i) + "[" + str(low) + "," + str(high) + "," + str(cond) + "]")
+            self.ws.log.log_line("  - Material " + str(i) + "[" + str(low) + "," + str(high) + "," + str(cond) + "]")
             self.ws.log.log_line("Solver Type: " + str(self.solver_type))
         self.ws.log.log_line("Solver Tolerance: " + str(self.tolerance))
         self.ws.log.log_line("Max Iterations: " + str(self.maxiter))

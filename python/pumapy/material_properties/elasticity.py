@@ -1,8 +1,9 @@
-from pumapy.physicsmodels.mpsa_elasticity import Elasticity
-from pumapy.physicsmodels.fe_elasticity import ElasticityFE
-from pumapy.physicsmodels.property_maps import ElasticityMap
+from pumapy.physics_models.finite_volume.mpsa_elasticity import Elasticity
+from pumapy.physics_models.finite_element.fe_elasticity import ElasticityFE
+from pumapy.physics_models.utils.property_maps import ElasticityMap
 from pumapy.utilities.workspace import Workspace
 from pumapy.segmentation.ccl import identify_porespace
+from pumapy.io.output import export_vti
 import numpy as np
 import pyvista as pv
 
@@ -51,7 +52,7 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
     elif method == "fe":
         solver = ElasticityFE(workspace, elast_map, direction, tolerance, maxiter, solver_type, display_iter, matrix_free)
     else:
-        raise Exception("method can only be set as 'fv' (i.e. MPSA finite volume) or 'fe' (i.e. Q1-Q1 EBE finite element)")
+        raise Exception("The method can only be set as 'fv' (i.e. MPSA finite volume) or 'fe' (i.e. Q1-Q1 EBE finite element)")
 
     solver.error_check()
 
@@ -119,6 +120,10 @@ def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', to
     solver.compute()
     solver.log_output()
     return solver.u, solver.s, solver.t
+
+
+def export_elasticity_fields_vti(filepath, ws, u, s, t):
+    export_vti(filepath, {"ws": ws, "u": u, "s": s, "t": t})
 
 
 def get_E_nu_from_elasticity(C):
@@ -215,7 +220,7 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
                        cmap='jet', show_scalar_bar=False, opacity=1)
 
             if show_cbar:
-                p.add_scalar_bar(plots[i][j], interactive=False, vertical=True, color=(0, 0, 0), height=0.8)
+                p.add_scalar_bar(plots[i][j], interactive=False, vertical=True, color=(0, 0, 0), height=0.8, title_font_size=40)
 
             if show_original > 0:
                 grid2 = pv.UniformGrid()
@@ -295,7 +300,7 @@ def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
                        cmap='jet', show_scalar_bar=False, opacity=1)
 
             if show_cbar:
-                p.add_scalar_bar(plots[i][j], interactive=False, vertical=True, color=(0, 0, 0), height=0.8)
+                p.add_scalar_bar(plots[i][j], interactive=False, vertical=True, color=(0, 0, 0), height=0.8, title_font_size=40)
 
             p.show_bounds(grid='front', location='outer', all_edges=True, color=(0, 0, 0))
             p.background_color = (255, 255, 255)

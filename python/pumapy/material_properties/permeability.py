@@ -1,4 +1,4 @@
-from pumapy.physicsmodels.fe_permeability import Permeability
+from pumapy.physics_models.finite_element.fe_permeability import Permeability
 
 
 def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, maxiter=10000, solver_type='minres',
