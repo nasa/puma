@@ -285,15 +285,9 @@ class ElasticityFE(PropertySolver):
                     else:
                         KBiso_prev[self.elemMatMap[e]] = self.m_K[:, :, e], self.m_B[:, :, e]
         else:
-            i_mat = 0
-            for j_mat in range(0, 256):
-
-                if j_mat not in self.mat_elast.keys():
-                    continue
-
-                C[:] = self.create_C(self.mat_elast[j_mat])
+            for i_mat, mat_props in enumerate(self.mat_elast.values()):
+                C[:] = self.create_C(mat_props)
                 self.compute_element_stiffness(C, k, BC, B, i_mat, onlyB)
-                i_mat += 1
 
     def create_C(self, cs):
         return np.array([[cs[0], cs[1], cs[2], cs[3], cs[4], cs[5]],

@@ -241,15 +241,9 @@ class ConductivityFE(PropertySolver):
                     else:
                         KBiso_prev[self.elemMatMap[e]] = self.m_K[:, :, e], self.m_B[:, :, e]
         else:
-            i_mat = 0
-            for j_mat in range(0, 256):
-
-                if j_mat not in self.mat_cond.keys():
-                    continue
-
-                cond[:] = self.create_k(self.mat_cond[j_mat])
+            for i_mat, mat_props in enumerate(self.mat_cond.values()):
+                cond[:] = self.create_k(mat_props)
                 self.compute_element_conductivity(cond, k, BC, B, i_mat, onlyB)
-                i_mat += 1
 
     def create_k(self, ks):
         return np.array([[ks[0], ks[3], ks[4]],
