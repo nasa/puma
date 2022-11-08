@@ -56,7 +56,7 @@ class PropertySolver:
         # iterative solvers
         if self.solver_type == 'gmres' and self.solver_type in self.allowed_solvers:
             self.x, info = gmres(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
-                                 atol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
+                                 tol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         elif self.solver_type == 'minres' and self.solver_type in self.allowed_solvers:
             self.x, info = minres(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
@@ -64,11 +64,11 @@ class PropertySolver:
 
         elif self.solver_type == 'cg' and self.solver_type in self.allowed_solvers:
             self.x, info = cg(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
-                              atol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
+                              tol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         elif self.solver_type == 'bicgstab' and self.solver_type in self.allowed_solvers:
             self.x, info = bicgstab(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
-                                    atol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
+                                    tol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         if info > 0:
             raise Exception("Convergence to tolerance not achieved.")

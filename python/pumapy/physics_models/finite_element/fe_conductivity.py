@@ -270,7 +270,7 @@ class ConductivityFE(PropertySolver):
 
         Kinit = np.zeros((3, 3), dtype=float)
         Kinit[[0, 1, 2], [0, 1, 2]] = [ks[0], ks[1], ks[1]]
-        return R @ Kinit @ np.linalg.inv(R)
+        return R @ Kinit @ R.T
 
     def compute_element_conductivity(self, cond, k, BC, B, ind, onlyB):
         if not onlyB:

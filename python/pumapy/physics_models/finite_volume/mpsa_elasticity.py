@@ -1,6 +1,6 @@
 from pumapy.physics_models.finite_volume.elasticity_utils import pad_domain_cy, create_Ab_indices_cy, create_u_ivs_cy, assign_prescribed_bc_cy
-from pumapy.physics_models.finite_volume.mpxa_matrices import (fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_d1, create_d2,
-                                                               div_Eu, div_Ed, create_mpsa_indices)
+from pumapy.physics_models.finite_volume.mpxa_matrices import (fill_Ampsa, fill_Bmpsa, fill_Cmpsa, fill_Dmpsa, create_d1_mpsa, create_d2_mpsa,
+                                                               div_Eu_mpsa, div_Ed_mpsa, create_mpsa_indices)
 from pumapy.physics_models.utils.linear_solvers import PropertySolver
 from pumapy.physics_models.utils.boundary_conditions import ElasticityBC
 from pumapy.utilities.timer import Timer
@@ -12,16 +12,14 @@ import sys
 
 class Elasticity(PropertySolver):
 
-    def __init__(self, workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter, dirichlet_bc=None):
+    def __init__(self, workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter, dirichlet_bc):
         allowed_solvers = ['direct', 'gmres', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
-        self.del_matrices = False  # need this to recover x from reduced system
 
         self.elast_map = elast_map
         self.mat_elast = dict()
         self.direction = direction
         self.side_bc = side_bc
-        self.solver_type = solver_type
 
         self.dirichlet_bc = dirichlet_bc
 
@@ -197,11 +195,6 @@ class Elasticity(PropertySolver):
         self.not_dir_y = np.ones((24, self.len_y + 1, self.len_z + 1), dtype=np.int8)
         self.not_dir_z = np.ones((24, self.len_y + 1, self.len_z + 1), dtype=np.int8)
 
-        # index arrays
-        self.c_i_inds = np.tile(np.tile([0, 1], 2), 2)
-        self.c_j_inds = np.tile(np.repeat([0, 1], 2), 2)
-        self.c_k_inds = np.repeat([0, 1], 4)
-
         # Computing first layer of E
         self.compute_transmissibility(0, 0)
         self.Cmat[0] = self.Cmat[1]
@@ -269,7 +262,7 @@ class Elasticity(PropertySolver):
         self.Eu[i] = self.mpsa36x36 @ self.Eu[i]
 
         # Ed = Cinv * d1
-        self.Ed[i] = self.mpsa36x36 @ create_d1(self.c, self.Dd)
+        self.Ed[i] = self.mpsa36x36 @ create_d1_mpsa(self.c, self.Dd)
 
         # mpsa36x36 = A
         self.mpsa36x36.fill(0)
@@ -280,7 +273,7 @@ class Elasticity(PropertySolver):
 
         # Ed = A * Ed = A * (Cinv * d1)
         self.Ed[i] = self.mpsa36x36 @ self.Ed[i]
-        self.Ed[i] += create_d2(self.c, self.Dd)
+        self.Ed[i] += create_d2_mpsa(self.c, self.Dd)
 
         # mpsa36x36 = B
         self.mpsa36x36[:, :, :, :24].fill(0)
@@ -312,14 +305,14 @@ class Elasticity(PropertySolver):
             # x,y,z divergence equations for P control volume
             # local_b
             V_b[counter_b:counter_b + b_layer_n] = \
-                -div_Ed(self.Ed[0, :-1, :-1, :, 0], self.Ed[1, :-1, :-1, :, 0],
+                -div_Ed_mpsa(self.Ed[0, :-1, :-1, :, 0], self.Ed[1, :-1, :-1, :, 0],
                         self.Ed[0, 1:, :-1, :, 0], self.Ed[1, 1:, :-1, :, 0],
                         self.Ed[0, :-1, 1:, :, 0], self.Ed[1, :-1, 1:, :, 0],
                         self.Ed[0, 1:, 1:, :, 0], self.Ed[1, 1:, 1:, :, 0]).transpose((1, 2, 0)).ravel()
 
             # local_A
             V_A[counter_A:counter_A + A_layer_n] = \
-                div_Eu(self.Eu[0, :-1, :-1], self.Eu[1, :-1, :-1],
+                div_Eu_mpsa(self.Eu[0, :-1, :-1], self.Eu[1, :-1, :-1],
                        self.Eu[0, 1:, :-1], self.Eu[1, 1:, :-1],
                        self.Eu[0, :-1, 1:], self.Eu[1, :-1, 1:],
                        self.Eu[0, 1:, 1:], self.Eu[1, 1:, 1:]).transpose((2, 3, 0, 1)).ravel()
@@ -361,8 +354,6 @@ class Elasticity(PropertySolver):
 
     def compute_stresses(self):
 
-        # reduced system
-        del self.Amat, self.bvec
         self.u = self.x.reshape([self.len_x, self.len_y, self.len_z, 3], order='F')
         del self.x
 
@@ -379,7 +370,7 @@ class Elasticity(PropertySolver):
         for i_cv in range(self.len_x):
             sys.stdout.write("\rComputing stresses ... {:.1f}% ".format(max(1, i_cv) / max(1, self.len_x - 1) * 100))
 
-            self.compute_Cmat(1, i_cv + 2)  # Computing third layer of Cmat
+            self.compute_Cmat(1, i_cv + 2)
             self.compute_transmissibility(1, i_cv)
 
             create_u_ivs_cy(self.u, uf, i_cv, self.len_x, self.len_y, self.len_z, self.len_xyz, self.side_bc,

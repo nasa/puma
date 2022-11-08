@@ -9,8 +9,7 @@ import pyvista as pv
 
 
 def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', prescribed_bc=None, tolerance=1e-4,
-                                 maxiter=10000, solver_type='bicgstab', display_iter=True, print_matrices=(0, 0, 0, 0, 0),
-                                 method="fv", matrix_free=True):
+                                 maxiter=10000, solver_type='bicgstab', display_iter=True, method="fv", matrix_free=True):
     """ Compute the thermal conductivity
 
         :param workspace: domain
@@ -31,8 +30,6 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
-        :param print_matrices: corresponding to b, E, A, T, q decimal places. If 0, they are not printed
-        :type print_matrices: (bool, bool, bool, bool, bool)
         :return: thermal conductivity, temperature field, flux
         :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
 
@@ -65,8 +62,8 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
             solver = IsotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
                                            solver_type, display_iter, matrix_free)
         elif isinstance(cond_map, AnisotropicConductivityMap):
-            solver = AnisotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
-                                             solver_type, display_iter, print_matrices)
+            solver = AnisotropicConductivity(workspace, cond_map, direction, side_bc, tolerance, maxiter, solver_type,
+                                             display_iter, prescribed_bc)
         else:
             raise Exception("cond_map has to be an IsotropicConductivityMap or AnisotropicConductivityMap")
     elif method == "fe":
@@ -86,8 +83,7 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
 
 
 def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p', prescribed_bc=None, tolerance=1e-4,
-                                    maxiter=10000, solver_type='bicgstab', display_iter=True, print_matrices=(0, 0, 0, 0, 0),
-                                    method="fv", matrix_free=True):
+                                    maxiter=10000, solver_type='bicgstab', display_iter=True, method="fv", matrix_free=True):
     """ Compute the electrical conductivity
 
         :param workspace: domain
@@ -108,8 +104,6 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
-        :param print_matrices: corresponding to E, A, b, T, q decimal places. If 0, they are not printed
-        :type print_matrices: (bool, bool, bool, bool, bool)
         :return: electrical conductivity, potential field, flux
         :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
 
@@ -125,7 +119,7 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         Approximate memory requirement for simulation...
     """
     return compute_thermal_conductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
-                                        solver_type, display_iter, print_matrices, method, matrix_free)
+                                        solver_type, display_iter, method, matrix_free)
 
 
 def export_conductivity_fields_vti(filepath, ws, T, q):

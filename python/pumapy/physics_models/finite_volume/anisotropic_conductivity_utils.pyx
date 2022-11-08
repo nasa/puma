@@ -1,246 +1,92 @@
 import numpy as np
-DTYPE = np.float
+cimport numpy as np
+
+np.import_array()
+DTYPE = np.int
+ctypedef np.int_t DTYPE_t
 
 
-def flatten_Kmat(int len_y, int len_z, double [:,:,:,:] Kmat, double [:,:,:] Kmat_flat):
-
-    cdef int j, k, i2, j2, k2, counter
-
-    for j in range(len_y - 1):
-        for k in range(len_z - 1):
-            counter = 0
-            for k2 in range(2):
-                for j2 in range(2):
-                    for i2 in range(2):
-                        Kmat_flat[counter:counter + 6, j, k] = Kmat[i2, j + j2, k + k2]
-                        counter += 6
-
-
-def index_at_p(index, size):
-    if index == 0:
+def index_at_p(int index, int size):
+    if index == -1:
         return size - 1
     elif index == size:
-        return 1
+        return 0
     return index
 
 
 def index_at_s(index, size):
-    if index == 0:
-        return 1
+    if index == -1:
+        return 0
     elif index == size:
         return size - 1
     return index
 
 
-def pad_domain(unsigned short [:,:,:] ws_pad, double [:,:,:,:] orient_pad, unsigned short need_to_orient, int len_x, int len_y, int len_z, str side_bc):
+def create_Ab_indices_cy(np.ndarray I_A, np.ndarray J_A, np.ndarray I_b, int counter_A, int counter_b,
+                      int i_cv, int len_x, int len_y, int len_z, int len_xyz, str side_bc):
 
-    cdef int i, j, k
-
-    if side_bc == 'p':
-        for i in range(len_x):
-            for j in range(len_y):
-                for k in range(len_z):
-                    if i == 0 or i == len_x-1 or j == 0 or j == len_y-1 or k == 0 or k == len_z-1:
-                        ws_pad[i, j, k] = ws_pad[index_at_p(i, len_x - 1),
-                                                 index_at_p(j, len_y - 1),
-                                                 index_at_p(k, len_z - 1)]
-        if need_to_orient:
-            for i in range(len_x):
-                for j in range(len_y):
-                    for k in range(len_z):
-                        orient_pad[i, j, k] = orient_pad[index_at_p(i, len_x - 1),
-                                              index_at_p(j, len_y - 1),
-                                              index_at_p(k, len_z - 1)]
-    else:
-        for i in range(len_x):
-            for j in range(len_y):
-                for k in range(len_z):
-                    if i == 0 or i == len_x-1 or j == 0 or j == len_y-1 or k == 0 or k == len_z-1:
-                        ws_pad[i, j, k] = ws_pad[index_at_s(i, len_x - 1),
-                                                 index_at_s(j, len_y - 1),
-                                                 index_at_s(k, len_z - 1)]
-        if need_to_orient:
-            for i in range(len_x):
-                for j in range(len_y):
-                    for k in range(len_z):
-                        orient_pad[i, j, k] = orient_pad[index_at_s(i, len_x - 1),
-                                              index_at_s(j, len_y - 1),
-                                              index_at_s(k, len_z - 1)]
-
-
-def add_nondiag(unsigned int [:] nondiag, int len_x, int len_y, int len_z, side_bc):
-
-    cdef int i, j, k, counter = 0
+    cdef int j_cv, k_cv, i2, j2, k2, i_bc, j_bc, k_bc, counter, global_i
+    cdef np.ndarray global_js = np.zeros(27, dtype=DTYPE)
 
     if side_bc == 'p':
-        for i in range(len_x):
-            for j in range(len_y):
-                for k in range(len_z):
-                    if i == 0 or i == len_x-1 or j == 0 or j == len_y-1 or k == 0 or k == len_z-1:
-                        nondiag[counter] = len_x * (len_y * index_at_p(k, len_z - 1) + index_at_p(j, len_y - 1)) + index_at_p(i, len_x - 1)
-                        counter += 1
+        index_at = index_at_p
     else:
-        for i in range(len_x):
-            for j in range(len_y):
-                for k in range(len_z):
-                    if i == 0 or i == len_x-1 or j == 0 or j == len_y-1 or k == 0 or k == len_z-1:
-                        nondiag[counter] = len_x * (len_y * index_at_s(k, len_z - 1) + index_at_s(j, len_y - 1)) + index_at_s(i, len_x - 1)
+        index_at = index_at_s
+
+    for j_cv in range(len_y):
+        for k_cv in range(len_z):
+
+            counter = 0
+            for k2 in range(-1, 2):
+                k_bc = index_at(k_cv + k2, len_z)
+                for j2 in range(-1, 2):
+                    j_bc = index_at(j_cv + j2, len_y)
+                    for i2 in range(-1, 2):
+                        i_bc = index_at(i_cv + i2, len_x)
+                        global_js[counter] = len_x * (len_y * k_bc + j_bc) + i_bc
                         counter += 1
 
+            # row of A matrix corresponding to divergence equation inside P cv
+            global_i = len_x * (len_y * k_cv + j_cv) + i_cv
 
-def divP(int i, int len_x, int len_y, int len_z, unsigned char [:,:,:] dir_vox, unsigned int [:] j_indices, double [:] values, double [:,:,:,:,:] Emat):
-
-    cdef int j, k
-    cdef unsigned long long counter_j, counter_v
-    cdef double [:,:] E_sw, E_se, E_nw, E_ne, E_tsw, E_tse, E_tnw, E_tne
-    counter_j = 0
-    counter_v = 0
-
-    for j in range(1, len_y - 1):
-        for k in range(1, len_z - 1):
-
-            # When dirichlet voxel skip node
-            if not dir_vox[i, j, k]:
-
-                # Computing x and y divergence equations for P control volume
-                E_sw = Emat[0, j - 1, k - 1]
-                E_se = Emat[1, j - 1, k - 1]
-                E_nw = Emat[0, j, k - 1]
-                E_ne = Emat[1, j, k - 1]
-                E_tsw = Emat[0, j - 1, k]
-                E_tse = Emat[1, j - 1, k]
-                E_tnw = Emat[0, j, k]
-                E_tne = Emat[1, j, k]
-
-                values[counter_v + 0] = -E_sw[3, 0] - E_sw[7, 0] - E_sw[11, 0]
-                values[counter_v + 1] = E_se[3, 0] - E_sw[3, 1] - E_se[6, 0] - E_sw[7, 1] - E_se[10, 0] - E_sw[11, 1]
-                values[counter_v + 2] = E_se[3, 1] - E_se[6, 1] - E_se[10, 1]
-                values[counter_v + 3] = E_nw[7, 0] - E_nw[2, 0] - E_nw[9, 0] - E_sw[3, 2] - E_sw[7, 2] - E_sw[11, 2]
-                values[counter_v + 4] = E_ne[2, 0] - E_nw[2, 1] + E_ne[6, 0] - E_ne[8, 0] + E_nw[7, 1] - E_nw[9, 1] + E_se[3, 2] - E_sw[3, 3] - E_se[6, 2] - E_sw[7, 3] - E_se[10, 2] - E_sw[11, 3]
-                values[counter_v + 5] = E_ne[2, 1] + E_ne[6, 1] - E_ne[8, 1] + E_se[3, 3] - E_se[6, 3] - E_se[10, 3]
-                values[counter_v + 6] = E_nw[7, 2] - E_nw[2, 2] - E_nw[9, 2]
-                values[counter_v + 7] = E_ne[2, 2] - E_nw[2, 3] + E_ne[6, 2] - E_ne[8, 2] + E_nw[7, 3] - E_nw[9, 3]
-                values[counter_v + 8] = E_ne[2, 3] + E_ne[6, 3] - E_ne[8, 3]
-                values[counter_v + 9] = E_tsw[11, 0] - E_sw[7, 4] - E_sw[11, 4] - E_tsw[1, 0] - E_tsw[5, 0] - E_sw[3, 4]
-                values[counter_v + 10] = E_se[3, 4] - E_sw[3, 5] - E_se[6, 4] - E_sw[7, 5] - E_se[10, 4] - E_sw[11, 5] + E_tse[1, 0] - E_tsw[1, 1] - E_tse[4, 0] - E_tsw[5, 1] + E_tse[10, 0] + E_tsw[11, 1]
-                values[counter_v + 11] = E_se[3, 5] - E_se[6, 5] - E_se[10, 5] + E_tse[1, 1] - E_tse[4, 1] + E_tse[10, 1]
-                values[counter_v + 12] = E_nw[7, 4] - E_nw[2, 4] - E_nw[9, 4] - E_sw[3, 6] - E_sw[7, 6] - E_sw[11, 6] - E_tnw[0, 0] - E_tsw[1, 2] + E_tnw[5, 0] - E_tsw[5, 2] + E_tnw[9, 0] + E_tsw[11, 2]
-                values[counter_v + 13] = E_ne[2, 4] - E_nw[2, 5] + E_ne[6, 4] - E_ne[8, 4] + E_nw[7, 5] - E_nw[9, 5] + E_se[3, 6] - E_sw[3, 7] - E_se[6, 6] - E_sw[7, 7] - E_se[10, 6] - E_sw[11, 7] + E_tne[0, 0] + E_tse[1, 2] - E_tnw[0, 1] - E_tsw[     1, 3] + E_tne[4, 0] - E_tse[4, 2] + E_tnw[5, 1] - E_tsw[5, 3] + E_tne[8, 0] + E_tse[10, 2] + E_tnw[     9, 1] + E_tsw[11, 3]
-                values[counter_v + 14] = E_ne[2, 5] + E_ne[6, 5] - E_ne[8, 5] + E_se[3, 7] - E_se[6, 7] - E_se[10, 7] + E_tne[0, 1] + E_tse[1, 3] + E_tne[4, 1] - E_tse[4, 3] + E_tne[8, 1] + E_tse[10, 3]
-                values[counter_v + 15] = E_nw[7, 6] - E_nw[2, 6] - E_nw[9, 6] - E_tnw[0, 2] + E_tnw[5, 2] + E_tnw[9, 2]
-                values[counter_v + 16] = E_ne[2, 6] - E_nw[2, 7] + E_ne[6, 6] - E_ne[8, 6] + E_nw[7, 7] - E_nw[9, 7] + E_tne[0, 2] - E_tnw[0, 3] + E_tne[4, 2] + E_tnw[5, 3] + E_tne[8, 2] + E_tnw[9, 3]
-                values[counter_v + 17] = E_ne[2, 7] + E_ne[6, 7] - E_ne[8, 7] + E_tne[0, 3] + E_tne[4, 3] + E_tne[8, 3]
-                values[counter_v + 18] = E_tsw[11, 4] - E_tsw[5, 4] - E_tsw[1, 4]
-                values[counter_v + 19] = E_tse[1, 4] - E_tsw[1, 5] - E_tse[4, 4] - E_tsw[5, 5] + E_tse[10, 4] + E_tsw[11, 5]
-                values[counter_v + 20] = E_tse[1, 5] - E_tse[4, 5] + E_tse[10, 5]
-                values[counter_v + 21] = E_tnw[5, 4] - E_tsw[1, 6] - E_tnw[0, 4] - E_tsw[5, 6] + E_tnw[9, 4] + E_tsw[11, 6]
-                values[counter_v + 22] = E_tne[0, 4] + E_tse[1, 6] - E_tnw[0, 5] - E_tsw[1, 7] + E_tne[4, 4] - E_tse[4, 6] + E_tnw[5, 5] - E_tsw[     5, 7] + E_tne[8, 4] + E_tse[10, 6] + E_tnw[9, 5] + E_tsw[11, 7]
-                values[counter_v + 23] = E_tne[0, 5] + E_tse[1, 7] + E_tne[4, 5] - E_tse[4, 7] + E_tne[8, 5] + E_tse[10, 7]
-                values[counter_v + 24] = E_tnw[5, 6] - E_tnw[0, 6] + E_tnw[9, 6]
-                values[counter_v + 25] = E_tne[0, 6] - E_tnw[0, 7] + E_tne[4, 6] + E_tnw[5, 7] + E_tne[8, 6] + E_tnw[9, 7]
-                values[counter_v + 26] = E_tne[0, 7] + E_tne[4, 7] + E_tne[8, 7]
-
-                # Extra check in case all divergence values are 0 (to avoid singularity in Amat)
-                if np.sum(np.abs(values[counter_v:counter_v + 27])) == 0:
-                    dir_vox[i, j, k] = True
-                    values[counter_v:counter_v + 27] = np.NAN
-                else:
-                    for k2 in range(-1, 2):
-                        for j2 in range(-1, 2):
-                            for i2 in range(-1, 2):
-                                j_indices[counter_j] = len_x * (len_y * (k + k2) + (j + j2)) + (i + i2)
-                                counter_j += 1
-
-                    counter_v += 27
+            # Append indices to assemble sparse A matrix
+            # column of A corresponding to surrounding nodes (SW S SE W P E NW N NE) interacting with P cv
+            I_A[counter_A:counter_A + 27] = global_i
+            I_b[counter_b] = global_i
+            J_A[counter_A:counter_A + 27] = global_js
+            counter_A += 27
+            counter_b += 1
 
 
-def fill_flux(int i, int len_x, int len_y, int len_z, double [:,:,:] T, double [:,:,:,:,:] Emat,
-              double [:,:,:,:] E_sw, double [:,:,:,:] E_se, double [:,:,:,:] E_nw, double [:,:,:,:] E_ne,
-              double [:,:,:,:] E_tsw, double [:,:,:,:] E_tse, double [:,:,:,:] E_tnw, double [:,:,:,:] E_tne,
-              double [:,:,:] T_sw, double [:,:,:] T_se, double [:,:,:] T_nw, double [:,:,:] T_ne,
-              double [:,:,:] T_tsw, double [:,:,:] T_tse, double [:,:,:] T_tnw, double [:,:,:] T_tne):
-    cdef int j, k
+def create_T_ivs_cy(double [:,:,:] T, double [:] tf, int i_cv, int len_x, int len_y, int len_z, int len_xyz, str side_bc,
+                    np.ndarray t_sw, np.ndarray t_se, np.ndarray t_nw, np.ndarray t_ne,
+                    np.ndarray t_tsw, np.ndarray t_tse, np.ndarray t_tnw, np.ndarray t_tne):
 
-    for j in range(1, len_y - 1):
-        for k in range(1, len_z - 1):
-            # Eight IVs
-            T_sw[j - 1, k - 1, 0] = T[0, j - 1, k - 1]
-            T_sw[j - 1, k - 1, 1] = T[1, j - 1, k - 1]
-            T_sw[j - 1, k - 1, 2] = T[0, j, k - 1]
-            T_sw[j - 1, k - 1, 3] = T[1, j, k - 1]
-            T_sw[j - 1, k - 1, 4] = T[0, j - 1, k + 1]
-            T_sw[j - 1, k - 1, 5] = T[1, j - 1, k + 1]
-            T_sw[j - 1, k - 1, 6] = T[0, j, k + 1]
-            T_sw[j - 1, k - 1, 7] = T[1, j, k]
+    cdef int j_cv, k_cv, i2, j2, k2, i_bc, j_bc, k_bc, dim, counter
 
-            T_se[j - 1, k - 1, 0] = T[1, j - 1, k - 1]
-            T_se[j - 1, k - 1, 1] = T[2, j - 1, k - 1]
-            T_se[j - 1, k - 1, 2] = T[1, j, k - 1]
-            T_se[j - 1, k - 1, 3] = T[2, j, k - 1]
-            T_se[j - 1, k - 1, 4] = T[1, j - 1, k]
-            T_se[j - 1, k - 1, 5] = T[2, j - 1, k]
-            T_se[j - 1, k - 1, 6] = T[1, j, k]
-            T_se[j - 1, k - 1, 7] = T[2, j, k + 1]
+    if side_bc == 'p':
+        index_at = index_at_p
+    else:
+        index_at = index_at_s
 
-            T_nw[j - 1, k - 1, 0] = T[0, j, k - 1]
-            T_nw[j - 1, k - 1, 1] = T[1, j, k - 1]
-            T_nw[j - 1, k - 1, 2] = T[0, j + 1, k - 1]
-            T_nw[j - 1, k - 1, 3] = T[1, j + 1, k - 1]
-            T_nw[j - 1, k - 1, 4] = T[0, j, k]
-            T_nw[j - 1, k - 1, 5] = T[1, j, k]
-            T_nw[j - 1, k - 1, 6] = T[0, j + 1, k]
-            T_nw[j - 1, k - 1, 7] = T[1, j + 1, k]
+    for j_cv in range(len_y):
+        for k_cv in range(len_z):
 
-            T_ne[j - 1, k - 1, 0] = T[1, j, k - 1]
-            T_ne[j - 1, k - 1, 1] = T[2, j, k - 1]
-            T_ne[j - 1, k - 1, 2] = T[1, j + 1, k - 1]
-            T_ne[j - 1, k - 1, 3] = T[2, j + 1, k - 1]
-            T_ne[j - 1, k - 1, 4] = T[1, j, k]
-            T_ne[j - 1, k - 1, 5] = T[2, j, k]
-            T_ne[j - 1, k - 1, 6] = T[1, j + 1, k]
-            T_ne[j - 1, k - 1, 7] = T[2, j + 1, k]
+            counter = 0
+            for k2 in range(-1, 2):
+                k_bc = index_at(k_cv + k2, len_z)
+                for j2 in range(-1, 2):
+                    j_bc = index_at(j_cv + j2, len_y)
+                    for i2 in range(-1, 2):
+                        i_bc = index_at(i_cv + i2, len_x)
+                        tf[counter] = T[i_bc, j_bc, k_bc]
+                        counter += 1
 
-            T_tsw[j - 1, k - 1, 0] = T[0, j - 1, k + 1]
-            T_tsw[j - 1, k - 1, 1] = T[1, j - 1, k]
-            T_tsw[j - 1, k - 1, 2] = T[0, j, k]
-            T_tsw[j - 1, k - 1, 3] = T[1, j, k]
-            T_tsw[j - 1, k - 1, 4] = T[0, j - 1, k + 1]
-            T_tsw[j - 1, k - 1, 5] = T[1, j - 1, k + 1]
-            T_tsw[j - 1, k - 1, 6] = T[0, j, k + 1]
-            T_tsw[j - 1, k - 1, 7] = T[1, j, k + 1]
-
-            T_tse[j - 1, k - 1, 0] = T[1, j - 1, k]
-            T_tse[j - 1, k - 1, 1] = T[2, j - 1, k]
-            T_tse[j - 1, k - 1, 2] = T[1, j, k]
-            T_tse[j - 1, k - 1, 3] = T[2, j, k]
-            T_tse[j - 1, k - 1, 4] = T[1, j - 1, k + 1]
-            T_tse[j - 1, k - 1, 5] = T[2, j - 1, k + 1]
-            T_tse[j - 1, k - 1, 6] = T[1, j, k + 1]
-            T_tse[j - 1, k - 1, 7] = T[2, j, k + 1]
-
-            T_tnw[j - 1, k - 1, 0] = T[0, j, k]
-            T_tnw[j - 1, k - 1, 1] = T[1, j, k]
-            T_tnw[j - 1, k - 1, 2] = T[0, j + 1, k]
-            T_tnw[j - 1, k - 1, 3] = T[1, j + 1, k]
-            T_tnw[j - 1, k - 1, 4] = T[0, j, k + 1]
-            T_tnw[j - 1, k - 1, 5] = T[1, j, k + 1]
-            T_tnw[j - 1, k - 1, 6] = T[0, j + 1, k + 1]
-            T_tnw[j - 1, k - 1, 7] = T[1, j + 1, k + 1]
-
-            T_tne[j - 1, k - 1, 0] = T[1, j, k]
-            T_tne[j - 1, k - 1, 1] = T[2, j, k]
-            T_tne[j - 1, k - 1, 2] = T[1, j + 1, k]
-            T_tne[j - 1, k - 1, 3] = T[2, j + 1, k]
-            T_tne[j - 1, k - 1, 4] = T[1, j, k + 1]
-            T_tne[j - 1, k - 1, 5] = T[2, j, k + 1]
-            T_tne[j - 1, k - 1, 6] = T[1, j + 1, k + 1]
-            T_tne[j - 1, k - 1, 7] = T[2, j + 1, k + 1]
-
-            E_sw[j - 1, k - 1] = Emat[0, j - 1, k - 1]
-            E_se[j - 1, k - 1] = Emat[1, j - 1, k - 1]
-            E_nw[j - 1, k - 1] = Emat[0, j, k - 1]
-            E_ne[j - 1, k - 1] = Emat[1, j, k - 1]
-            E_tsw[j - 1, k - 1] = Emat[0, j - 1, k]
-            E_tse[j - 1, k - 1] = Emat[1, j - 1, k]
-            E_tnw[j - 1, k - 1] = Emat[0, j, k]
-            E_tne[j - 1, k - 1] = Emat[1, j, k]
+            t_sw[j_cv, k_cv] = [tf[0], tf[1], tf[3], tf[4], tf[9], tf[10], tf[12], tf[13]]
+            t_se[j_cv, k_cv] = [tf[1], tf[2], tf[4], tf[5], tf[10], tf[11], tf[13], tf[14]]
+            t_nw[j_cv, k_cv] = [tf[3], tf[4], tf[6], tf[7], tf[12], tf[13], tf[15], tf[16]]
+            t_ne[j_cv, k_cv] = [tf[4], tf[5], tf[7], tf[8], tf[13], tf[14], tf[16], tf[17]]
+            t_tsw[j_cv, k_cv] = [tf[9], tf[10], tf[12], tf[13], tf[18], tf[19], tf[21], tf[22]]
+            t_tse[j_cv, k_cv] = [tf[10], tf[11], tf[13], tf[14], tf[19], tf[20], tf[22], tf[23]]
+            t_tnw[j_cv, k_cv] = [tf[12], tf[13], tf[15], tf[16], tf[21], tf[22], tf[24], tf[25]]
+            t_tne[j_cv, k_cv] = [tf[13], tf[14], tf[16], tf[17], tf[22], tf[23], tf[25], tf[26]]

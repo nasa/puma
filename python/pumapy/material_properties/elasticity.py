@@ -48,7 +48,7 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
         raise Exception("elast_map has to be an ElasticityMap")
 
     if method == "fv":
-        solver = Elasticity(workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter)
+        solver = Elasticity(workspace, elast_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter, dirichlet_bc=None)
     elif method == "fe":
         solver = ElasticityFE(workspace, elast_map, direction, tolerance, maxiter, solver_type, display_iter, matrix_free)
     else:
