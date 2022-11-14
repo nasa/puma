@@ -8,9 +8,8 @@ import numpy as np
 import pyvista as pv
 
 
-def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1e-5,
-                       maxiter=100000, solver_type='bicgstab', display_iter=True,
-                       method="fv", matrix_free=True):
+def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1e-5, maxiter=100000,
+                       solver_type='bicgstab', display_iter=True, method="fv", matrix_free=True):
     """ Compute the effective elasticity coefficient
 
         :param workspace: domain
@@ -29,6 +28,11 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
+        :param method: whether to use finite volume solver ('fv', i.e. mpsa) or finite element Q1-Q1 EBE solver ('fe')
+        :type method: string
+        :param matrix_free: if True, then use matrix-free method if possible (only available for fe solver when
+        the solver type is not 'direct')
+        :type matrix_free: bool
         :return: elasticity, displacement field, direct stresses (sigma xx, yy, zz), shear stresses (tau yz, xz, xy)
         :rtype: ((float, float, float, float, float, float), numpy.ndarray, numpy.ndarray, numpy.ndarray)
 
@@ -65,16 +69,16 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
     return solver.Ceff, solver.u, solver.s, solver.t
 
 
-def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', tolerance=1e-5,
-                            maxiter=100000, solver_type='bicgstab', display_iter=True):
-    """ Compute stress analysis
+def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', tolerance=1e-5, maxiter=100000,
+                            solver_type='bicgstab', display_iter=True):
+    """ Compute stress analysis based on specific user-input dirichlet boundary conditions
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
         :param elast_map: local elasticity of the constituents
         :type elast_map: pumapy.ElasticityMap
-        :param direction: direction for solve ('x','y', 'z', 'yz', 'xz', 'xy')
-        :type direction: string
+        :param prescribed_bc: object holding the elasticity dirichlet boundary conditions
+        :type prescribed_bc: pumapy.ElasticityBC
         :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
         :type side_bc: string
         :param tolerance: tolerance for iterative solver
@@ -122,12 +126,27 @@ def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', to
     return solver.u, solver.s, solver.t
 
 
-def export_elasticity_fields_vti(filepath, ws, u, s, t):
-    export_vti(filepath, {"ws": ws, "u": u, "s": s, "t": t})
+def export_elasticity_fields_vti(filepath, workspace, u, s, t):
+    """ Export conductivity fields, as output by the conductivity function
+
+        :param filepath:
+        :type filepath: string
+        :param workspace: domain
+        :type workspace: puma.Workspace or numpy.ndarray
+        :param u: displacement field
+        :type u: numpy.ndarray
+        :param s: direct stress field
+        :type s: numpy.ndarray
+        :param t: shear stress field
+        :type t: numpy.ndarray
+    """
+    export_vti(filepath, {"ws": workspace, "u": u, "s": s, "t": t})
 
 
 def get_E_nu_from_elasticity(C):
-    """ Compute Young's moduli E1, E2, E3 and Poisson's ratios nu12, nu23, nu31 from symmetric elastic stiffness tensor
+    """ Compute Young's moduli E1, E2, E3, Shear moduli G23, G13, G12, and Poisson's ratios nu12, nu23, nu31
+        for an orthotropic material from its symmetric elastic stiffness tensor
+
         :param C: 6x6 elasticity tensor
         :type C: np.ndarray
         :return: Young's moduli E1, E2, E3 and Poisson's ratios nu12, nu23, nu31
@@ -151,7 +170,8 @@ def get_E_nu_from_elasticity(C):
 def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0., show_cbar=True, show_edges=False,
                            xy_view=False, rm_id=None, show_axes=True):
     """ Warp the workspace according to the displacement field output by the elasticity functions,
-        and color by displacement and stress components
+        and colored by displacement and stress components
+
         :param workspace: domain
         :type workspace: pumapy.Workspace
         :param u: displacement field
@@ -243,6 +263,7 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
 def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
                            xy_view=False, rm_id=None):
     """ Plot the workspace according to the displacement and stress fields output by the elasticity functions
+
         :param workspace: domain
         :type workspace: pumapy.Workspace
         :param u: displacement field
@@ -312,7 +333,7 @@ def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
 
 
 def remove_rbms(workspace, void_id, direction):
-    """ Rigid Body Movements (RBMs) removal in segmented domain
+    """ Remove Rigid Body Movements (RBMs), i.e. unconnected or "floating" voxels, in a segmented domain along a specified direction
 
         :param workspace: domain
         :type workspace: pumapy.Workspace

@@ -8,7 +8,7 @@ import numpy as np
 import pyvista as pv
 
 
-def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', prescribed_bc=None, tolerance=1e-4,
+def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', prescribed_bc=None, tolerance=1e-5,
                                  maxiter=10000, solver_type='bicgstab', display_iter=True, method="fv", matrix_free=True):
     """ Compute the thermal conductivity
 
@@ -30,6 +30,12 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
+        :param method: whether to use finite volume solver ('fv', either isotropic solver if IsotropicConductivityMap
+        is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe')
+        :type method: string
+        :param matrix_free: if True, then use matrix-free method if possible (only available for fv isotropic solver or
+        for fe solver when the solver type is not 'direct')
+        :type matrix_free: bool
         :return: thermal conductivity, temperature field, flux
         :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
 
@@ -82,7 +88,7 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
     return solver.keff, solver.T, solver.q
 
 
-def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p', prescribed_bc=None, tolerance=1e-4,
+def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p', prescribed_bc=None, tolerance=1e-5,
                                     maxiter=10000, solver_type='bicgstab', display_iter=True, method="fv", matrix_free=True):
     """ Compute the electrical conductivity
 
@@ -104,6 +110,12 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
+        :param method: whether to use finite volume solver ('fv', either isotropic solver if IsotropicConductivityMap
+        is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe')
+        :type method: string
+        :param matrix_free: if True, then use matrix-free method if possible (only available for fv isotropic solver or
+        for fe solver when the solver type is not 'direct')
+        :type matrix_free: bool
         :return: electrical conductivity, potential field, flux
         :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
 
@@ -122,20 +134,30 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
                                         solver_type, display_iter, method, matrix_free)
 
 
-def export_conductivity_fields_vti(filepath, ws, T, q):
-    export_vti(filepath, {"ws": ws, "T": T, "q": q})
+def export_conductivity_fields_vti(filepath, workspace, T, q):
+    """ Export conductivity fields, as output by the conductivity function
+
+        :param filepath:
+        :type filepath: string
+        :param workspace: domain
+        :type workspace: puma.Workspace or numpy.ndarray
+        :param T: temperature field
+        :type T: numpy.ndarray
+        :param q: flux field
+        :type q: numpy.ndarray
+    """
+    export_vti(filepath, {"ws": workspace, "T": T, "q": q})
 
 
 def plot_conductivity_fields(workspace, T, q, show_cbar=True, show_edges=False, xy_view=False, rm_id=None):
-    """ Plot the workspace according to the displacement and stress fields output by the elasticity functions
+    """ Plot the workspace colored by the temperature and flux fields, as output by the conductivity function
+
         :param workspace: domain
         :type workspace: pumapy.Workspace
-        :param u: displacement field
-        :type u: numpy.ndarray
-        :param s: direct stress field
-        :type s: numpy.ndarray
-        :param t: shear stress field
-        :type t: numpy.ndarray
+        :param T: temperature field
+        :type T: numpy.ndarray
+        :param q: flux field
+        :type q: numpy.ndarray
         :param show_cbar: show colorbar in each plot
         :type show_cbar: bool
         :param show_edges: show edges in mesh
