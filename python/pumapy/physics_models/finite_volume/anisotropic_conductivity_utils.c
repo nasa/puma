@@ -1758,6 +1758,46 @@ static CYTHON_INLINE int __pyx_sub_acquisition_count_locked(
 static CYTHON_INLINE void __Pyx_INC_MEMVIEW(__Pyx_memviewslice *, int, int);
 static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *, int, int);
 
+/* GetItemInt.proto */
+#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
+               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
+#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
+                                                     int is_list, int wraparound, int boundscheck);
+
+/* ObjectGetItem.proto */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key);
+#else
+#define __Pyx_PyObject_GetItem(obj, key)  PyObject_GetItem(obj, key)
+#endif
+
+/* PyObjectCall2Args.proto */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
+
+/* PyObjectCallMethO.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
+#endif
+
+/* PyObjectCallOneArg.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
+
 /* GetTopmostException.proto */
 #if CYTHON_USE_EXC_INFO_STACK
 static _PyErr_StackItem * __Pyx_PyErr_GetTopmostException(PyThreadState *tstate);
@@ -1829,17 +1869,6 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
 
-/* PyObjectCall2Args.proto */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
-
-/* PyObjectCallMethO.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
-#endif
-
-/* PyObjectCallOneArg.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
-
 /* DivInt[Py_ssize_t].proto */
 static CYTHON_INLINE Py_ssize_t __Pyx_div_Py_ssize_t(Py_ssize_t, Py_ssize_t);
 
@@ -1851,35 +1880,6 @@ static CYTHON_UNUSED int __pyx_array_getbuffer(PyObject *__pyx_v_self, Py_buffer
 static PyObject *__pyx_array_get_memview(struct __pyx_array_obj *); /*proto*/
 /* GetAttr.proto */
 static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *, PyObject *);
-
-/* GetItemInt.proto */
-#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
-    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
-               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
-#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
-                                                     int is_list, int wraparound, int boundscheck);
-
-/* ObjectGetItem.proto */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key);
-#else
-#define __Pyx_PyObject_GetItem(obj, key)  PyObject_GetItem(obj, key)
-#endif
 
 /* decode_c_string_utf16.proto */
 static CYTHON_INLINE PyObject *__Pyx_PyUnicode_DecodeUTF16(const char *s, Py_ssize_t size, const char *errors) {
@@ -2367,10 +2367,10 @@ int __pyx_module_is_main_pumapy__physics_models__finite_volume__anisotropic_cond
 
 /* Implementation of 'pumapy.physics_models.finite_volume.anisotropic_conductivity_utils' */
 static PyObject *__pyx_builtin_range;
+static PyObject *__pyx_builtin_enumerate;
 static PyObject *__pyx_builtin_ImportError;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_MemoryError;
-static PyObject *__pyx_builtin_enumerate;
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_Ellipsis;
 static PyObject *__pyx_builtin_id;
@@ -2379,6 +2379,7 @@ static const char __pyx_k_O[] = "O";
 static const char __pyx_k_T[] = "T";
 static const char __pyx_k_c[] = "c";
 static const char __pyx_k_p[] = "p";
+static const char __pyx_k_Td[] = "Td";
 static const char __pyx_k_i2[] = "i2";
 static const char __pyx_k_id[] = "id";
 static const char __pyx_k_j2[] = "j2";
@@ -2394,12 +2395,18 @@ static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_obj[] = "obj";
 static const char __pyx_k_base[] = "base";
 static const char __pyx_k_dict[] = "__dict__";
+static const char __pyx_k_i2_v[] = "i2_v";
 static const char __pyx_k_i_bc[] = "i_bc";
 static const char __pyx_k_i_cv[] = "i_cv";
+static const char __pyx_k_i_iv[] = "i_iv";
+static const char __pyx_k_j2_v[] = "j2_v";
 static const char __pyx_k_j_bc[] = "j_bc";
 static const char __pyx_k_j_cv[] = "j_cv";
+static const char __pyx_k_j_iv[] = "j_iv";
+static const char __pyx_k_k2_v[] = "k2_v";
 static const char __pyx_k_k_bc[] = "k_bc";
 static const char __pyx_k_k_cv[] = "k_cv";
+static const char __pyx_k_k_iv[] = "k_iv";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_mode[] = "mode";
 static const char __pyx_k_name[] = "name";
@@ -2420,6 +2427,7 @@ static const char __pyx_k_dtype[] = "dtype";
 static const char __pyx_k_error[] = "error";
 static const char __pyx_k_flags[] = "flags";
 static const char __pyx_k_index[] = "index";
+static const char __pyx_k_isnan[] = "isnan";
 static const char __pyx_k_len_x[] = "len_x";
 static const char __pyx_k_len_y[] = "len_y";
 static const char __pyx_k_len_z[] = "len_z";
@@ -2458,6 +2466,9 @@ static const char __pyx_k_counter_A[] = "counter_A";
 static const char __pyx_k_counter_b[] = "counter_b";
 static const char __pyx_k_enumerate[] = "enumerate";
 static const char __pyx_k_global_js[] = "global_js";
+static const char __pyx_k_not_dir_x[] = "not_dir_x";
+static const char __pyx_k_not_dir_y[] = "not_dir_y";
+static const char __pyx_k_not_dir_z[] = "not_dir_z";
 static const char __pyx_k_pyx_state[] = "__pyx_state";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_IndexError[] = "IndexError";
@@ -2475,18 +2486,24 @@ static const char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_View_MemoryView[] = "View.MemoryView";
 static const char __pyx_k_allocate_buffer[] = "allocate_buffer";
+static const char __pyx_k_counter_not_dir[] = "counter_not_dir";
 static const char __pyx_k_create_T_ivs_cy[] = "create_T_ivs_cy";
 static const char __pyx_k_dtype_is_object[] = "dtype_is_object";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
+static const char __pyx_k_mask_assigned_dir[] = "mask_assigned_dir";
 static const char __pyx_k_pyx_unpickle_Enum[] = "__pyx_unpickle_Enum";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_strided_and_direct[] = "<strided and direct>";
+static const char __pyx_k_dirichlet_bc_xfaces[] = "dirichlet_bc_xfaces";
+static const char __pyx_k_dirichlet_bc_yfaces[] = "dirichlet_bc_yfaces";
+static const char __pyx_k_dirichlet_bc_zfaces[] = "dirichlet_bc_zfaces";
 static const char __pyx_k_create_Ab_indices_cy[] = "create_Ab_indices_cy";
 static const char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static const char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
 static const char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>";
 static const char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
+static const char __pyx_k_assign_prescribed_bc_cy[] = "assign_prescribed_bc_cy";
 static const char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
 static const char __pyx_k_Cannot_index_with_type_s[] = "Cannot index with type '%s'";
 static const char __pyx_k_Invalid_shape_in_axis_d_d[] = "Invalid shape in axis %d: %d.";
@@ -2535,11 +2552,13 @@ static PyObject *__pyx_n_b_O;
 static PyObject *__pyx_kp_s_Out_of_bounds_on_buffer_access_a;
 static PyObject *__pyx_n_s_PickleError;
 static PyObject *__pyx_n_s_T;
+static PyObject *__pyx_n_s_Td;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_Unable_to_convert_item_to_object;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_View_MemoryView;
 static PyObject *__pyx_n_s_allocate_buffer;
+static PyObject *__pyx_n_s_assign_prescribed_bc_cy;
 static PyObject *__pyx_n_s_base;
 static PyObject *__pyx_n_s_c;
 static PyObject *__pyx_n_u_c;
@@ -2550,10 +2569,14 @@ static PyObject *__pyx_kp_s_contiguous_and_indirect;
 static PyObject *__pyx_n_s_counter;
 static PyObject *__pyx_n_s_counter_A;
 static PyObject *__pyx_n_s_counter_b;
+static PyObject *__pyx_n_s_counter_not_dir;
 static PyObject *__pyx_n_s_create_Ab_indices_cy;
 static PyObject *__pyx_n_s_create_T_ivs_cy;
 static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_dim;
+static PyObject *__pyx_n_s_dirichlet_bc_xfaces;
+static PyObject *__pyx_n_s_dirichlet_bc_yfaces;
+static PyObject *__pyx_n_s_dirichlet_bc_zfaces;
 static PyObject *__pyx_n_s_dtype;
 static PyObject *__pyx_n_s_dtype_is_object;
 static PyObject *__pyx_n_s_encode;
@@ -2568,8 +2591,10 @@ static PyObject *__pyx_n_s_global_i;
 static PyObject *__pyx_n_s_global_js;
 static PyObject *__pyx_kp_s_got_differing_extents_in_dimensi;
 static PyObject *__pyx_n_s_i2;
+static PyObject *__pyx_n_s_i2_v;
 static PyObject *__pyx_n_s_i_bc;
 static PyObject *__pyx_n_s_i_cv;
+static PyObject *__pyx_n_s_i_iv;
 static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_index;
@@ -2577,19 +2602,25 @@ static PyObject *__pyx_n_s_index_at;
 static PyObject *__pyx_n_s_index_at_p;
 static PyObject *__pyx_n_s_index_at_s;
 static PyObject *__pyx_n_s_int;
+static PyObject *__pyx_n_s_isnan;
 static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_j2;
+static PyObject *__pyx_n_s_j2_v;
 static PyObject *__pyx_n_s_j_bc;
 static PyObject *__pyx_n_s_j_cv;
+static PyObject *__pyx_n_s_j_iv;
 static PyObject *__pyx_n_s_k2;
+static PyObject *__pyx_n_s_k2_v;
 static PyObject *__pyx_n_s_k_bc;
 static PyObject *__pyx_n_s_k_cv;
+static PyObject *__pyx_n_s_k_iv;
 static PyObject *__pyx_n_s_len_x;
 static PyObject *__pyx_n_s_len_xyz;
 static PyObject *__pyx_n_s_len_y;
 static PyObject *__pyx_n_s_len_z;
 static PyObject *__pyx_n_s_main;
+static PyObject *__pyx_n_s_mask_assigned_dir;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_mode;
 static PyObject *__pyx_n_s_name;
@@ -2597,6 +2628,9 @@ static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_n_s_ndim;
 static PyObject *__pyx_n_s_new;
 static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
+static PyObject *__pyx_n_s_not_dir_x;
+static PyObject *__pyx_n_s_not_dir_y;
+static PyObject *__pyx_n_s_not_dir_z;
 static PyObject *__pyx_n_s_np;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
@@ -2651,6 +2685,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_2index_at_s(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index, PyObject *__pyx_v_size); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_4create_Ab_indices_cy(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_I_A, PyArrayObject *__pyx_v_J_A, PyArrayObject *__pyx_v_I_b, int __pyx_v_counter_A, int __pyx_v_counter_b, int __pyx_v_i_cv, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, CYTHON_UNUSED int __pyx_v_len_xyz, PyObject *__pyx_v_side_bc); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_6create_T_ivs_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_T, __Pyx_memviewslice __pyx_v_tf, int __pyx_v_i_cv, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, CYTHON_UNUSED int __pyx_v_len_xyz, PyObject *__pyx_v_side_bc, PyArrayObject *__pyx_v_t_sw, PyArrayObject *__pyx_v_t_se, PyArrayObject *__pyx_v_t_nw, PyArrayObject *__pyx_v_t_ne, PyArrayObject *__pyx_v_t_tsw, PyArrayObject *__pyx_v_t_tse, PyArrayObject *__pyx_v_t_tnw, PyArrayObject *__pyx_v_t_tne); /* proto */
+static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_8assign_prescribed_bc_cy(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_not_dir_x, PyArrayObject *__pyx_v_not_dir_y, PyArrayObject *__pyx_v_not_dir_z, PyArrayObject *__pyx_v_Td, PyArrayObject *__pyx_v_dirichlet_bc_xfaces, PyArrayObject *__pyx_v_dirichlet_bc_yfaces, PyArrayObject *__pyx_v_dirichlet_bc_zfaces, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, int __pyx_v_i_iv); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -2699,13 +2734,23 @@ static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject 
 static PyObject *__pyx_tp_new__memoryviewslice(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
+static PyObject *__pyx_int_2;
+static PyObject *__pyx_int_3;
+static PyObject *__pyx_int_4;
+static PyObject *__pyx_int_5;
+static PyObject *__pyx_int_6;
+static PyObject *__pyx_int_7;
+static PyObject *__pyx_int_8;
+static PyObject *__pyx_int_9;
+static PyObject *__pyx_int_10;
+static PyObject *__pyx_int_11;
 static PyObject *__pyx_int_27;
 static PyObject *__pyx_int_112105877;
 static PyObject *__pyx_int_136983863;
 static PyObject *__pyx_int_184977713;
 static PyObject *__pyx_int_neg_1;
 static PyObject *__pyx_tuple_;
-static PyObject *__pyx_tuple__2;
+static PyObject *__pyx_slice__2;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__4;
 static PyObject *__pyx_tuple__5;
@@ -2713,7 +2758,6 @@ static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
-static PyObject *__pyx_slice__18;
 static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__12;
@@ -2722,25 +2766,30 @@ static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__15;
 static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_tuple__17;
+static PyObject *__pyx_tuple__18;
 static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_tuple__22;
 static PyObject *__pyx_tuple__23;
+static PyObject *__pyx_tuple__24;
 static PyObject *__pyx_tuple__25;
 static PyObject *__pyx_tuple__27;
 static PyObject *__pyx_tuple__29;
 static PyObject *__pyx_tuple__31;
-static PyObject *__pyx_tuple__32;
 static PyObject *__pyx_tuple__33;
-static PyObject *__pyx_tuple__34;
 static PyObject *__pyx_tuple__35;
 static PyObject *__pyx_tuple__36;
-static PyObject *__pyx_codeobj__24;
+static PyObject *__pyx_tuple__37;
+static PyObject *__pyx_tuple__38;
+static PyObject *__pyx_tuple__39;
+static PyObject *__pyx_tuple__40;
 static PyObject *__pyx_codeobj__26;
 static PyObject *__pyx_codeobj__28;
 static PyObject *__pyx_codeobj__30;
-static PyObject *__pyx_codeobj__37;
+static PyObject *__pyx_codeobj__32;
+static PyObject *__pyx_codeobj__34;
+static PyObject *__pyx_codeobj__41;
 /* Late includes */
 
 /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":9
@@ -5285,6 +5334,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
  *             t_tse[j_cv, k_cv] = [tf[10], tf[11], tf[13], tf[14], tf[19], tf[20], tf[22], tf[23]]
  *             t_tnw[j_cv, k_cv] = [tf[12], tf[13], tf[15], tf[16], tf[21], tf[22], tf[24], tf[25]]             # <<<<<<<<<<<<<<
  *             t_tne[j_cv, k_cv] = [tf[13], tf[14], tf[16], tf[17], tf[22], tf[23], tf[25], tf[26]]
+ * 
  */
       __pyx_t_21 = 12;
       __pyx_t_10 = -1;
@@ -5428,6 +5478,8 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
  *             t_tse[j_cv, k_cv] = [tf[10], tf[11], tf[13], tf[14], tf[19], tf[20], tf[22], tf[23]]
  *             t_tnw[j_cv, k_cv] = [tf[12], tf[13], tf[15], tf[16], tf[21], tf[22], tf[24], tf[25]]
  *             t_tne[j_cv, k_cv] = [tf[13], tf[14], tf[16], tf[17], tf[22], tf[23], tf[25], tf[26]]             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
       __pyx_t_21 = 13;
       __pyx_t_10 = -1;
@@ -5596,6 +5648,1862 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
   __Pyx_XDECREF(__pyx_v_index_at);
   __PYX_XDEC_MEMVIEW(&__pyx_v_T, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_v_tf, 1);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":95
+ * 
+ * 
+ * def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarray not_dir_z, np.ndarray Td,             # <<<<<<<<<<<<<<
+ *                             np.ndarray dirichlet_bc_xfaces, np.ndarray dirichlet_bc_yfaces, np.ndarray dirichlet_bc_zfaces,
+ *                             int len_x, int len_y, int len_z, int i_iv):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_9assign_prescribed_bc_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_9assign_prescribed_bc_cy = {"assign_prescribed_bc_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_9assign_prescribed_bc_cy, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_9assign_prescribed_bc_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyArrayObject *__pyx_v_not_dir_x = 0;
+  PyArrayObject *__pyx_v_not_dir_y = 0;
+  PyArrayObject *__pyx_v_not_dir_z = 0;
+  PyArrayObject *__pyx_v_Td = 0;
+  PyArrayObject *__pyx_v_dirichlet_bc_xfaces = 0;
+  PyArrayObject *__pyx_v_dirichlet_bc_yfaces = 0;
+  PyArrayObject *__pyx_v_dirichlet_bc_zfaces = 0;
+  int __pyx_v_len_x;
+  int __pyx_v_len_y;
+  int __pyx_v_len_z;
+  int __pyx_v_i_iv;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("assign_prescribed_bc_cy (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_not_dir_x,&__pyx_n_s_not_dir_y,&__pyx_n_s_not_dir_z,&__pyx_n_s_Td,&__pyx_n_s_dirichlet_bc_xfaces,&__pyx_n_s_dirichlet_bc_yfaces,&__pyx_n_s_dirichlet_bc_zfaces,&__pyx_n_s_len_x,&__pyx_n_s_len_y,&__pyx_n_s_len_z,&__pyx_n_s_i_iv,0};
+    PyObject* values[11] = {0,0,0,0,0,0,0,0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case 11: values[10] = PyTuple_GET_ITEM(__pyx_args, 10);
+        CYTHON_FALLTHROUGH;
+        case 10: values[9] = PyTuple_GET_ITEM(__pyx_args, 9);
+        CYTHON_FALLTHROUGH;
+        case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
+        CYTHON_FALLTHROUGH;
+        case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
+        CYTHON_FALLTHROUGH;
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        CYTHON_FALLTHROUGH;
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        CYTHON_FALLTHROUGH;
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_not_dir_x)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_not_dir_y)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 1); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_not_dir_z)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 2); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Td)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 3); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  4:
+        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dirichlet_bc_xfaces)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 4); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  5:
+        if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dirichlet_bc_yfaces)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 5); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  6:
+        if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dirichlet_bc_zfaces)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 6); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  7:
+        if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_len_x)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 7); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  8:
+        if (likely((values[8] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_len_y)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 8); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  9:
+        if (likely((values[9] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_len_z)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 9); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case 10:
+        if (likely((values[10] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_i_iv)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, 10); __PYX_ERR(0, 95, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "assign_prescribed_bc_cy") < 0)) __PYX_ERR(0, 95, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 11) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+      values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+      values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+      values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
+      values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
+      values[9] = PyTuple_GET_ITEM(__pyx_args, 9);
+      values[10] = PyTuple_GET_ITEM(__pyx_args, 10);
+    }
+    __pyx_v_not_dir_x = ((PyArrayObject *)values[0]);
+    __pyx_v_not_dir_y = ((PyArrayObject *)values[1]);
+    __pyx_v_not_dir_z = ((PyArrayObject *)values[2]);
+    __pyx_v_Td = ((PyArrayObject *)values[3]);
+    __pyx_v_dirichlet_bc_xfaces = ((PyArrayObject *)values[4]);
+    __pyx_v_dirichlet_bc_yfaces = ((PyArrayObject *)values[5]);
+    __pyx_v_dirichlet_bc_zfaces = ((PyArrayObject *)values[6]);
+    __pyx_v_len_x = __Pyx_PyInt_As_int(values[7]); if (unlikely((__pyx_v_len_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L3_error)
+    __pyx_v_len_y = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_len_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L3_error)
+    __pyx_v_len_z = __Pyx_PyInt_As_int(values[9]); if (unlikely((__pyx_v_len_z == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L3_error)
+    __pyx_v_i_iv = __Pyx_PyInt_As_int(values[10]); if (unlikely((__pyx_v_i_iv == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("assign_prescribed_bc_cy", 1, 11, 11, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 95, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pumapy.physics_models.finite_volume.anisotropic_conductivity_utils.assign_prescribed_bc_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_not_dir_x), __pyx_ptype_5numpy_ndarray, 1, "not_dir_x", 0))) __PYX_ERR(0, 95, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_not_dir_y), __pyx_ptype_5numpy_ndarray, 1, "not_dir_y", 0))) __PYX_ERR(0, 95, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_not_dir_z), __pyx_ptype_5numpy_ndarray, 1, "not_dir_z", 0))) __PYX_ERR(0, 95, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Td), __pyx_ptype_5numpy_ndarray, 1, "Td", 0))) __PYX_ERR(0, 95, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_ptype_5numpy_ndarray, 1, "dirichlet_bc_xfaces", 0))) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_ptype_5numpy_ndarray, 1, "dirichlet_bc_yfaces", 0))) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_ptype_5numpy_ndarray, 1, "dirichlet_bc_zfaces", 0))) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_r = __pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_8assign_prescribed_bc_cy(__pyx_self, __pyx_v_not_dir_x, __pyx_v_not_dir_y, __pyx_v_not_dir_z, __pyx_v_Td, __pyx_v_dirichlet_bc_xfaces, __pyx_v_dirichlet_bc_yfaces, __pyx_v_dirichlet_bc_zfaces, __pyx_v_len_x, __pyx_v_len_y, __pyx_v_len_z, __pyx_v_i_iv);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_8assign_prescribed_bc_cy(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_not_dir_x, PyArrayObject *__pyx_v_not_dir_y, PyArrayObject *__pyx_v_not_dir_z, PyArrayObject *__pyx_v_Td, PyArrayObject *__pyx_v_dirichlet_bc_xfaces, PyArrayObject *__pyx_v_dirichlet_bc_yfaces, PyArrayObject *__pyx_v_dirichlet_bc_zfaces, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z, int __pyx_v_i_iv) {
+  int __pyx_v_j_iv;
+  int __pyx_v_k_iv;
+  CYTHON_UNUSED int __pyx_v_k2;
+  int __pyx_v_k2_v;
+  CYTHON_UNUSED int __pyx_v_j2;
+  int __pyx_v_j2_v;
+  CYTHON_UNUSED int __pyx_v_i2;
+  int __pyx_v_i2_v;
+  int __pyx_v_i_cv;
+  int __pyx_v_counter_not_dir;
+  int __pyx_v_k_cv;
+  int __pyx_v_j_cv;
+  PyObject *__pyx_v_mask_assigned_dir = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  long __pyx_t_1;
+  long __pyx_t_2;
+  int __pyx_t_3;
+  long __pyx_t_4;
+  long __pyx_t_5;
+  int __pyx_t_6;
+  int __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  Py_ssize_t __pyx_t_10;
+  int __pyx_t_11;
+  PyObject *__pyx_t_12 = NULL;
+  Py_ssize_t __pyx_t_13;
+  int __pyx_t_14;
+  PyObject *__pyx_t_15 = NULL;
+  Py_ssize_t __pyx_t_16;
+  int __pyx_t_17;
+  int __pyx_t_18;
+  PyObject *__pyx_t_19 = NULL;
+  PyObject *__pyx_t_20 = NULL;
+  PyObject *__pyx_t_21 = NULL;
+  PyObject *__pyx_t_22 = NULL;
+  int __pyx_t_23;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("assign_prescribed_bc_cy", 0);
+
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":100
+ *     cdef int j_iv, k_iv, k2, k2_v, j2, j2_v, i2, i2_v, i_cv, counter_not_dir
+ * 
+ *     for j_iv in range(len_y + 1):             # <<<<<<<<<<<<<<
+ *         for k_iv in range(len_z + 1):
+ * 
+ */
+  __pyx_t_1 = (__pyx_v_len_y + 1);
+  __pyx_t_2 = __pyx_t_1;
+  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
+    __pyx_v_j_iv = __pyx_t_3;
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":101
+ * 
+ *     for j_iv in range(len_y + 1):
+ *         for k_iv in range(len_z + 1):             # <<<<<<<<<<<<<<
+ * 
+ *             # gather IV properties cell by cell
+ */
+    __pyx_t_4 = (__pyx_v_len_z + 1);
+    __pyx_t_5 = __pyx_t_4;
+    for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
+      __pyx_v_k_iv = __pyx_t_6;
+
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":104
+ * 
+ *             # gather IV properties cell by cell
+ *             counter_not_dir = 0             # <<<<<<<<<<<<<<
+ *             for k2, k2_v in enumerate([-1, 0]):
+ *                 k_cv = k_iv + k2_v
+ */
+      __pyx_v_counter_not_dir = 0;
+
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":105
+ *             # gather IV properties cell by cell
+ *             counter_not_dir = 0
+ *             for k2, k2_v in enumerate([-1, 0]):             # <<<<<<<<<<<<<<
+ *                 k_cv = k_iv + k2_v
+ *                 for j2, j2_v in enumerate([-1, 0]):
+ */
+      __pyx_t_7 = 0;
+      __pyx_t_8 = PyList_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 105, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_INCREF(__pyx_int_neg_1);
+      __Pyx_GIVEREF(__pyx_int_neg_1);
+      PyList_SET_ITEM(__pyx_t_8, 0, __pyx_int_neg_1);
+      __Pyx_INCREF(__pyx_int_0);
+      __Pyx_GIVEREF(__pyx_int_0);
+      PyList_SET_ITEM(__pyx_t_8, 1, __pyx_int_0);
+      __pyx_t_9 = __pyx_t_8; __Pyx_INCREF(__pyx_t_9); __pyx_t_10 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      for (;;) {
+        if (__pyx_t_10 >= 2) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_8 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_10); __Pyx_INCREF(__pyx_t_8); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 105, __pyx_L1_error)
+        #else
+        __pyx_t_8 = PySequence_ITEM(__pyx_t_9, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        #endif
+        __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_8); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __pyx_v_k2_v = __pyx_t_11;
+        __pyx_v_k2 = __pyx_t_7;
+        __pyx_t_7 = (__pyx_t_7 + 1);
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":106
+ *             counter_not_dir = 0
+ *             for k2, k2_v in enumerate([-1, 0]):
+ *                 k_cv = k_iv + k2_v             # <<<<<<<<<<<<<<
+ *                 for j2, j2_v in enumerate([-1, 0]):
+ *                     j_cv = j_iv + j2_v
+ */
+        __pyx_v_k_cv = (__pyx_v_k_iv + __pyx_v_k2_v);
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":107
+ *             for k2, k2_v in enumerate([-1, 0]):
+ *                 k_cv = k_iv + k2_v
+ *                 for j2, j2_v in enumerate([-1, 0]):             # <<<<<<<<<<<<<<
+ *                     j_cv = j_iv + j2_v
+ *                     for i2, i2_v in enumerate([-1, 0]):
+ */
+        __pyx_t_11 = 0;
+        __pyx_t_8 = PyList_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 107, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_INCREF(__pyx_int_neg_1);
+        __Pyx_GIVEREF(__pyx_int_neg_1);
+        PyList_SET_ITEM(__pyx_t_8, 0, __pyx_int_neg_1);
+        __Pyx_INCREF(__pyx_int_0);
+        __Pyx_GIVEREF(__pyx_int_0);
+        PyList_SET_ITEM(__pyx_t_8, 1, __pyx_int_0);
+        __pyx_t_12 = __pyx_t_8; __Pyx_INCREF(__pyx_t_12); __pyx_t_13 = 0;
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        for (;;) {
+          if (__pyx_t_13 >= 2) break;
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_8 = PyList_GET_ITEM(__pyx_t_12, __pyx_t_13); __Pyx_INCREF(__pyx_t_8); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
+          #else
+          __pyx_t_8 = PySequence_ITEM(__pyx_t_12, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 107, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          #endif
+          __pyx_t_14 = __Pyx_PyInt_As_int(__pyx_t_8); if (unlikely((__pyx_t_14 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 107, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+          __pyx_v_j2_v = __pyx_t_14;
+          __pyx_v_j2 = __pyx_t_11;
+          __pyx_t_11 = (__pyx_t_11 + 1);
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":108
+ *                 k_cv = k_iv + k2_v
+ *                 for j2, j2_v in enumerate([-1, 0]):
+ *                     j_cv = j_iv + j2_v             # <<<<<<<<<<<<<<
+ *                     for i2, i2_v in enumerate([-1, 0]):
+ *                         i_cv = i_iv + i2_v
+ */
+          __pyx_v_j_cv = (__pyx_v_j_iv + __pyx_v_j2_v);
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":109
+ *                 for j2, j2_v in enumerate([-1, 0]):
+ *                     j_cv = j_iv + j2_v
+ *                     for i2, i2_v in enumerate([-1, 0]):             # <<<<<<<<<<<<<<
+ *                         i_cv = i_iv + i2_v
+ * 
+ */
+          __pyx_t_14 = 0;
+          __pyx_t_8 = PyList_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 109, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __Pyx_INCREF(__pyx_int_neg_1);
+          __Pyx_GIVEREF(__pyx_int_neg_1);
+          PyList_SET_ITEM(__pyx_t_8, 0, __pyx_int_neg_1);
+          __Pyx_INCREF(__pyx_int_0);
+          __Pyx_GIVEREF(__pyx_int_0);
+          PyList_SET_ITEM(__pyx_t_8, 1, __pyx_int_0);
+          __pyx_t_15 = __pyx_t_8; __Pyx_INCREF(__pyx_t_15); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+          for (;;) {
+            if (__pyx_t_16 >= 2) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_8 = PyList_GET_ITEM(__pyx_t_15, __pyx_t_16); __Pyx_INCREF(__pyx_t_8); __pyx_t_16++; if (unlikely(0 < 0)) __PYX_ERR(0, 109, __pyx_L1_error)
+            #else
+            __pyx_t_8 = PySequence_ITEM(__pyx_t_15, __pyx_t_16); __pyx_t_16++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_8);
+            #endif
+            __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_8); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 109, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+            __pyx_v_i2_v = __pyx_t_17;
+            __pyx_v_i2 = __pyx_t_14;
+            __pyx_t_14 = (__pyx_t_14 + 1);
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":110
+ *                     j_cv = j_iv + j2_v
+ *                     for i2, i2_v in enumerate([-1, 0]):
+ *                         i_cv = i_iv + i2_v             # <<<<<<<<<<<<<<
+ * 
+ *                         if i_cv == -1:
+ */
+            __pyx_v_i_cv = (__pyx_v_i_iv + __pyx_v_i2_v);
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":112
+ *                         i_cv = i_iv + i2_v
+ * 
+ *                         if i_cv == -1:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv]):
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ */
+            __pyx_t_18 = ((__pyx_v_i_cv == -1L) != 0);
+            if (__pyx_t_18) {
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":113
+ * 
+ *                         if i_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ *                         if i_cv == len_x:
+ */
+              __Pyx_GetModuleGlobalName(__pyx_t_19, __pyx_n_s_np); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 113, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_19, __pyx_n_s_isnan); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 113, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_20);
+              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+              __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 113, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 113, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __pyx_t_22 = PyTuple_New(3); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 113, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_22);
+              __Pyx_INCREF(__pyx_int_0);
+              __Pyx_GIVEREF(__pyx_int_0);
+              PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_int_0);
+              __Pyx_GIVEREF(__pyx_t_19);
+              PyTuple_SET_ITEM(__pyx_t_22, 1, __pyx_t_19);
+              __Pyx_GIVEREF(__pyx_t_21);
+              PyTuple_SET_ITEM(__pyx_t_22, 2, __pyx_t_21);
+              __pyx_t_19 = 0;
+              __pyx_t_21 = 0;
+              __pyx_t_21 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_t_22); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 113, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+              __pyx_t_22 = NULL;
+              if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_20))) {
+                __pyx_t_22 = PyMethod_GET_SELF(__pyx_t_20);
+                if (likely(__pyx_t_22)) {
+                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_20);
+                  __Pyx_INCREF(__pyx_t_22);
+                  __Pyx_INCREF(function);
+                  __Pyx_DECREF_SET(__pyx_t_20, function);
+                }
+              }
+              __pyx_t_8 = (__pyx_t_22) ? __Pyx_PyObject_Call2Args(__pyx_t_20, __pyx_t_22, __pyx_t_21) : __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_21);
+              __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
+              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+              if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 113, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+              __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 113, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+              __pyx_t_23 = ((!__pyx_t_18) != 0);
+              if (__pyx_t_23) {
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":114
+ *                         if i_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv]):
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0             # <<<<<<<<<<<<<<
+ *                         if i_cv == len_x:
+ *                             if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv]):
+ */
+                __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_counter_not_dir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 114, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_8);
+                __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 114, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_20);
+                __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 114, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_21);
+                __pyx_t_22 = PyTuple_New(3); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 114, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_22);
+                __Pyx_GIVEREF(__pyx_t_8);
+                PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_8);
+                __Pyx_GIVEREF(__pyx_t_20);
+                PyTuple_SET_ITEM(__pyx_t_22, 1, __pyx_t_20);
+                __Pyx_GIVEREF(__pyx_t_21);
+                PyTuple_SET_ITEM(__pyx_t_22, 2, __pyx_t_21);
+                __pyx_t_8 = 0;
+                __pyx_t_20 = 0;
+                __pyx_t_21 = 0;
+                if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_not_dir_x), __pyx_t_22, __pyx_int_0) < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
+                __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":113
+ * 
+ *                         if i_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ *                         if i_cv == len_x:
+ */
+              }
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":112
+ *                         i_cv = i_iv + i2_v
+ * 
+ *                         if i_cv == -1:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv]):
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ */
+            }
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":115
+ *                             if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv]):
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ *                         if i_cv == len_x:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv]):
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ */
+            __pyx_t_23 = ((__pyx_v_i_cv == __pyx_v_len_x) != 0);
+            if (__pyx_t_23) {
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":116
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ *                         if i_cv == len_x:
+ *                             if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ */
+              __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_np); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_isnan); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_20);
+              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+              __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __pyx_t_19 = PyTuple_New(3); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __Pyx_INCREF(__pyx_int_1);
+              __Pyx_GIVEREF(__pyx_int_1);
+              PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_int_1);
+              __Pyx_GIVEREF(__pyx_t_21);
+              PyTuple_SET_ITEM(__pyx_t_19, 1, __pyx_t_21);
+              __Pyx_GIVEREF(__pyx_t_8);
+              PyTuple_SET_ITEM(__pyx_t_19, 2, __pyx_t_8);
+              __pyx_t_21 = 0;
+              __pyx_t_8 = 0;
+              __pyx_t_8 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_t_19); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+              __pyx_t_19 = NULL;
+              if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_20))) {
+                __pyx_t_19 = PyMethod_GET_SELF(__pyx_t_20);
+                if (likely(__pyx_t_19)) {
+                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_20);
+                  __Pyx_INCREF(__pyx_t_19);
+                  __Pyx_INCREF(function);
+                  __Pyx_DECREF_SET(__pyx_t_20, function);
+                }
+              }
+              __pyx_t_22 = (__pyx_t_19) ? __Pyx_PyObject_Call2Args(__pyx_t_20, __pyx_t_19, __pyx_t_8) : __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_8);
+              __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
+              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+              if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_22);
+              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+              __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_22); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+              __pyx_t_18 = ((!__pyx_t_23) != 0);
+              if (__pyx_t_18) {
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":117
+ *                         if i_cv == len_x:
+ *                             if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv]):
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0             # <<<<<<<<<<<<<<
+ * 
+ *                         if j_cv == -1:
+ */
+                __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_counter_not_dir); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 117, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_22);
+                __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 117, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_20);
+                __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 117, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_8);
+                __pyx_t_19 = PyTuple_New(3); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 117, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_19);
+                __Pyx_GIVEREF(__pyx_t_22);
+                PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_22);
+                __Pyx_GIVEREF(__pyx_t_20);
+                PyTuple_SET_ITEM(__pyx_t_19, 1, __pyx_t_20);
+                __Pyx_GIVEREF(__pyx_t_8);
+                PyTuple_SET_ITEM(__pyx_t_19, 2, __pyx_t_8);
+                __pyx_t_22 = 0;
+                __pyx_t_20 = 0;
+                __pyx_t_8 = 0;
+                if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_not_dir_x), __pyx_t_19, __pyx_int_0) < 0)) __PYX_ERR(0, 117, __pyx_L1_error)
+                __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":116
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ *                         if i_cv == len_x:
+ *                             if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ */
+              }
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":115
+ *                             if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv]):
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ *                         if i_cv == len_x:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv]):
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ */
+            }
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":119
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ *                         if j_cv == -1:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ */
+            __pyx_t_18 = ((__pyx_v_j_cv == -1L) != 0);
+            if (__pyx_t_18) {
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":120
+ * 
+ *                         if j_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ *                         if j_cv == len_y:
+ */
+              __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_isnan); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_20);
+              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+              __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_22);
+              __pyx_t_21 = PyTuple_New(3); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __Pyx_INCREF(__pyx_int_0);
+              __Pyx_GIVEREF(__pyx_int_0);
+              PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_int_0);
+              __Pyx_GIVEREF(__pyx_t_8);
+              PyTuple_SET_ITEM(__pyx_t_21, 1, __pyx_t_8);
+              __Pyx_GIVEREF(__pyx_t_22);
+              PyTuple_SET_ITEM(__pyx_t_21, 2, __pyx_t_22);
+              __pyx_t_8 = 0;
+              __pyx_t_22 = 0;
+              __pyx_t_22 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_21); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_22);
+              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+              __pyx_t_21 = NULL;
+              if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_20))) {
+                __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_20);
+                if (likely(__pyx_t_21)) {
+                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_20);
+                  __Pyx_INCREF(__pyx_t_21);
+                  __Pyx_INCREF(function);
+                  __Pyx_DECREF_SET(__pyx_t_20, function);
+                }
+              }
+              __pyx_t_19 = (__pyx_t_21) ? __Pyx_PyObject_Call2Args(__pyx_t_20, __pyx_t_21, __pyx_t_22) : __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_22);
+              __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+              if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+              __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_19); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+              __pyx_t_23 = ((!__pyx_t_18) != 0);
+              if (__pyx_t_23) {
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":121
+ *                         if j_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0             # <<<<<<<<<<<<<<
+ *                         if j_cv == len_y:
+ *                             if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+ */
+                __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_counter_not_dir); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 121, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_19);
+                __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 121, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_20);
+                __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 121, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_22);
+                __pyx_t_21 = PyTuple_New(3); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 121, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_21);
+                __Pyx_GIVEREF(__pyx_t_19);
+                PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_19);
+                __Pyx_GIVEREF(__pyx_t_20);
+                PyTuple_SET_ITEM(__pyx_t_21, 1, __pyx_t_20);
+                __Pyx_GIVEREF(__pyx_t_22);
+                PyTuple_SET_ITEM(__pyx_t_21, 2, __pyx_t_22);
+                __pyx_t_19 = 0;
+                __pyx_t_20 = 0;
+                __pyx_t_22 = 0;
+                if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_not_dir_y), __pyx_t_21, __pyx_int_0) < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
+                __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":120
+ * 
+ *                         if j_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ *                         if j_cv == len_y:
+ */
+              }
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":119
+ *                                 not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ *                         if j_cv == -1:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ */
+            }
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":122
+ *                             if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ *                         if j_cv == len_y:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ */
+            __pyx_t_23 = ((__pyx_v_j_cv == __pyx_v_len_y) != 0);
+            if (__pyx_t_23) {
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":123
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ *                         if j_cv == len_y:
+ *                             if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ */
+              __Pyx_GetModuleGlobalName(__pyx_t_22, __pyx_n_s_np); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_22);
+              __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_22, __pyx_n_s_isnan); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_20);
+              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+              __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_22);
+              __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __Pyx_INCREF(__pyx_int_1);
+              __Pyx_GIVEREF(__pyx_int_1);
+              PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_int_1);
+              __Pyx_GIVEREF(__pyx_t_22);
+              PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_22);
+              __Pyx_GIVEREF(__pyx_t_19);
+              PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_19);
+              __pyx_t_22 = 0;
+              __pyx_t_19 = 0;
+              __pyx_t_19 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_8); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+              __pyx_t_8 = NULL;
+              if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_20))) {
+                __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_20);
+                if (likely(__pyx_t_8)) {
+                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_20);
+                  __Pyx_INCREF(__pyx_t_8);
+                  __Pyx_INCREF(function);
+                  __Pyx_DECREF_SET(__pyx_t_20, function);
+                }
+              }
+              __pyx_t_21 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_20, __pyx_t_8, __pyx_t_19) : __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_19);
+              __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+              if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+              __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_21); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+              __pyx_t_18 = ((!__pyx_t_23) != 0);
+              if (__pyx_t_18) {
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":124
+ *                         if j_cv == len_y:
+ *                             if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0             # <<<<<<<<<<<<<<
+ * 
+ *                         if k_cv == -1:
+ */
+                __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_counter_not_dir); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 124, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_21);
+                __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 124, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_20);
+                __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 124, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_19);
+                __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 124, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_8);
+                __Pyx_GIVEREF(__pyx_t_21);
+                PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_21);
+                __Pyx_GIVEREF(__pyx_t_20);
+                PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_20);
+                __Pyx_GIVEREF(__pyx_t_19);
+                PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_19);
+                __pyx_t_21 = 0;
+                __pyx_t_20 = 0;
+                __pyx_t_19 = 0;
+                if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_not_dir_y), __pyx_t_8, __pyx_int_0) < 0)) __PYX_ERR(0, 124, __pyx_L1_error)
+                __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":123
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ *                         if j_cv == len_y:
+ *                             if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ */
+              }
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":122
+ *                             if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ *                         if j_cv == len_y:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ */
+            }
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":126
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ *                         if k_cv == -1:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ */
+            __pyx_t_18 = ((__pyx_v_k_cv == -1L) != 0);
+            if (__pyx_t_18) {
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":127
+ * 
+ *                         if k_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ *                         if k_cv == len_z:
+ */
+              __Pyx_GetModuleGlobalName(__pyx_t_19, __pyx_n_s_np); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_19, __pyx_n_s_isnan); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_20);
+              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+              __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __pyx_t_22 = PyTuple_New(3); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_22);
+              __Pyx_INCREF(__pyx_int_0);
+              __Pyx_GIVEREF(__pyx_int_0);
+              PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_int_0);
+              __Pyx_GIVEREF(__pyx_t_19);
+              PyTuple_SET_ITEM(__pyx_t_22, 1, __pyx_t_19);
+              __Pyx_GIVEREF(__pyx_t_21);
+              PyTuple_SET_ITEM(__pyx_t_22, 2, __pyx_t_21);
+              __pyx_t_19 = 0;
+              __pyx_t_21 = 0;
+              __pyx_t_21 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_22); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+              __pyx_t_22 = NULL;
+              if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_20))) {
+                __pyx_t_22 = PyMethod_GET_SELF(__pyx_t_20);
+                if (likely(__pyx_t_22)) {
+                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_20);
+                  __Pyx_INCREF(__pyx_t_22);
+                  __Pyx_INCREF(function);
+                  __Pyx_DECREF_SET(__pyx_t_20, function);
+                }
+              }
+              __pyx_t_8 = (__pyx_t_22) ? __Pyx_PyObject_Call2Args(__pyx_t_20, __pyx_t_22, __pyx_t_21) : __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_21);
+              __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
+              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+              if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+              __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+              __pyx_t_23 = ((!__pyx_t_18) != 0);
+              if (__pyx_t_23) {
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":128
+ *                         if k_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0             # <<<<<<<<<<<<<<
+ *                         if k_cv == len_z:
+ *                             if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+ */
+                __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_counter_not_dir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 128, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_8);
+                __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 128, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_20);
+                __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 128, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_21);
+                __pyx_t_22 = PyTuple_New(3); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 128, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_22);
+                __Pyx_GIVEREF(__pyx_t_8);
+                PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_8);
+                __Pyx_GIVEREF(__pyx_t_20);
+                PyTuple_SET_ITEM(__pyx_t_22, 1, __pyx_t_20);
+                __Pyx_GIVEREF(__pyx_t_21);
+                PyTuple_SET_ITEM(__pyx_t_22, 2, __pyx_t_21);
+                __pyx_t_8 = 0;
+                __pyx_t_20 = 0;
+                __pyx_t_21 = 0;
+                if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_not_dir_z), __pyx_t_22, __pyx_int_0) < 0)) __PYX_ERR(0, 128, __pyx_L1_error)
+                __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":127
+ * 
+ *                         if k_cv == -1:
+ *                             if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ *                         if k_cv == len_z:
+ */
+              }
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":126
+ *                                 not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ *                         if k_cv == -1:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ */
+            }
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":129
+ *                             if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ *                         if k_cv == len_z:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ */
+            __pyx_t_23 = ((__pyx_v_k_cv == __pyx_v_len_z) != 0);
+            if (__pyx_t_23) {
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":130
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ *                         if k_cv == len_z:
+ *                             if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ */
+              __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_np); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_isnan); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_20);
+              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+              __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __pyx_t_19 = PyTuple_New(3); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __Pyx_INCREF(__pyx_int_1);
+              __Pyx_GIVEREF(__pyx_int_1);
+              PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_int_1);
+              __Pyx_GIVEREF(__pyx_t_21);
+              PyTuple_SET_ITEM(__pyx_t_19, 1, __pyx_t_21);
+              __Pyx_GIVEREF(__pyx_t_8);
+              PyTuple_SET_ITEM(__pyx_t_19, 2, __pyx_t_8);
+              __pyx_t_21 = 0;
+              __pyx_t_8 = 0;
+              __pyx_t_8 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_19); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+              __pyx_t_19 = NULL;
+              if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_20))) {
+                __pyx_t_19 = PyMethod_GET_SELF(__pyx_t_20);
+                if (likely(__pyx_t_19)) {
+                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_20);
+                  __Pyx_INCREF(__pyx_t_19);
+                  __Pyx_INCREF(function);
+                  __Pyx_DECREF_SET(__pyx_t_20, function);
+                }
+              }
+              __pyx_t_22 = (__pyx_t_19) ? __Pyx_PyObject_Call2Args(__pyx_t_20, __pyx_t_19, __pyx_t_8) : __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_8);
+              __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
+              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+              if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_22);
+              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+              __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_22); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+              __pyx_t_18 = ((!__pyx_t_23) != 0);
+              if (__pyx_t_18) {
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":131
+ *                         if k_cv == len_z:
+ *                             if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0             # <<<<<<<<<<<<<<
+ * 
+ *                         counter_not_dir += 1
+ */
+                __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_counter_not_dir); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 131, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_22);
+                __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 131, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_20);
+                __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 131, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_8);
+                __pyx_t_19 = PyTuple_New(3); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 131, __pyx_L1_error)
+                __Pyx_GOTREF(__pyx_t_19);
+                __Pyx_GIVEREF(__pyx_t_22);
+                PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_22);
+                __Pyx_GIVEREF(__pyx_t_20);
+                PyTuple_SET_ITEM(__pyx_t_19, 1, __pyx_t_20);
+                __Pyx_GIVEREF(__pyx_t_8);
+                PyTuple_SET_ITEM(__pyx_t_19, 2, __pyx_t_8);
+                __pyx_t_22 = 0;
+                __pyx_t_20 = 0;
+                __pyx_t_8 = 0;
+                if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_not_dir_z), __pyx_t_19, __pyx_int_0) < 0)) __PYX_ERR(0, 131, __pyx_L1_error)
+                __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+
+                /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":130
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ *                         if k_cv == len_z:
+ *                             if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):             # <<<<<<<<<<<<<<
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ */
+              }
+
+              /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":129
+ *                             if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ *                         if k_cv == len_z:             # <<<<<<<<<<<<<<
+ *                             if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ */
+            }
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":133
+ *                                 not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+ * 
+ *                         counter_not_dir += 1             # <<<<<<<<<<<<<<
+ * 
+ *             # Td arranged as:
+ */
+            __pyx_v_counter_not_dir = (__pyx_v_counter_not_dir + 1);
+
+            /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":109
+ *                 for j2, j2_v in enumerate([-1, 0]):
+ *                     j_cv = j_iv + j2_v
+ *                     for i2, i2_v in enumerate([-1, 0]):             # <<<<<<<<<<<<<<
+ *                         i_cv = i_iv + i2_v
+ * 
+ */
+          }
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":107
+ *             for k2, k2_v in enumerate([-1, 0]):
+ *                 k_cv = k_iv + k2_v
+ *                 for j2, j2_v in enumerate([-1, 0]):             # <<<<<<<<<<<<<<
+ *                     j_cv = j_iv + j2_v
+ *                     for i2, i2_v in enumerate([-1, 0]):
+ */
+        }
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":105
+ *             # gather IV properties cell by cell
+ *             counter_not_dir = 0
+ *             for k2, k2_v in enumerate([-1, 0]):             # <<<<<<<<<<<<<<
+ *                 k_cv = k_iv + k2_v
+ *                 for j2, j2_v in enumerate([-1, 0]):
+ */
+      }
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":143
+ *             # T: 4  TE: 5  TN: 6  TNE: 7
+ * 
+ *             if j_iv == 0:             # <<<<<<<<<<<<<<
+ *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+ */
+      __pyx_t_18 = ((__pyx_v_j_iv == 0) != 0);
+      if (__pyx_t_18) {
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":144
+ * 
+ *             if j_iv == 0:
+ *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+ * 
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_19);
+        __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_INCREF(__pyx_int_0);
+        __Pyx_GIVEREF(__pyx_int_0);
+        PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_int_0);
+        __Pyx_GIVEREF(__pyx_t_12);
+        PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_12);
+        __Pyx_GIVEREF(__pyx_t_19);
+        PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_19);
+        __pyx_t_12 = 0;
+        __pyx_t_19 = 0;
+        __pyx_t_19 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_8); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_19);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __pyx_t_8 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_15))) {
+          __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_15);
+          if (likely(__pyx_t_8)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_15);
+            __Pyx_INCREF(__pyx_t_8);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_15, function);
+          }
+        }
+        __pyx_t_9 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_15, __pyx_t_8, __pyx_t_19) : __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_t_19);
+        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+        if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __pyx_t_23 = ((!__pyx_t_18) != 0);
+        if (__pyx_t_23) {
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":145
+ *             if j_iv == 0:
+ *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]             # <<<<<<<<<<<<<<
+ * 
+ *             if j_iv == len_y:
+ */
+          __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_15);
+          __pyx_t_19 = PyTuple_New(3); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          __Pyx_INCREF(__pyx_int_0);
+          __Pyx_GIVEREF(__pyx_int_0);
+          PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_int_0);
+          __Pyx_GIVEREF(__pyx_t_9);
+          PyTuple_SET_ITEM(__pyx_t_19, 1, __pyx_t_9);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_19, 2, __pyx_t_15);
+          __pyx_t_9 = 0;
+          __pyx_t_15 = 0;
+          __pyx_t_15 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_19); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_15);
+          __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+          __pyx_t_19 = PyList_New(4); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          __Pyx_INCREF(__pyx_int_4);
+          __Pyx_GIVEREF(__pyx_int_4);
+          PyList_SET_ITEM(__pyx_t_19, 0, __pyx_int_4);
+          __Pyx_INCREF(__pyx_int_5);
+          __Pyx_GIVEREF(__pyx_int_5);
+          PyList_SET_ITEM(__pyx_t_19, 1, __pyx_int_5);
+          __Pyx_INCREF(__pyx_int_6);
+          __Pyx_GIVEREF(__pyx_int_6);
+          PyList_SET_ITEM(__pyx_t_19, 2, __pyx_int_6);
+          __Pyx_INCREF(__pyx_int_7);
+          __Pyx_GIVEREF(__pyx_int_7);
+          PyList_SET_ITEM(__pyx_t_19, 3, __pyx_int_7);
+          __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_GIVEREF(__pyx_t_19);
+          PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_19);
+          __Pyx_GIVEREF(__pyx_t_9);
+          PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_9);
+          __Pyx_GIVEREF(__pyx_t_8);
+          PyTuple_SET_ITEM(__pyx_t_12, 2, __pyx_t_8);
+          __pyx_t_19 = 0;
+          __pyx_t_9 = 0;
+          __pyx_t_8 = 0;
+          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_15) < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":144
+ * 
+ *             if j_iv == 0:
+ *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+ * 
+ */
+        }
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":143
+ *             # T: 4  TE: 5  TN: 6  TNE: 7
+ * 
+ *             if j_iv == 0:             # <<<<<<<<<<<<<<
+ *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+ */
+      }
+
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":147
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+ * 
+ *             if j_iv == len_y:             # <<<<<<<<<<<<<<
+ *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
+ */
+      __pyx_t_23 = ((__pyx_v_j_iv == __pyx_v_len_y) != 0);
+      if (__pyx_t_23) {
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":148
+ * 
+ *             if j_iv == len_y:
+ *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
+ * 
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __pyx_t_19 = PyTuple_New(3); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_19);
+        __Pyx_INCREF(__pyx_int_1);
+        __Pyx_GIVEREF(__pyx_int_1);
+        PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_int_1);
+        __Pyx_GIVEREF(__pyx_t_12);
+        PyTuple_SET_ITEM(__pyx_t_19, 1, __pyx_t_12);
+        __Pyx_GIVEREF(__pyx_t_9);
+        PyTuple_SET_ITEM(__pyx_t_19, 2, __pyx_t_9);
+        __pyx_t_12 = 0;
+        __pyx_t_9 = 0;
+        __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_19); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+        __pyx_t_19 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
+          __pyx_t_19 = PyMethod_GET_SELF(__pyx_t_8);
+          if (likely(__pyx_t_19)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+            __Pyx_INCREF(__pyx_t_19);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_8, function);
+          }
+        }
+        __pyx_t_15 = (__pyx_t_19) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_19, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_9);
+        __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_15); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __pyx_t_18 = ((!__pyx_t_23) != 0);
+        if (__pyx_t_18) {
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":149
+ *             if j_iv == len_y:
+ *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]             # <<<<<<<<<<<<<<
+ * 
+ *             if k_iv == 0:
+ */
+          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_15);
+          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __Pyx_INCREF(__pyx_int_1);
+          __Pyx_GIVEREF(__pyx_int_1);
+          PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_int_1);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_15);
+          __Pyx_GIVEREF(__pyx_t_8);
+          PyTuple_SET_ITEM(__pyx_t_9, 2, __pyx_t_8);
+          __pyx_t_15 = 0;
+          __pyx_t_8 = 0;
+          __pyx_t_8 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+          __pyx_t_9 = PyList_New(4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __Pyx_INCREF(__pyx_int_4);
+          __Pyx_GIVEREF(__pyx_int_4);
+          PyList_SET_ITEM(__pyx_t_9, 0, __pyx_int_4);
+          __Pyx_INCREF(__pyx_int_5);
+          __Pyx_GIVEREF(__pyx_int_5);
+          PyList_SET_ITEM(__pyx_t_9, 1, __pyx_int_5);
+          __Pyx_INCREF(__pyx_int_6);
+          __Pyx_GIVEREF(__pyx_int_6);
+          PyList_SET_ITEM(__pyx_t_9, 2, __pyx_int_6);
+          __Pyx_INCREF(__pyx_int_7);
+          __Pyx_GIVEREF(__pyx_int_7);
+          PyList_SET_ITEM(__pyx_t_9, 3, __pyx_int_7);
+          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_15);
+          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_GIVEREF(__pyx_t_9);
+          PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_9);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_15);
+          __Pyx_GIVEREF(__pyx_t_19);
+          PyTuple_SET_ITEM(__pyx_t_12, 2, __pyx_t_19);
+          __pyx_t_9 = 0;
+          __pyx_t_15 = 0;
+          __pyx_t_19 = 0;
+          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_8) < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":148
+ * 
+ *             if j_iv == len_y:
+ *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):             # <<<<<<<<<<<<<<
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
+ * 
+ */
+        }
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":147
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+ * 
+ *             if j_iv == len_y:             # <<<<<<<<<<<<<<
+ *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
+ */
+      }
+
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":151
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
+ * 
+ *             if k_iv == 0:             # <<<<<<<<<<<<<<
+ *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
+ */
+      __pyx_t_18 = ((__pyx_v_k_iv == 0) != 0);
+      if (__pyx_t_18) {
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":152
+ * 
+ *             if k_iv == 0:
+ *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):             # <<<<<<<<<<<<<<
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
+ * 
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_19);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_INCREF(__pyx_int_0);
+        __Pyx_GIVEREF(__pyx_int_0);
+        PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_int_0);
+        __Pyx_GIVEREF(__pyx_t_12);
+        PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_12);
+        __Pyx_GIVEREF(__pyx_t_15);
+        PyTuple_SET_ITEM(__pyx_t_9, 2, __pyx_t_15);
+        __pyx_t_12 = 0;
+        __pyx_t_15 = 0;
+        __pyx_t_15 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_9); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __pyx_t_9 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_19))) {
+          __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_19);
+          if (likely(__pyx_t_9)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_19);
+            __Pyx_INCREF(__pyx_t_9);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_19, function);
+          }
+        }
+        __pyx_t_8 = (__pyx_t_9) ? __Pyx_PyObject_Call2Args(__pyx_t_19, __pyx_t_9, __pyx_t_15) : __Pyx_PyObject_CallOneArg(__pyx_t_19, __pyx_t_15);
+        __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+        __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __pyx_t_23 = ((!__pyx_t_18) != 0);
+        if (__pyx_t_23) {
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":153
+ *             if k_iv == 0:
+ *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]             # <<<<<<<<<<<<<<
+ * 
+ *             elif k_iv == len_z:
+ */
+          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          __pyx_t_15 = PyTuple_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_15);
+          __Pyx_INCREF(__pyx_int_0);
+          __Pyx_GIVEREF(__pyx_int_0);
+          PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_int_0);
+          __Pyx_GIVEREF(__pyx_t_8);
+          PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_t_8);
+          __Pyx_GIVEREF(__pyx_t_19);
+          PyTuple_SET_ITEM(__pyx_t_15, 2, __pyx_t_19);
+          __pyx_t_8 = 0;
+          __pyx_t_19 = 0;
+          __pyx_t_19 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_15); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __pyx_t_15 = PyList_New(4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_15);
+          __Pyx_INCREF(__pyx_int_8);
+          __Pyx_GIVEREF(__pyx_int_8);
+          PyList_SET_ITEM(__pyx_t_15, 0, __pyx_int_8);
+          __Pyx_INCREF(__pyx_int_9);
+          __Pyx_GIVEREF(__pyx_int_9);
+          PyList_SET_ITEM(__pyx_t_15, 1, __pyx_int_9);
+          __Pyx_INCREF(__pyx_int_10);
+          __Pyx_GIVEREF(__pyx_int_10);
+          PyList_SET_ITEM(__pyx_t_15, 2, __pyx_int_10);
+          __Pyx_INCREF(__pyx_int_11);
+          __Pyx_GIVEREF(__pyx_int_11);
+          PyList_SET_ITEM(__pyx_t_15, 3, __pyx_int_11);
+          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_15);
+          __Pyx_GIVEREF(__pyx_t_8);
+          PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_8);
+          __Pyx_GIVEREF(__pyx_t_9);
+          PyTuple_SET_ITEM(__pyx_t_12, 2, __pyx_t_9);
+          __pyx_t_15 = 0;
+          __pyx_t_8 = 0;
+          __pyx_t_9 = 0;
+          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_19) < 0)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":152
+ * 
+ *             if k_iv == 0:
+ *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):             # <<<<<<<<<<<<<<
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
+ * 
+ */
+        }
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":151
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
+ * 
+ *             if k_iv == 0:             # <<<<<<<<<<<<<<
+ *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
+ */
+        goto __pyx_L29;
+      }
+
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":155
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
+ * 
+ *             elif k_iv == len_z:             # <<<<<<<<<<<<<<
+ *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
+ */
+      __pyx_t_23 = ((__pyx_v_k_iv == __pyx_v_len_z) != 0);
+      if (__pyx_t_23) {
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":156
+ * 
+ *             elif k_iv == len_z:
+ *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):             # <<<<<<<<<<<<<<
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
+ * 
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __pyx_t_15 = PyTuple_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __Pyx_INCREF(__pyx_int_1);
+        __Pyx_GIVEREF(__pyx_int_1);
+        PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_int_1);
+        __Pyx_GIVEREF(__pyx_t_12);
+        PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_t_12);
+        __Pyx_GIVEREF(__pyx_t_8);
+        PyTuple_SET_ITEM(__pyx_t_15, 2, __pyx_t_8);
+        __pyx_t_12 = 0;
+        __pyx_t_8 = 0;
+        __pyx_t_8 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_15); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __pyx_t_15 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
+          __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_9);
+          if (likely(__pyx_t_15)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+            __Pyx_INCREF(__pyx_t_15);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_9, function);
+          }
+        }
+        __pyx_t_19 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_15, __pyx_t_8) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8);
+        __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_19);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_19); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+        __pyx_t_18 = ((!__pyx_t_23) != 0);
+        if (__pyx_t_18) {
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":157
+ *             elif k_iv == len_z:
+ *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]             # <<<<<<<<<<<<<<
+ * 
+ *     if i_iv == 0:
+ */
+          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __Pyx_INCREF(__pyx_int_1);
+          __Pyx_GIVEREF(__pyx_int_1);
+          PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_int_1);
+          __Pyx_GIVEREF(__pyx_t_19);
+          PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_19);
+          __Pyx_GIVEREF(__pyx_t_9);
+          PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_9);
+          __pyx_t_19 = 0;
+          __pyx_t_9 = 0;
+          __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+          __pyx_t_8 = PyList_New(4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __Pyx_INCREF(__pyx_int_8);
+          __Pyx_GIVEREF(__pyx_int_8);
+          PyList_SET_ITEM(__pyx_t_8, 0, __pyx_int_8);
+          __Pyx_INCREF(__pyx_int_9);
+          __Pyx_GIVEREF(__pyx_int_9);
+          PyList_SET_ITEM(__pyx_t_8, 1, __pyx_int_9);
+          __Pyx_INCREF(__pyx_int_10);
+          __Pyx_GIVEREF(__pyx_int_10);
+          PyList_SET_ITEM(__pyx_t_8, 2, __pyx_int_10);
+          __Pyx_INCREF(__pyx_int_11);
+          __Pyx_GIVEREF(__pyx_int_11);
+          PyList_SET_ITEM(__pyx_t_8, 3, __pyx_int_11);
+          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_15);
+          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_GIVEREF(__pyx_t_8);
+          PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_8);
+          __Pyx_GIVEREF(__pyx_t_19);
+          PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_19);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_12, 2, __pyx_t_15);
+          __pyx_t_8 = 0;
+          __pyx_t_19 = 0;
+          __pyx_t_15 = 0;
+          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":156
+ * 
+ *             elif k_iv == len_z:
+ *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):             # <<<<<<<<<<<<<<
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
+ * 
+ */
+        }
+
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":155
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
+ * 
+ *             elif k_iv == len_z:             # <<<<<<<<<<<<<<
+ *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
+ */
+      }
+      __pyx_L29:;
+    }
+  }
+
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":159
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
+ * 
+ *     if i_iv == 0:             # <<<<<<<<<<<<<<
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
+ */
+  __pyx_t_18 = ((__pyx_v_i_iv == 0) != 0);
+  if (__pyx_t_18) {
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":160
+ * 
+ *     if i_iv == 0:
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])             # <<<<<<<<<<<<<<
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
+ *         Td[[1, 2, 3]] = Td[0]
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_15);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_tuple__3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_19 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_15))) {
+      __pyx_t_19 = PyMethod_GET_SELF(__pyx_t_15);
+      if (likely(__pyx_t_19)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_15);
+        __Pyx_INCREF(__pyx_t_19);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_15, function);
+      }
+    }
+    __pyx_t_9 = (__pyx_t_19) ? __Pyx_PyObject_Call2Args(__pyx_t_15, __pyx_t_19, __pyx_t_12) : __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_t_12);
+    __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __pyx_t_15 = PyNumber_Invert(__pyx_t_9); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_15);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_v_mask_assigned_dir = __pyx_t_15;
+    __pyx_t_15 = 0;
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":161
+ *     if i_iv == 0:
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]             # <<<<<<<<<<<<<<
+ *         Td[[1, 2, 3]] = Td[0]
+ * 
+ */
+    __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_15);
+    __Pyx_INCREF(__pyx_int_0);
+    __Pyx_GIVEREF(__pyx_int_0);
+    PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_int_0);
+    __Pyx_INCREF(__pyx_v_mask_assigned_dir);
+    __Pyx_GIVEREF(__pyx_v_mask_assigned_dir);
+    PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_v_mask_assigned_dir);
+    __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_t_15); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_15);
+    __Pyx_INCREF(__pyx_int_0);
+    __Pyx_GIVEREF(__pyx_int_0);
+    PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_int_0);
+    __Pyx_INCREF(__pyx_v_mask_assigned_dir);
+    __Pyx_GIVEREF(__pyx_v_mask_assigned_dir);
+    PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_v_mask_assigned_dir);
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_15, __pyx_t_9) < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":162
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
+ *         Td[[1, 2, 3]] = Td[0]             # <<<<<<<<<<<<<<
+ * 
+ *     elif i_iv == len_x:
+ */
+    __pyx_t_9 = __Pyx_GetItemInt(((PyObject *)__pyx_v_Td), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_15 = PyList_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_15);
+    __Pyx_INCREF(__pyx_int_1);
+    __Pyx_GIVEREF(__pyx_int_1);
+    PyList_SET_ITEM(__pyx_t_15, 0, __pyx_int_1);
+    __Pyx_INCREF(__pyx_int_2);
+    __Pyx_GIVEREF(__pyx_int_2);
+    PyList_SET_ITEM(__pyx_t_15, 1, __pyx_int_2);
+    __Pyx_INCREF(__pyx_int_3);
+    __Pyx_GIVEREF(__pyx_int_3);
+    PyList_SET_ITEM(__pyx_t_15, 2, __pyx_int_3);
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_15, __pyx_t_9) < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":159
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
+ * 
+ *     if i_iv == 0:             # <<<<<<<<<<<<<<
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
+ */
+    goto __pyx_L32;
+  }
+
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":164
+ *         Td[[1, 2, 3]] = Td[0]
+ * 
+ *     elif i_iv == len_x:             # <<<<<<<<<<<<<<
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
+ */
+  __pyx_t_18 = ((__pyx_v_i_iv == __pyx_v_len_x) != 0);
+  if (__pyx_t_18) {
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":165
+ * 
+ *     elif i_iv == len_x:
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])             # <<<<<<<<<<<<<<
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
+ *         Td[[1, 2, 3]] = Td[0]
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_15, __pyx_n_s_np); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_15);
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_isnan); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __pyx_t_15 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_tuple__4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_15);
+    __pyx_t_19 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
+      __pyx_t_19 = PyMethod_GET_SELF(__pyx_t_12);
+      if (likely(__pyx_t_19)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+        __Pyx_INCREF(__pyx_t_19);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_12, function);
+      }
+    }
+    __pyx_t_9 = (__pyx_t_19) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_19, __pyx_t_15) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_15);
+    __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
+    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = PyNumber_Invert(__pyx_t_9); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_v_mask_assigned_dir = __pyx_t_12;
+    __pyx_t_12 = 0;
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":166
+ *     elif i_iv == len_x:
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]             # <<<<<<<<<<<<<<
+ *         Td[[1, 2, 3]] = Td[0]
+ */
+    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_INCREF(__pyx_int_1);
+    __Pyx_GIVEREF(__pyx_int_1);
+    PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_int_1);
+    __Pyx_INCREF(__pyx_v_mask_assigned_dir);
+    __Pyx_GIVEREF(__pyx_v_mask_assigned_dir);
+    PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_v_mask_assigned_dir);
+    __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_t_12); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_INCREF(__pyx_int_0);
+    __Pyx_GIVEREF(__pyx_int_0);
+    PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_int_0);
+    __Pyx_INCREF(__pyx_v_mask_assigned_dir);
+    __Pyx_GIVEREF(__pyx_v_mask_assigned_dir);
+    PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_v_mask_assigned_dir);
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":167
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
+ *         Td[[1, 2, 3]] = Td[0]             # <<<<<<<<<<<<<<
+ */
+    __pyx_t_9 = __Pyx_GetItemInt(((PyObject *)__pyx_v_Td), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_12 = PyList_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_INCREF(__pyx_int_1);
+    __Pyx_GIVEREF(__pyx_int_1);
+    PyList_SET_ITEM(__pyx_t_12, 0, __pyx_int_1);
+    __Pyx_INCREF(__pyx_int_2);
+    __Pyx_GIVEREF(__pyx_int_2);
+    PyList_SET_ITEM(__pyx_t_12, 1, __pyx_int_2);
+    __Pyx_INCREF(__pyx_int_3);
+    __Pyx_GIVEREF(__pyx_int_3);
+    PyList_SET_ITEM(__pyx_t_12, 2, __pyx_int_3);
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":164
+ *         Td[[1, 2, 3]] = Td[0]
+ * 
+ *     elif i_iv == len_x:             # <<<<<<<<<<<<<<
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
+ */
+  }
+  __pyx_L32:;
+
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":95
+ * 
+ * 
+ * def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarray not_dir_z, np.ndarray Td,             # <<<<<<<<<<<<<<
+ *                             np.ndarray dirichlet_bc_xfaces, np.ndarray dirichlet_bc_yfaces, np.ndarray dirichlet_bc_zfaces,
+ *                             int len_x, int len_y, int len_z, int i_iv):
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_12);
+  __Pyx_XDECREF(__pyx_t_15);
+  __Pyx_XDECREF(__pyx_t_19);
+  __Pyx_XDECREF(__pyx_t_20);
+  __Pyx_XDECREF(__pyx_t_21);
+  __Pyx_XDECREF(__pyx_t_22);
+  __Pyx_AddTraceback("pumapy.physics_models.finite_volume.anisotropic_conductivity_utils.assign_prescribed_bc_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_mask_assigned_dir);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -6133,7 +8041,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 945, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 945, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6265,7 +8173,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 951, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 951, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6397,7 +8305,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  * 
  * cdef extern from *:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 957, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 957, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6821,7 +8729,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  * 
  *         if itemsize <= 0:
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 134, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6853,7 +8761,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  * 
  *         if not isinstance(format, bytes):
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 137, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6980,7 +8888,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  * 
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 149, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 149, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7254,7 +9162,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  * 
  *             if self.dtype_is_object:
  */
-      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(2, 177, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(2, 177, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_Raise(__pyx_t_10, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -7498,7 +9406,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(stru
  *         info.buf = self.data
  *         info.len = self.len
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 193, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 193, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -8232,7 +10140,7 @@ static PyObject *__pyx_pf___pyx_array___reduce_cython__(CYTHON_UNUSED struct __p
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -8288,7 +10196,7 @@ static PyObject *__pyx_pf___pyx_array_2__setstate_cython__(CYTHON_UNUSED struct 
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -10017,7 +11925,7 @@ static int __pyx_memoryview___pyx_pf_15View_dot_MemoryView_10memoryview_6__setit
  * 
  *         have_slices, index = _unellipsify(index, self.view.ndim)
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 420, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -11065,7 +12973,7 @@ static PyObject *__pyx_memoryview_convert_item_to_object(struct __pyx_memoryview
  *         else:
  *             if len(self.view.format) == 1:
  */
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 497, __pyx_L5_except_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 497, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_Raise(__pyx_t_6, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -11427,7 +13335,7 @@ static int __pyx_memoryview___pyx_pf_15View_dot_MemoryView_10memoryview_8__getbu
  * 
  *         if flags & PyBUF_ND:
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 522, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 522, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -11976,7 +13884,7 @@ static PyObject *__pyx_pf_15View_dot_MemoryView_10memoryview_7strides___get__(st
  * 
  *         return tuple([stride for stride in self.view.strides[:self.view.ndim]])
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 572, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 572, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -12093,7 +14001,7 @@ static PyObject *__pyx_pf_15View_dot_MemoryView_10memoryview_10suboffsets___get_
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->view.ndim); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 579, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyNumber_Multiply(__pyx_tuple__15, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 579, __pyx_L1_error)
+    __pyx_t_3 = PyNumber_Multiply(__pyx_tuple__18, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 579, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_r = __pyx_t_3;
@@ -13131,7 +15039,7 @@ static PyObject *__pyx_pf___pyx_memoryview___reduce_cython__(CYTHON_UNUSED struc
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -13187,7 +15095,7 @@ static PyObject *__pyx_pf___pyx_memoryview_2__setstate_cython__(CYTHON_UNUSED st
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -13544,9 +15452,9 @@ static PyObject *_unellipsify(PyObject *__pyx_v_index, int __pyx_v_ndim) {
         __Pyx_GOTREF(__pyx_t_7);
         { Py_ssize_t __pyx_temp;
           for (__pyx_temp=0; __pyx_temp < ((__pyx_v_ndim - __pyx_t_8) + 1); __pyx_temp++) {
-            __Pyx_INCREF(__pyx_slice__18);
-            __Pyx_GIVEREF(__pyx_slice__18);
-            PyList_SET_ITEM(__pyx_t_7, __pyx_temp, __pyx_slice__18);
+            __Pyx_INCREF(__pyx_slice__2);
+            __Pyx_GIVEREF(__pyx_slice__2);
+            PyList_SET_ITEM(__pyx_t_7, __pyx_temp, __pyx_slice__2);
           }
         }
         __pyx_t_9 = __Pyx_PyList_Extend(__pyx_v_result, __pyx_t_7); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(2, 684, __pyx_L1_error)
@@ -13579,7 +15487,7 @@ static PyObject *_unellipsify(PyObject *__pyx_v_index, int __pyx_v_ndim) {
  *         else:
  */
       /*else*/ {
-        __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_result, __pyx_slice__18); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(2, 687, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_result, __pyx_slice__2); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(2, 687, __pyx_L1_error)
       }
       __pyx_L7:;
 
@@ -13719,9 +15627,9 @@ static PyObject *_unellipsify(PyObject *__pyx_v_index, int __pyx_v_ndim) {
     __Pyx_GOTREF(__pyx_t_3);
     { Py_ssize_t __pyx_temp;
       for (__pyx_temp=0; __pyx_temp < __pyx_v_nslices; __pyx_temp++) {
-        __Pyx_INCREF(__pyx_slice__18);
-        __Pyx_GIVEREF(__pyx_slice__18);
-        PyList_SET_ITEM(__pyx_t_3, __pyx_temp, __pyx_slice__18);
+        __Pyx_INCREF(__pyx_slice__2);
+        __Pyx_GIVEREF(__pyx_slice__2);
+        PyList_SET_ITEM(__pyx_t_3, __pyx_temp, __pyx_slice__2);
       }
     }
     __pyx_t_9 = __Pyx_PyList_Extend(__pyx_v_result, __pyx_t_3); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(2, 698, __pyx_L1_error)
@@ -13848,7 +15756,7 @@ static PyObject *assert_direct_dimensions(Py_ssize_t *__pyx_v_suboffsets, int __
  * 
  * 
  */
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 705, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 705, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_Raise(__pyx_t_5, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -16032,7 +17940,7 @@ static PyObject *__pyx_pf___pyx_memoryviewslice___reduce_cython__(CYTHON_UNUSED 
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -16088,7 +17996,7 @@ static PyObject *__pyx_pf___pyx_memoryviewslice_2__setstate_cython__(CYTHON_UNUS
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -19365,7 +21273,7 @@ static PyObject *__pyx_pf_15View_dot_MemoryView___pyx_unpickle_Enum(CYTHON_UNUSE
  */
   __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_t_1, __pyx_tuple__22, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_t_1, __pyx_tuple__24, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(2, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
@@ -20457,11 +22365,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Out_of_bounds_on_buffer_access_a, __pyx_k_Out_of_bounds_on_buffer_access_a, sizeof(__pyx_k_Out_of_bounds_on_buffer_access_a), 0, 0, 1, 0},
   {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
   {&__pyx_n_s_T, __pyx_k_T, sizeof(__pyx_k_T), 0, 0, 1, 1},
+  {&__pyx_n_s_Td, __pyx_k_Td, sizeof(__pyx_k_Td), 0, 0, 1, 1},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_kp_s_Unable_to_convert_item_to_object, __pyx_k_Unable_to_convert_item_to_object, sizeof(__pyx_k_Unable_to_convert_item_to_object), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_View_MemoryView, __pyx_k_View_MemoryView, sizeof(__pyx_k_View_MemoryView), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
+  {&__pyx_n_s_assign_prescribed_bc_cy, __pyx_k_assign_prescribed_bc_cy, sizeof(__pyx_k_assign_prescribed_bc_cy), 0, 0, 1, 1},
   {&__pyx_n_s_base, __pyx_k_base, sizeof(__pyx_k_base), 0, 0, 1, 1},
   {&__pyx_n_s_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 0, 1, 1},
   {&__pyx_n_u_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 1, 0, 1},
@@ -20472,10 +22382,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_counter, __pyx_k_counter, sizeof(__pyx_k_counter), 0, 0, 1, 1},
   {&__pyx_n_s_counter_A, __pyx_k_counter_A, sizeof(__pyx_k_counter_A), 0, 0, 1, 1},
   {&__pyx_n_s_counter_b, __pyx_k_counter_b, sizeof(__pyx_k_counter_b), 0, 0, 1, 1},
+  {&__pyx_n_s_counter_not_dir, __pyx_k_counter_not_dir, sizeof(__pyx_k_counter_not_dir), 0, 0, 1, 1},
   {&__pyx_n_s_create_Ab_indices_cy, __pyx_k_create_Ab_indices_cy, sizeof(__pyx_k_create_Ab_indices_cy), 0, 0, 1, 1},
   {&__pyx_n_s_create_T_ivs_cy, __pyx_k_create_T_ivs_cy, sizeof(__pyx_k_create_T_ivs_cy), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_dim, __pyx_k_dim, sizeof(__pyx_k_dim), 0, 0, 1, 1},
+  {&__pyx_n_s_dirichlet_bc_xfaces, __pyx_k_dirichlet_bc_xfaces, sizeof(__pyx_k_dirichlet_bc_xfaces), 0, 0, 1, 1},
+  {&__pyx_n_s_dirichlet_bc_yfaces, __pyx_k_dirichlet_bc_yfaces, sizeof(__pyx_k_dirichlet_bc_yfaces), 0, 0, 1, 1},
+  {&__pyx_n_s_dirichlet_bc_zfaces, __pyx_k_dirichlet_bc_zfaces, sizeof(__pyx_k_dirichlet_bc_zfaces), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
   {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
@@ -20490,8 +22404,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_global_js, __pyx_k_global_js, sizeof(__pyx_k_global_js), 0, 0, 1, 1},
   {&__pyx_kp_s_got_differing_extents_in_dimensi, __pyx_k_got_differing_extents_in_dimensi, sizeof(__pyx_k_got_differing_extents_in_dimensi), 0, 0, 1, 0},
   {&__pyx_n_s_i2, __pyx_k_i2, sizeof(__pyx_k_i2), 0, 0, 1, 1},
+  {&__pyx_n_s_i2_v, __pyx_k_i2_v, sizeof(__pyx_k_i2_v), 0, 0, 1, 1},
   {&__pyx_n_s_i_bc, __pyx_k_i_bc, sizeof(__pyx_k_i_bc), 0, 0, 1, 1},
   {&__pyx_n_s_i_cv, __pyx_k_i_cv, sizeof(__pyx_k_i_cv), 0, 0, 1, 1},
+  {&__pyx_n_s_i_iv, __pyx_k_i_iv, sizeof(__pyx_k_i_iv), 0, 0, 1, 1},
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_index, __pyx_k_index, sizeof(__pyx_k_index), 0, 0, 1, 1},
@@ -20499,19 +22415,25 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_index_at_p, __pyx_k_index_at_p, sizeof(__pyx_k_index_at_p), 0, 0, 1, 1},
   {&__pyx_n_s_index_at_s, __pyx_k_index_at_s, sizeof(__pyx_k_index_at_s), 0, 0, 1, 1},
   {&__pyx_n_s_int, __pyx_k_int, sizeof(__pyx_k_int), 0, 0, 1, 1},
+  {&__pyx_n_s_isnan, __pyx_k_isnan, sizeof(__pyx_k_isnan), 0, 0, 1, 1},
   {&__pyx_n_s_itemsize, __pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 0, 1, 1},
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_j2, __pyx_k_j2, sizeof(__pyx_k_j2), 0, 0, 1, 1},
+  {&__pyx_n_s_j2_v, __pyx_k_j2_v, sizeof(__pyx_k_j2_v), 0, 0, 1, 1},
   {&__pyx_n_s_j_bc, __pyx_k_j_bc, sizeof(__pyx_k_j_bc), 0, 0, 1, 1},
   {&__pyx_n_s_j_cv, __pyx_k_j_cv, sizeof(__pyx_k_j_cv), 0, 0, 1, 1},
+  {&__pyx_n_s_j_iv, __pyx_k_j_iv, sizeof(__pyx_k_j_iv), 0, 0, 1, 1},
   {&__pyx_n_s_k2, __pyx_k_k2, sizeof(__pyx_k_k2), 0, 0, 1, 1},
+  {&__pyx_n_s_k2_v, __pyx_k_k2_v, sizeof(__pyx_k_k2_v), 0, 0, 1, 1},
   {&__pyx_n_s_k_bc, __pyx_k_k_bc, sizeof(__pyx_k_k_bc), 0, 0, 1, 1},
   {&__pyx_n_s_k_cv, __pyx_k_k_cv, sizeof(__pyx_k_k_cv), 0, 0, 1, 1},
+  {&__pyx_n_s_k_iv, __pyx_k_k_iv, sizeof(__pyx_k_k_iv), 0, 0, 1, 1},
   {&__pyx_n_s_len_x, __pyx_k_len_x, sizeof(__pyx_k_len_x), 0, 0, 1, 1},
   {&__pyx_n_s_len_xyz, __pyx_k_len_xyz, sizeof(__pyx_k_len_xyz), 0, 0, 1, 1},
   {&__pyx_n_s_len_y, __pyx_k_len_y, sizeof(__pyx_k_len_y), 0, 0, 1, 1},
   {&__pyx_n_s_len_z, __pyx_k_len_z, sizeof(__pyx_k_len_z), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+  {&__pyx_n_s_mask_assigned_dir, __pyx_k_mask_assigned_dir, sizeof(__pyx_k_mask_assigned_dir), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -20519,6 +22441,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ndim, __pyx_k_ndim, sizeof(__pyx_k_ndim), 0, 0, 1, 1},
   {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
   {&__pyx_kp_s_no_default___reduce___due_to_non, __pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 0, 1, 0},
+  {&__pyx_n_s_not_dir_x, __pyx_k_not_dir_x, sizeof(__pyx_k_not_dir_x), 0, 0, 1, 1},
+  {&__pyx_n_s_not_dir_y, __pyx_k_not_dir_y, sizeof(__pyx_k_not_dir_y), 0, 0, 1, 1},
+  {&__pyx_n_s_not_dir_z, __pyx_k_not_dir_z, sizeof(__pyx_k_not_dir_z), 0, 0, 1, 1},
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
@@ -20573,10 +22498,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 105, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 945, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(2, 134, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(2, 149, __pyx_L1_error)
-  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(2, 152, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(2, 2, __pyx_L1_error)
   __pyx_builtin_Ellipsis = __Pyx_GetBuiltinName(__pyx_n_s_Ellipsis); if (!__pyx_builtin_Ellipsis) __PYX_ERR(2, 406, __pyx_L1_error)
   __pyx_builtin_id = __Pyx_GetBuiltinName(__pyx_n_s_id); if (!__pyx_builtin_id) __PYX_ERR(2, 615, __pyx_L1_error)
@@ -20601,6 +22526,31 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":160
+ * 
+ *     if i_iv == 0:
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])             # <<<<<<<<<<<<<<
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
+ *         Td[[1, 2, 3]] = Td[0]
+ */
+  __pyx_slice__2 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__2)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__2);
+  __Pyx_GIVEREF(__pyx_slice__2);
+  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_int_0, __pyx_slice__2, __pyx_slice__2); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
+
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":165
+ * 
+ *     elif i_iv == len_x:
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])             # <<<<<<<<<<<<<<
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
+ *         Td[[1, 2, 3]] = Td[0]
+ */
+  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_int_1, __pyx_slice__2, __pyx_slice__2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
+
   /* "../../../anaconda3/envs/puma2/lib/python3.9/site-packages/numpy/__init__.pxd":945
  *         __pyx_import_array()
  *     except Exception:
@@ -20608,9 +22558,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 945, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 945, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
 
   /* "../../../anaconda3/envs/puma2/lib/python3.9/site-packages/numpy/__init__.pxd":951
  *         _import_umath()
@@ -20619,9 +22569,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 951, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__3);
-  __Pyx_GIVEREF(__pyx_tuple__3);
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 951, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
 
   /* "View.MemoryView":134
  * 
@@ -20630,9 +22580,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *         if itemsize <= 0:
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_Empty_shape_tuple_for_cython_arr); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(2, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_Empty_shape_tuple_for_cython_arr); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(2, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
 
   /* "View.MemoryView":137
  * 
@@ -20641,9 +22591,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *         if not isinstance(format, bytes):
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_itemsize_0_for_cython_array); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(2, 137, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__5);
-  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_itemsize_0_for_cython_array); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(2, 137, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
 
   /* "View.MemoryView":149
  * 
@@ -20652,9 +22602,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_unable_to_allocate_shape_and_str); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(2, 149, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_unable_to_allocate_shape_and_str); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(2, 149, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__9);
+  __Pyx_GIVEREF(__pyx_tuple__9);
 
   /* "View.MemoryView":177
  *             self.data = <char *>malloc(self.len)
@@ -20663,9 +22613,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *             if self.dtype_is_object:
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_unable_to_allocate_array_data); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(2, 177, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_unable_to_allocate_array_data); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(2, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
 
   /* "View.MemoryView":193
  *             bufmode = PyBUF_F_CONTIGUOUS | PyBUF_ANY_CONTIGUOUS
@@ -20674,9 +22624,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         info.buf = self.data
  *         info.len = self.len
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_Can_only_create_a_buffer_that_is); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(2, 193, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__8);
-  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_Can_only_create_a_buffer_that_is); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(2, 193, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
@@ -20684,18 +22634,18 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(2, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(2, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
 
   /* "(tree fragment)":4
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(2, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
 
   /* "View.MemoryView":420
  *     def __setitem__(memoryview self, object index, object value):
@@ -20704,9 +22654,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *         have_slices, index = _unellipsify(index, self.view.ndim)
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_Cannot_assign_to_read_only_memor); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(2, 420, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_Cannot_assign_to_read_only_memor); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(2, 420, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
 
   /* "View.MemoryView":497
  *             result = struct.unpack(self.view.format, bytesitem)
@@ -20715,9 +22665,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         else:
  *             if len(self.view.format) == 1:
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_Unable_to_convert_item_to_object); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(2, 497, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_s_Unable_to_convert_item_to_object); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(2, 497, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
 
   /* "View.MemoryView":522
  *     def __getbuffer__(self, Py_buffer *info, int flags):
@@ -20726,9 +22676,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *         if flags & PyBUF_ND:
  */
-  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_s_Cannot_create_writable_memory_vi); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(2, 522, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_s_Cannot_create_writable_memory_vi); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(2, 522, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
 
   /* "View.MemoryView":572
  *         if self.view.strides == NULL:
@@ -20737,9 +22687,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *         return tuple([stride for stride in self.view.strides[:self.view.ndim]])
  */
-  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_Buffer_view_does_not_expose_stri); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(2, 572, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
+  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_s_Buffer_view_does_not_expose_stri); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(2, 572, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
 
   /* "View.MemoryView":579
  *     def suboffsets(self):
@@ -20748,12 +22698,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *         return tuple([suboffset for suboffset in self.view.suboffsets[:self.view.ndim]])
  */
-  __pyx_tuple__15 = PyTuple_New(1); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(2, 579, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__15);
+  __pyx_tuple__18 = PyTuple_New(1); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(2, 579, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_INCREF(__pyx_int_neg_1);
   __Pyx_GIVEREF(__pyx_int_neg_1);
-  PyTuple_SET_ITEM(__pyx_tuple__15, 0, __pyx_int_neg_1);
-  __Pyx_GIVEREF(__pyx_tuple__15);
+  PyTuple_SET_ITEM(__pyx_tuple__18, 0, __pyx_int_neg_1);
+  __Pyx_GIVEREF(__pyx_tuple__18);
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
@@ -20761,29 +22711,18 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(2, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(2, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
 
   /* "(tree fragment)":4
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(2, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
-
-  /* "View.MemoryView":684
- *         if item is Ellipsis:
- *             if not seen_ellipsis:
- *                 result.extend([slice(None)] * (ndim - len(tup) + 1))             # <<<<<<<<<<<<<<
- *                 seen_ellipsis = True
- *             else:
- */
-  __pyx_slice__18 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__18)) __PYX_ERR(2, 684, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__18);
-  __Pyx_GIVEREF(__pyx_slice__18);
+  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
 
   /* "View.MemoryView":705
  *     for suboffset in suboffsets[:ndim]:
@@ -20792,9 +22731,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_Indirect_dimensions_not_supporte); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(2, 705, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_Indirect_dimensions_not_supporte); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(2, 705, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
@@ -20802,21 +22741,21 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(2, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__20);
-  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(2, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
 
   /* "(tree fragment)":4
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(2, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_tuple__22 = PyTuple_Pack(3, __pyx_int_184977713, __pyx_int_136983863, __pyx_int_112105877); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(2, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_tuple__24 = PyTuple_Pack(3, __pyx_int_184977713, __pyx_int_136983863, __pyx_int_112105877); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
 
   /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":9
  * 
@@ -20825,10 +22764,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *     if index == -1:
  *         return size - 1
  */
-  __pyx_tuple__23 = PyTuple_Pack(2, __pyx_n_s_index, __pyx_n_s_size); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__23);
-  __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_index_at_p, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(2, __pyx_n_s_index, __pyx_n_s_size); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_index_at_p, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 9, __pyx_L1_error)
 
   /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":17
  * 
@@ -20837,10 +22776,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *     if index == -1:
  *         return 0
  */
-  __pyx_tuple__25 = PyTuple_Pack(2, __pyx_n_s_index, __pyx_n_s_size); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 17, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_index_at_s, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(2, __pyx_n_s_index, __pyx_n_s_size); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_index_at_s, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 17, __pyx_L1_error)
 
   /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":25
  * 
@@ -20849,10 +22788,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *                       int i_cv, int len_x, int len_y, int len_z, int len_xyz, str side_bc):
  * 
  */
-  __pyx_tuple__27 = PyTuple_Pack(23, __pyx_n_s_I_A, __pyx_n_s_J_A, __pyx_n_s_I_b, __pyx_n_s_counter_A, __pyx_n_s_counter_b, __pyx_n_s_i_cv, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_len_xyz, __pyx_n_s_side_bc, __pyx_n_s_j_cv, __pyx_n_s_k_cv, __pyx_n_s_i2, __pyx_n_s_j2, __pyx_n_s_k2, __pyx_n_s_i_bc, __pyx_n_s_j_bc, __pyx_n_s_k_bc, __pyx_n_s_counter, __pyx_n_s_global_i, __pyx_n_s_global_js, __pyx_n_s_index_at); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 25, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__27);
-  __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(11, 0, 23, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_create_Ab_indices_cy, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(23, __pyx_n_s_I_A, __pyx_n_s_J_A, __pyx_n_s_I_b, __pyx_n_s_counter_A, __pyx_n_s_counter_b, __pyx_n_s_i_cv, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_len_xyz, __pyx_n_s_side_bc, __pyx_n_s_j_cv, __pyx_n_s_k_cv, __pyx_n_s_i2, __pyx_n_s_j2, __pyx_n_s_k2, __pyx_n_s_i_bc, __pyx_n_s_j_bc, __pyx_n_s_k_bc, __pyx_n_s_counter, __pyx_n_s_global_i, __pyx_n_s_global_js, __pyx_n_s_index_at); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(11, 0, 23, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_create_Ab_indices_cy, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 25, __pyx_L1_error)
 
   /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":61
  * 
@@ -20861,10 +22800,22 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *                     np.ndarray t_sw, np.ndarray t_se, np.ndarray t_nw, np.ndarray t_ne,
  *                     np.ndarray t_tsw, np.ndarray t_tse, np.ndarray t_tnw, np.ndarray t_tne):
  */
-  __pyx_tuple__29 = PyTuple_Pack(27, __pyx_n_s_T, __pyx_n_s_tf, __pyx_n_s_i_cv, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_len_xyz, __pyx_n_s_side_bc, __pyx_n_s_t_sw, __pyx_n_s_t_se, __pyx_n_s_t_nw, __pyx_n_s_t_ne, __pyx_n_s_t_tsw, __pyx_n_s_t_tse, __pyx_n_s_t_tnw, __pyx_n_s_t_tne, __pyx_n_s_j_cv, __pyx_n_s_k_cv, __pyx_n_s_i2, __pyx_n_s_j2, __pyx_n_s_k2, __pyx_n_s_i_bc, __pyx_n_s_j_bc, __pyx_n_s_k_bc, __pyx_n_s_dim, __pyx_n_s_counter, __pyx_n_s_index_at); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 61, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__29);
-  __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(16, 0, 27, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_create_T_ivs_cy, 61, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(27, __pyx_n_s_T, __pyx_n_s_tf, __pyx_n_s_i_cv, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_len_xyz, __pyx_n_s_side_bc, __pyx_n_s_t_sw, __pyx_n_s_t_se, __pyx_n_s_t_nw, __pyx_n_s_t_ne, __pyx_n_s_t_tsw, __pyx_n_s_t_tse, __pyx_n_s_t_tnw, __pyx_n_s_t_tne, __pyx_n_s_j_cv, __pyx_n_s_k_cv, __pyx_n_s_i2, __pyx_n_s_j2, __pyx_n_s_k2, __pyx_n_s_i_bc, __pyx_n_s_j_bc, __pyx_n_s_k_bc, __pyx_n_s_dim, __pyx_n_s_counter, __pyx_n_s_index_at); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__31);
+  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(16, 0, 27, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_create_T_ivs_cy, 61, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 61, __pyx_L1_error)
+
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":95
+ * 
+ * 
+ * def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarray not_dir_z, np.ndarray Td,             # <<<<<<<<<<<<<<
+ *                             np.ndarray dirichlet_bc_xfaces, np.ndarray dirichlet_bc_yfaces, np.ndarray dirichlet_bc_zfaces,
+ *                             int len_x, int len_y, int len_z, int i_iv):
+ */
+  __pyx_tuple__33 = PyTuple_Pack(24, __pyx_n_s_not_dir_x, __pyx_n_s_not_dir_y, __pyx_n_s_not_dir_z, __pyx_n_s_Td, __pyx_n_s_dirichlet_bc_xfaces, __pyx_n_s_dirichlet_bc_yfaces, __pyx_n_s_dirichlet_bc_zfaces, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_i_iv, __pyx_n_s_j_iv, __pyx_n_s_k_iv, __pyx_n_s_k2, __pyx_n_s_k2_v, __pyx_n_s_j2, __pyx_n_s_j2_v, __pyx_n_s_i2, __pyx_n_s_i2_v, __pyx_n_s_i_cv, __pyx_n_s_counter_not_dir, __pyx_n_s_k_cv, __pyx_n_s_j_cv, __pyx_n_s_mask_assigned_dir); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(11, 0, 24, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_assign_prescribed_bc_cy, 95, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 95, __pyx_L1_error)
 
   /* "View.MemoryView":287
  *         return self.name
@@ -20873,9 +22824,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * cdef strided = Enum("<strided and direct>") # default
  * cdef indirect = Enum("<strided and indirect>")
  */
-  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct_or_indirect); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(2, 287, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__31);
-  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_tuple__35 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct_or_indirect); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(2, 287, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
 
   /* "View.MemoryView":288
  * 
@@ -20884,9 +22835,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * cdef indirect = Enum("<strided and indirect>")
  * 
  */
-  __pyx_tuple__32 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(2, 288, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
+  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(2, 288, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__36);
+  __Pyx_GIVEREF(__pyx_tuple__36);
 
   /* "View.MemoryView":289
  * cdef generic = Enum("<strided and direct or indirect>")
@@ -20895,9 +22846,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__33 = PyTuple_Pack(1, __pyx_kp_s_strided_and_indirect); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(2, 289, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__33);
-  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_kp_s_strided_and_indirect); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(2, 289, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__37);
+  __Pyx_GIVEREF(__pyx_tuple__37);
 
   /* "View.MemoryView":292
  * 
@@ -20906,9 +22857,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * cdef indirect_contiguous = Enum("<contiguous and indirect>")
  * 
  */
-  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_direct); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(2, 292, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
+  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_direct); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(2, 292, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__38);
+  __Pyx_GIVEREF(__pyx_tuple__38);
 
   /* "View.MemoryView":293
  * 
@@ -20917,19 +22868,19 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__35 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_indirect); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(2, 293, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__35);
-  __Pyx_GIVEREF(__pyx_tuple__35);
+  __pyx_tuple__39 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_indirect); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(2, 293, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__39);
+  __Pyx_GIVEREF(__pyx_tuple__39);
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_Enum(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_tuple__36 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(2, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Enum, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __pyx_tuple__40 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__40);
+  __Pyx_GIVEREF(__pyx_tuple__40);
+  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Enum, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -20941,6 +22892,16 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_3 = PyInt_FromLong(3); if (unlikely(!__pyx_int_3)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_4 = PyInt_FromLong(4); if (unlikely(!__pyx_int_4)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_5 = PyInt_FromLong(5); if (unlikely(!__pyx_int_5)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_6 = PyInt_FromLong(6); if (unlikely(!__pyx_int_6)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_7 = PyInt_FromLong(7); if (unlikely(!__pyx_int_7)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_8 = PyInt_FromLong(8); if (unlikely(!__pyx_int_8)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_9 = PyInt_FromLong(9); if (unlikely(!__pyx_int_9)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_10 = PyInt_FromLong(10); if (unlikely(!__pyx_int_10)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_11 = PyInt_FromLong(11); if (unlikely(!__pyx_int_11)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_27 = PyInt_FromLong(27); if (unlikely(!__pyx_int_27)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_112105877 = PyInt_FromLong(112105877L); if (unlikely(!__pyx_int_112105877)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_136983863 = PyInt_FromLong(136983863L); if (unlikely(!__pyx_int_136983863)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -21414,6 +23375,18 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_create_T_ivs_cy, __pyx_t_3) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":95
+ * 
+ * 
+ * def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarray not_dir_z, np.ndarray Td,             # <<<<<<<<<<<<<<
+ *                             np.ndarray dirichlet_bc_xfaces, np.ndarray dirichlet_bc_yfaces, np.ndarray dirichlet_bc_zfaces,
+ *                             int len_x, int len_y, int len_z, int i_iv):
+ */
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_6pumapy_14physics_models_13finite_volume_30anisotropic_conductivity_utils_9assign_prescribed_bc_cy, NULL, __pyx_n_s_pumapy_physics_models_finite_vol); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_assign_prescribed_bc_cy, __pyx_t_3) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
   /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":1
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
@@ -21444,7 +23417,7 @@ if (!__Pyx_RefNanny) {
  * cdef strided = Enum("<strided and direct>") # default
  * cdef indirect = Enum("<strided and indirect>")
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__31, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 287, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__35, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 287, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_XGOTREF(generic);
   __Pyx_DECREF_SET(generic, __pyx_t_3);
@@ -21458,7 +23431,7 @@ if (!__Pyx_RefNanny) {
  * cdef indirect = Enum("<strided and indirect>")
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__32, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 288, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__36, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_XGOTREF(strided);
   __Pyx_DECREF_SET(strided, __pyx_t_3);
@@ -21472,7 +23445,7 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 289, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__37, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_XGOTREF(indirect);
   __Pyx_DECREF_SET(indirect, __pyx_t_3);
@@ -21486,7 +23459,7 @@ if (!__Pyx_RefNanny) {
  * cdef indirect_contiguous = Enum("<contiguous and indirect>")
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__34, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 292, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__38, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_XGOTREF(contiguous);
   __Pyx_DECREF_SET(contiguous, __pyx_t_3);
@@ -21500,7 +23473,7 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__35, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 293, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__39, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 293, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_XGOTREF(indirect_contiguous);
   __Pyx_DECREF_SET(indirect_contiguous, __pyx_t_3);
@@ -22672,6 +24645,211 @@ static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *memslice,
     }
 }
 
+/* GetItemInt */
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyList_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyTuple_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely(__Pyx_is_valid_index(n, PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely(__Pyx_is_valid_index(n, PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return NULL;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+}
+
+/* ObjectGetItem */
+#if CYTHON_USE_TYPE_SLOTS
+static PyObject *__Pyx_PyObject_GetIndex(PyObject *obj, PyObject* index) {
+    PyObject *runerr;
+    Py_ssize_t key_value;
+    PySequenceMethods *m = Py_TYPE(obj)->tp_as_sequence;
+    if (unlikely(!(m && m->sq_item))) {
+        PyErr_Format(PyExc_TypeError, "'%.200s' object is not subscriptable", Py_TYPE(obj)->tp_name);
+        return NULL;
+    }
+    key_value = __Pyx_PyIndex_AsSsize_t(index);
+    if (likely(key_value != -1 || !(runerr = PyErr_Occurred()))) {
+        return __Pyx_GetItemInt_Fast(obj, key_value, 0, 1, 1);
+    }
+    if (PyErr_GivenExceptionMatches(runerr, PyExc_OverflowError)) {
+        PyErr_Clear();
+        PyErr_Format(PyExc_IndexError, "cannot fit '%.200s' into an index-sized integer", Py_TYPE(index)->tp_name);
+    }
+    return NULL;
+}
+static PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key) {
+    PyMappingMethods *m = Py_TYPE(obj)->tp_as_mapping;
+    if (likely(m && m->mp_subscript)) {
+        return m->mp_subscript(obj, key);
+    }
+    return __Pyx_PyObject_GetIndex(obj, key);
+}
+#endif
+
+/* PyObjectCall2Args */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
+    PyObject *args, *result = NULL;
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyFunction_FastCall(function, args, 2);
+    }
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyCFunction_FastCall(function, args, 2);
+    }
+    #endif
+    args = PyTuple_New(2);
+    if (unlikely(!args)) goto done;
+    Py_INCREF(arg1);
+    PyTuple_SET_ITEM(args, 0, arg1);
+    Py_INCREF(arg2);
+    PyTuple_SET_ITEM(args, 1, arg2);
+    Py_INCREF(function);
+    result = __Pyx_PyObject_Call(function, args, NULL);
+    Py_DECREF(args);
+    Py_DECREF(function);
+done:
+    return result;
+}
+
+/* PyObjectCallMethO */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
+    PyObject *self, *result;
+    PyCFunction cfunc;
+    cfunc = PyCFunction_GET_FUNCTION(func);
+    self = PyCFunction_GET_SELF(func);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = cfunc(self, arg);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+/* PyObjectCallOneArg */
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_New(1);
+    if (unlikely(!args)) return NULL;
+    Py_INCREF(arg);
+    PyTuple_SET_ITEM(args, 0, arg);
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+#if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(func)) {
+        return __Pyx_PyFunction_FastCall(func, &arg, 1);
+    }
+#endif
+    if (likely(PyCFunction_Check(func))) {
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
+            return __Pyx_PyObject_CallMethO(func, arg);
+#if CYTHON_FAST_PYCCALL
+        } else if (__Pyx_PyFastCFunction_Check(func)) {
+            return __Pyx_PyCFunction_FastCall(func, &arg, 1);
+#endif
+        }
+    }
+    return __Pyx__PyObject_CallOneArg(func, arg);
+}
+#else
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_Pack(1, arg);
+    if (unlikely(!args)) return NULL;
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+#endif
+
 /* GetTopmostException */
 #if CYTHON_USE_EXC_INFO_STACK
 static _PyErr_StackItem *
@@ -23010,95 +25188,6 @@ bad:
 }
 #endif
 
-/* PyObjectCall2Args */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
-    PyObject *args, *result = NULL;
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(function)) {
-        PyObject *args[2] = {arg1, arg2};
-        return __Pyx_PyFunction_FastCall(function, args, 2);
-    }
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(function)) {
-        PyObject *args[2] = {arg1, arg2};
-        return __Pyx_PyCFunction_FastCall(function, args, 2);
-    }
-    #endif
-    args = PyTuple_New(2);
-    if (unlikely(!args)) goto done;
-    Py_INCREF(arg1);
-    PyTuple_SET_ITEM(args, 0, arg1);
-    Py_INCREF(arg2);
-    PyTuple_SET_ITEM(args, 1, arg2);
-    Py_INCREF(function);
-    result = __Pyx_PyObject_Call(function, args, NULL);
-    Py_DECREF(args);
-    Py_DECREF(function);
-done:
-    return result;
-}
-
-/* PyObjectCallMethO */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
-    PyObject *self, *result;
-    PyCFunction cfunc;
-    cfunc = PyCFunction_GET_FUNCTION(func);
-    self = PyCFunction_GET_SELF(func);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = cfunc(self, arg);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
-/* PyObjectCallOneArg */
-#if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_New(1);
-    if (unlikely(!args)) return NULL;
-    Py_INCREF(arg);
-    PyTuple_SET_ITEM(args, 0, arg);
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, &arg, 1);
-    }
-#endif
-    if (likely(PyCFunction_Check(func))) {
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
-            return __Pyx_PyObject_CallMethO(func, arg);
-#if CYTHON_FAST_PYCCALL
-        } else if (__Pyx_PyFastCFunction_Check(func)) {
-            return __Pyx_PyCFunction_FastCall(func, &arg, 1);
-#endif
-        }
-    }
-    return __Pyx__PyObject_CallOneArg(func, arg);
-}
-#else
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_Pack(1, arg);
-    if (unlikely(!args)) return NULL;
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-#endif
-
 /* DivInt[Py_ssize_t] */
 static CYTHON_INLINE Py_ssize_t __Pyx_div_Py_ssize_t(Py_ssize_t a, Py_ssize_t b) {
     Py_ssize_t q = a / b;
@@ -23119,122 +25208,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *o, PyObject *n) {
 #endif
     return PyObject_GetAttr(o, n);
 }
-
-/* GetItemInt */
-static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
-    PyObject *r;
-    if (!j) return NULL;
-    r = PyObject_GetItem(o, j);
-    Py_DECREF(j);
-    return r;
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    Py_ssize_t wrapped_i = i;
-    if (wraparound & unlikely(i < 0)) {
-        wrapped_i += PyList_GET_SIZE(o);
-    }
-    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyList_GET_SIZE(o)))) {
-        PyObject *r = PyList_GET_ITEM(o, wrapped_i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    Py_ssize_t wrapped_i = i;
-    if (wraparound & unlikely(i < 0)) {
-        wrapped_i += PyTuple_GET_SIZE(o);
-    }
-    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyTuple_GET_SIZE(o)))) {
-        PyObject *r = PyTuple_GET_ITEM(o, wrapped_i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
-                                                     CYTHON_NCP_UNUSED int wraparound,
-                                                     CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
-    if (is_list || PyList_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
-        if ((!boundscheck) || (likely(__Pyx_is_valid_index(n, PyList_GET_SIZE(o))))) {
-            PyObject *r = PyList_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    }
-    else if (PyTuple_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
-        if ((!boundscheck) || likely(__Pyx_is_valid_index(n, PyTuple_GET_SIZE(o)))) {
-            PyObject *r = PyTuple_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    } else {
-        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
-        if (likely(m && m->sq_item)) {
-            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
-                Py_ssize_t l = m->sq_length(o);
-                if (likely(l >= 0)) {
-                    i += l;
-                } else {
-                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
-                        return NULL;
-                    PyErr_Clear();
-                }
-            }
-            return m->sq_item(o, i);
-        }
-    }
-#else
-    if (is_list || PySequence_Check(o)) {
-        return PySequence_GetItem(o, i);
-    }
-#endif
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
-
-/* ObjectGetItem */
-#if CYTHON_USE_TYPE_SLOTS
-static PyObject *__Pyx_PyObject_GetIndex(PyObject *obj, PyObject* index) {
-    PyObject *runerr;
-    Py_ssize_t key_value;
-    PySequenceMethods *m = Py_TYPE(obj)->tp_as_sequence;
-    if (unlikely(!(m && m->sq_item))) {
-        PyErr_Format(PyExc_TypeError, "'%.200s' object is not subscriptable", Py_TYPE(obj)->tp_name);
-        return NULL;
-    }
-    key_value = __Pyx_PyIndex_AsSsize_t(index);
-    if (likely(key_value != -1 || !(runerr = PyErr_Occurred()))) {
-        return __Pyx_GetItemInt_Fast(obj, key_value, 0, 1, 1);
-    }
-    if (PyErr_GivenExceptionMatches(runerr, PyExc_OverflowError)) {
-        PyErr_Clear();
-        PyErr_Format(PyExc_IndexError, "cannot fit '%.200s' into an index-sized integer", Py_TYPE(index)->tp_name);
-    }
-    return NULL;
-}
-static PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key) {
-    PyMappingMethods *m = Py_TYPE(obj)->tp_as_mapping;
-    if (likely(m && m->mp_subscript)) {
-        return m->mp_subscript(obj, key);
-    }
-    return __Pyx_PyObject_GetIndex(obj, key);
-}
-#endif
 
 /* decode_c_string */
 static CYTHON_INLINE PyObject* __Pyx_decode_c_string(

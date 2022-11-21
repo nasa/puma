@@ -90,3 +90,78 @@ def create_T_ivs_cy(double [:,:,:] T, double [:] tf, int i_cv, int len_x, int le
             t_tse[j_cv, k_cv] = [tf[10], tf[11], tf[13], tf[14], tf[19], tf[20], tf[22], tf[23]]
             t_tnw[j_cv, k_cv] = [tf[12], tf[13], tf[15], tf[16], tf[21], tf[22], tf[24], tf[25]]
             t_tne[j_cv, k_cv] = [tf[13], tf[14], tf[16], tf[17], tf[22], tf[23], tf[25], tf[26]]
+
+
+def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarray not_dir_z, np.ndarray Td,
+                            np.ndarray dirichlet_bc_xfaces, np.ndarray dirichlet_bc_yfaces, np.ndarray dirichlet_bc_zfaces,
+                            int len_x, int len_y, int len_z, int i_iv):
+    cdef int j_iv, k_iv, k2, k2_v, j2, j2_v, i2, i2_v, i_cv, counter_not_dir
+
+    for j_iv in range(len_y + 1):
+        for k_iv in range(len_z + 1):
+
+            # gather IV properties cell by cell
+            counter_not_dir = 0
+            for k2, k2_v in enumerate([-1, 0]):
+                k_cv = k_iv + k2_v
+                for j2, j2_v in enumerate([-1, 0]):
+                    j_cv = j_iv + j2_v
+                    for i2, i2_v in enumerate([-1, 0]):
+                        i_cv = i_iv + i2_v
+
+                        if i_cv == -1:
+                            if not np.isnan(dirichlet_bc_xfaces[0, j_iv, k_iv]):
+                                not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+                        if i_cv == len_x:
+                            if not np.isnan(dirichlet_bc_xfaces[1, j_iv, k_iv]):
+                                not_dir_x[counter_not_dir, j_iv, k_iv] = 0
+
+                        if j_cv == -1:
+                            if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+                                not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+                        if j_cv == len_y:
+                            if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+                                not_dir_y[counter_not_dir, j_iv, k_iv] = 0
+
+                        if k_cv == -1:
+                            if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+                                not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+                        if k_cv == len_z:
+                            if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+                                not_dir_z[counter_not_dir, j_iv, k_iv] = 0
+
+                        counter_not_dir += 1
+
+            # Td arranged as:
+            # Pe: 0  Ne: 1  Te: 2   TNe: 3
+            # Pn: 4  En: 5  Tn: 6   TEn: 7
+            # Pt: 8  Et: 9  Nt: 10  NEt: 11
+            # not_dir_xyz arranged as:
+            # P: 0   E: 1   N: 2   NE: 3
+            # T: 4  TE: 5  TN: 6  TNE: 7
+
+            if j_iv == 0:
+                if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
+                    Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+
+            if j_iv == len_y:
+                if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
+                    Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
+
+            if k_iv == 0:
+                if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
+                    Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
+
+            elif k_iv == len_z:
+                if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
+                    Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
+
+    if i_iv == 0:
+        mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
+        Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
+        Td[[1, 2, 3]] = Td[0]
+
+    elif i_iv == len_x:
+        mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
+        Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
+        Td[[1, 2, 3]] = Td[0]

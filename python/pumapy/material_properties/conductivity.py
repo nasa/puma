@@ -16,12 +16,12 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :type workspace: pumapy.Workspace
         :param cond_map: local constituents themal conductivities
         :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
-        :param direction: direction for solve ('x','y', or 'z')
+        :param direction: direction for solve ('x','y','z', or '' for prescribed_bc)
         :type direction: string
         :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
         :type side_bc: string
-        :param prescribed_bc: 3D array holding dirichlet BC.
-        :type prescribed_bc: pumapy.IsotropicConductivityBC or None
+        :param prescribed_bc: object holding dirichlet BC. If provided, the direction is ignored
+        :type prescribed_bc: pumapy.IsotropicConductivityBC or pumapy.AnisotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
@@ -68,8 +68,8 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
             solver = IsotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
                                            solver_type, display_iter, matrix_free)
         elif isinstance(cond_map, AnisotropicConductivityMap):
-            solver = AnisotropicConductivity(workspace, cond_map, direction, side_bc, tolerance, maxiter, solver_type,
-                                             display_iter, prescribed_bc)
+            solver = AnisotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
+                                             display_iter)
         else:
             raise Exception("cond_map has to be an IsotropicConductivityMap or AnisotropicConductivityMap")
     elif method == "fe":
@@ -83,8 +83,9 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
     solver.compute()
     solver.log_output()
 
-    d = {'x': 'first', 'y': 'second', 'z': 'third'}
-    print(f'\nEffective conductivity tensor ({d[solver.direction]} column): \n{solver.keff}\n')
+    if direction != '':
+        d = {'x': 'first', 'y': 'second', 'z': 'third'}
+        print(f'\nEffective conductivity tensor ({d[solver.direction]} column): \n{solver.keff}\n')
     return solver.keff, solver.T, solver.q
 
 
@@ -96,12 +97,12 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type workspace: pumapy.Workspace
         :param cond_map: local constituents electrical conductivities
         :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
-        :param direction: direction for solve ('x','y', or 'z')
+        :param direction: direction for solve ('x','y','z', or '' for prescribed_bc)
         :type direction: string
         :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
         :type side_bc: string
-        :param prescribed_bc: 3D array holding dirichlet BC
-        :type prescribed_bc: pumapy.IsotropicConductivityBC or None
+        :param prescribed_bc: object holding dirichlet BC. If provided, the direction is ignored
+        :type prescribed_bc: pumapy.IsotropicConductivityBC or pumapy.AnisotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
         :param maxiter: maximum Iterations for solver

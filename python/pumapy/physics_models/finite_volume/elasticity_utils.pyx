@@ -127,6 +127,14 @@ def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarr
 
                         counter_not_dir += 1
 
+            # Dd arranged as:
+            # Pe: 0,1,2     Ne: 3,4,5     Te: 6,7,8     TNe: 9,10,11
+            # Pn: 12,13,14  En: 15,16,17  Tn: 18,19,20  TEn: 21,22,23
+            # Pt: 24,25,26  Et: 27,28,29  Nt: 30,31,32  NEt: 33,34,35
+            # not_dir_xyz arranged as:
+            # P: 0,8,16    E: 1,9,17    N: 2,10,18   NE: 3,11,19
+            # T: 4,12,20  TE: 5,13,21  TN: 6,14,22  TNE: 7,15,23
+
             if j_iv == 0:
                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv, 0]):
                     Dd[[12, 15, 18, 21], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv, 0]

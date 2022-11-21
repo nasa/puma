@@ -16,12 +16,14 @@ Please cite using this BibTex:
   publisher={Elsevier}
 }
 """
-from pumapy.physics_models.finite_volume.anisotropic_conductivity_utils import create_Ab_indices_cy, create_T_ivs_cy#, assign_prescribed_bc_cy
-from pumapy.physics_models.finite_volume.mpxa_matrices import (fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_d1_mpfa, create_d2_mpfa,
-                           div_Eu_mpfa, div_Ed_mpfa, create_mpfa_indices)
+from pumapy.physics_models.finite_volume.anisotropic_conductivity_utils import create_Ab_indices_cy, create_T_ivs_cy, assign_prescribed_bc_cy
+from pumapy.physics_models.finite_volume.mpxa_matrices import (fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_d1_mpfa,
+                                                               create_d2_mpfa, div_Eu_mpfa, div_Ed_mpfa, create_mpfa_indices)
 from pumapy.physics_models.finite_volume.elasticity_utils import pad_domain_cy
 from pumapy.physics_models.utils.linear_solvers import PropertySolver
+from pumapy.physics_models.utils.boundary_conditions import AnisotropicConductivityBC
 from pumapy.utilities.timer import Timer
+from pumapy.utilities.logger import print_warning
 from pumapy.utilities.generic_checks import estimate_max_memory
 from scipy.sparse import coo_matrix, diags
 import numpy as np
@@ -30,7 +32,7 @@ import sys
 
 class AnisotropicConductivity(PropertySolver):
 
-    def __init__(self, workspace, cond_map, direction, side_bc, tolerance, maxiter, solver_type, display_iter, dirichlet_bc):
+    def __init__(self, workspace, cond_map, direction, side_bc, dirichlet_bc, tolerance, maxiter, solver_type, display_iter):
         allowed_solvers = ['direct', 'gmres', 'bicgstab']
         super().__init__(workspace, solver_type, allowed_solvers, tolerance, maxiter, display_iter)
 
@@ -387,9 +389,6 @@ class AnisotropicConductivity(PropertySolver):
             self.q = self.q.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
             self.keff = [self.keff[1], self.keff[2], self.keff[0]]
 
-        d = {'x': 'first', 'y': 'second', 'z': 'third', 'yz': 'fourth', 'xz': 'fifth', 'xy': 'sixth'}
-        print(f'\nEffective elasticity tensor ({d[self.direction]} column): \n{self.keff}\n')
-
     def log_input(self):
         self.ws.log.log_section("Computing Anisotropic Conductivity")
         self.ws.log.log_line("Simulation direction: " + str(self.direction))
@@ -435,11 +434,16 @@ class AnisotropicConductivity(PropertySolver):
             raise Exception("All values in workspace must be included in ConductivityMap.")
 
         # direction checks
-        if self.direction is not None:
+        if self.direction != '':
             if self.direction.lower() in ['x', 'y', 'z']:
                 self.direction = self.direction.lower()
             else:
-                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z'")
+                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z'.")
+            if self.dirichlet_bc is not None:
+                print_warning(f"{self.direction} Direction specified, prescribed_bc ignored.")
+        else:
+            if not isinstance(self.dirichlet_bc, AnisotropicConductivityBC):
+                raise Exception("If prescribed_bc provided, the object needs to be a puma.AnisotropicConductivityBC object.")
 
         # side_bc checks
         if self.side_bc.lower() == "periodic" or self.side_bc == "p":
