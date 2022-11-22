@@ -74,9 +74,10 @@ class IsotropicConductivity(PropertySolver):
 
         print("Initializing temperature field ... ", end='')
         if self.solver_type != "direct":
-            self.initial_guess = np.zeros([self.len_x, self.len_y, self.len_z])
-            for i in range(self.len_x):
-                self.initial_guess[i, :, :] = i / (self.len_x - 1.)
+            self.initial_guess = np.ones([self.len_x, self.len_y, self.len_z])
+            if self.direction != "":
+                for i in range(self.len_x):
+                    self.initial_guess[i, :, :] = i / (self.len_x - 1.)
             self.initial_guess = self.initial_guess.flatten('F')
         print("Done")
 
