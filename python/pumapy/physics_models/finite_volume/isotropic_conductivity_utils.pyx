@@ -291,8 +291,27 @@ def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l
         for j in range(l_y):
             for k in range(l_z):
                 index = l_xy * k + l_x * j + i
-                y[index] += x[index]
-                count += 1
+                if bc_check == 1:
+                    if prescribed_bc[i, j, k] != np.Inf:
+                        y[index] += x[index]
+                    else:
+                        ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+                        ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+                        iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+                        iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+                        izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+                        izp = index_at(i, j, k + 1, l_x, l_y, l_z)
+                        y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
+                                     - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
+                                     - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
+                        y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
+                        y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
+                        y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
+                        y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
+                        y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
+                        y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
+                else:
+                    y[index] += x[index]
 
     for i in range(1, l_x - 1):
         for j in [0, l_y - 1]:
