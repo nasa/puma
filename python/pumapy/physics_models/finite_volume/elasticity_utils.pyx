@@ -142,8 +142,7 @@ def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarr
                     Dd[[13, 16, 19, 22], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv, 1]
                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv, 2]):
                     Dd[[14, 17, 20, 23], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv, 2]
-
-            if j_iv == len_y:
+            elif j_iv == len_y:
                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv, 0]):
                     Dd[[12, 15, 18, 21], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv, 0]
                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv, 1]):
@@ -158,7 +157,6 @@ def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarr
                     Dd[[25, 28, 31, 34], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv, 1]
                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv, 2]):
                     Dd[[26, 29, 32, 35], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv, 2]
-
             elif k_iv == len_z:
                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv, 0]):
                     Dd[[24, 27, 30, 33], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv, 0]
@@ -171,24 +169,19 @@ def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarr
         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :, 0])
         Dd[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir, 0]
         Dd[[3, 6, 9]] = Dd[0]
-
         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :, 1])
         Dd[1, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir, 1]
         Dd[[4, 7, 10]] = Dd[1]
-
         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :, 2])
         Dd[2, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir, 2]
         Dd[[5, 8, 11]] = Dd[2]
-
     elif i_iv == len_x:
         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :, 0])
         Dd[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir, 0]
         Dd[[3, 6, 9]] = Dd[0]
-
         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :, 1])
         Dd[1, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir, 1]
         Dd[[4, 7, 10]] = Dd[1]
-
         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :, 2])
         Dd[2, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir, 2]
         Dd[[5, 8, 11]] = Dd[2]

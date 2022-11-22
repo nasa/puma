@@ -6726,7 +6726,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
  *             if j_iv == 0:
  *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):             # <<<<<<<<<<<<<<
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
- * 
+ *             elif j_iv == len_y:
  */
         __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 144, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
@@ -6776,8 +6776,8 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
  *             if j_iv == 0:
  *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]             # <<<<<<<<<<<<<<
- * 
- *             if j_iv == len_y:
+ *             elif j_iv == len_y:
+ *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
  */
           __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 145, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
@@ -6835,7 +6835,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
  *             if j_iv == 0:
  *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):             # <<<<<<<<<<<<<<
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
- * 
+ *             elif j_iv == len_y:
  */
         }
 
@@ -6846,35 +6846,36 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
  *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
  */
+        goto __pyx_L25;
       }
 
-      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":147
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":146
+ *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
- * 
- *             if j_iv == len_y:             # <<<<<<<<<<<<<<
+ *             elif j_iv == len_y:             # <<<<<<<<<<<<<<
  *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
  */
       __pyx_t_23 = ((__pyx_v_j_iv == __pyx_v_len_y) != 0);
       if (__pyx_t_23) {
 
-        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":148
- * 
- *             if j_iv == len_y:
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":147
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+ *             elif j_iv == len_y:
  *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):             # <<<<<<<<<<<<<<
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
  * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_19 = PyTuple_New(3); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_19 = PyTuple_New(3); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_19);
         __Pyx_INCREF(__pyx_int_1);
         __Pyx_GIVEREF(__pyx_int_1);
@@ -6885,7 +6886,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
         PyTuple_SET_ITEM(__pyx_t_19, 2, __pyx_t_9);
         __pyx_t_12 = 0;
         __pyx_t_9 = 0;
-        __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_19); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_19); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
         __pyx_t_19 = NULL;
@@ -6901,26 +6902,26 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
         __pyx_t_15 = (__pyx_t_19) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_19, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_9);
         __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 148, __pyx_L1_error)
+        if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_15); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_15); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
         __pyx_t_18 = ((!__pyx_t_23) != 0);
         if (__pyx_t_18) {
 
-          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":149
- *             if j_iv == len_y:
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":148
+ *             elif j_iv == len_y:
  *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]             # <<<<<<<<<<<<<<
  * 
  *             if k_iv == 0:
  */
-          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_15);
-          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_INCREF(__pyx_int_1);
           __Pyx_GIVEREF(__pyx_int_1);
@@ -6931,10 +6932,10 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           PyTuple_SET_ITEM(__pyx_t_9, 2, __pyx_t_8);
           __pyx_t_15 = 0;
           __pyx_t_8 = 0;
-          __pyx_t_8 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_yfaces), __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-          __pyx_t_9 = PyList_New(4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_9 = PyList_New(4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_INCREF(__pyx_int_4);
           __Pyx_GIVEREF(__pyx_int_4);
@@ -6948,11 +6949,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           __Pyx_INCREF(__pyx_int_7);
           __Pyx_GIVEREF(__pyx_int_7);
           PyList_SET_ITEM(__pyx_t_9, 3, __pyx_int_7);
-          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_15);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_GIVEREF(__pyx_t_9);
           PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_9);
@@ -6963,29 +6964,30 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           __pyx_t_9 = 0;
           __pyx_t_15 = 0;
           __pyx_t_19 = 0;
-          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_8) < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_8) < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":148
- * 
- *             if j_iv == len_y:
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":147
+ *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
+ *             elif j_iv == len_y:
  *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):             # <<<<<<<<<<<<<<
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
  * 
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":147
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":146
+ *                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
- * 
- *             if j_iv == len_y:             # <<<<<<<<<<<<<<
+ *             elif j_iv == len_y:             # <<<<<<<<<<<<<<
  *                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
  */
       }
+      __pyx_L25:;
 
-      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":151
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":150
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
  * 
  *             if k_iv == 0:             # <<<<<<<<<<<<<<
@@ -6995,23 +6997,23 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
       __pyx_t_18 = ((__pyx_v_k_iv == 0) != 0);
       if (__pyx_t_18) {
 
-        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":152
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":151
  * 
  *             if k_iv == 0:
  *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):             # <<<<<<<<<<<<<<
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
- * 
+ *             elif k_iv == len_z:
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_19);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
-        __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_INCREF(__pyx_int_0);
         __Pyx_GIVEREF(__pyx_int_0);
@@ -7022,7 +7024,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
         PyTuple_SET_ITEM(__pyx_t_9, 2, __pyx_t_15);
         __pyx_t_12 = 0;
         __pyx_t_15 = 0;
-        __pyx_t_15 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_9); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_9); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __pyx_t_9 = NULL;
@@ -7038,26 +7040,26 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
         __pyx_t_8 = (__pyx_t_9) ? __Pyx_PyObject_Call2Args(__pyx_t_19, __pyx_t_9, __pyx_t_15) : __Pyx_PyObject_CallOneArg(__pyx_t_19, __pyx_t_15);
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-        if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 152, __pyx_L1_error)
+        if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-        __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __pyx_t_23 = ((!__pyx_t_18) != 0);
         if (__pyx_t_23) {
 
-          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":153
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":152
  *             if k_iv == 0:
  *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]             # <<<<<<<<<<<<<<
- * 
  *             elif k_iv == len_z:
+ *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
  */
-          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_15 = PyTuple_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __pyx_t_15 = PyTuple_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_15);
           __Pyx_INCREF(__pyx_int_0);
           __Pyx_GIVEREF(__pyx_int_0);
@@ -7068,10 +7070,10 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           PyTuple_SET_ITEM(__pyx_t_15, 2, __pyx_t_19);
           __pyx_t_8 = 0;
           __pyx_t_19 = 0;
-          __pyx_t_19 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_15); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __pyx_t_19 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_15); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_19);
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-          __pyx_t_15 = PyList_New(4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __pyx_t_15 = PyList_New(4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_15);
           __Pyx_INCREF(__pyx_int_8);
           __Pyx_GIVEREF(__pyx_int_8);
@@ -7085,11 +7087,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           __Pyx_INCREF(__pyx_int_11);
           __Pyx_GIVEREF(__pyx_int_11);
           PyList_SET_ITEM(__pyx_t_15, 3, __pyx_int_11);
-          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
-          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_GIVEREF(__pyx_t_15);
           PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_15);
@@ -7100,32 +7102,32 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           __pyx_t_15 = 0;
           __pyx_t_8 = 0;
           __pyx_t_9 = 0;
-          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_19) < 0)) __PYX_ERR(0, 153, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_19) < 0)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
 
-          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":152
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":151
  * 
  *             if k_iv == 0:
  *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):             # <<<<<<<<<<<<<<
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
- * 
+ *             elif k_iv == len_z:
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":151
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":150
  *                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
  * 
  *             if k_iv == 0:             # <<<<<<<<<<<<<<
  *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
  */
-        goto __pyx_L29;
+        goto __pyx_L28;
       }
 
-      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":155
+      /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":153
+ *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
- * 
  *             elif k_iv == len_z:             # <<<<<<<<<<<<<<
  *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
@@ -7133,23 +7135,23 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
       __pyx_t_23 = ((__pyx_v_k_iv == __pyx_v_len_z) != 0);
       if (__pyx_t_23) {
 
-        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":156
- * 
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":154
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
  *             elif k_iv == len_z:
  *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):             # <<<<<<<<<<<<<<
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
  * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 154, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 154, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 154, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 154, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_15 = PyTuple_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_15 = PyTuple_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 154, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_INCREF(__pyx_int_1);
         __Pyx_GIVEREF(__pyx_int_1);
@@ -7160,7 +7162,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
         PyTuple_SET_ITEM(__pyx_t_15, 2, __pyx_t_8);
         __pyx_t_12 = 0;
         __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_15); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_15); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 154, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
         __pyx_t_15 = NULL;
@@ -7176,26 +7178,26 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
         __pyx_t_19 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_15, __pyx_t_8) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8);
         __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 156, __pyx_L1_error)
+        if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 154, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_19);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_19); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_23 = __Pyx_PyObject_IsTrue(__pyx_t_19); if (unlikely(__pyx_t_23 < 0)) __PYX_ERR(0, 154, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
         __pyx_t_18 = ((!__pyx_t_23) != 0);
         if (__pyx_t_18) {
 
-          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":157
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":155
  *             elif k_iv == len_z:
  *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]             # <<<<<<<<<<<<<<
  * 
  *     if i_iv == 0:
  */
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_i_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
-          __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_INCREF(__pyx_int_1);
           __Pyx_GIVEREF(__pyx_int_1);
@@ -7206,10 +7208,10 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_9);
           __pyx_t_19 = 0;
           __pyx_t_9 = 0;
-          __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_zfaces), __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-          __pyx_t_8 = PyList_New(4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __pyx_t_8 = PyList_New(4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_INCREF(__pyx_int_8);
           __Pyx_GIVEREF(__pyx_int_8);
@@ -7223,11 +7225,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           __Pyx_INCREF(__pyx_int_11);
           __Pyx_GIVEREF(__pyx_int_11);
           PyList_SET_ITEM(__pyx_t_8, 3, __pyx_int_11);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j_iv); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_k_iv); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_15);
-          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_GIVEREF(__pyx_t_8);
           PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_8);
@@ -7238,12 +7240,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
           __pyx_t_8 = 0;
           __pyx_t_19 = 0;
           __pyx_t_15 = 0;
-          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":156
- * 
+          /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":154
+ *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
  *             elif k_iv == len_z:
  *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):             # <<<<<<<<<<<<<<
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
@@ -7251,19 +7253,19 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":155
+        /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":153
+ *                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
- * 
  *             elif k_iv == len_z:             # <<<<<<<<<<<<<<
  *                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
  */
       }
-      __pyx_L29:;
+      __pyx_L28:;
     }
   }
 
-  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":159
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":157
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
  * 
  *     if i_iv == 0:             # <<<<<<<<<<<<<<
@@ -7273,19 +7275,19 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
   __pyx_t_18 = ((__pyx_v_i_iv == 0) != 0);
   if (__pyx_t_18) {
 
-    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":160
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":158
  * 
  *     if i_iv == 0:
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])             # <<<<<<<<<<<<<<
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
  *         Td[[1, 2, 3]] = Td[0]
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_isnan); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_12 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_tuple__3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_tuple__3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __pyx_t_19 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_15))) {
@@ -7300,23 +7302,23 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
     __pyx_t_9 = (__pyx_t_19) ? __Pyx_PyObject_Call2Args(__pyx_t_15, __pyx_t_19, __pyx_t_12) : __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_t_12);
     __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 160, __pyx_L1_error)
+    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __pyx_t_15 = PyNumber_Invert(__pyx_t_9); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __pyx_t_15 = PyNumber_Invert(__pyx_t_9); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_v_mask_assigned_dir = __pyx_t_15;
     __pyx_t_15 = 0;
 
-    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":161
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":159
  *     if i_iv == 0:
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]             # <<<<<<<<<<<<<<
  *         Td[[1, 2, 3]] = Td[0]
- * 
+ *     elif i_iv == len_x:
  */
-    __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_GIVEREF(__pyx_int_0);
@@ -7324,10 +7326,10 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
     __Pyx_INCREF(__pyx_v_mask_assigned_dir);
     __Pyx_GIVEREF(__pyx_v_mask_assigned_dir);
     PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_v_mask_assigned_dir);
-    __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_t_15); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_t_15); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_GIVEREF(__pyx_int_0);
@@ -7335,20 +7337,20 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
     __Pyx_INCREF(__pyx_v_mask_assigned_dir);
     __Pyx_GIVEREF(__pyx_v_mask_assigned_dir);
     PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_v_mask_assigned_dir);
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_15, __pyx_t_9) < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_15, __pyx_t_9) < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":162
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":160
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
  *         Td[[1, 2, 3]] = Td[0]             # <<<<<<<<<<<<<<
- * 
  *     elif i_iv == len_x:
+ *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
  */
-    __pyx_t_9 = __Pyx_GetItemInt(((PyObject *)__pyx_v_Td), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_GetItemInt(((PyObject *)__pyx_v_Td), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_15 = PyList_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_15 = PyList_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __Pyx_INCREF(__pyx_int_1);
     __Pyx_GIVEREF(__pyx_int_1);
@@ -7359,23 +7361,23 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
     __Pyx_INCREF(__pyx_int_3);
     __Pyx_GIVEREF(__pyx_int_3);
     PyList_SET_ITEM(__pyx_t_15, 2, __pyx_int_3);
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_15, __pyx_t_9) < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_15, __pyx_t_9) < 0)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":159
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":157
  *                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
  * 
  *     if i_iv == 0:             # <<<<<<<<<<<<<<
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
  */
-    goto __pyx_L32;
+    goto __pyx_L31;
   }
 
-  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":164
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":161
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
  *         Td[[1, 2, 3]] = Td[0]
- * 
  *     elif i_iv == len_x:             # <<<<<<<<<<<<<<
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
@@ -7383,19 +7385,19 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
   __pyx_t_18 = ((__pyx_v_i_iv == __pyx_v_len_x) != 0);
   if (__pyx_t_18) {
 
-    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":165
- * 
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":162
+ *         Td[[1, 2, 3]] = Td[0]
  *     elif i_iv == len_x:
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])             # <<<<<<<<<<<<<<
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
  *         Td[[1, 2, 3]] = Td[0]
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_15, __pyx_n_s_np); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_15, __pyx_n_s_np); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_isnan); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_isnan); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __pyx_t_15 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_tuple__4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_tuple__4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __pyx_t_19 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
@@ -7410,22 +7412,22 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
     __pyx_t_9 = (__pyx_t_19) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_19, __pyx_t_15) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_15);
     __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 165, __pyx_L1_error)
+    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_12 = PyNumber_Invert(__pyx_t_9); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_12 = PyNumber_Invert(__pyx_t_9); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_v_mask_assigned_dir = __pyx_t_12;
     __pyx_t_12 = 0;
 
-    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":166
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":163
  *     elif i_iv == len_x:
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]             # <<<<<<<<<<<<<<
  *         Td[[1, 2, 3]] = Td[0]
  */
-    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_INCREF(__pyx_int_1);
     __Pyx_GIVEREF(__pyx_int_1);
@@ -7433,10 +7435,10 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
     __Pyx_INCREF(__pyx_v_mask_assigned_dir);
     __Pyx_GIVEREF(__pyx_v_mask_assigned_dir);
     PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_v_mask_assigned_dir);
-    __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_t_12); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_dirichlet_bc_xfaces), __pyx_t_12); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_GIVEREF(__pyx_int_0);
@@ -7444,18 +7446,18 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
     __Pyx_INCREF(__pyx_v_mask_assigned_dir);
     __Pyx_GIVEREF(__pyx_v_mask_assigned_dir);
     PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_v_mask_assigned_dir);
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 166, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":167
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":164
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
  *         Td[[1, 2, 3]] = Td[0]             # <<<<<<<<<<<<<<
  */
-    __pyx_t_9 = __Pyx_GetItemInt(((PyObject *)__pyx_v_Td), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_GetItemInt(((PyObject *)__pyx_v_Td), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 164, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_12 = PyList_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __pyx_t_12 = PyList_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 164, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_INCREF(__pyx_int_1);
     __Pyx_GIVEREF(__pyx_int_1);
@@ -7466,19 +7468,19 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_30anisotropic
     __Pyx_INCREF(__pyx_int_3);
     __Pyx_GIVEREF(__pyx_int_3);
     PyList_SET_ITEM(__pyx_t_12, 2, __pyx_int_3);
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_Td), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 164, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":164
+    /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":161
+ *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
  *         Td[[1, 2, 3]] = Td[0]
- * 
  *     elif i_iv == len_x:             # <<<<<<<<<<<<<<
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
  */
   }
-  __pyx_L32:;
+  __pyx_L31:;
 
   /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":95
  * 
@@ -22526,28 +22528,28 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":160
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":158
  * 
  *     if i_iv == 0:
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])             # <<<<<<<<<<<<<<
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
  *         Td[[1, 2, 3]] = Td[0]
  */
-  __pyx_slice__2 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__2)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_slice__2 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__2)) __PYX_ERR(0, 158, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__2);
   __Pyx_GIVEREF(__pyx_slice__2);
-  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_int_0, __pyx_slice__2, __pyx_slice__2); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_int_0, __pyx_slice__2, __pyx_slice__2); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 158, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":165
- * 
+  /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":162
+ *         Td[[1, 2, 3]] = Td[0]
  *     elif i_iv == len_x:
  *         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])             # <<<<<<<<<<<<<<
  *         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]
  *         Td[[1, 2, 3]] = Td[0]
  */
-  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_int_1, __pyx_slice__2, __pyx_slice__2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_int_1, __pyx_slice__2, __pyx_slice__2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 

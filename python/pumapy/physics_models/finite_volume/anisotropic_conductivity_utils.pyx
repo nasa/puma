@@ -143,15 +143,13 @@ def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarr
             if j_iv == 0:
                 if not np.isnan(dirichlet_bc_yfaces[0, i_iv, k_iv]):
                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[0, i_iv, k_iv]
-
-            if j_iv == len_y:
+            elif j_iv == len_y:
                 if not np.isnan(dirichlet_bc_yfaces[1, i_iv, k_iv]):
                     Td[[4, 5, 6, 7], j_iv, k_iv] = dirichlet_bc_yfaces[1, i_iv, k_iv]
 
             if k_iv == 0:
                 if not np.isnan(dirichlet_bc_zfaces[0, i_iv, j_iv]):
                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[0, i_iv, j_iv]
-
             elif k_iv == len_z:
                 if not np.isnan(dirichlet_bc_zfaces[1, i_iv, j_iv]):
                     Td[[8, 9, 10, 11], j_iv, k_iv] = dirichlet_bc_zfaces[1, i_iv, j_iv]
@@ -160,7 +158,6 @@ def assign_prescribed_bc_cy(np.ndarray not_dir_x, np.ndarray not_dir_y, np.ndarr
         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[0, :, :])
         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[0, mask_assigned_dir]
         Td[[1, 2, 3]] = Td[0]
-
     elif i_iv == len_x:
         mask_assigned_dir = ~np.isnan(dirichlet_bc_xfaces[1, :, :])
         Td[0, mask_assigned_dir] = dirichlet_bc_xfaces[1, mask_assigned_dir]

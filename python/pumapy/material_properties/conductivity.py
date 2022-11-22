@@ -8,7 +8,7 @@ import numpy as np
 import pyvista as pv
 
 
-def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', prescribed_bc=None, tolerance=1e-5,
+def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='p', prescribed_bc=None, tolerance=1e-5,
                                  maxiter=10000, solver_type='bicgstab', display_iter=True, method="fv", matrix_free=True):
     """ Compute the thermal conductivity
 
@@ -18,7 +18,7 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
         :param direction: direction for solve ('x','y','z', or '' for prescribed_bc). If provided, prescribed_bc is ignored
         :type direction: string
-        :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
+        :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p'). Only periodic available when method='fe'
         :type side_bc: string
         :param prescribed_bc: object holding dirichlet BC, only available for isotropic of MPFA implementations.
         Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
@@ -28,12 +28,13 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'bicgstab' (default), 'cg', 'gmres', 'direct'
+        :param solver_type: solver type, options: 'bicgstab' (default), 'cg', 'gmres', 'minres' (only for method='fe'), 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
         :param method: whether to use finite volume solver ('fv', either isotropic solver if IsotropicConductivityMap
-        is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe')
+        is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe'). For the latter method,
+        it is recommended to use solver_type='minres' as lighter and faster
         :type method: string
         :param matrix_free: if True, then use matrix-free method if possible (only available for fv isotropic solver or
         for fe solver when the solver type is not 'direct')
@@ -101,7 +102,7 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
         :param direction: direction for solve ('x','y','z', or '' for prescribed_bc). If provided, prescribed_bc is ignored
         :type direction: string
-        :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
+        :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p'). Only periodic available when method='fe'
         :type side_bc: string
         :param prescribed_bc: object holding dirichlet BC, only available for isotropic of MPFA implementations.
         Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
@@ -111,12 +112,13 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'bicgstab' (default), 'cg', 'gmres', 'direct'
+        :param solver_type: solver type, options: 'bicgstab' (default), 'cg', 'gmres', 'minres' (only for method='fe'), 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
         :param method: whether to use finite volume solver ('fv', either isotropic solver if IsotropicConductivityMap
-        is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe')
+        is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe'). For the latter method,
+        it is recommended to use solver_type='minres' as lighter and faster
         :type method: string
         :param matrix_free: if True, then use matrix-free method if possible (only available for fv isotropic solver or
         for fe solver when the solver type is not 'direct')

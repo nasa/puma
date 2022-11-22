@@ -162,7 +162,7 @@ class AnisotropicConductivity(PropertySolver):
 
     def initialize_mpfa(self):
 
-        # Initialize matrix slice of elasticities (per CV)
+        # Initialize matrix slice of conductivities (per CV)
         self.Kmat = np.zeros((2, self.len_y + 2, self.len_z + 2, 6), dtype=float)
         self.compute_Kmat(0, 0)
         self.compute_Kmat(1, 1)
@@ -409,7 +409,7 @@ class AnisotropicConductivity(PropertySolver):
         self.ws.log.write_log()
 
     def error_check(self):
-        # elast_map checks
+        # cond_map checks
         ws_tmp_tocheck = self.ws.matrix.copy()
         for i in range(self.cond_map.get_size()):
             low, high, k = self.cond_map.get_material(i)
@@ -418,8 +418,7 @@ class AnisotropicConductivity(PropertySolver):
                 self.need_to_orient = True
                 if self.ws.orientation.shape[:3] != self.ws.matrix.shape or \
                         not 0.9 < np.min(np.linalg.norm(self.ws.orientation[np.logical_and(self.ws.matrix >= low,
-                                                                                           self.ws.matrix <= high)],
-                                                        axis=1)) < 1.1:
+                                                                                           self.ws.matrix <= high)], axis=1)) < 1.1:
                     raise Exception("The Workspace needs an orientation in order to align the conductivity.")
 
             # segmenting tmp domain to check if all values covered by mat_cond

@@ -1,6 +1,13 @@
+"""
+The following FE numerical method and implementation are based on the following research paper:
+
+Pedro C. F. Lopes, Rafael S. Vianna, Victor W. Sapucaia, Federico Semeraro, Ricardo Leiderman, Andre M. B. Pereira, 2022.
+Simulation Toolkit for Digital Material Characterization of Large Image-based Microstructures.
+"""
 from pumapy.utilities.timer import Timer
 from pumapy.physics_models.utils.linear_solvers import PropertySolver
 from pumapy.utilities.generic_checks import estimate_max_memory
+from pumapy.physics_models.utils.property_maps import AnisotropicConductivityMap
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import LinearOperator
 import numpy as np
@@ -312,6 +319,8 @@ class ConductivityFE(PropertySolver):
 
     def error_check(self):
         # cond_map checks
+        if not isinstance(self.cond_map, AnisotropicConductivityMap):
+            raise Exception("cond_map has to be an AnisotropicConductivityMap object when method='fe'.")
         ws_tmp_tocheck = self.ws.matrix.copy()
         for i in range(self.cond_map.get_size()):
             low, high, k = self.cond_map.get_material(i)
