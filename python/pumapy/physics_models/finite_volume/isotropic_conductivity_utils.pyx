@@ -70,8 +70,51 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
                 index = l_xy * k + l_x * j + i
                 row[count] = index
                 col[count] = index
-                data[count] = 1
-                count += 1
+
+                if bc_check == 1:
+                    if prescribed_bc[i, j, k] != np.Inf:
+                        data[count] = 1
+                        count += 1
+                    else:
+                        ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+                        ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+                        iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+                        iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+                        izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+                        izp = index_at(i, j, k + 1, l_x, l_y, l_z)
+
+                        data[count] = - _kf[ixm] * _kf[index] / (_kf[ixm] + _kf[index]) - _kf[ixp] * _kf[index] / (_kf[ixp] + _kf[index]) \
+                                      - _kf[iym] * _kf[index] / (_kf[iym] + _kf[index]) - _kf[iyp] * _kf[index] / (_kf[iyp] + _kf[index]) \
+                                      - _kf[izm] * _kf[index] / (_kf[izm] + _kf[index]) - _kf[izp] * _kf[index] / (_kf[izp] + _kf[index])
+
+                        row[count + 1] = index
+                        col[count + 1] = ixm
+                        data[count + 1] = _kf[ixm] * _kf[index] / (_kf[ixm] + _kf[index])
+
+                        row[count + 2] = index
+                        col[count + 2] = ixp
+                        data[count + 2] = _kf[ixp] * _kf[index] / (_kf[ixp] + _kf[index])
+
+                        row[count + 3] = index
+                        col[count + 3] = iym
+                        data[count + 3] = _kf[iym] * _kf[index] / (_kf[iym] + _kf[index])
+
+                        row[count + 4] = index
+                        col[count + 4] = iyp
+                        data[count + 4] = _kf[iyp] * _kf[index] / (_kf[iyp] + _kf[index])
+
+                        row[count + 5] = index
+                        col[count + 5] = izm
+                        data[count + 5] = _kf[izm] * _kf[index] / (_kf[izm] + _kf[index])
+
+                        row[count + 6] = index
+                        col[count + 6] = izp
+                        data[count + 6] = _kf[izp] * _kf[index] / (_kf[izp] + _kf[index])
+
+                        count += 7
+                else:
+                    data[count] = 1
+                    count += 1
 
     for i in range(1, l_x - 1):
         for j in [0, l_y - 1]:
