@@ -4,6 +4,7 @@ from pumapy.physics_models.utils.boundary_conditions import IsotropicConductivit
 from pumapy.utilities.workspace import Workspace
 from pumapy.physics_models.finite_volume.isotropic_conductivity_utils import setup_matrices_cy, compute_flux, matvec_cy
 from pumapy.utilities.generic_checks import estimate_max_memory
+from pumapy.utilities.logger import print_warning
 from scipy.sparse import coo_matrix, diags
 from scipy.sparse.linalg import LinearOperator
 import numpy as np
@@ -24,7 +25,7 @@ class IsotropicConductivity(PropertySolver):
         self.side_bc = side_bc
         self.prescribed_bc = prescribed_bc
 
-        if self.direction == 'x':
+        if self.direction == 'x' or self.direction == '':
             self._matrix = workspace.matrix
         elif self.direction == 'y':
             self._matrix = workspace.matrix.transpose(1, 0, 2)
@@ -82,12 +83,12 @@ class IsotropicConductivity(PropertySolver):
     def assemble_bvector(self):
         print("Setting up b matrix ... ", end='')
         bsq = np.zeros([self.len_x, self.len_y, self.len_z])
-        if self.prescribed_bc is not None:
+        if self.direction == '':
             for i in range(self.len_x):
                 for j in range(self.len_y):
                     for k in range(self.len_z):
                         if self.prescribed_bc.dirichlet[i, j, k] != np.Inf:
-                            bsq[i, j, k] = self.prescribed_bc[i, j, k]
+                            bsq[i, j, k] = self.prescribed_bc.dirichlet[i, j, k]
 
             self.prescribed_bc = self.prescribed_bc.dirichlet  # because of cython, cannot pass object
             self.bc_check = 1
@@ -184,15 +185,17 @@ class IsotropicConductivity(PropertySolver):
         if self.ws.len_x() < 3 or self.ws.len_y() < 3 or self.ws.len_z() < 3:
             raise Exception("Workspace must be at least 3x3x3 for Conductivity finite volume solvers.")
 
-        # direction checks
-        if self.direction == "x" or self.direction == "X":
-            self.direction = "x"
-        elif self.direction == "y" or self.direction == "Y":
-            self.direction = "y"
-        elif self.direction == "z" or self.direction == "Z":
-            self.direction = "z"
+        # direction and prescribed_bc checks
+        if self.direction != '':
+            if self.direction.lower() in ['x', 'y', 'z']:
+                self.direction = self.direction.lower()
+            else:
+                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z', or '' for prescribed_bc.")
+            if self.prescribed_bc is not None:
+                print_warning(f"{self.direction} Direction specified, prescribed_bc ignored.")
         else:
-            raise Exception("Invalid simulation direction.")
+            if not isinstance(self.prescribed_bc, IsotropicConductivityBC):
+                raise Exception("If prescribed_bc provided, the object needs to be a puma.AnisotropicConductivityBC object.")
 
         # side_bc checks
         if self.side_bc == "periodic" or self.side_bc == "Periodic" or self.side_bc == "p":
@@ -201,18 +204,3 @@ class IsotropicConductivity(PropertySolver):
             self.side_bc = "s"
         else:
             raise Exception("Invalid side boundary conditions.")
-
-        # prescribed_bc checks
-        if self.prescribed_bc is not None:
-            if not isinstance(self.prescribed_bc, IsotropicConductivityBC):
-                raise Exception("prescribed_bc must be a puma.ConductivityBC.")
-            if self.prescribed_bc.dirichlet.shape != self.ws.matrix.shape:
-                raise Exception("prescribed_bc must be of the same size as the domain.")
-
-            # rotate it
-            if self.direction == 'y':
-                self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet.transpose((1, 0, 2))
-            elif self.direction == 'z':
-                self.prescribed_bc.dirichlet = self.prescribed_bc.dirichlet.transpose((2, 1, 0))
-            if np.any((self.prescribed_bc.dirichlet[[0, -1]] == np.Inf)):
-                raise Exception("prescribed_bc must be defined on the direction sides")

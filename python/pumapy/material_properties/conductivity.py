@@ -16,11 +16,13 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
         :type workspace: pumapy.Workspace
         :param cond_map: local constituents themal conductivities
         :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
-        :param direction: direction for solve ('x','y','z', or '' for prescribed_bc)
+        :param direction: direction for solve ('x','y','z', or '' for prescribed_bc). If provided, prescribed_bc is ignored
         :type direction: string
         :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
         :type side_bc: string
-        :param prescribed_bc: object holding dirichlet BC. If provided, the direction is ignored
+        :param prescribed_bc: object holding dirichlet BC, only available for isotropic of MPFA implementations.
+        Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
+        computed as if direction=='x' for testing convenience.
         :type prescribed_bc: pumapy.IsotropicConductivityBC or pumapy.AnisotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
@@ -68,8 +70,8 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='s', pr
             solver = IsotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
                                            solver_type, display_iter, matrix_free)
         elif isinstance(cond_map, AnisotropicConductivityMap):
-            solver = AnisotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter, solver_type,
-                                             display_iter)
+            solver = AnisotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
+                                             solver_type, display_iter)
         else:
             raise Exception("cond_map has to be an IsotropicConductivityMap or AnisotropicConductivityMap")
     elif method == "fe":
@@ -97,11 +99,13 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type workspace: pumapy.Workspace
         :param cond_map: local constituents electrical conductivities
         :type cond_map: IsotropicConductivityMap or AnisotropicConductivityMap
-        :param direction: direction for solve ('x','y','z', or '' for prescribed_bc)
+        :param direction: direction for solve ('x','y','z', or '' for prescribed_bc). If provided, prescribed_bc is ignored
         :type direction: string
         :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
         :type side_bc: string
-        :param prescribed_bc: object holding dirichlet BC. If provided, the direction is ignored
+        :param prescribed_bc: object holding dirichlet BC, only available for isotropic of MPFA implementations.
+        Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
+        computed as if direction=='x' for testing convenience.
         :type prescribed_bc: pumapy.IsotropicConductivityBC or pumapy.AnisotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float

@@ -83,12 +83,12 @@ class AnisotropicConductivity(PropertySolver):
         reorder = [0, 1, 2]
         if self.direction in ['y', 'z']:
             if self.direction == 'y':
-                shape = [self.len_y, self.len_z, self.len_x]
-                reorder = [1, 2, 0]
+                shape = [self.len_y, self.len_x, self.len_z]
+                reorder = [1, 0, 2]
                 reorder_nondiagcond = [3, 5, 4]
             else:
-                shape = [self.len_z, self.len_x, self.len_y]
-                reorder = [2, 0, 1]
+                shape = [self.len_z, self.len_y, self.len_x]
+                reorder = [2, 1, 0]
                 reorder_nondiagcond = [5, 4, 3]
 
             # Rotating mat_cond
@@ -381,13 +381,13 @@ class AnisotropicConductivity(PropertySolver):
 
         # Rotating output back
         if self.direction == 'y':
-            self.T = self.T.transpose(2, 0, 1, 3)[:, :, :, [2, 0, 1]]
-            self.q = self.q.transpose(2, 0, 1, 3)[:, :, :, [2, 0, 1]]
-            self.keff = [self.keff[2], self.keff[0], self.keff[1]]
+            self.T = self.T.transpose(1, 0, 2)
+            self.q = self.q.transpose(1, 0, 2, 3)[:, :, :, [1, 0, 2]]
+            self.keff = [self.keff[1], self.keff[0], self.keff[2]]
         elif self.direction == 'z':
-            self.T = self.T.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
-            self.q = self.q.transpose(1, 2, 0, 3)[:, :, :, [1, 2, 0]]
-            self.keff = [self.keff[1], self.keff[2], self.keff[0]]
+            self.T = self.T.transpose(2, 1, 0)
+            self.q = self.q.transpose(2, 1, 0, 3)[:, :, :, [2, 1, 0]]
+            self.keff = [self.keff[2], self.keff[1], self.keff[0]]
 
     def log_input(self):
         self.ws.log.log_section("Computing Anisotropic Conductivity")
@@ -433,12 +433,12 @@ class AnisotropicConductivity(PropertySolver):
                 np.all(np.sort(list(self.mat_cond.keys())).astype(np.uint16) != unique_matrixvalues)):
             raise Exception("All values in workspace must be included in ConductivityMap.")
 
-        # direction checks
+        # direction and prescribed_bc checks
         if self.direction != '':
             if self.direction.lower() in ['x', 'y', 'z']:
                 self.direction = self.direction.lower()
             else:
-                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z'.")
+                raise Exception("Invalid simulation direction, it can only be 'x', 'y', 'z', or '' for prescribed_bc.")
             if self.dirichlet_bc is not None:
                 print_warning(f"{self.direction} Direction specified, prescribed_bc ignored.")
         else:

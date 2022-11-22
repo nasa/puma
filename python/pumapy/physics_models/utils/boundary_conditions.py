@@ -6,6 +6,11 @@ class IsotropicConductivityBC:
     def __init__(self, workspace):
         """ Conductivity prescribed dirichlet boundary conditions class.
 
+            N.B. IsotropicConductivityBC and AnisotropicConductivityBC classes have a different way of providing
+            dirichlet BC due to the underlying numerical method:
+            IsotropicConductivityBC are enforced in the voxel centers, whereas AnisotropicConductivityBC and ElasticityBC
+            (based on the MPFA and MPSA methods), apply the dirichlet bc on the voxel sides.
+
             :param workspace: domain
             :type workspace: Workspace
 

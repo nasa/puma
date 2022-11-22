@@ -498,7 +498,7 @@ class Elasticity(PropertySolver):
                 np.all(np.sort(list(self.mat_elast.keys())).astype(np.uint16) != unique_matrixvalues)):
             raise Exception("All values in workspace must match the IDs in ElasticityMap.")
 
-        # direction checks
+        # direction and prescribed_bc checks
         if self.direction != '':
             if self.direction.lower() in ['x', 'y', 'z', 'yz', 'xz', 'xy']:
                 self.direction = self.direction.lower()

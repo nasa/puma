@@ -41,10 +41,21 @@ class MaterialPropertyMap:
         return self._lowCutoffs[i], self._highCutoffs[i], self._properties[i]
 
     def show(self):
-        print("Material conductivity as [low-high cutoffs] = conductivity:")
         for i in range(len(self._lowCutoffs)):
-            print('[{} - {}] = {}'.format(self._lowCutoffs[i], self._highCutoffs[i], self._properties[i]))
-
+            print('Range [{} - {}] = {}'.format(self._lowCutoffs[i], self._highCutoffs[i], self._properties[i]))
+            if len(self._properties[i]) == 6:
+                k = self._properties[i]
+                print("[[", k[0], k[3], k[4], "]")
+                print(" [", k[3], k[1], k[5], "]")
+                print(" [", k[4], k[5], k[2], "]]")
+            elif len(self._properties[i]) == 21:
+                C = self._properties[i]
+                print("[[", C[0], C[1], C[2], C[3], C[4], C[5], "]")
+                print(" [", C[1], C[6], C[7], C[8], C[9], C[10], "]")
+                print(" [", C[2], C[7], C[11], C[12], C[13], C[14], "]")
+                print(" [", C[3], C[8], C[12], C[15], C[16], C[17], "]")
+                print(" [", C[4], C[9], C[13], C[16], C[18], C[19], "]")
+                print(" [", C[5], C[10], C[14], C[17], C[19], C[20], "]]")
 
 class IsotropicConductivityMap(MaterialPropertyMap):
     def __init__(self):
