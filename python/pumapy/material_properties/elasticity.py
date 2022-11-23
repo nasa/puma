@@ -18,17 +18,18 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
         :type elast_map: pumapy.ElasticityMap
         :param direction: direction for solve ('x','y', 'z', 'yz', 'xz', 'xy')
         :type direction: string
-        :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p')
+        :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p'). Only periodic available when method='fe'
         :type side_bc: string
         :param tolerance: tolerance for iterative solver
         :type: tolerance: float
         :param maxiter: maximum Iterations for solver
         :type maxiter: int
-        :param solver_type: solver type, options: 'gmres' (default), 'bicgstab', 'direct'
+        :param solver_type: solver type, options: 'bicgstab' (default), 'minres' (only for method='fe'), 'gmres', 'direct'
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
-        :param method: whether to use finite volume solver ('fv', i.e. mpsa) or finite element Q1-Q1 EBE solver ('fe')
+        :param method: whether to use finite volume solver ('fv', i.e. mpsa) or finite element Q1-Q1 EBE solver ('fe').
+        For the latter method, it is recommended to use solver_type='minres' as lighter and faster
         :type method: string
         :param matrix_free: if True, then use matrix-free method if possible (only available for fe solver when
         the solver type is not 'direct')

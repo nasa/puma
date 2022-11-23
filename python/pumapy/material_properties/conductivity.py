@@ -22,7 +22,7 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='p', pr
         :type side_bc: string
         :param prescribed_bc: object holding dirichlet BC, only available for isotropic of MPFA implementations.
         Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
-        computed as if direction=='x' for testing convenience.
+        computed as if direction=='x' for testing purposes.
         :type prescribed_bc: pumapy.IsotropicConductivityBC or pumapy.AnisotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
@@ -106,7 +106,7 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type side_bc: string
         :param prescribed_bc: object holding dirichlet BC, only available for isotropic of MPFA implementations.
         Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
-        computed as if direction=='x' for testing convenience.
+        computed as if direction=='x' for testing purposes.
         :type prescribed_bc: pumapy.IsotropicConductivityBC or pumapy.AnisotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float

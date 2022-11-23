@@ -3,7 +3,7 @@ import numpy as np
 import pumapy as puma
 
 
-class TestIsotropicTC(unittest.TestCase):
+class TestFiniteVolumeIsotropicTC(unittest.TestCase):
 
     def setUp(self):
         self.X = 10
@@ -176,7 +176,7 @@ class TestIsotropicTC(unittest.TestCase):
         # np.testing.assert_array_almost_equal(keff, [0.0009825604753153855, -0.006340682953106483, 0.07495772275364905], decimal=4)
 
 
-class TestAnisotropicTC(unittest.TestCase):
+class TestFiniteVolumeAnisotropicTC(unittest.TestCase):
 
     def setUp(self):
         self.X = 10
@@ -411,7 +411,7 @@ class TestAnisotropicTC(unittest.TestCase):
         np.testing.assert_array_almost_equal(keff, [0.0015291100308031456, -0.0016663003168615753, 0.044952464988095735], decimal=4)
 
 
-class TestFiniteElementTC(unittest.TestCase):
+class TestFiniteElementAnisotropicTC(unittest.TestCase):
 
     def setUp(self):
         self.X = 10
@@ -506,23 +506,23 @@ class TestFiniteElementTC(unittest.TestCase):
         np.testing.assert_array_almost_equal(keff, [1.818181818, 0.2, 0.3])
 
     def test_matSeriesInx_x_sym_bicgstab(self):
-        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'x', solver_type='bicgstab', method='fe')
+        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'x', solver_type='bicgstab', tolerance=1e-6, method='fe', matrix_free=False)
         np.testing.assert_array_almost_equal(keff, [1.818181818, 0.2, 0.3], decimal=4)
 
     def test_matSeriesInx_y_sym_bicgstab(self):
-        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'y', solver_type='bicgstab', tolerance=1e-6, method='fe')
+        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'y', solver_type='bicgstab', tolerance=1e-6, method='fe', matrix_free=False)
         np.testing.assert_array_almost_equal(keff, [0.2, 5.5, 0.5], decimal=4)
 
     def test_matSeriesInx_z_sym_bicgstab(self):
-        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'z', solver_type='bicgstab', tolerance=1e-6, method='fe')
+        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'z', solver_type='bicgstab', tolerance=1e-6, method='fe', matrix_free=False)
         np.testing.assert_array_almost_equal(keff, [0.3, 0.5, 5.5], decimal=4)
 
     def test_matSeriesInx_y_sym_minres(self):
-        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'y', solver_type='minres', tolerance=1e-6, method='fe')
+        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'y', solver_type='minres', tolerance=1e-6, method='fe', matrix_free=True)
         np.testing.assert_array_almost_equal(keff, [0.2, 5.5, 0.5], decimal=4)
 
     def test_matSeriesInx_z_sym_gmres(self):
-        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'z', solver_type='gmres', tolerance=1e-6, method='fe')
+        keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'z', solver_type='gmres', tolerance=1e-6, method='fe', matrix_free=True)
         np.testing.assert_array_almost_equal(keff, [0.3, 0.5, 5.5], decimal=4)
 
     def test_tensor_rotation_x(self):

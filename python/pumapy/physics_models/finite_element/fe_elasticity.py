@@ -222,17 +222,17 @@ class ElasticityFE(PropertySolver):
                 s_f[e, 0] += (self.m_B[0, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
                 s_f[e, 1] += (self.m_B[1, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
                 s_f[e, 2] += (self.m_B[2, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                t_f[e, 2] += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+                t_f[e, 0] += (self.m_B[3, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
                 t_f[e, 1] += (self.m_B[4, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                t_f[e, 0] += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+                t_f[e, 2] += (self.m_B[5, :, self.elemMatMap[e]] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
         else:
             for e in range(self.nElems):
                 s_f[e, 0] += (self.m_B[0, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
                 s_f[e, 1] += (self.m_B[1, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
                 s_f[e, 2] += (self.m_B[2, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                t_f[e, 2] += (self.m_B[3, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+                t_f[e, 0] += (self.m_B[3, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
                 t_f[e, 1] += (self.m_B[4, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
-                t_f[e, 0] += (self.m_B[5, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
+                t_f[e, 2] += (self.m_B[5, :, e] * (t - self.x[self.pElemDOFNum[:, e]])).sum()
 
         self.s = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
         self.t = np.zeros((self.len_x, self.len_y, self.len_z, 3), dtype=float)
