@@ -2,7 +2,7 @@ from pumapy.utilities.timer import Timer
 from pumapy.physics_models.utils.linear_solvers import PropertySolver
 from pumapy.physics_models.utils.boundary_conditions import IsotropicConductivityBC
 from pumapy.utilities.workspace import Workspace
-from pumapy.physics_models.finite_volume.isotropic_conductivity_utils import setup_matrices_cy, compute_flux, matvec_cy
+from pumapy.physics_models.finite_volume.isotropic_conductivity_utils import setup_matrices_cy, compute_flux, matvec_cy, vecvec_prec_cy
 from pumapy.utilities.generic_checks import estimate_max_memory
 from pumapy.utilities.logger import print_warning
 from scipy.sparse import coo_matrix, diags
@@ -131,6 +131,12 @@ class IsotropicConductivity(PropertySolver):
                 matvec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.bc_check, self.prescribed_bc, self.side_bc)
                 return y
             self.Amat = LinearOperator(shape=(self.len_xyz, self.len_xyz), matvec=matvec)
+
+            def vecvec_prec(x):
+                y.fill(0)
+                vecvec_prec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.bc_check, self.prescribed_bc, self.side_bc)
+                return y
+            self.M = LinearOperator(shape=(self.len_xyz, self.len_xyz), matvec=vecvec_prec)
 
     def compute_effective_coefficient(self):
         # reshaping solution
