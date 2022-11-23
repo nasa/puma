@@ -73,7 +73,6 @@ setup(
         "matplotlib",
         "pyevtk",
         "pyvista",
-        "vtk",  # already in pyvista, but required in input.py
     ],
     package_data={'': [os.path.join('data', '*')]},  # copy over all the example data
     classifiers=[
