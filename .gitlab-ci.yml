@@ -8,7 +8,7 @@ cache:
     - .cache/pip
 
 before_script:
-  - conda create --name pumapy -c conda-forge python pip cython numpy scikit-image scipy matplotlib pyevtk pyvista -y
+  - conda create --name pumapy -c conda-forge python pip gcc cython numpy scikit-image scipy matplotlib pyevtk pyvista -y
   - conda init bash
   - source ~/.bashrc
   - conda activate pumapy
