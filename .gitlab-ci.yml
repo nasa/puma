@@ -1,4 +1,4 @@
-image: python:latest
+image: continuumio/miniconda3
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
@@ -8,9 +8,10 @@ cache:
     - .cache/pip
 
 before_script:
+  - conda create --name pumapy -c conda-forge python pip cython numpy scikit-image scipy matplotlib pyevtk pyvista -y
+  - conda activate pumapy
   - python -m pip install --upgrade pip
   - python -m pip install pytest
-  - python -m pip install numpy
   - python -m  pip install -e .  # install pumapy
   - cd python/test
 
