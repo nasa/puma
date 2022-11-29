@@ -67,7 +67,7 @@ class PropertySolver:
                               tol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         elif self.solver_type == 'bicgstab' and self.solver_type in self.allowed_solvers:
-            self.x, info = bicgstab(self.Amat, self.bvec, x0=self.initial_guess, M=self.M, atol=0,
+            self.x, info = bicgstab(self.Amat, self.bvec, x0=self.initial_guess, M=self.M,
                                     tol=self.tolerance, maxiter=self.maxiter, callback=self.callback)
 
         if info > 0:
