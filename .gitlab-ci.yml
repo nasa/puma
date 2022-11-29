@@ -8,6 +8,7 @@ cache:
     - .cache/pip
 
 before_script:
+  - apt-get update && apt-get install libgl1
   - conda create -y --name puma -c conda-forge puma gcc
   - conda init bash
   - source ~/.bashrc
