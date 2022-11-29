@@ -3,26 +3,14 @@ This folder contains notebook tutorial that show the basic workings of PuMA and 
 
 ## Python Tutorials (pumapy)
 There are three ways to run the pumapy tutorials: 
-1. Running the jupyter notebooks on google colab
+1. Running the jupyter notebooks on Binder
 1. Running the python tutorial scripts (.py files) locally
 1. Running the jupyter notebooks locally
 
 
-### Run online in Colab
-You can click on the following links to run the tutorial directly on Google Colab. Each link contains a tutorial for one of the code features. 
-1. [Workspace Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/workspace_tutorial.ipynb)
-1. [Import Export Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/import_export_tutorial.ipynb)
-1. [Material Generation Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/generation_tutorial.ipynb)
-1. [Visualization Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/visualization_tutorial.ipynb)
-1. [Filters Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/filters_tutorial.ipynb)
-1. [Pore Analysis Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/pore_identification_tutorial.ipynb)
-1. [Surface Area Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/surface_area_tutorial.ipynb)
-1. [Orientation Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/orientation_tutorial.ipynb)
-1. [Elasticity Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/elasticity_tutorial.ipynb)
-1. [Permeability Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/permeability_tutorial.ipynb)
-1. [Thermal Conductivity Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/thermal_conductivity_tutorial.ipynb)
-1. [Tortuosity Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/tortuosity_tutorial.ipynb)
-1. [Multiphase Material Tutorial](https://colab.research.google.com/github/nasa/puma/blob/main/tutorials/python/jupyter_notebooks/multiphase_tutorial.ipynb)
+### Run online in Binder
+You can run the Jupyter notebook tutorials online on Binder using the link below.  
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/jcfergus%2Fpuma-dev/binder)
 
 
 ### Run Jupyter Notebooks locally
