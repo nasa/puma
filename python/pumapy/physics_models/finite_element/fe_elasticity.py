@@ -34,11 +34,11 @@ class ElasticityFE(PropertySolver):
         elif self.direction == 'z':
             self.axis = 2
         elif self.direction == 'xy':
-            self.axis = 3
+            self.axis = 5
         elif self.direction == 'xz':
             self.axis = 4
         else:
-            self.axis = 5
+            self.axis = 3
 
         self.Ceff = None
         self.u = None
@@ -246,8 +246,12 @@ class ElasticityFE(PropertySolver):
                     self.t[j, i, k, 1] = t_f[i + j * self.len_y + k * self.len_x * self.len_y, 1]
                     self.t[j, i, k, 2] = t_f[i + j * self.len_y + k * self.len_x * self.len_y, 2]
 
-        self.Ceff = [self.s[:, :, :, 0].sum() / self.nElems, self.s[:, :, :, 1].sum() / self.nElems, self.s[:, :, :, 2].sum() / self.nElems,
-                     self.t[:, :, :, 0].sum() / self.nElems, self.t[:, :, :, 1].sum() / self.nElems, self.t[:, :, :, 2].sum() / self.nElems]
+        self.Ceff = [self.s[:, :, :, 0].sum() / self.nElems,
+                     self.s[:, :, :, 1].sum() / self.nElems,
+                     self.s[:, :, :, 2].sum() / self.nElems,
+                     self.t[:, :, :, 0].sum() / self.nElems,
+                     self.t[:, :, :, 1].sum() / self.nElems,
+                     self.t[:, :, :, 2].sum() / self.nElems]
         print("Done")
 
     def create_element_matrices(self, onlyB):

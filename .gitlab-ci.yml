@@ -8,10 +8,12 @@ cache:
     - .cache/pip
 
 before_script:
-  - conda create --name pumapy -c conda-forge python pip gcc cython numpy scikit-image scipy matplotlib pyevtk pyvista -y
+  - apt-get install libgl1
+#  - conda create --name puma -c conda-forge python pip gcc cython numpy scikit-image scipy matplotlib pyevtk pyvista -y
+  - conda create -y --name puma -c conda-forge puma
   - conda init bash
   - source ~/.bashrc
-  - conda activate pumapy
+  - conda activate puma
   - python -m pip install --upgrade pip
   - python -m pip install pytest
   - python -m  pip install -e .  # install pumapy
@@ -24,7 +26,7 @@ test:
     - pytest test_generation.py
     - pytest test_io.py
     - pytest test_isosurf_sa_mil_vf_orient.py
-    - pytest test_mpsa_elasticity.py
+    - pytest test_elasticity.py
     - pytest test_permeability.py
     - pytest test_radiation_raycast.py
     - pytest test_segmentation.py

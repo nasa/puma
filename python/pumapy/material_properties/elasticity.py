@@ -44,8 +44,27 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
         >>> elast_map = puma.ElasticityMap()
         >>> elast_map.add_isotropic_material((1, 1), 200, 0.3)
         >>> elast_map.add_isotropic_material((2, 2), 400, 0.1)
-        >>> C, u, s, t = puma.compute_elasticity(ws, elast_map, direction='x', side_bc='f', solver_type="direct")
-        Initializing and padding domains ...
+        >>> C = np.zeros((6, 6))
+        >>> C[:, 0], u, s, t = puma.compute_elasticity(ws, elast_map, direction='x', solver_type='direct')
+        >>> C[:, 1], u, s, t = puma.compute_elasticity(ws, elast_map, direction='y', solver_type='direct')
+        >>> C[:, 2], u, s, t = puma.compute_elasticity(ws, elast_map, direction='z', solver_type='direct')
+        >>> C[:, 3], u, s, t = puma.compute_elasticity(ws, elast_map, direction='yz', solver_type='direct')
+        >>> C[:, 4], u, s, t = puma.compute_elasticity(ws, elast_map, direction='xz', solver_type='direct')
+        >>> C[:, 5], u, s, t = puma.compute_elasticity(ws, elast_map, direction='xy', solver_type='direct')
+        >>> print(C)
+        >>> coeffs = puma.get_E_nu_from_elasticity(C)
+        >>> #puma.plot_elasticity_fields(ws, u, s, t)  # to visualize fields
+        >>> #puma.warp_elasticity_fields(ws, u, s, t, 5)  # to visualize fields
+        >>> #puma.export_elasticity_fields_vti("path/to/folder", ws, u, s, t)  # to export fields
+        >>> C = np.zeros((6, 6))
+        >>> C[:, 0], u, s, t = puma.compute_elasticity(ws, elast_map, direction='x', solver_type='direct', method='fe')  # finite element solver
+        >>> C[:, 1], u, s, t = puma.compute_elasticity(ws, elast_map, direction='y', solver_type='direct', method='fe')
+        >>> C[:, 2], u, s, t = puma.compute_elasticity(ws, elast_map, direction='z', solver_type='direct', method='fe')
+        >>> C[:, 3], u, s, t = puma.compute_elasticity(ws, elast_map, direction='yz', solver_type='direct', method='fe')
+        >>> C[:, 4], u, s, t = puma.compute_elasticity(ws, elast_map, direction='xz', solver_type='direct', method='fe')
+        >>> C[:, 5], u, s, t = puma.compute_elasticity(ws, elast_map, direction='xy', solver_type='direct', method='fe')
+        >>> print(C)
+        >>> coeffs = puma.get_E_nu_from_elasticity(C)
     """
     if not isinstance(workspace, Workspace):
         raise Exception("Workspace must be a puma.Workspace.")
@@ -169,7 +188,7 @@ def get_E_nu_from_elasticity(C):
 
 
 def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0., show_cbar=True, show_edges=False,
-                           xy_view=False, rm_id=None, show_axes=True):
+                           xy_view=False, rm_id=None, show_axes=True, notebook=False):
     """ Warp the workspace according to the displacement field output by the elasticity functions,
         and colored by displacement and stress components
 
@@ -195,6 +214,8 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
         :type rm_id: float or None
         :param show_axes: show the axes and side dimensions
         :type show_axes: float
+        :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+        :type notebook: bool
     """
 
     if isinstance(workspace, Workspace):
@@ -231,7 +252,7 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
 
     f = grid.warp_by_vector('vectors', factor=scale_factor)
 
-    p = pv.Plotter(shape=(3, 3))
+    p = pv.Plotter(shape=(3, 3), notebook=notebook)
 
     plots = [['ux', 'uy', 'uz'], ['sx', 'sy', 'sz'], ['tyz', 'txz', 'txy']]
     for i in range(3):
@@ -261,8 +282,7 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
     p.show()
 
 
-def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
-                           xy_view=False, rm_id=None):
+def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False, xy_view=False, rm_id=None, notebook=False):
     """ Plot the workspace according to the displacement and stress fields output by the elasticity functions
 
         :param workspace: domain
@@ -281,6 +301,8 @@ def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
         :type xy_view: bool
         :param rm_id: remove a phase of the material from thresholded mesh
         :type rm_id: float or None
+        :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+        :type notebook: bool
     """
 
     if isinstance(workspace, Workspace):
@@ -309,7 +331,7 @@ def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
     grid['txz'] = t_cp[:, :, :, 1].ravel(order='F')
     grid['txy'] = t_cp[:, :, :, 2].ravel(order='F')
 
-    p = pv.Plotter(shape=(3, 3))
+    p = pv.Plotter(shape=(3, 3), notebook=notebook)
 
     plots = [['ux', 'uy', 'uz'], ['sx', 'sy', 'sz'], ['tyz', 'txz', 'txy']]
     for i in range(3):

@@ -52,7 +52,7 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='p', pr
         >>> cond_map = puma.IsotropicConductivityMap()
         >>> cond_map.add_material((0, 89), 0.0257)
         >>> cond_map.add_material((90, 255), 12)
-        >>> k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 's')
+        >>> k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 's', matrix_free=True)
         Approximate memory requirement for simulation...
         >>> # Conductivity with Anisotropic local phases
         >>> puma.compute_orientation_st(ws_fiberform, cutoff=(90, 255))
@@ -62,8 +62,10 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='p', pr
         >>> cond_map.add_isotropic_material((0, 89), 0.0257)
         >>> # axial fiber conductivity of 12, radial fiber conductivity of 0.7
         >>> cond_map.add_material_to_orient((90, 255), 12., 0.7)
-        >>> k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 's')
+        >>> k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 's')  # method='fe' for finite element
         Approximate memory requirement for simulation...
+        >>> # plot_conductivity_fields(ws, T_z, q_z)  # to visualize fields
+        >>> # export_conductivity_fields_vti("path/to/folder", ws, T_z, q_z)  # to export fields
     """
 
     if method == "fv":
@@ -125,17 +127,6 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :type matrix_free: bool
         :return: electrical conductivity, potential field, flux
         :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
-
-        :Example:
-        >>> import pumapy as puma
-        >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
-        Importing .../200_fiberform.tif ... Done
-        >>> ws_fiberform.matrix = ws_fiberform.matrix[50:150, 50:150, 50:150]
-        >>> cond_map = puma.IsotropicConductivityMap()
-        >>> cond_map.add_material((0, 89), 0.0257)
-        >>> cond_map.add_material((90, 255), 12)
-        >>> k_eff_x, P_x, q_x = puma.compute_electrical_conductivity(ws_fiberform, cond_map, 'x', 's', tolerance=1e-2, solver_type='cg')
-        Approximate memory requirement for simulation...
     """
     return compute_thermal_conductivity(workspace, cond_map, direction, side_bc, prescribed_bc, tolerance, maxiter,
                                         solver_type, display_iter, method, matrix_free)
@@ -156,7 +147,7 @@ def export_conductivity_fields_vti(filepath, workspace, T, q):
     export_vti(filepath, {"ws": workspace, "T": T, "q": q})
 
 
-def plot_conductivity_fields(workspace, T, q, show_cbar=True, show_edges=False, xy_view=False, rm_id=None):
+def plot_conductivity_fields(workspace, T, q, show_cbar=True, show_edges=False, xy_view=False, rm_id=None, notebook=False):
     """ Plot the workspace colored by the temperature and flux fields, as output by the conductivity function
 
         :param workspace: domain
@@ -173,6 +164,8 @@ def plot_conductivity_fields(workspace, T, q, show_cbar=True, show_edges=False, 
         :type xy_view: bool
         :param rm_id: remove a phase of the material from thresholded mesh
         :type rm_id: float or None
+        :param notebook: plotting interactively in a jupyter notebook (overwrites show_grid to False)
+        :type notebook: bool
     """
 
     if isinstance(workspace, Workspace):
@@ -196,7 +189,7 @@ def plot_conductivity_fields(workspace, T, q, show_cbar=True, show_edges=False, 
     grid['qy'] = q_cp[:, :, :, 1].ravel(order='F')
     grid['qz'] = q_cp[:, :, :, 2].ravel(order='F')
 
-    p = pv.Plotter(shape=(2, 3))
+    p = pv.Plotter(shape=(2, 3), notebook=notebook)
 
     plots = [['ws', 'T', '|q|'], ['qx', 'qy', 'qz']]
     for i in range(2):
