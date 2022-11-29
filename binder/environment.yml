@@ -2,18 +2,8 @@ name: puma_binder
 channels:
   - conda-forge
 dependencies:
-  - python
-
-  # pumapy
-  - numpy
-  - scikit-image >=0.17
-  - scipy
-  - matplotlib
-  - pyevtk
-  - pyvista
+  - puma
 
   # required for viz in jupyter notebook
   - ipyvtklink
-  - ipympl
-  - pyglet
   - pyvirtualdisplay
