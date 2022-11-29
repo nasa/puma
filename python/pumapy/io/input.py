@@ -4,7 +4,9 @@ import pickle
 from pumapy.utilities.workspace import Workspace
 from os import path
 from glob import glob
-import pyvista._vtk
+from vtkmodules.util.numpy_support import vtk_to_numpy
+from vtkmodules.vtkIOXML import vtkXMLImageDataReader, vtkXMLUnstructuredGridReader
+from vtkmodules.vtkIOLegacy import vtkDataSetReader
 
 
 def io_logs(ws, filename, input=True):
@@ -106,13 +108,13 @@ def import_vti(filename, voxel_length=None, import_ws=True):
         raise Exception("File " + filename + " not found.")
 
     if filename[-4:] == ".vti":
-        reader = pyvista._vtk.vtkXMLImageDataReader()
+        reader = vtkXMLImageDataReader()
         reader.SetFileName(filename)
         reader.Update()
         vtkobject = reader.GetOutput()
 
     elif filename[-4:] == ".vtk":
-        reader = pyvista._vtk.vtkDataSetReader()
+        reader = vtkDataSetReader()
         reader.SetFileName(filename)
         reader.ReadAllScalarsOn()
         reader.ReadAllColorScalarsOn()
@@ -139,24 +141,24 @@ def import_vti(filename, voxel_length=None, import_ws=True):
         # checking for CELL_DATA
         if vtkobject.GetCellData().GetNumberOfArrays() > 0:
             if vtkobject.GetCellData().GetNumberOfArrays() == 1:  # if one array, could either be orientation or matrix
-                nparray = pyvista._vtk.vtk_to_numpy(vtkobject.GetCellData().GetArray(0))
+                nparray = vtk_to_numpy(vtkobject.GetCellData().GetArray(0))
                 if nparray.ndim == 2:  # if orientation
                     orientation = nparray.copy()
                     nparray = None
             else:
-                nparray = pyvista._vtk.vtk_to_numpy(vtkobject.GetCellData().GetArray(0))
-                orientation = pyvista._vtk.vtk_to_numpy(vtkobject.GetCellData().GetArray(1))
+                nparray = vtk_to_numpy(vtkobject.GetCellData().GetArray(0))
+                orientation = vtk_to_numpy(vtkobject.GetCellData().GetArray(1))
 
         # checking for POINT_DATA
         else:
             if vtkobject.GetPointData().GetNumberOfArrays() == 1:  # if one array, could either be orientation or matrix
-                nparray = pyvista._vtk.vtk_to_numpy(vtkobject.GetPointData().GetArray(0))
+                nparray = vtk_to_numpy(vtkobject.GetPointData().GetArray(0))
                 if nparray.ndim == 2:  # if orientation
                     orientation = nparray.copy()
                     nparray = None
             else:
-                nparray = pyvista._vtk.vtk_to_numpy(vtkobject.GetPointData().GetArray(0))
-                orientation = pyvista._vtk.vtk_to_numpy(vtkobject.GetPointData().GetArray(1))
+                nparray = vtk_to_numpy(vtkobject.GetPointData().GetArray(0))
+                orientation = vtk_to_numpy(vtkobject.GetPointData().GetArray(1))
 
         if nparray is not None:
             nparray = nparray.reshape(shape[0] - 1, shape[1] - 1, shape[2] - 1, order="F")
@@ -180,14 +182,14 @@ def import_vti(filename, voxel_length=None, import_ws=True):
     else:
         nparray_list = dict()
         for i in range(vtkobject.GetCellData().GetNumberOfArrays()):
-            tmp = pyvista._vtk.vtk_to_numpy(vtkobject.GetCellData().GetArray(i))
+            tmp = vtk_to_numpy(vtkobject.GetCellData().GetArray(i))
             if tmp.ndim == 1:
                 tmp = tmp.reshape(shape[0] - 1, shape[1] - 1, shape[2] - 1, order="F")
             else:
                 tmp = tmp.reshape(shape[0] - 1, shape[1] - 1, shape[2] - 1, 3, order="F")
             nparray_list[vtkobject.GetCellData().GetArrayName(i)] = tmp
         for i in range(vtkobject.GetPointData().GetNumberOfArrays()):
-            tmp = pyvista._vtk.vtk_to_numpy(vtkobject.GetPointData().GetArray(i))
+            tmp = vtk_to_numpy(vtkobject.GetPointData().GetArray(i))
             if tmp.ndim == 1:
                 tmp = tmp.reshape(shape[0] - 1, shape[1] - 1, shape[2] - 1, order="F")
             else:
@@ -216,13 +218,13 @@ def import_weave_vtu(filename, from_texgen_gui=False):
             filename = filename[0]
     print("Importing " + filename + " ... ", end='')
 
-    reader = pyvista._vtk.vtkXMLUnstructuredGridReader()
+    reader = vtkXMLUnstructuredGridReader()
     reader.SetFileName(filename)
     reader.Update()  # reading
     vtkobject = reader.GetOutputDataObject(0)
 
     dims = path.split(filename[:-4])[1].split('_')[-3:]
-    yarn_index = pyvista._vtk.vtk_to_numpy(vtkobject.GetCellData().GetArray(0)) + 1
+    yarn_index = vtk_to_numpy(vtkobject.GetCellData().GetArray(0)) + 1
     ws = Workspace.from_array(yarn_index.reshape(int(dims[0]), int(dims[1]), int(dims[2]), order="F"))
 
     if vtkobject.GetCellData().GetNumberOfArrays() >= 2:
@@ -235,13 +237,13 @@ def import_weave_vtu(filename, from_texgen_gui=False):
             # Array 3 name = VolumeFraction (unnecessary)
             # Array 4 name = SurfaceDistance (unnecessary)
             # Array 5 name = Orientation  <-- transferring to ws
-            orientation = pyvista._vtk.vtk_to_numpy(vtkobject.GetCellData().GetArray(5))
+            orientation = vtk_to_numpy(vtkobject.GetCellData().GetArray(5))
         else:
             # MODIFIED TEXGEN wrapped in PuMA
             # Number Of Arrays: 6
             # Array 0 name = YarnIndex  <-- transferring to ws
             # Array 1 name = Orientation  <-- depends on export_orientation in export_weave_vtu
-            orientation = pyvista._vtk.vtk_to_numpy(vtkobject.GetCellData().GetArray(1))
+            orientation = vtk_to_numpy(vtkobject.GetCellData().GetArray(1))
         orientation = orientation.reshape(int(dims[0]), int(dims[1]), int(dims[2]), 3, order="F")
         ws.set_orientation(orientation)
 
