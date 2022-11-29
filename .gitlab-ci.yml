@@ -8,15 +8,13 @@ cache:
     - .cache/pip
 
 before_script:
-  - apt-get install libgl1
-#  - conda create --name puma -c conda-forge python pip gcc cython numpy scikit-image scipy matplotlib pyevtk pyvista -y
   - conda create -y --name puma -c conda-forge puma
   - conda init bash
   - source ~/.bashrc
   - conda activate puma
   - python -m pip install --upgrade pip
   - python -m pip install pytest
-  - python -m  pip install -e .  # install pumapy
+  - python -m  pip install -e .  # install local pumapy
   - cd python/test
 
 test:
@@ -30,6 +28,6 @@ test:
     - pytest test_permeability.py
     - pytest test_radiation_raycast.py
     - pytest test_segmentation.py
-    # - pytest test_texgen_weave.py  # no texgen when using pip install
+    - pytest test_texgen_weave.py
     - pytest test_workspace.py
-    # - pytest test_visualization.py  # failing due to vtk from pip
+    - pytest test_visualization.py
