@@ -8,7 +8,7 @@ cache:
     - .cache/pip
 
 before_script:
-  - conda create -y --name puma -c conda-forge puma
+  - conda create -y --name puma -c conda-forge puma gcc
   - conda init bash
   - source ~/.bashrc
   - conda activate puma
