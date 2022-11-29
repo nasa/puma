@@ -1,6 +1,0 @@
-numpy
-scikit-image >=0.17
-scipy
-matplotlib
-pyevtk
-pyvista
