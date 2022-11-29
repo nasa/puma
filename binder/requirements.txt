@@ -1,3 +1,2 @@
-pumapy
 ipyvtklink
 pyvirtualdisplay
