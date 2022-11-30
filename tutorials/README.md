@@ -10,7 +10,7 @@ There are three ways to run the pumapy tutorials:
 
 ### Run online in Binder
 You can run the Jupyter notebook tutorials online on Binder using the link below.  
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/fsemerar/puma-tutorials/tree/main/main)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/fsemerar/puma-tutorials/main)
 
 
 ### Run Jupyter Notebooks locally
