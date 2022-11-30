@@ -33,6 +33,8 @@ Please refer to this publication for a detailed software architecture explanatio
 # - gh release create v$(python setup.py --version) --target main
 __version__ = "3.2.0"
 
+# experimental submodule:
+from . import experimental
 
 # utilities
 from pumapy.utilities.workspace import Workspace
