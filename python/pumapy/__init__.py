@@ -58,11 +58,6 @@ from pumapy.material_properties.orientation import compute_orientation_st, compu
 from pumapy.material_properties.conductivity import (compute_thermal_conductivity, compute_electrical_conductivity,
                                                      plot_conductivity_fields, export_conductivity_fields_vti)
 from pumapy.material_properties.tortuosity import compute_continuum_tortuosity
-from pumapy.material_properties.elasticity import (compute_elasticity, compute_stress_analysis, remove_rbms,
-                                                   get_E_nu_from_elasticity, warp_elasticity_fields,
-                                                   plot_elasticity_fields, export_elasticity_fields_vti)
-from pumapy.material_properties.radiation import compute_radiation, compute_extinction_coefficients
-from pumapy.material_properties.anisotropic_radiation import compute_radiation_anisotropic, compute_extinction_coefficients_anisotropic
 from pumapy.material_properties.permeability import compute_permeability
 
 # filtering
