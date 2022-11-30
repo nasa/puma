@@ -1,0 +1,10 @@
+name: puma_binder
+channels:
+  - conda-forge
+dependencies:
+  - puma
+
+  # required for viz in jupyter notebook
+  - ipyvtklink
+  - ipympl
+  - pyvirtualdisplay
