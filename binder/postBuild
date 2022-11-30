@@ -1,3 +1,0 @@
-#!/bin/bash
-set -ex
-pip install .  # install pumapy
