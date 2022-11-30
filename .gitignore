@@ -8,6 +8,7 @@ out
 build
 install/bin
 install/include
+install/micromamba
 install/lib
 install/.condarc
 install/miniconda
