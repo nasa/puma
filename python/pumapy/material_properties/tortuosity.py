@@ -4,7 +4,7 @@ from pumapy.physics_models.finite_volume.isotropic_conductivity import Isotropic
 
 
 def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', prescribed_bc=None,
-                                 tolerance=1e-4, maxiter=10000, solver_type='cg', display_iter=True):
+                                 tolerance=1e-4, maxiter=10000, solver_type='cg', display_iter=True, matrix_free=True):
     """ Compute the tortuosity modelling the local conductivity as isotropic
 
         :param workspace: domain
@@ -43,7 +43,7 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
     cond_map.add_material((cutoff[1]+1,32000),0)
 
     solver = IsotropicConductivity(workspace, cond_map, direction, side_bc, prescribed_bc,
-                                   tolerance, maxiter, solver_type, display_iter)
+                                   tolerance, maxiter, solver_type, display_iter, matrix_free)
 
     solver.error_check()
 
