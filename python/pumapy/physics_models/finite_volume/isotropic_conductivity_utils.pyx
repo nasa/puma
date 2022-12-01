@@ -396,7 +396,7 @@ def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, 
     cdef int i, j, k
     cdef int index, ixm, ixp, iym, iyp, izm, izp
 
-    print(domain_bc_check)
+    cdef double y_local
 
     cdef unsigned long long count = 0
     for i in [0, l_x - 1]:
@@ -415,9 +415,13 @@ def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, 
                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
-                        y[index] += (1. / (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
+                        y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
-                                     - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))) * x[index]
+                                     - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+                        if y_local != 0:
+                            y[index] += (1. / y_local) * x[index]
+                        else:
+                            y[index] += x[index]
 
     for i in range(1, l_x - 1):
         for j in [0, l_y - 1]:
@@ -432,9 +436,13 @@ def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, 
                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
-                    y[index] += (1. / (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
+                    y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
-                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))) * x[index]
+                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+                    if y_local != 0:
+                        y[index] += (1. / y_local) * x[index]
+                    else:
+                        y[index] += x[index]
 
     for i in range(1, l_x - 1):
         for j in range(1, l_y - 1):
@@ -449,9 +457,13 @@ def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, 
                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
-                    y[index] += (1. / (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
+                    y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
-                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))) * x[index]
+                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+                    if y_local != 0:
+                        y[index] += (1. / y_local) * x[index]
+                    else:
+                        y[index] += x[index]
 
     for i in range(1, l_x - 1):
         for j in range(1, l_y - 1):
@@ -460,15 +472,19 @@ def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, 
                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
                     y[index] += x[index]
                 else:
-                    ixm = l_xy * k + l_x * j + (i - 1)
-                    ixp = l_xy * k + l_x * j + (i + 1)
-                    iym = l_xy * k + l_x * (j - 1) + i
-                    iyp = l_xy * k + l_x * (j + 1) + i
-                    izm = l_xy * (k - 1) + l_x * j + i
-                    izp = l_xy * (k + 1) + l_x * j + i
-                    y[index] += (1. / (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
+                    ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+                    ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+                    iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+                    iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+                    izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+                    izp = index_at(i, j, k + 1, l_x, l_y, l_z)
+                    y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
-                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))) * x[index]
+                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+                    if y_local != 0:
+                        y[index] += (1. / y_local) * x[index]
+                    else:
+                        y[index] += x[index]
 
 
 def compute_flux(double[:,:,:] T, double[:,:,:] cond, l_x, l_y, l_z):
