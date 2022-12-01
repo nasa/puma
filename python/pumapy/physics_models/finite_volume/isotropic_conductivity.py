@@ -36,6 +36,7 @@ class IsotropicConductivity(PropertySolver):
         self.len_xy = self.len_x * self.len_y
         self.len_xyz = self.len_xy * self.len_z
         self.bc_check = 0
+        self.domain_bc_check = 1
         self.side_bc = side_bc
 
         self.n_iter = 0
@@ -84,6 +85,7 @@ class IsotropicConductivity(PropertySolver):
     def assemble_bvector(self):
         print("Setting up b matrix ... ", end='')
         bsq = np.zeros([self.len_x, self.len_y, self.len_z])
+
         if self.direction == '':
             for i in range(self.len_x):
                 for j in range(self.len_y):
@@ -93,8 +95,11 @@ class IsotropicConductivity(PropertySolver):
 
             self.prescribed_bc = self.prescribed_bc.dirichlet  # because of cython, cannot pass object
             self.bc_check = 1
+            self.domain_bc_check = 0
+
         else:
             self.bc_check = 0
+            self.domain_bc_check = 1
             self.prescribed_bc = np.full(self._matrix.shape, np.Inf, dtype=float)
             bsq[-1, :, :] = 1
 
@@ -110,7 +115,7 @@ class IsotropicConductivity(PropertySolver):
 
     def assemble_Amatrix(self):
         if not self.matrix_free or self.solver_type == "direct":
-            self._row, self._col, self._data = setup_matrices_cy(self.cond.flatten('F'), self.len_x, self.len_y, self.len_z,
+            self._row, self._col, self._data = setup_matrices_cy(self.cond.flatten('F'), self.len_x, self.len_y, self.len_z, self.domain_bc_check,
                                                                  self.bc_check, self.prescribed_bc, self.side_bc)
             del self.prescribed_bc
             self.Amat = coo_matrix((self._data, (self._row, self._col)), shape=(self.len_xyz, self.len_xyz)).tocsr()
@@ -128,13 +133,13 @@ class IsotropicConductivity(PropertySolver):
             kf = self.cond.flatten('F')
             def matvec(x):  # overload matvec for Amat=LinearOperator
                 y.fill(0)
-                matvec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.bc_check, self.prescribed_bc, self.side_bc)
+                matvec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.domain_bc_check, self.bc_check, self.prescribed_bc, self.side_bc)
                 return y
             self.Amat = LinearOperator(shape=(self.len_xyz, self.len_xyz), matvec=matvec)
 
             def vecvec_prec(x):
                 y.fill(0)
-                vecvec_prec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.bc_check, self.prescribed_bc, self.side_bc)
+                vecvec_prec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.domain_bc_check, self.bc_check, self.prescribed_bc, self.side_bc)
                 return y
             self.M = LinearOperator(shape=(self.len_xyz, self.len_xyz), matvec=vecvec_prec)
 

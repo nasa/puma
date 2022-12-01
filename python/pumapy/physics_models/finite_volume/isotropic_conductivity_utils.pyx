@@ -36,7 +36,7 @@ def index_at_s(int i, int j, int k, int len_x, int len_y, int len_z):
     return len_x * len_y * k + len_x * j + i
 
 
-def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
+def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, short domain_bc_check, double [:, :, :] prescribed_bc, str side_bc):
 
     if side_bc == 'p':
         index_at = index_at_p
@@ -51,17 +51,18 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
 
     # number of Array entries = (lengthX-2)*lengthY*lengthZ * 7 + 2*lengthY*lengthZ
     # have to split computation for large domains
-    cdef unsigned long long nEntries = (l_x - 2)  # = (l_x - 2) * l_y * l_z * 7 + 2 * l_y * l_z
-    nEntries *= l_y
-    nEntries *= l_z
-    nEntries *= 7
-    nEntries += 2 * l_y * l_z
+
+    cdef unsigned long long nEntries = l_x * l_y * l_z * 7 # Maximum number of entries
+
     _row = np.zeros(nEntries, dtype=np.uint32)
     _col = np.zeros(nEntries, dtype=np.uint32)
     _data = np.zeros(nEntries)
     cdef unsigned int[:] row = _row
     cdef unsigned int[:] col = _col
     cdef double[:] data = _data
+
+    print(nEntries)
+    print(bc_check)
 
     cdef unsigned long long count = 0
     for i in [0, l_x - 1]:
@@ -71,8 +72,11 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
                 row[count] = index
                 col[count] = index
 
-                if bc_check == 1:
-                    if prescribed_bc[i, j, k] != np.Inf:
+                if domain_bc_check == 1:
+                    data[count] = 1
+                    count += 1
+                else:
+                    if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
                         data[count] = 1
                         count += 1
                     else:
@@ -112,9 +116,7 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
                         data[count + 6] = _kf[izp] * _kf[index] / (_kf[izp] + _kf[index])
 
                         count += 7
-                else:
-                    data[count] = 1
-                    count += 1
+
 
     for i in range(1, l_x - 1):
         for j in [0, l_y - 1]:
@@ -275,7 +277,7 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
     return _row, _col, _data
 
 
-def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
+def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
 
     if side_bc == 'p':
         index_at = index_at_p
@@ -291,8 +293,10 @@ def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l
         for j in range(l_y):
             for k in range(l_z):
                 index = l_xy * k + l_x * j + i
-                if bc_check == 1:
-                    if prescribed_bc[i, j, k] != np.Inf:
+                if domain_bc_check == 1:
+                    y[index] += x[index]
+                else:
+                    if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
                         y[index] += x[index]
                     else:
                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
@@ -310,8 +314,6 @@ def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l
                         y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
                         y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
                         y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
-                else:
-                    y[index] += x[index]
 
     for i in range(1, l_x - 1):
         for j in [0, l_y - 1]:
@@ -383,7 +385,7 @@ def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l
                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
 
 
-def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
+def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
 
     if side_bc == 'p':
         index_at = index_at_p
@@ -394,13 +396,17 @@ def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, 
     cdef int i, j, k
     cdef int index, ixm, ixp, iym, iyp, izm, izp
 
+    print(domain_bc_check)
+
     cdef unsigned long long count = 0
     for i in [0, l_x - 1]:
         for j in range(l_y):
             for k in range(l_z):
                 index = l_xy * k + l_x * j + i
-                if bc_check == 1:
-                    if prescribed_bc[i, j, k] != np.Inf:
+                if domain_bc_check == 1:
+                    y[index] += x[index]
+                else:
+                    if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
                         y[index] += x[index]
                     else:
                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
@@ -412,8 +418,6 @@ def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, 
                         y[index] += (1. / (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))) * x[index]
-                else:
-                    y[index] += x[index]
 
     for i in range(1, l_x - 1):
         for j in [0, l_y - 1]:
