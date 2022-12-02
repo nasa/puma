@@ -9,7 +9,7 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
 
         :param workspace: domain
         :type workspace: pumapy.Workspace
-        :param cutoff: to binarize domain
+        :param cutoff: cutoff to binarize domain specifying the void phase
         :type cutoff: (int, int)
         :param direction: direction for solve ('x','y', or 'z')
         :type direction: string
@@ -25,6 +25,8 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
         :type solver_type: string
         :param display_iter: display iterations and residual
         :type display_iter: bool
+        :param matrix_free: if True, then use matrix-free method
+        :type matrix_free: bool
         :return: tortuosity, diffusivity, porosity, concentration field
         :rtype: ((float, float, float), float, float, numpy.ndarray)
         :Example:
@@ -36,9 +38,9 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
     """
 
     cond_map = IsotropicConductivityMap()
-    cond_map.add_material(cutoff, 1)
+    cond_map.add_material(cutoff, 1)  # assigning void k=1
 
-    if cutoff[0] > 0:
+    if cutoff[0] > 0:  # assigning the solid k=0
         cond_map.add_material((0, cutoff[0]-1),0)
     cond_map.add_material((cutoff[1]+1,32000),0)
 

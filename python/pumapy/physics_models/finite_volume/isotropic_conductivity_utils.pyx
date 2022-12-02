@@ -61,9 +61,6 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check,
     cdef unsigned int[:] col = _col
     cdef double[:] data = _data
 
-    print(nEntries)
-    print(bc_check)
-
     cdef unsigned long long count = 0
     for i in [0, l_x - 1]:
         for j in range(l_y):

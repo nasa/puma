@@ -7,18 +7,22 @@ cache:
   paths:
     - .cache/pip
 
-before_script:
-  - apt-get update && apt-get install libgl1 -y
-  - conda create -y --name puma -c conda-forge puma gcc
-  - conda init bash
-  - source ~/.bashrc
-  - conda activate puma
-  - python -m pip install --upgrade pip
-  - python -m pip install pytest
-  - python -m  pip install -e .  # install local pumapy
-  - cd python/test
-
 test:
+  only:
+    - main
+    - dev
+
+  before_script:
+    - apt-get update && apt-get install libgl1 -y
+    - conda create -y --name puma -c conda-forge puma gcc
+    - conda init bash
+    - source ~/.bashrc
+    - conda activate puma
+    - python -m pip install --upgrade pip
+    - python -m pip install pytest
+    - python -m  pip install -e .  # install local pumapy
+    - cd python/test
+
   script:
     - pytest test_conductivity.py
     - pytest test_filters.py
@@ -32,3 +36,4 @@ test:
 #    - pytest test_texgen_weave.py
     - pytest test_workspace.py
     - pytest test_visualization.py
+    - pytest test_tortuosity.py
