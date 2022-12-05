@@ -2,30 +2,22 @@ import numpy as np
 from pumapy.utilities.generic_checks import check_ws_cutoff
 from pumapy.utilities.workspace import Workspace
 
-
-def compute_volume_fraction(workspace, cutoff, display=True):
+def compute_volume_fraction(workspace, cutoff):
     """ Compute the volume fraction
 
         :param workspace: domain
         :type workspace: pumapy.Workspace or np.ndarray
         :param cutoff: to binarize domain
         :type cutoff: (int, int)
-        :param print: display volume fraction
-        :type print: bool
         :return: volume fraction
         :rtype: float
 
         :Example:
         >>> import pumapy as puma
-        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
-        Importing ...
-        >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255))
-        Volume Fraction for cutoff (90, 255): ...
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
+        >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255)) # compute volume fraction
     """
-
-    print("Am I even here?")
-
-    volume_fraction = VolumeFraction(workspace, cutoff, display)
+    volume_fraction = VolumeFraction(workspace, cutoff)
 
     volume_fraction.error_check()
 
@@ -38,11 +30,10 @@ def compute_volume_fraction(workspace, cutoff, display=True):
 
 class VolumeFraction:
 
-    def __init__(self, workspace, cutoff, display):
+    def __init__(self, workspace, cutoff):
         self.workspace = workspace
         self.cutoff = cutoff
         self.vf = -1.
-        self.display = display
 
     def compute(self):
         if isinstance(self.workspace, Workspace):
@@ -50,13 +41,13 @@ class VolumeFraction:
             mask_high = self.workspace.matrix <= self.cutoff[1]
             mask = mask * mask_high
             self.vf = float(np.sum(mask)) / float(self.workspace.get_size())
-            if self.display:
-                print(f"Volume Fraction for cutoff {self.cutoff}: {self.vf}")
+            print(f"Volume Fraction for cutoff {self.cutoff}: {self.vf}")
         elif isinstance(self.workspace, np.ndarray):
             mask = self.workspace >= self.cutoff[0]
             mask_high = self.workspace <= self.cutoff[1]
             mask = mask * mask_high
             self.vf = float(np.sum(mask)) / float(self.workspace.size)
+
 
 
     def error_check(self):
@@ -74,6 +65,7 @@ class VolumeFraction:
         else:
             raise Exception("Data needs to be either a pumapy.Workspace or Numpy array")
 
+
     def log_input(self):
         if isinstance(self.workspace, Workspace):
             self.workspace.log.log_section("Computing Volume Fraction")
@@ -85,4 +77,3 @@ class VolumeFraction:
         if isinstance(self.workspace, Workspace):
             self.workspace.log.log_section("Finished Volume Fraction Calculation")
             self.workspace.log.log_line("Volume Fraction: " + str(self.vf))
-
