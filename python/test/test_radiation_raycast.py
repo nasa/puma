@@ -24,11 +24,6 @@ class TestRadiation(unittest.TestCase):
             return
         self.assertTrue(False)
 
-    def test_basic(self):
-        ws = puma.Workspace.from_shape_value((10, 10, 10), 1)
-        ws[4, 4, 4] = 0
-        self.assertTrue(puma.compute_radiation(ws, (0, 0), 1, 100) is not False)
-
     def test_sphere(self):
         ws_sphere = puma.import_3Dtiff(puma.path_to_example_file("100_sphere_r40.tif"), 1e-6)
         beta, beta_std, rays_distances = puma.compute_radiation(ws_sphere, (128, 255), 1000, 100)
