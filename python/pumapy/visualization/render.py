@@ -400,7 +400,7 @@ class Renderer:
             self.filter = self.grid.threshold(self.cutoff)
 
         elif self.filter_type == "contour":
-            tri_mesh = generate_isosurface(self.array, self.cutoff)
+            tri_mesh = generate_isosurface(self.array, self.cutoff, flag_gaussian=True)
             tri_mesh.verts += self.origin
             tri_mesh.create_mesh()
             self.filter = tri_mesh.mesh
