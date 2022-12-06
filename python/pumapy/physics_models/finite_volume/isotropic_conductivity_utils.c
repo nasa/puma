@@ -2229,7 +2229,7 @@ static PyObject *__pyx_n_s_y_local;
 static PyObject *__pyx_n_s_zeros;
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_index_at_p(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_j, int __pyx_v_k, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_2index_at_s(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_j, int __pyx_v_k, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z); /* proto */
-static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_4setup_matrices_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v__kf, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_bc_check, short __pyx_v_domain_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
+static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_4setup_matrices_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v__kf, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_6matvec_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_8vecvec_prec_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_10compute_flux(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_T, __Pyx_memviewslice __pyx_v_cond, PyObject *__pyx_v_l_x, PyObject *__pyx_v_l_y, PyObject *__pyx_v_l_z); /* proto */
@@ -2997,7 +2997,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
 /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":39
  * 
  * 
- * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, short domain_bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
+ * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
  * 
  *     if side_bc == 'p':
  */
@@ -3010,8 +3010,8 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
   int __pyx_v_l_x;
   int __pyx_v_l_y;
   int __pyx_v_l_z;
-  short __pyx_v_bc_check;
   short __pyx_v_domain_bc_check;
+  short __pyx_v_bc_check;
   __Pyx_memviewslice __pyx_v_prescribed_bc = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_v_side_bc = 0;
   int __pyx_lineno = 0;
@@ -3021,7 +3021,7 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setup_matrices_cy (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_kf,&__pyx_n_s_l_x,&__pyx_n_s_l_y,&__pyx_n_s_l_z,&__pyx_n_s_bc_check,&__pyx_n_s_domain_bc_check,&__pyx_n_s_prescribed_bc,&__pyx_n_s_side_bc,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_kf,&__pyx_n_s_l_x,&__pyx_n_s_l_y,&__pyx_n_s_l_z,&__pyx_n_s_domain_bc_check,&__pyx_n_s_bc_check,&__pyx_n_s_prescribed_bc,&__pyx_n_s_side_bc,0};
     PyObject* values[8] = {0,0,0,0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -3071,13 +3071,13 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
         }
         CYTHON_FALLTHROUGH;
         case  4:
-        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_bc_check)) != 0)) kw_args--;
+        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_domain_bc_check)) != 0)) kw_args--;
         else {
           __Pyx_RaiseArgtupleInvalid("setup_matrices_cy", 1, 8, 8, 4); __PYX_ERR(0, 39, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
-        if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_domain_bc_check)) != 0)) kw_args--;
+        if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_bc_check)) != 0)) kw_args--;
         else {
           __Pyx_RaiseArgtupleInvalid("setup_matrices_cy", 1, 8, 8, 5); __PYX_ERR(0, 39, __pyx_L3_error)
         }
@@ -3113,8 +3113,8 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
     __pyx_v_l_x = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_l_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
     __pyx_v_l_y = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_l_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
     __pyx_v_l_z = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_l_z == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
-    __pyx_v_bc_check = __Pyx_PyInt_As_short(values[4]); if (unlikely((__pyx_v_bc_check == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
-    __pyx_v_domain_bc_check = __Pyx_PyInt_As_short(values[5]); if (unlikely((__pyx_v_domain_bc_check == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
+    __pyx_v_domain_bc_check = __Pyx_PyInt_As_short(values[4]); if (unlikely((__pyx_v_domain_bc_check == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
+    __pyx_v_bc_check = __Pyx_PyInt_As_short(values[5]); if (unlikely((__pyx_v_bc_check == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
     __pyx_v_prescribed_bc = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[6], PyBUF_WRITABLE); if (unlikely(!__pyx_v_prescribed_bc.memview)) __PYX_ERR(0, 39, __pyx_L3_error)
     __pyx_v_side_bc = ((PyObject*)values[7]);
   }
@@ -3127,7 +3127,7 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_side_bc), (&PyString_Type), 1, "side_bc", 1))) __PYX_ERR(0, 39, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_4setup_matrices_cy(__pyx_self, __pyx_v__kf, __pyx_v_l_x, __pyx_v_l_y, __pyx_v_l_z, __pyx_v_bc_check, __pyx_v_domain_bc_check, __pyx_v_prescribed_bc, __pyx_v_side_bc);
+  __pyx_r = __pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_4setup_matrices_cy(__pyx_self, __pyx_v__kf, __pyx_v_l_x, __pyx_v_l_y, __pyx_v_l_z, __pyx_v_domain_bc_check, __pyx_v_bc_check, __pyx_v_prescribed_bc, __pyx_v_side_bc);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3138,7 +3138,7 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_4setup_matrices_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v__kf, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_bc_check, short __pyx_v_domain_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc) {
+static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_4setup_matrices_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v__kf, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc) {
   PyObject *__pyx_v_index_at = NULL;
   int __pyx_v_i;
   int __pyx_v_j;
@@ -3218,7 +3218,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   __Pyx_RefNannySetupContext("setup_matrices_cy", 0);
 
   /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":41
- * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, short domain_bc_check, double [:, :, :] prescribed_bc, str side_bc):
+ * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
  * 
  *     if side_bc == 'p':             # <<<<<<<<<<<<<<
  *         index_at = index_at_p
@@ -3241,7 +3241,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     __pyx_t_3 = 0;
 
     /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":41
- * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, short domain_bc_check, double [:, :, :] prescribed_bc, str side_bc):
+ * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
  * 
  *     if side_bc == 'p':             # <<<<<<<<<<<<<<
  *         index_at = index_at_p
@@ -9673,7 +9673,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":39
  * 
  * 
- * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, short domain_bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
+ * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
  * 
  *     if side_bc == 'p':
  */
@@ -36496,11 +36496,11 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":39
  * 
  * 
- * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, short domain_bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
+ * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
  * 
  *     if side_bc == 'p':
  */
-  __pyx_tuple__24 = PyTuple_Pack(34, __pyx_n_s_kf, __pyx_n_s_l_x, __pyx_n_s_l_y, __pyx_n_s_l_z, __pyx_n_s_bc_check, __pyx_n_s_domain_bc_check, __pyx_n_s_prescribed_bc, __pyx_n_s_side_bc, __pyx_n_s_index_at, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_index, __pyx_n_s_ixm, __pyx_n_s_ixp, __pyx_n_s_iym, __pyx_n_s_iyp, __pyx_n_s_izm, __pyx_n_s_izp, __pyx_n_s_l_xy, __pyx_n_s_l_xyz, __pyx_n_s_nEntries, __pyx_n_s_row, __pyx_n_s_col, __pyx_n_s_data, __pyx_n_s_row_2, __pyx_n_s_col_2, __pyx_n_s_data_2, __pyx_n_s_count, __pyx_n_s_startCount, __pyx_n_s_nX, __pyx_n_s_nY, __pyx_n_s_nZ, __pyx_n_s_myCount); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(34, __pyx_n_s_kf, __pyx_n_s_l_x, __pyx_n_s_l_y, __pyx_n_s_l_z, __pyx_n_s_domain_bc_check, __pyx_n_s_bc_check, __pyx_n_s_prescribed_bc, __pyx_n_s_side_bc, __pyx_n_s_index_at, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_index, __pyx_n_s_ixm, __pyx_n_s_ixp, __pyx_n_s_iym, __pyx_n_s_iyp, __pyx_n_s_izm, __pyx_n_s_izp, __pyx_n_s_l_xy, __pyx_n_s_l_xyz, __pyx_n_s_nEntries, __pyx_n_s_row, __pyx_n_s_col, __pyx_n_s_data, __pyx_n_s_row_2, __pyx_n_s_col_2, __pyx_n_s_data_2, __pyx_n_s_count, __pyx_n_s_startCount, __pyx_n_s_nX, __pyx_n_s_nY, __pyx_n_s_nZ, __pyx_n_s_myCount); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
   __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(8, 0, 34, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_setup_matrices_cy, 39, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 39, __pyx_L1_error)
@@ -37017,7 +37017,7 @@ if (!__Pyx_RefNanny) {
   /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":39
  * 
  * 
- * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, short domain_bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
+ * def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
  * 
  *     if side_bc == 'p':
  */

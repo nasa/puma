@@ -36,7 +36,7 @@ def index_at_s(int i, int j, int k, int len_x, int len_y, int len_z):
     return len_x * len_y * k + len_x * j + i
 
 
-def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short bc_check, short domain_bc_check, double [:, :, :] prescribed_bc, str side_bc):
+def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
 
     if side_bc == 'p':
         index_at = index_at_p
