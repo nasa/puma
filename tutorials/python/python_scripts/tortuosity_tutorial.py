@@ -1,39 +1,17 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ![puma logo](https://github.com/nasa/puma/raw/main/doc/source/puma_logo.png)
-
-# # Continuum Tortuosity
+import numpy as np
+import pumapy as puma
+import pyvista as pv
+import os
 
 # The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
 # PuMA project, and outline the functions to compute material properties (please refer to these papers
 # ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
 # [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
 
-# ## Installation setup and imports
-
-# The first code block will execute the necessary installation and package import. 
-# 
-# If you are running this jupyter notebook locally on your machine, assuming you have already installed the software,
-# then the installation step will be skipped.
-
-# In[ ]:
-
-
-# for interactive slicer
-get_ipython().run_line_magic('matplotlib', 'widget')
-import pumapy as puma
-import os
-
-if 'BINDER_SERVICE_HOST' in os.environ:  # ONLINE JUPYTER ON BINDER
-    from pyvirtualdisplay import Display
-    display = Display(visible=0, size=(600, 400))
-    display.start()  # necessary for pyvista interactive plots
-    notebook = True
-    
-else:  # LOCAL JUPYTER NOTEBOOK
-    notebook = False  # when running locally, actually open pyvista window
-
+notebook = False  # when running locally, actually open pyvista window
+export_path = "out"  # CHANGE THIS PATH
+if not os.path.exists(export_path):
+    os.makedirs(export_path)
 
 # ## Tutorial
 # 
@@ -50,8 +28,6 @@ else:  # LOCAL JUPYTER NOTEBOOK
 # 
 # The outputs of the continuum tortuosity simulation are the continuum tortuosity factors, the effective diffusivity,
 # the porosity, and the steady state concentration profile
-
-# In[ ]:
 
 
 # Import an example tomography file of size 200^3 and voxel length 1.3e-6
@@ -80,19 +56,11 @@ print("[", n_eff_x[2], n_eff_y[2], n_eff_z[2], "]")
 
 print("Porosity of the material:", poro)
 
-
-# In[ ]:
-
-
 # Visualizing the Concentration field: 
 puma.render_volume(C_x, notebook=notebook, cmap='jet')
 
-
 # Below is an example of the exact same continuum tortuosity simulation, but now performed on a segmented image.
 # If done correctly, both should produce identical results.
-
-# In[ ]:
-
 
 # Segments the image. All values >= 90 are set to 1, and all values <90 are set to 0
 ws_fiberform.binarize(90)
@@ -116,10 +84,6 @@ print("[", n_eff_x[1], n_eff_y[1], n_eff_z[1], "]")
 print("[", n_eff_x[2], n_eff_y[2], n_eff_z[2], "]")
 
 print("Porosity of the material:", poro)
-
-
-# In[ ]:
-
 
 # Visualizing the Concentration field: 
 puma.render_volume(C_x, notebook=notebook, cmap='jet')
