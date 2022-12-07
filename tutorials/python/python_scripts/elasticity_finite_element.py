@@ -11,7 +11,7 @@ notebook = False  # when running locally, actually open pyvista window
 export_path = "out"  # CHANGE THIS PATH
 if not os.path.exists(export_path):
     os.makedirs(export_path)
-    
+
 # ### Finite Element Elasticity
 # 
 # An extra method to compute the elasticity was recently added, which leverages a Finite Element solver based on a Q1-Q1

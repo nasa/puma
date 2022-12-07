@@ -1,41 +1,17 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ![puma logo](https://github.com/nasa/puma/raw/main/doc/source/puma_logo.png)
-
-# # Permeability
+import numpy as np
+import pumapy as puma
+import pyvista as pv
+import os
 
 # The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
 # PuMA project, and outline the functions to compute material properties (please refer to these papers
 # ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
 # [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
 
-# ## Installation setup and imports
-
-# The first code block will execute the necessary installation and package import.
-# 
-# If you are running this jupyter notebook locally on your machine, assuming you have already installed the software,
-# then the installation step will be skipped
-
-# In[ ]:
-
-
-# for interactive slicer
-get_ipython().run_line_magic('matplotlib', 'widget')
-import pumapy as puma
-import pyvista as pv
-import numpy as np
-import os
-
-if 'BINDER_SERVICE_HOST' in os.environ:  # ONLINE JUPYTER ON BINDER
-    from pyvirtualdisplay import Display
-    display = Display(visible=0, size=(600, 400))
-    display.start()  # necessary for pyvista interactive plots
-    notebook = True
-    
-else:  # LOCAL JUPYTER NOTEBOOK
-    notebook = False  # when running locally, actually open pyvista window
-
+notebook = False  # when running locally, actually open pyvista window
+export_path = "out"  # CHANGE THIS PATH
+if not os.path.exists(export_path):
+    os.makedirs(export_path)
 
 # ## Tutorial
 # 
@@ -79,26 +55,15 @@ else:  # LOCAL JUPYTER NOTEBOOK
 # It describes the homogenized permeability of a square domain containing cylinders. In our case, we will consider a
 # domain with equal unit sides, discretized with 100 voxels in each direction, and with cylinders with 0.1 radius:
 
-# In[ ]:
-
-
 r = 0.1  # cylinder radius
 vf = 2. * np.pi * (r ** 2.)  # solid volume fraction
 
-
-# The analytical solution can now be computed as: 
-
-# In[ ]:
-
+# The analytical solution can now be computed as:
 
 keff_analytical = ((r ** 2) / (8 * vf)) * (-np.log(vf) - 1.47633597 + 2 * vf - 1.77428264 * vf ** 2 + 4.07770444 * vf ** 3 - 4.84227402 * vf ** 4)
 print(f"Analytical diagonal permeability: {keff_analytical}")
 
-
 # We can create the square array of cylinders by running the following cell:
-
-# In[ ]:
-
 
 ws = puma.generate_cylinder_square_array(100, 1. - vf)  # 100x100x1 domain with porosity = 1 - vf
 ws.voxel_length = 1./ws.matrix.shape[0]  # i.e. side length = 1
@@ -106,19 +71,11 @@ print(f"Domain solid VF: {puma.compute_volume_fraction(ws, (1, 1))}")
 
 puma.render_volume(ws, (1, 1), solid_color=(255,255,255), style='edges', notebook=notebook)
 
-
 # Finally, we can compute the exact numerical permeability in the three directions using a sparse direct solver by running:
-
-# In[ ]:
-
 
 keff, (u_x, u_y, u_z) = puma.compute_permeability(ws, (1, 1), solver_type='direct')
 
-
 # We can also visualize the output velocity fields as:
-
-# In[ ]:
-
 
 p = pv.Plotter(shape=(1, 2))
 ws.voxel_length = 1  # the voxel_length is converted to 1 for plotting the workspace together with the velocity
@@ -132,7 +89,6 @@ puma.render_orientation(u_y, scale_factor=1e2, add_to_plot=p, plot_directly=Fals
 puma.render_volume(ws, (1, 1), solid_color=(255,255,255), style='surface', add_to_plot=p, plot_directly=False, notebook=notebook)
 p.show()
 
-
 # ### Flow through artificial fibers with variable orientation
 # 
 # In this section, we are going to showcase how to compute the permeability of a couple of artificial fiber samples.
@@ -140,15 +96,8 @@ p.show()
 # 
 # This is how we can generate them:
 
-# In[ ]:
-
-
 ws1 = puma.generate_random_fibers(shape=(50, 50, 50), radius=2, porosity=0.7, phi=90, theta=90, length=200, max_iter=6)
 ws2 = puma.generate_random_fibers(shape=(50, 50, 50), radius=2, porosity=0.7, phi=0, theta=90, length=200, max_iter=6)
-
-
-# In[ ]:
-
 
 p = pv.Plotter(shape=(1, 2))
 p.subplot(0, 0)
@@ -159,25 +108,17 @@ p.add_text("Preferentially aligned with XZ plane")
 puma.render_volume(ws2, (1, ws2.max()), solid_color=None, cmap='jet', style='surface', add_to_plot=p, plot_directly=False, notebook=notebook)
 p.show()
 
-
 # Now, we compute their permeabilities using the minres iterative solver due to the significantly larger sparse system to
 # solve (refer to the first permeability section or to the documentation for more specs on the solver types and options):
 
-# In[ ]:
-
-
 keff1, (u_x1, u_y1, u_z1) = puma.compute_permeability(ws1, (1, ws1.max()), tol=1e-8, maxiter=10000, solver_type='minres', matrix_free=False)
 keff2, (u_x2, u_y2, u_z2) = puma.compute_permeability(ws2, (1, ws2.max()), tol=1e-8, maxiter=10000, solver_type='minres', matrix_free=False)
-
 
 # As you can see, the diagonal permeabilities in the first case are similar to each other, whereas the permeability in z
 # direction for the second sample is significatly lower than in the other two directions, which is a direct cause of the
 # fiber orientation.
 # 
 # We can now visualize their output velocity fields (normalized by the voxel_length) in Z as:
-
-# In[ ]:
-
 
 # usually pyvista plots are interactive, but this multi-plot is too heavy
 pv.set_jupyter_backend('static')
@@ -212,10 +153,6 @@ puma.render_volume(ws2, cutoff=(1, ws2.max()), cmap='jet', add_to_plot=p, plot_d
 p.show()
 
 pv.set_jupyter_backend('ipyvtklink')  # to set pyvista plots back to interactive
-
-
-# In[ ]:
-
 
 # usually pyvista plots are interactive, but this multi-plot is too heavy
 pv.set_jupyter_backend('static')

@@ -1,26 +1,17 @@
 import numpy as np
 import pumapy as puma
+import pyvista as pv
 import os
+
+# The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
+# PuMA project, and outline the functions to compute material properties (please refer to these papers
+# ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
+# [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
 
 notebook = False  # when running locally, actually open pyvista window
 export_path = "out"  # CHANGE THIS PATH
 if not os.path.exists(export_path):
     os.makedirs(export_path)
-
-# for interactive slicer
-get_ipython().run_line_magic('matplotlib', 'widget')
-import pumapy as puma
-import pyvista as pv
-import os
-
-if 'BINDER_SERVICE_HOST' in os.environ:  # ONLINE JUPYTER ON BINDER
-    from pyvirtualdisplay import Display
-    display = Display(visible=0, size=(600, 400))
-    display.start()  # necessary for pyvista interactive plots
-    notebook = True
-    
-else:  # LOCAL JUPYTER NOTEBOOK
-    notebook = False  # when running locally, actually open pyvista window
 
 
 # ## Tutorial
@@ -38,9 +29,6 @@ else:  # LOCAL JUPYTER NOTEBOOK
 # the domain. It does so by applying a Derivative of Gaussian (DoG) filter, followed by an extra Gaussian smoothing of the gradients.
 # 
 # The pumapy function to compute the orientation can be used in the following way:
-
-# In[ ]:
-
 
 size = (100, 100, 100)  # size of the domain, in voxels. 
 radius = 6  # radius of the fibers to be generated, in voxels
@@ -64,10 +52,7 @@ ws_fibers = puma.generate_random_fibers(size, radius, nFibers, porosity, phi, th
 # in order to obtain optimal performance, we should always have:  sigma > rho
 puma.compute_orientation_st(ws_fibers, cutoff=(128, 255), sigma=1.4, rho=0.7)
 
-
 # The orientation field is automatically added to the workspace.orientation Numpy array. We can now visualize it by running: 
-
-# In[ ]:
 
 
 p = pv.Plotter(shape=(1, 2), notebook=notebook)
@@ -79,7 +64,6 @@ p.add_text("Detected fiber orientation")
 puma.render_orientation(ws_fibers, notebook=notebook, add_to_plot=p, plot_directly=False)
 p.show()
 
-
 # The local material orientation is an important input to the functions to compute the effective conductivity and elasticity,
 # when treating the local phases as anisotropic.
 
@@ -88,9 +72,6 @@ p.show()
 # For segmented images, the orientation detection requires a pre-processing step to apply a Euclidean Distance Transform
 # prior to running the structure tensor. This pre-processing is an optional step in the oritention module, and can be
 # activated by setting the edt=True flag. An example is shown below for a segmented random fiber structure
-
-# In[ ]:
-
 
 size = (100, 100, 100)  # size of the domain, in voxels. 
 radius = 6  # radius of the fibers to be generated, in voxels
@@ -114,11 +95,7 @@ ws_fibers = puma.generate_random_fibers(size, radius, nFibers, porosity, phi, th
 # in order to obtain optimal performance, we should always have:  sigma > rho
 puma.compute_orientation_st(ws_fibers, cutoff=(1, 49), sigma=1.4, rho=0.7, edt=True)
 
-
-# The orientation field is automatically added to the workspace.orientation Numpy array. We can now visualize it by running: 
-
-# In[ ]:
-
+# The orientation field is automatically added to the workspace.orientation Numpy array. We can now visualize it by running:
 
 p = pv.Plotter(shape=(1, 2), notebook=notebook)
 p.subplot(0, 0)
