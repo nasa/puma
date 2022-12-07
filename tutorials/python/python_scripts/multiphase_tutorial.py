@@ -1,40 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ![puma logo](https://github.com/nasa/puma/raw/main/doc/source/puma_logo.png)
-
-# # Multi-phase Material
-
-# The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
-# PuMA project, and outline the functions to compute material properties (please refer to these papers
-# ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
-# [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
-
-# ## Installation setup and imports
-
-# The first code block will execute the necessary installation and package import.
-# 
-# If you are running this jupyter notebook locally on your machine, assuming you have already installed the software,
-# then the installation step will be skipped
-
-# In[ ]:
-
-
-# for interactive slicer
-get_ipython().run_line_magic('matplotlib', 'widget')
-import pumapy as puma
 import numpy as np
+import pumapy as puma
 import os
 
-if 'BINDER_SERVICE_HOST' in os.environ:  # ONLINE JUPYTER ON BINDER
-    from pyvirtualdisplay import Display
-    display = Display(visible=0, size=(600, 400))
-    display.start()  # necessary for pyvista interactive plots
-    notebook = True
-    
-else:  # LOCAL JUPYTER NOTEBOOK
-    notebook = False  # when running locally, actually open pyvista window
-
+notebook = False  # when running locally, actually open pyvista window
+export_path = "out"  # CHANGE THIS PATH
+if not os.path.exists(export_path):
+    os.makedirs(export_path)
 
 # ## Tutorial
 # 
@@ -52,18 +23,6 @@ else:  # LOCAL JUPYTER NOTEBOOK
 # The two fibers will be stored with material ID 1, and 2, and the sphere will be stored with material ID 3. 
 # 
 # Specify the output directory for the files to be generated:
-
-# In[ ]:
-
-
-export_path = "out"
-
-if not os.path.exists(export_path):
-    os.makedirs(export_path)
-
-
-# In[ ]:
-
 
 size = (200, 200, 200)  # size of the domain, in voxels. 
 radius = 8  # radius of the fibers to be generated, in voxels
@@ -90,7 +49,6 @@ ws_fibers2.set_material_id((1, ws_fibers2.max()), 2)  # turn all the fibers into
 ws_fibers1.matrix = ws_fibers1.matrix + ws_fibers2.matrix
 ws_fibers1.set_material_id((3, 3), 1) # setting the overlap, which would be 3, equal to 1
 
-
 # Generating the spheres
 diameter = 20  # diameter of the spheres to be generated, in voxels
 porosity = 0.8  # porosity of the overall structure
@@ -115,41 +73,16 @@ ws_multiphase = ws_fibers1
 # 
 # Now we will plot a slice of the material and visualize each of the three phases:
 
-# In[ ]:
-
-
 slices = puma.plot_slices(ws_multiphase, index=100)
 
-
-# In[ ]:
-
-
 puma.render_contour(ws_multiphase, cutoff=(1, 1), notebook=notebook)
-
-
-# In[ ]:
-
-
 puma.render_contour(ws_multiphase, cutoff=(2, 2), notebook=notebook)
-
-
-# In[ ]:
-
-
 puma.render_contour(ws_multiphase, cutoff=(3, 3), notebook=notebook)
-
 
 # We can also visualize the three-phase material using either the volume_render for showing a voxel representation or the
 # puma.render_contour_multiphase function for a smooth triangulated surface representation:
 
-# In[ ]:
-
-
 puma.render_volume(ws_multiphase, cutoff=(1, 3), solid_color=None, notebook=notebook, cmap='gray')
-
-
-# In[ ]:
-
 
 cutoffs = [(1, 1)]  # material phase 1
 cutoffs.append((2, 2)) # material phase 2
@@ -159,14 +92,10 @@ cutoffs.append((3, 3)) # material phase 3
 puma.render_contour_multiphase(ws_multiphase, cutoffs, notebook=notebook, 
                                solid_colors=((0., 0., 0.), (0.5, 0.5, 0.5), (1., 1., 1.)))
 
-
 # ### Volume Fractions
 # 
 # To calculate the volume fractions of each material phase, we will use the puma.compute_volume_fraction function and
 # specify the grayscale range of each material:
-
-# In[ ]:
-
 
 vf_void = puma.compute_volume_fraction(ws_multiphase, (0,0))
 vf_phase1 = puma.compute_volume_fraction(ws_multiphase, (1,1))
@@ -185,9 +114,6 @@ print("Volume Fraction of All Three Phases:", vf_solid)
 # 
 # To calculate the total surface area of the entire material phase, we can use the puma.compute_surface_area function with
 # the material cutoff of (1,3) which includes all 3 material phases
-
-# In[ ]:
-
 
 area, specific_area = puma.compute_surface_area(ws_multiphase, (1, 3))
 print("Areas:", area, specific_area)
@@ -222,16 +148,11 @@ print("Areas:", area, specific_area)
 # To compute the surface area of material 1 exposed to the void, 
 # 
 # Area = 0.5 ( A<sub>1</sub> + A<sub>1-2-3</sub> - A<sub>2-3</sub> ) = 0.5 * (a + d + f + a + b + c - d - b - c - f) = a
-# 
-#     
 
 # Below, we compute the exposed to void surface area of each of the three phases: note that computing the surface area of
 # the union between 1 and 3 requires extra steps, since using the surface area calculation on the domain with cutoffs (1,3)
 # would include phase 2. Instead we copy the domain, set material 3 to an ID of 1, and then compute the surface area of
 # material 1, which now includes material 3
-
-# In[ ]:
-
 
 # Raw and specific surface area calculations
 Area_1, SSA_1 = puma.compute_surface_area(ws_multiphase, (1,1))  # a + d + f
@@ -260,12 +181,8 @@ print("Exposed Areas for Phase 1:", Exposed_Area_1, Exposed_SSA_1)
 print("Exposed Areas for Phase 2:", Exposed_Area_2, Exposed_SSA_2)
 print("Exposed Areas for Phase 3:", Exposed_Area_3, Exposed_SSA_3)
 
-
 # As a check, we will test to make sure that the total exposed areas of each phase sum up to the total surface area of
 # all of the material phases:
-
-# In[ ]:
-
 
 print("Sum of Exposed Phase Area:", Exposed_SSA_1 + Exposed_SSA_2 + Exposed_SSA_3)
 print("Total Area:", SSA_123)
@@ -283,9 +200,6 @@ print("Percent Error: ", np.abs((Exposed_SSA_1 + Exposed_SSA_2 + Exposed_SSA_3 -
 # To speed up the simulation, we will take a 100<sup>3</sup> subsection of the domain in order to perform the tortuosity
 # simulation. Please note that this domain size is almost certainly not a representative volume, and a far larger size
 # should be used when performing production simulations
-
-# In[ ]:
-
 
 # The tortuosity calculation needs to be run for each of the three simulation directions. 
 # For each simulation, a concentration gradient is forced in the simulation direction, and converged to steady state
@@ -313,10 +227,6 @@ print("[", n_eff_x[2], n_eff_y[2], n_eff_z[2], "]")
 
 print("Porosity of the material:", poro)
 
-
-# In[ ]:
-
-
 # Visualizing the Concentration field for the simulation along the x-axis:  
 puma.render_volume(C_x, solid_color=None, notebook=notebook, cmap='jet')
 
@@ -326,9 +236,6 @@ puma.render_volume(C_x, solid_color=None, notebook=notebook, cmap='jet')
 # Computing the effective thermal conductivity is also very similar to in a single-phase case. The only difference is that
 # rather than two materials being specified (void and solid) in the conductivity map, an entry must be made for each
 # material phase, and the corresponding constituent thermal conductivity must be set.
-
-# In[ ]:
-
 
 # Generating a conductivity map. This stores the conductivity values for each phase of the material
 cond_map = puma.IsotropicConductivityMap()
@@ -361,33 +268,5 @@ print("[", k_eff_x[1], k_eff_y[1], k_eff_z[1], "]")
 print("[", k_eff_x[2], k_eff_y[2], k_eff_z[2], "]")
 
 
-# In[ ]:
-
-
 # Visualizing the temperature field for the simulation along the y-axis: 
 puma.render_volume(T_y, solid_color=None, notebook=notebook, cmap='jet')
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-

@@ -1,40 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ![puma logo](https://github.com/nasa/puma/raw/main/doc/source/puma_logo.png)
-
-# # Data Import and Export
-
-# The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
-# PuMA project, and outline the functions to compute material properties (please refer to these papers
-# ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
-# [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
-
-# ## Installation setup and imports
-
-# The first code block will execute the necessary installation and package import.
-# 
-# If you are running this jupyter notebook locally on your machine, assuming you have already installed the software,
-# then the installation step will be skipped
-
-# In[ ]:
-
-
-# for interactive slicer
-get_ipython().run_line_magic('matplotlib', 'widget')
+import numpy as np
 import pumapy as puma
-import pyvista as pv
 import os
 
-if 'BINDER_SERVICE_HOST' in os.environ:  # ONLINE JUPYTER ON BINDER
-    from pyvirtualdisplay import Display
-    display = Display(visible=0, size=(600, 400))
-    display.start()  # necessary for pyvista interactive plots
-    notebook = True
-    
-else:  # LOCAL JUPYTER NOTEBOOK
-    notebook = False  # when running locally, actually open pyvista window
-
+notebook = False  # when running locally, actually open pyvista window
+export_path = "out"  # CHANGE THIS PATH
+if not os.path.exists(export_path):
+    os.makedirs(export_path)
 
 # ## Tutorial
 # 
@@ -50,9 +21,6 @@ else:  # LOCAL JUPYTER NOTEBOOK
 # 
 # Examples of unsegmented and segmented workspaces are demonstrated below: 
 
-# In[ ]:
-
-
 ws_unsegmented = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
 ws_segmented = ws_unsegmented.copy()
 ws_segmented.binarize(90)
@@ -66,9 +34,6 @@ puma.compare_slices(ws_unsegmented, ws_segmented,'z', index=1)
 # as a voxel length. This value can either be set during input-output or it can be set directly for the workspace class.
 # 
 # An example is shown below, where the voxel length of a workspace class is manually changed
-
-# In[ ]:
-
 
 ws_unsegmented.voxel_length = 1.5e-6
 
@@ -90,37 +55,18 @@ ws_unsegmented.voxel_length = 1.5e-6
 # ([FIJI](https://imagej.net/software/fiji/) is recommended) and convert the image to a 3D tiff before importing into pumapy.
 # If tomographic reconstruction also needs to be performed, the python package called
 # [Tomopy](https://anaconda.org/conda-forge/tomopy) is recommended.
-# 
-# First, let's set where to export the output file:
-
-# In[ ]:
-
-
-# Specify a path where to export file
-export_path = 'out'  # CHANGE THIS PATH
-
-if not os.path.exists(export_path):
-    os.makedirs(export_path)
-
-
+#
 # ### Loading and exporting a .vti file
 
 # Now, we will import an example file from the example data inside the folder pumapy.data:
-
-# In[ ]:
-
 
 ws_vtk = puma.import_vti(puma.path_to_example_file("fibers_with_orientation.vti"))
 
 print("Voxel Length: ", ws_vtk.voxel_length)
 print("Domain shape: ", ws_vtk.get_shape())
 
-
 # We can now visualize both the fibrous microstructure and the fiber orientation side by side (for more visualization tips,
 # follow the visualization tutorial):
-
-# In[ ]:
-
 
 p = pv.Plotter(shape=(1, 2), notebook=notebook)
 p.subplot(0, 0)
@@ -131,30 +77,18 @@ p.add_text("Fiber orientation")
 puma.render_orientation(ws_vtk, notebook=notebook, add_to_plot=p, plot_directly=False)
 p.show()
 
-
 # Finally, we will export it again to our specified directory:
 
-# In[ ]:
-
-
 puma.export_vti(os.path.join(export_path, "fibers_with_orientation.vti"), ws_vtk)
-
 
 # And that's it for exporting to vti!  Let's repeat the same steps for .pumapy and 3D tiffs.
 
 # ### Loading and exporting a .pumapy binary file
 
-# In[ ]:
-
-
 ws_binary = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
 
 print("Voxel Length: ", ws_binary.voxel_length)
 print("Domain shape: ", ws_binary.get_shape())
-
-
-# In[ ]:
-
 
 p = pv.Plotter(shape=(1, 2), notebook=notebook)
 p.subplot(0, 0)
@@ -165,17 +99,10 @@ p.add_text("Fiber orientation")
 puma.render_orientation(ws_binary, notebook=notebook, add_to_plot=p, plot_directly=False)
 p.show()
 
-
-# In[ ]:
-
-
 puma.export_bin(os.path.join(export_path, "fibers_with_orientation.vti"), ws_binary)
 
 
 # ### Loading and exporting a .tif stack
-
-# In[ ]:
-
 
 ws_tiff = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"))
 
@@ -190,9 +117,6 @@ puma.export_3Dtiff(os.path.join(export_path, "50_artfibers.tif"), ws_tiff)
 # As you can see, with the 3D tiff import, the voxel length of the original workspace and the orientation is not preserved.
 # The voxel length can be set by either adding it as an option to the 3D tiff import call, or by setting it directly:
 
-# In[ ]:
-
-
 ws_tiff = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"), 1.3e-6)
 print("Voxel Length - passed to input function: ", ws_tiff.voxel_length)
 
@@ -200,10 +124,6 @@ ws_tiff = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"))
 print("Voxel Length - no input set: ", ws_tiff.voxel_length)
 ws_tiff.voxel_length = 1.3e-6
 print("Voxel Length - manually changed: ", ws_tiff.voxel_length)
-
-
-# In[ ]:
-
 
 
 
