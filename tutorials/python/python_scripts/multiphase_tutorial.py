@@ -2,10 +2,17 @@ import numpy as np
 import pumapy as puma
 import os
 
+# The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
+# PuMA project, and outline the functions to compute material properties (please refer to these papers
+# ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
+# [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
+
 notebook = False  # when running locally, actually open pyvista window
 export_path = "out"  # CHANGE THIS PATH
 if not os.path.exists(export_path):
     os.makedirs(export_path)
+
+
 
 # ## Tutorial
 # 
