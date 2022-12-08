@@ -1,5 +1,6 @@
 import numpy as np
 import pumapy as puma
+import pyvista as pv
 import os
 
 # The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
