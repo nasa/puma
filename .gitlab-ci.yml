@@ -1,4 +1,4 @@
-image: python:latest
+image: continuumio/miniconda3
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
@@ -7,23 +7,33 @@ cache:
   paths:
     - .cache/pip
 
-before_script:
-  - python -m pip install --upgrade pip
-  - python -m pip install pytest
-  - python -m  pip install -e .  # install pumapy
-  - cd python/test
-
 test:
+  only:
+    - main
+    - dev
+
+  before_script:
+    - apt-get update && apt-get install libgl1 -y
+    - conda create -y --name puma -c conda-forge puma gcc
+    - conda init bash
+    - source ~/.bashrc
+    - conda activate puma
+    - python -m pip install --upgrade pip
+    - python -m pip install pytest
+    - python -m  pip install -e .  # install local pumapy
+    - cd python/test
+
   script:
     - pytest test_conductivity.py
     - pytest test_filters.py
     - pytest test_generation.py
     - pytest test_io.py
     - pytest test_isosurf_sa_mil_vf_orient.py
-    - pytest test_mpsa_elasticity.py
+    - pytest test_elasticity.py
     - pytest test_permeability.py
     - pytest test_radiation_raycast.py
     - pytest test_segmentation.py
-    # - pytest test_texgen_weave.py  # no texgen when using pip install
+#    - pytest test_texgen_weave.py
     - pytest test_workspace.py
-    # - pytest test_visualization.py  # failing due to vtk from pip
+    - pytest test_visualization.py
+    - pytest test_tortuosity.py

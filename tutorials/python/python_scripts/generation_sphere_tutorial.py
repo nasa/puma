@@ -1,6 +1,16 @@
 import numpy as np
 import pumapy as puma
+import os
 
+# The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
+# PuMA project, and outline the functions to compute material properties (please refer to these papers
+# ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
+# [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
+
+notebook = False  # when running locally, actually open pyvista window
+export_path = "out"  # CHANGE THIS PATH
+if not os.path.exists(export_path):
+    os.makedirs(export_path)
 
 # ## Tutorial: Generating Random Sphere Structures
 # In this tutorial we demonstrate how to generate a microstructure of random intersecting spheres
@@ -16,15 +26,10 @@ segmented = True  # assign unique IDs to each sphere (if set to False, range wil
 
 ws_spheres = puma.generate_random_spheres(size, diameter, porosity, allow_intersections, segmented=segmented)
 
-
-# The material is now stored in the puma workspace, ws_spheres. By default, the grayscale range of [0,127] corresponds
-# to the void space, and [128,255] contains the material.
+# The material is now stored in the puma workspace, ws_spheres. By default, the grayscale range of [0,127] corresponds to
+# the void space, and [128,255] contains the material.
 # 
-# Next we will visualize the domain: 
+# Next we will visualize the domain:
 
 # visualizing the solid domain, contained in [128,255] grayscale range. 
-puma.render_volume(ws_spheres, cutoff=(1, ws_spheres.max()), cmap='jet', notebook=False)
-
-# visualizing the solid domain as a contour
-puma.render_contour(ws_spheres, cutoff=(1, ws_spheres.max()), notebook=False)
-
+puma.render_volume(ws_spheres, cutoff=(1, ws_spheres.max()), cmap='jet', notebook=notebook)

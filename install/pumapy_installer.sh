@@ -5,8 +5,20 @@ eval "$(conda shell.bash hook)"
 
 # creating puma conda env if it doesn't exist
 if [ ! -d "$(conda info --base)/envs/puma" ]; then
+
     echo "Creating puma conda environment."
-    conda env create
+    
+    if [ "$(uname)" == "Darwin" ]; then
+        curl -Ls https://micro.mamba.pm/api/micromamba/osx-64/latest | tar -xvj bin/micromamba
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+    else
+        echo "Unrecongnized Operating System, PuMA cannot be installed."
+        exit 1
+    fi
+
+    mv bin/micromamba .
+    ./micromamba create -n puma python numpy scikit-image scipy  matplotlib  pyevtk pyvista fftw eigen openmp cmake  qt swig pip cython scikit-umfpack jupyterlab ipyvtklink ipympl -c conda-forge -y
 fi
 
 # this env activation only lasts inside bash script

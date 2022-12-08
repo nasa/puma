@@ -5,21 +5,21 @@ dependencies:
   - python
 
   # pumapy
-  - numpy =1.21.2 
-  - scikit-image =0.18.3
-  - scipy =1.7.1
-  - matplotlib =3.4.3
-  - pyevtk =1.4.1
+  - numpy
+  - scikit-image
+  - scipy 
+  - matplotlib 
+  - pyevtk
   - pyvista
 
   # puma cpp
   - fftw
   - eigen
   - openmp
-  - cmake >=3.11.0 # needed >=3.11.0
+  - cmake 
 
   # puma gui
-  - qt >=5.9.0 # needed >=5.9.0
+  - qt
 
   # texgen
   - swig

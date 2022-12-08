@@ -2,15 +2,25 @@ import numpy as np
 import pumapy as puma
 import os
 
+# The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
+# PuMA project, and outline the functions to compute material properties (please refer to these papers
+# ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
+# [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
+
+notebook = False  # when running locally, actually open pyvista window
+export_path = "out"  # CHANGE THIS PATH
+if not os.path.exists(export_path):
+    os.makedirs(export_path)
+
 # ## Tutorial: Weaves
 # 
-# In order to run this tutorial on Colab, make sure to setup the environment correctly, as explained in the
-# "Installation setup and imports" section.
+# This section of the generation tutorial can only be run locally (not online in Binder) after installing puma using conda.
+# This is because of the dependency on TexGen, which cannot be built online.
 # 
 # In this tutorial we demonstrate the creation of weaves using TexGen and how to import them into pumapy.
-# TexGen python scrips can be simply obtained by either following TexGen tutorials
-# https://github.com/louisepb/TexGenScriptingGuide or by recording the actions in the TexGen GUI (of which there are already
-# bundled executables for Windows at https://sourceforge.net/projects/texgen/files/). 
+# TexGen python scrips can be simply obtained by either following [TexGen tutorials](https://github.com/louisepb/TexGenScriptingGuide)
+# or by recording the actions in the TexGen GUI (of which there are already
+# (bundled executables for Windows)[https://sourceforge.net/projects/texgen/files/]).
 # 
 # Let's start by creating a simple LayerToLayer weave using a TexGen python script.
 
@@ -51,17 +61,12 @@ for y in range(NumWarpYarns,NumXYarns): #loop through number of binder yarns
 		offset += 1
 
 
-# Next we create the domain, i.e. the lengths of the box containing the weave. In this case we will let TexGen figure
-# it out automatically using the AssignDefaultDomain function:
+# Next we create the domain, i.e. the lengths of the box containing the weave. In this case we will let TexGen figure it
+# out automatically using the AssignDefaultDomain function:
+
 
 weave.AssignDefaultDomain()
 domain = weave.GetDefaultDomain()
-
-# Now we need to specify a folder to export our TexGen weave
-export_path = "out"  # CHANGE THIS PATH
-
-if not os.path.exists(export_path):
-    os.makedirs(export_path)
 
 # Then, we pass the weave and the domain to the PuMApy exporter, which creates the voxel grid and exports it to the
 # specified directory (expensive step ~1.5-2 mins):
@@ -69,9 +74,12 @@ if not os.path.exists(export_path):
 puma.export_weave_vtu(os.path.join(export_path, "weavetest"), weave, domain, 200)
 
 # This can be then read back into a pumapy.Workspace:
+
 ws = puma.import_weave_vtu(os.path.join(export_path, "weavetest_200"))
 
-
 # And we can volume render it:
-puma.render_volume(ws, cutoff=(1, ws.matrix.max()), solid_color=None, notebook=False, cmap='jet')
+
+puma.render_volume(ws, cutoff=(1, ws.matrix.max()), solid_color=None, notebook=notebook, cmap='jet')
+
+
 

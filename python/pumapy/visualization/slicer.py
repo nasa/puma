@@ -11,7 +11,7 @@ def plot_slices(ws_nparray, slice_direction='z', crange=None, cmap='gray', index
         :param slice_direction: 'x', 'y', 'z'
         :type slice_direction: string
         :param crange: color range, i.e. specify min and max grayscale
-        :type crange: (int, int)
+        :type crange: (int, int) or None
         :param cmap: color map for the plot, 'gray' (default), 'jet' or refer to matplotlib for other colormaps
         :type cmap: string
         :param index: specifying the slice index in which the plot will be opened

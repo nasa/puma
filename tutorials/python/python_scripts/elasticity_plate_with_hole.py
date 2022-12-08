@@ -1,84 +1,65 @@
 import numpy as np
 import pumapy as puma
-import pyvista as pv
-import scipy.ndimage as nd
 import os
 
+# The objective of this notebook is to familiarize new users with the main datastructures that stand at the basis of the
+# PuMA project, and outline the functions to compute material properties (please refer to these papers
+# ([1](https://www.sciencedirect.com/science/article/pii/S2352711018300281),
+# [2](https://www.sciencedirect.com/science/article/pii/S235271102100090X)) for more details on the software).
 
-# ## Tutorial: Elasticity
-# In this tutorial we demonstrate the use of the compute_elasticity and compute_stress_analysis functions.
-# These functions rely on a stress analysis solver that uses the finite volume Multi-Point Stress Approximation
-# (MPSA) method.
-
-# We will run four different verification cases. Change the path of the file outputs:
-
+notebook = False  # when running locally, actually open pyvista window
 export_path = "out"  # CHANGE THIS PATH
 if not os.path.exists(export_path):
     os.makedirs(export_path)
 
+# ## Tutorial
+# In this tutorial we demonstrate the use of the compute_elasticity and compute_stress_analysis functions.
+# These functions rely on a stress analysis solver that uses the finite volume Multi-Point Stress Approximation (MPSA) method.
 
-# ### Example 3: plate with a hole
-# In this example, we model a plate with a hole in the middle pulled in the x direction by a certain displacement.
+# ### MPSA Elasticity
+
+# #### Example: plate with a hole
+# In this example, we model a plate with a hole in the middle pulled in the x direction by an input displacement.
 
 export_name = 'platehole'
-X = 50
-Y = 50
+X = 100
+Y = 102
 Z = 3
 ws = puma.Workspace.from_shape_value((X, Y, Z), 1)
 ws.voxel_length = 1
 
+ws[:, [0, -1]] = 0
+ws[:, :, [0, -1]] = 0
+
 # creating circular hole
 mask = np.ones((X, Y, Z), dtype=bool)
 mask[X//2, Y//2] = 0
+from scipy import ndimage as nd
 distance_mask = nd.morphology.distance_transform_edt(mask)
 max_distance = np.max(distance_mask)
 distance_mask_display = (distance_mask*255./max_distance).astype(dtype=np.uint8)
-in_range = distance_mask <= 17  # this sets how big is the hole with a threshold
+in_range = distance_mask <= 35  # this sets how big is the hole with a threshold
 ws[in_range] = 0
 
+puma.render_volume(ws.matrix[:, :, 1:2])
+
 # setting material
-elast_map = puma.ElasticityMap()
+elast_map = puma.experimental.ElasticityMap()
+elast_map.add_isotropic_material((0, 0), 1e-5, 0.3)
 elast_map.add_isotropic_material((1, 1), 200, 0.3)
 
 # setting dirichlet boundary conditions
-bc = puma.ElasticityBC(ws)
-bc.dirichlet[0, :, :, 0] = 0
-bc.dirichlet[-1, :, :, 0] = 1
+bc = puma.experimental.ElasticityBC(ws)
+bc.xfaces[0, :, :, 0] = 0
+bc.xfaces[0, :, :, 1] = 0
+bc.xfaces[0, :, :, 2] = 0
+bc.xfaces[1, :, :, 0] = 1
+bc.xfaces[1, :, :, 1] = 0
+bc.xfaces[1, :, :, 2] = 0
 
-u, s, t = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='f', solver_type="direct")
+u, s, t = puma.experimental.compute_stress_analysis(ws, elast_map, bc, side_bc='s', solver_type="bicgstab")
 
-results = puma.Workspace()
-u[ws.matrix == 0] = np.NAN  # set air displacement to NAN to avoid plotting it
-results.orientation = u[:, :, :Z//2]
-scale_factor = notebook=False
+u[ws.matrix == 0] = 0  # set air to zero
+puma.experimental.warp_elasticity_fields(ws[:, 1:-1, 1:2], u[:, 1:-1, 1:2], s[:, 1:-1, 1:2], t[:, 1:-1, 1:2], 5, show_original=0., show_edges=False, xy_view=True, rm_id=0, notebook=notebook)
 
-p = pv.Plotter(shape=(2, 3))
-p.subplot(0, 0)
-p.add_text("Colored by sigma_xx")
-results.matrix = s[:, :, :Z//2, 0]  # assign direct stresses to matrix
-puma.render_warp(results, color_by='matrix', scale_factor=scale_factor, style='edges', notebook=False, add_to_plot=p, plot_directly=False)
-p.subplot(0, 1)
-p.add_text("Colored by sigma_yy")
-results.matrix = s[:, :, :Z//2, 1]
-puma.render_warp(results, color_by='matrix', scale_factor=scale_factor, style='edges', notebook=False, add_to_plot=p, plot_directly=False)
-p.subplot(0, 2)
-p.add_text("Colored by sigma_zz")
-results.matrix = s[:, :, :Z//2, 2]
-puma.render_warp(results, color_by='matrix', scale_factor=scale_factor, style='edges', notebook=False, add_to_plot=p, plot_directly=False)
-p.subplot(1, 0)
-p.add_text("Colored by tau_yz")
-results.matrix = t[:, :, :Z//2, 0]  # assign shear stresses to matrix
-puma.render_warp(results, color_by='matrix', scale_factor=scale_factor, style='edges', notebook=False, add_to_plot=p, plot_directly=False)
-p.subplot(1, 1)
-p.add_text("Colored by tau_xz")
-results.matrix = t[:, :, :Z//2, 1]
-puma.render_warp(results, color_by='matrix', scale_factor=scale_factor, style='edges', notebook=False, add_to_plot=p, plot_directly=False)
-p.subplot(1, 2)
-p.add_text("Colored by tau_yz")
-results.matrix = t[:, :, :Z//2, 2]
-puma.render_warp(results, color_by='matrix', scale_factor=scale_factor, style='edges', notebook=False, add_to_plot=p, plot_directly=False)
-p.show(cpos="xy")
-
-puma.export_vti(os.path.join(export_path, export_name), {"ws": ws, "disp": u, "sigma": s, "tau": t})
-
-
+puma.experimental.export_elasticity_fields_vti(os.path.join(export_path, export_name), ws, u, s, t)
