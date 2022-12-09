@@ -39,6 +39,14 @@ class IsotropicConductivity(PropertySolver):
         self.domain_bc_check = 1
         self.side_bc = side_bc
 
+        self.kf_i = None
+        self.kf_ixm = None
+        self.kf_ixp = None
+        self.kf_iym = None
+        self.kf_iyp = None
+        self.kf_izm = None
+        self.kf_izp = None
+
         self.n_iter = 0
         self.Amat = None
         self.M = None
@@ -113,6 +121,10 @@ class IsotropicConductivity(PropertySolver):
         self.bvec = bsq.flatten('F')
         print("Done")
 
+
+    def setup_cond_matrices(self):
+
+
     def assemble_Amatrix(self):
         if not self.matrix_free or self.solver_type == "direct":
             self._row, self._col, self._data = setup_matrices_cy(self.cond.flatten('F'), self.len_x, self.len_y, self.len_z, self.domain_bc_check,
@@ -130,16 +142,49 @@ class IsotropicConductivity(PropertySolver):
             print("Done")
         else:
             y = np.zeros(self.len_xyz, dtype=float)
+
+            kf_i = np.copy(self.cond)
+            kf_i[1:-1,1:-1,1:-1] = (- self.cond[0:-2,1:-1,1:-1] * self.cond[1:-1,1:-1,1:-1] / (self.cond[0:-2,1:-1,1:-1] + self.cond[1:-1,1:-1,1:-1]) - self.cond[2:,1:-1,1:-1] * self.cond[1:-1,1:-1,1:-1] / (self.cond[2:,1:-1,1:-1] + self.cond[1:-1,1:-1,1:-1])
+                             - self.cond[1:-1,0:-2,1:-1] * self.cond[1:-1,1:-1,1:-1] / (self.cond[1:-1,0:-2,1:-1] + self.cond[1:-1,1:-1,1:-1]) - self.cond[1:-1,2:,1:-1] * self.cond[1:-1,1:-1,1:-1] / (self.cond[1:-1,2:,1:-1] + self.cond[1:-1,1:-1,1:-1])
+                             - self.cond[1:-1,1:-1,0:-2] * self.cond[1:-1,1:-1,1:-1] / (self.cond[1:-1,1:-1,0:-2] + self.cond[1:-1,1:-1,1:-1]) - self.cond[1:-1,1:-1,2:] * self.cond[1:-1,1:-1,1:-1] / (self.cond[1:-1,1:-1,2:] + self.cond[1:-1,1:-1,1:-1]))
+
+            kf_i = kf_i.flatten('F')
+
+            kf_ixm = np.copy(self.cond)
+            kf_ixm[1:-1, 1:-1, 1:-1] = (self.cond[0:-2,1:-1,1:-1] * self.cond[1:-1,1:-1,1:-1] / (self.cond[0:-2,1:-1,1:-1] + self.cond[1:-1,1:-1,1:-1]))
+            kf_ixm = kf_ixm.flatten('F')
+
+            kf_ixp = np.copy(self.cond)
+            kf_ixp[1:-1, 1:-1, 1:-1] = (self.cond[2:,1:-1,1:-1] * self.cond[1:-1,1:-1,1:-1] / (self.cond[2:,1:-1,1:-1] + self.cond[1:-1,1:-1,1:-1]))
+            kf_ixp = kf_ixp.flatten('F')
+
+            kf_iym = np.copy(self.cond)
+            kf_iym[1:-1, 1:-1, 1:-1] = (self.cond[1:-1,0:-2,1:-1] * self.cond[1:-1,1:-1,1:-1] / (self.cond[1:-1,0:-2,1:-1] + self.cond[1:-1,1:-1,1:-1]))
+            kf_iym = kf_iym.flatten('F')
+
+            kf_iyp = np.copy(self.cond)
+            kf_iyp[1:-1, 1:-1, 1:-1] = (self.cond[1:-1,2:,1:-1] * self.cond[1:-1,1:-1,1:-1] / (self.cond[1:-1,2:,1:-1] + self.cond[1:-1,1:-1,1:-1]))
+            kf_iyp = kf_iyp.flatten('F')
+
+            kf_izm = np.copy(self.cond)
+            kf_izm[1:-1, 1:-1, 1:-1] = (self.cond[1:-1,1:-1,0:-2] * self.cond[1:-1,1:-1,1:-1] / (self.cond[1:-1,1:-1,0:-2] + self.cond[1:-1,1:-1,1:-1]))
+            kf_izm = kf_izm.flatten('F')
+
+            kf_izp = np.copy(self.cond)
+            kf_izp[1:-1, 1:-1, 1:-1] = (self.cond[1:-1,1:-1,2:] * self.cond[1:-1,1:-1,1:-1] / (self.cond[1:-1,1:-1,2:] + self.cond[1:-1,1:-1,1:-1]))
+            kf_izp = kf_izp.flatten('F')
+
+
             kf = self.cond.flatten('F')
             def matvec(x):  # overload matvec for Amat=LinearOperator
                 y.fill(0)
-                matvec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.domain_bc_check, self.bc_check, self.prescribed_bc, self.side_bc)
+                matvec_cy(kf, kf_i, kf_ixm, kf_ixp, kf_iym, kf_iyp, kf_izm, kf_izp, x, y, self.len_x, self.len_y, self.len_z, self.domain_bc_check, self.bc_check, self.prescribed_bc, self.side_bc)
                 return y
             self.Amat = LinearOperator(shape=(self.len_xyz, self.len_xyz), matvec=matvec)
 
             def vecvec_prec(x):
                 y.fill(0)
-                vecvec_prec_cy(kf, x, y, self.len_x, self.len_y, self.len_z, self.domain_bc_check, self.bc_check, self.prescribed_bc, self.side_bc)
+                vecvec_prec_cy(kf, kf_i, kf_ixm, kf_ixp, kf_iym, kf_iyp, kf_izm, kf_izp, x, y, self.len_x, self.len_y, self.len_z, self.domain_bc_check, self.bc_check, self.prescribed_bc, self.side_bc)
                 return y
             self.M = LinearOperator(shape=(self.len_xyz, self.len_xyz), matvec=vecvec_prec)
 

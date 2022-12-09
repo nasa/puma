@@ -274,17 +274,17 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc
     return _row, _col, _data
 
 
-def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
+def matvec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
 
     if side_bc == 'p':
         index_at = index_at_p
     else:
         index_at = index_at_s
-    
+
     cdef int l_xy = l_x * l_y
     cdef int i, j, k
     cdef int index, ixm, ixp, iym, iyp, izm, izp
-    
+
     cdef unsigned long long count = 0
     for i in [0, l_x - 1]:
         for j in range(l_y):
@@ -371,19 +371,19 @@ def matvec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l
                     iyp = l_xy * k + l_x * (j + 1) + i
                     izm = l_xy * (k - 1) + l_x * j + i
                     izp = l_xy * (k + 1) + l_x * j + i
-                    y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
-                                 - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
-                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
-                    y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
-                    y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
-                    y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
-                    y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
-                    y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
-                    y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
+
+                    y[index] += kf_i[index] * x[index]
+                    y[index] += kf_ixm[index] * x[ixm]
+                    y[index] += kf_ixp[index] * x[ixp]
+                    y[index] += kf_iym[index] * x[iym]
+                    y[index] += kf_iyp[index] * x[iyp]
+                    y[index] += kf_izm[index] * x[izm]
+                    y[index] += kf_izp[index] * x[izp]
 
 
-def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
 
+
+def vecvec_prec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
     if side_bc == 'p':
         index_at = index_at_p
     else:
@@ -469,15 +469,7 @@ def vecvec_prec_cy(double [:] kf, double [:] x, double [:] y, int l_x, int l_y, 
                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
                     y[index] += x[index]
                 else:
-                    ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
-                    ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
-                    iym = index_at(i, j - 1, k, l_x, l_y, l_z)
-                    iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
-                    izm = index_at(i, j, k - 1, l_x, l_y, l_z)
-                    izp = index_at(i, j, k + 1, l_x, l_y, l_z)
-                    y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
-                                 - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
-                                 - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+                    y_local = kf_i[index]
                     if y_local != 0:
                         y[index] += (1. / y_local) * x[index]
                     else:

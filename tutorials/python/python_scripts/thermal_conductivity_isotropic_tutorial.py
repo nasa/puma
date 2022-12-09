@@ -41,9 +41,9 @@ ws_fiberform.matrix = ws_fiberform.matrix[50:150, 50:150, 50:150]
 # Generating a conductivity map. This stores the conductivity values for each phase of the material
 cond_map = puma.IsotropicConductivityMap()
 # First, we set the conductivity of the void phase to be 0.0257 (air at STP)
-cond_map.add_material((0, 89), 1)
+cond_map.add_material((0, 89), 0.0257)
 # Next we set the conductivity of the solid phase to be 12 (typical value for carbon fiber)
-cond_map.add_material((90, 255), 0)
+cond_map.add_material((90, 255), 12)
 
 # The thermal conductivity calculation needs to be run for each of the three simulation directions. 
 # For each simulation, a temperature gradient is forced in the simulation direction, and converged to steady state
@@ -60,7 +60,7 @@ cond_map.add_material((90, 255), 0)
 #.  9. method - whether to use finite volume ("fv") or finite element ("fe") solver
 #.  10. prescribed_bc - has to be of type IsotropicConductivityBC, and it provides a more flexible way of specifying dirichlet BC, which can be imposed on any voxel of the domain
 
-k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-3, solver_type='cg', matrix_free=True, method='fv')
+# k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-3, solver_type='cg', matrix_free=True, method='fv')
 k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-3, solver_type='cg', matrix_free=True, method='fv')
 k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-3, solver_type='cg', matrix_free=True, method='fv')
 
