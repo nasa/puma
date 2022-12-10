@@ -2244,8 +2244,8 @@ static PyObject *__pyx_n_s_zeros;
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_index_at_p(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_j, int __pyx_v_k, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_2index_at_s(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_i, int __pyx_v_j, int __pyx_v_k, int __pyx_v_len_x, int __pyx_v_len_y, int __pyx_v_len_z); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_4setup_matrices_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v__kf, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
-static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_6matvec_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_kf_i, __Pyx_memviewslice __pyx_v_kf_ixm, __Pyx_memviewslice __pyx_v_kf_ixp, __Pyx_memviewslice __pyx_v_kf_iym, __Pyx_memviewslice __pyx_v_kf_iyp, __Pyx_memviewslice __pyx_v_kf_izm, __Pyx_memviewslice __pyx_v_kf_izp, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
-static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_8vecvec_prec_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_kf_i, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixm, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixp, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_iym, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_iyp, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_izm, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_izp, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
+static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_6matvec_cy(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_kf_i, __Pyx_memviewslice __pyx_v_kf_ixm, __Pyx_memviewslice __pyx_v_kf_ixp, __Pyx_memviewslice __pyx_v_kf_iym, __Pyx_memviewslice __pyx_v_kf_iyp, __Pyx_memviewslice __pyx_v_kf_izm, __Pyx_memviewslice __pyx_v_kf_izp, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, CYTHON_UNUSED short __pyx_v_domain_bc_check, CYTHON_UNUSED short __pyx_v_bc_check, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
+static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_8vecvec_prec_cy(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_kf_i, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixm, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixp, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_iym, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_iyp, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_izm, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_izp, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc); /* proto */
 static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_10compute_flux(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_T, __Pyx_memviewslice __pyx_v_cond, PyObject *__pyx_v_l_x, PyObject *__pyx_v_l_y, PyObject *__pyx_v_l_z); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
@@ -9736,7 +9736,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
 static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_7matvec_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_7matvec_cy = {"matvec_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_7matvec_cy, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_7matvec_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  __Pyx_memviewslice __pyx_v_kf = { 0, 0, { 0 }, { 0 }, { 0 } };
+  CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_kf_i = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_kf_ixm = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_kf_ixp = { 0, 0, { 0 }, { 0 }, { 0 } };
@@ -9749,9 +9749,9 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
   int __pyx_v_l_x;
   int __pyx_v_l_y;
   int __pyx_v_l_z;
-  short __pyx_v_domain_bc_check;
-  short __pyx_v_bc_check;
-  __Pyx_memviewslice __pyx_v_prescribed_bc = { 0, 0, { 0 }, { 0 }, { 0 } };
+  CYTHON_UNUSED short __pyx_v_domain_bc_check;
+  CYTHON_UNUSED short __pyx_v_bc_check;
+  CYTHON_UNUSED __Pyx_memviewslice __pyx_v_prescribed_bc = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_v_side_bc = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -9967,7 +9967,7 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_6matvec_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_kf_i, __Pyx_memviewslice __pyx_v_kf_ixm, __Pyx_memviewslice __pyx_v_kf_ixp, __Pyx_memviewslice __pyx_v_kf_iym, __Pyx_memviewslice __pyx_v_kf_iyp, __Pyx_memviewslice __pyx_v_kf_izm, __Pyx_memviewslice __pyx_v_kf_izp, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc) {
+static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_6matvec_cy(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_kf_i, __Pyx_memviewslice __pyx_v_kf_ixm, __Pyx_memviewslice __pyx_v_kf_ixp, __Pyx_memviewslice __pyx_v_kf_iym, __Pyx_memviewslice __pyx_v_kf_iyp, __Pyx_memviewslice __pyx_v_kf_izm, __Pyx_memviewslice __pyx_v_kf_izp, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, CYTHON_UNUSED short __pyx_v_domain_bc_check, CYTHON_UNUSED short __pyx_v_bc_check, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc) {
   PyObject *__pyx_v_index_at = NULL;
   int __pyx_v_l_xy;
   int __pyx_v_i;
@@ -9986,45 +9986,28 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   int __pyx_t_1;
   int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  Py_ssize_t __pyx_t_5;
+  int __pyx_t_4;
+  int __pyx_t_5;
   int __pyx_t_6;
   int __pyx_t_7;
   int __pyx_t_8;
   int __pyx_t_9;
   int __pyx_t_10;
   int __pyx_t_11;
-  Py_ssize_t __pyx_t_12;
-  int __pyx_t_13;
-  Py_ssize_t __pyx_t_14;
-  Py_ssize_t __pyx_t_15;
+  int __pyx_t_12;
+  PyObject *__pyx_t_13 = NULL;
+  PyObject *__pyx_t_14 = NULL;
+  PyObject *__pyx_t_15 = NULL;
   PyObject *__pyx_t_16 = NULL;
   PyObject *__pyx_t_17 = NULL;
   PyObject *__pyx_t_18 = NULL;
   PyObject *__pyx_t_19 = NULL;
   PyObject *__pyx_t_20 = NULL;
-  PyObject *__pyx_t_21 = NULL;
+  int __pyx_t_21;
   PyObject *__pyx_t_22 = NULL;
-  PyObject *__pyx_t_23 = NULL;
-  PyObject *__pyx_t_24 = NULL;
-  double __pyx_t_25;
-  double __pyx_t_26;
-  double __pyx_t_27;
-  double __pyx_t_28;
-  double __pyx_t_29;
-  double __pyx_t_30;
-  double __pyx_t_31;
-  double __pyx_t_32;
-  double __pyx_t_33;
-  double __pyx_t_34;
-  double __pyx_t_35;
-  double __pyx_t_36;
-  long __pyx_t_37;
-  long __pyx_t_38;
-  long __pyx_t_39;
-  long __pyx_t_40;
-  long __pyx_t_41;
-  long __pyx_t_42;
+  Py_ssize_t __pyx_t_23;
+  Py_ssize_t __pyx_t_24;
+  Py_ssize_t __pyx_t_25;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -10091,7 +10074,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  *     cdef int index, ixm, ixp, iym, iyp, izm, izp
  * 
  *     cdef unsigned long long count = 0             # <<<<<<<<<<<<<<
- *     for i in [0, l_x - 1]:
+ *     for i in range(l_x):
  *         for j in range(l_y):
  */
   __pyx_v_count = 0;
@@ -10099,5029 +10082,878 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":289
  * 
  *     cdef unsigned long long count = 0
- *     for i in [0, l_x - 1]:             # <<<<<<<<<<<<<<
+ *     for i in range(l_x):             # <<<<<<<<<<<<<<
  *         for j in range(l_y):
  *             for k in range(l_z):
  */
-  __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_x - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 289, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_INCREF(__pyx_int_0);
-  __Pyx_GIVEREF(__pyx_int_0);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_int_0);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
-  __pyx_t_3 = 0;
-  __pyx_t_3 = __pyx_t_4; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  for (;;) {
-    if (__pyx_t_5 >= 2) break;
-    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 289, __pyx_L1_error)
-    #else
-    __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    #endif
-    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 289, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __pyx_v_l_x;
+  __pyx_t_5 = __pyx_t_4;
+  for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_i = __pyx_t_6;
 
     /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":290
  *     cdef unsigned long long count = 0
- *     for i in [0, l_x - 1]:
+ *     for i in range(l_x):
  *         for j in range(l_y):             # <<<<<<<<<<<<<<
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i
  */
-    __pyx_t_6 = __pyx_v_l_y;
-    __pyx_t_7 = __pyx_t_6;
-    for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
-      __pyx_v_j = __pyx_t_8;
+    __pyx_t_7 = __pyx_v_l_y;
+    __pyx_t_8 = __pyx_t_7;
+    for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
+      __pyx_v_j = __pyx_t_9;
 
       /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":291
- *     for i in [0, l_x - 1]:
+ *     for i in range(l_x):
  *         for j in range(l_y):
  *             for k in range(l_z):             # <<<<<<<<<<<<<<
  *                 index = l_xy * k + l_x * j + i
- *                 if domain_bc_check == 1:
+ *                 ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
  */
-      __pyx_t_9 = __pyx_v_l_z;
-      __pyx_t_10 = __pyx_t_9;
-      for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_10; __pyx_t_11+=1) {
-        __pyx_v_k = __pyx_t_11;
+      __pyx_t_10 = __pyx_v_l_z;
+      __pyx_t_11 = __pyx_t_10;
+      for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
+        __pyx_v_k = __pyx_t_12;
 
         /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":292
  *         for j in range(l_y):
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i             # <<<<<<<<<<<<<<
- *                 if domain_bc_check == 1:
- *                     y[index] += x[index]
+ *                 ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+ *                 ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
  */
         __pyx_v_index = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
 
         /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":293
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i
- *                 if domain_bc_check == 1:             # <<<<<<<<<<<<<<
- *                     y[index] += x[index]
- *                 else:
+ *                 ixm = index_at(i - 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
+ *                 ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+ *                 iym = index_at(i, j - 1, k, l_x, l_y, l_z)
  */
-        __pyx_t_2 = ((__pyx_v_domain_bc_check == 1) != 0);
-        if (__pyx_t_2) {
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":294
- *                 index = l_xy * k + l_x * j + i
- *                 if domain_bc_check == 1:
- *                     y[index] += x[index]             # <<<<<<<<<<<<<<
- *                 else:
- *                     if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- */
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_13 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_13 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-          if (unlikely(__pyx_t_13 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_13);
-            __PYX_ERR(0, 294, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyInt_From_long((__pyx_v_i - 1)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 293, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __pyx_t_14 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 293, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 293, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 293, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_16);
+        __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 293, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 293, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_18);
+        __Pyx_INCREF(__pyx_v_index_at);
+        __pyx_t_19 = __pyx_v_index_at; __pyx_t_20 = NULL;
+        __pyx_t_21 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_19))) {
+          __pyx_t_20 = PyMethod_GET_SELF(__pyx_t_19);
+          if (likely(__pyx_t_20)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_19);
+            __Pyx_INCREF(__pyx_t_20);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_19, function);
+            __pyx_t_21 = 1;
           }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_13 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-          if (unlikely(__pyx_t_13 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_13);
-            __PYX_ERR(0, 294, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) )));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":293
- *             for k in range(l_z):
- *                 index = l_xy * k + l_x * j + i
- *                 if domain_bc_check == 1:             # <<<<<<<<<<<<<<
- *                     y[index] += x[index]
- *                 else:
- */
-          goto __pyx_L10;
         }
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_19)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_20, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_19, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 293, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_19)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_20, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_19, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 293, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_22 = PyTuple_New(6+__pyx_t_21); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 293, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_22);
+          if (__pyx_t_20) {
+            __Pyx_GIVEREF(__pyx_t_20); PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_20); __pyx_t_20 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_13);
+          PyTuple_SET_ITEM(__pyx_t_22, 0+__pyx_t_21, __pyx_t_13);
+          __Pyx_GIVEREF(__pyx_t_14);
+          PyTuple_SET_ITEM(__pyx_t_22, 1+__pyx_t_21, __pyx_t_14);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_22, 2+__pyx_t_21, __pyx_t_15);
+          __Pyx_GIVEREF(__pyx_t_16);
+          PyTuple_SET_ITEM(__pyx_t_22, 3+__pyx_t_21, __pyx_t_16);
+          __Pyx_GIVEREF(__pyx_t_17);
+          PyTuple_SET_ITEM(__pyx_t_22, 4+__pyx_t_21, __pyx_t_17);
+          __Pyx_GIVEREF(__pyx_t_18);
+          PyTuple_SET_ITEM(__pyx_t_22, 5+__pyx_t_21, __pyx_t_18);
+          __pyx_t_13 = 0;
+          __pyx_t_14 = 0;
+          __pyx_t_15 = 0;
+          __pyx_t_16 = 0;
+          __pyx_t_17 = 0;
+          __pyx_t_18 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_t_22, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 293, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+        }
+        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+        __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 293, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_v_ixm = __pyx_t_21;
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":294
+ *                 index = l_xy * k + l_x * j + i
+ *                 ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+ *                 ixp = index_at(i + 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
+ *                 iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+ *                 iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+ */
+        __pyx_t_19 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_19);
+        __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_22);
+        __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_18);
+        __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_16);
+        __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __Pyx_INCREF(__pyx_v_index_at);
+        __pyx_t_14 = __pyx_v_index_at; __pyx_t_13 = NULL;
+        __pyx_t_21 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_14))) {
+          __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_14);
+          if (likely(__pyx_t_13)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
+            __Pyx_INCREF(__pyx_t_13);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_14, function);
+            __pyx_t_21 = 1;
+          }
+        }
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_14)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_13, __pyx_t_19, __pyx_t_22, __pyx_t_18, __pyx_t_17, __pyx_t_16, __pyx_t_15};
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_13, __pyx_t_19, __pyx_t_22, __pyx_t_18, __pyx_t_17, __pyx_t_16, __pyx_t_15};
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_20 = PyTuple_New(6+__pyx_t_21); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 294, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_20);
+          if (__pyx_t_13) {
+            __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_20, 0, __pyx_t_13); __pyx_t_13 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_19);
+          PyTuple_SET_ITEM(__pyx_t_20, 0+__pyx_t_21, __pyx_t_19);
+          __Pyx_GIVEREF(__pyx_t_22);
+          PyTuple_SET_ITEM(__pyx_t_20, 1+__pyx_t_21, __pyx_t_22);
+          __Pyx_GIVEREF(__pyx_t_18);
+          PyTuple_SET_ITEM(__pyx_t_20, 2+__pyx_t_21, __pyx_t_18);
+          __Pyx_GIVEREF(__pyx_t_17);
+          PyTuple_SET_ITEM(__pyx_t_20, 3+__pyx_t_21, __pyx_t_17);
+          __Pyx_GIVEREF(__pyx_t_16);
+          PyTuple_SET_ITEM(__pyx_t_20, 4+__pyx_t_21, __pyx_t_16);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_20, 5+__pyx_t_21, __pyx_t_15);
+          __pyx_t_19 = 0;
+          __pyx_t_22 = 0;
+          __pyx_t_18 = 0;
+          __pyx_t_17 = 0;
+          __pyx_t_16 = 0;
+          __pyx_t_15 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_20, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+        }
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_v_ixp = __pyx_t_21;
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":295
+ *                 ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+ *                 ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+ *                 iym = index_at(i, j - 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
+ *                 iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+ *                 izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+ */
+        __pyx_t_14 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __pyx_t_20 = __Pyx_PyInt_From_long((__pyx_v_j - 1)); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_20);
+        __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_16);
+        __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_18);
+        __Pyx_INCREF(__pyx_v_index_at);
+        __pyx_t_22 = __pyx_v_index_at; __pyx_t_19 = NULL;
+        __pyx_t_21 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_22))) {
+          __pyx_t_19 = PyMethod_GET_SELF(__pyx_t_22);
+          if (likely(__pyx_t_19)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_22);
+            __Pyx_INCREF(__pyx_t_19);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_22, function);
+            __pyx_t_21 = 1;
+          }
+        }
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_22)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_19, __pyx_t_14, __pyx_t_20, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 295, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_22)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_19, __pyx_t_14, __pyx_t_20, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 295, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_13 = PyTuple_New(6+__pyx_t_21); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 295, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_13);
+          if (__pyx_t_19) {
+            __Pyx_GIVEREF(__pyx_t_19); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_19); __pyx_t_19 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_14);
+          PyTuple_SET_ITEM(__pyx_t_13, 0+__pyx_t_21, __pyx_t_14);
+          __Pyx_GIVEREF(__pyx_t_20);
+          PyTuple_SET_ITEM(__pyx_t_13, 1+__pyx_t_21, __pyx_t_20);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_13, 2+__pyx_t_21, __pyx_t_15);
+          __Pyx_GIVEREF(__pyx_t_16);
+          PyTuple_SET_ITEM(__pyx_t_13, 3+__pyx_t_21, __pyx_t_16);
+          __Pyx_GIVEREF(__pyx_t_17);
+          PyTuple_SET_ITEM(__pyx_t_13, 4+__pyx_t_21, __pyx_t_17);
+          __Pyx_GIVEREF(__pyx_t_18);
+          PyTuple_SET_ITEM(__pyx_t_13, 5+__pyx_t_21, __pyx_t_18);
+          __pyx_t_14 = 0;
+          __pyx_t_20 = 0;
+          __pyx_t_15 = 0;
+          __pyx_t_16 = 0;
+          __pyx_t_17 = 0;
+          __pyx_t_18 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_22, __pyx_t_13, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 295, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+        }
+        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+        __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_v_iym = __pyx_t_21;
 
         /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":296
- *                     y[index] += x[index]
- *                 else:
- *                     if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
- *                         y[index] += x[index]
- *                     else:
+ *                 ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
+ *                 iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+ *                 iyp = index_at(i, j + 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
+ *                 izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+ *                 izp = index_at(i, j, k + 1, l_x, l_y, l_z)
  */
-        /*else*/ {
-          __pyx_t_1 = ((__pyx_v_bc_check == 1) != 0);
-          if (__pyx_t_1) {
-          } else {
-            __pyx_t_2 = __pyx_t_1;
-            goto __pyx_L12_bool_binop_done;
-          }
-          __pyx_t_12 = __pyx_v_i;
-          __pyx_t_14 = __pyx_v_j;
-          __pyx_t_15 = __pyx_v_k;
-          __pyx_t_13 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_prescribed_bc.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_13 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_prescribed_bc.shape[0])) __pyx_t_13 = 0;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_prescribed_bc.shape[1];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 1;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_prescribed_bc.shape[1])) __pyx_t_13 = 1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_prescribed_bc.shape[2];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 2;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_prescribed_bc.shape[2])) __pyx_t_13 = 2;
-          if (unlikely(__pyx_t_13 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_13);
-            __PYX_ERR(0, 296, __pyx_L1_error)
-          }
-          __pyx_t_4 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_12 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_15 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 296, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_GetModuleGlobalName(__pyx_t_16, __pyx_n_s_np); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 296, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_Inf); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 296, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_16 = PyObject_RichCompare(__pyx_t_4, __pyx_t_17, Py_NE); __Pyx_XGOTREF(__pyx_t_16); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 296, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_16); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 296, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_2 = __pyx_t_1;
-          __pyx_L12_bool_binop_done:;
-          if (__pyx_t_2) {
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":297
- *                 else:
- *                     if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- *                         y[index] += x[index]             # <<<<<<<<<<<<<<
- *                     else:
- *                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- */
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_x.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 297, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_y.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 297, __pyx_L1_error)
-            }
-            *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) )));
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":296
- *                     y[index] += x[index]
- *                 else:
- *                     if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
- *                         y[index] += x[index]
- *                     else:
- */
-            goto __pyx_L11;
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":299
- *                         y[index] += x[index]
- *                     else:
- *                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- */
-          /*else*/ {
-            __pyx_t_17 = __Pyx_PyInt_From_long((__pyx_v_i - 1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 299, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 299, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 299, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 299, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 299, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 299, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_22 = __pyx_v_index_at; __pyx_t_23 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_22))) {
-              __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_22);
-              if (likely(__pyx_t_23)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_22);
-                __Pyx_INCREF(__pyx_t_23);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_22, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_22)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 299, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_22)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 299, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_24 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 299, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_24);
-              if (__pyx_t_23) {
-                __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_23); __pyx_t_23 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_17);
-              PyTuple_SET_ITEM(__pyx_t_24, 0+__pyx_t_13, __pyx_t_17);
-              __Pyx_GIVEREF(__pyx_t_4);
-              PyTuple_SET_ITEM(__pyx_t_24, 1+__pyx_t_13, __pyx_t_4);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_24, 2+__pyx_t_13, __pyx_t_18);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_24, 3+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_24, 4+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_24, 5+__pyx_t_13, __pyx_t_21);
-              __pyx_t_17 = 0;
-              __pyx_t_4 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_22, __pyx_t_24, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 299, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 299, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_ixm = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":300
- *                     else:
- *                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                         ixp = index_at(i + 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- */
-            __pyx_t_22 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 300, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 300, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_24);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 300, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 300, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 300, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 300, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_4 = __pyx_v_index_at; __pyx_t_17 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-              __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_4);
-              if (likely(__pyx_t_17)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-                __Pyx_INCREF(__pyx_t_17);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_4, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_4)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_22, __pyx_t_24, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 300, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_22, __pyx_t_24, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 300, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_23 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 300, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_23);
-              if (__pyx_t_17) {
-                __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_17); __pyx_t_17 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_22);
-              PyTuple_SET_ITEM(__pyx_t_23, 0+__pyx_t_13, __pyx_t_22);
-              __Pyx_GIVEREF(__pyx_t_24);
-              PyTuple_SET_ITEM(__pyx_t_23, 1+__pyx_t_13, __pyx_t_24);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_23, 2+__pyx_t_13, __pyx_t_21);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_23, 4+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_23, 5+__pyx_t_13, __pyx_t_18);
-              __pyx_t_22 = 0;
-              __pyx_t_24 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_23, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 300, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 300, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_ixp = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":301
- *                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                         ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- */
-            __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 301, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_23 = __Pyx_PyInt_From_long((__pyx_v_j - 1)); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 301, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 301, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 301, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 301, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 301, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_24 = __pyx_v_index_at; __pyx_t_22 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_24))) {
-              __pyx_t_22 = PyMethod_GET_SELF(__pyx_t_24);
-              if (likely(__pyx_t_22)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_24);
-                __Pyx_INCREF(__pyx_t_22);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_24, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_24)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_4, __pyx_t_23, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 301, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_24)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_4, __pyx_t_23, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 301, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_17 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 301, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
-              if (__pyx_t_22) {
-                __Pyx_GIVEREF(__pyx_t_22); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_22); __pyx_t_22 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_4);
-              PyTuple_SET_ITEM(__pyx_t_17, 0+__pyx_t_13, __pyx_t_4);
-              __Pyx_GIVEREF(__pyx_t_23);
-              PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_13, __pyx_t_23);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_13, __pyx_t_18);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_17, 3+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_17, 4+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_17, 5+__pyx_t_13, __pyx_t_21);
-              __pyx_t_4 = 0;
-              __pyx_t_23 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_24, __pyx_t_17, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 301, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 301, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_iym = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":302
- *                         ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- */
-            __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 302, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_24);
-            __pyx_t_17 = __Pyx_PyInt_From_long((__pyx_v_j + 1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 302, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 302, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 302, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 302, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 302, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_23 = __pyx_v_index_at; __pyx_t_4 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_23))) {
-              __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_23);
-              if (likely(__pyx_t_4)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
-                __Pyx_INCREF(__pyx_t_4);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_23, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_23)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_4, __pyx_t_24, __pyx_t_17, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 302, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_4, __pyx_t_24, __pyx_t_17, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 302, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_22 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 302, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_22);
-              if (__pyx_t_4) {
-                __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_4); __pyx_t_4 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_24);
-              PyTuple_SET_ITEM(__pyx_t_22, 0+__pyx_t_13, __pyx_t_24);
-              __Pyx_GIVEREF(__pyx_t_17);
-              PyTuple_SET_ITEM(__pyx_t_22, 1+__pyx_t_13, __pyx_t_17);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_22, 2+__pyx_t_13, __pyx_t_21);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_22, 3+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_22, 4+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_22, 5+__pyx_t_13, __pyx_t_18);
-              __pyx_t_24 = 0;
-              __pyx_t_17 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_22, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 302, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 302, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_iyp = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":303
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                         y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- */
-            __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 303, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 303, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __pyx_t_18 = __Pyx_PyInt_From_long((__pyx_v_k - 1)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 303, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 303, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 303, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 303, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_17 = __pyx_v_index_at; __pyx_t_24 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
-              __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_17);
-              if (likely(__pyx_t_24)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
-                __Pyx_INCREF(__pyx_t_24);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_17, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_17)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 303, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 303, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_4 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 303, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_4);
-              if (__pyx_t_24) {
-                __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_24); __pyx_t_24 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_23);
-              PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_13, __pyx_t_23);
-              __Pyx_GIVEREF(__pyx_t_22);
-              PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_13, __pyx_t_22);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_13, __pyx_t_18);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_4, 3+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_4, 4+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_4, 5+__pyx_t_13, __pyx_t_21);
-              __pyx_t_23 = 0;
-              __pyx_t_22 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_4, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 303, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 303, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_izm = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":304
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- */
-            __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 304, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 304, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_21 = __Pyx_PyInt_From_long((__pyx_v_k + 1)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 304, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 304, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 304, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 304, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_22 = __pyx_v_index_at; __pyx_t_23 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_22))) {
-              __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_22);
-              if (likely(__pyx_t_23)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_22);
-                __Pyx_INCREF(__pyx_t_23);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_22, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_22)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 304, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_22)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 304, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_24 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 304, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_24);
-              if (__pyx_t_23) {
-                __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_23); __pyx_t_23 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_17);
-              PyTuple_SET_ITEM(__pyx_t_24, 0+__pyx_t_13, __pyx_t_17);
-              __Pyx_GIVEREF(__pyx_t_4);
-              PyTuple_SET_ITEM(__pyx_t_24, 1+__pyx_t_13, __pyx_t_4);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_24, 2+__pyx_t_13, __pyx_t_21);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_24, 3+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_24, 4+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_24, 5+__pyx_t_13, __pyx_t_18);
-              __pyx_t_17 = 0;
-              __pyx_t_4 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_22, __pyx_t_24, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 304, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 304, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_izp = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":305
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                         y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- */
-            __pyx_t_15 = __pyx_v_ixm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_25 = ((-(*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) )))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_ixm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_26 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_ixp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_27 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_ixp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            __pyx_t_28 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_28 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":306
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                         y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])             # <<<<<<<<<<<<<<
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                         y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- */
-            __pyx_t_15 = __pyx_v_iym;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_29 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_iym;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_30 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_30 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_iyp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_31 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_iyp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-            __pyx_t_32 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_32 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 306, __pyx_L1_error)
-            }
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":307
- *                         y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]             # <<<<<<<<<<<<<<
- *                         y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                         y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- */
-            __pyx_t_15 = __pyx_v_izm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_33 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_izm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_34 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_34 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_izp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_izp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_36 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_x.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 307, __pyx_L1_error)
-            }
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":305
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                         y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- */
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_y.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 305, __pyx_L1_error)
-            }
-            *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (((((((__pyx_t_25 / __pyx_t_26) - (__pyx_t_27 / __pyx_t_28)) - (__pyx_t_29 / __pyx_t_30)) - (__pyx_t_31 / __pyx_t_32)) - (__pyx_t_33 / __pyx_t_34)) - (__pyx_t_35 / __pyx_t_36)) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":308
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                         y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]             # <<<<<<<<<<<<<<
- *                         y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                         y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- */
-            __pyx_t_15 = __pyx_v_ixm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 308, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 308, __pyx_L1_error)
-            }
-            __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_ixm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 308, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 308, __pyx_L1_error)
-            }
-            __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_35 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 308, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_ixm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_x.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 308, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_y.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 308, __pyx_L1_error)
-            }
-            *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_36 / __pyx_t_35) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":309
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                         y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                         y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]             # <<<<<<<<<<<<<<
- *                         y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                         y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- */
-            __pyx_t_15 = __pyx_v_ixp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 309, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 309, __pyx_L1_error)
-            }
-            __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_ixp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 309, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 309, __pyx_L1_error)
-            }
-            __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_36 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 309, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_ixp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_x.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 309, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_y.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 309, __pyx_L1_error)
-            }
-            *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_35 / __pyx_t_36) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":310
- *                         y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                         y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                         y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]             # <<<<<<<<<<<<<<
- *                         y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                         y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- */
-            __pyx_t_15 = __pyx_v_iym;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 310, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 310, __pyx_L1_error)
-            }
-            __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_iym;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 310, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 310, __pyx_L1_error)
-            }
-            __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_35 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 310, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_iym;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_x.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 310, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_y.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 310, __pyx_L1_error)
-            }
-            *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_36 / __pyx_t_35) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":311
- *                         y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                         y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                         y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]             # <<<<<<<<<<<<<<
- *                         y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- *                         y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- */
-            __pyx_t_15 = __pyx_v_iyp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 311, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 311, __pyx_L1_error)
-            }
-            __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_iyp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 311, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 311, __pyx_L1_error)
-            }
-            __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_36 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 311, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_iyp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_x.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 311, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_y.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 311, __pyx_L1_error)
-            }
-            *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_35 / __pyx_t_36) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":312
- *                         y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                         y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                         y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]             # <<<<<<<<<<<<<<
- *                         y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- * 
- */
-            __pyx_t_15 = __pyx_v_izm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 312, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 312, __pyx_L1_error)
-            }
-            __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_izm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 312, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 312, __pyx_L1_error)
-            }
-            __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_35 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 312, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_izm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_x.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 312, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_y.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 312, __pyx_L1_error)
-            }
-            *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_36 / __pyx_t_35) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":313
- *                         y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                         y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- *                         y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]             # <<<<<<<<<<<<<<
- * 
- *     for i in range(1, l_x - 1):
- */
-            __pyx_t_15 = __pyx_v_izp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 313, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 313, __pyx_L1_error)
-            }
-            __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_izp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 313, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 313, __pyx_L1_error)
-            }
-            __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_36 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 313, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_izp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_x.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 313, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_y.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 313, __pyx_L1_error)
-            }
-            *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_35 / __pyx_t_36) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-          }
-          __pyx_L11:;
-        }
-        __pyx_L10:;
-      }
-    }
-
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":289
- * 
- *     cdef unsigned long long count = 0
- *     for i in [0, l_x - 1]:             # <<<<<<<<<<<<<<
- *         for j in range(l_y):
- *             for k in range(l_z):
- */
-  }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":315
- *                         y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- * 
- *     for i in range(1, l_x - 1):             # <<<<<<<<<<<<<<
- *         for j in [0, l_y - 1]:
- *             for k in range(l_z):
- */
-  __pyx_t_37 = (__pyx_v_l_x - 1);
-  __pyx_t_38 = __pyx_t_37;
-  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_38; __pyx_t_6+=1) {
-    __pyx_v_i = __pyx_t_6;
-
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":316
- * 
- *     for i in range(1, l_x - 1):
- *         for j in [0, l_y - 1]:             # <<<<<<<<<<<<<<
- *             for k in range(l_z):
- *                 index = l_xy * k + l_x * j + i
- */
-    __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_y - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 316, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_16);
-    __Pyx_INCREF(__pyx_int_0);
-    __Pyx_GIVEREF(__pyx_int_0);
-    PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_int_0);
-    __Pyx_GIVEREF(__pyx_t_3);
-    PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_3);
-    __pyx_t_3 = 0;
-    __pyx_t_3 = __pyx_t_16; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
-    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-    for (;;) {
-      if (__pyx_t_5 >= 2) break;
-      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_16 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 316, __pyx_L1_error)
-      #else
-      __pyx_t_16 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 316, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_16);
-      #endif
-      __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 316, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      __pyx_v_j = __pyx_t_7;
-
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":317
- *     for i in range(1, l_x - 1):
- *         for j in [0, l_y - 1]:
- *             for k in range(l_z):             # <<<<<<<<<<<<<<
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- */
-      __pyx_t_7 = __pyx_v_l_z;
-      __pyx_t_8 = __pyx_t_7;
-      for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
-        __pyx_v_k = __pyx_t_9;
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":318
- *         for j in [0, l_y - 1]:
- *             for k in range(l_z):
- *                 index = l_xy * k + l_x * j + i             # <<<<<<<<<<<<<<
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- *                     y[index] += x[index]
- */
-        __pyx_v_index = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":319
- *             for k in range(l_z):
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
- *                     y[index] += x[index]
- *                 else:
- */
-        __pyx_t_1 = ((__pyx_v_bc_check == 1) != 0);
-        if (__pyx_t_1) {
-        } else {
-          __pyx_t_2 = __pyx_t_1;
-          goto __pyx_L21_bool_binop_done;
-        }
-        __pyx_t_15 = __pyx_v_i;
-        __pyx_t_14 = __pyx_v_j;
-        __pyx_t_12 = __pyx_v_k;
-        __pyx_t_10 = -1;
-        if (__pyx_t_15 < 0) {
-          __pyx_t_15 += __pyx_v_prescribed_bc.shape[0];
-          if (unlikely(__pyx_t_15 < 0)) __pyx_t_10 = 0;
-        } else if (unlikely(__pyx_t_15 >= __pyx_v_prescribed_bc.shape[0])) __pyx_t_10 = 0;
-        if (__pyx_t_14 < 0) {
-          __pyx_t_14 += __pyx_v_prescribed_bc.shape[1];
-          if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 1;
-        } else if (unlikely(__pyx_t_14 >= __pyx_v_prescribed_bc.shape[1])) __pyx_t_10 = 1;
-        if (__pyx_t_12 < 0) {
-          __pyx_t_12 += __pyx_v_prescribed_bc.shape[2];
-          if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 2;
-        } else if (unlikely(__pyx_t_12 >= __pyx_v_prescribed_bc.shape[2])) __pyx_t_10 = 2;
-        if (unlikely(__pyx_t_10 != -1)) {
-          __Pyx_RaiseBufferIndexError(__pyx_t_10);
-          __PYX_ERR(0, 319, __pyx_L1_error)
-        }
-        __pyx_t_16 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_15 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_12 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 319, __pyx_L1_error)
+        __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 296, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_22);
+        __pyx_t_13 = __Pyx_PyInt_From_long((__pyx_v_j + 1)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 296, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 296, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_18);
+        __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 296, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 296, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __Pyx_GetModuleGlobalName(__pyx_t_22, __pyx_n_s_np); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 319, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_22);
-        __pyx_t_24 = __Pyx_PyObject_GetAttrStr(__pyx_t_22, __pyx_n_s_Inf); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 319, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_24);
-        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-        __pyx_t_22 = PyObject_RichCompare(__pyx_t_16, __pyx_t_24, Py_NE); __Pyx_XGOTREF(__pyx_t_22); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 319, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_22); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 319, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-        __pyx_t_2 = __pyx_t_1;
-        __pyx_L21_bool_binop_done:;
-        if (__pyx_t_2) {
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":320
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- *                     y[index] += x[index]             # <<<<<<<<<<<<<<
- *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- */
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 320, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 296, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __Pyx_INCREF(__pyx_v_index_at);
+        __pyx_t_20 = __pyx_v_index_at; __pyx_t_14 = NULL;
+        __pyx_t_21 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_20))) {
+          __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_20);
+          if (likely(__pyx_t_14)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_20);
+            __Pyx_INCREF(__pyx_t_14);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_20, function);
+            __pyx_t_21 = 1;
           }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 320, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) )));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":319
- *             for k in range(l_z):
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
- *                     y[index] += x[index]
- *                 else:
- */
-          goto __pyx_L20;
         }
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":322
- *                     y[index] += x[index]
- *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- */
-        /*else*/ {
-          __pyx_t_24 = __Pyx_PyInt_From_long((__pyx_v_i - 1)); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 322, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 322, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 322, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 322, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 322, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 322, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_4 = __pyx_v_index_at; __pyx_t_17 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-            __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_4);
-            if (likely(__pyx_t_17)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-              __Pyx_INCREF(__pyx_t_17);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_4, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_4)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 322, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 322, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_23 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 322, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            if (__pyx_t_17) {
-              __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_17); __pyx_t_17 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_23, 0+__pyx_t_10, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_23, 1+__pyx_t_10, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_23, 2+__pyx_t_10, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_23, 4+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_23, 5+__pyx_t_10, __pyx_t_21);
-            __pyx_t_24 = 0;
-            __pyx_t_16 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_23, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 322, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 322, __pyx_L1_error)
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_20)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_14, __pyx_t_22, __pyx_t_13, __pyx_t_18, __pyx_t_17, __pyx_t_16, __pyx_t_15};
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_20, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_ixm = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":323
- *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- */
-          __pyx_t_4 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 323, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 323, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 323, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 323, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 323, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 323, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_16 = __pyx_v_index_at; __pyx_t_24 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
-            __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_16);
-            if (likely(__pyx_t_24)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-              __Pyx_INCREF(__pyx_t_24);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_16, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_4, __pyx_t_23, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 323, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_4, __pyx_t_23, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 323, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_17 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 323, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            if (__pyx_t_24) {
-              __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_24); __pyx_t_24 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_4);
-            PyTuple_SET_ITEM(__pyx_t_17, 0+__pyx_t_10, __pyx_t_4);
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_10, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_10, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_17, 3+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_17, 4+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_17, 5+__pyx_t_10, __pyx_t_18);
-            __pyx_t_4 = 0;
-            __pyx_t_23 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_17, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 323, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 323, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_ixp = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":324
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- */
-          __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 324, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_17 = __Pyx_PyInt_From_long((__pyx_v_j - 1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 324, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 324, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 324, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 324, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 324, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_23 = __pyx_v_index_at; __pyx_t_4 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_23))) {
-            __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_23);
-            if (likely(__pyx_t_4)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
-              __Pyx_INCREF(__pyx_t_4);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_23, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_23)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_4, __pyx_t_16, __pyx_t_17, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 324, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_4, __pyx_t_16, __pyx_t_17, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 324, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_24 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 324, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_24);
-            if (__pyx_t_4) {
-              __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_4); __pyx_t_4 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_24, 0+__pyx_t_10, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_24, 1+__pyx_t_10, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_24, 2+__pyx_t_10, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_24, 3+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_24, 4+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_24, 5+__pyx_t_10, __pyx_t_21);
-            __pyx_t_16 = 0;
-            __pyx_t_17 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_24, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 324, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 324, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_iym = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":325
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- */
-          __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_24 = __Pyx_PyInt_From_long((__pyx_v_j + 1)); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_17 = __pyx_v_index_at; __pyx_t_16 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
-            __pyx_t_16 = PyMethod_GET_SELF(__pyx_t_17);
-            if (likely(__pyx_t_16)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
-              __Pyx_INCREF(__pyx_t_16);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_17, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_17)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_16, __pyx_t_23, __pyx_t_24, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 325, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_16, __pyx_t_23, __pyx_t_24, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 325, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_4 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 325, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            if (__pyx_t_16) {
-              __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_16); __pyx_t_16 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_10, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_10, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_10, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_4, 3+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_4, 4+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_4, 5+__pyx_t_10, __pyx_t_18);
-            __pyx_t_23 = 0;
-            __pyx_t_24 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_4, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 325, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          }
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 325, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_iyp = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":326
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- */
-          __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 326, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 326, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_18 = __Pyx_PyInt_From_long((__pyx_v_k - 1)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 326, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 326, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 326, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 326, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_24 = __pyx_v_index_at; __pyx_t_23 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_24))) {
-            __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_24);
-            if (likely(__pyx_t_23)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_24);
-              __Pyx_INCREF(__pyx_t_23);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_24, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_24)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 326, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_24)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 326, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_16 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 326, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_16);
-            if (__pyx_t_23) {
-              __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_23); __pyx_t_23 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_16, 0+__pyx_t_10, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_4);
-            PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_10, __pyx_t_4);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_16, 2+__pyx_t_10, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_16, 3+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_16, 4+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_16, 5+__pyx_t_10, __pyx_t_21);
-            __pyx_t_17 = 0;
-            __pyx_t_4 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_24, __pyx_t_16, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 326, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 326, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_izm = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":327
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- */
-          __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 327, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 327, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_21 = __Pyx_PyInt_From_long((__pyx_v_k + 1)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 327, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 327, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 327, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 327, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_4 = __pyx_v_index_at; __pyx_t_17 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-            __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_4);
-            if (likely(__pyx_t_17)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-              __Pyx_INCREF(__pyx_t_17);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_4, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_4)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 327, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 327, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_23 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 327, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            if (__pyx_t_17) {
-              __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_17); __pyx_t_17 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_23, 0+__pyx_t_10, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_23, 1+__pyx_t_10, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_23, 2+__pyx_t_10, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_23, 4+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_23, 5+__pyx_t_10, __pyx_t_18);
-            __pyx_t_24 = 0;
-            __pyx_t_16 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_23, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 327, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 327, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_izp = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":328
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- */
-          __pyx_t_12 = __pyx_v_ixm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((-(*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) )))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_35 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_ixp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_34 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          __pyx_t_33 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_33 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":329
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- */
-          __pyx_t_12 = __pyx_v_iym;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_32 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iym;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_31 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_31 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_iyp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_30 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iyp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-          __pyx_t_29 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_29 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 329, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":330
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- */
-          __pyx_t_12 = __pyx_v_izm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_28 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_27 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_27 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_izp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_25 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 330, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":328
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- */
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 328, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (((((((__pyx_t_36 / __pyx_t_35) - (__pyx_t_34 / __pyx_t_33)) - (__pyx_t_32 / __pyx_t_31)) - (__pyx_t_30 / __pyx_t_29)) - (__pyx_t_28 / __pyx_t_27)) - (__pyx_t_26 / __pyx_t_25)) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":331
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- */
-          __pyx_t_12 = __pyx_v_ixm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 331, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 331, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 331, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 331, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_26 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 331, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_ixm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 331, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 331, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_25 / __pyx_t_26) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":332
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- */
-          __pyx_t_12 = __pyx_v_ixp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 332, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 332, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 332, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 332, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_25 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 332, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_ixp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 332, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 332, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_26 / __pyx_t_25) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":333
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                     y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- */
-          __pyx_t_12 = __pyx_v_iym;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 333, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 333, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iym;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 333, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 333, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_26 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 333, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_iym;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 333, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 333, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_25 / __pyx_t_26) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":334
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- *                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- */
-          __pyx_t_12 = __pyx_v_iyp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 334, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 334, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iyp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 334, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 334, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_25 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 334, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_iyp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 334, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 334, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_26 / __pyx_t_25) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":335
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                     y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- * 
- */
-          __pyx_t_12 = __pyx_v_izm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 335, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 335, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 335, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 335, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_26 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 335, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_izm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 335, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 335, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_25 / __pyx_t_26) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":336
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                     y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- *                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]             # <<<<<<<<<<<<<<
- * 
- *     for i in range(1, l_x - 1):
- */
-          __pyx_t_12 = __pyx_v_izp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 336, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 336, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 336, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 336, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_25 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 336, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_izp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 336, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 336, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_26 / __pyx_t_25) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-        }
-        __pyx_L20:;
-      }
-
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":316
- * 
- *     for i in range(1, l_x - 1):
- *         for j in [0, l_y - 1]:             # <<<<<<<<<<<<<<
- *             for k in range(l_z):
- *                 index = l_xy * k + l_x * j + i
- */
-    }
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  }
-
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":338
- *                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- * 
- *     for i in range(1, l_x - 1):             # <<<<<<<<<<<<<<
- *         for j in range(1, l_y - 1):
- *             for k in [0, l_z - 1]:
- */
-  __pyx_t_37 = (__pyx_v_l_x - 1);
-  __pyx_t_38 = __pyx_t_37;
-  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_38; __pyx_t_6+=1) {
-    __pyx_v_i = __pyx_t_6;
-
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":339
- * 
- *     for i in range(1, l_x - 1):
- *         for j in range(1, l_y - 1):             # <<<<<<<<<<<<<<
- *             for k in [0, l_z - 1]:
- *                 index = l_xy * k + l_x * j + i
- */
-    __pyx_t_39 = (__pyx_v_l_y - 1);
-    __pyx_t_40 = __pyx_t_39;
-    for (__pyx_t_7 = 1; __pyx_t_7 < __pyx_t_40; __pyx_t_7+=1) {
-      __pyx_v_j = __pyx_t_7;
-
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":340
- *     for i in range(1, l_x - 1):
- *         for j in range(1, l_y - 1):
- *             for k in [0, l_z - 1]:             # <<<<<<<<<<<<<<
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- */
-      __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_z - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 340, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_22 = PyTuple_New(2); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 340, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_22);
-      __Pyx_INCREF(__pyx_int_0);
-      __Pyx_GIVEREF(__pyx_int_0);
-      PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_int_0);
-      __Pyx_GIVEREF(__pyx_t_3);
-      PyTuple_SET_ITEM(__pyx_t_22, 1, __pyx_t_3);
-      __pyx_t_3 = 0;
-      __pyx_t_3 = __pyx_t_22; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
-      __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-      for (;;) {
-        if (__pyx_t_5 >= 2) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_22 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_22); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 340, __pyx_L1_error)
-        #else
-        __pyx_t_22 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 340, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_22);
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        } else
         #endif
-        __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 340, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-        __pyx_v_k = __pyx_t_8;
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":341
- *         for j in range(1, l_y - 1):
- *             for k in [0, l_z - 1]:
- *                 index = l_xy * k + l_x * j + i             # <<<<<<<<<<<<<<
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- *                     y[index] += x[index]
- */
-        __pyx_v_index = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":342
- *             for k in [0, l_z - 1]:
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
- *                     y[index] += x[index]
- *                 else:
- */
-        __pyx_t_1 = ((__pyx_v_bc_check == 1) != 0);
-        if (__pyx_t_1) {
-        } else {
-          __pyx_t_2 = __pyx_t_1;
-          goto __pyx_L30_bool_binop_done;
-        }
-        __pyx_t_12 = __pyx_v_i;
-        __pyx_t_14 = __pyx_v_j;
-        __pyx_t_15 = __pyx_v_k;
-        __pyx_t_8 = -1;
-        if (__pyx_t_12 < 0) {
-          __pyx_t_12 += __pyx_v_prescribed_bc.shape[0];
-          if (unlikely(__pyx_t_12 < 0)) __pyx_t_8 = 0;
-        } else if (unlikely(__pyx_t_12 >= __pyx_v_prescribed_bc.shape[0])) __pyx_t_8 = 0;
-        if (__pyx_t_14 < 0) {
-          __pyx_t_14 += __pyx_v_prescribed_bc.shape[1];
-          if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 1;
-        } else if (unlikely(__pyx_t_14 >= __pyx_v_prescribed_bc.shape[1])) __pyx_t_8 = 1;
-        if (__pyx_t_15 < 0) {
-          __pyx_t_15 += __pyx_v_prescribed_bc.shape[2];
-          if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 2;
-        } else if (unlikely(__pyx_t_15 >= __pyx_v_prescribed_bc.shape[2])) __pyx_t_8 = 2;
-        if (unlikely(__pyx_t_8 != -1)) {
-          __Pyx_RaiseBufferIndexError(__pyx_t_8);
-          __PYX_ERR(0, 342, __pyx_L1_error)
-        }
-        __pyx_t_22 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_12 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_15 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 342, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_22);
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_Inf); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 342, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_23);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyObject_RichCompare(__pyx_t_22, __pyx_t_23, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-        __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 342, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_2 = __pyx_t_1;
-        __pyx_L30_bool_binop_done:;
-        if (__pyx_t_2) {
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":343
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- *                     y[index] += x[index]             # <<<<<<<<<<<<<<
- *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- */
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 343, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 343, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) )));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":342
- *             for k in [0, l_z - 1]:
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
- *                     y[index] += x[index]
- *                 else:
- */
-          goto __pyx_L29;
-        }
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":345
- *                     y[index] += x[index]
- *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- */
-        /*else*/ {
-          __pyx_t_23 = __Pyx_PyInt_From_long((__pyx_v_i - 1)); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 345, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 345, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_22);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 345, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 345, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 345, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 345, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_16 = __pyx_v_index_at; __pyx_t_24 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
-            __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_16);
-            if (likely(__pyx_t_24)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-              __Pyx_INCREF(__pyx_t_24);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_16, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 345, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 345, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_17 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 345, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            if (__pyx_t_24) {
-              __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_24); __pyx_t_24 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_17, 0+__pyx_t_8, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_22);
-            PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_8, __pyx_t_22);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_8, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_17, 3+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_17, 4+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_17, 5+__pyx_t_8, __pyx_t_21);
-            __pyx_t_23 = 0;
-            __pyx_t_22 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_17, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 345, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 345, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_ixm = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":346
- *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- */
-          __pyx_t_16 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 346, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 346, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 346, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 346, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 346, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 346, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_22 = __pyx_v_index_at; __pyx_t_23 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_22))) {
-            __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_22);
-            if (likely(__pyx_t_23)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_22);
-              __Pyx_INCREF(__pyx_t_23);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_22, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_22)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_16, __pyx_t_17, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 346, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_22)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_16, __pyx_t_17, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 346, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_24 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 346, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_24);
-            if (__pyx_t_23) {
-              __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_23); __pyx_t_23 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_24, 0+__pyx_t_8, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_24, 1+__pyx_t_8, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_24, 2+__pyx_t_8, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_24, 3+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_24, 4+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_24, 5+__pyx_t_8, __pyx_t_18);
-            __pyx_t_16 = 0;
-            __pyx_t_17 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_22, __pyx_t_24, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 346, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-          }
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_20)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_14, __pyx_t_22, __pyx_t_13, __pyx_t_18, __pyx_t_17, __pyx_t_16, __pyx_t_15};
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_20, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 346, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_ixp = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":347
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- */
-          __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 347, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_22);
-          __pyx_t_24 = __Pyx_PyInt_From_long((__pyx_v_j - 1)); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 347, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 347, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 347, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 347, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 347, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_17 = __pyx_v_index_at; __pyx_t_16 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
-            __pyx_t_16 = PyMethod_GET_SELF(__pyx_t_17);
-            if (likely(__pyx_t_16)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
-              __Pyx_INCREF(__pyx_t_16);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_17, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_17)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_16, __pyx_t_22, __pyx_t_24, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 347, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_16, __pyx_t_22, __pyx_t_24, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 347, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_23 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 347, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            if (__pyx_t_16) {
-              __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_16); __pyx_t_16 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_22);
-            PyTuple_SET_ITEM(__pyx_t_23, 0+__pyx_t_8, __pyx_t_22);
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_23, 1+__pyx_t_8, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_23, 2+__pyx_t_8, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_23, 4+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_23, 5+__pyx_t_8, __pyx_t_21);
-            __pyx_t_22 = 0;
-            __pyx_t_24 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_23, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 347, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          }
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 347, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_iym = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":348
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- */
-          __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 348, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_23 = __Pyx_PyInt_From_long((__pyx_v_j + 1)); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 348, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 348, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 348, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 348, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 348, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_24 = __pyx_v_index_at; __pyx_t_22 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_24))) {
-            __pyx_t_22 = PyMethod_GET_SELF(__pyx_t_24);
-            if (likely(__pyx_t_22)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_24);
-              __Pyx_INCREF(__pyx_t_22);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_24, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_24)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_17, __pyx_t_23, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 348, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_24)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_17, __pyx_t_23, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 348, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_16 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 348, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_16);
-            if (__pyx_t_22) {
-              __Pyx_GIVEREF(__pyx_t_22); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_22); __pyx_t_22 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_16, 0+__pyx_t_8, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_8, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_16, 2+__pyx_t_8, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_16, 3+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_16, 4+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_16, 5+__pyx_t_8, __pyx_t_18);
-            __pyx_t_17 = 0;
-            __pyx_t_23 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_24, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 348, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_iyp = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":349
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- */
-          __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 349, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 349, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_18 = __Pyx_PyInt_From_long((__pyx_v_k - 1)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 349, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 349, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 349, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 349, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_23 = __pyx_v_index_at; __pyx_t_17 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_23))) {
-            __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_23);
-            if (likely(__pyx_t_17)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
-              __Pyx_INCREF(__pyx_t_17);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_23, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_23)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 349, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 349, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_22 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 349, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            if (__pyx_t_17) {
-              __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_17); __pyx_t_17 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_22, 0+__pyx_t_8, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_22, 1+__pyx_t_8, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_22, 2+__pyx_t_8, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_22, 3+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_22, 4+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_22, 5+__pyx_t_8, __pyx_t_21);
-            __pyx_t_24 = 0;
-            __pyx_t_16 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_22, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 349, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 349, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_izm = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":350
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- */
-          __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 350, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 350, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_22);
-          __pyx_t_21 = __Pyx_PyInt_From_long((__pyx_v_k + 1)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 350, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 350, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 350, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 350, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_16 = __pyx_v_index_at; __pyx_t_24 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
-            __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_16);
-            if (likely(__pyx_t_24)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-              __Pyx_INCREF(__pyx_t_24);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_16, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 350, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 350, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_17 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 350, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            if (__pyx_t_24) {
-              __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_24); __pyx_t_24 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_17, 0+__pyx_t_8, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_22);
-            PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_8, __pyx_t_22);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_8, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_17, 3+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_17, 4+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_17, 5+__pyx_t_8, __pyx_t_18);
-            __pyx_t_23 = 0;
-            __pyx_t_22 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_17, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 350, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          }
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 350, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_izp = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":351
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- */
-          __pyx_t_15 = __pyx_v_ixm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((-(*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) )))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_26 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_ixp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_27 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          __pyx_t_28 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_28 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":352
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- */
-          __pyx_t_15 = __pyx_v_iym;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_29 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iym;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_30 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_30 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_iyp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_31 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iyp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-          __pyx_t_32 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_32 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 352, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":353
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- */
-          __pyx_t_15 = __pyx_v_izm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_33 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_34 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_34 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_izp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_36 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 353, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":351
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y[index] += (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- */
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 351, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (((((((__pyx_t_25 / __pyx_t_26) - (__pyx_t_27 / __pyx_t_28)) - (__pyx_t_29 / __pyx_t_30)) - (__pyx_t_31 / __pyx_t_32)) - (__pyx_t_33 / __pyx_t_34)) - (__pyx_t_35 / __pyx_t_36)) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":354
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- */
-          __pyx_t_15 = __pyx_v_ixm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 354, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 354, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 354, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 354, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_35 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 354, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_ixm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 354, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 354, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_36 / __pyx_t_35) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":355
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[index]
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- */
-          __pyx_t_15 = __pyx_v_ixp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 355, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 355, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 355, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 355, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_36 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 355, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_ixp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 355, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 355, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_35 / __pyx_t_36) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":356
- *                     y[index] += (kf[ixm] * kf[index] / (kf[ixm] + kf[index])) * x[ixm]
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                     y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- */
-          __pyx_t_15 = __pyx_v_iym;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 356, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 356, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iym;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 356, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 356, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_35 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 356, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_iym;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 356, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 356, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_36 / __pyx_t_35) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":357
- *                     y[index] += (kf[ixp] * kf[index] / (kf[ixp] + kf[index])) * x[ixp]
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- *                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- */
-          __pyx_t_15 = __pyx_v_iyp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 357, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 357, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iyp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 357, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 357, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_36 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 357, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_iyp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 357, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 357, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_35 / __pyx_t_36) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":358
- *                     y[index] += (kf[iym] * kf[index] / (kf[iym] + kf[index])) * x[iym]
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                     y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]             # <<<<<<<<<<<<<<
- *                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- * 
- */
-          __pyx_t_15 = __pyx_v_izm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 358, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 358, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 358, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 358, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_35 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 358, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_izm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 358, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 358, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_36 / __pyx_t_35) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":359
- *                     y[index] += (kf[iyp] * kf[index] / (kf[iyp] + kf[index])) * x[iyp]
- *                     y[index] += (kf[izm] * kf[index] / (kf[izm] + kf[index])) * x[izm]
- *                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]             # <<<<<<<<<<<<<<
- * 
- *     for i in range(1, l_x - 1):
- */
-          __pyx_t_15 = __pyx_v_izp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 359, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 359, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 359, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 359, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_36 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 359, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_izp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 359, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 359, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((__pyx_t_35 / __pyx_t_36) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_19 = PyTuple_New(6+__pyx_t_21); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 296, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          if (__pyx_t_14) {
+            __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_14); __pyx_t_14 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_22);
+          PyTuple_SET_ITEM(__pyx_t_19, 0+__pyx_t_21, __pyx_t_22);
+          __Pyx_GIVEREF(__pyx_t_13);
+          PyTuple_SET_ITEM(__pyx_t_19, 1+__pyx_t_21, __pyx_t_13);
+          __Pyx_GIVEREF(__pyx_t_18);
+          PyTuple_SET_ITEM(__pyx_t_19, 2+__pyx_t_21, __pyx_t_18);
+          __Pyx_GIVEREF(__pyx_t_17);
+          PyTuple_SET_ITEM(__pyx_t_19, 3+__pyx_t_21, __pyx_t_17);
+          __Pyx_GIVEREF(__pyx_t_16);
+          PyTuple_SET_ITEM(__pyx_t_19, 4+__pyx_t_21, __pyx_t_16);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_19, 5+__pyx_t_21, __pyx_t_15);
+          __pyx_t_22 = 0;
+          __pyx_t_13 = 0;
+          __pyx_t_18 = 0;
+          __pyx_t_17 = 0;
+          __pyx_t_16 = 0;
+          __pyx_t_15 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_20, __pyx_t_19, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
         }
-        __pyx_L29:;
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":340
- *     for i in range(1, l_x - 1):
- *         for j in range(1, l_y - 1):
- *             for k in [0, l_z - 1]:             # <<<<<<<<<<<<<<
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- */
-      }
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    }
-  }
-
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":361
- *                     y[index] += (kf[izp] * kf[index] / (kf[izp] + kf[index])) * x[izp]
- * 
- *     for i in range(1, l_x - 1):             # <<<<<<<<<<<<<<
- *         for j in range(1, l_y - 1):
- *             for k in range(1, l_z - 1):
- */
-  __pyx_t_37 = (__pyx_v_l_x - 1);
-  __pyx_t_38 = __pyx_t_37;
-  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_38; __pyx_t_6+=1) {
-    __pyx_v_i = __pyx_t_6;
-
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":362
- * 
- *     for i in range(1, l_x - 1):
- *         for j in range(1, l_y - 1):             # <<<<<<<<<<<<<<
- *             for k in range(1, l_z - 1):
- *                 index = l_xy * k + l_x * j + i
- */
-    __pyx_t_39 = (__pyx_v_l_y - 1);
-    __pyx_t_40 = __pyx_t_39;
-    for (__pyx_t_7 = 1; __pyx_t_7 < __pyx_t_40; __pyx_t_7+=1) {
-      __pyx_v_j = __pyx_t_7;
-
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":363
- *     for i in range(1, l_x - 1):
- *         for j in range(1, l_y - 1):
- *             for k in range(1, l_z - 1):             # <<<<<<<<<<<<<<
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- */
-      __pyx_t_41 = (__pyx_v_l_z - 1);
-      __pyx_t_42 = __pyx_t_41;
-      for (__pyx_t_8 = 1; __pyx_t_8 < __pyx_t_42; __pyx_t_8+=1) {
-        __pyx_v_k = __pyx_t_8;
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":364
- *         for j in range(1, l_y - 1):
- *             for k in range(1, l_z - 1):
- *                 index = l_xy * k + l_x * j + i             # <<<<<<<<<<<<<<
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- *                     y[index] += x[index]
- */
-        __pyx_v_index = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":365
- *             for k in range(1, l_z - 1):
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
- *                     y[index] += x[index]
- *                 else:
- */
-        __pyx_t_1 = ((__pyx_v_bc_check == 1) != 0);
-        if (__pyx_t_1) {
-        } else {
-          __pyx_t_2 = __pyx_t_1;
-          goto __pyx_L39_bool_binop_done;
-        }
-        __pyx_t_15 = __pyx_v_i;
-        __pyx_t_14 = __pyx_v_j;
-        __pyx_t_12 = __pyx_v_k;
-        __pyx_t_9 = -1;
-        if (__pyx_t_15 < 0) {
-          __pyx_t_15 += __pyx_v_prescribed_bc.shape[0];
-          if (unlikely(__pyx_t_15 < 0)) __pyx_t_9 = 0;
-        } else if (unlikely(__pyx_t_15 >= __pyx_v_prescribed_bc.shape[0])) __pyx_t_9 = 0;
-        if (__pyx_t_14 < 0) {
-          __pyx_t_14 += __pyx_v_prescribed_bc.shape[1];
-          if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 1;
-        } else if (unlikely(__pyx_t_14 >= __pyx_v_prescribed_bc.shape[1])) __pyx_t_9 = 1;
-        if (__pyx_t_12 < 0) {
-          __pyx_t_12 += __pyx_v_prescribed_bc.shape[2];
-          if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 2;
-        } else if (unlikely(__pyx_t_12 >= __pyx_v_prescribed_bc.shape[2])) __pyx_t_9 = 2;
-        if (unlikely(__pyx_t_9 != -1)) {
-          __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 365, __pyx_L1_error)
-        }
-        __pyx_t_3 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_15 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_12 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 365, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 365, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_Inf); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 365, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_16);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_t_16, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 365, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+        __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 296, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 365, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_2 = __pyx_t_1;
-        __pyx_L39_bool_binop_done:;
-        if (__pyx_t_2) {
+        __pyx_v_iyp = __pyx_t_21;
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":366
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
- *                     y[index] += x[index]             # <<<<<<<<<<<<<<
- *                 else:
- *                     ixm = l_xy * k + l_x * j + (i - 1)
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":297
+ *                 iym = index_at(i, j - 1, k, l_x, l_y, l_z)
+ *                 iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+ *                 izm = index_at(i, j, k - 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
+ *                 izp = index_at(i, j, k + 1, l_x, l_y, l_z)
+ *                 y[index] += kf_i[index] * x[index]
  */
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 366, __pyx_L1_error)
+        __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 297, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_20);
+        __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 297, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_19);
+        __pyx_t_15 = __Pyx_PyInt_From_long((__pyx_v_k - 1)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 297, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 297, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_16);
+        __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 297, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 297, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_18);
+        __Pyx_INCREF(__pyx_v_index_at);
+        __pyx_t_13 = __pyx_v_index_at; __pyx_t_22 = NULL;
+        __pyx_t_21 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_13))) {
+          __pyx_t_22 = PyMethod_GET_SELF(__pyx_t_13);
+          if (likely(__pyx_t_22)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
+            __Pyx_INCREF(__pyx_t_22);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_13, function);
+            __pyx_t_21 = 1;
           }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 366, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) )));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":365
- *             for k in range(1, l_z - 1):
- *                 index = l_xy * k + l_x * j + i
- *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
- *                     y[index] += x[index]
- *                 else:
- */
-          goto __pyx_L38;
         }
-
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":368
- *                     y[index] += x[index]
- *                 else:
- *                     ixm = l_xy * k + l_x * j + (i - 1)             # <<<<<<<<<<<<<<
- *                     ixp = l_xy * k + l_x * j + (i + 1)
- *                     iym = l_xy * k + l_x * (j - 1) + i
- */
-        /*else*/ {
-          __pyx_v_ixm = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + (__pyx_v_i - 1));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":369
- *                 else:
- *                     ixm = l_xy * k + l_x * j + (i - 1)
- *                     ixp = l_xy * k + l_x * j + (i + 1)             # <<<<<<<<<<<<<<
- *                     iym = l_xy * k + l_x * (j - 1) + i
- *                     iyp = l_xy * k + l_x * (j + 1) + i
- */
-          __pyx_v_ixp = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + (__pyx_v_i + 1));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":370
- *                     ixm = l_xy * k + l_x * j + (i - 1)
- *                     ixp = l_xy * k + l_x * j + (i + 1)
- *                     iym = l_xy * k + l_x * (j - 1) + i             # <<<<<<<<<<<<<<
- *                     iyp = l_xy * k + l_x * (j + 1) + i
- *                     izm = l_xy * (k - 1) + l_x * j + i
- */
-          __pyx_v_iym = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * (__pyx_v_j - 1))) + __pyx_v_i);
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":371
- *                     ixp = l_xy * k + l_x * j + (i + 1)
- *                     iym = l_xy * k + l_x * (j - 1) + i
- *                     iyp = l_xy * k + l_x * (j + 1) + i             # <<<<<<<<<<<<<<
- *                     izm = l_xy * (k - 1) + l_x * j + i
- *                     izp = l_xy * (k + 1) + l_x * j + i
- */
-          __pyx_v_iyp = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * (__pyx_v_j + 1))) + __pyx_v_i);
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":372
- *                     iym = l_xy * k + l_x * (j - 1) + i
- *                     iyp = l_xy * k + l_x * (j + 1) + i
- *                     izm = l_xy * (k - 1) + l_x * j + i             # <<<<<<<<<<<<<<
- *                     izp = l_xy * (k + 1) + l_x * j + i
- * 
- */
-          __pyx_v_izm = (((__pyx_v_l_xy * (__pyx_v_k - 1)) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":373
- *                     iyp = l_xy * k + l_x * (j + 1) + i
- *                     izm = l_xy * (k - 1) + l_x * j + i
- *                     izp = l_xy * (k + 1) + l_x * j + i             # <<<<<<<<<<<<<<
- * 
- *                     y[index] += kf_i[index] * x[index]
- */
-          __pyx_v_izp = (((__pyx_v_l_xy * (__pyx_v_k + 1)) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":375
- *                     izp = l_xy * (k + 1) + l_x * j + i
- * 
- *                     y[index] += kf_i[index] * x[index]             # <<<<<<<<<<<<<<
- *                     y[index] += kf_ixm[index] * x[ixm]
- *                     y[index] += kf_ixp[index] * x[ixp]
- */
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf_i.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf_i.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 375, __pyx_L1_error)
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_13)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_20, __pyx_t_19, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_13, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 297, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_13)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_20, __pyx_t_19, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_13, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 297, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_14 = PyTuple_New(6+__pyx_t_21); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 297, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_14);
+          if (__pyx_t_22) {
+            __Pyx_GIVEREF(__pyx_t_22); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_22); __pyx_t_22 = NULL;
           }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 375, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 375, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_15 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_i.data + __pyx_t_12 * __pyx_v_kf_i.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_14 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":376
- * 
- *                     y[index] += kf_i[index] * x[index]
- *                     y[index] += kf_ixm[index] * x[ixm]             # <<<<<<<<<<<<<<
- *                     y[index] += kf_ixp[index] * x[ixp]
- *                     y[index] += kf_iym[index] * x[iym]
- */
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf_ixm.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf_ixm.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 376, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_ixm;
-          __pyx_t_9 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 376, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 376, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_15 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_ixm.data + __pyx_t_14 * __pyx_v_kf_ixm.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":377
- *                     y[index] += kf_i[index] * x[index]
- *                     y[index] += kf_ixm[index] * x[ixm]
- *                     y[index] += kf_ixp[index] * x[ixp]             # <<<<<<<<<<<<<<
- *                     y[index] += kf_iym[index] * x[iym]
- *                     y[index] += kf_iyp[index] * x[iyp]
- */
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf_ixp.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf_ixp.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 377, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_ixp;
-          __pyx_t_9 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 377, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 377, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_15 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_ixp.data + __pyx_t_12 * __pyx_v_kf_ixp.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_14 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":378
- *                     y[index] += kf_ixm[index] * x[ixm]
- *                     y[index] += kf_ixp[index] * x[ixp]
- *                     y[index] += kf_iym[index] * x[iym]             # <<<<<<<<<<<<<<
- *                     y[index] += kf_iyp[index] * x[iyp]
- *                     y[index] += kf_izm[index] * x[izm]
- */
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf_iym.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf_iym.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 378, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_iym;
-          __pyx_t_9 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 378, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 378, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_15 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_iym.data + __pyx_t_14 * __pyx_v_kf_iym.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":379
- *                     y[index] += kf_ixp[index] * x[ixp]
- *                     y[index] += kf_iym[index] * x[iym]
- *                     y[index] += kf_iyp[index] * x[iyp]             # <<<<<<<<<<<<<<
- *                     y[index] += kf_izm[index] * x[izm]
- *                     y[index] += kf_izp[index] * x[izp]
- */
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf_iyp.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf_iyp.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 379, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_iyp;
-          __pyx_t_9 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 379, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 379, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_15 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_iyp.data + __pyx_t_12 * __pyx_v_kf_iyp.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_14 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":380
- *                     y[index] += kf_iym[index] * x[iym]
- *                     y[index] += kf_iyp[index] * x[iyp]
- *                     y[index] += kf_izm[index] * x[izm]             # <<<<<<<<<<<<<<
- *                     y[index] += kf_izp[index] * x[izp]
- * 
- */
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf_izm.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf_izm.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 380, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_izm;
-          __pyx_t_9 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 380, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 380, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_15 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_izm.data + __pyx_t_14 * __pyx_v_kf_izm.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":381
- *                     y[index] += kf_iyp[index] * x[iyp]
- *                     y[index] += kf_izm[index] * x[izm]
- *                     y[index] += kf_izp[index] * x[izp]             # <<<<<<<<<<<<<<
- * 
- * 
- */
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf_izp.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf_izp.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 381, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_izp;
-          __pyx_t_9 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_x.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 381, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_9 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_y.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_9 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
-          if (unlikely(__pyx_t_9 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 381, __pyx_L1_error)
-          }
-          *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_15 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_izp.data + __pyx_t_12 * __pyx_v_kf_izp.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_14 * __pyx_v_x.strides[0]) ))));
+          __Pyx_GIVEREF(__pyx_t_20);
+          PyTuple_SET_ITEM(__pyx_t_14, 0+__pyx_t_21, __pyx_t_20);
+          __Pyx_GIVEREF(__pyx_t_19);
+          PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_21, __pyx_t_19);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_14, 2+__pyx_t_21, __pyx_t_15);
+          __Pyx_GIVEREF(__pyx_t_16);
+          PyTuple_SET_ITEM(__pyx_t_14, 3+__pyx_t_21, __pyx_t_16);
+          __Pyx_GIVEREF(__pyx_t_17);
+          PyTuple_SET_ITEM(__pyx_t_14, 4+__pyx_t_21, __pyx_t_17);
+          __Pyx_GIVEREF(__pyx_t_18);
+          PyTuple_SET_ITEM(__pyx_t_14, 5+__pyx_t_21, __pyx_t_18);
+          __pyx_t_20 = 0;
+          __pyx_t_19 = 0;
+          __pyx_t_15 = 0;
+          __pyx_t_16 = 0;
+          __pyx_t_17 = 0;
+          __pyx_t_18 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 297, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         }
-        __pyx_L38:;
+        __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+        __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 297, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_v_izm = __pyx_t_21;
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":298
+ *                 iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
+ *                 izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+ *                 izp = index_at(i, j, k + 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
+ *                 y[index] += kf_i[index] * x[index]
+ *                 y[index] += kf_ixm[index] * x[ixm]
+ */
+        __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 298, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __pyx_t_14 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 298, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __pyx_t_18 = __Pyx_PyInt_From_long((__pyx_v_k + 1)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 298, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_18);
+        __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 298, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 298, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_16);
+        __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 298, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __Pyx_INCREF(__pyx_v_index_at);
+        __pyx_t_19 = __pyx_v_index_at; __pyx_t_20 = NULL;
+        __pyx_t_21 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_19))) {
+          __pyx_t_20 = PyMethod_GET_SELF(__pyx_t_19);
+          if (likely(__pyx_t_20)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_19);
+            __Pyx_INCREF(__pyx_t_20);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_19, function);
+            __pyx_t_21 = 1;
+          }
+        }
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_19)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_20, __pyx_t_13, __pyx_t_14, __pyx_t_18, __pyx_t_17, __pyx_t_16, __pyx_t_15};
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_19, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 298, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_19)) {
+          PyObject *__pyx_temp[7] = {__pyx_t_20, __pyx_t_13, __pyx_t_14, __pyx_t_18, __pyx_t_17, __pyx_t_16, __pyx_t_15};
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_19, __pyx_temp+1-__pyx_t_21, 6+__pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 298, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_22 = PyTuple_New(6+__pyx_t_21); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 298, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_22);
+          if (__pyx_t_20) {
+            __Pyx_GIVEREF(__pyx_t_20); PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_20); __pyx_t_20 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_13);
+          PyTuple_SET_ITEM(__pyx_t_22, 0+__pyx_t_21, __pyx_t_13);
+          __Pyx_GIVEREF(__pyx_t_14);
+          PyTuple_SET_ITEM(__pyx_t_22, 1+__pyx_t_21, __pyx_t_14);
+          __Pyx_GIVEREF(__pyx_t_18);
+          PyTuple_SET_ITEM(__pyx_t_22, 2+__pyx_t_21, __pyx_t_18);
+          __Pyx_GIVEREF(__pyx_t_17);
+          PyTuple_SET_ITEM(__pyx_t_22, 3+__pyx_t_21, __pyx_t_17);
+          __Pyx_GIVEREF(__pyx_t_16);
+          PyTuple_SET_ITEM(__pyx_t_22, 4+__pyx_t_21, __pyx_t_16);
+          __Pyx_GIVEREF(__pyx_t_15);
+          PyTuple_SET_ITEM(__pyx_t_22, 5+__pyx_t_21, __pyx_t_15);
+          __pyx_t_13 = 0;
+          __pyx_t_14 = 0;
+          __pyx_t_18 = 0;
+          __pyx_t_17 = 0;
+          __pyx_t_16 = 0;
+          __pyx_t_15 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_t_22, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 298, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+        }
+        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+        __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 298, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_v_izp = __pyx_t_21;
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":299
+ *                 izm = index_at(i, j, k - 1, l_x, l_y, l_z)
+ *                 izp = index_at(i, j, k + 1, l_x, l_y, l_z)
+ *                 y[index] += kf_i[index] * x[index]             # <<<<<<<<<<<<<<
+ *                 y[index] += kf_ixm[index] * x[ixm]
+ *                 y[index] += kf_ixp[index] * x[ixp]
+ */
+        __pyx_t_23 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_23 < 0) {
+          __pyx_t_23 += __pyx_v_kf_i.shape[0];
+          if (unlikely(__pyx_t_23 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_23 >= __pyx_v_kf_i.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 299, __pyx_L1_error)
+        }
+        __pyx_t_24 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_24 < 0) {
+          __pyx_t_24 += __pyx_v_x.shape[0];
+          if (unlikely(__pyx_t_24 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_24 >= __pyx_v_x.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 299, __pyx_L1_error)
+        }
+        __pyx_t_25 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_25 < 0) {
+          __pyx_t_25 += __pyx_v_y.shape[0];
+          if (unlikely(__pyx_t_25 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_25 >= __pyx_v_y.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 299, __pyx_L1_error)
+        }
+        *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_25 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_i.data + __pyx_t_23 * __pyx_v_kf_i.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_24 * __pyx_v_x.strides[0]) ))));
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":300
+ *                 izp = index_at(i, j, k + 1, l_x, l_y, l_z)
+ *                 y[index] += kf_i[index] * x[index]
+ *                 y[index] += kf_ixm[index] * x[ixm]             # <<<<<<<<<<<<<<
+ *                 y[index] += kf_ixp[index] * x[ixp]
+ *                 y[index] += kf_iym[index] * x[iym]
+ */
+        __pyx_t_24 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_24 < 0) {
+          __pyx_t_24 += __pyx_v_kf_ixm.shape[0];
+          if (unlikely(__pyx_t_24 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_24 >= __pyx_v_kf_ixm.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 300, __pyx_L1_error)
+        }
+        __pyx_t_23 = __pyx_v_ixm;
+        __pyx_t_21 = -1;
+        if (__pyx_t_23 < 0) {
+          __pyx_t_23 += __pyx_v_x.shape[0];
+          if (unlikely(__pyx_t_23 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_23 >= __pyx_v_x.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 300, __pyx_L1_error)
+        }
+        __pyx_t_25 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_25 < 0) {
+          __pyx_t_25 += __pyx_v_y.shape[0];
+          if (unlikely(__pyx_t_25 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_25 >= __pyx_v_y.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 300, __pyx_L1_error)
+        }
+        *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_25 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_ixm.data + __pyx_t_24 * __pyx_v_kf_ixm.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_23 * __pyx_v_x.strides[0]) ))));
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":301
+ *                 y[index] += kf_i[index] * x[index]
+ *                 y[index] += kf_ixm[index] * x[ixm]
+ *                 y[index] += kf_ixp[index] * x[ixp]             # <<<<<<<<<<<<<<
+ *                 y[index] += kf_iym[index] * x[iym]
+ *                 y[index] += kf_iyp[index] * x[iyp]
+ */
+        __pyx_t_23 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_23 < 0) {
+          __pyx_t_23 += __pyx_v_kf_ixp.shape[0];
+          if (unlikely(__pyx_t_23 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_23 >= __pyx_v_kf_ixp.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 301, __pyx_L1_error)
+        }
+        __pyx_t_24 = __pyx_v_ixp;
+        __pyx_t_21 = -1;
+        if (__pyx_t_24 < 0) {
+          __pyx_t_24 += __pyx_v_x.shape[0];
+          if (unlikely(__pyx_t_24 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_24 >= __pyx_v_x.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 301, __pyx_L1_error)
+        }
+        __pyx_t_25 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_25 < 0) {
+          __pyx_t_25 += __pyx_v_y.shape[0];
+          if (unlikely(__pyx_t_25 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_25 >= __pyx_v_y.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 301, __pyx_L1_error)
+        }
+        *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_25 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_ixp.data + __pyx_t_23 * __pyx_v_kf_ixp.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_24 * __pyx_v_x.strides[0]) ))));
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":302
+ *                 y[index] += kf_ixm[index] * x[ixm]
+ *                 y[index] += kf_ixp[index] * x[ixp]
+ *                 y[index] += kf_iym[index] * x[iym]             # <<<<<<<<<<<<<<
+ *                 y[index] += kf_iyp[index] * x[iyp]
+ *                 y[index] += kf_izm[index] * x[izm]
+ */
+        __pyx_t_24 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_24 < 0) {
+          __pyx_t_24 += __pyx_v_kf_iym.shape[0];
+          if (unlikely(__pyx_t_24 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_24 >= __pyx_v_kf_iym.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 302, __pyx_L1_error)
+        }
+        __pyx_t_23 = __pyx_v_iym;
+        __pyx_t_21 = -1;
+        if (__pyx_t_23 < 0) {
+          __pyx_t_23 += __pyx_v_x.shape[0];
+          if (unlikely(__pyx_t_23 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_23 >= __pyx_v_x.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 302, __pyx_L1_error)
+        }
+        __pyx_t_25 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_25 < 0) {
+          __pyx_t_25 += __pyx_v_y.shape[0];
+          if (unlikely(__pyx_t_25 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_25 >= __pyx_v_y.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 302, __pyx_L1_error)
+        }
+        *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_25 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_iym.data + __pyx_t_24 * __pyx_v_kf_iym.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_23 * __pyx_v_x.strides[0]) ))));
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":303
+ *                 y[index] += kf_ixp[index] * x[ixp]
+ *                 y[index] += kf_iym[index] * x[iym]
+ *                 y[index] += kf_iyp[index] * x[iyp]             # <<<<<<<<<<<<<<
+ *                 y[index] += kf_izm[index] * x[izm]
+ *                 y[index] += kf_izp[index] * x[izp]
+ */
+        __pyx_t_23 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_23 < 0) {
+          __pyx_t_23 += __pyx_v_kf_iyp.shape[0];
+          if (unlikely(__pyx_t_23 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_23 >= __pyx_v_kf_iyp.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 303, __pyx_L1_error)
+        }
+        __pyx_t_24 = __pyx_v_iyp;
+        __pyx_t_21 = -1;
+        if (__pyx_t_24 < 0) {
+          __pyx_t_24 += __pyx_v_x.shape[0];
+          if (unlikely(__pyx_t_24 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_24 >= __pyx_v_x.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 303, __pyx_L1_error)
+        }
+        __pyx_t_25 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_25 < 0) {
+          __pyx_t_25 += __pyx_v_y.shape[0];
+          if (unlikely(__pyx_t_25 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_25 >= __pyx_v_y.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 303, __pyx_L1_error)
+        }
+        *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_25 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_iyp.data + __pyx_t_23 * __pyx_v_kf_iyp.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_24 * __pyx_v_x.strides[0]) ))));
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":304
+ *                 y[index] += kf_iym[index] * x[iym]
+ *                 y[index] += kf_iyp[index] * x[iyp]
+ *                 y[index] += kf_izm[index] * x[izm]             # <<<<<<<<<<<<<<
+ *                 y[index] += kf_izp[index] * x[izp]
+ * 
+ */
+        __pyx_t_24 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_24 < 0) {
+          __pyx_t_24 += __pyx_v_kf_izm.shape[0];
+          if (unlikely(__pyx_t_24 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_24 >= __pyx_v_kf_izm.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 304, __pyx_L1_error)
+        }
+        __pyx_t_23 = __pyx_v_izm;
+        __pyx_t_21 = -1;
+        if (__pyx_t_23 < 0) {
+          __pyx_t_23 += __pyx_v_x.shape[0];
+          if (unlikely(__pyx_t_23 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_23 >= __pyx_v_x.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 304, __pyx_L1_error)
+        }
+        __pyx_t_25 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_25 < 0) {
+          __pyx_t_25 += __pyx_v_y.shape[0];
+          if (unlikely(__pyx_t_25 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_25 >= __pyx_v_y.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 304, __pyx_L1_error)
+        }
+        *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_25 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_izm.data + __pyx_t_24 * __pyx_v_kf_izm.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_23 * __pyx_v_x.strides[0]) ))));
+
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":305
+ *                 y[index] += kf_iyp[index] * x[iyp]
+ *                 y[index] += kf_izm[index] * x[izm]
+ *                 y[index] += kf_izp[index] * x[izp]             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+        __pyx_t_23 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_23 < 0) {
+          __pyx_t_23 += __pyx_v_kf_izp.shape[0];
+          if (unlikely(__pyx_t_23 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_23 >= __pyx_v_kf_izp.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 305, __pyx_L1_error)
+        }
+        __pyx_t_24 = __pyx_v_izp;
+        __pyx_t_21 = -1;
+        if (__pyx_t_24 < 0) {
+          __pyx_t_24 += __pyx_v_x.shape[0];
+          if (unlikely(__pyx_t_24 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_24 >= __pyx_v_x.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 305, __pyx_L1_error)
+        }
+        __pyx_t_25 = __pyx_v_index;
+        __pyx_t_21 = -1;
+        if (__pyx_t_25 < 0) {
+          __pyx_t_25 += __pyx_v_y.shape[0];
+          if (unlikely(__pyx_t_25 < 0)) __pyx_t_21 = 0;
+        } else if (unlikely(__pyx_t_25 >= __pyx_v_y.shape[0])) __pyx_t_21 = 0;
+        if (unlikely(__pyx_t_21 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_21);
+          __PYX_ERR(0, 305, __pyx_L1_error)
+        }
+        *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_25 * __pyx_v_y.strides[0]) )) += ((*((double *) ( /* dim=0 */ (__pyx_v_kf_izp.data + __pyx_t_23 * __pyx_v_kf_izp.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_24 * __pyx_v_x.strides[0]) ))));
       }
     }
   }
@@ -15139,16 +10971,15 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_13);
+  __Pyx_XDECREF(__pyx_t_14);
+  __Pyx_XDECREF(__pyx_t_15);
   __Pyx_XDECREF(__pyx_t_16);
   __Pyx_XDECREF(__pyx_t_17);
   __Pyx_XDECREF(__pyx_t_18);
   __Pyx_XDECREF(__pyx_t_19);
   __Pyx_XDECREF(__pyx_t_20);
-  __Pyx_XDECREF(__pyx_t_21);
   __Pyx_XDECREF(__pyx_t_22);
-  __Pyx_XDECREF(__pyx_t_23);
-  __Pyx_XDECREF(__pyx_t_24);
   __Pyx_AddTraceback("pumapy.physics_models.finite_volume.isotropic_conductivity_utils.matvec_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -15169,7 +11000,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   return __pyx_r;
 }
 
-/* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":386
+/* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":309
  * 
  * 
  * def vecvec_prec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
@@ -15181,7 +11012,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
 static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_9vecvec_prec_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_9vecvec_prec_cy = {"vecvec_prec_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_9vecvec_prec_cy, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_9vecvec_prec_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  __Pyx_memviewslice __pyx_v_kf = { 0, 0, { 0 }, { 0 }, { 0 } };
+  CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_kf_i = { 0, 0, { 0 }, { 0 }, { 0 } };
   CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixm = { 0, 0, { 0 }, { 0 }, { 0 } };
   CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixp = { 0, 0, { 0 }, { 0 }, { 0 } };
@@ -15257,101 +11088,101 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kf_i)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 1); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 1); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kf_ixm)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 2); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 2); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kf_ixp)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 3); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 3); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kf_iym)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 4); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 4); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kf_iyp)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 5); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 5); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kf_izm)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 6); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 6); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
         if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kf_izp)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 7); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 7); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
         if (likely((values[8] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 8); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 8); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  9:
         if (likely((values[9] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 9); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 9); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 10:
         if (likely((values[10] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_l_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 10); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 10); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 11:
         if (likely((values[11] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_l_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 11); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 11); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 12:
         if (likely((values[12] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_l_z)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 12); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 12); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 13:
         if (likely((values[13] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_domain_bc_check)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 13); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 13); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 14:
         if (likely((values[14] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_bc_check)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 14); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 14); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 15:
         if (likely((values[15] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_prescribed_bc)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 15); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 15); __PYX_ERR(0, 309, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 16:
         if (likely((values[16] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_side_bc)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 16); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, 16); __PYX_ERR(0, 309, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "vecvec_prec_cy") < 0)) __PYX_ERR(0, 386, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "vecvec_prec_cy") < 0)) __PYX_ERR(0, 309, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 17) {
       goto __pyx_L5_argtuple_error;
@@ -15374,33 +11205,33 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
       values[15] = PyTuple_GET_ITEM(__pyx_args, 15);
       values[16] = PyTuple_GET_ITEM(__pyx_args, 16);
     }
-    __pyx_v_kf = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_kf_i = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_i.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_kf_ixm = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_ixm.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_kf_ixp = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_ixp.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_kf_iym = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_iym.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_kf_iyp = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_iyp.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_kf_izm = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[6], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_izm.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_kf_izp = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[7], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_izp.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_x = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[8], PyBUF_WRITABLE); if (unlikely(!__pyx_v_x.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_y = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[9], PyBUF_WRITABLE); if (unlikely(!__pyx_v_y.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_l_x = __Pyx_PyInt_As_int(values[10]); if (unlikely((__pyx_v_l_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_l_y = __Pyx_PyInt_As_int(values[11]); if (unlikely((__pyx_v_l_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_l_z = __Pyx_PyInt_As_int(values[12]); if (unlikely((__pyx_v_l_z == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_domain_bc_check = __Pyx_PyInt_As_short(values[13]); if (unlikely((__pyx_v_domain_bc_check == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_bc_check = __Pyx_PyInt_As_short(values[14]); if (unlikely((__pyx_v_bc_check == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 386, __pyx_L3_error)
-    __pyx_v_prescribed_bc = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[15], PyBUF_WRITABLE); if (unlikely(!__pyx_v_prescribed_bc.memview)) __PYX_ERR(0, 386, __pyx_L3_error)
+    __pyx_v_kf = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_kf_i = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_i.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_kf_ixm = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_ixm.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_kf_ixp = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_ixp.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_kf_iym = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_iym.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_kf_iyp = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_iyp.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_kf_izm = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[6], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_izm.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_kf_izp = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[7], PyBUF_WRITABLE); if (unlikely(!__pyx_v_kf_izp.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_x = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[8], PyBUF_WRITABLE); if (unlikely(!__pyx_v_x.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_y = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[9], PyBUF_WRITABLE); if (unlikely(!__pyx_v_y.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_l_x = __Pyx_PyInt_As_int(values[10]); if (unlikely((__pyx_v_l_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_l_y = __Pyx_PyInt_As_int(values[11]); if (unlikely((__pyx_v_l_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_l_z = __Pyx_PyInt_As_int(values[12]); if (unlikely((__pyx_v_l_z == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_domain_bc_check = __Pyx_PyInt_As_short(values[13]); if (unlikely((__pyx_v_domain_bc_check == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_bc_check = __Pyx_PyInt_As_short(values[14]); if (unlikely((__pyx_v_bc_check == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 309, __pyx_L3_error)
+    __pyx_v_prescribed_bc = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[15], PyBUF_WRITABLE); if (unlikely(!__pyx_v_prescribed_bc.memview)) __PYX_ERR(0, 309, __pyx_L3_error)
     __pyx_v_side_bc = ((PyObject*)values[16]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 386, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("vecvec_prec_cy", 1, 17, 17, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 309, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pumapy.physics_models.finite_volume.isotropic_conductivity_utils.vecvec_prec_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_side_bc), (&PyString_Type), 1, "side_bc", 1))) __PYX_ERR(0, 386, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_side_bc), (&PyString_Type), 1, "side_bc", 1))) __PYX_ERR(0, 309, __pyx_L1_error)
   __pyx_r = __pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_8vecvec_prec_cy(__pyx_self, __pyx_v_kf, __pyx_v_kf_i, __pyx_v_kf_ixm, __pyx_v_kf_ixp, __pyx_v_kf_iym, __pyx_v_kf_iyp, __pyx_v_kf_izm, __pyx_v_kf_izp, __pyx_v_x, __pyx_v_y, __pyx_v_l_x, __pyx_v_l_y, __pyx_v_l_z, __pyx_v_domain_bc_check, __pyx_v_bc_check, __pyx_v_prescribed_bc, __pyx_v_side_bc);
 
   /* function exit code */
@@ -15412,19 +11243,13 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_8vecvec_prec_cy(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_kf_i, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixm, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixp, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_iym, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_iyp, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_izm, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_izp, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc) {
-  PyObject *__pyx_v_index_at = NULL;
+static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_8vecvec_prec_cy(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf, __Pyx_memviewslice __pyx_v_kf_i, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixm, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_ixp, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_iym, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_iyp, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_izm, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_kf_izp, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, int __pyx_v_l_x, int __pyx_v_l_y, int __pyx_v_l_z, short __pyx_v_domain_bc_check, short __pyx_v_bc_check, __Pyx_memviewslice __pyx_v_prescribed_bc, PyObject *__pyx_v_side_bc) {
+  CYTHON_UNUSED PyObject *__pyx_v_index_at = NULL;
   int __pyx_v_l_xy;
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
   int __pyx_v_index;
-  int __pyx_v_ixm;
-  int __pyx_v_ixp;
-  int __pyx_v_iym;
-  int __pyx_v_iyp;
-  int __pyx_v_izm;
-  int __pyx_v_izp;
   double __pyx_v_y_local;
   CYTHON_UNUSED unsigned PY_LONG_LONG __pyx_v_count;
   PyObject *__pyx_r = NULL;
@@ -15446,60 +11271,41 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   Py_ssize_t __pyx_t_15;
   PyObject *__pyx_t_16 = NULL;
   PyObject *__pyx_t_17 = NULL;
-  PyObject *__pyx_t_18 = NULL;
-  PyObject *__pyx_t_19 = NULL;
-  PyObject *__pyx_t_20 = NULL;
-  PyObject *__pyx_t_21 = NULL;
-  PyObject *__pyx_t_22 = NULL;
-  PyObject *__pyx_t_23 = NULL;
-  PyObject *__pyx_t_24 = NULL;
-  double __pyx_t_25;
-  double __pyx_t_26;
-  double __pyx_t_27;
-  double __pyx_t_28;
-  double __pyx_t_29;
-  double __pyx_t_30;
-  double __pyx_t_31;
-  double __pyx_t_32;
-  double __pyx_t_33;
-  double __pyx_t_34;
-  double __pyx_t_35;
-  double __pyx_t_36;
-  long __pyx_t_37;
-  long __pyx_t_38;
-  long __pyx_t_39;
-  long __pyx_t_40;
-  long __pyx_t_41;
-  long __pyx_t_42;
+  long __pyx_t_18;
+  long __pyx_t_19;
+  long __pyx_t_20;
+  long __pyx_t_21;
+  long __pyx_t_22;
+  long __pyx_t_23;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("vecvec_prec_cy", 0);
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":387
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":310
  * 
  * def vecvec_prec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
  *     if side_bc == 'p':             # <<<<<<<<<<<<<<
  *         index_at = index_at_p
  *     else:
  */
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_side_bc, __pyx_n_s_p, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 387, __pyx_L1_error)
+  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_side_bc, __pyx_n_s_p, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 310, __pyx_L1_error)
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":388
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":311
  * def vecvec_prec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
  *     if side_bc == 'p':
  *         index_at = index_at_p             # <<<<<<<<<<<<<<
  *     else:
  *         index_at = index_at_s
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_index_at_p); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 388, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_index_at_p); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 311, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_index_at = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":387
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":310
  * 
  * def vecvec_prec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):
  *     if side_bc == 'p':             # <<<<<<<<<<<<<<
@@ -15509,7 +11315,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     goto __pyx_L3;
   }
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":390
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":313
  *         index_at = index_at_p
  *     else:
  *         index_at = index_at_s             # <<<<<<<<<<<<<<
@@ -15517,14 +11323,14 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  *     cdef int l_xy = l_x * l_y
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_index_at_s); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 390, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_index_at_s); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_index_at = __pyx_t_3;
     __pyx_t_3 = 0;
   }
   __pyx_L3:;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":392
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":315
  *         index_at = index_at_s
  * 
  *     cdef int l_xy = l_x * l_y             # <<<<<<<<<<<<<<
@@ -15533,7 +11339,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
   __pyx_v_l_xy = (__pyx_v_l_x * __pyx_v_l_y);
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":398
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":321
  *     cdef double y_local
  * 
  *     cdef unsigned long long count = 0             # <<<<<<<<<<<<<<
@@ -15542,16 +11348,16 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
   __pyx_v_count = 0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":399
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":322
  * 
  *     cdef unsigned long long count = 0
  *     for i in [0, l_x - 1]:             # <<<<<<<<<<<<<<
  *         for j in range(l_y):
  *             for k in range(l_z):
  */
-  __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_x - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_x - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
@@ -15564,16 +11370,16 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   for (;;) {
     if (__pyx_t_5 >= 2) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 399, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 322, __pyx_L1_error)
     #else
-    __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 399, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
-    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 399, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_i = __pyx_t_6;
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":400
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":323
  *     cdef unsigned long long count = 0
  *     for i in [0, l_x - 1]:
  *         for j in range(l_y):             # <<<<<<<<<<<<<<
@@ -15585,7 +11391,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_j = __pyx_t_8;
 
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":401
+      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":324
  *     for i in [0, l_x - 1]:
  *         for j in range(l_y):
  *             for k in range(l_z):             # <<<<<<<<<<<<<<
@@ -15597,7 +11403,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
       for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_10; __pyx_t_11+=1) {
         __pyx_v_k = __pyx_t_11;
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":402
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":325
  *         for j in range(l_y):
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i             # <<<<<<<<<<<<<<
@@ -15606,7 +11412,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         __pyx_v_index = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":403
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":326
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i
  *                 if domain_bc_check == 1:             # <<<<<<<<<<<<<<
@@ -15616,7 +11422,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         __pyx_t_2 = ((__pyx_v_domain_bc_check == 1) != 0);
         if (__pyx_t_2) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":404
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":327
  *                 index = l_xy * k + l_x * j + i
  *                 if domain_bc_check == 1:
  *                     y[index] += x[index]             # <<<<<<<<<<<<<<
@@ -15631,7 +11437,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
           if (unlikely(__pyx_t_13 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_13);
-            __PYX_ERR(0, 404, __pyx_L1_error)
+            __PYX_ERR(0, 327, __pyx_L1_error)
           }
           __pyx_t_14 = __pyx_v_index;
           __pyx_t_13 = -1;
@@ -15641,11 +11447,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
           if (unlikely(__pyx_t_13 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_13);
-            __PYX_ERR(0, 404, __pyx_L1_error)
+            __PYX_ERR(0, 327, __pyx_L1_error)
           }
           *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) )));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":403
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":326
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i
  *                 if domain_bc_check == 1:             # <<<<<<<<<<<<<<
@@ -15655,7 +11461,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           goto __pyx_L10;
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":406
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":329
  *                     y[index] += x[index]
  *                 else:
  *                     if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
@@ -15687,30 +11493,30 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_15 >= __pyx_v_prescribed_bc.shape[2])) __pyx_t_13 = 2;
           if (unlikely(__pyx_t_13 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_13);
-            __PYX_ERR(0, 406, __pyx_L1_error)
+            __PYX_ERR(0, 329, __pyx_L1_error)
           }
-          __pyx_t_4 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_12 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_15 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __pyx_t_4 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_12 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_15 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 329, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_GetModuleGlobalName(__pyx_t_16, __pyx_n_s_np); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __Pyx_GetModuleGlobalName(__pyx_t_16, __pyx_n_s_np); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 329, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_Inf); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_Inf); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 329, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_16 = PyObject_RichCompare(__pyx_t_4, __pyx_t_17, Py_NE); __Pyx_XGOTREF(__pyx_t_16); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __pyx_t_16 = PyObject_RichCompare(__pyx_t_4, __pyx_t_17, Py_NE); __Pyx_XGOTREF(__pyx_t_16); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 329, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_16); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_16); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 329, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           __pyx_t_2 = __pyx_t_1;
           __pyx_L12_bool_binop_done:;
           if (__pyx_t_2) {
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":407
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":330
  *                 else:
  *                     if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
  *                         y[index] += x[index]             # <<<<<<<<<<<<<<
  *                     else:
- *                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+ *                         y_local = kf_i[index]
  */
             __pyx_t_15 = __pyx_v_index;
             __pyx_t_13 = -1;
@@ -15720,7 +11526,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
             if (unlikely(__pyx_t_13 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 407, __pyx_L1_error)
+              __PYX_ERR(0, 330, __pyx_L1_error)
             }
             __pyx_t_14 = __pyx_v_index;
             __pyx_t_13 = -1;
@@ -15730,11 +11536,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
             if (unlikely(__pyx_t_13 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 407, __pyx_L1_error)
+              __PYX_ERR(0, 330, __pyx_L1_error)
             }
             *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) )));
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":406
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":329
  *                     y[index] += x[index]
  *                 else:
  *                     if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
@@ -15744,869 +11550,29 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             goto __pyx_L11;
           }
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":409
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":332
  *                         y[index] += x[index]
  *                     else:
- *                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- */
-          /*else*/ {
-            __pyx_t_17 = __Pyx_PyInt_From_long((__pyx_v_i - 1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 409, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 409, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 409, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 409, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 409, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 409, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_22 = __pyx_v_index_at; __pyx_t_23 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_22))) {
-              __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_22);
-              if (likely(__pyx_t_23)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_22);
-                __Pyx_INCREF(__pyx_t_23);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_22, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_22)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 409, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_22)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 409, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_24 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 409, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_24);
-              if (__pyx_t_23) {
-                __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_23); __pyx_t_23 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_17);
-              PyTuple_SET_ITEM(__pyx_t_24, 0+__pyx_t_13, __pyx_t_17);
-              __Pyx_GIVEREF(__pyx_t_4);
-              PyTuple_SET_ITEM(__pyx_t_24, 1+__pyx_t_13, __pyx_t_4);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_24, 2+__pyx_t_13, __pyx_t_18);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_24, 3+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_24, 4+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_24, 5+__pyx_t_13, __pyx_t_21);
-              __pyx_t_17 = 0;
-              __pyx_t_4 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_22, __pyx_t_24, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 409, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 409, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_ixm = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":410
- *                     else:
- *                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                         ixp = index_at(i + 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- */
-            __pyx_t_22 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 410, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 410, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_24);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 410, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 410, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 410, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 410, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_4 = __pyx_v_index_at; __pyx_t_17 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-              __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_4);
-              if (likely(__pyx_t_17)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-                __Pyx_INCREF(__pyx_t_17);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_4, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_4)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_22, __pyx_t_24, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 410, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_22, __pyx_t_24, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 410, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_23 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 410, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_23);
-              if (__pyx_t_17) {
-                __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_17); __pyx_t_17 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_22);
-              PyTuple_SET_ITEM(__pyx_t_23, 0+__pyx_t_13, __pyx_t_22);
-              __Pyx_GIVEREF(__pyx_t_24);
-              PyTuple_SET_ITEM(__pyx_t_23, 1+__pyx_t_13, __pyx_t_24);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_23, 2+__pyx_t_13, __pyx_t_21);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_23, 4+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_23, 5+__pyx_t_13, __pyx_t_18);
-              __pyx_t_22 = 0;
-              __pyx_t_24 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_23, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 410, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 410, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_ixp = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":411
- *                         ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                         ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- */
-            __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 411, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_23 = __Pyx_PyInt_From_long((__pyx_v_j - 1)); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 411, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 411, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 411, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 411, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 411, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_24 = __pyx_v_index_at; __pyx_t_22 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_24))) {
-              __pyx_t_22 = PyMethod_GET_SELF(__pyx_t_24);
-              if (likely(__pyx_t_22)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_24);
-                __Pyx_INCREF(__pyx_t_22);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_24, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_24)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_4, __pyx_t_23, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 411, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_24)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_4, __pyx_t_23, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 411, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_17 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 411, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
-              if (__pyx_t_22) {
-                __Pyx_GIVEREF(__pyx_t_22); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_22); __pyx_t_22 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_4);
-              PyTuple_SET_ITEM(__pyx_t_17, 0+__pyx_t_13, __pyx_t_4);
-              __Pyx_GIVEREF(__pyx_t_23);
-              PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_13, __pyx_t_23);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_13, __pyx_t_18);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_17, 3+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_17, 4+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_17, 5+__pyx_t_13, __pyx_t_21);
-              __pyx_t_4 = 0;
-              __pyx_t_23 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_24, __pyx_t_17, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 411, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 411, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_iym = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":412
- *                         ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- */
-            __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 412, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_24);
-            __pyx_t_17 = __Pyx_PyInt_From_long((__pyx_v_j + 1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 412, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 412, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 412, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 412, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 412, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_23 = __pyx_v_index_at; __pyx_t_4 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_23))) {
-              __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_23);
-              if (likely(__pyx_t_4)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
-                __Pyx_INCREF(__pyx_t_4);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_23, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_23)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_4, __pyx_t_24, __pyx_t_17, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 412, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_4, __pyx_t_24, __pyx_t_17, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 412, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_22 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 412, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_22);
-              if (__pyx_t_4) {
-                __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_4); __pyx_t_4 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_24);
-              PyTuple_SET_ITEM(__pyx_t_22, 0+__pyx_t_13, __pyx_t_24);
-              __Pyx_GIVEREF(__pyx_t_17);
-              PyTuple_SET_ITEM(__pyx_t_22, 1+__pyx_t_13, __pyx_t_17);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_22, 2+__pyx_t_13, __pyx_t_21);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_22, 3+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_22, 4+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_22, 5+__pyx_t_13, __pyx_t_18);
-              __pyx_t_24 = 0;
-              __pyx_t_17 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_22, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 412, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 412, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_iyp = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":413
- *                         iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                         y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- */
-            __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 413, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 413, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __pyx_t_18 = __Pyx_PyInt_From_long((__pyx_v_k - 1)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 413, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 413, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 413, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 413, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_17 = __pyx_v_index_at; __pyx_t_24 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
-              __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_17);
-              if (likely(__pyx_t_24)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
-                __Pyx_INCREF(__pyx_t_24);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_17, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_17)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 413, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 413, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_4 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 413, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_4);
-              if (__pyx_t_24) {
-                __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_24); __pyx_t_24 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_23);
-              PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_13, __pyx_t_23);
-              __Pyx_GIVEREF(__pyx_t_22);
-              PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_13, __pyx_t_22);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_13, __pyx_t_18);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_4, 3+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_4, 4+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_4, 5+__pyx_t_13, __pyx_t_21);
-              __pyx_t_23 = 0;
-              __pyx_t_22 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_4, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 413, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_izm = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":414
- *                         iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                         y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- */
-            __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 414, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_21 = __Pyx_PyInt_From_long((__pyx_v_k + 1)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 414, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 414, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 414, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_19);
-            __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 414, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __Pyx_INCREF(__pyx_v_index_at);
-            __pyx_t_22 = __pyx_v_index_at; __pyx_t_23 = NULL;
-            __pyx_t_13 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_22))) {
-              __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_22);
-              if (likely(__pyx_t_23)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_22);
-                __Pyx_INCREF(__pyx_t_23);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_22, function);
-                __pyx_t_13 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_22)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 414, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_22)) {
-              PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-              __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_13, 6+__pyx_t_13); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 414, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            } else
-            #endif
-            {
-              __pyx_t_24 = PyTuple_New(6+__pyx_t_13); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 414, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_24);
-              if (__pyx_t_23) {
-                __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_23); __pyx_t_23 = NULL;
-              }
-              __Pyx_GIVEREF(__pyx_t_17);
-              PyTuple_SET_ITEM(__pyx_t_24, 0+__pyx_t_13, __pyx_t_17);
-              __Pyx_GIVEREF(__pyx_t_4);
-              PyTuple_SET_ITEM(__pyx_t_24, 1+__pyx_t_13, __pyx_t_4);
-              __Pyx_GIVEREF(__pyx_t_21);
-              PyTuple_SET_ITEM(__pyx_t_24, 2+__pyx_t_13, __pyx_t_21);
-              __Pyx_GIVEREF(__pyx_t_20);
-              PyTuple_SET_ITEM(__pyx_t_24, 3+__pyx_t_13, __pyx_t_20);
-              __Pyx_GIVEREF(__pyx_t_19);
-              PyTuple_SET_ITEM(__pyx_t_24, 4+__pyx_t_13, __pyx_t_19);
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_24, 5+__pyx_t_13, __pyx_t_18);
-              __pyx_t_17 = 0;
-              __pyx_t_4 = 0;
-              __pyx_t_21 = 0;
-              __pyx_t_20 = 0;
-              __pyx_t_19 = 0;
-              __pyx_t_18 = 0;
-              __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_22, __pyx_t_24, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 414, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __pyx_t_13 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 414, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_v_izp = __pyx_t_13;
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":415
- *                         izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                         y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
- */
-            __pyx_t_15 = __pyx_v_ixm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_25 = ((-(*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) )))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_ixm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_26 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_ixp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_27 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_ixp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-            __pyx_t_28 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_28 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 415, __pyx_L1_error)
-            }
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":416
- *                         izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                         y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])             # <<<<<<<<<<<<<<
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
- *                         if y_local != 0:
- */
-            __pyx_t_15 = __pyx_v_iym;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_29 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_iym;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_30 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_30 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_iyp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_31 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_iyp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-            __pyx_t_32 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_32 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 416, __pyx_L1_error)
-            }
-
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":417
- *                         y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))             # <<<<<<<<<<<<<<
+ *                         y_local = kf_i[index]             # <<<<<<<<<<<<<<
  *                         if y_local != 0:
  *                             y[index] += (1. / y_local) * x[index]
  */
-            __pyx_t_15 = __pyx_v_izm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
-            __pyx_t_33 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_izm;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
+          /*else*/ {
             __pyx_t_15 = __pyx_v_index;
             __pyx_t_13 = -1;
             if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
+              __pyx_t_15 += __pyx_v_kf_i.shape[0];
               if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
+            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf_i.shape[0])) __pyx_t_13 = 0;
             if (unlikely(__pyx_t_13 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 417, __pyx_L1_error)
+              __PYX_ERR(0, 332, __pyx_L1_error)
             }
-            __pyx_t_34 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_34 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_izp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
-            __pyx_t_14 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
-            __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-            __pyx_t_14 = __pyx_v_izp;
-            __pyx_t_13 = -1;
-            if (__pyx_t_14 < 0) {
-              __pyx_t_14 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_14 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
-            __pyx_t_15 = __pyx_v_index;
-            __pyx_t_13 = -1;
-            if (__pyx_t_15 < 0) {
-              __pyx_t_15 += __pyx_v_kf.shape[0];
-              if (unlikely(__pyx_t_15 < 0)) __pyx_t_13 = 0;
-            } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_13 = 0;
-            if (unlikely(__pyx_t_13 != -1)) {
-              __Pyx_RaiseBufferIndexError(__pyx_t_13);
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
-            __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-            if (unlikely(__pyx_t_36 == 0)) {
-              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 417, __pyx_L1_error)
-            }
-            __pyx_v_y_local = ((((((__pyx_t_25 / __pyx_t_26) - (__pyx_t_27 / __pyx_t_28)) - (__pyx_t_29 / __pyx_t_30)) - (__pyx_t_31 / __pyx_t_32)) - (__pyx_t_33 / __pyx_t_34)) - (__pyx_t_35 / __pyx_t_36));
+            __pyx_v_y_local = (*((double *) ( /* dim=0 */ (__pyx_v_kf_i.data + __pyx_t_15 * __pyx_v_kf_i.strides[0]) )));
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":418
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":333
+ *                     else:
+ *                         y_local = kf_i[index]
  *                         if y_local != 0:             # <<<<<<<<<<<<<<
  *                             y[index] += (1. / y_local) * x[index]
  *                         else:
@@ -16614,8 +11580,8 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             __pyx_t_2 = ((__pyx_v_y_local != 0.0) != 0);
             if (__pyx_t_2) {
 
-              /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":419
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+              /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":334
+ *                         y_local = kf_i[index]
  *                         if y_local != 0:
  *                             y[index] += (1. / y_local) * x[index]             # <<<<<<<<<<<<<<
  *                         else:
@@ -16623,7 +11589,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
               if (unlikely(__pyx_v_y_local == 0)) {
                 PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-                __PYX_ERR(0, 419, __pyx_L1_error)
+                __PYX_ERR(0, 334, __pyx_L1_error)
               }
               __pyx_t_15 = __pyx_v_index;
               __pyx_t_13 = -1;
@@ -16633,7 +11599,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
               } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
               if (unlikely(__pyx_t_13 != -1)) {
                 __Pyx_RaiseBufferIndexError(__pyx_t_13);
-                __PYX_ERR(0, 419, __pyx_L1_error)
+                __PYX_ERR(0, 334, __pyx_L1_error)
               }
               __pyx_t_14 = __pyx_v_index;
               __pyx_t_13 = -1;
@@ -16643,13 +11609,13 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
               } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
               if (unlikely(__pyx_t_13 != -1)) {
                 __Pyx_RaiseBufferIndexError(__pyx_t_13);
-                __PYX_ERR(0, 419, __pyx_L1_error)
+                __PYX_ERR(0, 334, __pyx_L1_error)
               }
               *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((1. / __pyx_v_y_local) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
 
-              /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":418
- *                                      - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                      - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+              /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":333
+ *                     else:
+ *                         y_local = kf_i[index]
  *                         if y_local != 0:             # <<<<<<<<<<<<<<
  *                             y[index] += (1. / y_local) * x[index]
  *                         else:
@@ -16657,7 +11623,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
               goto __pyx_L14;
             }
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":421
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":336
  *                             y[index] += (1. / y_local) * x[index]
  *                         else:
  *                             y[index] += x[index]             # <<<<<<<<<<<<<<
@@ -16673,7 +11639,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
               } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_13 = 0;
               if (unlikely(__pyx_t_13 != -1)) {
                 __Pyx_RaiseBufferIndexError(__pyx_t_13);
-                __PYX_ERR(0, 421, __pyx_L1_error)
+                __PYX_ERR(0, 336, __pyx_L1_error)
               }
               __pyx_t_14 = __pyx_v_index;
               __pyx_t_13 = -1;
@@ -16683,7 +11649,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
               } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_13 = 0;
               if (unlikely(__pyx_t_13 != -1)) {
                 __Pyx_RaiseBufferIndexError(__pyx_t_13);
-                __PYX_ERR(0, 421, __pyx_L1_error)
+                __PYX_ERR(0, 336, __pyx_L1_error)
               }
               *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) )));
             }
@@ -16695,7 +11661,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
       }
     }
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":399
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":322
  * 
  *     cdef unsigned long long count = 0
  *     for i in [0, l_x - 1]:             # <<<<<<<<<<<<<<
@@ -16705,28 +11671,28 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":423
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":338
  *                             y[index] += x[index]
  * 
  *     for i in range(1, l_x - 1):             # <<<<<<<<<<<<<<
  *         for j in [0, l_y - 1]:
  *             for k in range(l_z):
  */
-  __pyx_t_37 = (__pyx_v_l_x - 1);
-  __pyx_t_38 = __pyx_t_37;
-  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_38; __pyx_t_6+=1) {
+  __pyx_t_18 = (__pyx_v_l_x - 1);
+  __pyx_t_19 = __pyx_t_18;
+  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_19; __pyx_t_6+=1) {
     __pyx_v_i = __pyx_t_6;
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":424
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":339
  * 
  *     for i in range(1, l_x - 1):
  *         for j in [0, l_y - 1]:             # <<<<<<<<<<<<<<
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i
  */
-    __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_y - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_y - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 339, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 339, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_GIVEREF(__pyx_int_0);
@@ -16739,16 +11705,16 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     for (;;) {
       if (__pyx_t_5 >= 2) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_16 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 424, __pyx_L1_error)
+      __pyx_t_16 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 339, __pyx_L1_error)
       #else
-      __pyx_t_16 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 424, __pyx_L1_error)
+      __pyx_t_16 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 339, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       #endif
-      __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 424, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 339, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       __pyx_v_j = __pyx_t_7;
 
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":425
+      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":340
  *     for i in range(1, l_x - 1):
  *         for j in [0, l_y - 1]:
  *             for k in range(l_z):             # <<<<<<<<<<<<<<
@@ -16760,7 +11726,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
       for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
         __pyx_v_k = __pyx_t_9;
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":426
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":341
  *         for j in [0, l_y - 1]:
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i             # <<<<<<<<<<<<<<
@@ -16769,7 +11735,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         __pyx_v_index = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":427
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":342
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
@@ -16800,30 +11766,30 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_12 >= __pyx_v_prescribed_bc.shape[2])) __pyx_t_10 = 2;
         if (unlikely(__pyx_t_10 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_10);
-          __PYX_ERR(0, 427, __pyx_L1_error)
+          __PYX_ERR(0, 342, __pyx_L1_error)
         }
-        __pyx_t_16 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_15 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_12 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 427, __pyx_L1_error)
+        __pyx_t_16 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_15 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_12 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 342, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __Pyx_GetModuleGlobalName(__pyx_t_22, __pyx_n_s_np); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 427, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_22);
-        __pyx_t_24 = __Pyx_PyObject_GetAttrStr(__pyx_t_22, __pyx_n_s_Inf); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 427, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_24);
-        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-        __pyx_t_22 = PyObject_RichCompare(__pyx_t_16, __pyx_t_24, Py_NE); __Pyx_XGOTREF(__pyx_t_22); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 427, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_np); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 342, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_Inf); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __pyx_t_17 = PyObject_RichCompare(__pyx_t_16, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_17); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 342, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_22); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 427, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_17); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 342, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         __pyx_t_2 = __pyx_t_1;
         __pyx_L22_bool_binop_done:;
         if (__pyx_t_2) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":428
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":343
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
  *                     y[index] += x[index]             # <<<<<<<<<<<<<<
  *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+ *                     y_local = kf_i[index]
  */
           __pyx_t_12 = __pyx_v_index;
           __pyx_t_10 = -1;
@@ -16833,7 +11799,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
           if (unlikely(__pyx_t_10 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 428, __pyx_L1_error)
+            __PYX_ERR(0, 343, __pyx_L1_error)
           }
           __pyx_t_14 = __pyx_v_index;
           __pyx_t_10 = -1;
@@ -16843,11 +11809,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
           if (unlikely(__pyx_t_10 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 428, __pyx_L1_error)
+            __PYX_ERR(0, 343, __pyx_L1_error)
           }
           *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) )));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":427
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":342
  *             for k in range(l_z):
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
@@ -16857,869 +11823,29 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           goto __pyx_L21;
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":430
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":345
  *                     y[index] += x[index]
  *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- */
-        /*else*/ {
-          __pyx_t_24 = __Pyx_PyInt_From_long((__pyx_v_i - 1)); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 430, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 430, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 430, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 430, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 430, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 430, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_4 = __pyx_v_index_at; __pyx_t_17 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-            __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_4);
-            if (likely(__pyx_t_17)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-              __Pyx_INCREF(__pyx_t_17);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_4, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_4)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 430, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 430, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_23 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 430, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            if (__pyx_t_17) {
-              __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_17); __pyx_t_17 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_23, 0+__pyx_t_10, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_23, 1+__pyx_t_10, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_23, 2+__pyx_t_10, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_23, 4+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_23, 5+__pyx_t_10, __pyx_t_21);
-            __pyx_t_24 = 0;
-            __pyx_t_16 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_23, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 430, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_ixm = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":431
- *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- */
-          __pyx_t_4 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 431, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 431, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 431, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 431, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 431, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 431, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_16 = __pyx_v_index_at; __pyx_t_24 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
-            __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_16);
-            if (likely(__pyx_t_24)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-              __Pyx_INCREF(__pyx_t_24);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_16, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_4, __pyx_t_23, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 431, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_4, __pyx_t_23, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 431, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_17 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 431, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            if (__pyx_t_24) {
-              __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_24); __pyx_t_24 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_4);
-            PyTuple_SET_ITEM(__pyx_t_17, 0+__pyx_t_10, __pyx_t_4);
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_10, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_10, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_17, 3+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_17, 4+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_17, 5+__pyx_t_10, __pyx_t_18);
-            __pyx_t_4 = 0;
-            __pyx_t_23 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_17, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 431, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 431, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_ixp = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":432
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- */
-          __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 432, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_17 = __Pyx_PyInt_From_long((__pyx_v_j - 1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 432, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 432, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 432, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 432, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 432, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_23 = __pyx_v_index_at; __pyx_t_4 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_23))) {
-            __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_23);
-            if (likely(__pyx_t_4)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
-              __Pyx_INCREF(__pyx_t_4);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_23, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_23)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_4, __pyx_t_16, __pyx_t_17, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 432, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_4, __pyx_t_16, __pyx_t_17, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 432, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_24 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 432, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_24);
-            if (__pyx_t_4) {
-              __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_4); __pyx_t_4 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_24, 0+__pyx_t_10, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_24, 1+__pyx_t_10, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_24, 2+__pyx_t_10, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_24, 3+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_24, 4+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_24, 5+__pyx_t_10, __pyx_t_21);
-            __pyx_t_16 = 0;
-            __pyx_t_17 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_24, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 432, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 432, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_iym = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":433
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- */
-          __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 433, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_24 = __Pyx_PyInt_From_long((__pyx_v_j + 1)); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 433, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 433, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 433, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 433, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 433, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_17 = __pyx_v_index_at; __pyx_t_16 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
-            __pyx_t_16 = PyMethod_GET_SELF(__pyx_t_17);
-            if (likely(__pyx_t_16)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
-              __Pyx_INCREF(__pyx_t_16);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_17, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_17)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_16, __pyx_t_23, __pyx_t_24, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 433, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_16, __pyx_t_23, __pyx_t_24, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 433, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_4 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 433, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            if (__pyx_t_16) {
-              __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_16); __pyx_t_16 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_10, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_10, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_10, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_4, 3+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_4, 4+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_4, 5+__pyx_t_10, __pyx_t_18);
-            __pyx_t_23 = 0;
-            __pyx_t_24 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_4, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 433, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 433, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_iyp = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":434
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- */
-          __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 434, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 434, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_18 = __Pyx_PyInt_From_long((__pyx_v_k - 1)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 434, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 434, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 434, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 434, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_24 = __pyx_v_index_at; __pyx_t_23 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_24))) {
-            __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_24);
-            if (likely(__pyx_t_23)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_24);
-              __Pyx_INCREF(__pyx_t_23);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_24, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_24)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 434, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_24)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_17, __pyx_t_4, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 434, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_16 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 434, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_16);
-            if (__pyx_t_23) {
-              __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_23); __pyx_t_23 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_16, 0+__pyx_t_10, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_4);
-            PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_10, __pyx_t_4);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_16, 2+__pyx_t_10, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_16, 3+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_16, 4+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_16, 5+__pyx_t_10, __pyx_t_21);
-            __pyx_t_17 = 0;
-            __pyx_t_4 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_24, __pyx_t_16, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 434, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 434, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_izm = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":435
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- */
-          __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 435, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 435, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_21 = __Pyx_PyInt_From_long((__pyx_v_k + 1)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 435, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 435, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 435, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 435, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_4 = __pyx_v_index_at; __pyx_t_17 = NULL;
-          __pyx_t_10 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-            __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_4);
-            if (likely(__pyx_t_17)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-              __Pyx_INCREF(__pyx_t_17);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_4, function);
-              __pyx_t_10 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_4)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 435, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_22 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 6+__pyx_t_10); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 435, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_23 = PyTuple_New(6+__pyx_t_10); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 435, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            if (__pyx_t_17) {
-              __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_17); __pyx_t_17 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_23, 0+__pyx_t_10, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_23, 1+__pyx_t_10, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_23, 2+__pyx_t_10, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_10, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_23, 4+__pyx_t_10, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_23, 5+__pyx_t_10, __pyx_t_18);
-            __pyx_t_24 = 0;
-            __pyx_t_16 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_23, NULL); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 435, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 435, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_v_izp = __pyx_t_10;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":436
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
- */
-          __pyx_t_12 = __pyx_v_ixm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((-(*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) )))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_35 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_ixp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_34 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-          __pyx_t_33 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_33 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 436, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":437
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
- *                     if y_local != 0:
- */
-          __pyx_t_12 = __pyx_v_iym;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_32 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iym;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_31 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_31 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_iyp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_30 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iyp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-          __pyx_t_29 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_29 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 437, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":438
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))             # <<<<<<<<<<<<<<
+ *                     y_local = kf_i[index]             # <<<<<<<<<<<<<<
  *                     if y_local != 0:
  *                         y[index] += (1. / y_local) * x[index]
  */
-          __pyx_t_12 = __pyx_v_izm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
-          __pyx_t_28 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izm;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
+        /*else*/ {
           __pyx_t_12 = __pyx_v_index;
           __pyx_t_10 = -1;
           if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
+            __pyx_t_12 += __pyx_v_kf_i.shape[0];
             if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
+          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf_i.shape[0])) __pyx_t_10 = 0;
           if (unlikely(__pyx_t_10 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 438, __pyx_L1_error)
+            __PYX_ERR(0, 345, __pyx_L1_error)
           }
-          __pyx_t_27 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_27 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_izp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izp;
-          __pyx_t_10 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
-          __pyx_t_12 = __pyx_v_index;
-          __pyx_t_10 = -1;
-          if (__pyx_t_12 < 0) {
-            __pyx_t_12 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_12 < 0)) __pyx_t_10 = 0;
-          } else if (unlikely(__pyx_t_12 >= __pyx_v_kf.shape[0])) __pyx_t_10 = 0;
-          if (unlikely(__pyx_t_10 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_10);
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_12 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_25 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 438, __pyx_L1_error)
-          }
-          __pyx_v_y_local = ((((((__pyx_t_36 / __pyx_t_35) - (__pyx_t_34 / __pyx_t_33)) - (__pyx_t_32 / __pyx_t_31)) - (__pyx_t_30 / __pyx_t_29)) - (__pyx_t_28 / __pyx_t_27)) - (__pyx_t_26 / __pyx_t_25));
+          __pyx_v_y_local = (*((double *) ( /* dim=0 */ (__pyx_v_kf_i.data + __pyx_t_12 * __pyx_v_kf_i.strides[0]) )));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":439
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":346
+ *                 else:
+ *                     y_local = kf_i[index]
  *                     if y_local != 0:             # <<<<<<<<<<<<<<
  *                         y[index] += (1. / y_local) * x[index]
  *                     else:
@@ -17727,8 +11853,8 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           __pyx_t_2 = ((__pyx_v_y_local != 0.0) != 0);
           if (__pyx_t_2) {
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":440
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":347
+ *                     y_local = kf_i[index]
  *                     if y_local != 0:
  *                         y[index] += (1. / y_local) * x[index]             # <<<<<<<<<<<<<<
  *                     else:
@@ -17736,7 +11862,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
             if (unlikely(__pyx_v_y_local == 0)) {
               PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 440, __pyx_L1_error)
+              __PYX_ERR(0, 347, __pyx_L1_error)
             }
             __pyx_t_12 = __pyx_v_index;
             __pyx_t_10 = -1;
@@ -17746,7 +11872,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
             if (unlikely(__pyx_t_10 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_10);
-              __PYX_ERR(0, 440, __pyx_L1_error)
+              __PYX_ERR(0, 347, __pyx_L1_error)
             }
             __pyx_t_14 = __pyx_v_index;
             __pyx_t_10 = -1;
@@ -17756,13 +11882,13 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
             if (unlikely(__pyx_t_10 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_10);
-              __PYX_ERR(0, 440, __pyx_L1_error)
+              __PYX_ERR(0, 347, __pyx_L1_error)
             }
             *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((1. / __pyx_v_y_local) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":439
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":346
+ *                 else:
+ *                     y_local = kf_i[index]
  *                     if y_local != 0:             # <<<<<<<<<<<<<<
  *                         y[index] += (1. / y_local) * x[index]
  *                     else:
@@ -17770,7 +11896,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             goto __pyx_L24;
           }
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":442
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":349
  *                         y[index] += (1. / y_local) * x[index]
  *                     else:
  *                         y[index] += x[index]             # <<<<<<<<<<<<<<
@@ -17786,7 +11912,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_10 = 0;
             if (unlikely(__pyx_t_10 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_10);
-              __PYX_ERR(0, 442, __pyx_L1_error)
+              __PYX_ERR(0, 349, __pyx_L1_error)
             }
             __pyx_t_14 = __pyx_v_index;
             __pyx_t_10 = -1;
@@ -17796,7 +11922,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_10 = 0;
             if (unlikely(__pyx_t_10 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_10);
-              __PYX_ERR(0, 442, __pyx_L1_error)
+              __PYX_ERR(0, 349, __pyx_L1_error)
             }
             *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) )));
           }
@@ -17805,7 +11931,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         __pyx_L21:;
       }
 
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":424
+      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":339
  * 
  *     for i in range(1, l_x - 1):
  *         for j in [0, l_y - 1]:             # <<<<<<<<<<<<<<
@@ -17816,62 +11942,62 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":444
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":351
  *                         y[index] += x[index]
  * 
  *     for i in range(1, l_x - 1):             # <<<<<<<<<<<<<<
  *         for j in range(1, l_y - 1):
  *             for k in [0, l_z - 1]:
  */
-  __pyx_t_37 = (__pyx_v_l_x - 1);
-  __pyx_t_38 = __pyx_t_37;
-  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_38; __pyx_t_6+=1) {
+  __pyx_t_18 = (__pyx_v_l_x - 1);
+  __pyx_t_19 = __pyx_t_18;
+  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_19; __pyx_t_6+=1) {
     __pyx_v_i = __pyx_t_6;
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":445
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":352
  * 
  *     for i in range(1, l_x - 1):
  *         for j in range(1, l_y - 1):             # <<<<<<<<<<<<<<
  *             for k in [0, l_z - 1]:
  *                 index = l_xy * k + l_x * j + i
  */
-    __pyx_t_39 = (__pyx_v_l_y - 1);
-    __pyx_t_40 = __pyx_t_39;
-    for (__pyx_t_7 = 1; __pyx_t_7 < __pyx_t_40; __pyx_t_7+=1) {
+    __pyx_t_20 = (__pyx_v_l_y - 1);
+    __pyx_t_21 = __pyx_t_20;
+    for (__pyx_t_7 = 1; __pyx_t_7 < __pyx_t_21; __pyx_t_7+=1) {
       __pyx_v_j = __pyx_t_7;
 
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":446
+      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":353
  *     for i in range(1, l_x - 1):
  *         for j in range(1, l_y - 1):
  *             for k in [0, l_z - 1]:             # <<<<<<<<<<<<<<
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
  */
-      __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_z - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 446, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_l_z - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 353, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_22 = PyTuple_New(2); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 446, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_22);
+      __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 353, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
       __Pyx_INCREF(__pyx_int_0);
       __Pyx_GIVEREF(__pyx_int_0);
-      PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_int_0);
+      PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_int_0);
       __Pyx_GIVEREF(__pyx_t_3);
-      PyTuple_SET_ITEM(__pyx_t_22, 1, __pyx_t_3);
+      PyTuple_SET_ITEM(__pyx_t_17, 1, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_3 = __pyx_t_22; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
-      __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+      __pyx_t_3 = __pyx_t_17; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
       for (;;) {
         if (__pyx_t_5 >= 2) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_22 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_22); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 446, __pyx_L1_error)
+        __pyx_t_17 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_17); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 353, __pyx_L1_error)
         #else
-        __pyx_t_22 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 446, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_22);
+        __pyx_t_17 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 353, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
         #endif
-        __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_22); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 446, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+        __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_17); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 353, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         __pyx_v_k = __pyx_t_8;
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":447
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":354
  *         for j in range(1, l_y - 1):
  *             for k in [0, l_z - 1]:
  *                 index = l_xy * k + l_x * j + i             # <<<<<<<<<<<<<<
@@ -17880,7 +12006,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         __pyx_v_index = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":448
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":355
  *             for k in [0, l_z - 1]:
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
@@ -17911,30 +12037,30 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_15 >= __pyx_v_prescribed_bc.shape[2])) __pyx_t_8 = 2;
         if (unlikely(__pyx_t_8 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_8);
-          __PYX_ERR(0, 448, __pyx_L1_error)
+          __PYX_ERR(0, 355, __pyx_L1_error)
         }
-        __pyx_t_22 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_12 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_15 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 448, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_22);
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 448, __pyx_L1_error)
+        __pyx_t_17 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_12 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_15 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 355, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 355, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_Inf); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 448, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_23);
+        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_Inf); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 355, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_16);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyObject_RichCompare(__pyx_t_22, __pyx_t_23, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 448, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-        __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 448, __pyx_L1_error)
+        __pyx_t_4 = PyObject_RichCompare(__pyx_t_17, __pyx_t_16, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 355, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 355, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_2 = __pyx_t_1;
         __pyx_L32_bool_binop_done:;
         if (__pyx_t_2) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":449
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":356
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
  *                     y[index] += x[index]             # <<<<<<<<<<<<<<
  *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
+ *                     y_local = kf_i[index]
  */
           __pyx_t_15 = __pyx_v_index;
           __pyx_t_8 = -1;
@@ -17944,7 +12070,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
           if (unlikely(__pyx_t_8 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 449, __pyx_L1_error)
+            __PYX_ERR(0, 356, __pyx_L1_error)
           }
           __pyx_t_14 = __pyx_v_index;
           __pyx_t_8 = -1;
@@ -17954,11 +12080,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
           if (unlikely(__pyx_t_8 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 449, __pyx_L1_error)
+            __PYX_ERR(0, 356, __pyx_L1_error)
           }
           *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) )));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":448
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":355
  *             for k in [0, l_z - 1]:
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
@@ -17968,869 +12094,29 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           goto __pyx_L31;
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":451
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":358
  *                     y[index] += x[index]
  *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- */
-        /*else*/ {
-          __pyx_t_23 = __Pyx_PyInt_From_long((__pyx_v_i - 1)); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 451, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 451, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_22);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 451, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 451, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 451, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 451, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_16 = __pyx_v_index_at; __pyx_t_24 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
-            __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_16);
-            if (likely(__pyx_t_24)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-              __Pyx_INCREF(__pyx_t_24);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_16, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 451, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 451, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_17 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 451, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            if (__pyx_t_24) {
-              __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_24); __pyx_t_24 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_17, 0+__pyx_t_8, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_22);
-            PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_8, __pyx_t_22);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_8, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_17, 3+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_17, 4+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_17, 5+__pyx_t_8, __pyx_t_21);
-            __pyx_t_23 = 0;
-            __pyx_t_22 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_17, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 451, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 451, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_ixm = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":452
- *                 else:
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- */
-          __pyx_t_16 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 452, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 452, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 452, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 452, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 452, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 452, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_22 = __pyx_v_index_at; __pyx_t_23 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_22))) {
-            __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_22);
-            if (likely(__pyx_t_23)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_22);
-              __Pyx_INCREF(__pyx_t_23);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_22, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_22)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_16, __pyx_t_17, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 452, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_22)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_23, __pyx_t_16, __pyx_t_17, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_22, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 452, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_24 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 452, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_24);
-            if (__pyx_t_23) {
-              __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_23); __pyx_t_23 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_24, 0+__pyx_t_8, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_24, 1+__pyx_t_8, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_24, 2+__pyx_t_8, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_24, 3+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_24, 4+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_24, 5+__pyx_t_8, __pyx_t_18);
-            __pyx_t_16 = 0;
-            __pyx_t_17 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_22, __pyx_t_24, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 452, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 452, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_ixp = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":453
- *                     ixm = index_at(i - 1, j, k, l_x, l_y, l_z)
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- */
-          __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 453, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_22);
-          __pyx_t_24 = __Pyx_PyInt_From_long((__pyx_v_j - 1)); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 453, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 453, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 453, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 453, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 453, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_17 = __pyx_v_index_at; __pyx_t_16 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
-            __pyx_t_16 = PyMethod_GET_SELF(__pyx_t_17);
-            if (likely(__pyx_t_16)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
-              __Pyx_INCREF(__pyx_t_16);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_17, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_17)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_16, __pyx_t_22, __pyx_t_24, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_16, __pyx_t_22, __pyx_t_24, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_23 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 453, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_23);
-            if (__pyx_t_16) {
-              __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_16); __pyx_t_16 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_22);
-            PyTuple_SET_ITEM(__pyx_t_23, 0+__pyx_t_8, __pyx_t_22);
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_23, 1+__pyx_t_8, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_23, 2+__pyx_t_8, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_23, 4+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_23, 5+__pyx_t_8, __pyx_t_21);
-            __pyx_t_22 = 0;
-            __pyx_t_24 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_23, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 453, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_iym = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":454
- *                     ixp = index_at(i + 1, j, k, l_x, l_y, l_z)
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- */
-          __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 454, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_23 = __Pyx_PyInt_From_long((__pyx_v_j + 1)); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 454, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 454, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 454, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 454, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 454, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_24 = __pyx_v_index_at; __pyx_t_22 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_24))) {
-            __pyx_t_22 = PyMethod_GET_SELF(__pyx_t_24);
-            if (likely(__pyx_t_22)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_24);
-              __Pyx_INCREF(__pyx_t_22);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_24, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_24)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_17, __pyx_t_23, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 454, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_24)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_22, __pyx_t_17, __pyx_t_23, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_24, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 454, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_16 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 454, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_16);
-            if (__pyx_t_22) {
-              __Pyx_GIVEREF(__pyx_t_22); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_22); __pyx_t_22 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_16, 0+__pyx_t_8, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_8, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_16, 2+__pyx_t_8, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_16, 3+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_16, 4+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_16, 5+__pyx_t_8, __pyx_t_18);
-            __pyx_t_17 = 0;
-            __pyx_t_23 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_24, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 454, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 454, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_iyp = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":455
- *                     iym = index_at(i, j - 1, k, l_x, l_y, l_z)
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- */
-          __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 455, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 455, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_18 = __Pyx_PyInt_From_long((__pyx_v_k - 1)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 455, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 455, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 455, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 455, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_23 = __pyx_v_index_at; __pyx_t_17 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_23))) {
-            __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_23);
-            if (likely(__pyx_t_17)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
-              __Pyx_INCREF(__pyx_t_17);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_23, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_23)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 455, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_17, __pyx_t_24, __pyx_t_16, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 455, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_22 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 455, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            if (__pyx_t_17) {
-              __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_17); __pyx_t_17 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_24);
-            PyTuple_SET_ITEM(__pyx_t_22, 0+__pyx_t_8, __pyx_t_24);
-            __Pyx_GIVEREF(__pyx_t_16);
-            PyTuple_SET_ITEM(__pyx_t_22, 1+__pyx_t_8, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_22, 2+__pyx_t_8, __pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_22, 3+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_22, 4+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_22, 5+__pyx_t_8, __pyx_t_21);
-            __pyx_t_24 = 0;
-            __pyx_t_16 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_22, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 455, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 455, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_izm = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":456
- *                     iyp = index_at(i, j + 1, k, l_x, l_y, l_z)
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)             # <<<<<<<<<<<<<<
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- */
-          __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 456, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_22 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 456, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_22);
-          __pyx_t_21 = __Pyx_PyInt_From_long((__pyx_v_k + 1)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 456, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __Pyx_PyInt_From_int(__pyx_v_l_x); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 456, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_l_y); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 456, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_18 = __Pyx_PyInt_From_int(__pyx_v_l_z); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 456, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_18);
-          __Pyx_INCREF(__pyx_v_index_at);
-          __pyx_t_16 = __pyx_v_index_at; __pyx_t_24 = NULL;
-          __pyx_t_8 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
-            __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_16);
-            if (likely(__pyx_t_24)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-              __Pyx_INCREF(__pyx_t_24);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_16, function);
-              __pyx_t_8 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 456, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[7] = {__pyx_t_24, __pyx_t_23, __pyx_t_22, __pyx_t_21, __pyx_t_20, __pyx_t_19, __pyx_t_18};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_8, 6+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 456, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_17 = PyTuple_New(6+__pyx_t_8); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 456, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
-            if (__pyx_t_24) {
-              __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_24); __pyx_t_24 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_23);
-            PyTuple_SET_ITEM(__pyx_t_17, 0+__pyx_t_8, __pyx_t_23);
-            __Pyx_GIVEREF(__pyx_t_22);
-            PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_8, __pyx_t_22);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_8, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_20);
-            PyTuple_SET_ITEM(__pyx_t_17, 3+__pyx_t_8, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_19);
-            PyTuple_SET_ITEM(__pyx_t_17, 4+__pyx_t_8, __pyx_t_19);
-            __Pyx_GIVEREF(__pyx_t_18);
-            PyTuple_SET_ITEM(__pyx_t_17, 5+__pyx_t_8, __pyx_t_18);
-            __pyx_t_23 = 0;
-            __pyx_t_22 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_20 = 0;
-            __pyx_t_19 = 0;
-            __pyx_t_18 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_17, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 456, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_4);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 456, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_v_izp = __pyx_t_8;
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":457
- *                     izm = index_at(i, j, k - 1, l_x, l_y, l_z)
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
- */
-          __pyx_t_15 = __pyx_v_ixm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_25 = ((-(*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) )))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_26 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_26 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_ixp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_27 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_ixp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-          __pyx_t_28 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_28 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 457, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":458
- *                     izp = index_at(i, j, k + 1, l_x, l_y, l_z)
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])             # <<<<<<<<<<<<<<
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
- *                     if y_local != 0:
- */
-          __pyx_t_15 = __pyx_v_iym;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_29 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iym;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_30 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_30 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_iyp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_31 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_iyp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-          __pyx_t_32 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_32 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 458, __pyx_L1_error)
-          }
-
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":459
- *                     y_local = (- kf[ixm] * kf[index] / (kf[ixm] + kf[index]) - kf[ixp] * kf[index] / (kf[ixp] + kf[index])
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))             # <<<<<<<<<<<<<<
+ *                     y_local = kf_i[index]             # <<<<<<<<<<<<<<
  *                     if y_local != 0:
  *                         y[index] += (1. / y_local) * x[index]
  */
-          __pyx_t_15 = __pyx_v_izm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
-          __pyx_t_33 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izm;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
+        /*else*/ {
           __pyx_t_15 = __pyx_v_index;
           __pyx_t_8 = -1;
           if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
+            __pyx_t_15 += __pyx_v_kf_i.shape[0];
             if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
+          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf_i.shape[0])) __pyx_t_8 = 0;
           if (unlikely(__pyx_t_8 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 459, __pyx_L1_error)
+            __PYX_ERR(0, 358, __pyx_L1_error)
           }
-          __pyx_t_34 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_34 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_izp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
-          __pyx_t_14 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
-          __pyx_t_35 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))));
-          __pyx_t_14 = __pyx_v_izp;
-          __pyx_t_8 = -1;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
-          __pyx_t_15 = __pyx_v_index;
-          __pyx_t_8 = -1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_kf.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_8 = 0;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_kf.shape[0])) __pyx_t_8 = 0;
-          if (unlikely(__pyx_t_8 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_8);
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
-          __pyx_t_36 = ((*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_14 * __pyx_v_kf.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_kf.data + __pyx_t_15 * __pyx_v_kf.strides[0]) ))));
-          if (unlikely(__pyx_t_36 == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 459, __pyx_L1_error)
-          }
-          __pyx_v_y_local = ((((((__pyx_t_25 / __pyx_t_26) - (__pyx_t_27 / __pyx_t_28)) - (__pyx_t_29 / __pyx_t_30)) - (__pyx_t_31 / __pyx_t_32)) - (__pyx_t_33 / __pyx_t_34)) - (__pyx_t_35 / __pyx_t_36));
+          __pyx_v_y_local = (*((double *) ( /* dim=0 */ (__pyx_v_kf_i.data + __pyx_t_15 * __pyx_v_kf_i.strides[0]) )));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":460
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":359
+ *                 else:
+ *                     y_local = kf_i[index]
  *                     if y_local != 0:             # <<<<<<<<<<<<<<
  *                         y[index] += (1. / y_local) * x[index]
  *                     else:
@@ -18838,8 +12124,8 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           __pyx_t_2 = ((__pyx_v_y_local != 0.0) != 0);
           if (__pyx_t_2) {
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":461
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":360
+ *                     y_local = kf_i[index]
  *                     if y_local != 0:
  *                         y[index] += (1. / y_local) * x[index]             # <<<<<<<<<<<<<<
  *                     else:
@@ -18847,7 +12133,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
             if (unlikely(__pyx_v_y_local == 0)) {
               PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 461, __pyx_L1_error)
+              __PYX_ERR(0, 360, __pyx_L1_error)
             }
             __pyx_t_15 = __pyx_v_index;
             __pyx_t_8 = -1;
@@ -18857,7 +12143,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
             if (unlikely(__pyx_t_8 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_8);
-              __PYX_ERR(0, 461, __pyx_L1_error)
+              __PYX_ERR(0, 360, __pyx_L1_error)
             }
             __pyx_t_14 = __pyx_v_index;
             __pyx_t_8 = -1;
@@ -18867,13 +12153,13 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
             if (unlikely(__pyx_t_8 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_8);
-              __PYX_ERR(0, 461, __pyx_L1_error)
+              __PYX_ERR(0, 360, __pyx_L1_error)
             }
             *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((1. / __pyx_v_y_local) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) ))));
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":460
- *                                  - kf[iym] * kf[index] / (kf[iym] + kf[index]) - kf[iyp] * kf[index] / (kf[iyp] + kf[index])
- *                                  - kf[izm] * kf[index] / (kf[izm] + kf[index]) - kf[izp] * kf[index] / (kf[izp] + kf[index]))
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":359
+ *                 else:
+ *                     y_local = kf_i[index]
  *                     if y_local != 0:             # <<<<<<<<<<<<<<
  *                         y[index] += (1. / y_local) * x[index]
  *                     else:
@@ -18881,7 +12167,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             goto __pyx_L34;
           }
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":463
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":362
  *                         y[index] += (1. / y_local) * x[index]
  *                     else:
  *                         y[index] += x[index]             # <<<<<<<<<<<<<<
@@ -18897,7 +12183,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_15 >= __pyx_v_x.shape[0])) __pyx_t_8 = 0;
             if (unlikely(__pyx_t_8 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_8);
-              __PYX_ERR(0, 463, __pyx_L1_error)
+              __PYX_ERR(0, 362, __pyx_L1_error)
             }
             __pyx_t_14 = __pyx_v_index;
             __pyx_t_8 = -1;
@@ -18907,7 +12193,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_8 = 0;
             if (unlikely(__pyx_t_8 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_8);
-              __PYX_ERR(0, 463, __pyx_L1_error)
+              __PYX_ERR(0, 362, __pyx_L1_error)
             }
             *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_15 * __pyx_v_x.strides[0]) )));
           }
@@ -18915,7 +12201,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         }
         __pyx_L31:;
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":446
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":353
  *     for i in range(1, l_x - 1):
  *         for j in range(1, l_y - 1):
  *             for k in [0, l_z - 1]:             # <<<<<<<<<<<<<<
@@ -18927,43 +12213,43 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     }
   }
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":465
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":364
  *                         y[index] += x[index]
  * 
  *     for i in range(1, l_x - 1):             # <<<<<<<<<<<<<<
  *         for j in range(1, l_y - 1):
  *             for k in range(1, l_z - 1):
  */
-  __pyx_t_37 = (__pyx_v_l_x - 1);
-  __pyx_t_38 = __pyx_t_37;
-  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_38; __pyx_t_6+=1) {
+  __pyx_t_18 = (__pyx_v_l_x - 1);
+  __pyx_t_19 = __pyx_t_18;
+  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_19; __pyx_t_6+=1) {
     __pyx_v_i = __pyx_t_6;
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":466
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":365
  * 
  *     for i in range(1, l_x - 1):
  *         for j in range(1, l_y - 1):             # <<<<<<<<<<<<<<
  *             for k in range(1, l_z - 1):
  *                 index = l_xy * k + l_x * j + i
  */
-    __pyx_t_39 = (__pyx_v_l_y - 1);
-    __pyx_t_40 = __pyx_t_39;
-    for (__pyx_t_7 = 1; __pyx_t_7 < __pyx_t_40; __pyx_t_7+=1) {
+    __pyx_t_20 = (__pyx_v_l_y - 1);
+    __pyx_t_21 = __pyx_t_20;
+    for (__pyx_t_7 = 1; __pyx_t_7 < __pyx_t_21; __pyx_t_7+=1) {
       __pyx_v_j = __pyx_t_7;
 
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":467
+      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":366
  *     for i in range(1, l_x - 1):
  *         for j in range(1, l_y - 1):
  *             for k in range(1, l_z - 1):             # <<<<<<<<<<<<<<
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
  */
-      __pyx_t_41 = (__pyx_v_l_z - 1);
-      __pyx_t_42 = __pyx_t_41;
-      for (__pyx_t_8 = 1; __pyx_t_8 < __pyx_t_42; __pyx_t_8+=1) {
+      __pyx_t_22 = (__pyx_v_l_z - 1);
+      __pyx_t_23 = __pyx_t_22;
+      for (__pyx_t_8 = 1; __pyx_t_8 < __pyx_t_23; __pyx_t_8+=1) {
         __pyx_v_k = __pyx_t_8;
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":468
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":367
  *         for j in range(1, l_y - 1):
  *             for k in range(1, l_z - 1):
  *                 index = l_xy * k + l_x * j + i             # <<<<<<<<<<<<<<
@@ -18972,7 +12258,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         __pyx_v_index = (((__pyx_v_l_xy * __pyx_v_k) + (__pyx_v_l_x * __pyx_v_j)) + __pyx_v_i);
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":469
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":368
  *             for k in range(1, l_z - 1):
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
@@ -19003,25 +12289,25 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_12 >= __pyx_v_prescribed_bc.shape[2])) __pyx_t_9 = 2;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 469, __pyx_L1_error)
+          __PYX_ERR(0, 368, __pyx_L1_error)
         }
-        __pyx_t_3 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_15 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_12 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 469, __pyx_L1_error)
+        __pyx_t_3 = PyFloat_FromDouble((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_prescribed_bc.data + __pyx_t_15 * __pyx_v_prescribed_bc.strides[0]) ) + __pyx_t_14 * __pyx_v_prescribed_bc.strides[1]) ) + __pyx_t_12 * __pyx_v_prescribed_bc.strides[2]) )))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 368, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 469, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_Inf); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 469, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_Inf); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 368, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_t_16, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 469, __pyx_L1_error)
+        __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_t_16, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 469, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 368, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_2 = __pyx_t_1;
         __pyx_L42_bool_binop_done:;
         if (__pyx_t_2) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":470
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":369
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:
  *                     y[index] += x[index]             # <<<<<<<<<<<<<<
@@ -19036,7 +12322,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 470, __pyx_L1_error)
+            __PYX_ERR(0, 369, __pyx_L1_error)
           }
           __pyx_t_14 = __pyx_v_index;
           __pyx_t_9 = -1;
@@ -19046,11 +12332,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 470, __pyx_L1_error)
+            __PYX_ERR(0, 369, __pyx_L1_error)
           }
           *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) )));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":469
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":368
  *             for k in range(1, l_z - 1):
  *                 index = l_xy * k + l_x * j + i
  *                 if bc_check == 1 and prescribed_bc[i, j, k] != np.Inf:             # <<<<<<<<<<<<<<
@@ -19060,7 +12346,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           goto __pyx_L41;
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":472
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":371
  *                     y[index] += x[index]
  *                 else:
  *                     y_local = kf_i[index]             # <<<<<<<<<<<<<<
@@ -19076,11 +12362,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_12 >= __pyx_v_kf_i.shape[0])) __pyx_t_9 = 0;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 472, __pyx_L1_error)
+            __PYX_ERR(0, 371, __pyx_L1_error)
           }
           __pyx_v_y_local = (*((double *) ( /* dim=0 */ (__pyx_v_kf_i.data + __pyx_t_12 * __pyx_v_kf_i.strides[0]) )));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":473
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":372
  *                 else:
  *                     y_local = kf_i[index]
  *                     if y_local != 0:             # <<<<<<<<<<<<<<
@@ -19090,7 +12376,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           __pyx_t_2 = ((__pyx_v_y_local != 0.0) != 0);
           if (__pyx_t_2) {
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":474
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":373
  *                     y_local = kf_i[index]
  *                     if y_local != 0:
  *                         y[index] += (1. / y_local) * x[index]             # <<<<<<<<<<<<<<
@@ -19099,7 +12385,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
             if (unlikely(__pyx_v_y_local == 0)) {
               PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-              __PYX_ERR(0, 474, __pyx_L1_error)
+              __PYX_ERR(0, 373, __pyx_L1_error)
             }
             __pyx_t_12 = __pyx_v_index;
             __pyx_t_9 = -1;
@@ -19109,7 +12395,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
             if (unlikely(__pyx_t_9 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_9);
-              __PYX_ERR(0, 474, __pyx_L1_error)
+              __PYX_ERR(0, 373, __pyx_L1_error)
             }
             __pyx_t_14 = __pyx_v_index;
             __pyx_t_9 = -1;
@@ -19119,11 +12405,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
             if (unlikely(__pyx_t_9 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_9);
-              __PYX_ERR(0, 474, __pyx_L1_error)
+              __PYX_ERR(0, 373, __pyx_L1_error)
             }
             *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += ((1. / __pyx_v_y_local) * (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) ))));
 
-            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":473
+            /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":372
  *                 else:
  *                     y_local = kf_i[index]
  *                     if y_local != 0:             # <<<<<<<<<<<<<<
@@ -19133,7 +12419,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             goto __pyx_L44;
           }
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":476
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":375
  *                         y[index] += (1. / y_local) * x[index]
  *                     else:
  *                         y[index] += x[index]             # <<<<<<<<<<<<<<
@@ -19149,7 +12435,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_12 >= __pyx_v_x.shape[0])) __pyx_t_9 = 0;
             if (unlikely(__pyx_t_9 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_9);
-              __PYX_ERR(0, 476, __pyx_L1_error)
+              __PYX_ERR(0, 375, __pyx_L1_error)
             }
             __pyx_t_14 = __pyx_v_index;
             __pyx_t_9 = -1;
@@ -19159,7 +12445,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
             } else if (unlikely(__pyx_t_14 >= __pyx_v_y.shape[0])) __pyx_t_9 = 0;
             if (unlikely(__pyx_t_9 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_9);
-              __PYX_ERR(0, 476, __pyx_L1_error)
+              __PYX_ERR(0, 375, __pyx_L1_error)
             }
             *((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_14 * __pyx_v_y.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_12 * __pyx_v_x.strides[0]) )));
           }
@@ -19170,7 +12456,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     }
   }
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":386
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":309
  * 
  * 
  * def vecvec_prec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
@@ -19186,13 +12472,6 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_16);
   __Pyx_XDECREF(__pyx_t_17);
-  __Pyx_XDECREF(__pyx_t_18);
-  __Pyx_XDECREF(__pyx_t_19);
-  __Pyx_XDECREF(__pyx_t_20);
-  __Pyx_XDECREF(__pyx_t_21);
-  __Pyx_XDECREF(__pyx_t_22);
-  __Pyx_XDECREF(__pyx_t_23);
-  __Pyx_XDECREF(__pyx_t_24);
   __Pyx_AddTraceback("pumapy.physics_models.finite_volume.isotropic_conductivity_utils.vecvec_prec_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -19213,7 +12492,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   return __pyx_r;
 }
 
-/* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":479
+/* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":378
  * 
  * 
  * def compute_flux(double[:,:,:] T, double[:,:,:] cond, l_x, l_y, l_z):             # <<<<<<<<<<<<<<
@@ -19265,29 +12544,29 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cond)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, 1); __PYX_ERR(0, 479, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, 1); __PYX_ERR(0, 378, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_l_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, 2); __PYX_ERR(0, 479, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, 2); __PYX_ERR(0, 378, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_l_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, 3); __PYX_ERR(0, 479, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, 3); __PYX_ERR(0, 378, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_l_z)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, 4); __PYX_ERR(0, 479, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, 4); __PYX_ERR(0, 378, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "compute_flux") < 0)) __PYX_ERR(0, 479, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "compute_flux") < 0)) __PYX_ERR(0, 378, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -19298,15 +12577,15 @@ static PyObject *__pyx_pw_6pumapy_14physics_models_13finite_volume_28isotropic_c
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
     }
-    __pyx_v_T = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_T.memview)) __PYX_ERR(0, 479, __pyx_L3_error)
-    __pyx_v_cond = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_cond.memview)) __PYX_ERR(0, 479, __pyx_L3_error)
+    __pyx_v_T = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_T.memview)) __PYX_ERR(0, 378, __pyx_L3_error)
+    __pyx_v_cond = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_cond.memview)) __PYX_ERR(0, 378, __pyx_L3_error)
     __pyx_v_l_x = values[2];
     __pyx_v_l_y = values[3];
     __pyx_v_l_z = values[4];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 479, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("compute_flux", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 378, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pumapy.physics_models.finite_volume.isotropic_conductivity_utils.compute_flux", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -19368,37 +12647,37 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("compute_flux", 0);
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":481
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":380
  * def compute_flux(double[:,:,:] T, double[:,:,:] cond, l_x, l_y, l_z):
  * 
  *     cdef int len_x = l_x             # <<<<<<<<<<<<<<
  *     cdef int len_y = l_y
  *     cdef int len_z = l_z
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_l_x); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 481, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_l_x); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 380, __pyx_L1_error)
   __pyx_v_len_x = __pyx_t_1;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":482
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":381
  * 
  *     cdef int len_x = l_x
  *     cdef int len_y = l_y             # <<<<<<<<<<<<<<
  *     cdef int len_z = l_z
  *     cdef int i,j,k
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_l_y); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 482, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_l_y); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 381, __pyx_L1_error)
   __pyx_v_len_y = __pyx_t_1;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":483
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":382
  *     cdef int len_x = l_x
  *     cdef int len_y = l_y
  *     cdef int len_z = l_z             # <<<<<<<<<<<<<<
  *     cdef int i,j,k
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_l_z); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 483, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_l_z); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 382, __pyx_L1_error)
   __pyx_v_len_z = __pyx_t_1;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":486
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":385
  *     cdef int i,j,k
  * 
  *     cdef double flux_x = 0             # <<<<<<<<<<<<<<
@@ -19407,7 +12686,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
   __pyx_v_flux_x = 0.0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":487
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":386
  * 
  *     cdef double flux_x = 0
  *     cdef double flux_y = 0             # <<<<<<<<<<<<<<
@@ -19416,7 +12695,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
   __pyx_v_flux_y = 0.0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":488
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":387
  *     cdef double flux_x = 0
  *     cdef double flux_y = 0
  *     cdef double flux_z = 0             # <<<<<<<<<<<<<<
@@ -19425,25 +12704,25 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
   __pyx_v_flux_z = 0.0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":490
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":389
  *     cdef double flux_z = 0
  * 
  *     _q = np.zeros([len_x, len_y, len_z, 3])             # <<<<<<<<<<<<<<
  *     cdef double[:,:,:,:] q = _q
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_len_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_len_y); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_len_z); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_len_z); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = PyList_New(4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_3);
   PyList_SET_ITEM(__pyx_t_7, 0, __pyx_t_3);
@@ -19470,25 +12749,25 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_6, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 490, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v__q = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":491
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":390
  * 
  *     _q = np.zeros([len_x, len_y, len_z, 3])
  *     cdef double[:,:,:,:] q = _q             # <<<<<<<<<<<<<<
  * 
  *     for i in range(1, len_x - 1):
  */
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsds_double(__pyx_v__q, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 491, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsds_double(__pyx_v__q, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 390, __pyx_L1_error)
   __pyx_v_q = __pyx_t_8;
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":493
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":392
  *     cdef double[:,:,:,:] q = _q
  * 
  *     for i in range(1, len_x - 1):             # <<<<<<<<<<<<<<
@@ -19500,7 +12779,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   for (__pyx_t_1 = 1; __pyx_t_1 < __pyx_t_10; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":494
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":393
  * 
  *     for i in range(1, len_x - 1):
  *         for j in range(len_y):             # <<<<<<<<<<<<<<
@@ -19512,7 +12791,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
       __pyx_v_j = __pyx_t_13;
 
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":495
+      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":394
  *     for i in range(1, len_x - 1):
  *         for j in range(len_y):
  *             for k in range(len_z):             # <<<<<<<<<<<<<<
@@ -19524,7 +12803,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
       for (__pyx_t_16 = 0; __pyx_t_16 < __pyx_t_15; __pyx_t_16+=1) {
         __pyx_v_k = __pyx_t_16;
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":496
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":395
  *         for j in range(len_y):
  *             for k in range(len_z):
  *                 if cond[i - 1, j, k] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -19549,7 +12828,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_19 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 496, __pyx_L1_error)
+          __PYX_ERR(0, 395, __pyx_L1_error)
         }
         __pyx_t_21 = __pyx_v_i;
         __pyx_t_22 = __pyx_v_j;
@@ -19569,12 +12848,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 496, __pyx_L1_error)
+          __PYX_ERR(0, 395, __pyx_L1_error)
         }
         __pyx_t_24 = ((((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_19 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) )))) != 0.0) != 0);
         if (__pyx_t_24) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":497
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":396
  *             for k in range(len_z):
  *                 if cond[i - 1, j, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 0] = cond[i - 1, j, k] * cond[i, j, k] / (cond[i - 1, j, k] + cond[i, j, k]) * (T[i, j, k] - T[i - 1, j, k])             # <<<<<<<<<<<<<<
@@ -19599,7 +12878,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 497, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
           }
           __pyx_t_19 = __pyx_v_i;
           __pyx_t_18 = __pyx_v_j;
@@ -19619,7 +12898,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 497, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
           }
           __pyx_t_25 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_23 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_21 * __pyx_v_cond.strides[2]) ))) * (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_19 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_17 * __pyx_v_cond.strides[2]) ))));
           __pyx_t_17 = (__pyx_v_i - 1);
@@ -19640,7 +12919,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_19 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 497, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
           }
           __pyx_t_21 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -19660,12 +12939,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 497, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
           }
           __pyx_t_26 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_19 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) ))));
           if (unlikely(__pyx_t_26 == 0)) {
             PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 497, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
           }
           __pyx_t_23 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -19685,7 +12964,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 497, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
           }
           __pyx_t_19 = (__pyx_v_i - 1);
           __pyx_t_18 = __pyx_v_j;
@@ -19705,7 +12984,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 497, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
           }
           __pyx_t_27 = __pyx_v_i;
           __pyx_t_28 = __pyx_v_j;
@@ -19730,11 +13009,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_30 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 497, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
           }
           *((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_27 * __pyx_v_q.strides[0]) ) + __pyx_t_28 * __pyx_v_q.strides[1]) ) + __pyx_t_29 * __pyx_v_q.strides[2]) ) + __pyx_t_30 * __pyx_v_q.strides[3]) )) = ((__pyx_t_25 / __pyx_t_26) * ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_23 * __pyx_v_T.strides[0]) ) + __pyx_t_22 * __pyx_v_T.strides[1]) ) + __pyx_t_21 * __pyx_v_T.strides[2]) ))) - (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_19 * __pyx_v_T.strides[0]) ) + __pyx_t_18 * __pyx_v_T.strides[1]) ) + __pyx_t_17 * __pyx_v_T.strides[2]) )))));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":496
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":395
  *         for j in range(len_y):
  *             for k in range(len_z):
  *                 if cond[i - 1, j, k] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -19743,7 +13022,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":498
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":397
  *                 if cond[i - 1, j, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 0] = cond[i - 1, j, k] * cond[i, j, k] / (cond[i - 1, j, k] + cond[i, j, k]) * (T[i, j, k] - T[i - 1, j, k])
  *                 if cond[i + 1, j, k] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -19768,7 +13047,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_19 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 498, __pyx_L1_error)
+          __PYX_ERR(0, 397, __pyx_L1_error)
         }
         __pyx_t_21 = __pyx_v_i;
         __pyx_t_22 = __pyx_v_j;
@@ -19788,12 +13067,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 498, __pyx_L1_error)
+          __PYX_ERR(0, 397, __pyx_L1_error)
         }
         __pyx_t_24 = ((((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_19 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) )))) != 0.0) != 0);
         if (__pyx_t_24) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":499
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":398
  *                     q[i, j, k, 0] = cond[i - 1, j, k] * cond[i, j, k] / (cond[i - 1, j, k] + cond[i, j, k]) * (T[i, j, k] - T[i - 1, j, k])
  *                 if cond[i + 1, j, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 0] += cond[i + 1, j, k] * cond[i, j, k] / (cond[i + 1, j, k] + cond[i, j, k]) * (T[i + 1, j, k] - T[i, j, k])             # <<<<<<<<<<<<<<
@@ -19818,7 +13097,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 499, __pyx_L1_error)
+            __PYX_ERR(0, 398, __pyx_L1_error)
           }
           __pyx_t_19 = __pyx_v_i;
           __pyx_t_18 = __pyx_v_j;
@@ -19838,7 +13117,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 499, __pyx_L1_error)
+            __PYX_ERR(0, 398, __pyx_L1_error)
           }
           __pyx_t_26 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_23 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_21 * __pyx_v_cond.strides[2]) ))) * (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_19 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_17 * __pyx_v_cond.strides[2]) ))));
           __pyx_t_17 = (__pyx_v_i + 1);
@@ -19859,7 +13138,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_19 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 499, __pyx_L1_error)
+            __PYX_ERR(0, 398, __pyx_L1_error)
           }
           __pyx_t_21 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -19879,12 +13158,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 499, __pyx_L1_error)
+            __PYX_ERR(0, 398, __pyx_L1_error)
           }
           __pyx_t_25 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_19 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) ))));
           if (unlikely(__pyx_t_25 == 0)) {
             PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 499, __pyx_L1_error)
+            __PYX_ERR(0, 398, __pyx_L1_error)
           }
           __pyx_t_23 = (__pyx_v_i + 1);
           __pyx_t_22 = __pyx_v_j;
@@ -19904,7 +13183,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 499, __pyx_L1_error)
+            __PYX_ERR(0, 398, __pyx_L1_error)
           }
           __pyx_t_19 = __pyx_v_i;
           __pyx_t_18 = __pyx_v_j;
@@ -19924,7 +13203,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 499, __pyx_L1_error)
+            __PYX_ERR(0, 398, __pyx_L1_error)
           }
           __pyx_t_30 = __pyx_v_i;
           __pyx_t_29 = __pyx_v_j;
@@ -19949,11 +13228,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_27 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 499, __pyx_L1_error)
+            __PYX_ERR(0, 398, __pyx_L1_error)
           }
           *((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_30 * __pyx_v_q.strides[0]) ) + __pyx_t_29 * __pyx_v_q.strides[1]) ) + __pyx_t_28 * __pyx_v_q.strides[2]) ) + __pyx_t_27 * __pyx_v_q.strides[3]) )) += ((__pyx_t_26 / __pyx_t_25) * ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_23 * __pyx_v_T.strides[0]) ) + __pyx_t_22 * __pyx_v_T.strides[1]) ) + __pyx_t_21 * __pyx_v_T.strides[2]) ))) - (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_19 * __pyx_v_T.strides[0]) ) + __pyx_t_18 * __pyx_v_T.strides[1]) ) + __pyx_t_17 * __pyx_v_T.strides[2]) )))));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":498
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":397
  *                 if cond[i - 1, j, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 0] = cond[i - 1, j, k] * cond[i, j, k] / (cond[i - 1, j, k] + cond[i, j, k]) * (T[i, j, k] - T[i - 1, j, k])
  *                 if cond[i + 1, j, k] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -19962,7 +13241,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":500
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":399
  *                 if cond[i + 1, j, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 0] += cond[i + 1, j, k] * cond[i, j, k] / (cond[i + 1, j, k] + cond[i, j, k]) * (T[i + 1, j, k] - T[i, j, k])
  *                 flux_x += q[i, j, k, 0]             # <<<<<<<<<<<<<<
@@ -19992,14 +13271,14 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_21 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 500, __pyx_L1_error)
+          __PYX_ERR(0, 399, __pyx_L1_error)
         }
         __pyx_v_flux_x = (__pyx_v_flux_x + (*((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_17 * __pyx_v_q.strides[0]) ) + __pyx_t_18 * __pyx_v_q.strides[1]) ) + __pyx_t_19 * __pyx_v_q.strides[2]) ) + __pyx_t_21 * __pyx_v_q.strides[3]) ))));
       }
     }
   }
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":501
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":400
  *                     q[i, j, k, 0] += cond[i + 1, j, k] * cond[i, j, k] / (cond[i + 1, j, k] + cond[i, j, k]) * (T[i + 1, j, k] - T[i, j, k])
  *                 flux_x += q[i, j, k, 0]
  *     for i in range(len_x):             # <<<<<<<<<<<<<<
@@ -20011,7 +13290,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
     __pyx_v_i = __pyx_t_12;
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":502
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":401
  *                 flux_x += q[i, j, k, 0]
  *     for i in range(len_x):
  *         for j in range(1, len_y - 1):             # <<<<<<<<<<<<<<
@@ -20023,7 +13302,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     for (__pyx_t_13 = 1; __pyx_t_13 < __pyx_t_10; __pyx_t_13+=1) {
       __pyx_v_j = __pyx_t_13;
 
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":503
+      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":402
  *     for i in range(len_x):
  *         for j in range(1, len_y - 1):
  *             for k in range(len_z):             # <<<<<<<<<<<<<<
@@ -20035,7 +13314,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
       for (__pyx_t_16 = 0; __pyx_t_16 < __pyx_t_15; __pyx_t_16+=1) {
         __pyx_v_k = __pyx_t_16;
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":504
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":403
  *         for j in range(1, len_y - 1):
  *             for k in range(len_z):
  *                 if cond[i, j - 1, k] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -20060,7 +13339,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_18 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 504, __pyx_L1_error)
+          __PYX_ERR(0, 403, __pyx_L1_error)
         }
         __pyx_t_17 = __pyx_v_i;
         __pyx_t_22 = __pyx_v_j;
@@ -20080,12 +13359,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 504, __pyx_L1_error)
+          __PYX_ERR(0, 403, __pyx_L1_error)
         }
         __pyx_t_24 = ((((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_19 * __pyx_v_cond.strides[1]) ) + __pyx_t_18 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) )))) != 0.0) != 0);
         if (__pyx_t_24) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":505
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":404
  *             for k in range(len_z):
  *                 if cond[i, j - 1, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 1] = cond[i, j - 1, k] * cond[i, j, k] / (cond[i, j - 1, k] + cond[i, j, k]) * (T[i, j, k] - T[i, j - 1, k])             # <<<<<<<<<<<<<<
@@ -20110,7 +13389,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 505, __pyx_L1_error)
+            __PYX_ERR(0, 404, __pyx_L1_error)
           }
           __pyx_t_18 = __pyx_v_i;
           __pyx_t_19 = __pyx_v_j;
@@ -20130,7 +13409,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 505, __pyx_L1_error)
+            __PYX_ERR(0, 404, __pyx_L1_error)
           }
           __pyx_t_25 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_23 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_17 * __pyx_v_cond.strides[2]) ))) * (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_18 * __pyx_v_cond.strides[0]) ) + __pyx_t_19 * __pyx_v_cond.strides[1]) ) + __pyx_t_21 * __pyx_v_cond.strides[2]) ))));
           __pyx_t_21 = __pyx_v_i;
@@ -20151,7 +13430,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_18 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 505, __pyx_L1_error)
+            __PYX_ERR(0, 404, __pyx_L1_error)
           }
           __pyx_t_17 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -20171,12 +13450,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 505, __pyx_L1_error)
+            __PYX_ERR(0, 404, __pyx_L1_error)
           }
           __pyx_t_26 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_19 * __pyx_v_cond.strides[1]) ) + __pyx_t_18 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) ))));
           if (unlikely(__pyx_t_26 == 0)) {
             PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 505, __pyx_L1_error)
+            __PYX_ERR(0, 404, __pyx_L1_error)
           }
           __pyx_t_23 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -20196,7 +13475,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 505, __pyx_L1_error)
+            __PYX_ERR(0, 404, __pyx_L1_error)
           }
           __pyx_t_18 = __pyx_v_i;
           __pyx_t_19 = (__pyx_v_j - 1);
@@ -20216,7 +13495,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 505, __pyx_L1_error)
+            __PYX_ERR(0, 404, __pyx_L1_error)
           }
           __pyx_t_27 = __pyx_v_i;
           __pyx_t_28 = __pyx_v_j;
@@ -20241,11 +13520,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_30 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 505, __pyx_L1_error)
+            __PYX_ERR(0, 404, __pyx_L1_error)
           }
           *((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_27 * __pyx_v_q.strides[0]) ) + __pyx_t_28 * __pyx_v_q.strides[1]) ) + __pyx_t_29 * __pyx_v_q.strides[2]) ) + __pyx_t_30 * __pyx_v_q.strides[3]) )) = ((__pyx_t_25 / __pyx_t_26) * ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_23 * __pyx_v_T.strides[0]) ) + __pyx_t_22 * __pyx_v_T.strides[1]) ) + __pyx_t_17 * __pyx_v_T.strides[2]) ))) - (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_18 * __pyx_v_T.strides[0]) ) + __pyx_t_19 * __pyx_v_T.strides[1]) ) + __pyx_t_21 * __pyx_v_T.strides[2]) )))));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":504
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":403
  *         for j in range(1, len_y - 1):
  *             for k in range(len_z):
  *                 if cond[i, j - 1, k] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -20254,7 +13533,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":506
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":405
  *                 if cond[i, j - 1, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 1] = cond[i, j - 1, k] * cond[i, j, k] / (cond[i, j - 1, k] + cond[i, j, k]) * (T[i, j, k] - T[i, j - 1, k])
  *                 if cond[i, j + 1, k] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -20279,7 +13558,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_18 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 506, __pyx_L1_error)
+          __PYX_ERR(0, 405, __pyx_L1_error)
         }
         __pyx_t_17 = __pyx_v_i;
         __pyx_t_22 = __pyx_v_j;
@@ -20299,12 +13578,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 506, __pyx_L1_error)
+          __PYX_ERR(0, 405, __pyx_L1_error)
         }
         __pyx_t_24 = ((((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_19 * __pyx_v_cond.strides[1]) ) + __pyx_t_18 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) )))) != 0.0) != 0);
         if (__pyx_t_24) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":507
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":406
  *                     q[i, j, k, 1] = cond[i, j - 1, k] * cond[i, j, k] / (cond[i, j - 1, k] + cond[i, j, k]) * (T[i, j, k] - T[i, j - 1, k])
  *                 if cond[i, j + 1, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 1] += cond[i, j + 1, k] * cond[i, j, k] / (cond[i, j + 1, k] + cond[i, j, k]) * (T[i, j + 1, k] - T[i, j, k])             # <<<<<<<<<<<<<<
@@ -20329,7 +13608,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 507, __pyx_L1_error)
+            __PYX_ERR(0, 406, __pyx_L1_error)
           }
           __pyx_t_18 = __pyx_v_i;
           __pyx_t_19 = __pyx_v_j;
@@ -20349,7 +13628,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 507, __pyx_L1_error)
+            __PYX_ERR(0, 406, __pyx_L1_error)
           }
           __pyx_t_26 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_23 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_17 * __pyx_v_cond.strides[2]) ))) * (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_18 * __pyx_v_cond.strides[0]) ) + __pyx_t_19 * __pyx_v_cond.strides[1]) ) + __pyx_t_21 * __pyx_v_cond.strides[2]) ))));
           __pyx_t_21 = __pyx_v_i;
@@ -20370,7 +13649,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_18 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 507, __pyx_L1_error)
+            __PYX_ERR(0, 406, __pyx_L1_error)
           }
           __pyx_t_17 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -20390,12 +13669,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 507, __pyx_L1_error)
+            __PYX_ERR(0, 406, __pyx_L1_error)
           }
           __pyx_t_25 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_19 * __pyx_v_cond.strides[1]) ) + __pyx_t_18 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) ))));
           if (unlikely(__pyx_t_25 == 0)) {
             PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 507, __pyx_L1_error)
+            __PYX_ERR(0, 406, __pyx_L1_error)
           }
           __pyx_t_23 = __pyx_v_i;
           __pyx_t_22 = (__pyx_v_j + 1);
@@ -20415,7 +13694,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 507, __pyx_L1_error)
+            __PYX_ERR(0, 406, __pyx_L1_error)
           }
           __pyx_t_18 = __pyx_v_i;
           __pyx_t_19 = __pyx_v_j;
@@ -20435,7 +13714,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 507, __pyx_L1_error)
+            __PYX_ERR(0, 406, __pyx_L1_error)
           }
           __pyx_t_30 = __pyx_v_i;
           __pyx_t_29 = __pyx_v_j;
@@ -20460,11 +13739,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_27 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 507, __pyx_L1_error)
+            __PYX_ERR(0, 406, __pyx_L1_error)
           }
           *((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_30 * __pyx_v_q.strides[0]) ) + __pyx_t_29 * __pyx_v_q.strides[1]) ) + __pyx_t_28 * __pyx_v_q.strides[2]) ) + __pyx_t_27 * __pyx_v_q.strides[3]) )) += ((__pyx_t_26 / __pyx_t_25) * ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_23 * __pyx_v_T.strides[0]) ) + __pyx_t_22 * __pyx_v_T.strides[1]) ) + __pyx_t_17 * __pyx_v_T.strides[2]) ))) - (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_18 * __pyx_v_T.strides[0]) ) + __pyx_t_19 * __pyx_v_T.strides[1]) ) + __pyx_t_21 * __pyx_v_T.strides[2]) )))));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":506
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":405
  *                 if cond[i, j - 1, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 1] = cond[i, j - 1, k] * cond[i, j, k] / (cond[i, j - 1, k] + cond[i, j, k]) * (T[i, j, k] - T[i, j - 1, k])
  *                 if cond[i, j + 1, k] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -20473,7 +13752,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":508
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":407
  *                 if cond[i, j + 1, k] + cond[i, j, k] != 0:
  *                     q[i, j, k, 1] += cond[i, j + 1, k] * cond[i, j, k] / (cond[i, j + 1, k] + cond[i, j, k]) * (T[i, j + 1, k] - T[i, j, k])
  *                 flux_y += q[i, j, k, 1]             # <<<<<<<<<<<<<<
@@ -20503,14 +13782,14 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_17 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 508, __pyx_L1_error)
+          __PYX_ERR(0, 407, __pyx_L1_error)
         }
         __pyx_v_flux_y = (__pyx_v_flux_y + (*((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_21 * __pyx_v_q.strides[0]) ) + __pyx_t_19 * __pyx_v_q.strides[1]) ) + __pyx_t_18 * __pyx_v_q.strides[2]) ) + __pyx_t_17 * __pyx_v_q.strides[3]) ))));
       }
     }
   }
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":509
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":408
  *                     q[i, j, k, 1] += cond[i, j + 1, k] * cond[i, j, k] / (cond[i, j + 1, k] + cond[i, j, k]) * (T[i, j + 1, k] - T[i, j, k])
  *                 flux_y += q[i, j, k, 1]
  *     for i in range(len_x):             # <<<<<<<<<<<<<<
@@ -20522,7 +13801,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
     __pyx_v_i = __pyx_t_12;
 
-    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":510
+    /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":409
  *                 flux_y += q[i, j, k, 1]
  *     for i in range(len_x):
  *         for j in range(len_y):             # <<<<<<<<<<<<<<
@@ -20534,7 +13813,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
     for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
       __pyx_v_j = __pyx_t_15;
 
-      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":511
+      /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":410
  *     for i in range(len_x):
  *         for j in range(len_y):
  *             for k in range(1, len_z - 1):             # <<<<<<<<<<<<<<
@@ -20546,7 +13825,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
       for (__pyx_t_16 = 1; __pyx_t_16 < __pyx_t_10; __pyx_t_16+=1) {
         __pyx_v_k = __pyx_t_16;
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":512
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":411
  *         for j in range(len_y):
  *             for k in range(1, len_z - 1):
  *                 if cond[i, j, k - 1] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -20571,7 +13850,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_19 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 512, __pyx_L1_error)
+          __PYX_ERR(0, 411, __pyx_L1_error)
         }
         __pyx_t_21 = __pyx_v_i;
         __pyx_t_22 = __pyx_v_j;
@@ -20591,12 +13870,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 512, __pyx_L1_error)
+          __PYX_ERR(0, 411, __pyx_L1_error)
         }
         __pyx_t_24 = ((((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_19 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) )))) != 0.0) != 0);
         if (__pyx_t_24) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":513
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":412
  *             for k in range(1, len_z - 1):
  *                 if cond[i, j, k - 1] + cond[i, j, k] != 0:
  *                     q[i, j, k, 2] = cond[i, j, k - 1] * cond[i, j, k] / (cond[i, j, k - 1] + cond[i, j, k]) * (T[i, j, k] - T[i, j, k - 1])             # <<<<<<<<<<<<<<
@@ -20621,7 +13900,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 513, __pyx_L1_error)
+            __PYX_ERR(0, 412, __pyx_L1_error)
           }
           __pyx_t_19 = __pyx_v_i;
           __pyx_t_18 = __pyx_v_j;
@@ -20641,7 +13920,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 513, __pyx_L1_error)
+            __PYX_ERR(0, 412, __pyx_L1_error)
           }
           __pyx_t_25 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_23 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_21 * __pyx_v_cond.strides[2]) ))) * (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_19 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_17 * __pyx_v_cond.strides[2]) ))));
           __pyx_t_17 = __pyx_v_i;
@@ -20662,7 +13941,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_19 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 513, __pyx_L1_error)
+            __PYX_ERR(0, 412, __pyx_L1_error)
           }
           __pyx_t_21 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -20682,12 +13961,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 513, __pyx_L1_error)
+            __PYX_ERR(0, 412, __pyx_L1_error)
           }
           __pyx_t_26 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_19 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) ))));
           if (unlikely(__pyx_t_26 == 0)) {
             PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 513, __pyx_L1_error)
+            __PYX_ERR(0, 412, __pyx_L1_error)
           }
           __pyx_t_23 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -20707,7 +13986,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 513, __pyx_L1_error)
+            __PYX_ERR(0, 412, __pyx_L1_error)
           }
           __pyx_t_19 = __pyx_v_i;
           __pyx_t_18 = __pyx_v_j;
@@ -20727,7 +14006,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 513, __pyx_L1_error)
+            __PYX_ERR(0, 412, __pyx_L1_error)
           }
           __pyx_t_27 = __pyx_v_i;
           __pyx_t_28 = __pyx_v_j;
@@ -20752,11 +14031,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_30 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 513, __pyx_L1_error)
+            __PYX_ERR(0, 412, __pyx_L1_error)
           }
           *((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_27 * __pyx_v_q.strides[0]) ) + __pyx_t_28 * __pyx_v_q.strides[1]) ) + __pyx_t_29 * __pyx_v_q.strides[2]) ) + __pyx_t_30 * __pyx_v_q.strides[3]) )) = ((__pyx_t_25 / __pyx_t_26) * ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_23 * __pyx_v_T.strides[0]) ) + __pyx_t_22 * __pyx_v_T.strides[1]) ) + __pyx_t_21 * __pyx_v_T.strides[2]) ))) - (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_19 * __pyx_v_T.strides[0]) ) + __pyx_t_18 * __pyx_v_T.strides[1]) ) + __pyx_t_17 * __pyx_v_T.strides[2]) )))));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":512
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":411
  *         for j in range(len_y):
  *             for k in range(1, len_z - 1):
  *                 if cond[i, j, k - 1] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -20765,7 +14044,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":514
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":413
  *                 if cond[i, j, k - 1] + cond[i, j, k] != 0:
  *                     q[i, j, k, 2] = cond[i, j, k - 1] * cond[i, j, k] / (cond[i, j, k - 1] + cond[i, j, k]) * (T[i, j, k] - T[i, j, k - 1])
  *                 if cond[i, j, k + 1] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -20790,7 +14069,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_19 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 514, __pyx_L1_error)
+          __PYX_ERR(0, 413, __pyx_L1_error)
         }
         __pyx_t_21 = __pyx_v_i;
         __pyx_t_22 = __pyx_v_j;
@@ -20810,12 +14089,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 514, __pyx_L1_error)
+          __PYX_ERR(0, 413, __pyx_L1_error)
         }
         __pyx_t_24 = ((((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_19 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) )))) != 0.0) != 0);
         if (__pyx_t_24) {
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":515
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":414
  *                     q[i, j, k, 2] = cond[i, j, k - 1] * cond[i, j, k] / (cond[i, j, k - 1] + cond[i, j, k]) * (T[i, j, k] - T[i, j, k - 1])
  *                 if cond[i, j, k + 1] + cond[i, j, k] != 0:
  *                     q[i, j, k, 2] += cond[i, j, k + 1] * cond[i, j, k] / (cond[i, j, k + 1] + cond[i, j, k]) * (T[i, j, k + 1] - T[i, j, k])             # <<<<<<<<<<<<<<
@@ -20840,7 +14119,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 515, __pyx_L1_error)
+            __PYX_ERR(0, 414, __pyx_L1_error)
           }
           __pyx_t_19 = __pyx_v_i;
           __pyx_t_18 = __pyx_v_j;
@@ -20860,7 +14139,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 515, __pyx_L1_error)
+            __PYX_ERR(0, 414, __pyx_L1_error)
           }
           __pyx_t_26 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_23 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_21 * __pyx_v_cond.strides[2]) ))) * (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_19 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_17 * __pyx_v_cond.strides[2]) ))));
           __pyx_t_17 = __pyx_v_i;
@@ -20881,7 +14160,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_19 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 515, __pyx_L1_error)
+            __PYX_ERR(0, 414, __pyx_L1_error)
           }
           __pyx_t_21 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -20901,12 +14180,12 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_23 >= __pyx_v_cond.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 515, __pyx_L1_error)
+            __PYX_ERR(0, 414, __pyx_L1_error)
           }
           __pyx_t_25 = ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_17 * __pyx_v_cond.strides[0]) ) + __pyx_t_18 * __pyx_v_cond.strides[1]) ) + __pyx_t_19 * __pyx_v_cond.strides[2]) ))) + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_cond.data + __pyx_t_21 * __pyx_v_cond.strides[0]) ) + __pyx_t_22 * __pyx_v_cond.strides[1]) ) + __pyx_t_23 * __pyx_v_cond.strides[2]) ))));
           if (unlikely(__pyx_t_25 == 0)) {
             PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            __PYX_ERR(0, 515, __pyx_L1_error)
+            __PYX_ERR(0, 414, __pyx_L1_error)
           }
           __pyx_t_23 = __pyx_v_i;
           __pyx_t_22 = __pyx_v_j;
@@ -20926,7 +14205,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_21 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 515, __pyx_L1_error)
+            __PYX_ERR(0, 414, __pyx_L1_error)
           }
           __pyx_t_19 = __pyx_v_i;
           __pyx_t_18 = __pyx_v_j;
@@ -20946,7 +14225,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_17 >= __pyx_v_T.shape[2])) __pyx_t_20 = 2;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 515, __pyx_L1_error)
+            __PYX_ERR(0, 414, __pyx_L1_error)
           }
           __pyx_t_30 = __pyx_v_i;
           __pyx_t_29 = __pyx_v_j;
@@ -20971,11 +14250,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
           } else if (unlikely(__pyx_t_27 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
           if (unlikely(__pyx_t_20 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_20);
-            __PYX_ERR(0, 515, __pyx_L1_error)
+            __PYX_ERR(0, 414, __pyx_L1_error)
           }
           *((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_30 * __pyx_v_q.strides[0]) ) + __pyx_t_29 * __pyx_v_q.strides[1]) ) + __pyx_t_28 * __pyx_v_q.strides[2]) ) + __pyx_t_27 * __pyx_v_q.strides[3]) )) += ((__pyx_t_26 / __pyx_t_25) * ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_23 * __pyx_v_T.strides[0]) ) + __pyx_t_22 * __pyx_v_T.strides[1]) ) + __pyx_t_21 * __pyx_v_T.strides[2]) ))) - (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_T.data + __pyx_t_19 * __pyx_v_T.strides[0]) ) + __pyx_t_18 * __pyx_v_T.strides[1]) ) + __pyx_t_17 * __pyx_v_T.strides[2]) )))));
 
-          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":514
+          /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":413
  *                 if cond[i, j, k - 1] + cond[i, j, k] != 0:
  *                     q[i, j, k, 2] = cond[i, j, k - 1] * cond[i, j, k] / (cond[i, j, k - 1] + cond[i, j, k]) * (T[i, j, k] - T[i, j, k - 1])
  *                 if cond[i, j, k + 1] + cond[i, j, k] != 0:             # <<<<<<<<<<<<<<
@@ -20984,7 +14263,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
  */
         }
 
-        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":516
+        /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":415
  *                 if cond[i, j, k + 1] + cond[i, j, k] != 0:
  *                     q[i, j, k, 2] += cond[i, j, k + 1] * cond[i, j, k] / (cond[i, j, k + 1] + cond[i, j, k]) * (T[i, j, k + 1] - T[i, j, k])
  *                 flux_z += q[i, j, k, 2]             # <<<<<<<<<<<<<<
@@ -21014,14 +14293,14 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
         } else if (unlikely(__pyx_t_21 >= __pyx_v_q.shape[3])) __pyx_t_20 = 3;
         if (unlikely(__pyx_t_20 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_20);
-          __PYX_ERR(0, 516, __pyx_L1_error)
+          __PYX_ERR(0, 415, __pyx_L1_error)
         }
         __pyx_v_flux_z = (__pyx_v_flux_z + (*((double *) ( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q.data + __pyx_t_17 * __pyx_v_q.strides[0]) ) + __pyx_t_18 * __pyx_v_q.strides[1]) ) + __pyx_t_19 * __pyx_v_q.strides[2]) ) + __pyx_t_21 * __pyx_v_q.strides[3]) ))));
       }
     }
   }
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":517
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":416
  *                     q[i, j, k, 2] += cond[i, j, k + 1] * cond[i, j, k] / (cond[i, j, k + 1] + cond[i, j, k]) * (T[i, j, k + 1] - T[i, j, k])
  *                 flux_z += q[i, j, k, 2]
  *     flux_x /= ((len_x - 2) * len_y * len_z)             # <<<<<<<<<<<<<<
@@ -21031,11 +14310,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   __pyx_t_9 = (((__pyx_v_len_x - 2) * __pyx_v_len_y) * __pyx_v_len_z);
   if (unlikely(__pyx_t_9 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 517, __pyx_L1_error)
+    __PYX_ERR(0, 416, __pyx_L1_error)
   }
   __pyx_v_flux_x = (__pyx_v_flux_x / __pyx_t_9);
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":518
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":417
  *                 flux_z += q[i, j, k, 2]
  *     flux_x /= ((len_x - 2) * len_y * len_z)
  *     flux_y /= (len_x * (len_y - 2) * len_z)             # <<<<<<<<<<<<<<
@@ -21045,11 +14324,11 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   __pyx_t_9 = ((__pyx_v_len_x * (__pyx_v_len_y - 2)) * __pyx_v_len_z);
   if (unlikely(__pyx_t_9 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 518, __pyx_L1_error)
+    __PYX_ERR(0, 417, __pyx_L1_error)
   }
   __pyx_v_flux_y = (__pyx_v_flux_y / __pyx_t_9);
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":519
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":418
  *     flux_x /= ((len_x - 2) * len_y * len_z)
  *     flux_y /= (len_x * (len_y - 2) * len_z)
  *     flux_z /= (len_x * len_y * (len_z - 2))             # <<<<<<<<<<<<<<
@@ -21058,23 +14337,23 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   __pyx_t_9 = ((__pyx_v_len_x * __pyx_v_len_y) * (__pyx_v_len_z - 2));
   if (unlikely(__pyx_t_9 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 519, __pyx_L1_error)
+    __PYX_ERR(0, 418, __pyx_L1_error)
   }
   __pyx_v_flux_z = (__pyx_v_flux_z / __pyx_t_9);
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":520
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":419
  *     flux_y /= (len_x * (len_y - 2) * len_z)
  *     flux_z /= (len_x * len_y * (len_z - 2))
  *     return flux_x, flux_y, flux_z, _q             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_flux_x); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_flux_x); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_flux_y); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_flux_y); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_flux_z); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_flux_z); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyTuple_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2);
@@ -21092,7 +14371,7 @@ static PyObject *__pyx_pf_6pumapy_14physics_models_13finite_volume_28isotropic_c
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":479
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":378
  * 
  * 
  * def compute_flux(double[:,:,:] T, double[:,:,:] cond, l_x, l_y, l_z):             # <<<<<<<<<<<<<<
@@ -35360,29 +28639,29 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__26);
   __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(17, 0, 30, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_matvec_cy, 277, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 277, __pyx_L1_error)
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":386
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":309
  * 
  * 
  * def vecvec_prec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
  *     if side_bc == 'p':
  *         index_at = index_at_p
  */
-  __pyx_tuple__28 = PyTuple_Pack(31, __pyx_n_s_kf_2, __pyx_n_s_kf_i, __pyx_n_s_kf_ixm, __pyx_n_s_kf_ixp, __pyx_n_s_kf_iym, __pyx_n_s_kf_iyp, __pyx_n_s_kf_izm, __pyx_n_s_kf_izp, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_l_x, __pyx_n_s_l_y, __pyx_n_s_l_z, __pyx_n_s_domain_bc_check, __pyx_n_s_bc_check, __pyx_n_s_prescribed_bc, __pyx_n_s_side_bc, __pyx_n_s_index_at, __pyx_n_s_l_xy, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_index, __pyx_n_s_ixm, __pyx_n_s_ixp, __pyx_n_s_iym, __pyx_n_s_iyp, __pyx_n_s_izm, __pyx_n_s_izp, __pyx_n_s_y_local, __pyx_n_s_count); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(31, __pyx_n_s_kf_2, __pyx_n_s_kf_i, __pyx_n_s_kf_ixm, __pyx_n_s_kf_ixp, __pyx_n_s_kf_iym, __pyx_n_s_kf_iyp, __pyx_n_s_kf_izm, __pyx_n_s_kf_izp, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_l_x, __pyx_n_s_l_y, __pyx_n_s_l_z, __pyx_n_s_domain_bc_check, __pyx_n_s_bc_check, __pyx_n_s_prescribed_bc, __pyx_n_s_side_bc, __pyx_n_s_index_at, __pyx_n_s_l_xy, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_index, __pyx_n_s_ixm, __pyx_n_s_ixp, __pyx_n_s_iym, __pyx_n_s_iyp, __pyx_n_s_izm, __pyx_n_s_izp, __pyx_n_s_y_local, __pyx_n_s_count); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(17, 0, 31, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_vecvec_prec_cy, 386, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(17, 0, 31, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_vecvec_prec_cy, 309, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 309, __pyx_L1_error)
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":479
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":378
  * 
  * 
  * def compute_flux(double[:,:,:] T, double[:,:,:] cond, l_x, l_y, l_z):             # <<<<<<<<<<<<<<
  * 
  *     cdef int len_x = l_x
  */
-  __pyx_tuple__30 = PyTuple_Pack(16, __pyx_n_s_T, __pyx_n_s_cond, __pyx_n_s_l_x, __pyx_n_s_l_y, __pyx_n_s_l_z, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_flux_x, __pyx_n_s_flux_y, __pyx_n_s_flux_z, __pyx_n_s_q, __pyx_n_s_q_2); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __pyx_tuple__30 = PyTuple_Pack(16, __pyx_n_s_T, __pyx_n_s_cond, __pyx_n_s_l_x, __pyx_n_s_l_y, __pyx_n_s_l_z, __pyx_n_s_len_x, __pyx_n_s_len_y, __pyx_n_s_len_z, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_flux_x, __pyx_n_s_flux_y, __pyx_n_s_flux_z, __pyx_n_s_q, __pyx_n_s_q_2); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(5, 0, 16, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_compute_flux, 479, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(5, 0, 16, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_python_pumapy_physics_models_fin, __pyx_n_s_compute_flux, 378, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 378, __pyx_L1_error)
 
   /* "View.MemoryView":287
  *         return self.name
@@ -35881,28 +29160,28 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_matvec_cy, __pyx_t_2) < 0) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":386
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":309
  * 
  * 
  * def vecvec_prec_cy(double [:] kf, double [:] kf_i, double [:] kf_ixm, double [:] kf_ixp, double [:] kf_iym, double [:] kf_iyp, double [:] kf_izm, double [:] kf_izp, double [:] x, double [:] y, int l_x, int l_y, int l_z, short domain_bc_check, short bc_check, double [:, :, :] prescribed_bc, str side_bc):             # <<<<<<<<<<<<<<
  *     if side_bc == 'p':
  *         index_at = index_at_p
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_9vecvec_prec_cy, NULL, __pyx_n_s_pumapy_physics_models_finite_vol); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_9vecvec_prec_cy, NULL, __pyx_n_s_pumapy_physics_models_finite_vol); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_vecvec_prec_cy, __pyx_t_2) < 0) __PYX_ERR(0, 386, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_vecvec_prec_cy, __pyx_t_2) < 0) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":479
+  /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":378
  * 
  * 
  * def compute_flux(double[:,:,:] T, double[:,:,:] cond, l_x, l_y, l_z):             # <<<<<<<<<<<<<<
  * 
  *     cdef int len_x = l_x
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_11compute_flux, NULL, __pyx_n_s_pumapy_physics_models_finite_vol); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pumapy_14physics_models_13finite_volume_28isotropic_conductivity_utils_11compute_flux, NULL, __pyx_n_s_pumapy_physics_models_finite_vol); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_compute_flux, __pyx_t_2) < 0) __PYX_ERR(0, 479, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_compute_flux, __pyx_t_2) < 0) __PYX_ERR(0, 378, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":1
