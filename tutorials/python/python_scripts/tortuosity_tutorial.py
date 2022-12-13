@@ -45,9 +45,9 @@ ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif")
 #.  6. maxiter - maximum number of iterations, defaults to 10,000
 #.  7. solver_type - the iterative solver used. Can be 'bicgstab', 'cg', 'gmres', or 'direct'. Defaults to 'bicgstab'
 
-n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0,89), 'x', side_bc='s', tolerance=1e-3, solver_type='cg')
-n_eff_y, Deff_y, poro, C_y = puma.compute_continuum_tortuosity(ws_fiberform, (0,89), 'y', side_bc='s', tolerance=1e-3, solver_type='cg')
-n_eff_z, Deff_z, poro, C_z = puma.compute_continuum_tortuosity(ws_fiberform, (0,89), 'z', side_bc='s', tolerance=1e-3, solver_type='cg')
+n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0,89), 'x', side_bc='s', tolerance=1e-4, solver_type='cg')
+n_eff_y, Deff_y, poro, C_y = puma.compute_continuum_tortuosity(ws_fiberform, (0,89), 'y', side_bc='s', tolerance=1e-4, solver_type='cg')
+n_eff_z, Deff_z, poro, C_z = puma.compute_continuum_tortuosity(ws_fiberform, (0,89), 'z', side_bc='s', tolerance=1e-4, solver_type='cg')
 
 print("\nEffective tortuosity factors:")
 print("[", n_eff_x[0], n_eff_y[0], n_eff_z[0], "]")
@@ -74,9 +74,9 @@ ws_fiberform.binarize(90)
 #.  6. maxiter - maximum number of iterations, defaults to 10,000
 #.  7. solver_type - the iterative solver used. Can be 'bicgstab', 'cg', 'gmres', or 'direct'. Defaults to 'bicgstab'
 
-n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0,0), 'x', side_bc='s', tolerance=1e-3, solver_type='cg')
-n_eff_y, Deff_y, poro, C_y = puma.compute_continuum_tortuosity(ws_fiberform, (0,0), 'y', side_bc='s', tolerance=1e-3, solver_type='cg')
-n_eff_z, Deff_z, poro, C_z = puma.compute_continuum_tortuosity(ws_fiberform, (0,0), 'z', side_bc='s', tolerance=1e-3, solver_type='cg')
+n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0,0), 'x', side_bc='s', tolerance=1e-4, solver_type='cg')
+n_eff_y, Deff_y, poro, C_y = puma.compute_continuum_tortuosity(ws_fiberform, (0,0), 'y', side_bc='s', tolerance=1e-4, solver_type='cg')
+n_eff_z, Deff_z, poro, C_z = puma.compute_continuum_tortuosity(ws_fiberform, (0,0), 'z', side_bc='s', tolerance=1e-4, solver_type='cg')
 
 print("\nEffective tortuosity factors:")
 print("[", n_eff_x[0], n_eff_y[0], n_eff_z[0], "]")

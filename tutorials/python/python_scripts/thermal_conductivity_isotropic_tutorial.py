@@ -90,9 +90,9 @@ cond_map.add_material((1, 1), 12)
 
 # The thermal conductivity calculation needs to be run for each of the three simulation directions. 
 # For each simulation, a temperature gradient is forced in the simulation direction, and converged to steady state
-k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-3, solver_type='cg')
-k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-3, solver_type='cg')
-k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-3, solver_type='cg')
+k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-4, solver_type='cg')
+k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-4, solver_type='cg')
+k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-4, solver_type='cg')
 
 print("Effective thermal conductivity tensor:")
 print("[", k_eff_x[0], k_eff_y[0], k_eff_z[0], "]")

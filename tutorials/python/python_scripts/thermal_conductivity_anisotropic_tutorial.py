@@ -57,9 +57,9 @@ cond_map.add_material_to_orient((90, 255), 12., 0.7)
 #.  9. prescribed_bc - has to be of type AnisotropicConductivityBC, and it provides a more flexible way of specifying dirichlet BC, which can be imposed on any voxel of the domain
 
 # When an anisotropic conductivity map is fed, the solver automatically uses the MPFA finite volume method
-k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-3, solver_type='bicgstab', method='fv')
-k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-3, solver_type='bicgstab', method='fv')
-k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-3, solver_type='bicgstab', method='fv')
+k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-4, solver_type='bicgstab', method='fv')
+k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-4, solver_type='bicgstab', method='fv')
+k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-4, solver_type='bicgstab', method='fv')
 
 print("Effective thermal conductivity tensor:")
 print("[", k_eff_x[0], k_eff_y[0], k_eff_z[0], "]")
@@ -80,9 +80,9 @@ cond_map.add_material((0, 89), 0.0257)
 cond_map.add_material((90, 255), 12)
 
 print("\nIsotropic solver")
-k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-3)
-k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-3)
-k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-3)
+k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-4)
+k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-4)
+k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-4)
 
 puma.compute_orientation_st(ws_fiberform, cutoff=(90, 255), sigma=1.4, rho=0.7)
 
@@ -91,9 +91,9 @@ cond_map.add_isotropic_material((0, 89), 0.0257)
 cond_map.add_material_to_orient((90, 255), 12., 12)
 
 print("\nAnisotropic solver")
-k_eff_x_ani, T_x_ani, q_x_ani = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-3)
-k_eff_y_ani, T_y_ani, q_y_ani = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-3)
-k_eff_z_ani, T_z_ani, q_z_ani = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-3)
+k_eff_x_ani, T_x_ani, q_x_ani = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-4)
+k_eff_y_ani, T_y_ani, q_y_ani = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-4)
+k_eff_z_ani, T_z_ani, q_z_ani = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-4)
 
 print("\nEffective conductivity using isotropic solver")
 print("[", k_eff_x[0], k_eff_y[0], k_eff_z[0], "]")

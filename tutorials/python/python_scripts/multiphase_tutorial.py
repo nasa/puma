@@ -223,9 +223,9 @@ print("Percent Error: ", np.abs((Exposed_SSA_1 + Exposed_SSA_2 + Exposed_SSA_3 -
 ws_cropped = ws_multiphase.copy()  # creating a copy of the workspace to crop
 ws_cropped.matrix = ws_cropped.matrix[50:150,50:150,50:150]  # cropping the sample to 100^3
 
-n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_cropped, (0,0), 'x', side_bc='s', tolerance=1e-3, solver_type='cg')
-n_eff_y, Deff_y, poro, C_y = puma.compute_continuum_tortuosity(ws_cropped, (0,0), 'y', side_bc='s', tolerance=1e-3, solver_type='cg')
-n_eff_z, Deff_z, poro, C_z = puma.compute_continuum_tortuosity(ws_cropped, (0,0), 'z', side_bc='s', tolerance=1e-3, solver_type='cg')
+n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_cropped, (0,0), 'x', side_bc='s', tolerance=1e-4, solver_type='cg')
+n_eff_y, Deff_y, poro, C_y = puma.compute_continuum_tortuosity(ws_cropped, (0,0), 'y', side_bc='s', tolerance=1e-4, solver_type='cg')
+n_eff_z, Deff_z, poro, C_z = puma.compute_continuum_tortuosity(ws_cropped, (0,0), 'z', side_bc='s', tolerance=1e-4, solver_type='cg')
 
 print("\nEffective Tortuosity Factors")
 print("[", n_eff_x[0], n_eff_y[0], n_eff_z[0], "]")
@@ -265,9 +265,9 @@ cond_map.add_material((3, 3), 100)
 #.  6. maxiter - maximum number of iterations, defaults to 10,000
 #.  7. solver_type - the iterative solver used. Can be 'bicgstab', 'cg', 'gmres', or 'direct'. Defaults to 'bicgstab'
 
-k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_cropped,cond_map, 'x', 's', tolerance=1e-3, solver_type='bicgstab')
-k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_cropped,cond_map, 'y', 's', tolerance=1e-3, solver_type='bicgstab')
-k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_cropped,cond_map, 'z', 's', tolerance=1e-3, solver_type='bicgstab')
+k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_cropped,cond_map, 'x', 's', tolerance=1e-4, solver_type='bicgstab')
+k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_cropped,cond_map, 'y', 's', tolerance=1e-4, solver_type='bicgstab')
+k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_cropped,cond_map, 'z', 's', tolerance=1e-4, solver_type='bicgstab')
 
 print("\nEffective Thermal Conductivity")
 print("[", k_eff_x[0], k_eff_y[0], k_eff_z[0], "]")
