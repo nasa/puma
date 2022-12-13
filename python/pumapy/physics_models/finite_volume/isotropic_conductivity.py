@@ -2,7 +2,7 @@ from pumapy.utilities.timer import Timer
 from pumapy.physics_models.utils.linear_solvers import PropertySolver
 from pumapy.physics_models.utils.boundary_conditions import IsotropicConductivityBC
 from pumapy.utilities.workspace import Workspace
-from pumapy.physics_models.finite_volume.isotropic_conductivity_utils import setup_matrices_cy, compute_flux, matvec_cy, vecvec_prec_cy
+from pumapy.physics_models.finite_volume.isotropic_conductivity_utils import setup_matrices_cy, compute_flux
 from pumapy.utilities.generic_checks import estimate_max_memory
 from pumapy.utilities.logger import print_warning
 from scipy.sparse import coo_matrix, diags
@@ -343,6 +343,9 @@ class IsotropicConductivity(PropertySolver):
         else:
             if not isinstance(self.prescribed_bc, IsotropicConductivityBC):
                 raise Exception("If prescribed_bc provided, the object needs to be a puma.AnisotropicConductivityBC object.")
+
+        if self.tolerance > 1e-4:
+            print_warning(f"{self.tolerance} tolerance value is large. 1e-4 or smaller is recommended")
 
         # side_bc checks
         if self.side_bc == "periodic" or self.side_bc == "Periodic" or self.side_bc == "p":

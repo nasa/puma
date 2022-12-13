@@ -33,7 +33,7 @@ def compute_continuum_tortuosity(workspace, cutoff, direction, side_bc='p', pres
         >>> import pumapy as puma
         >>> ws_fiberform = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
         Importing ...
-        >>> n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0, 89), 'x', side_bc='s', tolerance=1e-2)
+        >>> n_eff_x, Deff_x, poro, C_x = puma.compute_continuum_tortuosity(ws_fiberform, (0, 89), 'x', side_bc='s', tolerance=1e-4)
         Approximate memory requirement for simulation...
     """
 

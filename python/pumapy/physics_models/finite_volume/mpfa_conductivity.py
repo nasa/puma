@@ -444,6 +444,9 @@ class AnisotropicConductivity(PropertySolver):
             if not isinstance(self.dirichlet_bc, AnisotropicConductivityBC):
                 raise Exception("If prescribed_bc provided, the object needs to be a puma.AnisotropicConductivityBC object.")
 
+        if self.tolerance > 1e-4:
+            print_warning(f"{self.tolerance} tolerance value is large. 1e-4 or smaller is recommended")
+
         # side_bc checks
         if self.side_bc.lower() == "periodic" or self.side_bc == "p":
             self.side_bc = "p"
