@@ -60,14 +60,9 @@ cond_map.add_material((90, 255), 12)
 #.  9. method - whether to use finite volume ("fv") or finite element ("fe") solver
 #.  10. prescribed_bc - has to be of type IsotropicConductivityBC, and it provides a more flexible way of specifying dirichlet BC, which can be imposed on any voxel of the domain
 
-# k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 'p', tolerance=1e-3, solver_type='cg', matrix_free=True, method='fv')
-k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 'p', tolerance=1e-3, solver_type='cg', matrix_free=True, method='fv')
-k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 'p', tolerance=1e-3, solver_type='cg', matrix_free=True, method='fv')
-
-print("Effective thermal conductivity tensor:")
-print("[", k_eff_x[0], k_eff_y[0], k_eff_z[0], "]")
-print("[", k_eff_x[1], k_eff_y[1], k_eff_z[1], "]")
-print("[", k_eff_x[2], k_eff_y[2], k_eff_z[2], "]")
+k_eff_x, T_x, q_x = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'x', 's', tolerance=1e-4, solver_type='cg', matrix_free=True, method='fv')
+k_eff_y, T_y, q_y = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'y', 's', tolerance=1e-4, solver_type='cg', matrix_free=True, method='fv')
+k_eff_z, T_z, q_z = puma.compute_thermal_conductivity(ws_fiberform, cond_map, 'z', 's', tolerance=1e-4, solver_type='cg', matrix_free=True, method='fv')
 
 # Visualize both the temperature field and the fibers
 p = pv.Plotter(notebook=notebook)
