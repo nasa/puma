@@ -22,14 +22,16 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          sudo apt-get update && sudo apt-get install libgl1 -y
-          conda create -y --name puma -c conda-forge puma gcc pytest
+          conda create -y --name puma -c conda-forge puma pytest
           conda init bash
           source ~/.bashrc
           conda activate puma
           python -m pip install --upgrade pip
           python -m  pip install -e .
-      - name: Test with pytest
-        working-directory: ./python/test
+      - name: Test with doctest
+        working-directory: .
         run: |
+          conda init bash
+          source ~/.bashrc
+          conda activate puma
           python -m doctest -o=ELLIPSIS -o=NORMALIZE_WHITESPACE python/pumapy/*/*.py
