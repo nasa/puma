@@ -33,7 +33,9 @@ def import_3Dtiff(filename, voxel_length=1e-6, import_ws=True):
         :Example:
         >>> import pumapy as puma
         >>> ws_tiff = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"), 1.3e-6, import_ws=True)
+        Importing ...
         >>> ws_tiff.get_shape()
+        (50, 50, 50)
     """
     print("Importing " + filename + " ... ", end='')
 
@@ -61,12 +63,13 @@ def import_bin(filename):
 
         :param filename: filepath and name
         :type filename: string
-        :return: True if successful, False otherwise.
-        :rtype: bool
+        :return: domain
+        :rtype: pumapy.Workspace
 
         :Example:
         >>> import pumapy as puma
         >>> ws_binary = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
+        Importing ...
     """
     print("Importing " + filename + " ... ", end='')
 
@@ -97,6 +100,7 @@ def import_vti(filename, voxel_length=None, import_ws=True):
         :Example:
         >>> import pumapy as puma
         >>> ws_vtk = puma.import_vti(puma.path_to_example_file("fibers_with_orientation.vti"))
+        Importing ...
     """
     print("Importing " + filename + " ... ", end='')
 

@@ -1,28 +1,35 @@
 from skimage.filters import gaussian
 from scipy.ndimage import distance_transform_edt, median_filter
-from scipy.ndimage.filters import uniform_filter
+from scipy.ndimage import uniform_filter
 from skimage.morphology import erosion, dilation, opening, closing, ball
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
 import numpy as np
 
+# Note: Most of the filters are simple wrappers of functions in either scikitimage or scipy.ndimage.
+# The filters can be run directly in these packages if the user desires, but the wrapping is done for
+# simplicity so that the Workspace class can be used, and the filter executions can be logged by the
+# workspace class in order to document the simulation workflows.
+
+# The C++ version of puma implements the filters directly. But for python, there's no reason to re-invent
+# the wheel when so many great packages exist for image manipulation
+
 
 def filter_median(ws, size):
     """ 3D Median filter
 
-        :param ws: input workspace
-        :type ws: Workspace
-        :param size: size of window
-        :type size: int
-        :return: True if successful, False otherwise.
-        :rtype: bool
+    :param ws: input workspace
+    :type ws: Workspace
+    :param size: size of window
+    :type size: int
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
-        >>> ws_median = ws.copy()
-        >>> puma.filter_median(ws_median, size=10)
-        >>> puma.compare_slices(ws, ws_median)
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+    Importing .../100_fiberform.tif ... Done
+    >>> ws_median = ws.copy()
+    >>> puma.filter_median(ws_median, size=10)
+    >>> # puma.compare_slices(ws, ws_median)  # to visualize it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed.")
@@ -32,27 +39,25 @@ def filter_median(ws, size):
     ws.log.write_log()
 
     ws.matrix = median_filter(ws.matrix, size)
-    return True
 
 
 def filter_gaussian(ws, sigma=1, apply_on_orientation=False):
     """ 3D Gaussian filter
 
-        :param ws: input workspace
-        :type ws: Workspace
-        :param sigma: size of kernel
-        :type sigma: int
-        :param apply_on_orientation: specify whether to apply filter on orientation field
-        :type apply_on_orientation: bool
-        :return: True if successful, False otherwise.
-        :rtype: bool
+    :param ws: input workspace
+    :type ws: Workspace
+    :param sigma: size of kernel
+    :type sigma: int
+    :param apply_on_orientation: specify whether to apply filter on orientation field
+    :type apply_on_orientation: bool
 
-        :Example:
-        >>> import pumapy as puma
-        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
-        >>> ws_gaussian = ws.copy()
-        >>> puma.filter_gaussian(ws_gaussian, sigma=2, apply_on_orientation=False)
-        >>> puma.compare_slices(ws, ws_gaussian, 'z', index=1)
+    :Example:
+    >>> import pumapy as puma
+    >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+    Importing .../100_fiberform.tif ... Done
+    >>> ws_gaussian = ws.copy()
+    >>> puma.filter_gaussian(ws_gaussian, sigma=2, apply_on_orientation=False)
+    >>> # puma.compare_slices(ws, ws_gaussian, 'z', index=1)  # to visualize it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed.")
@@ -74,7 +79,6 @@ def filter_gaussian(ws, sigma=1, apply_on_orientation=False):
             ws.orientation[np.isnan(ws.orientation)] = unprocessed_orientation[np.isnan(ws.orientation)]
         else:
             print_warning("To apply filter on orientation field, it has to have same shape as ws.matrix.")
-    return True
 
 
 def filter_edt(ws, cutoff):
@@ -84,15 +88,14 @@ def filter_edt(ws, cutoff):
         :type ws: Workspace
         :param cutoff: cutoff to binarize image
         :type cutoff: (int, int)
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+        Generating TPMS...
         >>> ws_edt = ws.copy()
         >>> puma.filter_edt(ws_edt, cutoff=(1, 1))
-        >>> puma.compare_slices(ws, ws_edt) #compare it
+        >>> # puma.compare_slices(ws, ws_edt)  # to visualize it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -101,7 +104,6 @@ def filter_edt(ws, cutoff):
     ws.log.write_log()
 
     ws.matrix = distance_transform_edt(np.logical_and(ws.matrix >= cutoff[0], ws.matrix <= cutoff[1]))
-    return True
 
 
 def filter_mean(ws, size=5):
@@ -111,16 +113,14 @@ def filter_mean(ws, size=5):
         :type ws: Workspace
         :param size: size of window
         :type size: int
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        Importing .../100_fiberform.tif ... Done
         >>> ws_mean = ws.copy()
         >>> puma.filter_mean(ws_mean, size=10)
-        >>> puma.compare_slices(ws, ws_mean) #compare it
-
+        >>> # puma.compare_slices(ws, ws_mean)  # to visualize it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -130,7 +130,6 @@ def filter_mean(ws, size=5):
     ws.log.write_log()
 
     ws.matrix = uniform_filter(ws.matrix, size)
-    return True
 
 
 def filter_erode(ws, cutoff, size=5):
@@ -142,15 +141,14 @@ def filter_erode(ws, cutoff, size=5):
         :type cutoff: (int, int)
         :param size: size of the spherical windows used
         :type size: int
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+        Generating TPMS ...
         >>> ws_erode = ws.copy()
         >>> puma.filter_erode(ws_erode, (1, 1))  # eroding the copy
-        >>> puma.compare_slices(ws, ws_erode)  # compare it
+        >>> # puma.compare_slices(ws, ws_erode)  # to visualize it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -162,7 +160,6 @@ def filter_erode(ws, cutoff, size=5):
     ws.binarize_range(cutoff)
 
     ws.matrix = erosion(ws.matrix, ball(size))
-    return True
 
 
 def filter_dilate(ws, cutoff, size=5):
@@ -174,15 +171,14 @@ def filter_dilate(ws, cutoff, size=5):
         :type cutoff: (int, int)
         :param size: size of the spherical windows used
         :type size: int
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.generate_tpms((100, 100, 100), (0.02, 0.05), 0.201, 0)  # generate tpms material
+        Generating TPMS ...
         >>> ws_dilate = ws.copy()
         >>> puma.filter_dilate(ws_dilate, cutoff=(1, 1), size=5)  # dilating the copy
-        >>> puma.compare_slices(ws, ws_dilate)  # compare it
+        >>> # puma.compare_slices(ws, ws_dilate)  # to visualize it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -194,7 +190,6 @@ def filter_dilate(ws, cutoff, size=5):
     ws.binarize_range(cutoff)
 
     ws.matrix = dilation(ws.matrix, ball(size))
-    return True
 
 
 def filter_opening(ws, cutoff, size=5):
@@ -206,17 +201,16 @@ def filter_opening(ws, cutoff, size=5):
         :type cutoff: (int, int)
         :param size: size of the spherical windows used
         :type size: int
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        Importing .../100_fiberform.tif ... Done
         >>> ws_opening = ws.copy()
         >>> puma.filter_opening(ws_opening, cutoff=(90, 255), size=3)
         >>> ws_binary = ws.copy()
         >>> ws_binary.binarize_range((90, 255))
-        >>> puma.compare_slices(ws_binary, ws_opening, 'z', index=1)
+        >>> # puma.compare_slices(ws_binary, ws_opening, 'z', index=1)  # to visualize it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -228,7 +222,6 @@ def filter_opening(ws, cutoff, size=5):
     ws.binarize_range(cutoff)
 
     ws.matrix = opening(ws.matrix, ball(size))
-    return True
 
 
 def filter_closing(ws, cutoff, size=5):
@@ -240,17 +233,16 @@ def filter_closing(ws, cutoff, size=5):
         :type cutoff: (int, int)
         :param size: size of the spherical windows used
         :type size: int
-        :return: True if successful, False otherwise.
-        :rtype: bool
 
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
+        Importing .../100_fiberform.tif ... Done
         >>> ws_closing = ws.copy()
         >>> puma.filter_closing(ws_closing, cutoff=(90, 255), size=3)
         >>> ws_binary = ws.copy()
         >>> ws_binary.binarize_range((90, 255))
-        >>> puma.compare_slices(ws_binary, ws_closing, 'z', index=1)
+        >>> # puma.compare_slices(ws_binary, ws_closing, 'z', index=1)  # to visualize it
     """
     if not isinstance(ws, Workspace):
         raise Exception("Workspace must be passed")
@@ -262,4 +254,3 @@ def filter_closing(ws, cutoff, size=5):
     ws.binarize_range(cutoff)
 
     ws.matrix = closing(ws.matrix, ball(size))
-    return True

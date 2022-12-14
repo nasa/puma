@@ -19,8 +19,45 @@ if ! [ -x "$(command -v conda)" ]; then
     rm ./install/miniconda.sh
 fi
 
-eval "$(conda shell.bash hook)"
 cd install
+eval "$(conda shell.bash hook)"
+
+echo "  _______  _______  _______  _______"
+echo " ____                   ______       "
+echo "/\  _\`\         /'\_/\`\/\  _  \      "
+echo "\ \ \L\ \__  __/\      \ \ \L\ \     "
+echo " \ \ ,__/\ \/\ \ \ \__\ \ \  __ \    "
+echo "  \ \ \/\ \ \_\ \ \ \_/\ \ \ \/\ \   "
+echo "   \ \_\ \ \____/\ \_\\ \_\ \_\ \_\  "
+echo "    \/_/  \/___/  \/_/ \/_/\/_/\/_/  "
+echo " _______  _______  _______  _______  "                          
+                    
+
+# creating puma conda env if it doesn't exist
+if [ ! -d "$(conda info --base)/envs/puma" ]; then
+
+    echo "Creating puma conda environment."
+    
+    if [ "$(uname)" == "Darwin" ]; then
+        curl -Ls https://micro.mamba.pm/api/micromamba/osx-64/latest | tar -xvj bin/micromamba
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+    else
+        echo "Unrecongnized Operating System, PuMA cannot be installed."
+        exit 1
+    fi
+
+    mv bin/micromamba .
+
+    if [ "$(uname)" == "Darwin" ]; then
+            ./micromamba create -p $CONDA_PREFIX/envs/puma python numpy scikit-image scipy matplotlib  pyevtk pyvista fftw eigen openmp cmake qt swig pip cython scikit-umfpack jupyterlab ipyvtklink ipympl -c conda-forge -y
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+            ./micromamba create -p $CONDA_PREFIX/envs/puma python numpy scikit-image scipy matplotlib  pyevtk pyvista fftw eigen openmp cmake qt=5.15.4 swig pip cython scikit-umfpack jupyterlab ipyvtklink ipympl -c conda-forge -y
+    else
+        echo "Unrecongnized Operating System, PuMA cannot be installed."
+        exit 1
+    fi
+fi
 
 ####### PUMA C++ INSTALLATION ######
 echo -e "\nStarting PuMA installation.\n"

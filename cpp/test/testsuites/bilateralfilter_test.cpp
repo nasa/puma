@@ -233,7 +233,7 @@ public:
 
         std::cout << grayWS.X() << std::endl;
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/BilateralFilter_Test5_BeforeFilter.tif",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/BilateralFilter_Test5_BeforeFilter.tif",false);
 
         //in this case, the return should be true since all values are valid
         bool success = puma::filter_Bilateral(&grayWS,4,4,50);
@@ -247,7 +247,7 @@ public:
         }
 
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/BilateralFilter_Test5_AfterFilter.tif",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/BilateralFilter_Test5_AfterFilter.tif",false);
 
         //making sure that the value in "success" is true.
         //in assert equals, first value is expected, second value is actual, and third is the testResult

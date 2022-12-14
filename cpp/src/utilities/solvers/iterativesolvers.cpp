@@ -335,6 +335,9 @@ bool IterativeSolver::ConjugateGradient(AMatrix *A, puma::Matrix<double> *x, dou
 }
 
 
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -415,3 +418,78 @@ bool IterativeSolver::ConjugateGradient(AMatrix *A, puma::Matrix<double> *x, pum
 
     return false;
 }
+
+
+bool IterativeSolver::ConjugateGradient_Jacobian(AMatrix *A, puma::Matrix<double> *x, puma::Matrix<double> *b, double tol, int maxIt, bool print , puma::Printer *printer, int numThreads) {
+    puma::Timer t1;
+    t1.reset();
+
+    puma::Matrix<double> r(x->X(),x->Y(),x->Z(),0);
+    puma::Matrix<double> Ap(x->X(),x->Y(),x->Z(),0);
+    double psold,alpha,rsnew;
+
+    A->A_times_X(x,&r);
+
+    omp_set_num_threads(numThreads);
+#pragma omp parallel for
+    for (long i=0;i<r.size();i++){
+        r(i)=(*b)(i)-r(i);
+    }
+
+    puma::Matrix<double> z(&r);
+    A->Minv_times_X(&r, &z);
+
+    std::cout << "z average: " << z.average() << std::endl;
+
+    puma::Matrix<double> p(&z);
+
+    if(sqrt(r.dot(&r)) < tol ) {
+        return true;
+    }
+    if(print) {
+        printer->print("Conjugate Gradient Solver running");
+    }
+
+    // Start of Iterations
+    double rsold = r.dot(&r);
+    double rzold = r.dot(&z);
+    for(int it=0;it<maxIt;it++){
+
+        A->A_times_X(&p,&Ap);
+        psold = p.dot(&Ap);
+        alpha = rzold/psold;
+
+        omp_set_num_threads(numThreads);
+#pragma omp parallel for
+        for(long i=0;i<r.size();i++){
+            (*x)(i) += alpha*p(i);
+            r(i) += -alpha*Ap(i);
+        }
+        rsnew = r.dot(&r);
+
+        if(sqrt(rsnew)<tol) {
+            return true;
+        }
+        if(print) {
+            std::stringstream buffer;
+            buffer << '\r' << "Iteration: " << it+1 << "  -  " << "Time: " << t1.elapsed() << "  -  " << "Residual: " << sqrt(rsnew);
+            printer->print(buffer.str());
+        }
+
+        A->Minv_times_X(&r, &z);
+        double rznew = r.dot(&z);
+        double beta = rznew/rzold;
+
+        omp_set_num_threads(numThreads);
+#pragma omp parallel for
+        for(long i=0;i<p.size();i++){
+            p(i)=z(i)+ beta*p(i);
+        }
+        rzold = rznew;
+        rsold = rsnew;
+    }
+    printer->print("Conjugate Gradient Warning: Max Iterations Reached");
+
+    return false;
+}
+

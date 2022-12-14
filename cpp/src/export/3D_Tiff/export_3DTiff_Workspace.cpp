@@ -77,12 +77,6 @@ bool Export_3DTiff_Workspace::exportHelper() {
         TIFFSetField(output_image,TIFFTAG_ORIENTATION, (int)ORIENTATION_TOPLEFT);
         TIFFSetField(output_image,TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
 
-
-        if (page % 2 == 0)
-            TIFFSetField(output_image,TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
-        else
-            TIFFSetField(output_image,TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISWHITE);
-
         TIFFSetField(output_image,TIFFTAG_ROWSPERSTRIP, height / samplesPerPixel);
         TIFFSetField(output_image,TIFFTAG_XRESOLUTION, 100.0);
         TIFFSetField(output_image,TIFFTAG_YRESOLUTION, 100.0);

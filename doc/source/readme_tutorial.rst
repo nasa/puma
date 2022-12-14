@@ -1,1 +1,1 @@
-.. mdinclude:: ../../tutorial/README.md
+.. mdinclude:: ../../tutorials/README.md

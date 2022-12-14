@@ -31,14 +31,16 @@ Please refer to this publication for a detailed software architecture explanatio
 # - git push nasa main
 # - git tag -a v$(python setup.py --version) -m 'INPUT DESCRIPTION'
 # - gh release create v$(python setup.py --version) --target main
-__version__ = "3.1.7"
+__version__ = "3.2.0"
 
+# experimental submodule:
+from . import experimental
 
 # utilities
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
-from pumapy.physicsmodels.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap, ElasticityMap
-from pumapy.physicsmodels.boundary_conditions import ConductivityBC, ElasticityBC
+from pumapy.physics_models.utils.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap
+from pumapy.physics_models.utils.boundary_conditions import IsotropicConductivityBC, AnisotropicConductivityBC
 from pumapy.utilities.example_files import path_to_example_file, list_example_files
 from pumapy.utilities.generic_checks import estimate_max_memory, set_random_seed
 
@@ -51,15 +53,14 @@ except:
     print("'import TexGen.Core' failed (TexGen is only made available when installing puma with conda on UNIX).")
 
 # material properties
-from pumapy.materialproperties.surfacearea import compute_surface_area
-from pumapy.materialproperties.volumefraction import compute_volume_fraction
-from pumapy.materialproperties.mean_intercept_length import compute_mean_intercept_length
-from pumapy.materialproperties.orientation import compute_orientation_st, compute_angular_differences
-from pumapy.materialproperties.conductivity import compute_thermal_conductivity, compute_electrical_conductivity
-from pumapy.materialproperties.tortuosity import compute_continuum_tortuosity
-from pumapy.materialproperties.elasticity import compute_elasticity, compute_stress_analysis, get_E_nu_from_elasticity
-from pumapy.materialproperties.radiation import compute_radiation, compute_extinction_coefficients
-from pumapy.materialproperties.permeability import compute_permeability
+from pumapy.material_properties.surface_area import compute_surface_area
+from pumapy.material_properties.volume_fraction import compute_volume_fraction
+from pumapy.material_properties.mean_intercept_length import compute_mean_intercept_length
+from pumapy.material_properties.orientation import compute_orientation_st, compute_angular_differences
+from pumapy.material_properties.conductivity import (compute_thermal_conductivity, compute_electrical_conductivity,
+                                                     plot_conductivity_fields, export_conductivity_fields_vti)
+from pumapy.material_properties.tortuosity import compute_continuum_tortuosity
+from pumapy.material_properties.permeability import compute_permeability
 
 # filtering
 from pumapy.filters.filters import (filter_median, filter_gaussian, filter_edt, filter_mean,
@@ -70,7 +71,8 @@ from pumapy.generation.tpms import generate_tpms
 from pumapy.generation.random_spheres import generate_random_spheres
 from pumapy.generation.single_sphere import generate_sphere
 from pumapy.generation.cylinder_square_array import generate_cylinder_square_array
-from pumapy.generation.random_fibers import generate_random_fibers
+from pumapy.generation.random_fibers import (generate_random_fibers, generate_random_fibers_isotropic,
+                                             generate_random_fibers_transverseisotropic, generate_random_fibers_1D)
 try:
     from pumapy.generation.weave_3mdcp.weave_3mdcp import generate_3mdcp
 except ImportError:  # import it only if installed
@@ -82,7 +84,7 @@ from pumapy.visualization.render import (render_volume, render_contour, render_o
 from pumapy.visualization.slicer import plot_slices, compare_slices
 
 # segmentation
-from pumapy.segmentation.ccl import identify_porespace, fill_closed_pores, remove_rbms
+from pumapy.segmentation.ccl import identify_porespace, fill_closed_pores
 
 # global settings
 settings = {"log_location": 'logs'}

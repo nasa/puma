@@ -7,6 +7,11 @@
 #include <fstream>
 #include <cmath>
 
+#include <cstdio>
+#include <cstring>
+#include <cerrno>
+#include <unistd.h>
+
 
 namespace puma {
 
@@ -465,8 +470,40 @@ namespace puma {
             return true;
         }
 
+        //Generated with the help of ChatGPT
+        static std::string split_and_remove(const std::string& s, int my_count)
+        {
+            std::string result;
+
+            std::vector<std::string> split_string = splitString(s, "/");
+
+            for(int i=0;i<split_string.size()-my_count; i++){
+                result += split_string[i] + "/";
+            }
+
+            // Return the resulting string
+            return result;
+        }
+
+        //Generated with the help of ChatGPT
+        static std::string get_puma_directory() {
+            // Get the name of the current file
+            char buffer[FILENAME_MAX];
+            strcpy(buffer, __FILE__);
+
+            // Split the file path into tokens delimited by '/'
+            char *token = strtok(buffer, "/");
+            std::string result = "";
+            while (token != NULL)
+            {
+                result += "/" + std::string(token);
+                token = strtok(NULL, "/");
+            }
 
 
+            // Return the file directory as a std::string
+            return split_and_remove(result, 5);;
+        }
     };
 
 }

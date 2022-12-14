@@ -25,6 +25,7 @@ public:
      * \return a boolean which is true if no errors are encountered.
      */
     bool A_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r);
+    bool Minv_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r){return true;};
 
     //! computes the effective conductivity from the solution.
     /*!

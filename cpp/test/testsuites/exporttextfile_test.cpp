@@ -29,7 +29,7 @@ public:
 
         puma::MatVec3<double> mat;
 
-        bool success = puma::export_Textfile(&mat,"cpp/test/out/textfiles/export_textfile_Test1");
+        bool success = puma::export_Textfile(&mat,puma::PString::get_puma_directory()+"cpp/test/out/textfiles/export_textfile_Test1");
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -47,7 +47,7 @@ public:
 
         puma::MatVec3<double> mat;
 
-        bool success = puma::export_Textfile(&mat,"cpp/test/out/abc/export_textfile_Test2");
+        bool success = puma::export_Textfile(&mat,puma::PString::get_puma_directory()+"cpp/test/out/abc/export_textfile_Test2");
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -65,7 +65,7 @@ public:
 
         puma::Matrix<double> mat(2,2,2,1.123456789);
 
-        bool success = puma::export_Textfile(&mat,"cpp/test/out/textfiles/export_textfile_Test3");
+        bool success = puma::export_Textfile(&mat,puma::PString::get_puma_directory()+"cpp/test/out/textfiles/export_textfile_Test3");
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -83,7 +83,7 @@ public:
 
         puma::MatVec3<double> mat(2,2,2,puma::Vec3<double>(1.123456789,2.123456789,3.123456789));
 
-        bool success = puma::export_Textfile(&mat,"cpp/test/out/textfiles/export_textfile_Test4");
+        bool success = puma::export_Textfile(&mat,puma::PString::get_puma_directory()+"cpp/test/out/textfiles/export_textfile_Test4");
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -102,7 +102,7 @@ public:
         puma::Vec3<double> vec(1.123456789,2.123456789,3.123456789);
         puma::Matrix<puma::Triangle<double> > mat(2,2,2,puma::Triangle<double>(vec,vec,vec,1.1));
 
-        bool success = puma::export_Textfile(&mat,"cpp/test/out/textfiles/export_textfile_Test5");
+        bool success = puma::export_Textfile(&mat,puma::PString::get_puma_directory()+"cpp/test/out/textfiles/export_textfile_Test5");
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -121,7 +121,7 @@ public:
 
         puma::MatVec3<double> mat(2,2,2,puma::Vec3<double>(1.123456789,2.123456789,3.123456789));
 
-        bool success = puma::export_Textfile(&mat,"cpp/test/out/textfiles/export_textfile_Test6",true,true,true,128,26);
+        bool success = puma::export_Textfile(&mat,puma::PString::get_puma_directory()+"cpp/test/out/textfiles/export_textfile_Test6",true,true,true,128,26);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -139,7 +139,7 @@ public:
 
         puma::Workspace work(1e-6,false);
 
-        bool success = puma::export_Textfile(&work,"cpp/test/out/textfiles/export_textfile_Test7");
+        bool success = puma::export_Textfile(&work,puma::PString::get_puma_directory()+"cpp/test/out/textfiles/export_textfile_Test7");
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -157,7 +157,7 @@ public:
 
         puma::MatVec3<double> mat;
 
-        bool success = puma::export_Textfile(&mat,"cpp/test/out/abc/export_textfile_Test8");
+        bool success = puma::export_Textfile(&mat,puma::PString::get_puma_directory()+"cpp/test/out/abc/export_textfile_Test8");
 
         if(!assertEquals((bool)false,(bool)success, &result)) {
             return result;
@@ -175,7 +175,7 @@ public:
 
         puma::Workspace work(2,2,2,4,1e-6,false);
 
-        bool success = puma::export_Textfile(&work,"cpp/test/out/textfiles/export_textfile_Test9");
+        bool success = puma::export_Textfile(&work,puma::PString::get_puma_directory()+"cpp/test/out/textfiles/export_textfile_Test9");
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;
@@ -193,7 +193,7 @@ public:
 
         puma::Workspace work(2,2,2,4,1e-6,false);
 
-        bool success = puma::export_Textfile(&work,"cpp/test/out/textfiles/export_textfile_Test10",true,true,true,128,26);
+        bool success = puma::export_Textfile(&work,puma::PString::get_puma_directory()+"cpp/test/out/textfiles/export_textfile_Test10",true,true,true,128,26);
 
         if(!assertEquals((bool)true,(bool)success, &result)) {
             return result;

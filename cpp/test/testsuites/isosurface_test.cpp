@@ -198,11 +198,11 @@ public:
         }
 
 
-        if(!assertEquals((double)99.374211,newMatrix.average(), &result)) {
+        if(!assertEquals((double)66.4268,newMatrix.average(), &result)) {
             return result;
         }
 
-        if(!assertEquals((double)100.811828,grayWS.matrix.average(), &result)) {
+        if(!assertEquals((double)68.4396,grayWS.matrix.average(), &result)) {
             return result;
         }
 
@@ -237,11 +237,11 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)102.819277,newMatrix.average(), &result)) {
+        if(!assertEquals((double)71.269,newMatrix.average(), &result)) {
             return result;
         }
 
-        if(!assertEquals((double)104.25627,grayWS.matrix.average(), &result)) {
+        if(!assertEquals((double)73.481,grayWS.matrix.average(), &result)) {
             return result;
         }
 
@@ -355,11 +355,11 @@ public:
             return result;
         }
 
-        if(!assertEquals((double)100.59072, newMatrix.average(), &result)) {
+        if(!assertEquals((double)68.3825, newMatrix.average(), &result)) {
             return result;
         }
 
-        if(!assertEquals((double)100.811828, grayWS.matrix.average(), &result)) {
+        if(!assertEquals((double)68.4396, grayWS.matrix.average(), &result)) {
             return result;
         }
 
@@ -585,7 +585,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((int)59384,(int)tris.size(), &result)) {
+        if(!assertEquals((int)60152,(int)tris.size(), &result)) {
             return result;
         }
 
@@ -614,7 +614,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((int)59384,(int)tris.size(), &result)) {
+        if(!assertEquals((int)60152,(int)tris.size(), &result)) {
             return result;
         }
 
@@ -1166,7 +1166,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((int)59384,(int)tris.size(), &result)) {
+        if(!assertEquals((int)60152,(int)tris.size(), &result)) {
             return result;
         }
 
@@ -1199,7 +1199,7 @@ public:
             return result;
         }
 
-        if(!assertEquals((int)59384,(int)tris.size(), &result)) {
+        if(!assertEquals((int)60152,(int)tris.size(), &result)) {
             return result;
         }
 

@@ -1,3 +1,4 @@
+import os.path
 import unittest
 import numpy as np
 import pumapy as puma
@@ -11,9 +12,10 @@ class TestImportExportVTKI(unittest.TestCase):
         ws.matrix[0, 0, -1] = 2
         ws.matrix[-1, -1, -1] = 3
         ws.matrix[-1, 0, 0] = 4
-        np.testing.assert_equal(puma.export_vti("out/ws1", ws), True)
+        puma.export_vti(os.path.join("out", "ws1"), ws)
+        np.testing.assert_equal("ws1.vti" in os.listdir("out"), True)
         ws2 = ws.copy()
-        ws = puma.import_vti("out/ws1.vti")
+        ws = puma.import_vti(os.path.join("out", "ws1.vti"))
         np.testing.assert_equal(ws.matrix, ws2.matrix)
 
     def test_io_vti_nparray(self):
@@ -22,9 +24,10 @@ class TestImportExportVTKI(unittest.TestCase):
         nparray[0, 0, -1] = 2
         nparray[-1, -1, -1] = 3
         nparray[-1, 0, 0] = 4
-        np.testing.assert_equal(puma.export_vti("out/nparray1", nparray), True)
+        puma.export_vti(os.path.join("out", "nparray1"), nparray)
+        np.testing.assert_equal("nparray1.vti" in os.listdir("out"), True)
         nparray2 = nparray.copy()
-        nparray = puma.import_vti("out/nparray1.vti", import_ws=False)["data"]
+        nparray = puma.import_vti(os.path.join("out", "nparray1.vti"), import_ws=False)["data"]
         np.testing.assert_equal(nparray, nparray2)
 
     def test_io_vti_2Dnparray(self):
@@ -32,9 +35,10 @@ class TestImportExportVTKI(unittest.TestCase):
         nparray[0, -1] = 1
         nparray[-1, -1] = 3
         nparray[-1, 0] = 4
-        np.testing.assert_equal(puma.export_vti("out/nparray2", nparray), True)
+        puma.export_vti(os.path.join("out", "nparray2"), nparray)
+        np.testing.assert_equal("nparray2.vti" in os.listdir("out"), True)
         nparray2 = np.expand_dims(nparray.copy(), axis=2)
-        nparray = puma.import_vti("out/nparray2.vti", import_ws=False)["data"]
+        nparray = puma.import_vti(os.path.join("out", "nparray2.vti"), import_ws=False)["data"]
         np.testing.assert_equal(nparray, nparray2)
 
     def test_io_vti_nparray_orientation(self):
@@ -43,9 +47,10 @@ class TestImportExportVTKI(unittest.TestCase):
         nparray[0, 0, -1] = [0, 0, 1]
         nparray[-1, -1, -1] = [10, 10, 10]
         nparray[-1, 0, 0] = [10, 0, 1]
-        np.testing.assert_equal(puma.export_vti("out/nparray3", nparray), True)
+        puma.export_vti(os.path.join("out", "nparray3"), nparray)
+        np.testing.assert_equal("nparray3.vti" in os.listdir("out"), True)
         nparray2 = nparray.copy()
-        nparray = puma.import_vti("out/nparray3.vti", import_ws=False)["data"]
+        nparray = puma.import_vti(os.path.join("out", "nparray3.vti"), import_ws=False)["data"]
         np.testing.assert_equal(nparray, nparray2)
 
     def test_io_vti_orientation(self):
@@ -54,9 +59,10 @@ class TestImportExportVTKI(unittest.TestCase):
         ws.orientation[0, 0, -1] = [0, 0, 1]
         ws.orientation[-1, -1, -1] = [10, 10, 10]
         ws.orientation[-1, 0, 0] = [10, 0, 1]
-        np.testing.assert_equal(puma.export_vti("out/ws2", ws), True)
+        puma.export_vti(os.path.join("out", "ws2"), ws)
+        np.testing.assert_equal("ws2.vti" in os.listdir("out"), True)
         ws2 = ws.copy()
-        ws = puma.import_vti("out/ws2.vti")
+        ws = puma.import_vti(os.path.join("out", "ws2.vti"))
         np.testing.assert_equal(ws.orientation, ws2.orientation)
         np.testing.assert_equal(ws.matrix, ws2.matrix)
 
@@ -66,7 +72,7 @@ class TestImportExportVTKI(unittest.TestCase):
         # dirs.at(1, 2, 3) = puma::Vec3<double>(1, 2, 3);
         # dirs.at(7, 6, 5) = puma::Vec3<double>(7, 6, 5);
         # dirs.at(3, 10, 2) = puma::Vec3<double>(3, 10, 2);
-        orient_test = puma.import_vti("testdata/orient_test.vtk", import_ws=False)["PuMA_Vec3"]
+        orient_test = puma.import_vti(os.path.join("testdata", "orient_test.vtk"), import_ws=False)["PuMA_Vec3"]
         nparray = np.tile((1, 0, 0), (10, 11, 7, 1)).astype(float)
         nparray[1, 2, 3] = [1, 2, 3]
         nparray[7, 6, 5] = [7, 6, 5]
@@ -82,10 +88,11 @@ class TestImportExport3Dtiff(unittest.TestCase):
         ws.matrix[0, 0, -1] = 2
         ws.matrix[-1, -1, -1] = 3
         ws.matrix[-1, 0, 0] = 4
-        np.testing.assert_equal(puma.export_3Dtiff("out/ws", ws), True)
+        puma.export_3Dtiff(os.path.join("out", "ws"), ws)
+        np.testing.assert_equal("ws.tif" in os.listdir("out"), True)
 
     def test_import_3Dtiff_ws(self):
-        ws = puma.import_3Dtiff("out/ws.tif")
+        ws = puma.import_3Dtiff(os.path.join("out", "ws.tif"))
         ws2 = puma.Workspace.from_shape_value((10, 11, 12), 34)
         ws2.matrix[0, -1, 0] = 1
         ws2.matrix[0, 0, -1] = 2
@@ -99,10 +106,11 @@ class TestImportExport3Dtiff(unittest.TestCase):
         nparray[0, 0, -1] = 2
         nparray[-1, -1, -1] = 3
         nparray[-1, 0, 0] = 4
-        np.testing.assert_equal(puma.export_3Dtiff("out/nparray", nparray), True)
+        puma.export_3Dtiff(os.path.join("out", "nparray"), nparray)
+        np.testing.assert_equal("nparray.tif" in os.listdir("out"), True)
 
     def test_import_3Dtiff_nparray(self):
-        nparray = puma.import_3Dtiff("out/nparray.tif", import_ws=False)
+        nparray = puma.import_3Dtiff(os.path.join("out", "nparray.tif"), import_ws=False)
         nparray2 = np.full((10, 11, 12), 34, dtype=np.uint16)
         nparray2[0, -1, 0] = 1
         nparray2[0, 0, -1] = 2
@@ -119,10 +127,11 @@ class TestImportExportbin(unittest.TestCase):
         ws.matrix[0, 0, -1] = 2
         ws.matrix[-1, -1, -1] = 3
         ws.matrix[-1, 0, 0] = 4
-        np.testing.assert_equal(puma.export_bin("out/ws", ws), True)
+        puma.export_bin(os.path.join("out", "ws"), ws)
+        np.testing.assert_equal("ws.pumapy" in os.listdir("out"), True)
 
     def test_import_bin_ws(self):
-        ws = puma.import_bin("out/ws.pumapy")
+        ws = puma.import_bin(os.path.join("out", "ws.pumapy"))
         ws2 = puma.Workspace.from_shape_value((10, 11, 12), 34)
         ws2.matrix[0, -1, 0] = 1
         ws2.matrix[0, 0, -1] = 2

@@ -26,7 +26,7 @@ public:
         TestResult result(suiteName, testName, 1, testDescription);
 
         std::vector< puma::Triangle <float> > Triangles;
-        bool success = puma::export_STL(&Triangles,false,"cpp/test/out/stl/test1.stl");
+        bool success = puma::export_STL(&Triangles,false,puma::PString::get_puma_directory()+"cpp/test/out/stl/test1.stl");
 
         if(!assertEquals((bool)false,success, &result)) {
             return result;
@@ -101,7 +101,7 @@ public:
 
         std::cout << "Triangle size1: " << Triangles.size() << std::endl;
 
-        bool success = puma::export_STL(&Triangles,false,"cpp/test/out/stl/test4_void.stl");
+        bool success = puma::export_STL(&Triangles,false,puma::PString::get_puma_directory()+"cpp/test/out/stl/test4_void.stl");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
@@ -111,18 +111,18 @@ public:
         std::cout << "Triangle size2: " << Triangles.size() << std::endl;
 
 
-        success = puma::export_STL(&Triangles,false,"cpp/test/out/stl/test4_solid.stl");
+        success = puma::export_STL(&Triangles,false,puma::PString::get_puma_directory()+"cpp/test/out/stl/test4_solid.stl");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
-        success = puma::export_STL(&grayWS,puma::Cutoff(0,89),false,"cpp/test/out/stl/test4_void_ws.stl");
+        success = puma::export_STL(&grayWS,puma::Cutoff(0,89),false,puma::PString::get_puma_directory()+"cpp/test/out/stl/test4_void_ws.stl");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
 
-        success = puma::export_STL(&grayWS, puma::Cutoff(90,255),false,"cpp/test/out/stl/test4_solid_ws.stl");
+        success = puma::export_STL(&grayWS, puma::Cutoff(90,255),false,puma::PString::get_puma_directory()+"cpp/test/out/stl/test4_solid_ws.stl");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
@@ -142,14 +142,14 @@ public:
         std::vector< puma::Triangle <float> > Triangles;
         puma::isosurface_MarchingCubes(&Triangles,&grayWS,puma::Cutoff(0,89),true,1,false,0);
 
-        bool success = puma::export_STL(&Triangles,true,"cpp/test/out/stl/test5_void.stl");
+        bool success = puma::export_STL(&Triangles,true,puma::PString::get_puma_directory()+"cpp/test/out/stl/test5_void.stl");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }
 
         puma::isosurface_MarchingCubes(&Triangles,&grayWS,puma::Cutoff(90,255),true,1,false,0);
 
-        success = puma::export_STL(&Triangles,true,"cpp/test/out/stl/test5_solid.stl");
+        success = puma::export_STL(&Triangles,true,puma::PString::get_puma_directory()+"cpp/test/out/stl/test5_solid.stl");
         if(!assertEquals((bool)true,success, &result)) {
             return result;
         }

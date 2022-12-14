@@ -60,5 +60,8 @@ namespace IterativeSolver {
      */
     bool ConjugateGradient(AMatrix *A, puma::Matrix<double> *x, puma::Matrix<double> *b, double tol, int maxIt, bool print, int numThreads);
     bool ConjugateGradient(AMatrix *A, puma::Matrix<double> *x, puma::Matrix<double> *b, double tol, int maxIt, bool print, puma::Printer *printer, int numThreads);
+
+    bool ConjugateGradient_Jacobian(AMatrix *A, puma::Matrix<double> *x, puma::Matrix<double> *b, double tol, int maxIt, bool print, puma::Printer *printer, int numThreads);
+
 }
 #endif // ITERATIVESOLVER_H

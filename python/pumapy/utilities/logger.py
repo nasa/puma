@@ -62,6 +62,10 @@ class Logger:
     def log_value(self, var_name, val):
         self.log_line(str(var_name) + ": " + str(val))
 
+    def print_error(error_text):
+        print(Colors.WARNING + "ERROR: " + error_text + Colors.ENDC)
+        raise Exception("pumapy ERROR: " + error_text)
+
     def write_log(self):
         if self.location == "":
             return

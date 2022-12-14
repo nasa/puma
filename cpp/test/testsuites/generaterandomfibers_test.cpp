@@ -326,7 +326,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test10.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test10.tiff",false);
 
         return result;
     }
@@ -512,7 +512,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test18.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test18.tiff",false);
 
         return result;
     }
@@ -560,7 +560,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test20.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test20.tiff",false);
 
         return result;
     }
@@ -608,7 +608,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test22.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test22.tiff",false);
 
         return result;
     }
@@ -771,7 +771,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test30.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test30.tiff",false);
 
         return result;
     }
@@ -1004,7 +1004,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test40.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test40.tiff",false);
 
         return result;
     }
@@ -1075,7 +1075,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test43.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test43.tiff",false);
 
         return result;
     }
@@ -1218,7 +1218,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test49.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test49.tiff",false);
 
         return result;
     }
@@ -1289,7 +1289,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test52.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test52.tiff",false);
 
         return result;
     }
@@ -1521,7 +1521,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test62.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test62.tiff",false);
 
         return result;
     }
@@ -1544,7 +1544,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test63.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test63.tiff",false);
 
         return result;
     }
@@ -1568,7 +1568,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test64.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test64.tiff",false);
 
         return result;
     }
@@ -1591,7 +1591,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test65.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test65.tiff",false);
 
         return result;
     }
@@ -1614,7 +1614,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test66.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test66.tiff",false);
 
         return result;
     }
@@ -1637,7 +1637,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test67.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test67.tiff",false);
 
         return result;
     }
@@ -1660,7 +1660,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test68.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test68.tiff",false);
 
         return result;
     }
@@ -1683,7 +1683,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test69.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test69.tiff",false);
 
         return result;
     }
@@ -1707,7 +1707,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test70.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test70.tiff",false);
 
         return result;
     }
@@ -1730,7 +1730,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test71.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test71.tiff",false);
 
         return result;
     }
@@ -1753,7 +1753,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test72.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test72.tiff",false);
 
         return result;
     }
@@ -1776,7 +1776,7 @@ public:
             return result;
         }
 
-        puma::export_3DTiff(&grayWS,"cpp/test/out/tiff/RandomFibers_Test73.tiff",false);
+        puma::export_3DTiff(&grayWS,puma::PString::get_puma_directory()+"cpp/test/out/tiff/RandomFibers_Test73.tiff",false);
 
         return result;
     }

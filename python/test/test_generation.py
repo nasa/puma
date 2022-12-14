@@ -35,17 +35,17 @@ class TestRandomSpheres(unittest.TestCase):
         ws = puma.generate_random_spheres(shape=(200, 200, 200), diameter=4, porosity=0.75,
                                           allow_intersect=True, segmented=True)
         np.testing.assert_equal(ws.matrix.shape, (200, 200, 200))
-        self.assertLess(abs(ws.porosity() - 0.75), 0.0001)
+        self.assertLess(abs(ws.porosity() - 0.75), 0.001)
 
         ws = puma.generate_random_spheres(shape=(100, 100, 100), diameter=8, porosity=0.8,
                                           allow_intersect=True, segmented=False)
         np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
-        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.00013)
+        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.001)
 
         ws = puma.generate_random_spheres(shape=(50, 50, 50), diameter=4, porosity=0.8,
                                           allow_intersect=False, segmented=False)
         np.testing.assert_equal(ws.matrix.shape, (50, 50, 50))
-        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.00023)
+        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.001)
 
 
 class TestRandomFibers(unittest.TestCase):
@@ -54,7 +54,7 @@ class TestRandomFibers(unittest.TestCase):
         ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=2, porosity=0.8, length=50, max_iter=6,
                                          allow_intersect=True, segmented=True)
         np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
-        self.assertLess(abs(ws.porosity() - 0.8), 0.001)
+        self.assertLess(abs(ws.porosity() - 0.8), 0.01)
 
         ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=2, nfibers=100, phi=20, theta=90, length=100,
                                          max_iter=6, allow_intersect=True, segmented=True)
@@ -69,7 +69,50 @@ class TestRandomFibers(unittest.TestCase):
         ws = puma.generate_random_fibers(shape=(100, 100, 100), radius=2, porosity=0.8, length=50, max_iter=6,
                                          allow_intersect=True, segmented=False)
         np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
-        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.001)
+        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.01)
+        
+        
+    def test_random_fibers_isotropic(self):
+        ws = puma.generate_random_fibers_isotropic(shape=(100, 100, 100), radius=4, porosity=0.8, length=50, max_iter=7,
+                                         allow_intersect=True, segmented=True)
+        np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
+        self.assertLess(abs(ws.porosity() - 0.8), 0.01)
+
+        ws = puma.generate_random_fibers_isotropic(shape=(50, 50, 50), radius=2, porosity=0.8, length=50, max_iter=7,
+                                         allow_intersect=False, segmented=True)
+        np.testing.assert_equal(ws.matrix.shape, (50, 50, 50))
+        self.assertLess(abs(ws.porosity() - 0.8), 0.01)
+
+        ws = puma.generate_random_fibers_isotropic(shape=(100, 100, 100), radius=2, porosity=0.8, length=50, max_iter=7,
+                                         allow_intersect=True, segmented=False)
+        np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
+        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.01)
+
+    def test_random_fibers_transverseisotropic(self):
+        ws = puma.generate_random_fibers_transverseisotropic(shape=(100, 100, 100), radius=4, porosity=0.8, direction='x', variation=0, length=50, max_iter=7,allow_intersect=True, segmented=True)
+        np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
+        self.assertLess(abs(ws.porosity() - 0.8), 0.01)
+
+        ws = puma.generate_random_fibers_transverseisotropic(shape=(50, 50, 50), radius=2, porosity=0.8, direction='z', variation=15, length=50, max_iter=7,allow_intersect=False, segmented=True)
+        np.testing.assert_equal(ws.matrix.shape, (50, 50, 50))
+        self.assertLess(abs(ws.porosity() - 0.8), 0.01)
+
+        ws = puma.generate_random_fibers_transverseisotropic(shape=(100, 100, 100), radius=2, porosity=0.8, direction='y', variation=30, length=50, max_iter=7, allow_intersect=True, segmented=False)
+        np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
+        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.01)
+        
+    def test_random_fibers_1d(self):
+        ws = puma.generate_random_fibers_1D(shape=(100, 100, 100), radius=4, porosity=0.8, direction='x', length=50, max_iter=7,allow_intersect=True, segmented=True)
+        np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
+        self.assertLess(abs(ws.porosity() - 0.8), 0.01)
+
+        ws = puma.generate_random_fibers_1D(shape=(50, 50, 50), radius=2, porosity=0.8, direction='z', length=50, max_iter=7,allow_intersect=False, segmented=True)
+        np.testing.assert_equal(ws.matrix.shape, (50, 50, 50))
+        self.assertLess(abs(ws.porosity() - 0.8), 0.01)
+
+        ws = puma.generate_random_fibers_1D(shape=(100, 100, 100), radius=2, porosity=0.8, direction='y', length=50, max_iter=7, allow_intersect=True, segmented=False)
+        np.testing.assert_equal(ws.matrix.shape, (100, 100, 100))
+        self.assertLess(abs(ws.porosity(cutoff=(0, 127)) - 0.8), 0.01)
 
     def test_51x44x87fibers_nfibers(self):
         nfibers = 100
