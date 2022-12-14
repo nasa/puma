@@ -126,7 +126,6 @@ class IsotropicConductivity(PropertySolver):
 
         [X,Y,Z] = self.cond.shape
 
-
         self.kf_i = np.copy(self.cond)
 
         if self.side_bc == 'p':
@@ -151,8 +150,8 @@ class IsotropicConductivity(PropertySolver):
             roll_zp[:, :, -1] = roll_zp[:, :, -2]
 
         self.kf_i = (- roll_xm * self.cond / (roll_xm + self.cond) - roll_xp * self.cond / (roll_xp + self.cond)
-                         - roll_ym * self.cond / (roll_ym + self.cond) - roll_yp * self.cond / (roll_yp + self.cond)
-                         - roll_zm * self.cond / (roll_zm + self.cond) - roll_zp * self.cond / (roll_zp + self.cond))
+                     - roll_ym * self.cond / (roll_ym + self.cond) - roll_yp * self.cond / (roll_yp + self.cond)
+                     - roll_zm * self.cond / (roll_zm + self.cond) - roll_zp * self.cond / (roll_zp + self.cond))
         if self.bc_check==1:
             self.kf_i[self.prescribed_bc != np.Inf] = 1
         if self.domain_bc_check == 1:
@@ -212,7 +211,6 @@ class IsotropicConductivity(PropertySolver):
             self.kf_izp[[0, X - 1], :, :] = 0
         self.kf_izp = self.kf_izp.flatten('F')
 
-
     def assemble_Amatrix(self):
         if not self.matrix_free or self.solver_type == "direct":
             self._row, self._col, self._data = setup_matrices_cy(self.cond.flatten('F'), self.len_x, self.len_y, self.len_z, self.domain_bc_check,
@@ -229,48 +227,45 @@ class IsotropicConductivity(PropertySolver):
             self.M = diags(diag, 0).tocsr()
             print("Done")
         else:
-            y = np.zeros(self.len_xyz, dtype=float)
             self.setup_cond_matrices()
+            del self.prescribed_bc
 
-            kf = self.cond.flatten('F')
             def matvec(x):  # overload matvec for Amat=LinearOperator
+                y = self.kf_i * x
+                x = x.reshape((self.len_x, self.len_y, self.len_z), order='F')
 
                 if self.side_bc == 'p':
-                    x3d = x.reshape((self.len_x, self.len_y, self.len_z), order='F')
-
-                    y = self.kf_i * x + self.kf_ixm * np.roll(x3d, 1, axis=0).flatten('F') + self.kf_ixp * np.roll(x3d, -1, axis=0).flatten('F') \
-                                        + self.kf_iym * np.roll(x3d, 1, axis=1).flatten('F') + self.kf_iyp * np.roll(x3d, -1, axis=1).flatten('F') \
-                                        + self.kf_izm * np.roll(x3d, 1, axis=2).flatten('F') + self.kf_izp * np.roll(x3d, -1, axis=2).flatten('F')
-                    return y
-                else:
-                    y = self.kf_i * x
-
-                    x3d = x.reshape((self.len_x, self.len_y, self.len_z), order='F')
-                    x_temp = np.roll(x3d, 1, axis=0)
+                    y += self.kf_ixm * np.roll(x, 1, axis=0).flatten('F')
+                    y += self.kf_ixp * np.roll(x, -1, axis=0).flatten('F')
+                    y += self.kf_iym * np.roll(x, 1, axis=1).flatten('F')
+                    y += self.kf_iyp * np.roll(x, -1, axis=1).flatten('F')
+                    y += self.kf_izm * np.roll(x, 1, axis=2).flatten('F')
+                    y += self.kf_izp * np.roll(x, -1, axis=2).flatten('F')
+                else:  # symmetric bc
+                    x_temp = np.roll(x, 1, axis=0)
                     x_temp[0, :, :] = x_temp[1, :, :]
                     y += self.kf_ixm * x_temp.flatten('F')
 
-                    x_temp = np.roll(x3d, -1, axis=0)
+                    x_temp = np.roll(x, -1, axis=0)
                     x_temp[-1, :, :] = x_temp[-2, :, :]
                     y += self.kf_ixp * x_temp.flatten('F')
 
-                    x_temp = np.roll(x3d, 1, axis=1)
+                    x_temp = np.roll(x, 1, axis=1)
                     x_temp[:, 0, :] = x_temp[:, 1, :]
                     y += self.kf_iym * x_temp.flatten('F')
 
-                    x_temp = np.roll(x3d, -1, axis=1)
+                    x_temp = np.roll(x, -1, axis=1)
                     x_temp[:, -1, :] = x_temp[:, -2, :]
                     y += self.kf_iyp * x_temp.flatten('F')
 
-                    x_temp = np.roll(x3d, 1, axis=2)
+                    x_temp = np.roll(x, 1, axis=2)
                     x_temp[:, :, 0] = x_temp[:, :, 1]
                     y += self.kf_izm * x_temp.flatten('F')
 
-                    x_temp = np.roll(x3d, -1, axis=2)
+                    x_temp = np.roll(x, -1, axis=2)
                     x_temp[:, :, -1] = x_temp[:, :, -2]
                     y += self.kf_izp * x_temp.flatten('F')
-
-                    return y
+                return y
             self.Amat = LinearOperator(shape=(self.len_xyz, self.len_xyz), matvec=matvec)
 
             def vecvec_prec(x):

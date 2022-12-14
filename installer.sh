@@ -49,7 +49,6 @@ if [ ! -d "$(conda info --base)/envs/puma" ]; then
 
     mv bin/micromamba .
 
-
     if [ "$(uname)" == "Darwin" ]; then
             ./micromamba create -p $CONDA_PREFIX/envs/puma python numpy scikit-image scipy matplotlib  pyevtk pyvista fftw eigen openmp cmake qt swig pip cython scikit-umfpack jupyterlab ipyvtklink ipympl -c conda-forge -y
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -58,9 +57,6 @@ if [ ! -d "$(conda info --base)/envs/puma" ]; then
         echo "Unrecongnized Operating System, PuMA cannot be installed."
         exit 1
     fi
-
-
-    
 fi
 
 ####### PUMA C++ INSTALLATION ######
