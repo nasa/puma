@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]  # macos-latest, windows-latest,
+        os: [macos-latest]  # ubuntu-latest, windows-latest,
         python-version: ['3.9']
 
     steps:
@@ -23,13 +23,11 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update && sudo apt-get install libgl1 -y
-          conda create -y --name puma -c conda-forge puma gcc
+          conda create -y --name puma -c conda-forge puma gcc pytest
           conda init bash
           source ~/.bashrc
           conda activate puma
           python -m pip install --upgrade pip
-          python -m pip install pytest
-          # install pumapy
           python -m  pip install -e .
       - name: Test with pytest
         working-directory: ./python/test
