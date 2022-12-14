@@ -258,8 +258,8 @@ public:
         TPMSInput input(200,200,200,0.05,0.05,0.201,0.201);
         bool success = puma::generateTPMS(&tpmsWS, input);
 
-        puma::export_STL(&tpmsWS, puma::Cutoff(0,127), false, "cpp/test/out/stl/tpms_test.stl");
-        puma::export_3DTiff(&tpmsWS, "cpp/test/out/stl/tpms_test.tif", false);
+        puma::export_STL(&tpmsWS, puma::Cutoff(0,127), false, puma::PString::get_puma_directory()+"cpp/test/out/stl/tpms_test.stl");
+        puma::export_3DTiff(&tpmsWS, puma::PString::get_puma_directory()+"cpp/test/out/stl/tpms_test.tif", false);
 
         //making sure that the value in "success" is false.
         //in assert equals, first value is expected, second value is actual, and third is the testResult

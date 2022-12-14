@@ -28,11 +28,11 @@ public:
         TestResult result(suiteName, testName, 1, testDescription);
 
         puma::Workspace workspace(100,13,43,1e-6,false);
-        puma::export_bin(&workspace,"cpp/test/out/bin/test");
+        puma::export_bin(&workspace,puma::PString::get_puma_directory()+"cpp/test/out/bin/test");
 
         //test 1 : zero numThreads, valid file - should return true
         puma::Workspace workspace2;
-        bool success2 = puma::import_bin(&workspace2,"cpp/test/out/bin/test.puma",0);
+        bool success2 = puma::import_bin(&workspace2,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",0);
         if(!assertEquals((bool)true,success2, &result)) {
             return result;
         }
@@ -48,7 +48,7 @@ public:
 
         //test 2 : negative numThreads, valid file - should return true
         puma::Workspace workspace3;
-        bool success3 = puma::import_bin(&workspace3,"cpp/test/out/bin/test.puma",-5);
+        bool success3 = puma::import_bin(&workspace3,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",-5);
         if(!assertEquals((bool)true,success3, &result)) {
             return result;
         }
@@ -64,7 +64,7 @@ public:
 
         //test 3 : negative numThreads, valid file - should return true
         puma::Workspace workspace4;
-        bool success4 = puma::import_bin(&workspace4,"cpp/test/out/bin/test.puma",5);
+        bool success4 = puma::import_bin(&workspace4,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",5);
         if(!assertEquals((bool)true,success4, &result)) {
             return result;
         }
@@ -80,7 +80,7 @@ public:
 
         //test 4 : zero numThreads, invalid file - should return false
         puma::Workspace workspace5;
-        bool success5 = puma::import_bin(&workspace5,"cpp/test/out/tessdfasdfasdf.puasdfma",0);
+        bool success5 = puma::import_bin(&workspace5,puma::PString::get_puma_directory()+"cpp/test/out/tessdfasdfasdf.puasdfma",0);
         if(!assertEquals((bool)false,success5, &result)) {
             return result;
         }
@@ -96,11 +96,11 @@ public:
         TestResult result(suiteName, testName, 2, testDescription);
 
         puma::Matrix<double> matrix(100,13,43);
-        puma::export_bin(&matrix,"cpp/test/out/bin/test");
+        puma::export_bin(&matrix,puma::PString::get_puma_directory()+"cpp/test/out/bin/test");
 
         //test 1 : zero numThreads, valid file - should return true
         puma::Matrix<double> matrix2;
-        bool success2 = puma::import_bin(&matrix2,"cpp/test/out/bin/test.puma",0);
+        bool success2 = puma::import_bin(&matrix2,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",0);
         if(!assertEquals((bool)true,success2, &result)) {
             return result;
         }
@@ -116,7 +116,7 @@ public:
 
         //test 2 : negative numThreads, valid file - should return true
         puma::Matrix<double> matrix3;
-        bool success3 = puma::import_bin(&matrix3,"cpp/test/out/bin/test.puma",-5);
+        bool success3 = puma::import_bin(&matrix3,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",-5);
         if(!assertEquals((bool)true,success3, &result)) {
             return result;
         }
@@ -132,7 +132,7 @@ public:
 
         //test 3 : negative numThreads, valid file - should return true
         puma::Matrix<double> matrix4;
-        bool success4 = puma::import_bin(&matrix4,"cpp/test/out/bin/test.puma",5);
+        bool success4 = puma::import_bin(&matrix4,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",5);
         if(!assertEquals((bool)true,success4, &result)) {
             return result;
         }
@@ -148,7 +148,7 @@ public:
 
         //test 4 : zero numThreads, invalid file - should return false
         puma::Matrix<double> matrix5;
-        bool success5 = puma::import_bin(&matrix5,"cpp/test/out/tessdfasdfasdf.puasdfma",0);
+        bool success5 = puma::import_bin(&matrix5,puma::PString::get_puma_directory()+"cpp/test/out/tessdfasdfasdf.puasdfma",0);
         if(!assertEquals((bool)false,success5, &result)) {
             return result;
         }
@@ -164,11 +164,11 @@ public:
         TestResult result(suiteName, testName, 3, testDescription);
 
         puma::Matrix<float> matrix(100,13,43);
-        puma::export_bin(&matrix,"cpp/test/out/bin/test");
+        puma::export_bin(&matrix,puma::PString::get_puma_directory()+"cpp/test/out/bin/test");
 
         //test 1 : zero numThreads, valid file - should return true
         puma::Matrix<float> matrix2;
-        bool success2 = puma::import_bin(&matrix2,"cpp/test/out/bin/test.puma",0);
+        bool success2 = puma::import_bin(&matrix2,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",0);
         if(!assertEquals((bool)true,success2, &result)) {
             return result;
         }
@@ -184,7 +184,7 @@ public:
 
         //test 2 : negative numThreads, valid file - should return true
         puma::Matrix<float> matrix3;
-        bool success3 = puma::import_bin(&matrix3,"cpp/test/out/bin/test.puma",-5);
+        bool success3 = puma::import_bin(&matrix3,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",-5);
         if(!assertEquals((bool)true,success3, &result)) {
             return result;
         }
@@ -200,7 +200,7 @@ public:
 
         //test 3 : negative numThreads, valid file - should return true
         puma::Matrix<float> matrix4;
-        bool success4 = puma::import_bin(&matrix4,"cpp/test/out/bin/test.puma",5);
+        bool success4 = puma::import_bin(&matrix4,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",5);
         if(!assertEquals((bool)true,success4, &result)) {
             return result;
         }
@@ -216,7 +216,7 @@ public:
 
         //test 4 : zero numThreads, invalid file - should return false
         puma::Matrix<float> matrix5;
-        bool success5 = puma::import_bin(&matrix5,"cpp/test/out/tessdfasdfasdf.puasdfma",0);
+        bool success5 = puma::import_bin(&matrix5,puma::PString::get_puma_directory()+"cpp/test/out/tessdfasdfasdf.puasdfma",0);
         if(!assertEquals((bool)false,success5, &result)) {
             return result;
         }
@@ -232,11 +232,11 @@ public:
         TestResult result(suiteName, testName, 4, testDescription);
 
         puma::Matrix<short> matrix(100,13,43);
-        puma::export_bin(&matrix,"cpp/test/out/bin/test");
+        puma::export_bin(&matrix,puma::PString::get_puma_directory()+"cpp/test/out/bin/test");
 
         //test 1 : zero numThreads, valid file - should return true
         puma::Matrix<short> matrix2;
-        bool success2 = puma::import_bin(&matrix2,"cpp/test/out/bin/test.puma",0);
+        bool success2 = puma::import_bin(&matrix2,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",0);
         if(!assertEquals((bool)true,success2, &result)) {
             return result;
         }
@@ -252,7 +252,7 @@ public:
 
         //test 2 : negative numThreads, valid file - should return true
         puma::Matrix<short> matrix3;
-        bool success3 = puma::import_bin(&matrix3,"cpp/test/out/bin/test.puma",-5);
+        bool success3 = puma::import_bin(&matrix3,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",-5);
         if(!assertEquals((bool)true,success3, &result)) {
             return result;
         }
@@ -268,7 +268,7 @@ public:
 
         //test 3 : negative numThreads, valid file - should return true
         puma::Matrix<short> matrix4;
-        bool success4 = puma::import_bin(&matrix4,"cpp/test/out/bin/test.puma",5);
+        bool success4 = puma::import_bin(&matrix4,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",5);
         if(!assertEquals((bool)true,success4, &result)) {
             return result;
         }
@@ -284,7 +284,7 @@ public:
 
         //test 4 : zero numThreads, invalid file - should return false
         puma::Matrix<short> matrix5;
-        bool success5 = puma::import_bin(&matrix5,"cpp/test/out/tessdfasdfasdf.puasdfma",0);
+        bool success5 = puma::import_bin(&matrix5,puma::PString::get_puma_directory()+"cpp/test/out/tessdfasdfasdf.puasdfma",0);
         if(!assertEquals((bool)false,success5, &result)) {
             return result;
         }
@@ -300,11 +300,11 @@ public:
         TestResult result(suiteName, testName, 5, testDescription);
 
         puma::Matrix<int> matrix(100,13,43);
-        puma::export_bin(&matrix,"cpp/test/out/bin/test");
+        puma::export_bin(&matrix,puma::PString::get_puma_directory()+"cpp/test/out/bin/test");
 
         //test 1 : zero numThreads, valid file - should return true
         puma::Matrix<int> matrix2;
-        bool success2 = puma::import_bin(&matrix2,"cpp/test/out/bin/test.puma",0);
+        bool success2 = puma::import_bin(&matrix2,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",0);
         if(!assertEquals((bool)true,success2, &result)) {
             return result;
         }
@@ -320,7 +320,7 @@ public:
 
         //test 2 : negative numThreads, valid file - should return true
         puma::Matrix<int> matrix3;
-        bool success3 = puma::import_bin(&matrix3,"cpp/test/out/bin/test.puma",-5);
+        bool success3 = puma::import_bin(&matrix3,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",-5);
         if(!assertEquals((bool)true,success3, &result)) {
             return result;
         }
@@ -336,7 +336,7 @@ public:
 
         //test 3 : negative numThreads, valid file - should return true
         puma::Matrix<int> matrix4;
-        bool success4 = puma::import_bin(&matrix4,"cpp/test/out/bin/test.puma",5);
+        bool success4 = puma::import_bin(&matrix4,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",5);
         if(!assertEquals((bool)true,success4, &result)) {
             return result;
         }
@@ -352,7 +352,7 @@ public:
 
         //test 4 : zero numThreads, invalid file - should return false
         puma::Matrix<int> matrix5;
-        bool success5 = puma::import_bin(&matrix5,"cpp/test/out/tessdfasdfasdf.puasdfma",0);
+        bool success5 = puma::import_bin(&matrix5,puma::PString::get_puma_directory()+"cpp/test/out/tessdfasdfasdf.puasdfma",0);
         if(!assertEquals((bool)false,success5, &result)) {
             return result;
         }
@@ -369,11 +369,11 @@ public:
         TestResult result(suiteName, testName, 6, testDescription);
 
         puma::MatVec3<double> matrix(100,13,43);
-        puma::export_bin(&matrix,"cpp/test/out/bin/test");
+        puma::export_bin(&matrix,puma::PString::get_puma_directory()+"cpp/test/out/bin/test");
 
         //test 1 : zero numThreads, valid file - should return true
         puma::MatVec3<double> matrix2;
-        bool success2 = puma::import_bin(&matrix2,"cpp/test/out/bin/test.puma",0);
+        bool success2 = puma::import_bin(&matrix2,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",0);
         if(!assertEquals((bool)true,success2, &result)) {
             return result;
         }
@@ -389,7 +389,7 @@ public:
 
         //test 2 : negative numThreads, valid file - should return true
         puma::MatVec3<double> matrix3;
-        bool success3 = puma::import_bin(&matrix3,"cpp/test/out/bin/test.puma",-5);
+        bool success3 = puma::import_bin(&matrix3,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",-5);
         if(!assertEquals((bool)true,success3, &result)) {
             return result;
         }
@@ -405,7 +405,7 @@ public:
 
         //test 3 : negative numThreads, valid file - should return true
         puma::MatVec3<double> matrix4;
-        bool success4 = puma::import_bin(&matrix4,"cpp/test/out/bin/test.puma",5);
+        bool success4 = puma::import_bin(&matrix4,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",5);
         if(!assertEquals((bool)true,success4, &result)) {
             return result;
         }
@@ -421,7 +421,7 @@ public:
 
         //test 4 : zero numThreads, invalid file - should return false
         puma::MatVec3<double> matrix5;
-        bool success5 = puma::import_bin(&matrix5,"cpp/test/out/tessdfasdfasdf.puasdfma",0);
+        bool success5 = puma::import_bin(&matrix5,puma::PString::get_puma_directory()+"cpp/test/out/tessdfasdfasdf.puasdfma",0);
         if(!assertEquals((bool)false,success5, &result)) {
             return result;
         }
@@ -437,10 +437,10 @@ public:
         TestResult result(suiteName, testName, 7, testDescription);
 
         puma::Matrix<double> matrix(100,13,43);
-        puma::export_bin(&matrix,"cpp/test/out/bin/test");
+        puma::export_bin(&matrix,puma::PString::get_puma_directory()+"cpp/test/out/bin/test");
 
         puma::Matrix<double> matrix2(50,11,40);
-        bool success2 = puma::import_bin(&matrix2,"cpp/test/out/bin/test.puma",0);
+        bool success2 = puma::import_bin(&matrix2,puma::PString::get_puma_directory()+"cpp/test/out/bin/test.puma",0);
 
         if(!assertEquals((bool)true,success2, &result)) {
             return result;

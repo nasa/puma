@@ -56,6 +56,8 @@ bool FV_AMatrix::setup_Minv(){
             }
         }
     }
+
+    return true;
 }
 
 bool FV_AMatrix::A_times_X(puma::Matrix<double> *x, puma::Matrix<double> *r) {
