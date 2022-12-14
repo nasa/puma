@@ -473,26 +473,13 @@ namespace puma {
         //Generated with the help of ChatGPT
         static std::string split_and_remove(const std::string& s, int my_count)
         {
-            // Copy the input string to a mutable buffer
-            char buffer[s.length() + 1];
-            strcpy(buffer, s.c_str());
+            std::string result;
 
-            // Split the buffer into tokens delimited by '/'
-            char *token = strtok(buffer, "/");
-            std::string result = "";
-            int count = 0;
-            while (token != NULL)
-            {
-                // Append the tokens to the result string,
-                // except for the last 5 tokens
-                if (count <= my_count)
-                {
-                    result += "/" + std::string(token);
-                }
-                token = strtok(NULL, "/");
-                count++;
+            std::vector<std::string> split_string = splitString(s, "/");
+
+            for(int i=0;i<split_string.size()-my_count; i++){
+                result += split_string[i] + "/";
             }
-            result += "/";
 
             // Return the resulting string
             return result;
@@ -509,11 +496,10 @@ namespace puma {
             std::string result = "";
             while (token != NULL)
             {
-                // Build the file directory by appending the tokens
-                // to the result string, except for the last 2 tokens
                 result += "/" + std::string(token);
                 token = strtok(NULL, "/");
             }
+
 
             // Return the file directory as a std::string
             return split_and_remove(result, 5);;
