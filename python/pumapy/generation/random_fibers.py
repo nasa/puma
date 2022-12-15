@@ -58,12 +58,6 @@ def generate_random_fibers_isotropic(shape, radius, nfibers=None, porosity=None,
         Fibers created...
         >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
         >>> # puma.render_orientation(ws_fibers)
-        >>>
-        >>> # don't allow intersection between fibers
-        >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, length=200, allow_intersect=False, segmented=True)
-        Fibers created...
-        >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
-        >>> # puma.render_orientation(ws_fibers)
     """
     angle_type = 0 # isotropic
     variation = 0 # arbitrary
