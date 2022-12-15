@@ -24,7 +24,7 @@ jobs:
         run: |
           conda create -y --name puma -c conda-forge puma pytest
           conda init bash
-          source ~/.bashrc
+          source ~/.bash_profile
           conda activate puma
           python -m pip install --upgrade pip
           python -m  pip install -e .
@@ -32,6 +32,6 @@ jobs:
         working-directory: .
         run: |
           conda init bash
-          source ~/.bashrc
+          source ~/.bash_profile
           conda activate puma
           python -m doctest -o=ELLIPSIS -o=NORMALIZE_WHITESPACE python/pumapy/*/*.py
