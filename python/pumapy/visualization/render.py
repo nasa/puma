@@ -49,7 +49,7 @@ def render_volume(workspace, cutoff=None, solid_color=None, style='surface', ori
         >>> import pumapy as puma
         >>> ws_volume = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
         Importing ...
-        >>> puma.render_volume(ws_volume)
+        >>> # puma.render_volume(ws_volume)  # to visualize it
     """
     r = Renderer(existing_plot=add_to_plot, filter_type="threshold", workspace=workspace, cutoff=cutoff,
                  solid_color=solid_color, style=style, origin=origin, window_size=window_size, opacity=opacity,
@@ -99,7 +99,7 @@ def render_contour(workspace, cutoff, solid_color=(255, 255, 255), style='surfac
         >>> import pumapy as puma
         >>> ws_contour = puma.import_3Dtiff(puma.path_to_example_file("50_artfibers.tif"))
         Importing ...
-        >>> puma.render_contour(ws_contour, (128,255))
+        >>> # puma.render_contour(ws_contour, (128,255))  # to visualize it
     """
     r = Renderer(existing_plot=add_to_plot, filter_type="contour", workspace=workspace, cutoff=cutoff,
                  solid_color=solid_color, style=style, origin=origin, window_size=window_size, opacity=opacity,
@@ -157,7 +157,7 @@ def render_orientation(workspace, scale_factor=1., solid_color=None, style='surf
         Importing ...
         >>> puma.compute_orientation_st(ws_orientation, (90, 255))
         First gradient computation ...
-        >>> puma.render_orientation(ws_orientation)
+        >>> # puma.render_orientation(ws_orientation)  # to visualize it
     """
     r = Renderer(existing_plot=add_to_plot, filter_type="glyph", workspace=workspace, solid_color=solid_color, style=style,
                  origin=origin, window_size=window_size, opacity=opacity, background=background, show_grid=show_grid,
@@ -208,18 +208,19 @@ def render_warp(workspace, scale_factor=1., color_by='magnitude', style='surface
 
         :Example:
         >>> import pumapy as puma
-        >>> ws = puma.Workspace.from_shape_value((20, 25, 18), 1)
-        >>> ws[ws.matrix.shape[0]//2:] = 2
-        >>> elast_map = puma.ElasticityMap()
-        >>> elast_map.add_isotropic_material((1, 1), 200, 0.3)
-        >>> elast_map.add_isotropic_material((2, 2), 400, 0.1)
-        >>> bc = puma.ElasticityBC(ws)
-        >>> bc.dirichlet[0] = 0  # hold x -ve face
-        >>> bc.dirichlet[-1, :, :, 0] = 10   # displace x +ve face by 1 in x direction
-        >>> bc.dirichlet[-1, :, :, 1:] = 0  # hold x +ve face in y and z directions
-        >>> ws.orientation, _, _ = puma.compute_stress_analysis(ws, elast_map, bc, side_bc='f', solver_type="direct")
-        Initializing and padding domains ...
-        >>> puma.render_warp(ws, color_by='y', style='edges')
+        >>> import numpy as np
+        >>> dim = 50
+        >>> ws = puma.generate_cylinder_square_array(dim, 0.44)
+        Generated in: ...
+        >>> ws.matrix = np.repeat(ws.matrix, 5, axis=2)
+        >>> #puma.render_volume(ws)  # to visualize it
+        >>> mat_elast = puma.experimental.ElasticityMap()
+        >>> mat_elast.add_isotropic_material((0, 0), 68.3, 0.3)
+        >>> mat_elast.add_isotropic_material((1, 1), 379.3, 0.1)
+        >>> C = np.zeros((6, 6))
+        >>> C[:, 0], u, s, t = puma.experimental.compute_elasticity(ws, mat_elast, direction='x', side_bc='p', solver_type="bicgstab")
+        Approximate memory requirement for simulation: ...
+        >>> #puma.experimental.warp_elasticity_fields(ws, u, s, t, scale_factor=10, xy_view=True)  # to visualize it
     """
     if not isinstance(workspace, Workspace):
         raise Exception('Input is not a pumapy.Workspace.')
@@ -277,7 +278,7 @@ def render_contour_multiphase(workspace, cutoffs, solid_colors=None, style='surf
         >>> import pumapy as puma
         >>> ws_multiphase = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
         Importing ...
-        >>> puma.render_contour_multiphase(ws_multiphase, ((100, 150), (150, 255)))
+        >>> # puma.render_contour_multiphase(ws_multiphase, ((100, 150), (150, 255)))  # to visualize it
     """
 
     if add_to_plot is None:

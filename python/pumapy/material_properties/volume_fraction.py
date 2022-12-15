@@ -17,7 +17,9 @@ def compute_volume_fraction(workspace, cutoff, display=True):
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
+        Importing ...
         >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255)) # compute volume fraction
+        Volume Fraction for cutoff ...
     """
     volume_fraction = VolumeFraction(workspace, cutoff, display)
 
