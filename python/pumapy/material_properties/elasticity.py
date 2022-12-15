@@ -46,25 +46,24 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
         >>> elast_map.add_isotropic_material((2, 2), 400, 0.1)
         >>> C = np.zeros((6, 6))
         >>> C[:, 0], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='x', solver_type='direct')
+        Approximate memory requirement for simulation: ...
         >>> C[:, 1], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='y', solver_type='direct')
+        Approximate memory requirement for simulation: ...
         >>> C[:, 2], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='z', solver_type='direct')
+        Approximate memory requirement for simulation: ...
         >>> C[:, 3], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='yz', solver_type='direct')
+        Approximate memory requirement for simulation: ...
         >>> C[:, 4], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='xz', solver_type='direct')
+        Approximate memory requirement for simulation: ...
         >>> C[:, 5], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='xy', solver_type='direct')
-        >>> print(C)
+        Approximate memory requirement for simulation: ...
         >>> coeffs = puma.experimental.get_E_nu_from_elasticity(C)
+        E1 ...
         >>> #puma.plot_elasticity_fields(ws, u, s, t)  # to visualize fields
         >>> #puma.warp_elasticity_fields(ws, u, s, t, 5)  # to visualize fields
         >>> #puma.export_elasticity_fields_vti("path/to/folder", ws, u, s, t)  # to export fields
-        >>> C = np.zeros((6, 6))
-        >>> C[:, 0], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='x', solver_type='direct', method='fe')  # finite element solver
-        >>> C[:, 1], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='y', solver_type='direct', method='fe')
-        >>> C[:, 2], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='z', solver_type='direct', method='fe')
-        >>> C[:, 3], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='yz', solver_type='direct', method='fe')
-        >>> C[:, 4], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='xz', solver_type='direct', method='fe')
-        >>> C[:, 5], u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='xy', solver_type='direct', method='fe')
-        >>> print(C)
-        >>> coeffs = puma.experimental.get_E_nu_from_elasticity(C)
+        >>> C1, u, s, t = puma.experimental.compute_elasticity(ws, elast_map, direction='x', solver_type='direct', method='fe')  # finite element solver
+        Approximate memory requirement for simulation: ...
     """
     if not isinstance(workspace, Workspace):
         raise Exception("Workspace must be a puma.Workspace.")
@@ -130,6 +129,7 @@ def compute_stress_analysis(workspace, elast_map, prescribed_bc, side_bc='p', to
         >>> bc.xfaces[1, :, :, 1] = 1
         >>> bc.xfaces[1, :, :, 2] = 0
         >>> u, s, t = puma.experimental.compute_stress_analysis(ws, elast_map, bc)
+        Approximate memory requirement for simulation: ...
         >>> # puma.warp_elasticity_fields(ws[:, 1:-1, 1:-1], u[:, 1:-1, 1:-1], s[:, 1:-1, 1:-1], t[:, 1:-1, 1:-1], 20, show_original=0., show_edges=True)  # to visualize
     """
     if not isinstance(workspace, Workspace):

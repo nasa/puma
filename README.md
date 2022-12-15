@@ -7,7 +7,7 @@
 [![PyPI version](https://badge.fury.io/py/pumapy.svg)](https://badge.fury.io/py/pumapy)
 ![pumapy Tests](https://github.com/nasa/puma/actions/workflows/test-pumapy.yml/badge.svg)
 [![Gitter](https://badges.gitter.im/puma-nasa/community.svg)](https://gitter.im/puma-nasa/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nasa/puma/v3.2.0)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nasa/puma/main)
 
 -----
 
@@ -22,7 +22,7 @@ A few useful resources:
 - [Community chat](https://gitter.im/puma-nasa/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
   to ask questions or to get in touch
 - [YouTube channel](https://www.youtube.com/channel/UCBp_QC6ctwzdyxfZn7uHj0w/playlists) with the video tutorials
-- [Online tutorial](https://github.com/nasa/puma/tree/main/tutorials) with examples for both python and C++
+- [Tutorials](https://github.com/nasa/puma/tree/main/tutorials) with examples for both python and C++
 
 ## Software description
 

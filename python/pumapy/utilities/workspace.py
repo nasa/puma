@@ -661,11 +661,13 @@ class Workspace:
             self.orientation = rotate(self.orientation, angle=degrees, axes=axes, mode=boundary_mode,
                                       reshape=reshape, order=0)
 
-    def porosity(self, cutoff=(0, 0)):
+    def porosity(self, cutoff=(0, 0), display=False):
         """ Compute porosity of domain
 
             :param cutoff: void cutoff
             :type cutoff: (int, int)
+            :param display: print result
+            :type display: bool
             :return: volume fraction
             :rtype: float
 
@@ -673,10 +675,10 @@ class Workspace:
             >>> import pumapy as puma
             >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
             Importing ...
-            >>> ws.porosity(cutoff=(0, 89))
+            >>> ws.porosity(cutoff=(0, 89), display=True)
             Volume Fraction for cutoff (0, 89): ...
         """
-        return pumapy.compute_volume_fraction(self, cutoff)
+        return pumapy.compute_volume_fraction(self, cutoff, display=display)
 
 
     def show_matrix(self):
