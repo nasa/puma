@@ -39,8 +39,8 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         >>> import pyvista as pv
         >>> ws = puma.generate_random_fibers_transverseisotropic(shape=(50, 50, 50), radius=2, porosity=0.7, direction='x', variation=15, length=200, allow_intersect=True, segmented=True)
          Fibers created...
-        >>> keff, (ux, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x', tol=1e-5)
-        WARNING: The minres permeability solver ...
+        >>> keff, (ux, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x', tol=1e-7)
+        Approximate memory requirement for simulation: ...
         >>> # p = pv.Plotter()  # to visualize it
         >>> # puma.render_orientation(ux, add_to_plot=p, scale_factor=2e12, plot_directly=False)
         >>> # ws.voxel_length = 1  # the voxel_length is converted to 1 for plotting the workspace together with the velocity
