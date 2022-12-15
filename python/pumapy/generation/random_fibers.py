@@ -232,26 +232,6 @@ def generate_random_fibers(shape, radius, nfibers=None, porosity=None, phi=90., 
         :type segmented: bool
         :return: random fibers domain
         :rtype: Workspace
-
-        :Example:
-        >>> import pumapy as puma
-        >>> # specify porosity
-        >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, phi=90, theta=90, length=200, allow_intersect=True, segmented=True)
-        Fibers created...
-        >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
-        >>> # puma.render_orientation(ws_fibers)
-        >>>
-        >>> # specify number of fibers
-        >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, nfibers=100, phi=90, theta=90, length=200, allow_intersect=True, segmented=False)
-        Fibers created...
-        >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
-        >>> # puma.render_orientation(ws_fibers)
-        >>>
-        >>> # don't allow intersection between fibers
-        >>> ws_fibers = puma.generate_random_fibers(shape=(100, 100, 100), radius=4, porosity=0.8, phi=90, theta=90, length=200, allow_intersect=False, segmented=True)
-        Fibers created...
-        >>> # puma.render_volume(ws_fibers, cutoff=(1, ws_fibers.max()), cmap='jet')  # to visualize it
-        >>> # puma.render_orientation(ws_fibers)
     """
 
     print_warning("Deprecated API for fiber generation. New API has function calls for isotropic, transverse isotropic, and 1D fibers rather than specifying phi and theta. This function call will be removed in a future version")
