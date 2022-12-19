@@ -1,6 +1,5 @@
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.timer import Timer
-from pumapy.generation.single_sphere import get_sphere
 from pumapy.material_properties.volume_fraction import compute_volume_fraction
 import numpy as np
 from pumapy.utilities.logger import print_warning
@@ -12,7 +11,7 @@ def generate_pitting(workspace, surface_threshold, mean_radius, deviation_radius
     """ Generation of pitting into existing workspace
 
         :param workspace: pumapy workspace to add pitting to
-        :type workspace: (int, int, int)
+        :type workspace: pumapy.Workspace
         :param surface_threshold: threshold value at which the solid starts. Void phase is contained in (0,surface_threshold-1)
         :type surface_threshold: int
         :param mean_radius: mean radius of the pits
@@ -32,21 +31,22 @@ def generate_pitting(workspace, surface_threshold, mean_radius, deviation_radius
         >>> w = 0.08  # value of w in the equations above
         >>> q = 0.2  # value of q in the equations above
         >>> ws_eq0 = puma.generate_tpms(shape, w, q, equation=0, segmented=False)
+        Generating TPMS ...
         >>> surface_threshold = 128 # threshold value at which the solid starts. Void phase is contained in (0,surface_threshold-1)
         >>> mean_radius = 4 # Mean radius of the pits, in voxels
         >>> deviation_radius = 3 # Deviation of the pits, in voxels
         >>> volume_fraction_removed = 0.01 # Volume fraction of the pits to be removed
-        >>> puma.generate_pitting(ws_eq0, surface_threshold, mean_radius, deviation_radius, volume_fraction_removed)
-        >>> puma.render_contour(ws_eq0, (128,255))
+        >>> puma.experimental.generate_pitting(ws_eq0, surface_threshold, mean_radius, deviation_radius, volume_fraction_removed)
+        Volume Fraction for cutoff ...
+        >>> # puma.render_contour(ws_eq0, (128,255))  # to visualize it
     """
 
     pitter = GeneratorPits(workspace, surface_threshold, mean_radius, deviation_radius, volume_fraction_removed, max_pits)
 
     pitter.error_check()
+
     pitter.log_input()
-
     pitter.generate()
-
     pitter.log_output()
 
 
@@ -60,7 +60,6 @@ class GeneratorPits:
         self._max_pits = max_pits
 
     def generate(self):
-
         t = Timer()
 
         # creating a buffer around the domain
@@ -71,12 +70,11 @@ class GeneratorPits:
         mat_copy = np.zeros((new_x_length,new_y_length,new_z_length))
         mat_copy[buflength:new_x_length-buflength,buflength:new_y_length-buflength,buflength:new_z_length-buflength] = self._workspace.matrix
 
-
         ## Determining all of the surface voxels
         tmp1 = np.where(mat_copy < self._surface_threshold, 0, 1)
-        sums = ( np.roll(tmp1, shift=1, axis=0) + np.roll(tmp1, shift=-1, axis=0) \
-                +  np.roll(tmp1, shift=1, axis=1) + np.roll(tmp1, shift=-1, axis=1) \
-               + np.roll(tmp1, shift=1, axis=2) + np.roll(tmp1, shift=-1, axis=2) )
+        sums = (np.roll(tmp1, shift=1, axis=0) + np.roll(tmp1, shift=-1, axis=0) +
+                np.roll(tmp1, shift=1, axis=1) + np.roll(tmp1, shift=-1, axis=1) +
+                np.roll(tmp1, shift=1, axis=2) + np.roll(tmp1, shift=-1, axis=2))
         mask=np.zeros(sums.shape)
         mask[sums < 6] = 1
         mask[tmp1 == 0] = 0
@@ -88,8 +86,6 @@ class GeneratorPits:
         indices = np.argwhere(mask == 1)
 
         print(indices.shape)
-        ##
-
 
         if indices.size == 0:
             print_warning("No internal surfaces found. Please check threshold value")
@@ -127,12 +123,11 @@ class GeneratorPits:
             sphere = (255. - 127.5 * (1 + np.tanh((dist - radius))))
             sphere[sphere < 127.5] = 1
             sphere[sphere > 127.5] = 0
-            ##
 
             # putting the sphere into the buffered matrix
             mat_copy[random_index[0] - half_shape_val : random_index[0] + half_shape_val + 1,
-                random_index[1] - half_shape_val: random_index[1] + half_shape_val + 1,
-                random_index[2] - half_shape_val: random_index[2] + half_shape_val + 1,] *= sphere
+            random_index[1] - half_shape_val: random_index[1] + half_shape_val + 1,
+            random_index[2] - half_shape_val: random_index[2] + half_shape_val + 1,] *= sphere
 
             # calculating how much material we removed
             vf = compute_volume_fraction(mat_copy[buflength:new_x_length-buflength,buflength:new_y_length-buflength,buflength:new_z_length-buflength], (0, self._surface_threshold-1))
@@ -145,7 +140,6 @@ class GeneratorPits:
             if my_iteration > self._max_pits :
                 print_warning("Volume Fraction was not achieved. Maximum iterations reached. Check input parameters")
                 break
-
 
         # Put the updated matrix back into the workspace removing the buffer
         self._workspace.matrix = mat_copy[buflength:new_x_length-buflength,buflength:new_y_length-buflength,buflength:new_z_length-buflength]
@@ -184,6 +178,5 @@ class GeneratorPits:
             raise Exception("Error, invalid mean_radius, must be >0")
         if self._deviation_radius < 0 or self._deviation_radius >= self._mean_radius:
             raise Exception("Error, invalid deviation_radius, must be > 0 and < mean_radius")
-        if self._volume_fraction_removed > compute_volume_fraction(self._workspace, (self._surface_threshold,1e5)):
+        if self._volume_fraction_removed > compute_volume_fraction(self._workspace, (self._surface_threshold,int(1e5))):
             raise Exception("Error, volume fraction to be removed is larger that solid volume fraction")
-

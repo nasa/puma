@@ -7,7 +7,7 @@
 [![PyPI version](https://badge.fury.io/py/pumapy.svg)](https://badge.fury.io/py/pumapy)
 ![pumapy Tests](https://github.com/nasa/puma/actions/workflows/test-pumapy.yml/badge.svg)
 [![Gitter](https://badges.gitter.im/puma-nasa/community.svg)](https://gitter.im/puma-nasa/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nasa/puma/main)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/jcfergus%2Fpuma-dev/main)
 
 -----
 
@@ -22,7 +22,7 @@ A few useful resources:
 - [Community chat](https://gitter.im/puma-nasa/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
   to ask questions or to get in touch
 - [YouTube channel](https://www.youtube.com/channel/UCBp_QC6ctwzdyxfZn7uHj0w/playlists) with the video tutorials
-- [Online tutorial](https://github.com/nasa/puma/tree/main/tutorial) with examples for both python and C++
+- [Tutorials](https://github.com/nasa/puma/tree/main/tutorials) with examples for both python and C++
 
 ## Software description
 
@@ -113,7 +113,7 @@ Once the installation is complete, the PuMA GUI can be launched by running:
     conda activate puma
     pumaGUI
 
-You can follow the [jupyter notebook tutorials](https://github.com/nasa/puma/tree/main/tutorial), 
+You can follow the [jupyter notebook tutorials](https://github.com/nasa/puma/tree/main/tutorials), 
 which show the typical function usage for both PuMA C++ and pumapy. These can also be run directly in Binder.
 
 ### How to setup PuMA on the NAS cluster:

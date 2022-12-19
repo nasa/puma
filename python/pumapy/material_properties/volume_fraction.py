@@ -9,13 +9,17 @@ def compute_volume_fraction(workspace, cutoff, display=True):
         :type workspace: pumapy.Workspace or np.ndarray
         :param cutoff: to binarize domain
         :type cutoff: (int, int)
+        :param display: print result
+        :type display: bool
         :return: volume fraction
         :rtype: float
 
         :Example:
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6) # import example file
+        Importing ...
         >>> vf = puma.compute_volume_fraction(ws, cutoff=(90, 255)) # compute volume fraction
+        Volume Fraction for cutoff ...
     """
     volume_fraction = VolumeFraction(workspace, cutoff, display)
 

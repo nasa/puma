@@ -22,7 +22,7 @@ def plot_slices(ws_nparray, slice_direction='z', crange=None, cmap='gray', index
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("100_fiberform.tif"), 1.3e-6)
         Importing ...
-        >>> puma.plot_slices(ws)
+        >>> #puma.plot_slices(ws)  # to visualize it
     """
 
     img, _ = PlotSlicer.error_checks(ws_nparray, None, slice_direction)
@@ -61,7 +61,7 @@ def compare_slices(ws_nparray1, ws_nparray2, slice_direction='z', crange1=None, 
         Importing ...
         >>> ws2 = ws.copy()
         >>> ws2.binarize_range((100, 255))
-        >>> puma.compare_slices(ws, ws2)
+        >>> #puma.compare_slices(ws, ws2)  # to visualize it
     """
 
     img1, img2 = CompareSlicer.error_checks(ws_nparray1, ws_nparray2, slice_direction)

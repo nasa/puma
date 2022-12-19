@@ -64,7 +64,7 @@ class Permeability(PropertySolver):
     def compute(self):
         t = Timer()
         estimate_max_memory("permeability", self.ws.get_shape(), self.solver_type,
-                            mf=self.matrix_free, perm_fluid_vf=self.ws.porosity((0, 0)))
+                            mf=self.matrix_free, perm_fluid_vf=self.ws.porosity((0, 0), display=False))
         self.create_element_matrices()
         self.initialize()
         self.assemble_Amatrix()
@@ -520,8 +520,8 @@ class Permeability(PropertySolver):
         if self.solver_type == 'direct':
             self.direction = 'd'
 
-        if self.tolerance > 1e-8 and self.solver_type == 'minres':
-            print_warning("The minres permeability solver requires a lower tolerance value than other PuMA solvers. A tolerance value of 1e-8 or lower is recommended")
+        if self.tolerance > 1e-7 and self.solver_type == 'minres':
+            print_warning("The minres permeability solver requires a lower tolerance value than other PuMA solvers. A tolerance value of 1e-7 or lower is recommended")
 
         if compute_volume_fraction(self.ws, (1, 1), display=False) == 1:
             raise Exception("Entire domain is solid - double check the provided cutoff")

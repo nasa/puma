@@ -37,13 +37,15 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         :Example:
         >>> import pumapy as puma
         >>> import pyvista as pv
-        >>> ws = puma.generate_random_fibers(shape=(50, 50, 50), radius=2, porosity=0.7, phi=90, theta=90, length=200)
-        >>> keff, (ux, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x')
-        >>> p = pv.Plotter()
-        >>> puma.render_orientation(ux, add_to_plot=p, scale_factor=2, plot_directly=False)
-        >>> ws.voxel_length = 1  # the voxel_length is converted to 1 for plotting the workspace together with the velocity
-        >>> puma.render_volume(ws, cutoff=(1, ws.max()), add_to_plot=p, plot_directly=False, cmap='jet')
-        >>> p.show()
+        >>> ws = puma.generate_random_fibers_transverseisotropic(shape=(50, 50, 50), radius=2, porosity=0.7, direction='x', variation=15, length=200, allow_intersect=True, segmented=True)
+         Fibers created...
+        >>> keff, (ux, _, _) = puma.compute_permeability(ws, (1, ws.max()), direction='x', tol=1e-7)
+        Approximate memory requirement for simulation: ...
+        >>> # p = pv.Plotter()  # to visualize it
+        >>> # puma.render_orientation(ux, add_to_plot=p, scale_factor=2e12, plot_directly=False)
+        >>> # ws.voxel_length = 1  # the voxel_length is converted to 1 for plotting the workspace together with the velocity
+        >>> # puma.render_volume(ws, cutoff=(1, ws.max()), add_to_plot=p, plot_directly=False, cmap='jet')
+        >>> # p.show()
     """
     solver = Permeability(workspace, solid_cutoff, direction, tol, maxiter, solver_type, display_iter,
                           matrix_free, precondition, output_fields)
