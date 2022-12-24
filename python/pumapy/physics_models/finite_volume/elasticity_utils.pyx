@@ -2,7 +2,7 @@ import numpy as np
 cimport numpy as np
 
 np.import_array()
-DTYPE = np.int
+DTYPE = np.int_
 ctypedef np.int_t DTYPE_t
 
 
