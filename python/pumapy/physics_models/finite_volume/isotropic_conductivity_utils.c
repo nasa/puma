@@ -26253,7 +26253,7 @@ if (!__Pyx_RefNanny) {
  * import numpy as np
  * import sys             # <<<<<<<<<<<<<<
  * 
- * DTYPE = np.float
+ * DTYPE = np.float64
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_sys, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -26263,7 +26263,7 @@ if (!__Pyx_RefNanny) {
   /* "pumapy/physics_models/finite_volume/isotropic_conductivity_utils.pyx":4
  * import sys
  * 
- * DTYPE = np.float             # <<<<<<<<<<<<<<
+ * DTYPE = np.float64             # <<<<<<<<<<<<<<
  * 
  * 
  */

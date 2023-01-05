@@ -1299,7 +1299,7 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
 /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":6
  * np.import_array()
- * DTYPE = np.int
+ * DTYPE = np.int_
  * ctypedef np.int_t DTYPE_t             # <<<<<<<<<<<<<<
  * 
  * 
@@ -23309,7 +23309,7 @@ if (!__Pyx_RefNanny) {
  * cimport numpy as np
  * 
  * np.import_array()             # <<<<<<<<<<<<<<
- * DTYPE = np.int
+ * DTYPE = np.int_
  * ctypedef np.int_t DTYPE_t
  */
   __pyx_t_2 = __pyx_f_5numpy_import_array(); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 4, __pyx_L1_error)
@@ -23317,7 +23317,7 @@ if (!__Pyx_RefNanny) {
   /* "pumapy/physics_models/finite_volume/anisotropic_conductivity_utils.pyx":5
  * 
  * np.import_array()
- * DTYPE = np.int             # <<<<<<<<<<<<<<
+ * DTYPE = np.int_             # <<<<<<<<<<<<<<
  * ctypedef np.int_t DTYPE_t
  * 
  */
