@@ -23,13 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update && sudo apt-get install libgl1 -y
-          conda create -y --name puma -c conda-forge puma gcc pytest
-          conda init bash
-          source ~/.bashrc
-          conda activate puma
-          python -m pip uninstall pumapy -y 
-          python -m pip install --upgrade pip
-          python -m  pip install -e .
+          ./installer.sh
       - name: Test with pytest
         working-directory: ./python/test
         run: |
