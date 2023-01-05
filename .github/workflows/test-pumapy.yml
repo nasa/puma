@@ -27,6 +27,7 @@ jobs:
           conda init bash
           source ~/.bashrc
           conda activate puma
+          python -m pip uninstall pumapy -y 
           python -m pip install --upgrade pip
           python -m  pip install -e .
       - name: Test with pytest
