@@ -1,7 +1,7 @@
 import numpy as np
 import sys
 
-DTYPE = np.double
+DTYPE = float
 
 
 def index_at_p(int i, int j, int k, int len_x, int len_y, int len_z):
