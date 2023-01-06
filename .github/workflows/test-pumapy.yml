@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update && sudo apt-get install libgl1 -y
-          ./installer.sh
+          ./install/pumapy_installer.sh
       - name: Test with pytest
         working-directory: ./python/test
         run: |
