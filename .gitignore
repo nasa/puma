@@ -45,7 +45,6 @@ dist
 pumapy.egg-info
 .eggs
 main.py
-python/pumapy/physics_models/*/*.c
 
 
 # jupyter notebooks
