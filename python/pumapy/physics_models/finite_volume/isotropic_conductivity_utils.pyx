@@ -1,6 +1,8 @@
 import numpy as np
 import sys
 
+DTYPE = float
+
 def index_at_p(int i, int j, int k, int len_x, int len_y, int len_z):
     if i == -1:
         i = len_x - 1
