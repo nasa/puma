@@ -218,7 +218,7 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc
 
 # to maybe be parallelized in the future
     for i in range(1, l_x - 1):
-        sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(float(i) / (l_x-2) * 100))
+        #sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(float(i) / (l_x-2) * 100))
         for j in range(1, l_y - 1):
             for k in range(1, l_z - 1):
 
