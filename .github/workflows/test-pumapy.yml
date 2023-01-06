@@ -28,6 +28,7 @@ jobs:
           source ~/.bashrc
           conda activate puma
           python -m pip install --upgrade pip
+          python -m pip install cython
           python -m  pip install -e .
       - name: Test with pytest
         working-directory: ./python/test

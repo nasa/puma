@@ -27,6 +27,7 @@ jobs:
           source ~/.bash_profile
           conda activate puma
           python -m pip install --upgrade pip
+          python -m pip install cython
           python -m  pip install -e .
       - name: Test with doctest
         working-directory: .
