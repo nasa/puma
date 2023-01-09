@@ -578,11 +578,11 @@ class TestFiniteElementAnisotropicTC(unittest.TestCase):
         cond_map.add_isotropic_material((0, 128), 0.0257)
         cond_map.add_material_to_orient((129, 255), 10, 1)
 
-        keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, 'x', solver_type='minres', tolerance=1e-7, matrix_free=False, method='fe')
+        keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, 'x', solver_type='minres', tolerance=1e-8, matrix_free=False, method='fe')
         np.testing.assert_array_almost_equal(keff, [0.06745428716343704, -0.004375283607634153, 0.0011587203619874528], decimal=4)
-        keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, 'y', solver_type='minres', tolerance=1e-7, matrix_free=False, method='fe')
+        keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, 'y', solver_type='minres', tolerance=1e-8, matrix_free=False, method='fe')
         np.testing.assert_array_almost_equal(keff, [-0.004394957645331049, 0.07009870980864435, -0.00521480227586068], decimal=4)
-        keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, 'z', solver_type='minres', tolerance=1e-7, matrix_free=False, method='fe')
+        keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, 'z', solver_type='minres', tolerance=1e-8, matrix_free=False, method='fe')
         np.testing.assert_array_almost_equal(keff, [0.0011873151479020543, -0.005200248935462725, 0.052539850175818394], decimal=4)
 
 
