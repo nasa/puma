@@ -31,7 +31,7 @@ Please refer to this publication for a detailed software architecture explanatio
 # - git push nasa main
 # - git tag -a v$(python setup.py --version) -m 'INPUT DESCRIPTION'
 # - gh release create v$(python setup.py --version) --target main
-__version__ = "3.2.1"
+__version__ = "3.2.0"
 
 # experimental submodule:
 from . import experimental
