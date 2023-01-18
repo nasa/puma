@@ -19,8 +19,7 @@ Please cite using this BibTex:
 
 import sys
 import numpy as np
-from scipy.ndimage.filters import gaussian_filter
-from scipy.ndimage import distance_transform_edt
+from scipy.ndimage import gaussian_filter, distance_transform_edt
 from pumapy.utilities.generic_checks import check_ws_cutoff
 
 
