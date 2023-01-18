@@ -1,8 +1,10 @@
 import numpy as np
+cimport numpy as np
 import sys
 
-DTYPE = np.float
-
+np.import_array()
+DTYPE = np.int_
+ctypedef np.int_t DTYPE_t
 
 def index_at_p(int i, int j, int k, int len_x, int len_y, int len_z):
     if i == -1:
@@ -219,7 +221,7 @@ def setup_matrices_cy(double [:] _kf, int l_x, int l_y, int l_z, short domain_bc
 
 # to maybe be parallelized in the future
     for i in range(1, l_x - 1):
-        sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(float(i) / (l_x-2) * 100))
+        #sys.stdout.write("\rAssembling A matrix ... {:.1f}% ".format(float(i) / (l_x-2) * 100))
         for j in range(1, l_y - 1):
             for k in range(1, l_z - 1):
 

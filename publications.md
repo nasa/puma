@@ -3,6 +3,12 @@
 The following is a chronological list of publications and presentations about the PuMA software and its capabilities:
 
 
+- Lopes, P.C.F., Vianna, R.S., Sapucaia, V.W., Semeraro, F., Leiderman, R., Pereira, A.M.B., 2023. 
+  Simulation toolkit for digital material characterization of large image-based microstructures. 
+  Computational Materials Science, 219, p.112021.
+  [link to paper](https://www.sciencedirect.com/science/article/pii/S0927025623000150)
+
+
 - Fraile Izquierdo, S., Semeraro, F. and Acín, M., 2022. 
   Multi-Scale Analysis of Effective Mechanical Properties of Porous 3D Woven Composite Materials. 
   In AIAA SCITECH 2022 Forum (p. 2281).

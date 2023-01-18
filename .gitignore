@@ -19,6 +19,7 @@ cpp/test/CMakeLists.txt
 cpp/src/CMakeLists.txt
 CMakeLists.txt.user
 
+
 # conda environment
 !.readthedocs.yml
 !doc/sphinx_env.yml
@@ -44,6 +45,7 @@ dist
 pumapy.egg-info
 .eggs
 main.py
+
 
 # jupyter notebooks
 .ipynb_checkpoints
