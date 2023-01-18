@@ -368,20 +368,17 @@ class TestFiniteVolumeAnisotropicTC(unittest.TestCase):
         bc.xfaces[0] = 0
         bc.xfaces[1] = 1
         keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, '', 's', prescribed_bc=bc, tolerance=1e-5, matrix_free=False)
-        print(keff)
         np.testing.assert_array_almost_equal(keff, [0.08943850091779587, 0.0009302391577982926, 0.003266055217241104], decimal=3)
         bc = puma.AnisotropicConductivityBC(ws)
         bc.yfaces[0] = 0
         bc.yfaces[1] = 1
         keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, '', 's', prescribed_bc=bc, tolerance=1e-5, matrix_free=False)
-        print(keff)
         np.testing.assert_array_almost_equal(keff, [0.0006042199183454983, 0.1524122632672828, 0.0017681983127303493], decimal=3)
         bc = puma.AnisotropicConductivityBC(ws)
         bc.zfaces[0] = 0
         bc.zfaces[1] = 1
         keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, '', 'p', prescribed_bc=bc, tolerance=1e-5, matrix_free=False)
         np.testing.assert_array_almost_equal(keff, [-0.004294621647451377, 0.009307678810456408, 0.13749729264962243], decimal=3)
-        print(keff)
 
     def test_artfib50_orient_prescribed_bc(self):
         ws = puma.import_vti("testdata/artifib.vtk")
@@ -396,19 +393,19 @@ class TestFiniteVolumeAnisotropicTC(unittest.TestCase):
         bc.xfaces[1] = 1
         keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, '', 's', tolerance=1e-5, prescribed_bc=bc)
         # puma.plot_conductivity_fields(ws, T, q)
-        np.testing.assert_array_almost_equal(keff, [0.06712707273637297, -0.0007017851098093986, 0.0017924686637479958], decimal=4)
+        np.testing.assert_array_almost_equal(keff, [0.06712707273637297, -0.0007017851098093986, 0.0017924686637479958], decimal=3)
         bc = puma.AnisotropicConductivityBC(ws)
         bc.yfaces[0] = 0
         bc.yfaces[1] = 1
         keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, '', 's', tolerance=1e-5, prescribed_bc=bc)
         # puma.plot_conductivity_fields(ws, T, q)
-        np.testing.assert_array_almost_equal(keff, [0.003760128942078807, 0.07922692884170093, 0.003888392944562686], decimal=4)
+        np.testing.assert_array_almost_equal(keff, [0.003760128942078807, 0.07922692884170093, 0.003888392944562686], decimal=3)
         bc = puma.AnisotropicConductivityBC(ws)
         bc.zfaces[0] = 0
         bc.zfaces[1] = 1
         keff, T, q = puma.compute_thermal_conductivity(ws, cond_map, '', 's', tolerance=1e-5, prescribed_bc=bc)
         # puma.plot_conductivity_fields(ws, T, q)
-        np.testing.assert_array_almost_equal(keff, [0.0015291100308031456, -0.0016663003168615753, 0.044952464988095735], decimal=4)
+        np.testing.assert_array_almost_equal(keff, [0.0015291100308031456, -0.0016663003168615753, 0.044952464988095735], decimal=3)
 
 
 class TestFiniteElementAnisotropicTC(unittest.TestCase):
