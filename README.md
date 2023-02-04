@@ -39,7 +39,8 @@ tortuosity from the continuum to the rarefied regime; techniques to determine th
 as well as the mechanical properties (elasticity coefficient), and the permeability of a material.
 
 Some examples of microstructures that have been run in the past are shown in the pictures below,
-together with PuMA's software architecture schematic.
+together with PuMA's software architecture schematic. See the [publications](https://github.com/nasa/puma/blob/main/publications.md) 
+for more information about the software and its capabilities.
 
 <p align="center">
   <img src="https://github.com/nasa/puma/raw/main/doc/source/puma_description.png" width="100%"></img>
