@@ -64,7 +64,7 @@ def estimate_max_memory(material_property, workspace_shape, solver_type='iterati
     """ Compute an estimate of the extra maximum memory required to run a specified material property on a domain
 
         :param material_property: property to estimate, options:
-        'anisotropic_conductivity', 'isotropic_conductivity', 'tortuosity', 'elasticity', 'permeability'
+            'anisotropic_conductivity', 'isotropic_conductivity', 'tortuosity', 'elasticity', 'permeability'
         :type material_property: string
         :param workspace_shape: size of the domain to compute
         :type workspace_shape: (int, int, int)

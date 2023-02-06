@@ -11,12 +11,12 @@ class Workspace:
         """ Workspace class holding the domain as a numpy matrix
 
             :param kwargs: keyword arguments
-            - No arguments --> zero matrix of shape (1,1,1)
-            - 'shape' argument --> then set all to zeros
-            - 'value' --> value set all to full of value
-            - 'nparray' --> set Workspace matrix as input array
-            - 'scalars' --> bool indicating if a Workspace contains scalars stored in matrix variable
-            - 'vectors' --> bool indicating if a Workspace contains vectors stored in orientation variable
+                - No arguments --> zero matrix of shape (1,1,1)
+                - 'shape' argument --> then set all to zeros
+                - 'value' --> value set all to full of value
+                - 'nparray' --> set Workspace matrix as input array
+                - 'scalars' --> bool indicating if a Workspace contains scalars stored in matrix variable
+                - 'vectors' --> bool indicating if a Workspace contains vectors stored in orientation variable
             :type kwargs: dict
         """
         self.log = Logger()

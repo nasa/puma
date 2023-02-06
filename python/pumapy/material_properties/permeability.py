@@ -1,3 +1,11 @@
+"""
+The following FE numerical method and implementation are based on the following research paper:
+
+Lopes, P.C., Vianna, R.S., Sapucaia, V.W., Semeraro, F., Leiderman, R. and Pereira, A.M., 2023.
+Simulation toolkit for digital material characterization of large image-based microstructures.
+Computational Materials Science, 219, p.112021.
+(https://www.sciencedirect.com/science/article/pii/S0927025623000150)
+"""
 from pumapy.physics_models.finite_element.fe_permeability import Permeability
 
 
@@ -13,7 +21,7 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         :param solid_cutoff: specify the solid phase
         :type solid_cutoff: (int, int)
         :param direction: direction for solve ('xyz','x','y','z'). Note that if solver_type="direct", then the direction
-        is considered as "xyz" automatically because there is no need to invert the A sparse matrix multiple times
+            is considered as "xyz" automatically because there is no need to invert the A sparse matrix multiple times
         :type direction: str
         :param tol: tolerance for iterative solver
         :type tol: float
@@ -26,12 +34,12 @@ def compute_permeability(workspace, solid_cutoff, direction='xyz', tol=1e-8, max
         :param matrix_free: solve system using matrix-free method (True, recommended) or building the sparse A matrix (False)
         :type matrix_free: bool
         :param precondition: solve system with Jacobi preconditioner (True) or without (False, default because
-        it reduces memory, but more iterations. The default minres iterative solver does not support this kind of preconditioner)
+            it reduces memory, but more iterations. The default minres iterative solver does not support this kind of preconditioner)
         :type precondition: bool
         :param output_fields: export velocity and pressure fields (True, default) or not (False, lower memory)
         :type output_fields: bool
         :return: effective permeability (3x3 matrix) and, if output_fields=True, the normalized velocity field for the corresponding
-        direction (arranged as tuple of numpy.ndarrays, i.e. (ux, uy, uz). If output_fields=False, then (None, None, None) is output
+            direction (arranged as tuple of numpy.ndarrays, i.e. (ux, uy, uz). If output_fields=False, then (None, None, None) is output
         :rtype: numpy.ndarray, (numpy.ndarray, numpy.ndarray, numpy.ndarray)
 
         :Example:

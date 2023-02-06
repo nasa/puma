@@ -4,17 +4,6 @@ Semeraro, F., Ferguson, J.C., Acin, M., Panerai, F. and Mansour, N.N., 2021.
 Anisotropic analysis of fibrous and woven materials part 2: Computation of effective conductivity.
 Computational Materials Science, 186, p.109956.
 https://www.sciencedirect.com/science/article/abs/pii/S092702562030447X
-
-Please cite using this BibTex:
-@article{semeraro2021anisotropic,
-  title={Anisotropic analysis of fibrous and woven materials part 2: Computation of effective conductivity},
-  author={Semeraro, Federico and Ferguson, Joseph C and Acin, Marcos and Panerai, Francesco and Mansour, Nagi N},
-  journal={Computational Materials Science},
-  volume={186},
-  pages={109956},
-  year={2021},
-  publisher={Elsevier}
-}
 """
 from pumapy.physics_models.finite_volume.anisotropic_conductivity_utils import create_Ab_indices_cy, create_T_ivs_cy, assign_prescribed_bc_cy
 from pumapy.physics_models.finite_volume.mpxa_matrices import (fill_Ampfa, fill_Bmpfa, fill_Cmpfa, fill_Dmpfa, create_d1_mpfa,

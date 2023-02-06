@@ -1,3 +1,12 @@
+"""
+Note: Most of the filters are simple wrappers of functions in either scikitimage or scipy.ndimage.
+The filters can be run directly in these packages if the user desires, but the wrapping is done for
+simplicity so that the Workspace class can be used, and the filter executions can be logged by the
+workspace class in order to document the simulation workflows.
+
+The C++ version of puma implements the filters directly. But for python, there's no reason to re-invent
+the wheel when so many great packages exist for image manipulation
+"""
 from skimage.filters import gaussian
 from scipy.ndimage import distance_transform_edt, median_filter
 from scipy.ndimage import uniform_filter
@@ -5,14 +14,6 @@ from skimage.morphology import erosion, dilation, opening, closing, ball
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
 import numpy as np
-
-# Note: Most of the filters are simple wrappers of functions in either scikitimage or scipy.ndimage.
-# The filters can be run directly in these packages if the user desires, but the wrapping is done for
-# simplicity so that the Workspace class can be used, and the filter executions can be logged by the
-# workspace class in order to document the simulation workflows.
-
-# The C++ version of puma implements the filters directly. But for python, there's no reason to re-invent
-# the wheel when so many great packages exist for image manipulation
 
 
 def filter_median(ws, size):
