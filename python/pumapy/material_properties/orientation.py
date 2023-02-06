@@ -52,7 +52,7 @@ def compute_angular_differences(matrix, orientation1, orientation2, cutoff):
     return angle_diff, diff.mean(), diff.std()
 
 
-def compute_orientation_st(ws, cutoff, sigma=1.4, rho=0.7, edt=False):
+def compute_orientation_st(ws, cutoff, sigma=0.7, rho=1.4, edt=False):
     """ Compute orientation of the material by the structure tensor algorithm
 
         :param ws: domain
