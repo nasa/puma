@@ -3,6 +3,12 @@
 The following is a chronological list of publications and presentations about the PuMA software and its capabilities:
 
 
+- Semeraro, F., Ferguson, J.C., Thornton, J.M., Panerai, F., Borner, A., Mansour, N.N., Meurisse, J.B. and Fraile Izquierdo, S., 2023. 
+  Porous Microstructure Analysis (PuMA) software. 
+  In AIAA SCITECH 2023 Forum (p. 1536).
+  [link to video](https://arc.aiaa.org/doi/abs/10.2514/6.2023-1536)
+
+
 - Lopes, P.C.F., Vianna, R.S., Sapucaia, V.W., Semeraro, F., Leiderman, R., Pereira, A.M.B., 2023. 
   Simulation toolkit for digital material characterization of large image-based microstructures. 
   Computational Materials Science, 219, p.112021.

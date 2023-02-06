@@ -14,7 +14,7 @@ def identify_porespace(workspace, solid_cutoff, connectivity=None):
         :param solid_cutoff: specify the solid range to discard from pores identification
         :type solid_cutoff: (int, int)
         :param connectivity: Maximum number of orthogonal hops to consider a pixel/voxel as a neighbor
-        (None automatically gives full connectivity of ``input.ndim``, which for 3D domain is 3, for 2D is 2)
+            (None automatically gives full connectivity of ``input.ndim``, which for 3D domain is 3, for 2D is 2)
         :type connectivity: int or None
         :return: porespace marked as: 0 solid, 1 largest pore (likely open porosity), >1 other pores
         :rtype: np.ndarray

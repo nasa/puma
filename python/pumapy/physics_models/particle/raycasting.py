@@ -3,7 +3,6 @@ import os
 import numpy as np
 from pyevtk.hl import pointsToVTK
 import itertools
-from pumapy.utilities.workspace import Workspace
 
 
 class RayCasting:

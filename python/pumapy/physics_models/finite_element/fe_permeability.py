@@ -1,8 +1,10 @@
 """
 The following FE numerical method and implementation are based on the following research paper:
 
-Pedro C. F. Lopes, Rafael S. Vianna, Victor W. Sapucaia, Federico Semeraro, Ricardo Leiderman, Andre M. B. Pereira, 2022.
-Simulation Toolkit for Digital Material Characterization of Large Image-based Microstructures.
+Lopes, P.C., Vianna, R.S., Sapucaia, V.W., Semeraro, F., Leiderman, R. and Pereira, A.M., 2023.
+Simulation toolkit for digital material characterization of large image-based microstructures.
+Computational Materials Science, 219, p.112021.
+(https://www.sciencedirect.com/science/article/pii/S0927025623000150)
 """
 from pumapy.utilities.timer import Timer
 from pumapy.utilities.logger import print_warning

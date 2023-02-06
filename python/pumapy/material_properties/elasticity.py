@@ -29,10 +29,10 @@ def compute_elasticity(workspace, elast_map, direction, side_bc='p', tolerance=1
         :param display_iter: display iterations and residual
         :type display_iter: bool
         :param method: whether to use finite volume solver ('fv', i.e. mpsa) or finite element Q1-Q1 EBE solver ('fe').
-        For the latter method, it is recommended to use solver_type='minres' as lighter and faster
+            For the latter method, it is recommended to use solver_type='minres' as lighter and faster
         :type method: string
         :param matrix_free: if True, then use matrix-free method if possible (only available for fe solver when
-        the solver type is not 'direct')
+            the solver type is not 'direct')
         :type matrix_free: bool
         :return: elasticity, displacement field, direct stresses (sigma xx, yy, zz), shear stresses (tau yz, xz, xy)
         :rtype: ((float, float, float, float, float, float), numpy.ndarray, numpy.ndarray, numpy.ndarray)

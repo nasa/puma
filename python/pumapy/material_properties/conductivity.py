@@ -1,3 +1,10 @@
+"""
+Further explained in publication:
+Semeraro, F., Ferguson, J.C., Acin, M., Panerai, F. and Mansour, N.N., 2021.
+Anisotropic analysis of fibrous and woven materials part 2: Computation of effective conductivity.
+Computational Materials Science, 186, p.109956.
+https://www.sciencedirect.com/science/article/abs/pii/S092702562030447X
+"""
 from pumapy.physics_models.finite_volume.isotropic_conductivity import IsotropicConductivity
 from pumapy.physics_models.finite_volume.mpfa_conductivity import AnisotropicConductivity
 from pumapy.physics_models.utils.property_maps import IsotropicConductivityMap, AnisotropicConductivityMap
@@ -21,8 +28,8 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='p', pr
         :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p'). Only periodic available when method='fe'
         :type side_bc: string
         :param prescribed_bc: object holding dirichlet BC, only available for isotropic of MPFA implementations.
-        Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
-        computed as if direction=='x' for testing purposes.
+            Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
+            computed as if direction=='x' for testing purposes.
         :type prescribed_bc: pumapy.IsotropicConductivityBC or pumapy.AnisotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
@@ -33,11 +40,11 @@ def compute_thermal_conductivity(workspace, cond_map, direction, side_bc='p', pr
         :param display_iter: display iterations and residual
         :type display_iter: bool
         :param method: whether to use finite volume solver ('fv', either isotropic solver if IsotropicConductivityMap
-        is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe'). For the latter method,
-        it is recommended to use solver_type='minres' as lighter and faster
+            is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe'). For the latter method,
+            it is recommended to use solver_type='minres' as lighter and faster
         :type method: string
         :param matrix_free: if True, then use matrix-free method if possible (only available for fv isotropic solver or
-        for fe solver when the solver type is not 'direct')
+            for fe solver when the solver type is not 'direct')
         :type matrix_free: bool
         :return: thermal conductivity, temperature field, flux
         :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
@@ -107,8 +114,8 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :param side_bc: side boundary conditions can be symmetric ('s') or periodic ('p'). Only periodic available when method='fe'
         :type side_bc: string
         :param prescribed_bc: object holding dirichlet BC, only available for isotropic of MPFA implementations.
-        Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
-        computed as if direction=='x' for testing purposes.
+            Need to set direction='' in order to provide it. When prescribed_bc is provided, keff is not printed but it is
+            computed as if direction=='x' for testing purposes.
         :type prescribed_bc: pumapy.IsotropicConductivityBC or pumapy.AnisotropicConductivityBC or None
         :param tolerance: tolerance for iterative solver
         :type tolerance: float
@@ -119,11 +126,11 @@ def compute_electrical_conductivity(workspace, cond_map, direction, side_bc='p',
         :param display_iter: display iterations and residual
         :type display_iter: bool
         :param method: whether to use finite volume solver ('fv', either isotropic solver if IsotropicConductivityMap
-        is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe'). For the latter method,
-        it is recommended to use solver_type='minres' as lighter and faster
+            is passed, or mpfa if AnisotropicConductivityMap) or finite element Q1-Q1 EBE solver ('fe'). For the latter method,
+            it is recommended to use solver_type='minres' as lighter and faster
         :type method: string
         :param matrix_free: if True, then use matrix-free method if possible (only available for fv isotropic solver or
-        for fe solver when the solver type is not 'direct')
+            for fe solver when the solver type is not 'direct')
         :type matrix_free: bool
         :return: electrical conductivity, potential field, flux
         :rtype: ((float, float, float), numpy.ndarray, numpy.ndarray)
