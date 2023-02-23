@@ -4,7 +4,6 @@
 
 [![Documentation Status](https://readthedocs.org/projects/puma-nasa/badge/?version=latest)](https://puma-nasa.readthedocs.io/en/latest/?badge=latest)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/puma/badges/version.svg)](https://anaconda.org/conda-forge/puma)
-[![PyPI version](https://badge.fury.io/py/pumapy.svg)](https://badge.fury.io/py/pumapy)
 ![pumapy Tests](https://github.com/nasa/puma/actions/workflows/test-pumapy.yml/badge.svg)
 [![Gitter](https://badges.gitter.im/puma-nasa/community.svg)](https://gitter.im/puma-nasa/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/jcfergus%2Fpuma-dev/main)
@@ -26,8 +25,7 @@ A few useful resources:
 
 ## Software description
 
-The Porous Microstructure Analysis (PuMA) software has been developed to
-compute effective material properties and perform material response simulations on
+PuMA, winner of the [2022 NASA Software of the Year prize](https://www.nasa.gov/offices/otps/Winning_NASA_Technologies_Land_Spacecraft_Share_Agency_Innovations), has been developed to compute effective material properties and perform material response simulations on
 digitized microstructures of porous media. PuMA is able to import digital three-dimensional
 images obtained from X-ray microtomography or to generate artificial microstructures
 that mimic real materials. PuMA also provides a module for interactive 3D visualizations.
@@ -64,6 +62,7 @@ If not, conda can be installed by following the instructions
 
 ### Binaries (UNIX and Windows)
 
+This is the recommended installation for PuMA users or for developers of the pumapy Python package.
 Once the conda command is working, all the PuMA components can be installed by executing 
 the following commands in a terminal (note that the "solving environment" step can sometimes take up to 15 mins):
 
@@ -75,16 +74,28 @@ On **Windows**, only the pumapy python package is available.
 Note: TexGen (C++ library to create artificial weaves) is only installed on UNIX, because it needs more 
 advanced compilation. A friendly warning will appear when TexGen is not installed and pumapy is imported. 
 
+For **developers** of the python modules in pumapy, it is recommended to create the puma environment with the above command
+and then to run the following: 
+
+    conda activate puma
+    git clone https://github.com/nasa/puma.git
+    cd puma
+    pip install -e .
+
+Note that, in order to track the latest development, it is recommended to git clone the puma-dev Gitlab repo instead.
+These commands will link the local python files to the pumapy installation in the puma conda environment. 
+Changes to the local python files will therefore take immediate effect.
+
 ### Build from source (UNIX-only)
 
 This is the recommended installation for developers that need to make modifications to the C++ part of PuMA.
 The installation is broken into two sections:
 
 1. Installation of basic dependencies that may be missing from your system
-2. Download the repository, build the source code and install the binaries
+2. Download the repository, build the source code, and install the binaries
 
 Step 1 of the installation varies slightly based on the system. 
-Open a terminal, navigate to the directory you would like PuMA installed, and execute one of the following lines:
+Open a terminal, navigate to the directory you would like PuMA installed, and execute **one** of the following lines:
 
     xcode-select --install                                                                 # run this on MacOS
     sudo apt-get install git build-essential mesa-common-dev                               # Debian (Ubuntu)
@@ -105,6 +116,8 @@ To uninstall PuMA and all the installed dependencies, execute the following comm
 
     conda remove -y --name puma --all
 
+In order to update PuMA, it is recommended to run the above command and recreate the environment from scratch. 
+
 ## Running PuMA
 
 PuMA relies on a conda environment in order to manage its software dependencies and environment variables.
@@ -115,7 +128,7 @@ Once the installation is complete, the PuMA GUI can be launched by running:
     pumaGUI
 
 You can follow the [jupyter notebook tutorials](https://github.com/nasa/puma/tree/main/tutorials), 
-which show the typical function usage for both PuMA C++ and pumapy. These can also be run directly in Binder.
+which show the typical function usage for both PuMA C++ and pumapy. These can also be run directly in a browser through Binder.
 
 ### How to setup PuMA on the NAS cluster:
 In order to install PuMA on the NASA supercomputing cluster, some modules need to be loaded and environment
@@ -128,6 +141,8 @@ variables need to be set. This can be achieved by adding the following commands 
     export CONDA_ENVS_PATH=/nobackup/$USER/.conda/envs
     conda config --append envs_dirs /nobackup/$USER/.conda/envs
     source activate
+
+Note that, as systems are constantly updated, these may need to be updated.
 
 ## Citing PuMA
 If you use PuMA in your research, please use the following BibTeX entries to cite it:
@@ -163,6 +178,9 @@ This is a list of the common errors encountered during the setup and how to solv
   To fix this, first follow the instructions to uninstall puma, and then repeat the installation procedure
 - If an error "make: Warning: File ... has modification time ... s in the future" is displayed, 
   then run "sudo apt install ntp" (or equivalent for your distribution)
+- If the creation of the conda environment hangs for a long time (>30') at the "Solving environment" step, then 
+  it is recommended to try to install puma using [micromamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html), 
+  a faster (but less mature) executable that is able to create conda-environments. 
 
 If any bugs are found, or if the software crashes for any reason, please open an issue at [this link](https://github.com/nasa/puma/issues)
 and/or contact either of the authors mentioned below.
