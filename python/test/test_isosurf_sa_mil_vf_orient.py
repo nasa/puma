@@ -3,6 +3,8 @@ import numpy as np
 from pumapy.utilities.isosurface import generate_isosurface
 import pumapy as puma
 from skimage import io
+import os
+test_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 class TestIsosurface(unittest.TestCase):
@@ -44,16 +46,16 @@ class TestVolumeFraction(unittest.TestCase):
 class TestOrientationST(unittest.TestCase):
 
     def test_artfib(self):
-        ws1 = puma.import_vti("testdata/artifib.vtk")
+        ws1 = puma.import_vti(os.path.join(test_dir, "testdata", "artifib.vtk"))
         puma.compute_orientation_st(ws1, (128, 255), 0.7, 1.1)
-        ws2 = puma.import_vti("testdata/artifib_orient.vtk")
+        ws2 = puma.import_vti(os.path.join(test_dir, "testdata", "artifib_orient.vtk"))
         error, mean, std = puma.compute_angular_differences(ws1.matrix, ws1.orientation, ws2.orientation, (128, 255))
         self.assertTrue(mean < 5 and std < 10)
 
     def test_artfib_edt(self):
-        ws1 = puma.import_vti("testdata/artifib.vtk")
+        ws1 = puma.import_vti(os.path.join(test_dir, "testdata", "artifib.vtk"))
         puma.compute_orientation_st(ws1, (128, 255), 0.7, 1.1, edt=True)
-        ws2 = puma.import_vti("testdata/artifib_orient.vtk")
+        ws2 = puma.import_vti(os.path.join(test_dir, "testdata", "artifib_orient.vtk"))
         error, mean, std = puma.compute_angular_differences(ws1.matrix, ws1.orientation, ws2.orientation, (128, 255))
         print(mean, std)
         self.assertTrue(mean < 6 and std < 10)

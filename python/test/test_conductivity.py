@@ -1,6 +1,8 @@
 import unittest
 import numpy as np
 import pumapy as puma
+import os
+test_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 class TestFiniteVolumeIsotropicTC(unittest.TestCase):
@@ -360,7 +362,7 @@ class TestFiniteVolumeAnisotropicTC(unittest.TestCase):
         np.testing.assert_array_almost_equal(keff, [0, 0, 10], decimal=6)
 
     def test_artfib50_prescribed_bc(self):
-        ws = puma.import_vti("testdata/artifib.vtk")
+        ws = puma.import_vti(os.path.join(test_dir, "testdata", "artifib.vtk"))
         cond_map = puma.AnisotropicConductivityMap()
         cond_map.add_isotropic_material((0, 128), 0.0257)
         cond_map.add_isotropic_material((129, 255), 10)
@@ -381,8 +383,8 @@ class TestFiniteVolumeAnisotropicTC(unittest.TestCase):
         np.testing.assert_array_almost_equal(keff, [-0.004294621647451377, 0.009307678810456408, 0.13749729264962243], decimal=3)
 
     def test_artfib50_orient_prescribed_bc(self):
-        ws = puma.import_vti("testdata/artifib.vtk")
-        ws.orientation = puma.import_vti("testdata/artifib_orient.vtk", import_ws=False)["PuMA_Vec3"]
+        ws = puma.import_vti(os.path.join(test_dir, "testdata", "artifib.vtk"))
+        ws.orientation = puma.import_vti(os.path.join(test_dir, "testdata", "artifib_orient.vtk"), import_ws=False)["PuMA_Vec3"]
 
         cond_map = puma.AnisotropicConductivityMap()
         cond_map.add_isotropic_material((0, 128), 0.0257)
@@ -568,8 +570,8 @@ class TestFiniteElementAnisotropicTC(unittest.TestCase):
         np.testing.assert_array_almost_equal(keff, [0, 0, 10], decimal=6)
 
     def test_artfib50_orient_prescribed_bc(self):
-        ws = puma.import_vti("testdata/artifib.vtk")
-        ws.orientation = puma.import_vti("testdata/artifib_orient.vtk", import_ws=False)["PuMA_Vec3"]
+        ws = puma.import_vti(os.path.join(test_dir, "testdata", "artifib.vtk"))
+        ws.orientation = puma.import_vti(os.path.join(test_dir, "testdata", "artifib_orient.vtk"), import_ws=False)["PuMA_Vec3"]
 
         cond_map = puma.AnisotropicConductivityMap()
         cond_map.add_isotropic_material((0, 128), 0.0257)

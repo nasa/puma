@@ -27,6 +27,7 @@ CMakeLists.txt.user
 # For PuMA development with different IDEs (CLion, qtcreator)
 .idea
 .vs
+.vscode
 debug/*
 release/*
 .DS_Store

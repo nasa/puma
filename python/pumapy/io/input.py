@@ -46,6 +46,7 @@ def import_3Dtiff(filename, voxel_length=1e-6, import_ws=True):
 
     if nparray.ndim == 2:
         nparray = nparray[:, :, np.newaxis]
+        nparray = nparray.transpose(1, 0, 2)
     else:
         nparray = nparray.transpose(2, 1, 0)
     print("Done")
