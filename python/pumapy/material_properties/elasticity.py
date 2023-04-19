@@ -164,13 +164,13 @@ def export_elasticity_fields_vti(filepath, workspace, u, s, t):
 
 
 def get_E_nu_from_elasticity(C):
-    """ Compute Young's moduli E1, E2, E3, Shear moduli G23, G13, G12, and Poisson's ratios nu12, nu23, nu31
+    """ Compute Young's moduli E1, E2, E3, Shear moduli G23, G13, G12, and Poisson's ratios nu23, nu13, nu12
         for an orthotropic material from its symmetric elastic stiffness tensor
 
         :param C: 6x6 elasticity tensor
         :type C: np.ndarray
-        :return: Young's moduli E1, E2, E3 and Poisson's ratios nu12, nu23, nu31
-        :rtype: (float, float, float, float, float, float)
+        :return: Young's moduli E1, E2, E3, Shear moduli G23, G13, G12, and Poisson's ratios nu23, nu13, nu12
+        :rtype: (float, float, float, float, float, float, float, float, float)
     """
     compliance = np.linalg.inv(C)
     E1 = 1. / compliance[0, 0]
