@@ -17,6 +17,7 @@ whereas the latest development can be found on the
 [development Gitlab repository](https://gitlab.com/jcfergus/puma-dev). 
 
 A few useful resources: 
+- Install [TomoSAM](https://github.com/fsemerar/SlicerTomoSAM) to perform tomography segmentation within 3D Slicer
 - [Documentation](https://puma-nasa.readthedocs.io) detailing the use of each function 
 - [Community chat](https://gitter.im/puma-nasa/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
   to ask questions or to get in touch
@@ -58,7 +59,8 @@ Indicative recommended specs (varies depending on the material property):
 To install PuMA, a conda distribution must be installed on your machine. 
 To test whether conda is installed, run "conda" from a terminal to see if the command is recognized. 
 If not, conda can be installed by following the instructions 
-[here](https://docs.anaconda.com/anaconda/install/index.html).
+[here](https://docs.anaconda.com/anaconda/install/index.html). It is highly recommended to 
+[install libmamba](https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community) to speed up the conda solver.
 
 ### Binaries (UNIX and Windows)
 

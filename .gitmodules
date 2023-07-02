@@ -1,0 +1,3 @@
+[submodule "python/pumapy/segmentation/SlicerTomoSAM"]
+	path = python/pumapy/segmentation/SlicerTomoSAM
+	url = https://github.com/fsemerar/SlicerTomoSAM.git
