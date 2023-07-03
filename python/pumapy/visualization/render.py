@@ -361,7 +361,7 @@ class Renderer:
             raise Exception("Need to input either pumapy.Workspace or a numpy.ndarray")
 
         if self.filter_type != "contour" and self.filter_type != "warp":
-            self.grid = pv.UniformGrid()
+            self.grid = pv.ImageData()
             self.grid.origin = self.origin
         elif self.filter_type == "warp":
             x = np.linspace(0, self.orientation.shape[0] - 1, self.orientation.shape[0])

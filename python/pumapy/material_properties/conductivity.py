@@ -187,7 +187,7 @@ def plot_conductivity_fields(workspace, T, q, show_cbar=True, show_edges=False, 
         T_cp[gas_mask] = np.NAN
         q_cp[gas_mask] = np.NAN
 
-    grid = pv.UniformGrid()
+    grid = pv.ImageData()
     grid.dimensions = np.array(ws.shape) + 1
     grid['ws'] = ws.ravel(order='F')
     grid['T'] = T_cp.ravel(order='F')
