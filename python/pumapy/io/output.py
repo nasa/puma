@@ -130,9 +130,9 @@ def export_3Dtiff(filename, ws_or_nparray, to8bit=True):
 
     print("Exporting " + filename + " ... ", end='')
     if data.ndim == 2:
-        imsave(filename, data.transpose((1, 0)), check_contrast=False)
+        imsave(filename, data.transpose((1, 0)), check_contrast=False, compress=9)
     else:
-        imsave(filename, data.transpose((2, 1, 0)), check_contrast=False)
+        imsave(filename, data.transpose((2, 1, 0)), check_contrast=False, compress=9)
     print("Done")
 
 

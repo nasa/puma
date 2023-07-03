@@ -454,7 +454,7 @@ class Workspace:
             self.matrix = np.squeeze(self.matrix)
 
         if self.orientation.shape[:3] == self.matrix.shape:
-            self.orientation = trans.rescale(self.orientation, scale, order=0, multichannel=True,
+            self.orientation = trans.rescale(self.orientation, scale, order=0, channel_axis=-1,
                                              preserve_range=True, anti_aliasing=False)
         if segmented:
             self.matrix = trans.rescale(self.matrix, scale, order=0, anti_aliasing=False, preserve_range=True)

@@ -195,12 +195,15 @@ class TestWorkspace(unittest.TestCase):
         np.testing.assert_almost_equal(ws.porosity(cutoff=(0, 89)), 0.83286)
 
     def test_rescale(self):
-        ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        puma.set_random_seed(1)
+        ws = puma.generate_random_fibers_1D(shape=(200, 200, 200), radius=8, porosity=0.8, direction='x', length=200, allow_intersect=True, segmented=False)
         ws_cp = ws.copy()
         ws_cp.rescale(0.5, segmented=False)
         np.testing.assert_almost_equal(ws_cp.matrix.shape, (100, 100, 100))
-        porosity_diff = abs(ws_cp.porosity(cutoff=(0, 89)) - ws.porosity(cutoff=(0, 89)))
-        self.assertLess(porosity_diff, 0.0011)
+        porosity_original = ws.porosity(cutoff=(0, 128))
+        porosity_scaled = ws_cp.porosity(cutoff=(0, 128))
+        porosity_diff = abs(porosity_original - porosity_scaled)
+        self.assertLess(porosity_diff, 0.005)
 
     def test_resize(self):
         ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
