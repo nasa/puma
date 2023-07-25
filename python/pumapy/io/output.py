@@ -7,6 +7,8 @@ from pumapy.utilities.logger import print_warning
 from pumapy.utilities.isosurface import generate_isosurface
 from pumapy.io.input import io_logs
 from os import path
+import json
+import struct
 
 
 def export_vti(filename, dict_data, voxel_length=None):
@@ -171,40 +173,6 @@ def export_bin(filename, ws):
     io_logs(ws, filename, input=False)
 
 
-def export_sparta_implicit_surfaces(filename, ws):
-    """ Export a puma.Workspace to binary (.pumapy extension)
-
-        :param filename: filepath and name
-        :type filename: string
-        :param ws: to be exported
-        :type ws: pumapy.Workspace
-    """
-
-    # error checks
-    if filename[-7:] != ".pumapy.isurf":
-        filename += '.pumapy.isurf'
-    if not isinstance(filename, str):
-        raise Exception("Filename has to be a string.")
-    filename_split = path.split(filename)
-    if filename_split[0] != '' and not path.exists(path.split(filename)[0]):
-        raise Exception("Directory " + filename_split[0] + " not found.")
-    if not isinstance(ws, Workspace):
-        raise Exception("Data to export to bin needs to be a pumapy.Workspace")
-
-    print("Exporting " + filename + " ... ", end='')
-
-    if ws.len_z() == 1:
-        f = open(filename, 'w+b')
-        byte_arr = [ws.len_x(), ws.len_y()]
-        binary_format = bytearray(byte_arr)
-        f.write(binary_format)
-        pickle.dump(ws.matrix, f)
-        f.close()
-
-    print("Done")
-    io_logs(ws, filename, input=False)
-
-
 def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False, binary=True):
     """ Export a puma.Workspace to STL
 
@@ -241,5 +209,145 @@ def export_stl(filename, ws, cutoff, flag_closed_edges=True, flag_gaussian=False
     print("Exporting " + filename + " ... ", end='')
     mesh = generate_isosurface(ws, cutoff, flag_closed_edges, flag_gaussian)
     mesh.save(filename, binary)
+    print("Done")
+    io_logs(ws, filename, input=False)
+
+
+def export_for_chfem(filename, ws, analysis, solver=0, export_nf=True, export_json=True, tol=1.e-6, max_iter=10000):
+    """ Export a puma.Workspace to run an analysis in
+        CHFEM_GPU CUDA kernels (https://gitlab.com/cortezpedro/chfem_gpu) or 
+        CHPACK Julia package (https://gitlab.com/lcc-uff/Chpack.jl)
+
+        :param filename: filepath and name
+        :type filename: string
+        :param ws: to be exported
+        :type ws: pumapy.Workspace
+        :param type_of_analysis: 0 = conductivity, 1 = elasticity, 2 = permeability
+        :type type_of_analysis: int
+        :param type_of_solver:  0 = pcg (default), 1 = cg, 2 = minres
+        :type type_of_solver: int
+        :param export_nf: export .nf file with simulations inputs for CHFEM_GPU
+        :type export_nf: bool
+        :param export_json: export .json file with simulations inputs for CHFPACK
+        :type export_json: bool
+        :param tol: solver tolerance for simulation
+        :type tol: float
+        :param max_iter: maximum number of iterations
+        :type max_iter: int
+
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
+        Importing ...
+        >>> puma.experimental.export_for_chfem('200_fiberform', ws, 2, tol=1e-6, max_iter=100000)
+    """
+
+    domain = ws.matrix.astype(np.uint8)
+
+    if filename[-4:] != '.raw':
+        filename = filename + '.raw'
+
+    materials = {}
+    # Save image data in RAW format
+    with open(filename, "bw") as file_raw:
+        for k in range(domain.shape[2]):
+            mat_i, cmat_i = np.unique(domain[:, :, k], return_counts=True)
+            for i in range(len(mat_i)):
+                if mat_i[i] in materials:
+                    materials[mat_i[i]] += cmat_i[i]
+                else:
+                    materials[mat_i[i]] = cmat_i[i]
+            (domain[:, :, k].T).tofile(file_raw)
+
+    materials = dict(sorted(materials.items(), key=lambda x: x[0]))
+    
+    mat = np.array(list(materials.keys()))
+    if analysis != 2:
+        mat = np.vstack((mat, np.zeros((mat.shape[0]), dtype=int))).T
+    else:
+        mat = np.expand_dims(mat, axis=1)
+        
+    cmat = np.array(list(materials.values()))
+    cmat = cmat * 100. / np.prod(domain.shape)
+    
+    jdata = {}
+    jdata["type_of_analysis"] = analysis
+    jdata["type_of_solver"] = solver
+    jdata["type_of_rhs"] = 0
+    jdata["voxel_size"] = ws.voxel_length
+    jdata["solver_tolerance"] = tol
+    jdata["number_of_iterations"] = max_iter
+    jdata["image_dimensions"] = list(domain.shape)
+    jdata["refinement"] = 1
+    jdata["number_of_materials"] = mat.shape[0]
+    jdata["properties_of_materials"] = mat.tolist()
+    jdata["volume_fraction"] = list(np.around(cmat, 2))
+    jdata["data_type"] = "uint8"
+
+    if export_json:
+        # Save image data in JSON format
+        with open(filename[:len(filename) - 4] + ".json", 'w') as file_json:
+            json.dump(jdata, file_json, sort_keys=False, indent=4, separators=(',', ': '))
+
+    if export_nf:
+        # Save image data in NF format
+        with open(filename[:len(filename) - 4] + ".nf", 'w') as file_nf:
+            sText = ''
+            for k, v in jdata.items():
+                sText += '%' + str(k) + '\n' + str(v) + '\n\n'
+            sText = sText.replace('], ', '\n')
+            sText = sText.replace('[', '')
+            sText = sText.replace(']', '')
+            sText = sText.replace(',', '')
+            file_nf.write(sText)
+
+
+def export_sparta_implicit_surfaces(filename, ws):
+    """ Export a puma.Workspace to binary (.pumapy extension)
+
+        :param filename: filepath and name
+        :type filename: string
+        :param ws: to be exported
+        :type ws: pumapy.Workspace
+    """
+
+    # error checks
+    if filename[-7:] != ".pumapy.isurf":
+        filename += '.pumapy.isurf'
+    if not isinstance(filename, str):
+        raise Exception("Filename has to be a string.")
+    filename_split = path.split(filename)
+    if filename_split[0] != '' and not path.exists(path.split(filename)[0]):
+        raise Exception("Directory " + filename_split[0] + " not found.")
+    if not isinstance(ws, Workspace):
+        raise Exception("Data to export to bin needs to be a pumapy.Workspace")
+
+    print("Exporting " + filename + " ... ", end='')
+    # need to set boundary values equal to zero, using temporary matrix
+    temp = ws.matrix
+    # 2D
+    if ws.len_z() == 1: 
+        for k in range(ws.len_z()):
+            for j in range(ws.len_y()):
+                    for i in range(ws.len_x()):
+                        if i == 0 or i == ws.len_x() - 1 or j == 0 or j == ws.len_y() - 1: 
+                            temp[i, j] = 0 
+        xyz = struct.pack("2i", ws.len_x(), ws.len_y())
+        temp = temp.transpose(1,0,2)
+    # 3D
+    else: 
+        for k in range(ws.len_z()):
+            for j in range(ws.len_y()):
+                for i in range(ws.len_x()):
+                    if i == 0 or i == ws.len_x() - 1 or j == 0 or j == ws.len_y() - 1 or k == 0 or k == ws.len_z() - 1: 
+                        temp[i, j, k] = 0
+        xyz = struct.pack("3i", ws.len_x(), ws.len_y(), ws.len_z())
+        temp = temp.transpose(2,1,0)
+    b = bytearray(temp)
+    b = b[::2]
+    f = open(filename, 'w+b')
+    f.write(xyz + b)
+    f.close()
+
     print("Done")
     io_logs(ws, filename, input=False)

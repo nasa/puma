@@ -83,7 +83,7 @@ class Isosurface:
         import warnings
         warnings.simplefilter(action='ignore', category=FutureWarning)
         self.tri_mesh.verts, self.tri_mesh.faces, self.tri_mesh.normals, self.tri_mesh.values \
-            = measure.marching_cubes(self.matrix, self.iso_value)
+            = measure.marching_cubes(self.matrix, self.iso_value, allow_degenerate=False)
 
     def flip_matrix(self):
         self.matrix = np.copy(self.workspace.matrix).astype(np.float32)

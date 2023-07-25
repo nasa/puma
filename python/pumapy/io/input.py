@@ -251,3 +251,207 @@ def import_weave_vtu(filename, from_texgen_gui=False):
     print("Done")
     io_logs(ws, filename)
     return ws
+
+
+def import_scalar_field_from_chfem(filename, domain_shape, rotate_domain=True):
+    """ Import scalar field (e.g. temperature, pressure) output from 
+        CHFEM_GPU CUDA kernels (https://gitlab.com/cortezpedro/chfem_gpu)
+
+        :param filename: file path and name of .bin file
+        :type filename: string
+        :param domain_shape: shape of domain for which the scalar field was generated
+        :type domain_shape: (int, int, int)
+        :param rotate_domain: rotate the domain to be in the same format as export
+        :type rotate_domain: bool
+        :return: scalar field (x,y,z)
+        :rtype: np.ndarray
+    """
+    converted_shape = (domain_shape[2], domain_shape[0], domain_shape[1])
+    chpack_domain = np.fromfile(filename).reshape(converted_shape)
+    if rotate_domain:
+        chpack_domain = np.rot90(chpack_domain, axes=(0, 1))
+        chpack_domain = np.rot90(chpack_domain, axes=(1, 2))
+        chpack_domain = np.rot90(chpack_domain, axes=(0, 1))
+        chpack_domain = np.rot90(chpack_domain, axes=(0, 1))
+
+    return chpack_domain
+
+
+def import_vector_field_from_chfem(filename, domain_shape, rotate_domain=True, correct_direction=None):
+    """ Import vector field (e.g. heat flux, displacement, velocity) output from 
+        CHFEM_GPU CUDA kernels (https://gitlab.com/cortezpedro/chfem_gpu)
+
+        :param filename: file path and name of .bin file
+        :type filename: string
+        :param domain_shape: shape of domain for which the scalar field was generated
+        :type domain_shape: (int, int, int)
+        :param rotate_domain: rotate the domain to be in the same format as export
+        :type rotate_domain: bool
+        :param correct_direction: correct orientation field according to simulation direction, expects 'x', 'y', or 'z'
+        :type correct_direction: str
+        :return: vector field (x,y,z,3)
+        :rtype: np.ndarray
+    """
+    chpack_domain = np.fromfile(filename, dtype=float)
+    converted_shape = (domain_shape[2], domain_shape[0], domain_shape[1])
+
+    orientation = np.zeros(converted_shape + (3,))
+    orientation[:, :, :, 0] = chpack_domain[0::3].reshape(converted_shape)
+    orientation[:, :, :, 1] = chpack_domain[1::3].reshape(converted_shape)
+    orientation[:, :, :, 2] = chpack_domain[2::3].reshape(converted_shape)
+    
+    if correct_direction is not None:
+        if correct_direction == 'x':
+            orientation[:, :, :, 0] =   orientation[:, :, :, 0]
+            orientation[:, :, :, 1] = - orientation[:, :, :, 1]
+            orientation[:, :, :, 2] = - orientation[:, :, :, 2]
+        elif correct_direction == 'y':
+            orientation[:, :, :, 0] = - orientation[:, :, :, 0]
+            orientation[:, :, :, 1] =   orientation[:, :, :, 1]
+            orientation[:, :, :, 2] =   orientation[:, :, :, 2]
+        elif correct_direction == 'z':
+            orientation[:, :, :, 0] = - orientation[:, :, :, 0]
+            orientation[:, :, :, 1] =   orientation[:, :, :, 1]
+            orientation[:, :, :, 2] =   orientation[:, :, :, 2]
+    
+    if rotate_domain:
+        orientation = np.rot90(orientation, axes=(0, 1))
+        orientation = np.rot90(orientation, axes=(1, 2))
+        orientation = np.rot90(orientation, axes=(0, 1))
+        orientation = np.rot90(orientation, axes=(0, 1))
+
+    return orientation
+
+
+def import_stress_field_from_chfem(filename, domain_shape, rotate_domain=True):
+    """ Import stress fields output from 
+        CHFEM_GPU CUDA kernels (https://gitlab.com/cortezpedro/chfem_gpu)
+
+        :param filename: file path and name of .bin file
+        :type filename: string
+        :param domain_shape: shape of domain for which the scalar field was generated
+        :type domain_shape: (int, int, int)
+        :param rotate_domain: rotate the domain to be in the same format as export
+        :type rotate_domain: bool
+        :return: direct stresses (x,y,z,3) and shear stresses (x,y,z,3)
+        :rtype: (np.ndarray, np.ndarray)
+    """
+    chpack_domain = np.fromfile(filename, dtype=float)
+    converted_shape = (domain_shape[2], domain_shape[0], domain_shape[1])
+
+    sigma = np.zeros(converted_shape + (3,))
+    tau = np.zeros(converted_shape + (3,))
+    sigma[:, :, :, 0] = chpack_domain[0::6].reshape(converted_shape)
+    sigma[:, :, :, 1] = chpack_domain[1::6].reshape(converted_shape)
+    sigma[:, :, :, 2] = chpack_domain[2::6].reshape(converted_shape)
+    tau[:, :, :, 0] = chpack_domain[3::6].reshape(converted_shape)
+    tau[:, :, :, 1] = chpack_domain[4::6].reshape(converted_shape)
+    tau[:, :, :, 2] = chpack_domain[5::6].reshape(converted_shape)
+
+    if rotate_domain:
+        sigma = np.rot90(sigma, axes=(0, 1))
+        sigma = np.rot90(sigma, axes=(1, 2))
+        sigma = np.rot90(sigma, axes=(0, 1))
+        sigma = np.rot90(sigma, axes=(0, 1))
+        tau = np.rot90(tau, axes=(0, 1))
+        tau = np.rot90(tau, axes=(1, 2))
+        tau = np.rot90(tau, axes=(0, 1))
+        tau = np.rot90(tau, axes=(0, 1))
+
+    return sigma, tau
+
+
+def import_sparta_implicit_surfaces(filename, dimension=3, voxel_length=1e-6, import_ws=True, extend_to_boundary=True):
+    """ Function to io sparta implicit surfaces
+
+        :param filename: filepath and name
+        :type filename: string
+        :param dimension: dimensionality of imported SPARTA structure
+        :type dimension: int
+        :param voxel_length: size of a voxel side
+        :type voxel_length: float
+        :param import_ws: if True returns a puma.Workspace, otherwise a ndarray
+        :type import_ws: bool
+        :param extend_to_boundary: if True recreates nonzero boundary values as extension of inner structure, otherwise all boundary values equal zero
+        :type extend_to_boundary: bool
+        :return: domain
+        :rtype: pumapy.Workspace or np.ndarray
+
+        :Example:
+        >>> import pumapy as puma
+        >>> ws_sparta = puma.import_sparta_implicit_surfaces(puma.path_to_example_file("MAKE EXAMPLE FILE"), 1.0e-6, import_ws=True)
+        Importing ...
+    """
+    print("Importing " + filename + " ... ", end='')
+
+    if not path.exists(filename):
+        raise Exception("File " + filename + " not found.")
+    
+    # read sparta binary file
+    f = open(filename, 'r+b')
+    b = bytearray(f.read())
+    f.close()
+    # 2D
+    if dimension == 2:
+        # extraxt domain size
+        nx = b[0]
+        ny = b[4]
+        nz = 1
+        nparray = np.zeros((nx,ny,nz))
+        # extract matrix
+        for i in range(nx):
+            for j in range(ny):
+                nparray[i,j] = b[8+i+nx*j]
+        if extend_to_boundary:
+            # extend border lines
+            nparray[0,:] = nparray[1,:]
+            nparray[nx-1,:] = nparray[nx-2,:]
+            nparray[1:-1,0] = nparray[1:-1,1]
+            nparray[1:-1,ny-1] = nparray[1:-1,ny-2]
+            # extend corner points
+            nparray[0,0] = 1/2*(nparray[1,0]+nparray[0,1])
+            nparray[nx-1,0] = 1/2*(nparray[nx-2,0]+nparray[nx-1,1])
+            nparray[0,ny-1] = 1/2*(nparray[1,ny-1]+nparray[0,ny-2])
+            nparray[nx-1,ny-1] = 1/2*(nparray[nx-2,ny-1]+nparray[nx-1,ny-2])
+    # 3D
+    if dimension == 3:
+        # extraxt domain size
+        nx = b[0]
+        ny = b[4]
+        nz = b[8]
+        nparray = np.zeros((nx,ny,nz))
+        # extract matrix
+        for i in range(nx):
+            for j in range(ny):
+                for k in range(nz):
+                    nparray[i,j,k] = b[12+i+nx*j+nx*ny*k]
+        if extend_to_boundary:
+            # extend boundary faces
+            nparray[0,:,:] = nparray[1,:,:]
+            nparray[nx-1,:,:] = nparray[nx-2,:,:]
+            nparray[:,0,1:-1] = nparray[:,1,1:-1]
+            nparray[:,ny-1,1:-1] = nparray[:,ny-2,1:-1]
+            nparray[:,1:-1,0] = nparray[:,1:-1,1]
+            nparray[:,1:-1,nz-1] = nparray[:,1:-1,nz-2]
+            # extend border lines
+            nparray[1:-1,0,:] = nparray[1:-1,1,:]
+            nparray[1:-1,ny-1,:] = nparray[1:-1,ny-2,:]
+            nparray[1:-1,:,0] = nparray[1:-1,:,1]
+            nparray[1:-1,:,nz-1] = nparray[1:-1,:,nz-2]
+            # extend corner points
+            nparray[0,0,0] = 1/3*(nparray[1,0,0]+nparray[0,1,0]+nparray[0,0,1])
+            nparray[nx-1,0,0] = 1/3*(nparray[nx-2,0,0]+nparray[nx-1,1,0]+nparray[nx-1,0,1])
+            nparray[0,ny-1,0] = 1/3*(nparray[1,ny-1,0]+nparray[0,ny-2,0]+nparray[0,ny-1,1])
+            nparray[nx-1,ny-1,0] = 1/3*(nparray[nx-2,ny-1,0]+nparray[nx-1,ny-2,0]+nparray[nx-1,ny-1,1])
+            nparray[0,0,nz-1] = 1/3*(nparray[1,0,nz-1]+nparray[0,1,nz-1]+nparray[0,0,nz-2])
+            nparray[nx-1,0,nz-1] = 1/3*(nparray[nx-2,0,nz-1]+nparray[nx-1,1,nz-1]+nparray[nx-1,0,nz-2])
+            nparray[0,ny-1,nz-1] = 1/3*(nparray[1,ny-1,nz-1]+nparray[0,ny-2,nz-1]+nparray[0,ny-1,nz-2])
+            nparray[nx-1,ny-1,nz-1] = 1/3*(nparray[nx-2,ny-1,nz-1]+nparray[nx-1,ny-2,nz-1]+nparray[nx-1,ny-1,nz-2])
+    print("Done")
+
+    if import_ws:
+        ws = Workspace.from_array(nparray)
+        ws.set_voxel_length(voxel_length)
+        io_logs(ws, filename)
+        return ws
+    return nparray

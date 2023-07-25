@@ -8,3 +8,7 @@ from pumapy.material_properties.elasticity import (compute_elasticity, compute_s
 from pumapy.material_properties.radiation import compute_radiation, compute_extinction_coefficients
 from pumapy.material_properties.anisotropic_radiation import compute_radiation_anisotropic, compute_extinction_coefficients_anisotropic
 from pumapy.generation.pitting import generate_pitting
+
+# input/output
+from pumapy.io.input import import_sparta_implicit_surfaces
+from pumapy.io.output import export_sparta_implicit_surfaces
