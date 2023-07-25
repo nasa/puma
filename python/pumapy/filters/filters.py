@@ -72,7 +72,7 @@ def filter_gaussian(ws, sigma=1, apply_on_orientation=False):
     if apply_on_orientation:
         if ws.orientation.shape[:3] == ws.matrix.shape:
             unprocessed_orientation = ws.orientation.copy()
-            ws.orientation = gaussian(ws.orientation, sigma=sigma, multichannel=True, preserve_range=True)
+            ws.orientation = gaussian(ws.orientation, sigma=sigma, channel_axis=-1, preserve_range=True)
             # recreate unit vectors
             magnitude = np.linalg.norm(ws.orientation, axis=3)
             with np.errstate(divide='ignore', invalid='ignore'):  # temporarily ignore divide by 0 warnings

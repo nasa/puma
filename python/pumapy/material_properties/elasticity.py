@@ -265,7 +265,7 @@ def warp_elasticity_fields(workspace, u, s, t, scale_factor=1, show_original=0.,
                 p.add_scalar_bar(plots[i][j], interactive=False, vertical=True, color=(0, 0, 0), height=0.8, title_font_size=40)
 
             if show_original > 0:
-                grid2 = pv.UniformGrid()
+                grid2 = pv.ImageData()
                 grid2.origin = (0.5, 0.5, 0.5)
                 grid2.dimensions = np.array(ws.shape) + 1
                 grid2["values"] = ws.flatten(order="F")
@@ -319,7 +319,7 @@ def plot_elasticity_fields(workspace, u, s, t, show_cbar=True, show_edges=False,
         s_cp[gas_mask] = np.NAN
         t_cp[gas_mask] = np.NAN
 
-    grid = pv.UniformGrid()
+    grid = pv.ImageData()
     grid.dimensions = np.array(ws.shape) + 1
     grid['ux'] = u_cp[:, :, :, 0].ravel(order='F')
     grid['uy'] = u_cp[:, :, :, 1].ravel(order='F')
