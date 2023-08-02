@@ -125,7 +125,7 @@ def export_3Dtiff(filename, ws_or_nparray, to8bit=True):
     if to8bit:
         if data.max() > 255:
             print_warning("Data max is more than 255, normalizing to range 0-255.")
-            data *= 255.0 / data.max()
+            data = data * 255. / data.max()
         data = data.astype(np.uint8)
     else:
         data = data.astype(np.uint16)
