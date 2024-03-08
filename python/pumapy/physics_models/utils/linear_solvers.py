@@ -86,9 +86,13 @@ class SolverDisplay(object):
 
     def __call__(self, rk=None):
         self.niter += 1
-        frame = inspect.currentframe().f_back
-        sys.stdout.write("\rIteration: {}, driving modified residual = {:0.10f} --> target = {:0.10f}"
-                         .format(self.niter, frame.f_locals['resid'], frame.f_locals['atol']))
+        try:
+            frame = inspect.currentframe().f_back
+            resid = np.linalg.norm(frame.f_locals.get('r', 'unknown'))
+            atol = frame.f_locals.get('atol', 'unknown')
+            sys.stdout.write(f"\rIteration: {self.niter}, driving modified residual = {resid:0.10f} --> target = {atol:0.10f}")
+        except Exception as e:
+            sys.stdout.write(f"\rIteration: {self.niter}, error retrieving frame data: {e}")
 
 
 class MinResSolverDisplay(object):
@@ -97,6 +101,12 @@ class MinResSolverDisplay(object):
 
     def __call__(self, rk=None):
         self.niter += 1
-        frame = inspect.currentframe().f_back
-        sys.stdout.write("\rIteration: {}, driving either residual ({:0.10f}, {:0.10f}) --> target = {:0.10f}"
-                         .format(self.niter, frame.f_locals['test1'], frame.f_locals['test2'], frame.f_locals['tol']))
+        try:
+            frame = inspect.currentframe().f_back
+            test1 = frame.f_locals.get('test1', 'unknown')
+            test2 = frame.f_locals.get('test2', 'unknown')
+            tol = frame.f_locals.get('tol', 'unknown')
+            sys.stdout.write(f"\rIteration: {self.niter}, driving either residual ({test1:0.10f}, {test2:0.10f}) --> target = {tol:0.10f}")
+        except Exception as e:
+            sys.stdout.write(f"\rIteration: {self.niter}, error retrieving frame data: {e}")
+
