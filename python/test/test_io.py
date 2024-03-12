@@ -51,7 +51,7 @@ class TestImportExportVTKI(unittest.TestCase):
         puma.export_vti(os.path.join(test_dir, "out", "nparray3"), nparray)
         np.testing.assert_equal("nparray3.vti" in os.listdir(os.path.join(test_dir, "out")), True)
         nparray2 = nparray.copy()
-        nparray = puma.import_vti(os.path.join(test_dir, "out", "nparray3.vti"), import_ws=False)["data"]
+        nparray = puma.import_vti(os.path.join(test_dir, "out", "nparray3.vti"), import_ws=False)["data_orient"]
         np.testing.assert_equal(nparray, nparray2)
 
     def test_io_vti_orientation(self):

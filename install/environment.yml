@@ -9,7 +9,6 @@ dependencies:
   - scikit-image
   - scipy 
   - matplotlib 
-  - pyevtk
   - pyvista
 
   # puma cpp

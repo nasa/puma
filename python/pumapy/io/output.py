@@ -1,17 +1,17 @@
-from pyevtk.hl import imageToVTK
 import numpy as np
 from skimage.io import imsave
 import pickle
+from os import path
+import json
+import struct
+import pyvista as pv
 from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
 from pumapy.utilities.isosurface import generate_isosurface
 from pumapy.io.input import io_logs
-from os import path
-import json
-import struct
 
 
-def export_vti(filename, dict_data, voxel_length=None):
+def export_vti(filename, dict_data, voxel_length=1):
     """ Export either a puma.Workspace or numpy array to vti
 
         :param filename: filepath and name
@@ -35,55 +35,56 @@ def export_vti(filename, dict_data, voxel_length=None):
     filename_split = path.split(filename)
     if filename_split[0] != '' and not path.exists(path.split(filename)[0]):
         raise Exception("Directory " + filename_split[0] + " not found.")
-    if filename[-4:] == ".vti":
-        filename = filename[:-4]
+    if filename[-4:] != ".vti":
+        filename += ".vti"
 
     print("Exporting " + filename + ".vti ... ", end='')
 
-    if isinstance(dict_data, Workspace) or isinstance(dict_data, np.ndarray):
+    if isinstance(dict_data, dict):
+        if len(dict_data) == 0:
+            raise Exception("Dictionary is empty.")
+    elif isinstance(dict_data, Workspace) or isinstance(dict_data, np.ndarray):
         dict_data = {"data": dict_data}
+    else:
+        raise Exception("Data to export to vti needs to be either a pumapy.Workspace or Numpy array or dictionary of them.")
 
-    dict_to_export = dict()
-    counter = 0
+    grid = pv.ImageData()
+    dimensions = None
 
     for name, data in dict_data.items():
-
+        
+        mat, orient = None, None
+        if not (isinstance(data, Workspace) or isinstance(data, np.ndarray)):
+            raise Exception("Data to export to vti needs to be either a pumapy.Workspace or Numpy array")
         if isinstance(data, Workspace):
-            if counter == 0:
-                io_logs(data, filename, input=False)
-            mat = data.matrix.copy()  # need to copy to make sure data is "continuous"
-            dict_to_export[name] = mat
-
+            mat = data.matrix
             if data.orientation.shape[:3] == data.matrix.shape:
-                orientation = (data.orientation[:, :, :, 0].copy(),
-                               data.orientation[:, :, :, 1].copy(),
-                               data.orientation[:, :, :, 2].copy())
-                dict_to_export[name] = mat
-                dict_to_export[name + "_orient"] = orientation
-
-            if voxel_length is None:
-                voxel_length = data.voxel_length
-            counter += 1
-
-        elif isinstance(data, np.ndarray):
-            if voxel_length is None:
-                voxel_length = 1e-6
-            if data.ndim == 2:  # 2D numpy array to 3D
-                data = np.expand_dims(data.copy(), axis=2)
+                orient = data.orientation
+            dimensions = mat.shape[:3]
+            if voxel_length is None: voxel_length = data.voxel_length
+        else:
+            if data.ndim == 2:
+                data = np.expand_dims(data, axis=2)
+                mat = data
             elif data.ndim == 3:
-                data = data.copy()
+                mat = data
             elif data.ndim == 4 and data.shape[3] == 3:
-                data = (data[:, :, :, 0].copy(),
-                        data[:, :, :, 1].copy(),
-                        data[:, :, :, 2].copy())
+                orient = data
             else:
                 raise Exception("Numpy array has to be either 3D for scalars or 4D with shape[3]=3.")
 
-            dict_to_export[name] = data
-        else:
-            raise Exception("Data to export to vti needs to be either a pumapy.Workspace or Numpy array")
+            dimensions = data.shape[:3]
 
-    imageToVTK(filename, spacing=[voxel_length] * 3, cellData=dict_to_export)
+        grid.dimensions = np.array(dimensions) + 1
+        
+        if mat is not None:
+            grid.cell_data[name] = mat.flatten(order="F")
+        
+        if orient is not None:
+            grid.cell_data[name + "_orient"] = orient.reshape(-1, 3, order='F')
+
+    grid.spacing = [voxel_length] * 3
+    grid.save(filename)
 
     print("Done")
 
