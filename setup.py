@@ -69,7 +69,7 @@ setup(
     install_requires=[  # TexGen also required, but it can be installed as add-on
         "numpy",
         "scikit-image >=0.17",  # in order to have marching_cubes in the API
-        "scipy =1.11",  # to avoid change in API
+        "scipy ~=1.11",  # to avoid change in API
         "matplotlib",
         "pyvista",
     ],
