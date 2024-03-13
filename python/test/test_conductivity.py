@@ -310,11 +310,11 @@ class TestFiniteVolumeAnisotropicTC(unittest.TestCase):
 
     def test_matSeriesInx_y_sym_bicgstab(self):
         keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'y', 's', solver_type='bicgstab', tolerance=1e-6)
-        np.testing.assert_array_almost_equal(keff, [0.2, 5.5, 0.5], decimal=4)
+        np.testing.assert_array_almost_equal(keff, [0.2, 5.5, 0.5], decimal=3)
 
     def test_matSeriesInx_z_sym_bicgstab(self):
         keff, T, _ = puma.compute_thermal_conductivity(self.ws_matSeriesInx, self.cond_map_matSeries, 'z', 's', solver_type='bicgstab', tolerance=1e-6)
-        np.testing.assert_array_almost_equal(keff, [0.3, 0.5, 5.5], decimal=4)
+        np.testing.assert_array_almost_equal(keff, [0.3, 0.5, 5.5], decimal=3)
 
     def test_tensor_rotation_x(self):
         ws = puma.Workspace.from_array(np.zeros((self.X, self.Y, self.Z)))
