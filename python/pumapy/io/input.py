@@ -381,9 +381,9 @@ def import_sparta_implicit_surfaces(filename, dimension=3, voxel_length=1e-6, im
         >>> import pumapy as puma
         >>> ws = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
         Importing ...
-        >>> puma.experimental.export_sparta_implicit_surfaces("/Users/fsemerar/Downloads/surfaces", ws)
+        >>> puma.experimental.export_sparta_implicit_surfaces("surfaces", ws)
         Exporting ...
-        >>> surf = puma.experimental.import_sparta_implicit_surfaces("/Users/fsemerar/Downloads/surfaces.pumapy.isurf", dimension=3, voxel_length=1.0e-6, import_ws=False)
+        >>> surf = puma.experimental.import_sparta_implicit_surfaces("surfaces.pumapy.isurf", dimension=3, voxel_length=1.0e-6, import_ws=False)
         Importing ...
     """
     print("Importing " + filename + " ... ", end='')

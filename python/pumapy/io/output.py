@@ -318,7 +318,7 @@ def export_sparta_implicit_surfaces(filename, ws):
         >>> import pumapy as puma
         >>> ws = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
         Importing ...
-        >>> puma.experimental.export_sparta_implicit_surfaces("/Users/fsemerar/Downloads/surfaces", ws)
+        >>> puma.experimental.export_sparta_implicit_surfaces("surfaces", ws)
         Exporting ...
     """
 
