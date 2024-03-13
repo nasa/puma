@@ -366,7 +366,7 @@ def import_sparta_implicit_surfaces(filename, dimension=3, voxel_length=1e-6, im
 
         :param filename: filepath and name
         :type filename: string
-        :param dimension: dimensionality of imported SPARTA structure
+        :param dimension: dimensionality of imported sparta structure
         :type dimension: int
         :param voxel_length: size of a voxel side
         :type voxel_length: float
@@ -379,13 +379,20 @@ def import_sparta_implicit_surfaces(filename, dimension=3, voxel_length=1e-6, im
 
         :Example:
         >>> import pumapy as puma
-        >>> ws_sparta = puma.experimental.import_sparta_implicit_surfaces(puma.path_to_example_file("MAKE EXAMPLE FILE"), 1.0e-6, import_ws=True)
+        >>> ws = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
+        Importing ...
+        >>> puma.experimental.export_sparta_implicit_surfaces("/Users/fsemerar/Downloads/surfaces", ws)
+        Exporting ...
+        >>> surf = puma.experimental.import_sparta_implicit_surfaces("/Users/fsemerar/Downloads/surfaces.pumapy.isurf", dimension=3, voxel_length=1.0e-6, import_ws=False)
         Importing ...
     """
     print("Importing " + filename + " ... ", end='')
 
     if not path.exists(filename):
         raise Exception("File " + filename + " not found.")
+
+    if dimension not in [2, 3]:
+        raise Exception("Dimension must be 2 or 3.")
     
     # read sparta binary file
     f = open(filename, 'r+b')

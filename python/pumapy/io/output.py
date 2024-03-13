@@ -75,6 +75,8 @@ def export_vti(filename, dict_data, voxel_length=None):
                 raise Exception("Numpy array has to be either 3D for scalars or 4D with shape[3]=3.")
 
             dimensions = data.shape[:3]
+            if voxel_length is None:
+                voxel_length = 1.
 
         grid.dimensions = np.array(dimensions) + 1
         
@@ -241,7 +243,7 @@ def export_for_chfem(filename, ws, analysis, solver=0, export_nf=True, export_js
         >>> import pumapy as puma
         >>> ws = puma.import_3Dtiff(puma.path_to_example_file("200_fiberform.tif"), 1.3e-6)
         Importing ...
-        >>> puma.experimental.export_for_chfem('200_fiberform', ws, 2, tol=1e-6, max_iter=100000)
+        >>> puma.export_for_chfem('200_fiberform', ws, 2, tol=1e-6, max_iter=100000)
     """
 
     domain = ws.matrix.astype(np.uint8)
@@ -311,6 +313,13 @@ def export_sparta_implicit_surfaces(filename, ws):
         :type filename: string
         :param ws: to be exported
         :type ws: pumapy.Workspace
+        
+        :Example:
+        >>> import pumapy as puma
+        >>> ws = puma.import_bin(puma.path_to_example_file("fibers_with_orientation.pumapy"))
+        Importing ...
+        >>> puma.experimental.export_sparta_implicit_surfaces("/Users/fsemerar/Downloads/surfaces", ws)
+        Exporting ...
     """
 
     # error checks
