@@ -11,7 +11,7 @@ from pumapy.utilities.isosurface import generate_isosurface
 from pumapy.io.input import io_logs
 
 
-def export_vti(filename, dict_data, voxel_length=1):
+def export_vti(filename, dict_data, voxel_length=None):
     """ Export either a puma.Workspace or numpy array to vti
 
         :param filename: filepath and name
@@ -38,7 +38,7 @@ def export_vti(filename, dict_data, voxel_length=1):
     if filename[-4:] != ".vti":
         filename += ".vti"
 
-    print("Exporting " + filename + ".vti ... ", end='')
+    print("Exporting " + filename + " ... ", end='')
 
     if isinstance(dict_data, dict):
         if len(dict_data) == 0:
@@ -61,7 +61,8 @@ def export_vti(filename, dict_data, voxel_length=1):
             if data.orientation.shape[:3] == data.matrix.shape:
                 orient = data.orientation
             dimensions = mat.shape[:3]
-            if voxel_length is None: voxel_length = data.voxel_length
+            if voxel_length is None: 
+                voxel_length = data.voxel_length
         else:
             if data.ndim == 2:
                 data = np.expand_dims(data, axis=2)

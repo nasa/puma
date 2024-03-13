@@ -379,7 +379,7 @@ def import_sparta_implicit_surfaces(filename, dimension=3, voxel_length=1e-6, im
 
         :Example:
         >>> import pumapy as puma
-        >>> ws_sparta = puma.import_sparta_implicit_surfaces(puma.path_to_example_file("MAKE EXAMPLE FILE"), 1.0e-6, import_ws=True)
+        >>> ws_sparta = puma.experimental.import_sparta_implicit_surfaces(puma.path_to_example_file("MAKE EXAMPLE FILE"), 1.0e-6, import_ws=True)
         Importing ...
     """
     print("Importing " + filename + " ... ", end='')
