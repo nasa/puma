@@ -19,7 +19,6 @@ cpp/test/CMakeLists.txt
 cpp/src/CMakeLists.txt
 CMakeLists.txt.user
 
-
 # conda environment
 !.readthedocs.yml
 !doc/sphinx_env.yml
@@ -27,6 +26,7 @@ CMakeLists.txt.user
 # For PuMA development with different IDEs (CLion, qtcreator)
 .idea
 .vs
+.vscode
 debug/*
 release/*
 .DS_Store
@@ -38,14 +38,12 @@ release/*
 ._*
 *.swp
 
-# python and cython
+# python
 __pycache__
 dist
-*.so
 pumapy.egg-info
 .eggs
 main.py
-
 
 # jupyter notebooks
 .ipynb_checkpoints
@@ -68,3 +66,10 @@ doc/source/doxyoutput/
 doc/source/python_api/
 doc/source/python_tutorials/
 doc/source/files/
+
+# don't include .c files generated from .pyx by cython
+*.so
+anisotropic_conductivity_utils.c
+elasticity_utils.c
+isotropic_conductivity_utils.c
+tpms_utils.c

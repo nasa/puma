@@ -1,18 +1,15 @@
 import sys
 import os
 import numpy as np
-from pyevtk.hl import pointsToVTK
 import itertools
 
 
 class RayCasting:
-    def __init__(self, matrix, particles_number, source_locations, valid_phase, boundary_behavior=0,
-                 exportparticles_filepathname=''):
+    def __init__(self, matrix, particles_number, source_locations, valid_phase, boundary_behavior=0):
         self.matrix = matrix
         self.source_locations = source_locations
         self.valid_phase = valid_phase
         self.boundary_behavior = boundary_behavior  # 0=kill particles, 1=periodic BC
-        self.exportparticles_filepathname = exportparticles_filepathname
 
         self.particles_number = particles_number
         print("Number of particles in Ray Tracing simulation: {}".format(self.particles_number))
@@ -114,16 +111,17 @@ class RayCasting:
             # valid particles: not collided i.e. 10=0 and travelled distance (11) less than 2x diagonal
             valid_mask = (self.spherical_walkers[:, 10] == 0) & (self.spherical_walkers[:, 11] < max_distance_void)
 
-            if self.exportparticles_filepathname != '':
-                mask_wallcollisions = self.spherical_walkers[:, 10] != 2
-                if self.spherical_walkers[mask_wallcollisions].shape[0] != 0:
-                    pointsToVTK(self.exportparticles_filepathname + "" + str(source_number) + "" + str(next(self.counter)),
-                                self.spherical_walkers[mask_wallcollisions, 6].copy(),
-                                self.spherical_walkers[mask_wallcollisions, 7].copy(),
-                                self.spherical_walkers[mask_wallcollisions, 8].copy(),
-                                data={"collision": self.spherical_walkers[mask_wallcollisions, 10].copy(),
-                                      "distance": self.spherical_walkers[mask_wallcollisions, 11].copy(),
-                                      "id": self.spherical_walkers[mask_wallcollisions, 12].copy()})
+            # if self.exportparticles_filepathname != '':
+            #     mask_wallcollisions = self.spherical_walkers[:, 10] != 2
+            #     if self.spherical_walkers[mask_wallcollisions].shape[0] != 0:
+            #         from pyevtk.hl import pointsToVTK
+            #         pointsToVTK(self.exportparticles_filepathname + "" + str(source_number) + "" + str(next(self.counter)),
+            #                     self.spherical_walkers[mask_wallcollisions, 6].copy(),
+            #                     self.spherical_walkers[mask_wallcollisions, 7].copy(),
+            #                     self.spherical_walkers[mask_wallcollisions, 8].copy(),
+            #                     data={"collision": self.spherical_walkers[mask_wallcollisions, 10].copy(),
+            #                           "distance": self.spherical_walkers[mask_wallcollisions, 11].copy(),
+            #                           "id": self.spherical_walkers[mask_wallcollisions, 12].copy()})
 
     def __next_face_intersected(self, valid_mask):
         # dir=0,1,2; vox=3,4,5; pos=6,7,8; face_intersected=9; intersection=10, distance=11
@@ -178,10 +176,6 @@ class RayCasting:
         if not isinstance(self.source_locations, np.ndarray) or self.source_locations.shape[1] != 3:
             raise Exception("Source locations has to be a Numpy array of shape (NumberOfSource, 3).")
         self.rays_distances = np.zeros((self.source_locations.shape[0] * self.particles_number, 3))
-
-        if self.exportparticles_filepathname != '':
-            if not os.path.exists(os.path.split(self.exportparticles_filepathname)[0]):
-                raise Exception("Directory " + os.path.split(self.exportparticles_filepathname)[0] + " not found.")
 
         if np.count_nonzero(self.matrix == self.valid_phase) == 0:
             raise Exception("No valid voxels detected (i.e. ID={}), cannot run radiation ray tracing.".format(self.valid_phase))

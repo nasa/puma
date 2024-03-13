@@ -18,7 +18,7 @@ if [ ! -d "$(conda info --base)/envs/puma" ]; then
     fi
 
     mv bin/micromamba .
-    ./micromamba create -n puma python numpy scikit-image scipy  matplotlib  pyevtk pyvista fftw eigen openmp cmake  qt swig pip cython scikit-umfpack jupyterlab ipyvtklink ipympl -c conda-forge -y
+    ./micromamba create -n puma python numpy>=1.23 scikit-image scipy=1.11 matplotlib pyvista fftw eigen openmp cmake qt swig pip cython scikit-umfpack jupyterlab ipyvtklink ipympl -c conda-forge -y
 fi
 
 # this env activation only lasts inside bash script

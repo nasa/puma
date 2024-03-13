@@ -31,7 +31,7 @@ Please refer to this publication for a detailed software architecture explanatio
 # - git push nasa main
 # - git tag -a v$(python setup.py --version) -m 'INPUT DESCRIPTION'
 # - gh release create v$(python setup.py --version) --target main
-__version__ = "3.2.0"
+__version__ = "3.2.2"
 
 # experimental submodule:
 from . import experimental
@@ -45,8 +45,9 @@ from pumapy.utilities.example_files import path_to_example_file, list_example_fi
 from pumapy.utilities.generic_checks import estimate_max_memory, set_random_seed
 
 # input/output
-from pumapy.io.input import import_3Dtiff, import_bin, import_weave_vtu, import_vti
-from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_sparta_implicit_surfaces, export_stl
+from pumapy.io.input import (import_3Dtiff, import_bin, import_weave_vtu, import_vti, import_scalar_field_from_chfem, 
+                             import_vector_field_from_chfem, import_stress_field_from_chfem)
+from pumapy.io.output import export_vti, export_3Dtiff, export_bin, export_stl, export_for_chfem
 try:
     from pumapy.io.export_texgen_weave import export_weave_vtu
 except:

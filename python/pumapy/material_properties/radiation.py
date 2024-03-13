@@ -6,8 +6,7 @@ from pumapy.utilities.workspace import Workspace
 from pumapy.utilities.logger import print_warning
 
 
-def compute_radiation(workspace, void_cutoff, sources_number, particles_number, boundary_behavior=1,
-                      bin_density=10000, exportparticles_filepathname='', export_pathname=None):
+def compute_radiation(workspace, void_cutoff, sources_number, particles_number, boundary_behavior=1, bin_density=10000, export_pathname=None):
     """ Compute the radiative thermal conductivity through ray tracing
         (N.B. 0 material ID in workspace refers to gas phases unless otherwise specified)
 
@@ -23,8 +22,6 @@ def compute_radiation(workspace, void_cutoff, sources_number, particles_number, 
         :type boundary_behavior: int
         :param bin_density: number of bins used to create histogram of ray distances
         :type bin_density: int
-        :param exportparticles_filepathname: path and name of the particle files exported as VTK points
-        :type exportparticles_filepathname: string
         :param export_pathname: path to save curve plot of ray distance distribution
         :type export_pathname: str
         :return: extinction coefficient (beta), its standard deviation and of ray distances
@@ -37,8 +34,7 @@ def compute_radiation(workspace, void_cutoff, sources_number, particles_number, 
         >>> beta, beta_std, rays_distances = puma.experimental.compute_radiation(ws_fiberform, (0, 89), 100, 500)
          Number of particles in Ray Tracing simulation...
     """
-    solver = Radiation(workspace, void_cutoff, sources_number, particles_number, boundary_behavior, bin_density,
-                       exportparticles_filepathname, export_pathname)
+    solver = Radiation(workspace, void_cutoff, sources_number, particles_number, boundary_behavior, bin_density, export_pathname)
 
     solver.error_check()
 
@@ -50,8 +46,7 @@ def compute_radiation(workspace, void_cutoff, sources_number, particles_number, 
 
 class Radiation:
 
-    def __init__(self, workspace, void_cutoff, sources_number, particles_number, boundary_behavior, bin_density,
-                 rayexport_filepathname, export_plot):
+    def __init__(self, workspace, void_cutoff, sources_number, particles_number, boundary_behavior, bin_density, export_plot):
         self.workspace = workspace
         self.matrix = np.copy(workspace.matrix)
         self.void_cutoff = void_cutoff
@@ -59,7 +54,6 @@ class Radiation:
         self.particles_number = particles_number
         self.boundary_behavior = boundary_behavior
         self.bin_density = bin_density
-        self.rayexport_filepathname = rayexport_filepathname
         self.export_pathname = export_plot
         self.X = None
         self.Y = None
@@ -69,8 +63,7 @@ class Radiation:
 
     def compute(self):
 
-        simulation = RayCasting(self.matrix, self.particles_number, self.generate_sources(), 0,
-                                self.boundary_behavior, self.rayexport_filepathname)
+        simulation = RayCasting(self.matrix, self.particles_number, self.generate_sources(), 0, self.boundary_behavior)
 
         simulation.error_check()
 

@@ -71,7 +71,6 @@ setup(
         "scikit-image >=0.17",  # in order to have marching_cubes in the API
         "scipy",
         "matplotlib",
-        "pyevtk",
         "pyvista",
     ],
     package_data={'': [os.path.join('data', '*')]},  # copy over all the example data

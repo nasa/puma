@@ -90,7 +90,7 @@ templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'python_api/pumapy.rst', '**.ipynb_checkpoints']
 
 from unittest import mock
-MOCK_MODULES = ['TexGen.Core', 'dolfin', 'matplotlib', 'pyvista', 'pyevtk', 'pyevtk.hl']
+MOCK_MODULES = ['TexGen.Core', 'dolfin', 'matplotlib', 'pyvista']
 
 for module_name in MOCK_MODULES:
     sys.modules[module_name] = mock.Mock()

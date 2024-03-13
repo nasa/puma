@@ -187,7 +187,7 @@ class ElasticityMap(MaterialPropertyMap):
         self._append_inputs(cutoff, elasticity)
 
     def add_material_to_orient(self, cutoff, E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12):
-        elasticity = (E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12)
+        elasticity = (E_axial, E_radial, nu_poissrat_12, nu_poissrat_23, G12/2.)
         elasticity = self.error_check(cutoff, elasticity)
         if isinstance(elasticity, bool):
             return

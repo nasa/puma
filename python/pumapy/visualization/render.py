@@ -409,11 +409,8 @@ class Renderer:
         elif self.filter_type == "glyph":
             self.grid.dimensions = np.array(self.array.shape[:3]) + 1
             self.grid.spacing = (self.voxel_length, self.voxel_length, self.voxel_length)
-            tmp = np.zeros((self.array[:, :, :, 0].size, 3), dtype=float)
-            for i in range(3):
-                tmp[:, i] = self.array[:, :, :, i].ravel(order='F')
             self.grid["scalars"] = np.linalg.norm(self.array, axis=3).ravel(order='F')
-            self.grid["vectors"] = tmp
+            self.grid["vectors"] = self.array.reshape(-1, 3, order='F')
             import pyvista as pv  # lazily import pyvista to solve Dragonfly's crash
             self.filter = self.grid.glyph(orient="vectors", scale="scalars", factor=self.scale_factor, geom=pv.Arrow())
 
