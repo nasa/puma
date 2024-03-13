@@ -88,9 +88,10 @@ class SolverDisplay(object):
         self.niter += 1
         try:
             frame = inspect.currentframe().f_back
-            resid = np.linalg.norm(frame.f_locals.get('r', 'unknown'))
-            atol = frame.f_locals.get('atol', 'unknown')
-            sys.stdout.write(f"\rIteration: {self.niter}, driving modified residual = {resid:0.10f} --> target = {atol:0.10f}")
+            sys.stdout.write(f"\rIteration: {self.niter}, driving modified residual = {frame.f_locals['resid']:0.10f} --> target = {frame.f_locals['atol']:0.10f}")
+            # resid = np.linalg.norm(frame.f_locals.get('r', 'unknown'))  # scipy 1.12 onwards
+            # atol = frame.f_locals.get('atol', 'unknown')
+            # sys.stdout.write(f"\rIteration: {self.niter}, driving modified residual = {resid:0.10f} --> target = {atol:0.10f}")
         except Exception as e:
             sys.stdout.write(f"\rIteration: {self.niter}, error retrieving frame data: {e}")
 
@@ -103,10 +104,11 @@ class MinResSolverDisplay(object):
         self.niter += 1
         try:
             frame = inspect.currentframe().f_back
-            test1 = frame.f_locals.get('test1', 'unknown')
-            test2 = frame.f_locals.get('test2', 'unknown')
-            tol = frame.f_locals.get('tol', 'unknown')
-            sys.stdout.write(f"\rIteration: {self.niter}, driving either residual ({test1:0.10f}, {test2:0.10f}) --> target = {tol:0.10f}")
+            sys.stdout.write(f"\rIteration: {self.niter}, driving either residual ({frame.f_locals['test1']:0.10f}, {frame.f_locals['test2']:0.10f}) --> target = {frame.f_locals['tol']:0.10f}")
+            # test1 = frame.f_locals.get('test1', 'unknown')  # scipy 1.12 onwards
+            # test2 = frame.f_locals.get('test2', 'unknown')
+            # tol = frame.f_locals.get('tol', 'unknown')
+            # sys.stdout.write(f"\rIteration: {self.niter}, driving either residual ({test1:0.10f}, {test2:0.10f}) --> target = {tol:0.10f}")
         except Exception as e:
             sys.stdout.write(f"\rIteration: {self.niter}, error retrieving frame data: {e}")
 
