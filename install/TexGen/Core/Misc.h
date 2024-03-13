@@ -82,13 +82,13 @@ namespace TexGen
 	}
 
 	/// Used to sort double-int pairs
-	struct LessPairDoubleInt : public std::__binary_function<std::pair<double, int>, std::pair<double, int>, bool>
+	struct LessPairDoubleInt : public std::binary_function<std::pair<double, int>, std::pair<double, int>, bool>
 	{
 		bool operator()(std::pair<double, int> x, std::pair<double, int> y) { return x.first < y.first; }
 	};
 
 	/// Used to sort double-XYZ pairs
-	struct LessPairDoubleXYZ : public std::__binary_function<std::pair<double, XYZ>, std::pair<double, XYZ>, bool>
+	struct LessPairDoubleXYZ : public std::binary_function<std::pair<double, XYZ>, std::pair<double, XYZ>, bool>
 	{
 		bool operator()(std::pair<double, XYZ> x, std::pair<double, XYZ> y) { return x.first < y.first; }
 	};

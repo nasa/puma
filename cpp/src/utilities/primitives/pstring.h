@@ -470,7 +470,7 @@ namespace puma {
             return true;
         }
 
-        //Generated with the help of ChatGPT
+
         static std::string split_and_remove(const std::string& s, int my_count)
         {
             std::string result;
@@ -485,7 +485,7 @@ namespace puma {
             return result;
         }
 
-        //Generated with the help of ChatGPT
+
         static std::string get_puma_directory() {
             // Get the name of the current file
             char buffer[FILENAME_MAX];

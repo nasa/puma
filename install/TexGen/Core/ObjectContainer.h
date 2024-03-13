@@ -89,7 +89,7 @@ namespace TexGen
 
 	/// Used to sort double-objectref pairs
 	template <typename T>
-	struct LessPairDoubleObjectRef : public std::__binary_function<std::pair<double, CObjectContainer<T> >, std::pair<double, CObjectContainer<T> >, bool>
+	struct LessPairDoubleObjectRef : public std::binary_function<std::pair<double, CObjectContainer<T> >, std::pair<double, CObjectContainer<T> >, bool>
 	{
 		bool operator()(std::pair<double, CObjectContainer<T> > x, std::pair<double, CObjectContainer<T> > y) { return x.first < y.first; }
 	};

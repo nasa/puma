@@ -7,7 +7,7 @@ dependencies:
   # pumapy
   - numpy
   - scikit-image
-  - scipy 
+  - scipy=1.11
   - matplotlib 
   - pyvista
 
