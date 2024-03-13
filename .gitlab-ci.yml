@@ -7,14 +7,14 @@ cache:
   paths:
     - .cache/pip
 
-test-pumapy:
+test:
   only:
     - main
     - dev
 
   before_script:
     - apt-get update && apt-get install libgl1 -y
-    - conda create -y --name puma -c conda-forge puma gcc scipy<1.12.0
+    - conda create -y --name puma -c conda-forge puma gcc scipy==1.11.1
     - conda init bash
     - source ~/.bashrc
     - conda activate puma
