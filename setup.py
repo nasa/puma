@@ -1,6 +1,7 @@
 from setuptools import setup, Command, find_packages
 from distutils.extension import Extension
 import numpy as np
+from Cython.Build import cythonize
 import os
 import re
 import ast
@@ -18,27 +19,12 @@ class CleanCommand(Command):
 
 
 # add cython code to the pumapy extensions
-try:
-    from Cython.Build import cythonize
-    extensions = cythonize([Extension("pumapy.generation.tpms_utils",
-                                      [os.path.join("python", "pumapy", "generation", "tpms_utils.pyx")]),
-                            Extension("pumapy.physics_models.finite_volume.isotropic_conductivity_utils",
-                                      [os.path.join("python", "pumapy", "physics_models", "finite_volume", "isotropic_conductivity_utils.pyx")]),
-                            Extension("pumapy.physics_models.finite_volume.anisotropic_conductivity_utils",
-                                      [os.path.join("python", "pumapy", "physics_models", "finite_volume", "anisotropic_conductivity_utils.pyx")]),
-                            Extension("pumapy.physics_models.finite_volume.elasticity_utils",
-                                      [os.path.join("python", "pumapy", "physics_models", "finite_volume", "elasticity_utils.pyx")]),
-                            ])
-except ImportError:  # if cython not found, use existing C code
-    extensions = [Extension("pumapy.generation.tpms_utils",
-                            [os.path.join("python", "pumapy", "generation", "tpms_utils.c")]),
-                  Extension("pumapy.physics_models.finite_volume.isotropic_conductivity_utils",
-                            [os.path.join("python", "pumapy", "physics_models", "finite_volume", "isotropic_conductivity_utils.c")]),
-                  Extension("pumapy.physics_models.finite_volume.anisotropic_conductivity_utils",
-                            [os.path.join("python", "pumapy", "physics_models", "finite_volume", "anisotropic_conductivity_utils.c")]),
-                  Extension("pumapy.physics_models.finite_volume.elasticity_utils",
-                            [os.path.join("python", "pumapy", "physics_models", "finite_volume", "elasticity_utils.c")]),
-                  ]
+extensions = cythonize([
+    Extension("pumapy.generation.tpms_utils", [os.path.join("python", "pumapy", "generation", "tpms_utils.pyx")]),
+    Extension("pumapy.physics_models.finite_volume.isotropic_conductivity_utils", [os.path.join("python", "pumapy", "physics_models", "finite_volume", "isotropic_conductivity_utils.pyx")]),
+    Extension("pumapy.physics_models.finite_volume.anisotropic_conductivity_utils", [os.path.join("python", "pumapy", "physics_models", "finite_volume", "anisotropic_conductivity_utils.pyx")]),
+    Extension("pumapy.physics_models.finite_volume.elasticity_utils", [os.path.join("python", "pumapy", "physics_models", "finite_volume", "elasticity_utils.pyx")]),
+])
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
