@@ -57,18 +57,21 @@ Indicative recommended specs (varies depending on the material property):
 ## Installation
 
 To install PuMA, a conda distribution must be installed on your machine. 
-To test whether conda is installed, run "conda" from a terminal to see if the command is recognized. 
+To test whether conda is installed, run `conda` from a terminal to see if the command is recognized. 
 If not, conda can be installed by following the instructions 
-[here](https://docs.anaconda.com/anaconda/install/index.html). It is highly recommended to 
-[install libmamba](https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community) to speed up the conda solver.
+[here](https://docs.anaconda.com/anaconda/install/index.html). It is also highly recommended to have the latest version 
+of conda (update by running `conda update -n base conda`) and to clean old tarballs to avoid using old cached
+solutions of the environment (run `conda clean --all`).
 
 ### Binaries (UNIX and Windows)
 
 This is the recommended installation for PuMA users or for developers of the pumapy Python package.
 Once the conda command is working, all the PuMA components can be installed by executing 
-the following commands in a terminal (note that the "solving environment" step can sometimes take up to 15 mins):
+the following commands in a terminal:
 
-    conda create -y --name puma -c conda-forge puma
+```bash
+conda create -n puma conda-forge::puma
+```
 
 On **UNIX** (i.e. Mac or Linux), the conda command installs the PuMA C++ library, pumapy python package and GUI. 
 On **Windows**, only the pumapy python package is available.
@@ -79,10 +82,12 @@ advanced compilation. A friendly warning will appear when TexGen is not installe
 For **developers** of the python modules in pumapy, it is recommended to create the puma environment with the above command
 and then to run the following: 
 
-    conda activate puma
-    git clone https://github.com/nasa/puma.git
-    cd puma
-    pip install -e .
+```bash
+conda activate puma
+git clone https://github.com/nasa/puma.git
+cd puma
+pip install -e .
+```
 
 Note that, in order to track the latest development, it is recommended to git clone the puma-dev Gitlab repo instead.
 These commands will link the local python files to the pumapy installation in the puma conda environment. 
@@ -99,26 +104,23 @@ The installation is broken into two sections:
 Step 1 of the installation varies slightly based on the system. 
 Open a terminal, navigate to the directory you would like PuMA installed, and execute **one** of the following lines:
 
-    xcode-select --install                                                                 # run this on MacOS
-    sudo apt-get install git build-essential mesa-common-dev                               # Debian (Ubuntu)
-    sudo yum group install "Development Tools"; sudo yum install git gcc mesa-libGL-devel  # Fedora (CentOS, RHEL)
+```bash
+# run one of these
+xcode-select --install  # MacOS
+sudo apt-get install git build-essential mesa-common-dev  # Debian (Ubuntu)
+sudo yum group install "Development Tools"; sudo yum install git gcc mesa-libGL-devel  # Fedora (CentOS, RHEL)
+```
 
 Note: If XCode command line tools are already installed, the command will result in an error, which is not a problem. 
 
 Now that the necessary dependencies have been installed, you can go ahead with Step 2 of the installation:
 
-    git clone https://github.com/nasa/puma.git
-    cd puma; chmod +x installer.sh; ./installer.sh
+```bash
+git clone https://github.com/nasa/puma.git
+cd puma; chmod +x installer.sh; ./installer.sh
+```
 
 After installation, close the terminal and open a new one.
-
-### Uninstalling PuMA
-
-To uninstall PuMA and all the installed dependencies, execute the following command to delete the puma environment:
-
-    conda remove -y --name puma --all
-
-In order to update PuMA, it is recommended to run the above command and recreate the environment from scratch. 
 
 ## Running PuMA
 
@@ -126,30 +128,19 @@ PuMA relies on a conda environment in order to manage its software dependencies 
 It is therefore important to always activate the environment before using any of PuMA's functionalities. 
 Once the installation is complete, the PuMA GUI can be launched by running:
 
-    conda activate puma
-    pumaGUI
+```bash
+conda activate puma
+pumaGUI
+```
 
 You can follow the [jupyter notebook tutorials](https://github.com/nasa/puma/tree/main/tutorials), 
-which show the typical function usage for both PuMA C++ and pumapy. These can also be run directly in a browser through Binder.
-
-### How to setup PuMA on the NAS cluster:
-In order to install PuMA on the NASA supercomputing cluster, some modules need to be loaded and environment
-variables need to be set. This can be achieved by adding the following commands to the ~/.profile file before the installation:
-
-    module use -a /swbuild/analytix/tools/modulefiles
-    module load miniconda3/v4
-    module load /nasa/modulefiles/pkgsrc/sles12/gcc/6.2
-    export CONDA_PKGS_DIRS=/nobackup/$USER/.conda/pkgs
-    export CONDA_ENVS_PATH=/nobackup/$USER/.conda/envs
-    conda config --append envs_dirs /nobackup/$USER/.conda/envs
-    source activate
-
-Note that, as systems are constantly updated, these may need to be updated.
+which show the typical function usage for both PuMA C++ and `pumapy`. These can also be run directly in a browser through Binder.
 
 ## Citing PuMA
 If you use PuMA in your research, please use the following BibTeX entries to cite it:
 
 ```BibTeX
+For PuMA v3
 @article{puma2021,
   title={Update 3.0 to “PuMA: The Porous Microstructure Analysis software”,(PII: S2352711018300281)},
   author={Ferguson, Joseph C and Semeraro, Federico and Thornton, John M and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
@@ -159,6 +150,8 @@ If you use PuMA in your research, please use the following BibTeX entries to cit
   year={2021},
   publisher={Elsevier}
 }
+
+For PuMA v2
 @article{puma2018,
   title={PuMA: The porous microstructure analysis software},
   author={Ferguson, Joseph C and Panerai, Francesco and Borner, Arnaud and Mansour, Nagi N},
@@ -180,9 +173,6 @@ This is a list of the common errors encountered during the setup and how to solv
   To fix this, first follow the instructions to uninstall puma, and then repeat the installation procedure
 - If an error "make: Warning: File ... has modification time ... s in the future" is displayed, 
   then run "sudo apt install ntp" (or equivalent for your distribution)
-- If the creation of the conda environment hangs for a long time (>30') at the "Solving environment" step, then 
-  it is recommended to try to install puma using [micromamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html), 
-  a faster (but less mature) executable that is able to create conda-environments. 
 
 If any bugs are found, or if the software crashes for any reason, please open an issue at [this link](https://github.com/nasa/puma/issues)
 and/or contact either of the authors mentioned below.
