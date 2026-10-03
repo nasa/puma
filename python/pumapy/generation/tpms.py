@@ -117,7 +117,7 @@ class GeneratorTPMS:
             raise Exception("Error, invalid q, must be >= 0")
         if self._qmax <= 0:
             raise Exception("Error, invalid q, must be >= 0")
-        if self._qmax < self._wmin:
+        if self._qmax < self._qmin:
             raise Exception("Error, invalid q, q[1] cannot be < q[0]")
         if self._equation != 0 and self._equation != 1 and self._equation != 2:
             raise Exception("Error, invalid equation number. Must be 0, 1, or 2")
